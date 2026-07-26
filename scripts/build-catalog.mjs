@@ -142,7 +142,7 @@ for (const entry of source.apis) {
     provider: entry.provider,
     category: entry.category,
     featured: entry.featured,
-    sourceUrl: `https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/${entry.specFile}`,
+    sourceUrl: `https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/${entry.specFile}`,
     license: entry.license,
     attributionUrl: entry.attributionUrl,
     approvedSha256: entry.approvedSha256,

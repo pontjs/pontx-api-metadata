@@ -1,0 +1,81 @@
+name: Validate and publish metadata
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+  push:
+    branches:
+      - develop
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: metadata-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild catalog
+        run: node scripts/build-catalog.mjs
+
+      - name: Verify approved specifications
+        run: node scripts/verify-specs.mjs
+
+      - name: Check generated catalog is committed
+        run: git diff --exit-code -- catalog/catalog.json
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'master' && 'production' || 'preview' }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Check out Pontx Hub
+        uses: actions/checkout@v4
+        with:
+          repository: pontjs/pontx-hub
+          path: pontx-hub
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Deploy Pontx Hub
+        env:
+          METADATA_REPO_RAW_URL: https://raw.githubusercontent.com/pontjs/pontx-api-metadata/${{ github.ref_name }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "Vercel deployment secrets are not configured."
+            exit 1
+          fi
+          target=()
+          if [ "${{ github.ref_name }}" = "master" ]; then
+            target+=(--prod)
+          fi
+          pnpm dlx vercel@latest deploy pontx-hub \
+            --yes \
+            --force \
+            --no-wait \
+            --token "$VERCEL_TOKEN" \
+            --scope pontjs \
+            --build-env "METADATA_REPO_RAW_URL=$METADATA_REPO_RAW_URL" \
+            "${target[@]}"

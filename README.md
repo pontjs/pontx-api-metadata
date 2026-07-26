@@ -1,5 +1,7 @@
 # Pontx API Metadata
 
+[![Validate and publish metadata](https://github.com/pontjs/pontx-api-metadata/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/pontjs/pontx-api-metadata/actions/workflows/publish.yml)
+
 The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It stores approved OpenAPI documents and compiles them into the catalog consumed by the Hub.
 
 ## APIs
@@ -16,3 +18,9 @@ The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It st
 
 `catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated catalog payload without needing a Node toolchain or package installation.
 
+## Branches and deployment
+
+- `develop` publishes metadata to the Hub preview environment.
+- `master` publishes metadata to the Hub production environment.
+
+GitHub Actions validates the approved hashes and generated catalog before deploying Pontx Hub with the Vercel CLI. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the review workflow and required repository secrets.
