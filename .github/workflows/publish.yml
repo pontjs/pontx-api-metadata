@@ -60,6 +60,11 @@ jobs:
         with:
           version: 10.14.0
 
+      - name: Prepare clean Hub source
+        run: |
+          mkdir deploy-source
+          git -C pontx-hub archive HEAD | tar -x -C deploy-source
+
       - name: Deploy Pontx Hub
         env:
           METADATA_REPO_RAW_URL: https://raw.githubusercontent.com/pontjs/pontx-api-metadata/${{ github.ref_name }}
@@ -72,7 +77,7 @@ jobs:
           if [ "${{ github.ref_name }}" = "master" ]; then
             target+=(--prod)
           fi
-          pnpm dlx vercel@latest deploy pontx-hub \
+          pnpm dlx vercel@latest deploy deploy-source \
             --yes \
             --force \
             --no-wait \
