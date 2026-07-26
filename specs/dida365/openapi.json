@@ -1,0 +1,1007 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Dida365 Open API",
+    "description": "Dida365 is a powerful task management application that allows users to easily manage and organize their daily tasks, deadlines, and projects. With Dida365 Open API, developers can integrate Dida365's powerful task management features into their own applications and create a seamless user experience.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "support@dida365.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.dida365.com",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/open/v1/project/{projectId}/task/{taskId}": {
+      "get": {
+        "tags": ["task"],
+        "summary": "Get Task By Project ID And Task ID",
+        "description": "Retrieve a specific task by its project ID and task ID",
+        "operationId": "getTaskByProjectIdAndTaskId",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["task"],
+        "summary": "Delete Task",
+        "description": "Delete a specific task by its project ID and task ID",
+        "operationId": "deleteTask",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/task": {
+      "post": {
+        "tags": ["task"],
+        "summary": "Create Task",
+        "description": "Create a new task",
+        "operationId": "createTask",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/task/{taskId}": {
+      "post": {
+        "tags": ["task"],
+        "summary": "Update Task",
+        "description": "Update an existing task",
+        "operationId": "updateTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}/complete": {
+      "post": {
+        "tags": ["task"],
+        "summary": "Complete Task",
+        "description": "Mark a task as completed",
+        "operationId": "completeTask",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/project": {
+      "get": {
+        "tags": ["project"],
+        "summary": "Get User Project",
+        "description": "Retrieve all projects for the authenticated user",
+        "operationId": "getUserProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["project"],
+        "summary": "Create Project",
+        "description": "Create a new project",
+        "operationId": "createProject",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}": {
+      "get": {
+        "tags": ["project"],
+        "summary": "Get Project By ID",
+        "description": "Retrieve a specific project by its ID",
+        "operationId": "getProjectById",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["project"],
+        "summary": "Update Project",
+        "description": "Update an existing project",
+        "operationId": "updateProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["project"],
+        "summary": "Delete Project",
+        "description": "Delete a specific project by its ID",
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/data": {
+      "get": {
+        "tags": ["project"],
+        "summary": "Get Project With Data",
+        "description": "Retrieve a project with all its associated data including tasks and columns",
+        "operationId": "getProjectWithData",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectData"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your Bearer token in the format: Bearer {access_token}"
+      }
+    },
+    "schemas": {
+      "ChecklistItem": {
+        "type": "object",
+        "description": "Subtask item within a task checklist",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Subtask identifier"
+          },
+          "title": {
+            "type": "string",
+            "description": "Subtask title"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The completion status of subtask",
+            "enum": [0, 1],
+            "x-enum-descriptions": {
+              "0": "Normal",
+              "1": "Completed"
+            }
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Subtask completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Subtask sort order",
+            "example": 234444
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Subtask start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Subtask timezone",
+            "example": "America/Los_Angeles"
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "description": "Task object representing a single task or checklist",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Task identifier"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Task project id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Task title"
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day"
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content"
+          },
+          "desc": {
+            "type": "string",
+            "description": "Task description of checklist"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "items": {
+            "type": "array",
+            "description": "Subtasks of Task",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItem"
+            }
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Task priority",
+            "enum": [0, 1, 3, 5],
+            "x-enum-descriptions": {
+              "0": "None",
+              "1": "Low",
+              "3": "Medium",
+              "5": "High"
+            }
+          },
+          "reminders": {
+            "type": "array",
+            "description": "List of reminder triggers",
+            "items": {
+              "type": "string"
+            },
+            "example": ["TRIGGER:P0DT9H0M0S", "TRIGGER:PT0S"]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task",
+            "example": "RRULE:FREQ=DAILY;INTERVAL=1"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Task sort order",
+            "example": 12345
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Task completion status",
+            "enum": [0, 2],
+            "x-enum-descriptions": {
+              "0": "Normal",
+              "2": "Completed"
+            }
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Task timezone",
+            "example": "America/Los_Angeles"
+          },
+          "kind": {
+            "type": "string",
+            "description": "Task kind",
+            "enum": ["TEXT", "NOTE", "CHECKLIST"]
+          }
+        }
+      },
+      "TaskCreate": {
+        "type": "object",
+        "description": "Request body for creating a new task",
+        "required": ["title", "projectId"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Task title"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project id"
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content"
+          },
+          "desc": {
+            "type": "string",
+            "description": "Description of checklist"
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the time is specified"
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Lists of reminders specific to the task",
+            "items": {
+              "type": "string"
+            }
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The priority of task, default is 0"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of task"
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of subtasks",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "TaskUpdate": {
+        "type": "object",
+        "description": "Request body for updating an existing task",
+        "required": ["id", "projectId"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Task id"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Task title"
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content"
+          },
+          "desc": {
+            "type": "string",
+            "description": "Description of checklist"
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the time is specified"
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Lists of reminders specific to the task",
+            "items": {
+              "type": "string"
+            }
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The priority of task, default is normal"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of task"
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of subtasks",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "ChecklistItemCreate": {
+        "type": "object",
+        "description": "Request body for creating or updating a checklist item",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Subtask title"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of subtask"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the Start time is specified"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The completion status of subtask"
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2019-11-13T03:00:00+0000"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "description": "Project object representing a task list or note collection",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Project identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name"
+          },
+          "color": {
+            "type": "string",
+            "description": "Project color"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Order value"
+          },
+          "closed": {
+            "type": "boolean",
+            "description": "Project closed"
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Project group identifier"
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": ["list", "kanban", "timeline"]
+          },
+          "permission": {
+            "type": "string",
+            "description": "User permission level for the project",
+            "enum": ["read", "write", "comment"]
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": ["TASK", "NOTE"]
+          }
+        }
+      },
+      "ProjectCreate": {
+        "type": "object",
+        "description": "Request body for creating a new project",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the project"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of project",
+            "example": "#F18181"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value of the project"
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": ["list", "kanban", "timeline"]
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": ["TASK", "NOTE"]
+          }
+        }
+      },
+      "ProjectUpdate": {
+        "type": "object",
+        "description": "Request body for updating an existing project",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the project"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of the project"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value, default 0"
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": ["list", "kanban", "timeline"]
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": ["TASK", "NOTE"]
+          }
+        }
+      },
+      "Column": {
+        "type": "object",
+        "description": "Column object for kanban view",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Column identifier"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Column name"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Order value"
+          }
+        }
+      },
+      "ProjectData": {
+        "type": "object",
+        "description": "Project data including project info, tasks and columns",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "description": "Project info"
+          },
+          "tasks": {
+            "type": "array",
+            "description": "Undone tasks under project",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "columns": {
+            "type": "array",
+            "description": "Columns under project",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "task",
+      "description": "Task management endpoints"
+    },
+    {
+      "name": "project",
+      "description": "Project management endpoints"
+    }
+  ]
+}

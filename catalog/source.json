@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "apis": [
+    {
+      "slug": "frankfurter",
+      "name": "Frankfurter API",
+      "provider": "Frankfurter",
+      "category": "Finance",
+      "featured": true,
+      "specFile": "specs/frankfurter/openapi.json",
+      "approvedSha256": "67c13b8f2ab0182966473fd6db359b635388e96cec1f5126cdbb7e0ddf7968eb",
+      "license": "MIT",
+      "attributionUrl": "https://frankfurter.dev/",
+      "accent": "#2d6cdf",
+      "packageName": "@pontx/api-frankfurter",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": true,
+      "title": {
+        "zh": "Frankfurter 汇率 API",
+        "en": "Frankfurter exchange-rate API"
+      },
+      "summary": {
+        "zh": "查询欧洲央行参考汇率、货币列表和指定日期区间的汇率变化。",
+        "en": "Query ECB reference exchange rates, currencies, and historical rate movements."
+      },
+      "server": {
+        "id": "default",
+        "url": "https://api.frankfurter.dev/v1",
+        "description": {
+          "zh": "Frankfurter v1 公共 API",
+          "en": "Frankfurter v1 public API"
+        }
+      },
+      "auth": [],
+      "translations": {
+        "getCurrencies": {
+          "title": "获取支持的货币",
+          "description": "返回可用于汇率查询的货币代码与名称。"
+        },
+        "getLatestRates": {
+          "title": "获取最新汇率",
+          "description": "返回最近一个有效参考日的汇率。"
+        },
+        "getHistoricalRates": {
+          "title": "获取历史汇率",
+          "description": "返回指定参考日期的汇率。"
+        },
+        "getTimeSeriesRates": {
+          "title": "获取汇率时间序列",
+          "description": "返回指定日期区间内的汇率变化。"
+        }
+      }
+    },
+    {
+      "slug": "dida365",
+      "name": "Dida365 Open API",
+      "provider": "Dida365",
+      "category": "Productivity",
+      "featured": true,
+      "specFile": "specs/dida365/openapi.json",
+      "approvedSha256": "8afe3e33c1607a50654308abbb65274528a8ce3bbcc7de64ad8d5aa1a5868651",
+      "license": "Proprietary",
+      "attributionUrl": "https://dida365.com/",
+      "accent": "#1dbf73",
+      "packageName": "@pontx/api-dida365",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": true,
+      "title": {
+        "zh": "滴答清单开放 API",
+        "en": "Dida365 Open API"
+      },
+      "summary": {
+        "zh": "管理滴答清单中的项目、任务及完成状态。",
+        "en": "Manage Dida365 projects, tasks, and completion state."
+      },
+      "server": {
+        "id": "default",
+        "url": "https://api.dida365.com",
+        "description": {
+          "zh": "Dida365 Open API",
+          "en": "Dida365 Open API"
+        }
+      },
+      "auth": [
+        {
+          "id": "BearerAuth",
+          "type": "bearer",
+          "envVar": "DIDA365_ACCESS_TOKEN",
+          "description": {
+            "zh": "Dida365 访问令牌。请只在自己的会话中输入。",
+            "en": "Dida365 access token. Enter it only in your own session."
+          }
+        }
+      ]
+    }
+  ]
+}
+

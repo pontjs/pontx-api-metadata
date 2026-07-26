@@ -1,0 +1,729 @@
+{
+  "version": 1,
+  "apis": [
+    {
+      "slug": "frankfurter",
+      "name": "Frankfurter API",
+      "provider": "Frankfurter",
+      "category": "Finance",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter/openapi.json",
+      "license": "MIT",
+      "attributionUrl": "https://frankfurter.dev/",
+      "approvedSha256": "67c13b8f2ab0182966473fd6db359b635388e96cec1f5126cdbb7e0ddf7968eb",
+      "title": {
+        "zh": "Frankfurter 汇率 API",
+        "en": "Frankfurter exchange-rate API"
+      },
+      "summary": {
+        "zh": "查询欧洲央行参考汇率、货币列表和指定日期区间的汇率变化。",
+        "en": "Query ECB reference exchange rates, currencies, and historical rate movements."
+      },
+      "accent": "#2d6cdf",
+      "packageName": "@pontx/api-frankfurter",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": true,
+      "servers": [
+        {
+          "id": "default",
+          "url": "https://api.frankfurter.dev/v1",
+          "description": {
+            "zh": "Frankfurter v1 公共 API",
+            "en": "Frankfurter v1 public API"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-latest-rates",
+          "operationId": "getLatestRates",
+          "tag": "Exchange Rates",
+          "method": "GET",
+          "path": "/latest",
+          "title": {
+            "zh": "获取最新汇率",
+            "en": "Get latest exchange rates"
+          },
+          "description": {
+            "zh": "返回最近一个有效参考日的汇率。",
+            "en": "Retrieves the most recent exchange rates. Rates are updated daily around 16:00 CET.\nBy default, returns all available currencies with EUR as the base currency.\n"
+          },
+          "parameters": [
+            {
+              "name": "amount",
+              "in": "query",
+              "type": "number",
+              "description": {
+                "zh": "The amount to be converted (default is 1)",
+                "en": "The amount to be converted (default is 1)"
+              },
+              "example": 100
+            },
+            {
+              "name": "base",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Base currency code (three-letter ISO 4217 code)",
+                "en": "Base currency code (three-letter ISO 4217 code)"
+              },
+              "example": "USD"
+            },
+            {
+              "name": "symbols",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned.\n",
+                "en": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned.\n"
+              },
+              "example": "USD,GBP,JPY"
+            }
+          ],
+          "responseExample": {
+            "amount": 1,
+            "base": "EUR",
+            "date": "2026-01-23",
+            "rates": {
+              "USD": 1.0445,
+              "GBP": 0.8342,
+              "JPY": 161.23,
+              "CHF": 0.9234,
+              "AUD": 1.6111
+            }
+          }
+        },
+        {
+          "slug": "get-historical-rates",
+          "operationId": "getHistoricalRates",
+          "tag": "Exchange Rates",
+          "method": "GET",
+          "path": "/{date}",
+          "title": {
+            "zh": "获取历史汇率",
+            "en": "Get historical exchange rates"
+          },
+          "description": {
+            "zh": "返回指定参考日期的汇率。",
+            "en": "Retrieves exchange rates for a specific date in the past.\nHistorical data is available from 1999-01-04 onwards.\n"
+          },
+          "parameters": [
+            {
+              "name": "date",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Date in ISO 8601 format (YYYY-MM-DD)",
+                "en": "Date in ISO 8601 format (YYYY-MM-DD)"
+              },
+              "example": "2024-01-15"
+            },
+            {
+              "name": "amount",
+              "in": "query",
+              "type": "number",
+              "description": {
+                "zh": "The amount to be converted (default is 1)",
+                "en": "The amount to be converted (default is 1)"
+              },
+              "example": 1
+            },
+            {
+              "name": "base",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Base currency code (three-letter ISO 4217 code)",
+                "en": "Base currency code (three-letter ISO 4217 code)"
+              },
+              "example": "EUR"
+            },
+            {
+              "name": "symbols",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated list of currency codes to limit the response",
+                "en": "Comma-separated list of currency codes to limit the response"
+              }
+            }
+          ],
+          "responseExample": {
+            "amount": 1,
+            "base": "EUR",
+            "date": "2026-01-23",
+            "rates": {
+              "USD": 1.0445,
+              "GBP": 0.8342,
+              "JPY": 161.23,
+              "CHF": 0.9234,
+              "AUD": 1.6111
+            }
+          }
+        },
+        {
+          "slug": "get-time-series-rates",
+          "operationId": "getTimeSeriesRates",
+          "tag": "Exchange Rates",
+          "method": "GET",
+          "path": "/{start_date}..{end_date}",
+          "title": {
+            "zh": "获取汇率时间序列",
+            "en": "Get time series of exchange rates"
+          },
+          "description": {
+            "zh": "返回指定日期区间内的汇率变化。",
+            "en": "Retrieves exchange rates for a date range, returning daily rates between the start and end dates (inclusive).\nIf end_date is omitted, returns all rates from start_date to the latest available date.\n"
+          },
+          "parameters": [
+            {
+              "name": "start_date",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Start date in ISO 8601 format (YYYY-MM-DD)",
+                "en": "Start date in ISO 8601 format (YYYY-MM-DD)"
+              },
+              "example": "2024-01-01"
+            },
+            {
+              "name": "end_date",
+              "in": "path",
+              "type": "string",
+              "description": {
+                "zh": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n",
+                "en": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n"
+              },
+              "example": "2024-01-31"
+            },
+            {
+              "name": "amount",
+              "in": "query",
+              "type": "number",
+              "description": {
+                "zh": "The amount to be converted (default is 1)",
+                "en": "The amount to be converted (default is 1)"
+              },
+              "example": 1
+            },
+            {
+              "name": "base",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Base currency code (three-letter ISO 4217 code)",
+                "en": "Base currency code (three-letter ISO 4217 code)"
+              },
+              "example": "EUR"
+            },
+            {
+              "name": "symbols",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated list of currency codes to limit the response",
+                "en": "Comma-separated list of currency codes to limit the response"
+              }
+            }
+          ],
+          "responseExample": {
+            "amount": 1,
+            "base": "EUR",
+            "start_date": "2024-01-01",
+            "end_date": "2024-01-31",
+            "rates": {
+              "2024-01-01": {
+                "USD": 1.1047,
+                "GBP": 0.8692
+              },
+              "2024-01-02": {
+                "USD": 1.1023,
+                "GBP": 0.8671
+              }
+            }
+          }
+        },
+        {
+          "slug": "get-currencies",
+          "operationId": "getCurrencies",
+          "tag": "Currencies",
+          "method": "GET",
+          "path": "/currencies",
+          "title": {
+            "zh": "获取支持的货币",
+            "en": "Get list of supported currencies"
+          },
+          "description": {
+            "zh": "返回可用于汇率查询的货币代码与名称。",
+            "en": "Returns a list of all currency codes supported by the API along with their full names.\nThis endpoint requires no parameters.\n"
+          },
+          "parameters": [],
+          "responseExample": {
+            "EUR": "Euro",
+            "USD": "United States Dollar",
+            "GBP": "British Pound",
+            "JPY": "Japanese Yen",
+            "AUD": "Australian Dollar"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dida365",
+      "name": "Dida365 Open API",
+      "provider": "Dida365",
+      "category": "Productivity",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
+      "license": "Proprietary",
+      "attributionUrl": "https://dida365.com/",
+      "approvedSha256": "8afe3e33c1607a50654308abbb65274528a8ce3bbcc7de64ad8d5aa1a5868651",
+      "title": {
+        "zh": "滴答清单开放 API",
+        "en": "Dida365 Open API"
+      },
+      "summary": {
+        "zh": "管理滴答清单中的项目、任务及完成状态。",
+        "en": "Manage Dida365 projects, tasks, and completion state."
+      },
+      "accent": "#1dbf73",
+      "packageName": "@pontx/api-dida365",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": true,
+      "servers": [
+        {
+          "id": "default",
+          "url": "https://api.dida365.com",
+          "description": {
+            "zh": "Dida365 Open API",
+            "en": "Dida365 Open API"
+          }
+        }
+      ],
+      "auth": [
+        {
+          "id": "BearerAuth",
+          "type": "bearer",
+          "envVar": "DIDA365_ACCESS_TOKEN",
+          "description": {
+            "zh": "Dida365 访问令牌。请只在自己的会话中输入。",
+            "en": "Dida365 access token. Enter it only in your own session."
+          }
+        }
+      ],
+      "operations": [
+        {
+          "slug": "get-task-by-project-id-and-task-id",
+          "operationId": "getTaskByProjectIdAndTaskId",
+          "tag": "task",
+          "method": "GET",
+          "path": "/open/v1/project/{projectId}/task/{taskId}",
+          "title": {
+            "zh": "Get Task By Project ID And Task ID",
+            "en": "Get Task By Project ID And Task ID"
+          },
+          "description": {
+            "zh": "Retrieve a specific task by its project ID and task ID",
+            "en": "Retrieve a specific task by its project ID and task ID"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Task identifier",
+                "en": "Task identifier"
+              }
+            }
+          ],
+          "responseExample": {
+            "isAllDay": false,
+            "completedTime": "2019-11-13T03:00:00+0000",
+            "dueDate": "2019-11-13T03:00:00+0000"
+          }
+        },
+        {
+          "slug": "delete-task",
+          "operationId": "deleteTask",
+          "tag": "task",
+          "method": "DELETE",
+          "path": "/open/v1/project/{projectId}/task/{taskId}",
+          "title": {
+            "zh": "Delete Task",
+            "en": "Delete Task"
+          },
+          "description": {
+            "zh": "Delete a specific task by its project ID and task ID",
+            "en": "Delete a specific task by its project ID and task ID"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Task identifier",
+                "en": "Task identifier"
+              }
+            }
+          ]
+        },
+        {
+          "slug": "create-task",
+          "operationId": "createTask",
+          "tag": "task",
+          "method": "POST",
+          "path": "/open/v1/task",
+          "title": {
+            "zh": "Create Task",
+            "en": "Create Task"
+          },
+          "description": {
+            "zh": "Create a new task",
+            "en": "Create a new task"
+          },
+          "contentType": "application/json",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "type": "object",
+              "example": {
+                "isAllDay": false,
+                "startDate": "2019-11-13T03:00:00+0000",
+                "dueDate": "2019-11-13T03:00:00+0000"
+              }
+            }
+          ],
+          "responseExample": {
+            "isAllDay": false,
+            "completedTime": "2019-11-13T03:00:00+0000",
+            "dueDate": "2019-11-13T03:00:00+0000"
+          }
+        },
+        {
+          "slug": "update-task",
+          "operationId": "updateTask",
+          "tag": "task",
+          "method": "POST",
+          "path": "/open/v1/task/{taskId}",
+          "title": {
+            "zh": "Update Task",
+            "en": "Update Task"
+          },
+          "description": {
+            "zh": "Update an existing task",
+            "en": "Update an existing task"
+          },
+          "contentType": "application/json",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Task identifier",
+                "en": "Task identifier"
+              }
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "type": "object",
+              "example": {
+                "isAllDay": false,
+                "startDate": "2019-11-13T03:00:00+0000",
+                "dueDate": "2019-11-13T03:00:00+0000"
+              }
+            }
+          ],
+          "responseExample": {
+            "isAllDay": false,
+            "completedTime": "2019-11-13T03:00:00+0000",
+            "dueDate": "2019-11-13T03:00:00+0000"
+          }
+        },
+        {
+          "slug": "complete-task",
+          "operationId": "completeTask",
+          "tag": "task",
+          "method": "POST",
+          "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
+          "title": {
+            "zh": "Complete Task",
+            "en": "Complete Task"
+          },
+          "description": {
+            "zh": "Mark a task as completed",
+            "en": "Mark a task as completed"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Task identifier",
+                "en": "Task identifier"
+              }
+            }
+          ]
+        },
+        {
+          "slug": "get-user-projects",
+          "operationId": "getUserProjects",
+          "tag": "project",
+          "method": "GET",
+          "path": "/open/v1/project",
+          "title": {
+            "zh": "Get User Project",
+            "en": "Get User Project"
+          },
+          "description": {
+            "zh": "Retrieve all projects for the authenticated user",
+            "en": "Retrieve all projects for the authenticated user"
+          },
+          "parameters": [],
+          "responseExample": [
+            {
+              "sortOrder": 0,
+              "closed": false,
+              "viewMode": "list",
+              "permission": "read"
+            }
+          ]
+        },
+        {
+          "slug": "create-project",
+          "operationId": "createProject",
+          "tag": "project",
+          "method": "POST",
+          "path": "/open/v1/project",
+          "title": {
+            "zh": "Create Project",
+            "en": "Create Project"
+          },
+          "description": {
+            "zh": "Create a new project",
+            "en": "Create a new project"
+          },
+          "contentType": "application/json",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "type": "object",
+              "example": {
+                "color": "#F18181",
+                "sortOrder": 0,
+                "viewMode": "list",
+                "kind": "TASK"
+              }
+            }
+          ],
+          "responseExample": {
+            "sortOrder": 0,
+            "closed": false,
+            "viewMode": "list",
+            "permission": "read"
+          }
+        },
+        {
+          "slug": "get-project-by-id",
+          "operationId": "getProjectById",
+          "tag": "project",
+          "method": "GET",
+          "path": "/open/v1/project/{projectId}",
+          "title": {
+            "zh": "Get Project By ID",
+            "en": "Get Project By ID"
+          },
+          "description": {
+            "zh": "Retrieve a specific project by its ID",
+            "en": "Retrieve a specific project by its ID"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            }
+          ],
+          "responseExample": {
+            "sortOrder": 0,
+            "closed": false,
+            "viewMode": "list",
+            "permission": "read"
+          }
+        },
+        {
+          "slug": "update-project",
+          "operationId": "updateProject",
+          "tag": "project",
+          "method": "POST",
+          "path": "/open/v1/project/{projectId}",
+          "title": {
+            "zh": "Update Project",
+            "en": "Update Project"
+          },
+          "description": {
+            "zh": "Update an existing project",
+            "en": "Update an existing project"
+          },
+          "contentType": "application/json",
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "type": "object",
+              "example": {
+                "sortOrder": 0,
+                "viewMode": "list",
+                "kind": "TASK"
+              }
+            }
+          ],
+          "responseExample": {
+            "sortOrder": 0,
+            "closed": false,
+            "viewMode": "list",
+            "permission": "read"
+          }
+        },
+        {
+          "slug": "delete-project",
+          "operationId": "deleteProject",
+          "tag": "project",
+          "method": "DELETE",
+          "path": "/open/v1/project/{projectId}",
+          "title": {
+            "zh": "Delete Project",
+            "en": "Delete Project"
+          },
+          "description": {
+            "zh": "Delete a specific project by its ID",
+            "en": "Delete a specific project by its ID"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            }
+          ]
+        },
+        {
+          "slug": "get-project-with-data",
+          "operationId": "getProjectWithData",
+          "tag": "project",
+          "method": "GET",
+          "path": "/open/v1/project/{projectId}/data",
+          "title": {
+            "zh": "Get Project With Data",
+            "en": "Get Project With Data"
+          },
+          "description": {
+            "zh": "Retrieve a project with all its associated data including tasks and columns",
+            "en": "Retrieve a project with all its associated data including tasks and columns"
+          },
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            }
+          ],
+          "responseExample": {
+            "project": {
+              "sortOrder": 0,
+              "closed": false,
+              "viewMode": "list",
+              "permission": "read"
+            },
+            "tasks": [
+              {
+                "isAllDay": false,
+                "completedTime": "2019-11-13T03:00:00+0000",
+                "dueDate": "2019-11-13T03:00:00+0000"
+              }
+            ],
+            "columns": [
+              {
+                "sortOrder": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
