@@ -67,7 +67,7 @@ function pickMedia(content) {
   return content["application/json"] ?? Object.values(content)[0];
 }
 
-function makeOperation(document, path, method, operation, pathParameters, translations) {
+function makeOperation(document, path, method, operation, pathParameters, translations, parameterTranslations) {
   const operationId = operation.operationId || `${method}-${path}`;
   const translation = translations?.[operationId];
   const enTitle = operation.summary || operationId;
@@ -80,7 +80,7 @@ function makeOperation(document, path, method, operation, pathParameters, transl
       ...(parameter.required ? { required: true } : {}),
       type: catalogType(document, schema),
       ...(parameter.description
-        ? { description: localized(parameter.description, parameter.description) }
+        ? { description: localized(parameterTranslations?.[parameter.description] ?? parameter.description, parameter.description) }
         : {}),
       ...(exampleFor(document, schema) !== undefined
         ? { example: exampleFor(document, schema) }
@@ -134,7 +134,7 @@ for (const entry of source.apis) {
   const operations = Object.entries(document.paths ?? {}).flatMap(([path, pathItem]) =>
     Object.entries(pathItem)
       .filter(([method]) => ["get", "post", "put", "patch", "delete", "head", "options"].includes(method))
-      .map(([method, operation]) => makeOperation(document, path, method, operation, pathItem.parameters, entry.translations))
+      .map(([method, operation]) => makeOperation(document, path, method, operation, pathItem.parameters, entry.translations, entry.parameterTranslations))
   );
   apis.push({
     slug: entry.slug,
@@ -165,4 +165,3 @@ await writeFile(
   `${JSON.stringify({ version: source.version, apis }, null, 2)}\n`
 );
 console.log(`Built catalog/catalog.json with ${apis.length} APIs and ${apis.reduce((count, api) => count + api.operations.length, 0)} operations.`);
-

@@ -93,8 +93,57 @@
             "en": "Dida365 access token. Enter it only in your own session."
           }
         }
-      ]
+      ],
+      "parameterTranslations": {
+        "Project identifier": "项目 ID",
+        "Task identifier": "任务 ID"
+      },
+      "translations": {
+        "getTaskByProjectIdAndTaskId": {
+          "title": "获取指定任务",
+          "description": "根据项目 ID 和任务 ID 获取一个任务。"
+        },
+        "deleteTask": {
+          "title": "删除任务",
+          "description": "删除指定项目中的任务。"
+        },
+        "createTask": {
+          "title": "创建任务",
+          "description": "创建一个新的任务。"
+        },
+        "updateTask": {
+          "title": "更新任务",
+          "description": "更新已有任务的内容。"
+        },
+        "completeTask": {
+          "title": "完成任务",
+          "description": "将指定任务标记为完成。"
+        },
+        "getUserProjects": {
+          "title": "获取项目列表",
+          "description": "获取当前用户的项目列表。"
+        },
+        "createProject": {
+          "title": "创建项目",
+          "description": "创建一个新的项目。"
+        },
+        "getProjectById": {
+          "title": "获取项目",
+          "description": "根据项目 ID 获取项目。"
+        },
+        "updateProject": {
+          "title": "更新项目",
+          "description": "更新已有项目的内容。"
+        },
+        "deleteProject": {
+          "title": "删除项目",
+          "description": "删除指定项目。"
+        },
+        "getProjectWithData": {
+          "title": "获取项目及数据",
+          "description": "获取项目、任务和相关数据。"
+        }
+      }
     }
   ]
 }
-

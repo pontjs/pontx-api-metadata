@@ -324,11 +324,11 @@
           "method": "GET",
           "path": "/open/v1/project/{projectId}/task/{taskId}",
           "title": {
-            "zh": "Get Task By Project ID And Task ID",
+            "zh": "获取指定任务",
             "en": "Get Task By Project ID And Task ID"
           },
           "description": {
-            "zh": "Retrieve a specific task by its project ID and task ID",
+            "zh": "根据项目 ID 和任务 ID 获取一个任务。",
             "en": "Retrieve a specific task by its project ID and task ID"
           },
           "parameters": [
@@ -338,7 +338,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             },
@@ -348,7 +348,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Task identifier",
+                "zh": "任务 ID",
                 "en": "Task identifier"
               }
             }
@@ -366,11 +366,11 @@
           "method": "DELETE",
           "path": "/open/v1/project/{projectId}/task/{taskId}",
           "title": {
-            "zh": "Delete Task",
+            "zh": "删除任务",
             "en": "Delete Task"
           },
           "description": {
-            "zh": "Delete a specific task by its project ID and task ID",
+            "zh": "删除指定项目中的任务。",
             "en": "Delete a specific task by its project ID and task ID"
           },
           "parameters": [
@@ -380,7 +380,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             },
@@ -390,7 +390,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Task identifier",
+                "zh": "任务 ID",
                 "en": "Task identifier"
               }
             }
@@ -403,11 +403,11 @@
           "method": "POST",
           "path": "/open/v1/task",
           "title": {
-            "zh": "Create Task",
+            "zh": "创建任务",
             "en": "Create Task"
           },
           "description": {
-            "zh": "Create a new task",
+            "zh": "创建一个新的任务。",
             "en": "Create a new task"
           },
           "contentType": "application/json",
@@ -437,11 +437,11 @@
           "method": "POST",
           "path": "/open/v1/task/{taskId}",
           "title": {
-            "zh": "Update Task",
+            "zh": "更新任务",
             "en": "Update Task"
           },
           "description": {
-            "zh": "Update an existing task",
+            "zh": "更新已有任务的内容。",
             "en": "Update an existing task"
           },
           "contentType": "application/json",
@@ -452,7 +452,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Task identifier",
+                "zh": "任务 ID",
                 "en": "Task identifier"
               }
             },
@@ -481,11 +481,11 @@
           "method": "POST",
           "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
           "title": {
-            "zh": "Complete Task",
+            "zh": "完成任务",
             "en": "Complete Task"
           },
           "description": {
-            "zh": "Mark a task as completed",
+            "zh": "将指定任务标记为完成。",
             "en": "Mark a task as completed"
           },
           "parameters": [
@@ -495,7 +495,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             },
@@ -505,7 +505,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Task identifier",
+                "zh": "任务 ID",
                 "en": "Task identifier"
               }
             }
@@ -518,11 +518,11 @@
           "method": "GET",
           "path": "/open/v1/project",
           "title": {
-            "zh": "Get User Project",
+            "zh": "获取项目列表",
             "en": "Get User Project"
           },
           "description": {
-            "zh": "Retrieve all projects for the authenticated user",
+            "zh": "获取当前用户的项目列表。",
             "en": "Retrieve all projects for the authenticated user"
           },
           "parameters": [],
@@ -542,11 +542,11 @@
           "method": "POST",
           "path": "/open/v1/project",
           "title": {
-            "zh": "Create Project",
+            "zh": "创建项目",
             "en": "Create Project"
           },
           "description": {
-            "zh": "Create a new project",
+            "zh": "创建一个新的项目。",
             "en": "Create a new project"
           },
           "contentType": "application/json",
@@ -578,11 +578,11 @@
           "method": "GET",
           "path": "/open/v1/project/{projectId}",
           "title": {
-            "zh": "Get Project By ID",
+            "zh": "获取项目",
             "en": "Get Project By ID"
           },
           "description": {
-            "zh": "Retrieve a specific project by its ID",
+            "zh": "根据项目 ID 获取项目。",
             "en": "Retrieve a specific project by its ID"
           },
           "parameters": [
@@ -592,7 +592,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             }
@@ -611,11 +611,11 @@
           "method": "POST",
           "path": "/open/v1/project/{projectId}",
           "title": {
-            "zh": "Update Project",
+            "zh": "更新项目",
             "en": "Update Project"
           },
           "description": {
-            "zh": "Update an existing project",
+            "zh": "更新已有项目的内容。",
             "en": "Update an existing project"
           },
           "contentType": "application/json",
@@ -626,7 +626,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             },
@@ -656,11 +656,11 @@
           "method": "DELETE",
           "path": "/open/v1/project/{projectId}",
           "title": {
-            "zh": "Delete Project",
+            "zh": "删除项目",
             "en": "Delete Project"
           },
           "description": {
-            "zh": "Delete a specific project by its ID",
+            "zh": "删除指定项目。",
             "en": "Delete a specific project by its ID"
           },
           "parameters": [
@@ -670,7 +670,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             }
@@ -683,11 +683,11 @@
           "method": "GET",
           "path": "/open/v1/project/{projectId}/data",
           "title": {
-            "zh": "Get Project With Data",
+            "zh": "获取项目及数据",
             "en": "Get Project With Data"
           },
           "description": {
-            "zh": "Retrieve a project with all its associated data including tasks and columns",
+            "zh": "获取项目、任务和相关数据。",
             "en": "Retrieve a project with all its associated data including tasks and columns"
           },
           "parameters": [
@@ -697,7 +697,7 @@
               "required": true,
               "type": "string",
               "description": {
-                "zh": "Project identifier",
+                "zh": "项目 ID",
                 "en": "Project identifier"
               }
             }
