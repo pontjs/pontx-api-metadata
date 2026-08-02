@@ -270,6 +270,319 @@
             "AUD": "Australian Dollar"
           }
         }
+      ],
+      "schemas": [
+        {
+          "name": "ExchangeRateResponse",
+          "title": {
+            "zh": "汇率响应",
+            "en": "ExchangeRateResponse"
+          },
+          "description": {
+            "zh": "指定日期的汇率与换算金额。",
+            "en": "Response containing exchange rates for a single date"
+          },
+          "type": "object",
+          "required": [
+            "amount",
+            "base",
+            "date",
+            "rates"
+          ],
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number",
+              "format": "double",
+              "description": {
+                "zh": "The amount used for conversion",
+                "en": "The amount used for conversion"
+              },
+              "required": true
+            },
+            {
+              "name": "base",
+              "type": "string",
+              "description": {
+                "zh": "The base currency code (ISO 4217)",
+                "en": "The base currency code (ISO 4217)"
+              },
+              "required": true
+            },
+            {
+              "name": "date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "The date of the exchange rates in ISO 8601 format",
+                "en": "The date of the exchange rates in ISO 8601 format"
+              },
+              "required": true
+            },
+            {
+              "name": "rates",
+              "type": "object",
+              "description": {
+                "zh": "Exchange rates as key-value pairs (currency code to rate)",
+                "en": "Exchange rates as key-value pairs (currency code to rate)"
+              },
+              "required": true
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Response containing exchange rates for a single date",
+            "required": [
+              "amount",
+              "base",
+              "date",
+              "rates"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "format": "double",
+                "description": "The amount used for conversion",
+                "example": 1,
+                "minimum": 0
+              },
+              "base": {
+                "type": "string",
+                "description": "The base currency code (ISO 4217)",
+                "pattern": "^[A-Z]{3}$",
+                "example": "EUR"
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "The date of the exchange rates in ISO 8601 format",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "example": "2026-01-23"
+              },
+              "rates": {
+                "type": "object",
+                "description": "Exchange rates as key-value pairs (currency code to rate)",
+                "additionalProperties": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "example": {
+                  "USD": 1.0445,
+                  "GBP": 0.8342,
+                  "JPY": 161.23,
+                  "CHF": 0.9234,
+                  "AUD": 1.6111
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TimeSeriesResponse",
+          "title": {
+            "zh": "汇率时间序列响应",
+            "en": "TimeSeriesResponse"
+          },
+          "description": {
+            "zh": "指定日期区间内的每日汇率集合。",
+            "en": "Response containing exchange rates for a date range"
+          },
+          "type": "object",
+          "required": [
+            "amount",
+            "base",
+            "start_date",
+            "end_date",
+            "rates"
+          ],
+          "properties": [
+            {
+              "name": "amount",
+              "type": "number",
+              "format": "double",
+              "description": {
+                "zh": "The amount used for conversion",
+                "en": "The amount used for conversion"
+              },
+              "required": true
+            },
+            {
+              "name": "base",
+              "type": "string",
+              "description": {
+                "zh": "The base currency code (ISO 4217)",
+                "en": "The base currency code (ISO 4217)"
+              },
+              "required": true
+            },
+            {
+              "name": "start_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "The start date of the time series",
+                "en": "The start date of the time series"
+              },
+              "required": true
+            },
+            {
+              "name": "end_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "The end date of the time series",
+                "en": "The end date of the time series"
+              },
+              "required": true
+            },
+            {
+              "name": "rates",
+              "type": "object",
+              "description": {
+                "zh": "Exchange rates organized by date",
+                "en": "Exchange rates organized by date"
+              },
+              "required": true
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Response containing exchange rates for a date range",
+            "required": [
+              "amount",
+              "base",
+              "start_date",
+              "end_date",
+              "rates"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "format": "double",
+                "description": "The amount used for conversion",
+                "example": 1,
+                "minimum": 0
+              },
+              "base": {
+                "type": "string",
+                "description": "The base currency code (ISO 4217)",
+                "pattern": "^[A-Z]{3}$",
+                "example": "EUR"
+              },
+              "start_date": {
+                "type": "string",
+                "format": "date",
+                "description": "The start date of the time series",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "example": "2024-01-01"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date",
+                "description": "The end date of the time series",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "example": "2024-01-31"
+              },
+              "rates": {
+                "type": "object",
+                "description": "Exchange rates organized by date",
+                "additionalProperties": {
+                  "type": "object",
+                  "description": "Exchange rates for a specific date",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                },
+                "example": {
+                  "2024-01-01": {
+                    "USD": 1.1047,
+                    "GBP": 0.8692
+                  },
+                  "2024-01-02": {
+                    "USD": 1.1023,
+                    "GBP": 0.8671
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "CurrenciesResponse",
+          "title": {
+            "zh": "货币列表响应",
+            "en": "CurrenciesResponse"
+          },
+          "description": {
+            "zh": "货币代码与货币名称的映射。",
+            "en": "Map of currency codes to their full names"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [],
+          "schema": {
+            "type": "object",
+            "description": "Map of currency codes to their full names",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "EUR": "Euro",
+              "USD": "United States Dollar",
+              "GBP": "British Pound",
+              "JPY": "Japanese Yen",
+              "AUD": "Australian Dollar"
+            }
+          }
+        },
+        {
+          "name": "Error",
+          "title": {
+            "zh": "错误响应",
+            "en": "Error"
+          },
+          "description": {
+            "zh": "接口返回的错误标识与详细信息。",
+            "en": "Error response"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "error",
+              "type": "string",
+              "description": {
+                "zh": "Short error identifier",
+                "en": "Short error identifier"
+              }
+            },
+            {
+              "name": "message",
+              "type": "string",
+              "description": {
+                "zh": "Detailed error message",
+                "en": "Detailed error message"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Error response",
+            "properties": {
+              "error": {
+                "type": "string",
+                "description": "Short error identifier",
+                "example": "Invalid base currency"
+              },
+              "message": {
+                "type": "string",
+                "description": "Detailed error message",
+                "example": "Currency code XXX is not supported"
+              }
+            }
+          }
+        }
       ]
     },
     {
@@ -721,6 +1034,1429 @@
                 "sortOrder": 0
               }
             ]
+          }
+        }
+      ],
+      "schemas": [
+        {
+          "name": "ChecklistItem",
+          "title": {
+            "zh": "检查项",
+            "en": "ChecklistItem"
+          },
+          "description": {
+            "zh": "任务检查清单中的子任务。",
+            "en": "Subtask item within a task checklist"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "id",
+              "type": "string",
+              "description": {
+                "zh": "Subtask identifier",
+                "en": "Subtask identifier"
+              }
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "description": {
+                "zh": "Subtask title",
+                "en": "Subtask title"
+              }
+            },
+            {
+              "name": "status",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "The completion status of subtask",
+                "en": "The completion status of subtask"
+              }
+            },
+            {
+              "name": "completedTime",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Subtask completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Subtask completed time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "isAllDay",
+              "type": "boolean",
+              "description": {
+                "zh": "All day",
+                "en": "All day"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Subtask sort order",
+                "en": "Subtask sort order"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Subtask start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Subtask start date time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "timeZone",
+              "type": "string",
+              "description": {
+                "zh": "Subtask timezone",
+                "en": "Subtask timezone"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Subtask item within a task checklist",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Subtask identifier"
+              },
+              "title": {
+                "type": "string",
+                "description": "Subtask title"
+              },
+              "status": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The completion status of subtask",
+                "enum": [
+                  0,
+                  1
+                ],
+                "x-enum-descriptions": {
+                  "0": "Normal",
+                  "1": "Completed"
+                }
+              },
+              "completedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Subtask completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "isAllDay": {
+                "type": "boolean",
+                "description": "All day"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Subtask sort order",
+                "example": 234444
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Subtask start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "timeZone": {
+                "type": "string",
+                "description": "Subtask timezone",
+                "example": "America/Los_Angeles"
+              }
+            }
+          }
+        },
+        {
+          "name": "Task",
+          "title": {
+            "zh": "任务",
+            "en": "Task"
+          },
+          "description": {
+            "zh": "滴答清单中的任务或检查清单。",
+            "en": "Task object representing a single task or checklist"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "id",
+              "type": "string",
+              "description": {
+                "zh": "Task identifier",
+                "en": "Task identifier"
+              }
+            },
+            {
+              "name": "projectId",
+              "type": "string",
+              "description": {
+                "zh": "Task project id",
+                "en": "Task project id"
+              }
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "description": {
+                "zh": "Task title",
+                "en": "Task title"
+              }
+            },
+            {
+              "name": "isAllDay",
+              "type": "boolean",
+              "description": {
+                "zh": "All day",
+                "en": "All day"
+              }
+            },
+            {
+              "name": "completedTime",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Task completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Task completed time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "description": {
+                "zh": "Task content",
+                "en": "Task content"
+              }
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "description": {
+                "zh": "Task description of checklist",
+                "en": "Task description of checklist"
+              }
+            },
+            {
+              "name": "dueDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Task due date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Task due date time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "items",
+              "type": "array",
+              "description": {
+                "zh": "Subtasks of Task",
+                "en": "Subtasks of Task"
+              },
+              "ref": "ChecklistItem"
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "Task priority",
+                "en": "Task priority"
+              }
+            },
+            {
+              "name": "reminders",
+              "type": "array",
+              "description": {
+                "zh": "List of reminder triggers",
+                "en": "List of reminder triggers"
+              }
+            },
+            {
+              "name": "repeatFlag",
+              "type": "string",
+              "description": {
+                "zh": "Recurring rules of task",
+                "en": "Recurring rules of task"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Task sort order",
+                "en": "Task sort order"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Start date time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "status",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "Task completion status",
+                "en": "Task completion status"
+              }
+            },
+            {
+              "name": "timeZone",
+              "type": "string",
+              "description": {
+                "zh": "Task timezone",
+                "en": "Task timezone"
+              }
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "description": {
+                "zh": "Task kind",
+                "en": "Task kind"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Task object representing a single task or checklist",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Task identifier"
+              },
+              "projectId": {
+                "type": "string",
+                "description": "Task project id"
+              },
+              "title": {
+                "type": "string",
+                "description": "Task title"
+              },
+              "isAllDay": {
+                "type": "boolean",
+                "description": "All day"
+              },
+              "completedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Task completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "content": {
+                "type": "string",
+                "description": "Task content"
+              },
+              "desc": {
+                "type": "string",
+                "description": "Task description of checklist"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Task due date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "items": {
+                "type": "array",
+                "description": "Subtasks of Task",
+                "items": {
+                  "$ref": "#/components/schemas/ChecklistItem"
+                }
+              },
+              "priority": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Task priority",
+                "enum": [
+                  0,
+                  1,
+                  3,
+                  5
+                ],
+                "x-enum-descriptions": {
+                  "0": "None",
+                  "1": "Low",
+                  "3": "Medium",
+                  "5": "High"
+                }
+              },
+              "reminders": {
+                "type": "array",
+                "description": "List of reminder triggers",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "TRIGGER:P0DT9H0M0S",
+                  "TRIGGER:PT0S"
+                ]
+              },
+              "repeatFlag": {
+                "type": "string",
+                "description": "Recurring rules of task",
+                "example": "RRULE:FREQ=DAILY;INTERVAL=1"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Task sort order",
+                "example": 12345
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "status": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Task completion status",
+                "enum": [
+                  0,
+                  2
+                ],
+                "x-enum-descriptions": {
+                  "0": "Normal",
+                  "2": "Completed"
+                }
+              },
+              "timeZone": {
+                "type": "string",
+                "description": "Task timezone",
+                "example": "America/Los_Angeles"
+              },
+              "kind": {
+                "type": "string",
+                "description": "Task kind",
+                "enum": [
+                  "TEXT",
+                  "NOTE",
+                  "CHECKLIST"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "TaskCreate",
+          "title": {
+            "zh": "创建任务请求",
+            "en": "TaskCreate"
+          },
+          "description": {
+            "zh": "创建新任务时提交的数据结构。",
+            "en": "Request body for creating a new task"
+          },
+          "type": "object",
+          "required": [
+            "title",
+            "projectId"
+          ],
+          "properties": [
+            {
+              "name": "title",
+              "type": "string",
+              "description": {
+                "zh": "Task title",
+                "en": "Task title"
+              },
+              "required": true
+            },
+            {
+              "name": "projectId",
+              "type": "string",
+              "description": {
+                "zh": "Project id",
+                "en": "Project id"
+              },
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "description": {
+                "zh": "Task content",
+                "en": "Task content"
+              }
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "description": {
+                "zh": "Description of checklist",
+                "en": "Description of checklist"
+              }
+            },
+            {
+              "name": "isAllDay",
+              "type": "boolean",
+              "description": {
+                "zh": "All day",
+                "en": "All day"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "dueDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "timeZone",
+              "type": "string",
+              "description": {
+                "zh": "The time zone in which the time is specified",
+                "en": "The time zone in which the time is specified"
+              }
+            },
+            {
+              "name": "reminders",
+              "type": "array",
+              "description": {
+                "zh": "Lists of reminders specific to the task",
+                "en": "Lists of reminders specific to the task"
+              }
+            },
+            {
+              "name": "repeatFlag",
+              "type": "string",
+              "description": {
+                "zh": "Recurring rules of task",
+                "en": "Recurring rules of task"
+              }
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "The priority of task, default is 0",
+                "en": "The priority of task, default is 0"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "The order of task",
+                "en": "The order of task"
+              }
+            },
+            {
+              "name": "items",
+              "type": "array",
+              "description": {
+                "zh": "The list of subtasks",
+                "en": "The list of subtasks"
+              },
+              "ref": "ChecklistItemCreate"
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Request body for creating a new task",
+            "required": [
+              "title",
+              "projectId"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Task title"
+              },
+              "projectId": {
+                "type": "string",
+                "description": "Project id"
+              },
+              "content": {
+                "type": "string",
+                "description": "Task content"
+              },
+              "desc": {
+                "type": "string",
+                "description": "Description of checklist"
+              },
+              "isAllDay": {
+                "type": "boolean",
+                "description": "All day"
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "timeZone": {
+                "type": "string",
+                "description": "The time zone in which the time is specified"
+              },
+              "reminders": {
+                "type": "array",
+                "description": "Lists of reminders specific to the task",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "repeatFlag": {
+                "type": "string",
+                "description": "Recurring rules of task"
+              },
+              "priority": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The priority of task, default is 0"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "The order of task"
+              },
+              "items": {
+                "type": "array",
+                "description": "The list of subtasks",
+                "items": {
+                  "$ref": "#/components/schemas/ChecklistItemCreate"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TaskUpdate",
+          "title": {
+            "zh": "更新任务请求",
+            "en": "TaskUpdate"
+          },
+          "description": {
+            "zh": "更新已有任务时提交的数据结构。",
+            "en": "Request body for updating an existing task"
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "projectId"
+          ],
+          "properties": [
+            {
+              "name": "id",
+              "type": "string",
+              "description": {
+                "zh": "Task id",
+                "en": "Task id"
+              },
+              "required": true
+            },
+            {
+              "name": "projectId",
+              "type": "string",
+              "description": {
+                "zh": "Project id",
+                "en": "Project id"
+              },
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "description": {
+                "zh": "Task title",
+                "en": "Task title"
+              }
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "description": {
+                "zh": "Task content",
+                "en": "Task content"
+              }
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "description": {
+                "zh": "Description of checklist",
+                "en": "Description of checklist"
+              }
+            },
+            {
+              "name": "isAllDay",
+              "type": "boolean",
+              "description": {
+                "zh": "All day",
+                "en": "All day"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "dueDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "timeZone",
+              "type": "string",
+              "description": {
+                "zh": "The time zone in which the time is specified",
+                "en": "The time zone in which the time is specified"
+              }
+            },
+            {
+              "name": "reminders",
+              "type": "array",
+              "description": {
+                "zh": "Lists of reminders specific to the task",
+                "en": "Lists of reminders specific to the task"
+              }
+            },
+            {
+              "name": "repeatFlag",
+              "type": "string",
+              "description": {
+                "zh": "Recurring rules of task",
+                "en": "Recurring rules of task"
+              }
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "The priority of task, default is normal",
+                "en": "The priority of task, default is normal"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "The order of task",
+                "en": "The order of task"
+              }
+            },
+            {
+              "name": "items",
+              "type": "array",
+              "description": {
+                "zh": "The list of subtasks",
+                "en": "The list of subtasks"
+              },
+              "ref": "ChecklistItemCreate"
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Request body for updating an existing task",
+            "required": [
+              "id",
+              "projectId"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Task id"
+              },
+              "projectId": {
+                "type": "string",
+                "description": "Project id"
+              },
+              "title": {
+                "type": "string",
+                "description": "Task title"
+              },
+              "content": {
+                "type": "string",
+                "description": "Task content"
+              },
+              "desc": {
+                "type": "string",
+                "description": "Description of checklist"
+              },
+              "isAllDay": {
+                "type": "boolean",
+                "description": "All day"
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              },
+              "timeZone": {
+                "type": "string",
+                "description": "The time zone in which the time is specified"
+              },
+              "reminders": {
+                "type": "array",
+                "description": "Lists of reminders specific to the task",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "repeatFlag": {
+                "type": "string",
+                "description": "Recurring rules of task"
+              },
+              "priority": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The priority of task, default is normal"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "The order of task"
+              },
+              "items": {
+                "type": "array",
+                "description": "The list of subtasks",
+                "items": {
+                  "$ref": "#/components/schemas/ChecklistItemCreate"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "ChecklistItemCreate",
+          "title": {
+            "zh": "创建检查项请求",
+            "en": "ChecklistItemCreate"
+          },
+          "description": {
+            "zh": "创建或更新任务检查项的数据结构。",
+            "en": "Request body for creating or updating a checklist item"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "title",
+              "type": "string",
+              "description": {
+                "zh": "Subtask title",
+                "en": "Subtask title"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            },
+            {
+              "name": "isAllDay",
+              "type": "boolean",
+              "description": {
+                "zh": "All day",
+                "en": "All day"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "The order of subtask",
+                "en": "The order of subtask"
+              }
+            },
+            {
+              "name": "timeZone",
+              "type": "string",
+              "description": {
+                "zh": "The time zone in which the Start time is specified",
+                "en": "The time zone in which the Start time is specified"
+              }
+            },
+            {
+              "name": "status",
+              "type": "integer",
+              "format": "int32",
+              "description": {
+                "zh": "The completion status of subtask",
+                "en": "The completion status of subtask"
+              }
+            },
+            {
+              "name": "completedTime",
+              "type": "string",
+              "format": "date-time",
+              "description": {
+                "zh": "Completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "en": "Completed time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Request body for creating or updating a checklist item",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Subtask title"
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              },
+              "isAllDay": {
+                "type": "boolean",
+                "description": "All day"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "The order of subtask"
+              },
+              "timeZone": {
+                "type": "string",
+                "description": "The time zone in which the Start time is specified"
+              },
+              "status": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The completion status of subtask"
+              },
+              "completedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+                "example": "2019-11-13T03:00:00+0000"
+              }
+            }
+          }
+        },
+        {
+          "name": "Project",
+          "title": {
+            "zh": "项目",
+            "en": "Project"
+          },
+          "description": {
+            "zh": "代表任务列表或笔记集合的项目。",
+            "en": "Project object representing a task list or note collection"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "id",
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "Project name",
+                "en": "Project name"
+              }
+            },
+            {
+              "name": "color",
+              "type": "string",
+              "description": {
+                "zh": "Project color",
+                "en": "Project color"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Order value",
+                "en": "Order value"
+              }
+            },
+            {
+              "name": "closed",
+              "type": "boolean",
+              "description": {
+                "zh": "Project closed",
+                "en": "Project closed"
+              }
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "description": {
+                "zh": "Project group identifier",
+                "en": "Project group identifier"
+              }
+            },
+            {
+              "name": "viewMode",
+              "type": "string",
+              "description": {
+                "zh": "View mode",
+                "en": "View mode"
+              }
+            },
+            {
+              "name": "permission",
+              "type": "string",
+              "description": {
+                "zh": "User permission level for the project",
+                "en": "User permission level for the project"
+              }
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "description": {
+                "zh": "Project kind",
+                "en": "Project kind"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Project object representing a task list or note collection",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Project identifier"
+              },
+              "name": {
+                "type": "string",
+                "description": "Project name"
+              },
+              "color": {
+                "type": "string",
+                "description": "Project color"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Order value"
+              },
+              "closed": {
+                "type": "boolean",
+                "description": "Project closed"
+              },
+              "groupId": {
+                "type": "string",
+                "description": "Project group identifier"
+              },
+              "viewMode": {
+                "type": "string",
+                "description": "View mode",
+                "enum": [
+                  "list",
+                  "kanban",
+                  "timeline"
+                ]
+              },
+              "permission": {
+                "type": "string",
+                "description": "User permission level for the project",
+                "enum": [
+                  "read",
+                  "write",
+                  "comment"
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "description": "Project kind",
+                "enum": [
+                  "TASK",
+                  "NOTE"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "ProjectCreate",
+          "title": {
+            "zh": "创建项目请求",
+            "en": "ProjectCreate"
+          },
+          "description": {
+            "zh": "创建新项目时提交的数据结构。",
+            "en": "Request body for creating a new project"
+          },
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "Name of the project",
+                "en": "Name of the project"
+              },
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "string",
+              "description": {
+                "zh": "Color of project",
+                "en": "Color of project"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Sort order value of the project",
+                "en": "Sort order value of the project"
+              }
+            },
+            {
+              "name": "viewMode",
+              "type": "string",
+              "description": {
+                "zh": "View mode",
+                "en": "View mode"
+              }
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "description": {
+                "zh": "Project kind",
+                "en": "Project kind"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Request body for creating a new project",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the project"
+              },
+              "color": {
+                "type": "string",
+                "description": "Color of project",
+                "example": "#F18181"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Sort order value of the project"
+              },
+              "viewMode": {
+                "type": "string",
+                "description": "View mode",
+                "enum": [
+                  "list",
+                  "kanban",
+                  "timeline"
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "description": "Project kind",
+                "enum": [
+                  "TASK",
+                  "NOTE"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "ProjectUpdate",
+          "title": {
+            "zh": "更新项目请求",
+            "en": "ProjectUpdate"
+          },
+          "description": {
+            "zh": "更新已有项目时提交的数据结构。",
+            "en": "Request body for updating an existing project"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "Name of the project",
+                "en": "Name of the project"
+              }
+            },
+            {
+              "name": "color",
+              "type": "string",
+              "description": {
+                "zh": "Color of the project",
+                "en": "Color of the project"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Sort order value, default 0",
+                "en": "Sort order value, default 0"
+              }
+            },
+            {
+              "name": "viewMode",
+              "type": "string",
+              "description": {
+                "zh": "View mode",
+                "en": "View mode"
+              }
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "description": {
+                "zh": "Project kind",
+                "en": "Project kind"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Request body for updating an existing project",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the project"
+              },
+              "color": {
+                "type": "string",
+                "description": "Color of the project"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Sort order value, default 0"
+              },
+              "viewMode": {
+                "type": "string",
+                "description": "View mode",
+                "enum": [
+                  "list",
+                  "kanban",
+                  "timeline"
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "description": "Project kind",
+                "enum": [
+                  "TASK",
+                  "NOTE"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "Column",
+          "title": {
+            "zh": "看板列",
+            "en": "Column"
+          },
+          "description": {
+            "zh": "项目看板视图中的列。",
+            "en": "Column object for kanban view"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "id",
+              "type": "string",
+              "description": {
+                "zh": "Column identifier",
+                "en": "Column identifier"
+              }
+            },
+            {
+              "name": "projectId",
+              "type": "string",
+              "description": {
+                "zh": "Project identifier",
+                "en": "Project identifier"
+              }
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "Column name",
+                "en": "Column name"
+              }
+            },
+            {
+              "name": "sortOrder",
+              "type": "integer",
+              "format": "int64",
+              "description": {
+                "zh": "Order value",
+                "en": "Order value"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Column object for kanban view",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Column identifier"
+              },
+              "projectId": {
+                "type": "string",
+                "description": "Project identifier"
+              },
+              "name": {
+                "type": "string",
+                "description": "Column name"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Order value"
+              }
+            }
+          }
+        },
+        {
+          "name": "ProjectData",
+          "title": {
+            "zh": "项目数据",
+            "en": "ProjectData"
+          },
+          "description": {
+            "zh": "包含项目信息、任务与看板列的聚合数据。",
+            "en": "Project data including project info, tasks and columns"
+          },
+          "type": "object",
+          "required": [],
+          "properties": [
+            {
+              "name": "project",
+              "type": "object",
+              "description": {
+                "zh": "Project info",
+                "en": "Project info"
+              },
+              "ref": "Project"
+            },
+            {
+              "name": "tasks",
+              "type": "array",
+              "description": {
+                "zh": "Undone tasks under project",
+                "en": "Undone tasks under project"
+              },
+              "ref": "Task"
+            },
+            {
+              "name": "columns",
+              "type": "array",
+              "description": {
+                "zh": "Columns under project",
+                "en": "Columns under project"
+              },
+              "ref": "Column"
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "description": "Project data including project info, tasks and columns",
+            "properties": {
+              "project": {
+                "$ref": "#/components/schemas/Project",
+                "description": "Project info"
+              },
+              "tasks": {
+                "type": "array",
+                "description": "Undone tasks under project",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "columns": {
+                "type": "array",
+                "description": "Columns under project",
+                "items": {
+                  "$ref": "#/components/schemas/Column"
+                }
+              }
+            }
           }
         }
       ]

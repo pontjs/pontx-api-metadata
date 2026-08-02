@@ -50,6 +50,24 @@
           "title": "获取汇率时间序列",
           "description": "返回指定日期区间内的汇率变化。"
         }
+      },
+      "schemaTranslations": {
+        "ExchangeRateResponse": {
+          "title": "汇率响应",
+          "description": "指定日期的汇率与换算金额。"
+        },
+        "TimeSeriesResponse": {
+          "title": "汇率时间序列响应",
+          "description": "指定日期区间内的每日汇率集合。"
+        },
+        "CurrenciesResponse": {
+          "title": "货币列表响应",
+          "description": "货币代码与货币名称的映射。"
+        },
+        "Error": {
+          "title": "错误响应",
+          "description": "接口返回的错误标识与详细信息。"
+        }
       }
     },
     {
@@ -142,6 +160,48 @@
         "getProjectWithData": {
           "title": "获取项目及数据",
           "description": "获取项目、任务和相关数据。"
+        }
+      },
+      "schemaTranslations": {
+        "ChecklistItem": {
+          "title": "检查项",
+          "description": "任务检查清单中的子任务。"
+        },
+        "Task": {
+          "title": "任务",
+          "description": "滴答清单中的任务或检查清单。"
+        },
+        "TaskCreate": {
+          "title": "创建任务请求",
+          "description": "创建新任务时提交的数据结构。"
+        },
+        "TaskUpdate": {
+          "title": "更新任务请求",
+          "description": "更新已有任务时提交的数据结构。"
+        },
+        "ChecklistItemCreate": {
+          "title": "创建检查项请求",
+          "description": "创建或更新任务检查项的数据结构。"
+        },
+        "Project": {
+          "title": "项目",
+          "description": "代表任务列表或笔记集合的项目。"
+        },
+        "ProjectCreate": {
+          "title": "创建项目请求",
+          "description": "创建新项目时提交的数据结构。"
+        },
+        "ProjectUpdate": {
+          "title": "更新项目请求",
+          "description": "更新已有项目时提交的数据结构。"
+        },
+        "Column": {
+          "title": "看板列",
+          "description": "项目看板视图中的列。"
+        },
+        "ProjectData": {
+          "title": "项目数据",
+          "description": "包含项目信息、任务与看板列的聚合数据。"
         }
       }
     }

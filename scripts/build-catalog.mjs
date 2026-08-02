@@ -62,6 +62,42 @@ function localized(zh, en) {
   return { zh: zh || en, en: en || zh };
 }
 
+function makeSchema(document, name, schema, translations) {
+  const resolved = dereference(document, schema) ?? {};
+  const translation = translations?.[name];
+  const enTitle = resolved.title || name;
+  const enDescription = resolved.description || `${name} data structure`;
+  const required = new Set(resolved.required ?? []);
+  const properties = Object.entries(resolved.properties ?? {}).map(([propertyName, property]) => {
+    const propertyRef = property?.$ref ?? property?.items?.$ref;
+    return {
+      name: propertyName,
+      type: catalogType(document, property),
+      ...(property?.format ? { format: property.format } : {}),
+      ...(property?.description
+        ? { description: localized(property.description, property.description) }
+        : {}),
+      ...(required.has(propertyName) ? { required: true } : {}),
+      ...(propertyRef
+        ? { ref: propertyRef.split("/").pop() }
+        : {})
+    };
+  });
+
+  return {
+    name,
+    title: localized(translation?.title ?? enTitle, enTitle),
+    description: localized(
+      translation?.description ?? enDescription,
+      enDescription
+    ),
+    type: catalogType(document, resolved),
+    required: [...required],
+    properties,
+    schema: resolved
+  };
+}
+
 function pickMedia(content) {
   if (!content) return undefined;
   return content["application/json"] ?? Object.values(content)[0];
@@ -136,6 +172,10 @@ for (const entry of source.apis) {
       .filter(([method]) => ["get", "post", "put", "patch", "delete", "head", "options"].includes(method))
       .map(([method, operation]) => makeOperation(document, path, method, operation, pathItem.parameters, entry.translations, entry.parameterTranslations))
   );
+  const schemaEntries = document.components?.schemas ?? document.definitions ?? {};
+  const schemas = Object.entries(schemaEntries).map(([name, schema]) =>
+    makeSchema(document, name, schema, entry.schemaTranslations)
+  );
   apis.push({
     slug: entry.slug,
     name: entry.name,
@@ -155,7 +195,8 @@ for (const entry of source.apis) {
     proxyEnabled: entry.proxyEnabled,
     servers: [entry.server],
     auth: entry.auth,
-    operations
+    operations,
+    schemas
   });
 }
 
@@ -164,4 +205,4 @@ await writeFile(
   resolve(repositoryRoot, "catalog/catalog.json"),
   `${JSON.stringify({ version: source.version, apis }, null, 2)}\n`
 );
-console.log(`Built catalog/catalog.json with ${apis.length} APIs and ${apis.reduce((count, api) => count + api.operations.length, 0)} operations.`);
+console.log(`Built catalog/catalog.json with ${apis.length} APIs, ${apis.reduce((count, api) => count + api.operations.length, 0)} operations, and ${apis.reduce((count, api) => count + api.schemas.length, 0)} schemas.`);
