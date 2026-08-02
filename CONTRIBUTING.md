@@ -28,6 +28,7 @@ Every API must have a stable upstream source, an attribution URL, a reviewed lic
 - The approved SHA-256 matches the committed document.
 - Chinese and English titles and summaries are useful and accurate.
 - Important data structures have useful bilingual entries in `schemaTranslations`.
+- Request parameters, request bodies, response descriptions, media types, and schema references are complete enough for semantic retrieval.
 - Operation slugs remain stable unless the upstream operation identity changed.
 - Mutating endpoints and authentication requirements are described correctly.
 - `catalog/catalog.json` has been regenerated and committed.

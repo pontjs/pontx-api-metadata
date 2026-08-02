@@ -55,6 +55,7 @@
               "name": "amount",
               "in": "query",
               "type": "number",
+              "format": "double",
               "description": {
                 "zh": "The amount to be converted (default is 1)",
                 "en": "The amount to be converted (default is 1)"
@@ -65,6 +66,38 @@
               "name": "base",
               "in": "query",
               "type": "string",
+              "enum": [
+                "AUD",
+                "BRL",
+                "CAD",
+                "CHF",
+                "CNY",
+                "CZK",
+                "DKK",
+                "EUR",
+                "GBP",
+                "HKD",
+                "HUF",
+                "IDR",
+                "ILS",
+                "INR",
+                "ISK",
+                "JPY",
+                "KRW",
+                "MXN",
+                "MYR",
+                "NOK",
+                "NZD",
+                "PHP",
+                "PLN",
+                "RON",
+                "SEK",
+                "SGD",
+                "THB",
+                "TRY",
+                "USD",
+                "ZAR"
+              ],
               "description": {
                 "zh": "Base currency code (three-letter ISO 4217 code)",
                 "en": "Base currency code (three-letter ISO 4217 code)"
@@ -80,6 +113,58 @@
                 "en": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned.\n"
               },
               "example": "USD,GBP,JPY"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response with exchange rates",
+                "en": "Successful response with exchange rates"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "ExchangeRateResponse",
+              "properties": [
+                "amount",
+                "base",
+                "date",
+                "rates"
+              ]
+            },
+            {
+              "status": "400",
+              "description": {
+                "zh": "Bad request (invalid parameters)",
+                "en": "Bad request (invalid parameters)"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Resource not found",
+                "en": "Resource not found"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
             }
           ],
           "responseExample": {
@@ -115,6 +200,7 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "format": "date",
               "description": {
                 "zh": "Date in ISO 8601 format (YYYY-MM-DD)",
                 "en": "Date in ISO 8601 format (YYYY-MM-DD)"
@@ -125,6 +211,7 @@
               "name": "amount",
               "in": "query",
               "type": "number",
+              "format": "double",
               "description": {
                 "zh": "The amount to be converted (default is 1)",
                 "en": "The amount to be converted (default is 1)"
@@ -135,6 +222,38 @@
               "name": "base",
               "in": "query",
               "type": "string",
+              "enum": [
+                "AUD",
+                "BRL",
+                "CAD",
+                "CHF",
+                "CNY",
+                "CZK",
+                "DKK",
+                "EUR",
+                "GBP",
+                "HKD",
+                "HUF",
+                "IDR",
+                "ILS",
+                "INR",
+                "ISK",
+                "JPY",
+                "KRW",
+                "MXN",
+                "MYR",
+                "NOK",
+                "NZD",
+                "PHP",
+                "PLN",
+                "RON",
+                "SEK",
+                "SGD",
+                "THB",
+                "TRY",
+                "USD",
+                "ZAR"
+              ],
               "description": {
                 "zh": "Base currency code (three-letter ISO 4217 code)",
                 "en": "Base currency code (three-letter ISO 4217 code)"
@@ -149,6 +268,58 @@
                 "zh": "Comma-separated list of currency codes to limit the response",
                 "en": "Comma-separated list of currency codes to limit the response"
               }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response with historical exchange rates",
+                "en": "Successful response with historical exchange rates"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "ExchangeRateResponse",
+              "properties": [
+                "amount",
+                "base",
+                "date",
+                "rates"
+              ]
+            },
+            {
+              "status": "400",
+              "description": {
+                "zh": "Bad request (invalid date format or parameters)",
+                "en": "Bad request (invalid date format or parameters)"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "No data available for the specified date",
+                "en": "No data available for the specified date"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
             }
           ],
           "responseExample": {
@@ -184,6 +355,7 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "format": "date",
               "description": {
                 "zh": "Start date in ISO 8601 format (YYYY-MM-DD)",
                 "en": "Start date in ISO 8601 format (YYYY-MM-DD)"
@@ -194,6 +366,7 @@
               "name": "end_date",
               "in": "path",
               "type": "string",
+              "format": "date",
               "description": {
                 "zh": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n",
                 "en": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n"
@@ -204,6 +377,7 @@
               "name": "amount",
               "in": "query",
               "type": "number",
+              "format": "double",
               "description": {
                 "zh": "The amount to be converted (default is 1)",
                 "en": "The amount to be converted (default is 1)"
@@ -214,6 +388,38 @@
               "name": "base",
               "in": "query",
               "type": "string",
+              "enum": [
+                "AUD",
+                "BRL",
+                "CAD",
+                "CHF",
+                "CNY",
+                "CZK",
+                "DKK",
+                "EUR",
+                "GBP",
+                "HKD",
+                "HUF",
+                "IDR",
+                "ILS",
+                "INR",
+                "ISK",
+                "JPY",
+                "KRW",
+                "MXN",
+                "MYR",
+                "NOK",
+                "NZD",
+                "PHP",
+                "PLN",
+                "RON",
+                "SEK",
+                "SGD",
+                "THB",
+                "TRY",
+                "USD",
+                "ZAR"
+              ],
               "description": {
                 "zh": "Base currency code (three-letter ISO 4217 code)",
                 "en": "Base currency code (three-letter ISO 4217 code)"
@@ -228,6 +434,59 @@
                 "zh": "Comma-separated list of currency codes to limit the response",
                 "en": "Comma-separated list of currency codes to limit the response"
               }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response with time series exchange rates",
+                "en": "Successful response with time series exchange rates"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "TimeSeriesResponse",
+              "properties": [
+                "amount",
+                "base",
+                "start_date",
+                "end_date",
+                "rates"
+              ]
+            },
+            {
+              "status": "400",
+              "description": {
+                "zh": "Bad request (invalid date format or date range)",
+                "en": "Bad request (invalid date format or date range)"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "No data available for the specified date range",
+                "en": "No data available for the specified date range"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Error",
+              "properties": [
+                "error",
+                "message"
+              ]
             }
           ],
           "responseExample": {
@@ -262,6 +521,20 @@
             "en": "Returns a list of all currency codes supported by the API along with their full names.\nThis endpoint requires no parameters.\n"
           },
           "parameters": [],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response with list of supported currencies",
+                "en": "Successful response with list of supported currencies"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "CurrenciesResponse"
+            }
+          ],
           "responseExample": {
             "EUR": "Euro",
             "USD": "United States Dollar",
@@ -666,6 +939,60 @@
               }
             }
           ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Task",
+              "properties": [
+                "id",
+                "projectId",
+                "title",
+                "isAllDay",
+                "completedTime",
+                "content",
+                "desc",
+                "dueDate",
+                "items",
+                "priority",
+                "reminders",
+                "repeatFlag",
+                "sortOrder",
+                "startDate",
+                "status",
+                "timeZone",
+                "kind"
+              ]
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
+              }
+            }
+          ],
           "responseExample": {
             "isAllDay": false,
             "completedTime": "2019-11-13T03:00:00+0000",
@@ -707,6 +1034,43 @@
                 "en": "Task identifier"
               }
             }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              }
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
+              }
+            }
           ]
         },
         {
@@ -730,10 +1094,94 @@
               "in": "body",
               "required": true,
               "type": "object",
+              "schemaName": "TaskCreate",
               "example": {
                 "isAllDay": false,
                 "startDate": "2019-11-13T03:00:00+0000",
                 "dueDate": "2019-11-13T03:00:00+0000"
+              }
+            }
+          ],
+          "requestBody": {
+            "contentTypes": [
+              "application/json"
+            ],
+            "schemaType": "object",
+            "schemaName": "TaskCreate",
+            "properties": [
+              "title",
+              "projectId",
+              "content",
+              "desc",
+              "isAllDay",
+              "startDate",
+              "dueDate",
+              "timeZone",
+              "reminders",
+              "repeatFlag",
+              "priority",
+              "sortOrder",
+              "items"
+            ]
+          },
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Task",
+              "properties": [
+                "id",
+                "projectId",
+                "title",
+                "isAllDay",
+                "completedTime",
+                "content",
+                "desc",
+                "dueDate",
+                "items",
+                "priority",
+                "reminders",
+                "repeatFlag",
+                "sortOrder",
+                "startDate",
+                "status",
+                "timeZone",
+                "kind"
+              ]
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],
@@ -774,10 +1222,95 @@
               "in": "body",
               "required": true,
               "type": "object",
+              "schemaName": "TaskUpdate",
               "example": {
                 "isAllDay": false,
                 "startDate": "2019-11-13T03:00:00+0000",
                 "dueDate": "2019-11-13T03:00:00+0000"
+              }
+            }
+          ],
+          "requestBody": {
+            "contentTypes": [
+              "application/json"
+            ],
+            "schemaType": "object",
+            "schemaName": "TaskUpdate",
+            "properties": [
+              "id",
+              "projectId",
+              "title",
+              "content",
+              "desc",
+              "isAllDay",
+              "startDate",
+              "dueDate",
+              "timeZone",
+              "reminders",
+              "repeatFlag",
+              "priority",
+              "sortOrder",
+              "items"
+            ]
+          },
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Task",
+              "properties": [
+                "id",
+                "projectId",
+                "title",
+                "isAllDay",
+                "completedTime",
+                "content",
+                "desc",
+                "dueDate",
+                "items",
+                "priority",
+                "reminders",
+                "repeatFlag",
+                "sortOrder",
+                "startDate",
+                "status",
+                "timeZone",
+                "kind"
+              ]
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],
@@ -822,6 +1355,43 @@
                 "en": "Task identifier"
               }
             }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              }
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
+              }
+            }
           ]
         },
         {
@@ -839,6 +1409,52 @@
             "en": "Retrieve all projects for the authenticated user"
           },
           "parameters": [],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "array",
+              "schemaName": "Project",
+              "properties": [
+                "id",
+                "name",
+                "color",
+                "sortOrder",
+                "closed",
+                "groupId",
+                "viewMode",
+                "permission",
+                "kind"
+              ]
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
+              }
+            }
+          ],
           "responseExample": [
             {
               "sortOrder": 0,
@@ -869,11 +1485,79 @@
               "in": "body",
               "required": true,
               "type": "object",
+              "schemaName": "ProjectCreate",
               "example": {
                 "color": "#F18181",
                 "sortOrder": 0,
                 "viewMode": "list",
                 "kind": "TASK"
+              }
+            }
+          ],
+          "requestBody": {
+            "contentTypes": [
+              "application/json"
+            ],
+            "schemaType": "object",
+            "schemaName": "ProjectCreate",
+            "properties": [
+              "name",
+              "color",
+              "sortOrder",
+              "viewMode",
+              "kind"
+            ]
+          },
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Project",
+              "properties": [
+                "id",
+                "name",
+                "color",
+                "sortOrder",
+                "closed",
+                "groupId",
+                "viewMode",
+                "permission",
+                "kind"
+              ]
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],
@@ -907,6 +1591,52 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Project",
+              "properties": [
+                "id",
+                "name",
+                "color",
+                "sortOrder",
+                "closed",
+                "groupId",
+                "viewMode",
+                "permission",
+                "kind"
+              ]
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],
@@ -948,10 +1678,78 @@
               "in": "body",
               "required": true,
               "type": "object",
+              "schemaName": "ProjectUpdate",
               "example": {
                 "sortOrder": 0,
                 "viewMode": "list",
                 "kind": "TASK"
+              }
+            }
+          ],
+          "requestBody": {
+            "contentTypes": [
+              "application/json"
+            ],
+            "schemaType": "object",
+            "schemaName": "ProjectUpdate",
+            "properties": [
+              "name",
+              "color",
+              "sortOrder",
+              "viewMode",
+              "kind"
+            ]
+          },
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Project",
+              "properties": [
+                "id",
+                "name",
+                "color",
+                "sortOrder",
+                "closed",
+                "groupId",
+                "viewMode",
+                "permission",
+                "kind"
+              ]
+            },
+            {
+              "status": "201",
+              "description": {
+                "zh": "Created",
+                "en": "Created"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],
@@ -987,6 +1785,36 @@
                 "en": "Project identifier"
               }
             }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              }
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
+              }
+            }
           ]
         },
         {
@@ -1012,6 +1840,46 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "OK",
+                "en": "OK"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "ProjectData",
+              "properties": [
+                "project",
+                "tasks",
+                "columns"
+              ]
+            },
+            {
+              "status": "401",
+              "description": {
+                "zh": "Unauthorized",
+                "en": "Unauthorized"
+              }
+            },
+            {
+              "status": "403",
+              "description": {
+                "zh": "Forbidden",
+                "en": "Forbidden"
+              }
+            },
+            {
+              "status": "404",
+              "description": {
+                "zh": "Not Found",
+                "en": "Not Found"
               }
             }
           ],

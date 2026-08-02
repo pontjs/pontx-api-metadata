@@ -30,6 +30,31 @@ function catalogType(document, schema) {
   return "string";
 }
 
+function schemaName(schema) {
+  const reference = schema?.$ref ?? schema?.items?.$ref;
+  return reference?.split("/").pop();
+}
+
+function schemaPropertyNames(document, schema) {
+  const resolved = dereference(document, schema);
+  const target = resolved?.type === "array"
+    ? dereference(document, resolved.items)
+    : resolved;
+  return Object.keys(target?.properties ?? {});
+}
+
+function payloadMetadata(document, schema, contentTypes, description) {
+  return {
+    ...(description ? { description: localized(description, description) } : {}),
+    ...(contentTypes?.length ? { contentTypes } : {}),
+    ...(schema ? { schemaType: catalogType(document, schema) } : {}),
+    ...(schemaName(schema) ? { schemaName: schemaName(schema) } : {}),
+    ...(schemaPropertyNames(document, schema).length
+      ? { properties: schemaPropertyNames(document, schema) }
+      : {})
+  };
+}
+
 function exampleFor(document, schema) {
   const resolved = dereference(document, schema);
   if (!resolved) return undefined;
@@ -115,6 +140,9 @@ function makeOperation(document, path, method, operation, pathParameters, transl
       in: parameter.in,
       ...(parameter.required ? { required: true } : {}),
       type: catalogType(document, schema),
+      ...(schema.format ? { format: schema.format } : {}),
+      ...(schemaName(schema) ? { schemaName: schemaName(schema) } : {}),
+      ...(schema.enum?.length ? { enum: schema.enum } : {}),
       ...(parameter.description
         ? { description: localized(parameterTranslations?.[parameter.description] ?? parameter.description, parameter.description) }
         : {}),
@@ -124,12 +152,16 @@ function makeOperation(document, path, method, operation, pathParameters, transl
     };
   });
   const requestMedia = pickMedia(operation.requestBody?.content);
+  const requestContentTypes = Object.keys(operation.requestBody?.content ?? {});
   if (requestMedia) {
     parameters.push({
       name: "body",
       in: "body",
       ...(operation.requestBody.required ? { required: true } : {}),
       type: catalogType(document, requestMedia.schema),
+      ...(schemaName(requestMedia.schema)
+        ? { schemaName: schemaName(requestMedia.schema) }
+        : {}),
       ...(requestMedia.example !== undefined
         ? { example: requestMedia.example }
         : exampleFor(document, requestMedia.schema) !== undefined
@@ -137,8 +169,38 @@ function makeOperation(document, path, method, operation, pathParameters, transl
           : {})
     });
   }
-  const response = Object.entries(operation.responses ?? {}).find(([status]) => status.startsWith("2"))?.[1];
+  const bodyParameter = [...(pathParameters ?? []), ...(operation.parameters ?? [])]
+    .find((parameter) => parameter.in === "body");
+  const requestSchema = requestMedia?.schema ?? bodyParameter?.schema;
+  const requestBody = requestSchema
+    ? payloadMetadata(
+        document,
+        requestSchema,
+        requestContentTypes.length
+          ? requestContentTypes
+          : operation.consumes ?? document.consumes ?? [],
+        operation.requestBody?.description ?? bodyParameter?.description
+      )
+    : undefined;
+  const responseEntries = Object.entries(operation.responses ?? {});
+  const response = responseEntries.find(([status]) => status.startsWith("2"))?.[1];
   const responseMedia = pickMedia(response?.content);
+  const responses = responseEntries.map(([status, responseValue]) => {
+    const responseContentTypes = Object.keys(responseValue?.content ?? {});
+    const media = pickMedia(responseValue?.content);
+    const schema = media?.schema ?? responseValue?.schema;
+    return {
+      status,
+      ...payloadMetadata(
+        document,
+        schema,
+        responseContentTypes.length
+          ? responseContentTypes
+          : operation.produces ?? document.produces ?? [],
+        responseValue?.description
+      )
+    };
+  });
   return {
     slug: slugify(operationId),
     operationId,
@@ -149,6 +211,8 @@ function makeOperation(document, path, method, operation, pathParameters, transl
     description: localized(translation?.description ?? enDescription, enDescription),
     ...(requestMedia ? { contentType: requestMedia === operation.requestBody?.content?.["application/x-www-form-urlencoded"] ? "application/x-www-form-urlencoded" : "application/json" } : {}),
     parameters,
+    ...(requestBody ? { requestBody } : {}),
+    responses,
     ...(responseMedia?.example !== undefined
       ? { responseExample: responseMedia.example }
       : exampleFor(document, responseMedia?.schema) !== undefined

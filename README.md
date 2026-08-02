@@ -16,7 +16,7 @@ The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It st
 3. Run `node scripts/build-catalog.mjs`.
 4. Run `node scripts/verify-specs.mjs` before committing.
 
-`catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable API products, HTTP operations, and `components.schemas` data structures.
+`catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable product metadata, HTTP operations, parameters, request-body schema relationships, every response/status schema relationship, and `components.schemas` data structures. Hub search can therefore follow an endpoint's complete input/output metadata graph instead of matching isolated names only.
 
 ## Branches and deployment
 
