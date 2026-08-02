@@ -16,7 +16,7 @@
   ],
   "security": [
     {
-      "BearerAuth": []
+      "OAuth2": []
     }
   ],
   "paths": {
@@ -26,6 +26,7 @@
         "summary": "Get Task By Project ID And Task ID",
         "description": "Retrieve a specific task by its project ID and task ID",
         "operationId": "getTaskByProjectIdAndTaskId",
+        "security": [{ "OAuth2": ["tasks:read"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -73,6 +74,7 @@
         "summary": "Delete Task",
         "description": "Delete a specific task by its project ID and task ID",
         "operationId": "deleteTask",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -118,6 +120,7 @@
         "summary": "Create Task",
         "description": "Create a new task",
         "operationId": "createTask",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -160,6 +163,7 @@
         "summary": "Update Task",
         "description": "Update an existing task",
         "operationId": "updateTask",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "parameters": [
           {
             "name": "taskId",
@@ -213,6 +217,7 @@
         "summary": "Complete Task",
         "description": "Mark a task as completed",
         "operationId": "completeTask",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -258,6 +263,7 @@
         "summary": "Get User Project",
         "description": "Retrieve all projects for the authenticated user",
         "operationId": "getUserProjects",
+        "security": [{ "OAuth2": ["tasks:read"] }],
         "responses": {
           "200": {
             "description": "OK",
@@ -288,6 +294,7 @@
         "summary": "Create Project",
         "description": "Create a new project",
         "operationId": "createProject",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -330,6 +337,7 @@
         "summary": "Get Project By ID",
         "description": "Retrieve a specific project by its ID",
         "operationId": "getProjectById",
+        "security": [{ "OAuth2": ["tasks:read"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -368,6 +376,7 @@
         "summary": "Update Project",
         "description": "Update an existing project",
         "operationId": "updateProject",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -419,6 +428,7 @@
         "summary": "Delete Project",
         "description": "Delete a specific project by its ID",
         "operationId": "deleteProject",
+        "security": [{ "OAuth2": ["tasks:write"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -452,6 +462,7 @@
         "summary": "Get Project With Data",
         "description": "Retrieve a project with all its associated data including tasks and columns",
         "operationId": "getProjectWithData",
+        "security": [{ "OAuth2": ["tasks:read"] }],
         "parameters": [
           {
             "name": "projectId",
@@ -489,11 +500,19 @@
   },
   "components": {
     "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "description": "Enter your Bearer token in the format: Bearer {access_token}"
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "Dida365 OAuth 2.0 authorization code flow. API requests use the resulting access token as a Bearer token.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://dida365.com/oauth/authorize",
+            "tokenUrl": "https://dida365.com/oauth/token",
+            "scopes": {
+              "tasks:read": "Read tasks and projects",
+              "tasks:write": "Create, update, complete, and delete tasks and projects"
+            }
+          }
+        }
       }
     },
     "schemas": {

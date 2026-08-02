@@ -77,7 +77,7 @@
       "category": "Productivity",
       "featured": true,
       "specFile": "specs/dida365/openapi.json",
-      "approvedSha256": "8afe3e33c1607a50654308abbb65274528a8ce3bbcc7de64ad8d5aa1a5868651",
+      "approvedSha256": "50ab5f3289df37ea9bd2d61dafa1ee73bb9a629c8deee37c4be397222e3bdf64",
       "license": "Proprietary",
       "attributionUrl": "https://dida365.com/",
       "accent": "#1dbf73",
@@ -103,12 +103,12 @@
       },
       "auth": [
         {
-          "id": "BearerAuth",
-          "type": "bearer",
+          "id": "OAuth2",
+          "type": "oauth2",
           "envVar": "DIDA365_ACCESS_TOKEN",
           "description": {
-            "zh": "Dida365 访问令牌。请只在自己的会话中输入。",
-            "en": "Dida365 access token. Enter it only in your own session."
+            "zh": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
+            "en": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session."
           }
         }
       ],
