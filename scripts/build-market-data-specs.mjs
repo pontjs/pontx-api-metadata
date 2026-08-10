@@ -171,7 +171,7 @@ const operationRouting = {
   },
   "cnbc-market-data": {
     getRestQuotes: { url: "https://quote.cnbc.com", headers: { Referer: "https://www.cnbc.com/" } },
-    getQuoteChartData: { url: "https://webql-redesign.cnbcfm.com", headers: { Referer: "https://www.cnbc.com/", partner: "cnbc01" } }
+    getQuoteChartData: { url: "https://webql-redesign.cnbcfm.com", headers: { Referer: "https://www.cnbc.com/", partner: "cnbc01", "Content-Type": "application/json" } }
   },
   "i3investor-sgx": {
     getSgxStockPage: { url: "https://sgx.i3investor.com", headers: { "User-Agent": "fi-api/1.0" } },
@@ -189,7 +189,8 @@ const proxyDisabledOperations = {
     downloadHistoricalQuotes: { zh: "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。", en: "Stooq currently requires JavaScript browser verification, which Hub does not bypass." }
   },
   "eastmoney-funds": {
-    getFundEstimate: { zh: "该地址当前返回东方财富的页面不存在 HTML，已停止代理执行。", en: "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled." }
+    getFundEstimate: { zh: "该地址当前返回东方财富的页面不存在 HTML，已停止代理执行。", en: "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled." },
+    getMarketIndexList: { zh: "该接口在官网浏览器中可用，但服务端请求会重定向；Hub 不跟随供应商重定向。", en: "This endpoint works in the provider browser page but redirects server requests; Hub does not follow provider redirects." }
   }
 };
 

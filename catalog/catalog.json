@@ -5548,7 +5548,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "1863c6626a0ceeba9a01f1cbbc4ab25b90374be4813a40a5c71837b6b2fccb94",
+      "approvedSha256": "92bc1fd1e3e7d8a48be4179591f0cc50edeb19a4cb8f0fa232a963ae75f89abf",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -5982,7 +5982,11 @@
           "proxyHeaders": {
             "Referer": "https://fundf10.eastmoney.com/"
           },
-          "proxyEnabled": true,
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "该接口在官网浏览器中可用，但服务端请求会重定向；Hub 不跟随供应商重定向。",
+            "en": "This endpoint works in the provider browser page but redirects server requests; Hub does not follow provider redirects."
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -6016,7 +6020,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/cnbc-market-data/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://www.cnbc.com/quotes/",
-      "approvedSha256": "4bd0d4a327a34a8a3e41a0b29840001fe2fd6c78b5ada36416ce429a0d58429e",
+      "approvedSha256": "a52ba788df6dc5d3f276898425dd067f09d8eb1d90769779a26e457860411436",
       "title": {
         "zh": "CNBC 网页行情 API",
         "en": "CNBC web quote API"
@@ -6246,7 +6250,8 @@
           ],
           "proxyHeaders": {
             "Referer": "https://www.cnbc.com/",
-            "partner": "cnbc01"
+            "partner": "cnbc01",
+            "Content-Type": "application/json"
           },
           "proxyEnabled": true,
           "documentationStatus": "observed",

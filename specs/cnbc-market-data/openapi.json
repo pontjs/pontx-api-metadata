@@ -215,7 +215,8 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://www.cnbc.com/",
-          "partner": "cnbc01"
+          "partner": "cnbc01",
+          "Content-Type": "application/json"
         }
       }
     }

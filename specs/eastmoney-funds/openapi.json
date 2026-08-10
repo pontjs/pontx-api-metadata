@@ -426,6 +426,11 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://fundf10.eastmoney.com/"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "该接口在官网浏览器中可用，但服务端请求会重定向；Hub 不跟随供应商重定向。",
+          "en": "This endpoint works in the provider browser page but redirects server requests; Hub does not follow provider redirects."
         }
       }
     }
