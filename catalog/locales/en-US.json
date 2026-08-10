@@ -10,6 +10,14 @@
         "description": "Frankfurter v1 public API"
       }
     },
+    "frankfurter-v2": {
+      "title": "Frankfurter v2 exchange-rate API",
+      "summary": "Query rates from 84 central banks across 201 currencies back to 1948 without an API key, with provider filtering and attribution, time-series downsampling, and streaming output.",
+      "stabilityNote": "Read-only public API without authentication. v2 blends multiple central-bank sources; compliance use cases should pin the required official source with the providers parameter.",
+      "server": {
+        "description": "Frankfurter v2 public API"
+      }
+    },
     "dida365": {
       "title": "Dida365 Open API",
       "summary": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins.",

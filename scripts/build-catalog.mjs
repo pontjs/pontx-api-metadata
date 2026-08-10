@@ -149,6 +149,37 @@ function pickMedia(content) {
   return content["application/json"] ?? Object.values(content)[0];
 }
 
+const parameterSchemaKeywords = [
+  "default",
+  "const",
+  "multipleOf",
+  "minimum",
+  "maximum",
+  "exclusiveMinimum",
+  "exclusiveMaximum",
+  "minLength",
+  "maxLength",
+  "pattern",
+  "minItems",
+  "maxItems",
+  "uniqueItems",
+  "minProperties",
+  "maxProperties",
+  "nullable",
+  "readOnly",
+  "writeOnly",
+  "deprecated",
+  "examples"
+];
+
+function parameterSchemaMetadata(schema) {
+  return Object.fromEntries(
+    parameterSchemaKeywords
+      .filter((keyword) => schema[keyword] !== undefined)
+      .map((keyword) => [keyword, schema[keyword]])
+  );
+}
+
 function makeOperation(document, englishDocument, path, method, operation, englishOperation, pathParameters, englishPathParameters, serverIdByUrl) {
   const operationId = operation.operationId || `${method}-${path}`;
   const zhTitle = operation.summary || operationId;
@@ -170,12 +201,17 @@ function makeOperation(document, englishDocument, path, method, operation, engli
       ...(schema.format ? { format: schema.format } : {}),
       ...(schemaName(schema) ? { schemaName: schemaName(schema) } : {}),
       ...(schema.enum?.length ? { enum: schema.enum } : {}),
+      ...parameterSchemaMetadata(schema),
       ...(parameter.description
         ? { description: localized(parameter.description, englishParameter.description) }
         : {}),
-      ...(exampleFor(document, schema) !== undefined
-        ? { example: exampleFor(document, schema) }
-        : {})
+      ...(parameter.example !== undefined
+        ? { example: parameter.example }
+        : schema.example !== undefined
+          ? { example: schema.example }
+          : schema.examples?.length
+            ? { example: schema.examples[0] }
+            : {})
     };
   });
   const requestMedia = pickMedia(operation.requestBody?.content);

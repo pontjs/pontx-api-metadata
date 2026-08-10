@@ -68,6 +68,9 @@
               "in": "query",
               "type": "number",
               "format": "double",
+              "default": 1,
+              "minimum": 0,
+              "exclusiveMinimum": true,
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
@@ -110,6 +113,8 @@
                 "USD",
                 "ZAR"
               ],
+              "default": "EUR",
+              "pattern": "^[A-Z]{3}$",
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
@@ -120,6 +125,7 @@
               "name": "symbols",
               "in": "query",
               "type": "string",
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
               "description": {
                 "zh": "以逗号分隔的货币代码列表，用于限制响应范围。\n如未指定，则返回所有可用货币。\n",
                 "en": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned.\n"
@@ -219,6 +225,7 @@
               "required": true,
               "type": "string",
               "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
               "description": {
                 "zh": "ISO 8601 格式的日期（YYYY-MM-DD）",
                 "en": "Date in ISO 8601 format (YYYY-MM-DD)"
@@ -230,11 +237,13 @@
               "in": "query",
               "type": "number",
               "format": "double",
+              "default": 1,
+              "minimum": 0,
+              "exclusiveMinimum": true,
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              },
-              "example": 1
+              }
             },
             {
               "name": "base",
@@ -272,16 +281,18 @@
                 "USD",
                 "ZAR"
               ],
+              "default": "EUR",
+              "pattern": "^[A-Z]{3}$",
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              },
-              "example": "EUR"
+              }
             },
             {
               "name": "symbols",
               "in": "query",
               "type": "string",
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
               "description": {
                 "zh": "以逗号分隔的货币代码列表，用于限制响应范围",
                 "en": "Comma-separated list of currency codes to limit the response"
@@ -380,6 +391,7 @@
               "required": true,
               "type": "string",
               "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
               "description": {
                 "zh": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
                 "en": "Start date in ISO 8601 format (YYYY-MM-DD)"
@@ -391,26 +403,30 @@
               "in": "query",
               "type": "number",
               "format": "double",
+              "default": 1,
+              "minimum": 0,
+              "exclusiveMinimum": true,
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              },
-              "example": 1
+              }
             },
             {
               "name": "base",
               "in": "query",
               "type": "string",
+              "default": "EUR",
+              "pattern": "^[A-Z]{3}$",
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              },
-              "example": "EUR"
+              }
             },
             {
               "name": "symbols",
               "in": "query",
               "type": "string",
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
               "description": {
                 "zh": "以逗号分隔的货币代码列表，用于限制响应范围",
                 "en": "Comma-separated list of currency codes to limit the response"
@@ -515,6 +531,7 @@
               "required": true,
               "type": "string",
               "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
               "description": {
                 "zh": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
                 "en": "Start date in ISO 8601 format (YYYY-MM-DD)"
@@ -527,6 +544,7 @@
               "required": true,
               "type": "string",
               "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
               "description": {
                 "zh": "ISO 8601 格式的结束日期（YYYY-MM-DD）。\n可使用 \"start_date..\" 格式省略结束日期，以获取从 start_date 起的所有汇率。\n",
                 "en": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n"
@@ -538,11 +556,13 @@
               "in": "query",
               "type": "number",
               "format": "double",
+              "default": 1,
+              "minimum": 0,
+              "exclusiveMinimum": true,
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              },
-              "example": 1
+              }
             },
             {
               "name": "base",
@@ -580,16 +600,18 @@
                 "USD",
                 "ZAR"
               ],
+              "default": "EUR",
+              "pattern": "^[A-Z]{3}$",
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              },
-              "example": "EUR"
+              }
             },
             {
               "name": "symbols",
               "in": "query",
               "type": "string",
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
               "description": {
                 "zh": "以逗号分隔的货币代码列表，用于限制响应范围",
                 "en": "Comma-separated list of currency codes to limit the response"
@@ -1166,6 +1188,1400 @@
                   "example": "not found"
                 }
               }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slug": "frankfurter-v2",
+      "name": "Frankfurter API v2",
+      "provider": "Frankfurter",
+      "category": "Finance",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
+      "license": "MIT",
+      "attributionUrl": "https://frankfurter.dev/",
+      "approvedSha256": "2da7836be49d7419005b51bed9edc40ab5a4fa65d3016cce9760110e3f27f187",
+      "title": {
+        "zh": "Frankfurter v2 汇率 API",
+        "en": "Frankfurter v2 exchange-rate API"
+      },
+      "summary": {
+        "zh": "无需 API Key 查询 84 家中央银行、201 种货币及 1948 年以来的汇率，支持数据源过滤与归因、时间序列降采样和流式输出。",
+        "en": "Query rates from 84 central banks across 201 currencies back to 1948 without an API key, with provider filtering and attribution, time-series downsampling, and streaming output."
+      },
+      "accent": "#16a085",
+      "packageName": "@pontx/api-frankfurter-v2",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "cliName": "currency-v2",
+      "proxyEnabled": true,
+      "documentationStatus": "official",
+      "evidenceUrls": [
+        "https://frankfurter.dev/",
+        "https://api.frankfurter.dev/v2/openapi.json",
+        "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "无需鉴权的只读公共 API。v2 聚合多个中央银行数据源；合规场景应使用 providers 参数固定到所需的官方提供方。",
+        "en": "Read-only public API without authentication. v2 blends multiple central-bank sources; compliance use cases should pin the required official source with the providers parameter."
+      },
+      "servers": [
+        {
+          "id": "default",
+          "url": "https://api.frankfurter.dev/v2",
+          "description": {
+            "zh": "Frankfurter v2 公共 API",
+            "en": "Frankfurter v2 public API"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-rates",
+          "operationId": "getRates",
+          "tag": "default",
+          "method": "GET",
+          "path": "/rates",
+          "title": {
+            "zh": "获取汇率",
+            "en": "Get exchange rates"
+          },
+          "description": {
+            "zh": "返回跨数据提供方混合计算的汇率。不传日期参数时返回最新汇率，每条记录代表一个货币对。响应包含基准货币自身的恒等记录（base 与 quote 相同、rate 为 1），且与其他记录一样受 quotes 过滤。接口支持任意长度的日粒度日期区间及完整历史。限制：使用 `providers` 或 `expand=providers` 时会逐日重新计算混合值，日粒度超过 5 年的区间将返回 422；若 `providers` 最多指定 5 个提供方且 `quotes` 最多指定 5 种货币，则不受此限制。不指定 `providers` 时，`expand=providers` 会忽略 `quotes` 对计算量的缩减，因此应使用 `group=week` 或 `group=month` 聚合、指定 `providers`，或拆分日期区间。",
+            "en": "Returns exchange rates blended across providers. Without date params, returns the latest rates. Each record is a single currency pair. The response includes an identity record for the base currency (base equals quote, rate 1), subject to the quotes filter like any other record. Daily date ranges of any length are served, including full history. Limit: requests using `providers` or `expand=providers` recompute the blend per date, so at daily granularity they return 422 for ranges longer than 5 years. With `providers` naming at most 5 providers, a `quotes` list of at most 5 currencies lifts the cap; without `providers`, `expand=providers` ranges compute every currency regardless of `quotes`, so aggregate with `group=week` or `group=month`, add `providers`, or split the range into shorter requests."
+          },
+          "parameters": [
+            {
+              "name": "date",
+              "in": "query",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "指定日期（YYYY-MM-DD），不能与 from/to 同时使用。",
+                "en": "Specific date (YYYY-MM-DD). Cannot be combined with from/to."
+              },
+              "example": "2024-01-15"
+            },
+            {
+              "name": "from",
+              "in": "query",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "日期区间起点（YYYY-MM-DD）",
+                "en": "Start of date range (YYYY-MM-DD)"
+              },
+              "example": "2024-01-01"
+            },
+            {
+              "name": "to",
+              "in": "query",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "日期区间终点（YYYY-MM-DD），默认为今天。",
+                "en": "End of date range (YYYY-MM-DD). Defaults to today."
+              },
+              "example": "2024-01-31"
+            },
+            {
+              "name": "base",
+              "in": "query",
+              "type": "string",
+              "default": "EUR",
+              "description": {
+                "zh": "基准货币，默认为 EUR",
+                "en": "Base currency (default: EUR)"
+              },
+              "example": "USD"
+            },
+            {
+              "name": "quotes",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "要包含的计价货币代码，以逗号分隔",
+                "en": "Comma-separated list of quote currencies to include"
+              },
+              "example": "USD,GBP,JPY"
+            },
+            {
+              "name": "providers",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "要包含的数据提供方代码，以逗号分隔",
+                "en": "Comma-separated list of data providers to include"
+              },
+              "example": "ECB,TCMB"
+            },
+            {
+              "name": "group",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "week",
+                "month"
+              ],
+              "description": {
+                "zh": "按时间周期对汇率降采样，仅适用于日期区间。",
+                "en": "Downsample rates by time period. Only applies to date ranges."
+              },
+              "example": "month"
+            },
+            {
+              "name": "expand",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "providers"
+              ],
+              "description": {
+                "zh": "每条记录要展开的可选字段，以逗号分隔。目前支持 `providers`：为每条记录增加 `{ key, date, rate }` 对象数组，展示各提供方的观测日期与汇率。因共识过滤被判为异常值，或因货币锚定关系而被覆盖的提供方，会标记 `excluded: true`。若锚定货币记录由系统合成且没有提供方直接发布该计价货币，则省略此字段。CSV 输出中，`providers` 列使用 `|` 连接 `KEY:RATE`，被排除的条目末尾附加 `*`（例如 `ECB:0.92|FED:1.50*`）。",
+                "en": "Comma-separated list of optional fields to include per record. Currently supports `providers`, which adds an array of `{ key, date, rate }` objects per record showing each provider's individual observation date and rate. Outliers excluded from the blend (and providers whose rate was overridden by a currency peg) are flagged with `excluded: true`. The field is omitted on synthesized peg rows where no provider published the quote. In CSV output, the `providers` column is encoded as `KEY:RATE` pairs joined by `|`, with a trailing `*` on excluded entries (e.g. `ECB:0.92|FED:1.50*`)."
+              },
+              "example": "providers"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "汇率列表",
+                "en": "Exchange rates"
+              },
+              "contentTypes": [
+                "application/json",
+                "application/x-ndjson"
+              ],
+              "schemaType": "array",
+              "schemaName": "Rate",
+              "properties": [
+                "date",
+                "base",
+                "quote",
+                "rate",
+                "providers"
+              ]
+            },
+            {
+              "status": "404"
+            },
+            {
+              "status": "422"
+            },
+            {
+              "status": "503"
+            }
+          ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
+          "proxyEnabled": true,
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "responseExample": [
+            {
+              "date": "2024-01-15",
+              "base": "EUR",
+              "quote": "EUR",
+              "rate": 1
+            },
+            {
+              "date": "2024-01-15",
+              "base": "EUR",
+              "quote": "GBP",
+              "rate": 0.8623
+            },
+            {
+              "date": "2024-01-15",
+              "base": "EUR",
+              "quote": "USD",
+              "rate": 1.089
+            }
+          ]
+        },
+        {
+          "slug": "get-rate",
+          "operationId": "getRate",
+          "tag": "default",
+          "method": "GET",
+          "path": "/rate/{base}/{quote}",
+          "title": {
+            "zh": "获取单一货币对汇率",
+            "en": "Get a single exchange rate pair"
+          },
+          "description": {
+            "zh": "返回单一货币对的混合汇率。不传日期参数时返回最新汇率；相同货币组成的货币对返回值为 1 的恒等汇率。",
+            "en": "Returns the blended exchange rate for a single currency pair. Without a date param, returns the latest rate. A same-currency pair returns the identity rate of 1."
+          },
+          "parameters": [
+            {
+              "name": "base",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "example": "EUR"
+            },
+            {
+              "name": "quote",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "example": "USD"
+            },
+            {
+              "name": "date",
+              "in": "query",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "指定日期（YYYY-MM-DD），不能与 from/to 同时使用。",
+                "en": "Specific date (YYYY-MM-DD). Cannot be combined with from/to."
+              },
+              "example": "2024-01-15"
+            },
+            {
+              "name": "providers",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "要包含的数据提供方代码，以逗号分隔",
+                "en": "Comma-separated list of data providers to include"
+              },
+              "example": "ECB,TCMB"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "单一货币对汇率",
+                "en": "Exchange rate"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "Rate",
+              "properties": [
+                "date",
+                "base",
+                "quote",
+                "rate",
+                "providers"
+              ]
+            },
+            {
+              "status": "404"
+            },
+            {
+              "status": "422"
+            },
+            {
+              "status": "503"
+            }
+          ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
+          "proxyEnabled": true,
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "responseExample": {
+            "date": "2026-03-25",
+            "base": "EUR",
+            "quote": "USD",
+            "rate": 1.1568
+          }
+        },
+        {
+          "slug": "get-currency",
+          "operationId": "getCurrency",
+          "tag": "default",
+          "method": "GET",
+          "path": "/currency/{code}",
+          "title": {
+            "zh": "获取单一货币详情",
+            "en": "Get a single currency"
+          },
+          "description": {
+            "zh": "返回单一货币的详情，包括数据提供方信息或锚定汇率元数据。",
+            "en": "Returns details for a single currency, including provider information or peg metadata."
+          },
+          "parameters": [
+            {
+              "name": "code",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "example": "USD"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "货币详情",
+                "en": "Currency details"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "schemaName": "CurrencyDetail",
+              "properties": [
+                "iso_code",
+                "iso_numeric",
+                "name",
+                "symbol",
+                "providers",
+                "peg"
+              ]
+            },
+            {
+              "status": "404"
+            }
+          ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
+          "proxyEnabled": true,
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "responseExample": {
+            "iso_code": "USD",
+            "iso_numeric": "840",
+            "name": "United States Dollar",
+            "symbol": "$",
+            "providers": [
+              "ECB",
+              "BOC",
+              "FED"
+            ]
+          }
+        },
+        {
+          "slug": "get-currencies",
+          "operationId": "getCurrencies",
+          "tag": "default",
+          "method": "GET",
+          "path": "/currencies",
+          "title": {
+            "zh": "获取可用货币列表",
+            "en": "Get available currencies"
+          },
+          "description": {
+            "zh": "返回可用货币及其名称和数据日期范围。默认仅包含仍在使用的货币。",
+            "en": "Returns available currencies with their names and date ranges. By default, only active currencies are included."
+          },
+          "parameters": [
+            {
+              "name": "scope",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "all"
+              ],
+              "description": {
+                "zh": "设为 'all' 时包含已停用的历史货币",
+                "en": "Set to 'all' to include legacy currencies"
+              }
+            },
+            {
+              "name": "providers",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "要包含的数据提供方代码，以逗号分隔",
+                "en": "Comma-separated list of data providers to include"
+              },
+              "example": "ECB,TCMB"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "可用货币列表",
+                "en": "Available currencies"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "array",
+              "schemaName": "Currency",
+              "properties": [
+                "iso_code",
+                "iso_numeric",
+                "name",
+                "symbol",
+                "start_date",
+                "end_date"
+              ]
+            }
+          ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
+          "proxyEnabled": true,
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "responseExample": [
+            {
+              "iso_code": "EUR",
+              "iso_numeric": "978",
+              "name": "Euro",
+              "symbol": "€",
+              "start_date": "1999-01-04",
+              "end_date": "2026-03-17"
+            },
+            {
+              "iso_code": "USD",
+              "iso_numeric": "840",
+              "name": "United States Dollar",
+              "symbol": "$",
+              "start_date": "1999-01-04",
+              "end_date": "2026-03-17"
+            }
+          ]
+        },
+        {
+          "slug": "get-providers",
+          "operationId": "getProviders",
+          "tag": "default",
+          "method": "GET",
+          "path": "/providers",
+          "title": {
+            "zh": "获取可用数据提供方",
+            "en": "Get available data providers"
+          },
+          "description": {
+            "zh": "返回可用的汇率数据提供方及其基准货币。",
+            "en": "Returns available exchange rate data providers with their base currency."
+          },
+          "parameters": [],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "可用数据提供方列表",
+                "en": "Available providers"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "array",
+              "schemaName": "Provider",
+              "properties": [
+                "key",
+                "name",
+                "country_code",
+                "rate_type",
+                "pivot_currency",
+                "data_url",
+                "terms_url",
+                "start_date",
+                "end_date",
+                "publish_cadence",
+                "publishes_missed",
+                "currencies"
+              ]
+            }
+          ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
+          "proxyEnabled": true,
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "responseExample": [
+            {
+              "key": "ECB",
+              "name": "European Central Bank",
+              "country_code": "EU",
+              "rate_type": "reference",
+              "pivot_currency": "EUR",
+              "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+              "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+              "start_date": "1999-01-04",
+              "end_date": "2026-03-17",
+              "currencies": [
+                "USD",
+                "GBP"
+              ]
+            }
+          ]
+        }
+      ],
+      "schemas": [
+        {
+          "name": "Rate",
+          "title": {
+            "zh": "Rate",
+            "en": "Rate"
+          },
+          "description": {
+            "zh": "Rate 数据结构",
+            "en": "Rate data structure"
+          },
+          "type": "object",
+          "required": [
+            "date",
+            "base",
+            "quote",
+            "rate"
+          ],
+          "properties": [
+            {
+              "name": "date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "汇率日期",
+                "en": "The date of the rate"
+              },
+              "required": true
+            },
+            {
+              "name": "base",
+              "type": "string",
+              "description": {
+                "zh": "基准货币代码",
+                "en": "Base currency code"
+              },
+              "required": true
+            },
+            {
+              "name": "quote",
+              "type": "string",
+              "description": {
+                "zh": "计价货币代码",
+                "en": "Quote currency code"
+              },
+              "required": true
+            },
+            {
+              "name": "rate",
+              "type": "number",
+              "description": {
+                "zh": "汇率数值",
+                "en": "Exchange rate value"
+              },
+              "required": true
+            },
+            {
+              "name": "providers",
+              "type": "array",
+              "description": {
+                "zh": "该货币对按提供方拆分的汇率，仅在设置 `expand=providers` 时出现。每项包含提供方的观测日期，以及换算到当前记录基准货币后的发布汇率。标记 `excluded: true` 的条目未参与混合 `rate`，原因可能是被共识过滤判为异常值，或被货币锚定关系覆盖。若锚定货币记录由系统合成且没有提供方直接发布该计价货币，则省略此字段。",
+                "en": "Per-provider rates for this pair. Present only when `expand=providers` is set. Each entry has the provider's observation date and published rate (rebased to the row's base). Entries with `excluded: true` did not contribute to the blended `rate` — either flagged as outliers by the consensus filter, or overridden by a currency peg. Omitted on synthesized peg rows where no provider published the quote."
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "The date of the rate"
+              },
+              "base": {
+                "type": "string",
+                "description": "Base currency code"
+              },
+              "quote": {
+                "type": "string",
+                "description": "Quote currency code"
+              },
+              "rate": {
+                "type": "number",
+                "description": "Exchange rate value",
+                "exclusiveMinimum": 0
+              },
+              "providers": {
+                "type": "array",
+                "description": "Per-provider rates for this pair. Present only when `expand=providers` is set. Each entry has the provider's observation date and published rate (rebased to the row's base). Entries with `excluded: true` did not contribute to the blended `rate` — either flagged as outliers by the consensus filter, or overridden by a currency peg. Omitted on synthesized peg rows where no provider published the quote.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "Provider key"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Provider observation date used for this entry"
+                    },
+                    "rate": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "description": "Provider's rate, rebased to the row's base"
+                    },
+                    "excluded": {
+                      "type": "boolean",
+                      "description": "Present and true when this entry did not contribute to the blended rate"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "date",
+                    "rate"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "date",
+              "base",
+              "quote",
+              "rate"
+            ]
+          },
+          "localizedSchema": {
+            "zh": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "汇率日期"
+                },
+                "base": {
+                  "type": "string",
+                  "description": "基准货币代码"
+                },
+                "quote": {
+                  "type": "string",
+                  "description": "计价货币代码"
+                },
+                "rate": {
+                  "type": "number",
+                  "description": "汇率数值",
+                  "exclusiveMinimum": 0
+                },
+                "providers": {
+                  "type": "array",
+                  "description": "该货币对按提供方拆分的汇率，仅在设置 `expand=providers` 时出现。每项包含提供方的观测日期，以及换算到当前记录基准货币后的发布汇率。标记 `excluded: true` 的条目未参与混合 `rate`，原因可能是被共识过滤判为异常值，或被货币锚定关系覆盖。若锚定货币记录由系统合成且没有提供方直接发布该计价货币，则省略此字段。",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "description": "数据提供方代码"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "此条目采用的提供方观测日期"
+                      },
+                      "rate": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "description": "提供方汇率，已换算到当前记录的基准货币"
+                      },
+                      "excluded": {
+                        "type": "boolean",
+                        "description": "此条目未参与混合汇率时出现且值为 true"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "date",
+                      "rate"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "date",
+                "base",
+                "quote",
+                "rate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Currency",
+          "title": {
+            "zh": "Currency",
+            "en": "Currency"
+          },
+          "description": {
+            "zh": "Currency 数据结构",
+            "en": "Currency data structure"
+          },
+          "type": "object",
+          "required": [
+            "iso_code",
+            "name"
+          ],
+          "properties": [
+            {
+              "name": "iso_code",
+              "type": "string",
+              "description": {
+                "zh": "ISO 4217 货币代码",
+                "en": "ISO 4217 currency code"
+              },
+              "required": true
+            },
+            {
+              "name": "iso_numeric",
+              "type": "string",
+              "description": {
+                "zh": "ISO 4217 数字代码",
+                "en": "ISO 4217 numeric code"
+              }
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "货币完整名称",
+                "en": "Full currency name"
+              },
+              "required": true
+            },
+            {
+              "name": "symbol",
+              "type": "string",
+              "description": {
+                "zh": "货币符号",
+                "en": "Currency symbol"
+              }
+            },
+            {
+              "name": "start_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "最早可用日期",
+                "en": "Earliest available date"
+              }
+            },
+            {
+              "name": "end_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "最新可用日期",
+                "en": "Latest available date"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "properties": {
+              "iso_code": {
+                "type": "string",
+                "description": "ISO 4217 currency code"
+              },
+              "iso_numeric": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "ISO 4217 numeric code"
+              },
+              "name": {
+                "type": "string",
+                "description": "Full currency name"
+              },
+              "symbol": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Currency symbol"
+              },
+              "start_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date",
+                "description": "Earliest available date"
+              },
+              "end_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date",
+                "description": "Latest available date"
+              }
+            },
+            "required": [
+              "iso_code",
+              "name"
+            ]
+          },
+          "localizedSchema": {
+            "zh": {
+              "type": "object",
+              "properties": {
+                "iso_code": {
+                  "type": "string",
+                  "description": "ISO 4217 货币代码"
+                },
+                "iso_numeric": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "ISO 4217 数字代码"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "货币完整名称"
+                },
+                "symbol": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "货币符号"
+                },
+                "start_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date",
+                  "description": "最早可用日期"
+                },
+                "end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date",
+                  "description": "最新可用日期"
+                }
+              },
+              "required": [
+                "iso_code",
+                "name"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CurrencyDetail",
+          "title": {
+            "zh": "CurrencyDetail",
+            "en": "CurrencyDetail"
+          },
+          "description": {
+            "zh": "CurrencyDetail 数据结构",
+            "en": "CurrencyDetail data structure"
+          },
+          "type": "object",
+          "required": [
+            "iso_code",
+            "name"
+          ],
+          "properties": [
+            {
+              "name": "iso_code",
+              "type": "string",
+              "description": {
+                "zh": "ISO 4217 货币代码",
+                "en": "ISO 4217 currency code"
+              },
+              "required": true
+            },
+            {
+              "name": "iso_numeric",
+              "type": "string",
+              "description": {
+                "zh": "ISO 4217 数字代码",
+                "en": "ISO 4217 numeric code"
+              }
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "货币完整名称",
+                "en": "Full currency name"
+              },
+              "required": true
+            },
+            {
+              "name": "symbol",
+              "type": "string",
+              "description": {
+                "zh": "货币符号",
+                "en": "Currency symbol"
+              }
+            },
+            {
+              "name": "providers",
+              "type": "array",
+              "description": {
+                "zh": "发布此货币汇率的数据提供方代码",
+                "en": "Provider keys that publish this currency"
+              }
+            },
+            {
+              "name": "peg",
+              "type": "object",
+              "description": {
+                "zh": "锚定汇率元数据，仅锚定货币包含此字段",
+                "en": "Peg metadata, present only for pegged currencies"
+              }
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "properties": {
+              "iso_code": {
+                "type": "string",
+                "description": "ISO 4217 currency code"
+              },
+              "iso_numeric": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "ISO 4217 numeric code"
+              },
+              "name": {
+                "type": "string",
+                "description": "Full currency name"
+              },
+              "symbol": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Currency symbol"
+              },
+              "providers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Provider keys that publish this currency"
+              },
+              "peg": {
+                "type": "object",
+                "properties": {
+                  "base": {
+                    "type": "string"
+                  },
+                  "rate": {
+                    "type": "number"
+                  },
+                  "authority": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "description": "Peg metadata, present only for pegged currencies"
+              }
+            },
+            "required": [
+              "iso_code",
+              "name"
+            ]
+          },
+          "localizedSchema": {
+            "zh": {
+              "type": "object",
+              "properties": {
+                "iso_code": {
+                  "type": "string",
+                  "description": "ISO 4217 货币代码"
+                },
+                "iso_numeric": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "ISO 4217 数字代码"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "货币完整名称"
+                },
+                "symbol": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "货币符号"
+                },
+                "providers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "发布此货币汇率的数据提供方代码"
+                },
+                "peg": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "string"
+                    },
+                    "rate": {
+                      "type": "number"
+                    },
+                    "authority": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  },
+                  "description": "锚定汇率元数据，仅锚定货币包含此字段"
+                }
+              },
+              "required": [
+                "iso_code",
+                "name"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Provider",
+          "title": {
+            "zh": "Provider",
+            "en": "Provider"
+          },
+          "description": {
+            "zh": "Provider 数据结构",
+            "en": "Provider data structure"
+          },
+          "type": "object",
+          "required": [
+            "key",
+            "name",
+            "currencies"
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "description": {
+                "zh": "数据提供方标识",
+                "en": "Provider identifier"
+              },
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": {
+                "zh": "数据提供方完整名称",
+                "en": "Full provider name"
+              },
+              "required": true
+            },
+            {
+              "name": "country_code",
+              "type": "string",
+              "description": {
+                "zh": "ISO 3166-1 alpha-2 国家或地区代码",
+                "en": "ISO 3166-1 alpha-2 country code"
+              }
+            },
+            {
+              "name": "rate_type",
+              "type": "string",
+              "description": {
+                "zh": "数据源采用的官方汇率类型",
+                "en": "Official rate type as used by the source"
+              }
+            },
+            {
+              "name": "pivot_currency",
+              "type": "string",
+              "description": {
+                "zh": "提供方发布汇率时采用的基准货币",
+                "en": "Base currency for published rates"
+              }
+            },
+            {
+              "name": "data_url",
+              "type": "string",
+              "format": "uri",
+              "description": {
+                "zh": "原始数据源链接",
+                "en": "Link to the data source"
+              }
+            },
+            {
+              "name": "terms_url",
+              "type": "string",
+              "format": "uri",
+              "description": {
+                "zh": "使用条款链接",
+                "en": "Link to terms of use"
+              }
+            },
+            {
+              "name": "start_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "最早可用日期",
+                "en": "Earliest available date"
+              }
+            },
+            {
+              "name": "end_date",
+              "type": "string",
+              "format": "date",
+              "description": {
+                "zh": "最新可用日期",
+                "en": "Latest available date"
+              }
+            },
+            {
+              "name": "publish_cadence",
+              "type": "string",
+              "description": {
+                "zh": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。",
+                "en": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
+              }
+            },
+            {
+              "name": "publishes_missed",
+              "type": "string",
+              "description": {
+                "zh": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。",
+                "en": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data."
+              }
+            },
+            {
+              "name": "currencies",
+              "type": "array",
+              "description": {
+                "zh": "此提供方覆盖的货币代码",
+                "en": "Currency codes covered by this provider"
+              },
+              "required": true
+            }
+          ],
+          "schema": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "Provider identifier"
+              },
+              "name": {
+                "type": "string",
+                "description": "Full provider name"
+              },
+              "country_code": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "ISO 3166-1 alpha-2 country code"
+              },
+              "rate_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Official rate type as used by the source"
+              },
+              "pivot_currency": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Base currency for published rates"
+              },
+              "data_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri",
+                "description": "Link to the data source"
+              },
+              "terms_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri",
+                "description": "Link to terms of use"
+              },
+              "start_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date",
+                "description": "Earliest available date"
+              },
+              "end_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date",
+                "description": "Latest available date"
+              },
+              "publish_cadence": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "daily",
+                  "weekly",
+                  "monthly",
+                  null
+                ],
+                "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
+              },
+              "publishes_missed": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data."
+              },
+              "currencies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Currency codes covered by this provider"
+              }
+            },
+            "required": [
+              "key",
+              "name",
+              "currencies"
+            ]
+          },
+          "localizedSchema": {
+            "zh": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "数据提供方标识"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "数据提供方完整名称"
+                },
+                "country_code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "ISO 3166-1 alpha-2 国家或地区代码"
+                },
+                "rate_type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "数据源采用的官方汇率类型"
+                },
+                "pivot_currency": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "提供方发布汇率时采用的基准货币"
+                },
+                "data_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "uri",
+                  "description": "原始数据源链接"
+                },
+                "terms_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "uri",
+                  "description": "使用条款链接"
+                },
+                "start_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date",
+                  "description": "最早可用日期"
+                },
+                "end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date",
+                  "description": "最新可用日期"
+                },
+                "publish_cadence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "enum": [
+                    "daily",
+                    "weekly",
+                    "monthly",
+                    null
+                  ],
+                  "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。"
+                },
+                "publishes_missed": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。"
+                },
+                "currencies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "此提供方覆盖的货币代码"
+                }
+              },
+              "required": [
+                "key",
+                "name",
+                "currencies"
+              ]
             }
           }
         }
@@ -2229,7 +3645,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             },
             {
               "name": "taskId",
@@ -2239,7 +3656,8 @@
               "description": {
                 "zh": "任务 ID",
                 "en": "Task identifier"
-              }
+              },
+              "example": "63b7bebb91c0a5474805fcd4"
             }
           ],
           "responses": [
@@ -2334,7 +3752,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             },
             {
               "name": "taskId",
@@ -2344,7 +3763,8 @@
               "description": {
                 "zh": "任务 ID",
                 "en": "Task identifier"
-              }
+              },
+              "example": "63b7bebb91c0a5474805fcd4"
             },
             {
               "name": "body",
@@ -2461,7 +3881,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             },
             {
               "name": "taskId",
@@ -2471,7 +3892,8 @@
               "description": {
                 "zh": "任务 ID",
                 "en": "Task identifier"
-              }
+              },
+              "example": "63b7bebb91c0a5474805fcd4"
             },
             {
               "name": "id",
@@ -3529,7 +4951,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             }
           ],
           "responses": [
@@ -3618,7 +5041,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             },
             {
               "name": "body",
@@ -3732,7 +5156,8 @@
               "description": {
                 "zh": "项目 ID",
                 "en": "Project identifier"
-              }
+              },
+              "example": "6226ff9877acee87727f6bca"
             },
             {
               "name": "columnId",
@@ -4046,7 +5471,8 @@
               "description": {
                 "zh": "专注记录 ID",
                 "en": "Focus identifier"
-              }
+              },
+              "example": "focus-1"
             },
             {
               "name": "type",
@@ -4169,7 +5595,8 @@
               "description": {
                 "zh": "专注记录 ID",
                 "en": "Focus identifier"
-              }
+              },
+              "example": "focus-1"
             },
             {
               "name": "type",
@@ -4287,7 +5714,8 @@
               "description": {
                 "zh": "范围开始时间",
                 "en": "Range start time"
-              }
+              },
+              "example": "2026-04-01T00:00:00+0800"
             },
             {
               "name": "to",
@@ -4298,7 +5726,8 @@
               "description": {
                 "zh": "范围结束时间",
                 "en": "Range end time"
-              }
+              },
+              "example": "2026-04-02T00:00:00+0800"
             },
             {
               "name": "type",
@@ -4662,10 +6091,12 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "pattern": "^[^,]+(,[^,]+)*$",
               "description": {
                 "zh": "以逗号分隔的习惯 ID",
                 "en": "Comma-separated habit identifiers"
-              }
+              },
+              "example": "habit-1,habit-2"
             },
             {
               "name": "from",
@@ -4677,7 +6108,7 @@
                 "zh": "开始日期标记，格式为 YYYYMMDD",
                 "en": "Start date stamp in YYYYMMDD format"
               },
-              "example": 0
+              "example": 20260401
             },
             {
               "name": "to",
@@ -4689,7 +6120,7 @@
                 "zh": "结束日期标记，格式为 YYYYMMDD",
                 "en": "End date stamp in YYYYMMDD format"
               },
-              "example": 0
+              "example": 20260407
             }
           ],
           "responses": [
@@ -4952,7 +6383,8 @@
               "description": {
                 "zh": "习惯 ID",
                 "en": "Habit identifier"
-              }
+              },
+              "example": "habit-1"
             }
           ],
           "responses": [
@@ -5030,7 +6462,8 @@
               "description": {
                 "zh": "习惯 ID",
                 "en": "Habit identifier"
-              }
+              },
+              "example": "habit-1"
             },
             {
               "name": "body",
@@ -5134,7 +6567,8 @@
               "description": {
                 "zh": "习惯 ID",
                 "en": "Habit identifier"
-              }
+              },
+              "example": "habit-1"
             },
             {
               "name": "body",
@@ -10155,11 +11589,11 @@
               "name": "adjusted",
               "in": "query",
               "type": "boolean",
+              "default": true,
               "description": {
                 "zh": "返回按股票拆分复权后的结果",
                 "en": "Return split-adjusted results"
-              },
-              "example": true
+              }
             }
           ],
           "responses": [
@@ -10275,11 +11709,11 @@
               "in": "path",
               "required": true,
               "type": "integer",
+              "minimum": 1,
               "description": {
                 "zh": "时间跨度倍数",
                 "en": "Timespan multiplier"
-              },
-              "example": 0
+              }
             },
             {
               "name": "timespan",
@@ -10298,8 +11732,7 @@
               "description": {
                 "zh": "行情柱时间单位",
                 "en": "Bar unit"
-              },
-              "example": "minute"
+              }
             },
             {
               "name": "from",
@@ -10327,11 +11760,11 @@
               "name": "adjusted",
               "in": "query",
               "type": "boolean",
+              "default": true,
               "description": {
                 "zh": "结果是否按股票拆分进行复权。",
                 "en": "Whether results are adjusted for stock splits."
-              },
-              "example": true
+              }
             },
             {
               "name": "sort",
@@ -10341,21 +11774,23 @@
                 "asc",
                 "desc"
               ],
+              "default": "asc",
               "description": {
                 "zh": "按行情柱的起始时间戳排序。",
                 "en": "Order bars by their start timestamp."
-              },
-              "example": "asc"
+              }
             },
             {
               "name": "limit",
               "in": "query",
               "type": "integer",
+              "default": 5000,
+              "minimum": 1,
+              "maximum": 50000,
               "description": {
                 "zh": "为构建结果而查询的基础聚合记录的最大数量。",
                 "en": "Maximum number of base aggregates queried to construct results."
-              },
-              "example": 5000
+              }
             }
           ],
           "responses": [
@@ -10478,8 +11913,7 @@
               "description": {
                 "zh": "按资产类别筛选。",
                 "en": "Filter by asset class."
-              },
-              "example": "crypto"
+              }
             },
             {
               "name": "order",
@@ -10492,18 +11926,19 @@
               "description": {
                 "zh": "使用选定的排序字段对结果排序。",
                 "en": "Order results using the selected sort field."
-              },
-              "example": "asc"
+              }
             },
             {
               "name": "limit",
               "in": "query",
               "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 250,
               "description": {
                 "zh": "最大结果数量",
                 "en": "Maximum results"
-              },
-              "example": 10
+              }
             },
             {
               "name": "sort",
@@ -10515,8 +11950,7 @@
               "description": {
                 "zh": "用于结果排序的字段。",
                 "en": "Field used for result ordering."
-              },
-              "example": "ticker"
+              }
             }
           ],
           "responses": [
@@ -10636,8 +12070,7 @@
               "description": {
                 "zh": "市场筛选条件",
                 "en": "Market filter"
-              },
-              "example": "stocks"
+              }
             },
             {
               "name": "exchange",
@@ -10692,11 +12125,11 @@
               "name": "active",
               "in": "query",
               "type": "boolean",
+              "default": true,
               "description": {
                 "zh": "上市状态筛选条件",
                 "en": "Active-listing filter"
-              },
-              "example": true
+              }
             },
             {
               "name": "order",
@@ -10709,18 +12142,19 @@
               "description": {
                 "zh": "使用选定的排序字段对结果排序。",
                 "en": "Order results using the selected sort field."
-              },
-              "example": "asc"
+              }
             },
             {
               "name": "limit",
               "in": "query",
               "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000,
               "description": {
                 "zh": "每页结果的最大数量。",
                 "en": "Maximum number of results per page."
-              },
-              "example": 100
+              }
             },
             {
               "name": "sort",
@@ -10737,8 +12171,7 @@
               "description": {
                 "zh": "用于排序的字段。",
                 "en": "Field used for ordering."
-              },
-              "example": "ticker"
+              }
             }
           ],
           "responses": [
@@ -13631,6 +15064,7 @@
                 "ytd",
                 "max"
               ],
+              "default": "1mo",
               "description": {
                 "zh": "相对回溯范围。请勿与 `period1`/`period2` 同时发送。日内时间间隔的数据仅保留在有限的近期范围内；不支持的组合会返回 422。",
                 "en": "Relative lookback range. Do not send together with `period1`/`period2`. Intraday intervals are retained only for limited recent ranges; unsupported combinations return 422."
@@ -13656,6 +15090,7 @@
                 "1mo",
                 "3mo"
               ],
+              "default": "1d",
               "description": {
                 "zh": "采样间隔。可用性取决于时间范围和金融工具；Yahoo 可能拒绝时间过久的日内数据请求。",
                 "en": "Sampling interval. Availability depends on range and instrument; Yahoo may reject overly old intraday requests."
@@ -13688,6 +15123,7 @@
               "name": "includePrePost",
               "in": "query",
               "type": "boolean",
+              "default": false,
               "description": {
                 "zh": "包含盘前盘后时段",
                 "en": "Include extended hours"
@@ -13858,6 +15294,7 @@
               "name": "formatted",
               "in": "query",
               "type": "boolean",
+              "default": false,
               "description": {
                 "zh": "返回格式化后的值",
                 "en": "Return formatted values"
@@ -13979,6 +15416,7 @@
                 "ytd",
                 "max"
               ],
+              "default": "1d",
               "description": {
                 "zh": "请求的时间范围",
                 "en": "Requested range"
@@ -14004,6 +15442,7 @@
                 "1mo",
                 "3mo"
               ],
+              "default": "5m",
               "description": {
                 "zh": "K 线时间间隔",
                 "en": "Bar interval"
@@ -14222,6 +15661,7 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "minLength": 1,
               "description": {
                 "zh": "自由文本形式的公司名称、标的代码、基金名称、指数或其他证券查询。",
                 "en": "Free-text company name, symbol, fund name, index or other security query."
@@ -14232,6 +15672,8 @@
               "name": "quotesCount",
               "in": "query",
               "type": "integer",
+              "default": 6,
+              "minimum": 0,
               "description": {
                 "zh": "证券结果最大数量",
                 "en": "Maximum securities"
@@ -14242,6 +15684,8 @@
               "name": "newsCount",
               "in": "query",
               "type": "integer",
+              "default": 4,
+              "minimum": 0,
               "description": {
                 "zh": "新闻结果最大数量",
                 "en": "Maximum news results"
@@ -14896,11 +16340,11 @@
               "name": "h",
               "in": "query",
               "type": "boolean",
+              "default": false,
               "description": {
                 "zh": "用于请求 CSV 表头的存在即生效式旧版标志。历史 URL 通常包含独立的 `h`，而不是 `h=true`；通用 OpenAPI 客户端可能以不同方式序列化此布尔值。",
                 "en": "Presence-style legacy flag requesting a CSV header. Historical URLs commonly contain bare `h` rather than `h=true`; generic OpenAPI clients may serialize this boolean differently."
-              },
-              "example": false
+              }
             },
             {
               "name": "e",
@@ -14912,8 +16356,7 @@
               "description": {
                 "zh": "请求的输出格式。该 URL 仅有 CSV 格式的证据。",
                 "en": "Requested output format. Only CSV is evidenced for this URL."
-              },
-              "example": "csv"
+              }
             }
           ],
           "responses": [
@@ -14993,6 +16436,7 @@
               "name": "d1",
               "in": "query",
               "type": "string",
+              "pattern": "^[0-9]{8}$",
               "description": {
                 "zh": "以 `YYYYMMDD` 编码的闭区间开始日期（历史观察到的约定）。",
                 "en": "Inclusive start date encoded as `YYYYMMDD` (historically observed convention)."
@@ -15003,6 +16447,7 @@
               "name": "d2",
               "in": "query",
               "type": "string",
+              "pattern": "^[0-9]{8}$",
               "description": {
                 "zh": "以 `YYYYMMDD` 编码的闭区间结束日期（历史观察到的约定）。",
                 "en": "Inclusive end date encoded as `YYYYMMDD` (historically observed convention)."
@@ -15021,8 +16466,7 @@
               "description": {
                 "zh": "历史 K 线周期：日、周或月。",
                 "en": "Historical bar interval: daily, weekly, or monthly."
-              },
-              "example": "d"
+              }
             }
           ],
           "responses": [
@@ -15247,6 +16691,7 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "pattern": "^(sh|sz)[0-9]{6}(,(sh|sz)[0-9]{6})*$",
               "description": {
                 "zh": "以逗号分隔的新浪证券标识。观察到的 A 股前缀为 `sh`（上海）和 `sz`（深圳），后接六位数字；混合证券类型的批量请求可能具有不同的位置记录语义。",
                 "en": "Comma-separated Sina identifiers. Observed A-share prefixes are `sh` (Shanghai) and `sz` (Shenzhen), followed by six digits; mixed-instrument batches may have different positional record semantics."
@@ -15307,6 +16752,7 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "pattern": "^(sh|sz)[0-9]{6}$",
               "description": {
                 "zh": "带前缀的单个 A 股证券标识（`sh` 或 `sz` 后接六位数字）。",
                 "en": "Single prefixed A-share symbol (`sh` or `sz` plus six digits)."
@@ -15346,6 +16792,7 @@
               "name": "datalen",
               "in": "query",
               "type": "integer",
+              "minimum": 1,
               "description": {
                 "zh": "请求的最近 K 线最大数量。已观察到正整数取值；提供方可能施加未公开文档的上限。",
                 "en": "Requested maximum number of most-recent bars. Positive integers are observed; the provider may enforce an undocumented cap."
@@ -16237,10 +17684,12 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "pattern": "^[A-Za-z0-9_]+(?:,[A-Za-z0-9_]+)*$",
               "description": {
                 "zh": "以逗号分隔、带腾讯前缀的证券标识。观察到的前缀包括 `sh`（上海）、`sz`（深圳）、`hk`（香港）和 `us`（美国）；例如 `sh600519`、`sz000001`、`hk00700`、`usAAPL`。",
                 "en": "Comma-separated Tencent-prefixed security identifiers. Observed prefixes include `sh` (Shanghai), `sz` (Shenzhen), `hk` (Hong Kong) and `us` (US); examples: `sh600519`, `sz000001`, `hk00700`, `usAAPL`."
-              }
+              },
+              "example": "hk00700,sz000001"
             }
           ],
           "responses": [
@@ -16300,7 +17749,8 @@
               "description": {
                 "zh": "以逗号分隔的元组 `symbol,interval,start,end,count,adjustment`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`；已确认的复权值为 `qfq`（前复权）、`hfq`（后复权）和 `none`（不复权）。复权模式返回的序列键带有前缀（`qfqday`/`hfqday`），`none` 的序列键不带前缀（`day`）。",
                 "en": "Comma-delimited tuple `symbol,interval,start,end,count,adjustment`. Empty start/end segments request recent candles. Confirmed intervals are `day`, `week`, and `month`; confirmed adjustment values are `qfq` (forward adjusted), `hfq` (backward adjusted), and `none` (unadjusted). The returned series key is prefixed for adjusted modes (`qfqday`/`hfqday`) and unprefixed for `none` (`day`)."
-              }
+              },
+              "example": "hk00700,day,,,3,qfq"
             }
           ],
           "responses": [
@@ -16349,7 +17799,8 @@
               "description": {
                 "zh": "以逗号分隔的元组 `symbol,interval,start,end,count`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`。除请求的历史数量外，提供方还可能追加当前未完结的 K 线。类似日内周期的值 `m1/m5/m15/m30/m60` 在 2026-08-10 的测试中返回 `bad params`。",
                 "en": "Comma-delimited tuple `symbol,interval,start,end,count`. Empty start/end segments request recent candles. Confirmed intervals are `day`, `week`, and `month`. The provider may append the current partial candle in addition to the requested historical count. Intraday-looking values `m1/m5/m15/m30/m60` returned `bad params` in 2026-08-10 tests."
-              }
+              },
+              "example": "sz000001,week,,,2"
             }
           ],
           "responses": [
@@ -17198,10 +18649,12 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "pattern": "^[0-9]{6}$",
               "description": {
                 "zh": "六位中国大陆基金代码。",
                 "en": "Six-digit mainland fund code."
-              }
+              },
+              "example": "001072"
             },
             {
               "name": "rt",
@@ -17212,7 +18665,7 @@
                 "zh": "用于绕过缓存的 Unix 毫秒时间戳；不会改变所表示的基金。",
                 "en": "Cache-busting Unix timestamp in milliseconds; it does not change the represented fund."
               },
-              "example": 0
+              "example": 1770000000000
             }
           ],
           "responses": [
@@ -17273,30 +18726,34 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "pattern": "^[0-9]{6}$",
               "description": {
                 "zh": "六位中国大陆基金代码。",
                 "en": "Six-digit mainland fund code."
-              }
+              },
+              "example": "001072"
             },
             {
               "name": "pageIndex",
               "in": "query",
               "type": "integer",
+              "default": 1,
+              "minimum": 1,
               "description": {
                 "zh": "从 1 开始的页码",
                 "en": "One-based page"
-              },
-              "example": 1
+              }
             },
             {
               "name": "pageSize",
               "in": "query",
               "type": "integer",
+              "default": 20,
+              "minimum": 1,
               "description": {
                 "zh": "每页记录数",
                 "en": "Rows per page"
-              },
-              "example": 20
+              }
             },
             {
               "name": "startDate",
@@ -17403,10 +18860,12 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "pattern": "^[0-9]{6}$",
               "description": {
                 "zh": "六位中国大陆基金代码。",
                 "en": "Six-digit mainland fund code."
-              }
+              },
+              "example": "001072"
             },
             {
               "name": "type",
@@ -17415,31 +18874,33 @@
               "enum": [
                 0
               ],
+              "default": 0,
               "description": {
                 "zh": "服务商图表序列选择器。单位净值仅观测到值 `0`；其他值未公开。",
                 "en": "Provider chart-series selector. Only value `0` was observed for unit NAV; other values are undocumented."
-              },
-              "example": 0
+              }
             },
             {
               "name": "pageIndex",
               "in": "query",
               "type": "integer",
+              "default": 1,
+              "minimum": 1,
               "description": {
                 "zh": "从 1 开始的页码",
                 "en": "One-based page"
-              },
-              "example": 1
+              }
             },
             {
               "name": "pageSize",
               "in": "query",
               "type": "integer",
+              "default": 400,
+              "minimum": 1,
               "description": {
                 "zh": "请求的最大数据点数。服务商可能忽略该值，并返回或报告实际页大小为 400。",
                 "en": "Requested maximum points. The provider may ignore this value and return/report an effective page size of 400."
-              },
-              "example": 400
+              }
             },
             {
               "name": "startDate",
@@ -17544,13 +19005,15 @@
               "description": {
                 "zh": "以逗号分隔、格式为 `market.code` 的东方财富证券 ID；观测到的市场 ID 包括上海的 `1` 和深圳的 `0`。",
                 "en": "Comma-separated Eastmoney security IDs in `market.code` form; observed market IDs include `1` for Shanghai and `0` for Shenzhen."
-              }
+              },
+              "example": "1.000001,0.399001"
             },
             {
               "name": "fields",
               "in": "query",
               "required": true,
               "type": "string",
+              "default": "f2,f3,f12,f14",
               "description": {
                 "zh": "以逗号分隔的服务商字段 ID。已整理映射：`f2` 为最新价格，`f3` 为涨跌幅，`f12` 为代码，`f14` 为名称。",
                 "en": "Comma-separated provider field IDs. Curated mapping: `f2` latest price, `f3` percentage change, `f12` code, `f14` name."
@@ -17564,11 +19027,11 @@
               "enum": [
                 2
               ],
+              "default": 2,
               "description": {
                 "zh": "服务商数字格式模式。观测值 `2` 返回按比例转换后的小数。",
                 "en": "Provider number-formatting mode. Observed value `2` returns scaled decimal numbers."
-              },
-              "example": 2
+              }
             },
             {
               "name": "invt",
@@ -17577,21 +19040,21 @@
               "enum": [
                 2
               ],
+              "default": 2,
               "description": {
                 "zh": "服务商请求模式；仅记录了观测值 `2`。",
                 "en": "Provider request mode; only observed value `2` is documented."
-              },
-              "example": 2
+              }
             },
             {
               "name": "ut",
               "in": "query",
               "type": "string",
+              "default": "267f9ad526dbe6b0262ab19316f5a25b",
               "description": {
                 "zh": "公开页面请求令牌",
                 "en": "Public page request token"
-              },
-              "example": "267f9ad526dbe6b0262ab19316f5a25b"
+              }
             }
           ],
           "responses": [
@@ -18806,10 +20269,13 @@
               "in": "query",
               "required": true,
               "type": "string",
+              "minLength": 1,
+              "pattern": "^[^,]+$",
               "description": {
                 "zh": "一个 CNBC 标的代码，或用竖线（`|`）分隔的多个标的代码。例如股票（`AAPL`）、指数（`.SPX`）和多个标的（`AAPL|MSFT`）。这是一个传输格式字符串，并非 OpenAPI 展开数组。",
                 "en": "One CNBC symbol, or multiple symbols separated by a vertical bar (`|`). Examples include equities (`AAPL`), indices (`.SPX`), and multiple symbols (`AAPL|MSFT`). This is a wire-format string, not an OpenAPI exploded array."
-              }
+              },
+              "example": "AAPL|MSFT"
             },
             {
               "name": "requestMethod",
@@ -18818,6 +20284,7 @@
               "enum": [
                 "quick"
               ],
+              "default": "quick",
               "description": {
                 "zh": "观测到的客户端模式。行情页面请求使用 `quick`。",
                 "en": "Observed client mode. `quick` is used by the quote-page request."
@@ -18831,6 +20298,7 @@
               "enum": [
                 2
               ],
+              "default": 2,
               "description": {
                 "zh": "观测到的 CNBC 合作方标识；已验证值 `2`，但它不是公开的客户端凭据或已公开文档的契约。",
                 "en": "Observed CNBC partner identifier; `2` was verified, but this is not a public client credential or documented contract."
@@ -18845,6 +20313,7 @@
                 0,
                 1
               ],
+              "default": 1,
               "description": {
                 "zh": "观测到的 0/1 标志，用于请求基金相关字段。",
                 "en": "Observed 0/1 flag requesting fund-related fields."
@@ -18859,6 +20328,7 @@
                 0,
                 1
               ],
+              "default": 1,
               "description": {
                 "zh": "观测到的 0/1 标志，用于在可用时请求 `ExtendedMktQuote`。",
                 "en": "Observed 0/1 flag requesting `ExtendedMktQuote` when available."
@@ -18872,6 +20342,7 @@
               "enum": [
                 "json"
               ],
+              "default": "json",
               "description": {
                 "zh": "观测到的传输格式。",
                 "en": "Observed wire format."
@@ -18967,6 +20438,7 @@
               "enum": [
                 "getQuoteChartData"
               ],
+              "default": "getQuoteChartData",
               "description": {
                 "zh": "持久化 GraphQL 操作名称。",
                 "en": "Persisted GraphQL operation name."
@@ -18981,7 +20453,8 @@
               "description": {
                 "zh": "经 URL 编码的 JSON 对象。所示结构来自观测，并非稳定的公开契约。",
                 "en": "URL-encoded JSON object. The shown shape is observed but not a stable public contract."
-              }
+              },
+              "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
             },
             {
               "name": "extensions",
@@ -18991,7 +20464,8 @@
               "description": {
                 "zh": "经 URL 编码的 Apollo 持久化查询描述对象。哈希可能随 CNBC 前端部署而轮换。",
                 "en": "URL-encoded Apollo persisted-query descriptor. The hash can rotate with CNBC frontend deployments."
-              }
+              },
+              "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}"
             }
           ],
           "responses": [
@@ -19996,10 +21470,14 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "minLength": 1,
+              "maxLength": 12,
+              "pattern": "^[A-Za-z0-9]{1,12}$",
               "description": {
                 "zh": "i3Investor 使用的 SGX 股票代码，不区分大小写。普通股代码通常类似 `D05`；REIT 和权证代码可能包含字母/数字，例如 `A17U`。该网站通常生成小写的规范链接。",
                 "en": "Case-insensitive SGX counter code used by i3Investor. Ordinary shares often resemble `D05`; REITs and warrants may include letters/digits such as `A17U`. The site commonly emits lowercase canonical links."
-              }
+              },
+              "example": "d05"
             }
           ],
           "responses": [
@@ -20069,10 +21547,14 @@
               "in": "path",
               "required": true,
               "type": "string",
+              "minLength": 1,
+              "maxLength": 12,
+              "pattern": "^[A-Za-z0-9]{1,12}$",
               "description": {
                 "zh": "i3Investor 路由命名空间中的 SGX 股票代码，不区分大小写。",
                 "en": "Case-insensitive SGX counter code in i3Investor's routing namespace."
-              }
+              },
+              "example": "D05"
             }
           ],
           "responses": [

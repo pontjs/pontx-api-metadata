@@ -6,7 +6,8 @@ The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It st
 
 ## APIs
 
-- Frankfurter API — exchange-rate reference data
+- Frankfurter API v1 — legacy exchange-rate reference data
+- Frankfurter API v2 — multi-provider exchange rates, currencies, and provider attribution
 - Dida365 Open API — task and project management
 - Massive Stock Market Data API — official stock trades, aggregates, snapshots, and reference data
 - Yahoo Finance Web Market Data API — observed web quotes, charts, search, and fundamentals
