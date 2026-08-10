@@ -128,7 +128,7 @@ function pickMedia(content) {
   return content["application/json"] ?? Object.values(content)[0];
 }
 
-function makeOperation(document, path, method, operation, pathParameters, translations, parameterTranslations) {
+function makeOperation(document, path, method, operation, pathParameters, translations, parameterTranslations, serverIdByUrl) {
   const operationId = operation.operationId || `${method}-${path}`;
   const translation = translations?.[operationId];
   const enTitle = operation.summary || operationId;
@@ -219,6 +219,10 @@ function makeOperation(document, path, method, operation, pathParameters, transl
     parameters,
     ...(requestBody ? { requestBody } : {}),
     responses,
+    serverIds: (operation.servers ?? document.servers ?? [])
+      .map((server) => serverIdByUrl.get(server.url.replace(/\/$/, "")))
+      .filter(Boolean),
+    proxyHeaders: operation["x-pontx-proxy-headers"] ?? {},
     documentationStatus: operation["x-pontx-documentation-status"] ?? "official",
     evidenceUrls: operation["x-pontx-evidence"] ?? [],
     ...(operation["x-pontx-verified-at"] ? { verifiedAt: operation["x-pontx-verified-at"] } : {}),
@@ -257,10 +261,22 @@ for (const entry of source.apis) {
     throw new Error(`${entry.slug}: approvedSha256 does not match ${entry.specFile}`);
   }
   const document = JSON.parse(specText);
+  const servers = [entry.server];
+  for (const server of document.servers ?? []) {
+    const normalizedUrl = server.url.replace(/\/$/, "");
+    if (servers.some((item) => item.url.replace(/\/$/, "") === normalizedUrl)) continue;
+    const hostname = new URL(normalizedUrl).hostname;
+    servers.push({
+      id: slugify(hostname),
+      url: normalizedUrl,
+      description: localized(server.description ?? hostname, server.description ?? hostname)
+    });
+  }
+  const serverIdByUrl = new Map(servers.map((server) => [server.url.replace(/\/$/, ""), server.id]));
   const operations = Object.entries(document.paths ?? {}).flatMap(([path, pathItem]) =>
     Object.entries(pathItem)
       .filter(([method]) => ["get", "post", "put", "patch", "delete", "head", "options"].includes(method))
-      .map(([method, operation]) => makeOperation(document, path, method, operation, pathItem.parameters, entry.translations, entry.parameterTranslations))
+      .map(([method, operation]) => makeOperation(document, path, method, operation, pathItem.parameters, entry.translations, entry.parameterTranslations, serverIdByUrl))
   );
   const schemaEntries = document.components?.schemas ?? document.definitions ?? {};
   const schemas = Object.entries(schemaEntries).map(([name, schema]) =>
@@ -288,7 +304,7 @@ for (const entry of source.apis) {
     evidenceUrls: entry.evidenceUrls ?? [],
     ...(entry.verifiedAt ? { verifiedAt: entry.verifiedAt } : {}),
     ...(entry.stabilityNote ? { stabilityNote: entry.stabilityNote } : {}),
-    servers: [entry.server],
+    servers,
     auth: makeAuth(document, entry.auth),
     operations,
     schemas

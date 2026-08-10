@@ -51,7 +51,15 @@
           "https://hq.sinajs.cn/list=sh000001"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp; response is GBK-oriented JavaScript assignment text."
+        "x-pontx-stability-note": "Used by FiApp; response is GBK-oriented JavaScript assignment text.",
+        "servers": [
+          {
+            "url": "https://hq.sinajs.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://finance.sina.com.cn/"
+        }
       }
     },
     "/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData": {
@@ -114,7 +122,15 @@
           "https://finance.sina.com.cn/realstock/company/sh600000/nc.shtml"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Derived from provider-owned chart requests and validated as public JSONP."
+        "x-pontx-stability-note": "Derived from provider-owned chart requests and validated as public JSONP.",
+        "servers": [
+          {
+            "url": "https://quotes.sina.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://finance.sina.com.cn/"
+        }
       }
     }
   },

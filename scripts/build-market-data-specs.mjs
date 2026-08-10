@@ -137,7 +137,58 @@ const specs = [
   }
 ];
 
+const operationRouting = {
+  "yahoo-finance": Object.fromEntries([
+    "getChart",
+    "getQuotes",
+    "getSpark",
+    "getQuoteType",
+    "searchSymbols",
+    "getQuoteSummary",
+    "getFundamentalTimeseries"
+  ].map((operationId) => [operationId, {
+    url: "https://query1.finance.yahoo.com",
+    headers: { "User-Agent": "Mozilla/5.0 fi-api/1.0" }
+  }])),
+  stooq: {
+    downloadLatestQuotes: { url: "https://stooq.com", headers: { "User-Agent": "fi-api/1.0" } },
+    downloadHistoricalQuotes: { url: "https://stooq.com", headers: { "User-Agent": "fi-api/1.0" } }
+  },
+  "sina-finance": {
+    getQuoteSnapshots: { url: "https://hq.sinajs.cn", headers: { Referer: "https://finance.sina.com.cn/" } },
+    getKLineData: { url: "https://quotes.sina.cn", headers: { Referer: "https://finance.sina.com.cn/" } }
+  },
+  "tencent-finance": {
+    getQuoteSnapshots: { url: "https://qt.gtimg.cn", headers: { Referer: "https://gu.qq.com/" } },
+    getForwardAdjustedKLine: { url: "https://web.ifzq.gtimg.cn", headers: { Referer: "https://gu.qq.com/" } },
+    getKLine: { url: "https://web.ifzq.gtimg.cn", headers: { Referer: "https://gu.qq.com/" } }
+  },
+  "eastmoney-funds": {
+    getFundEstimate: { url: "https://fundgz.1234567.com.cn", headers: { Referer: "https://fund.eastmoney.com/" } },
+    listHistoricalNav: { url: "https://api.fund.eastmoney.com", headers: { Referer: "https://fundf10.eastmoney.com/" } },
+    getHistoricalNavChart: { url: "https://api.fund.eastmoney.com", headers: { Referer: "https://fundf10.eastmoney.com/" } },
+    getMarketIndexList: { url: "https://push2.eastmoney.com", headers: { Referer: "https://fundf10.eastmoney.com/" } }
+  },
+  "cnbc-market-data": {
+    getRestQuotes: { url: "https://quote.cnbc.com", headers: { Referer: "https://www.cnbc.com/" } },
+    getQuoteChartData: { url: "https://webql-redesign.cnbcfm.com", headers: { Referer: "https://www.cnbc.com/" } }
+  },
+  "i3investor-sgx": {
+    getSgxStockPage: { url: "https://sgx.i3investor.com", headers: { "User-Agent": "fi-api/1.0" } },
+    getSgxStockOverview: { url: "https://sgx.i3investor.com", headers: { "User-Agent": "fi-api/1.0" } }
+  }
+};
+
 for (const spec of specs) {
+  const routes = operationRouting[spec.slug] ?? {};
+  for (const pathItem of Object.values(spec.paths)) {
+    for (const operation of Object.values(pathItem)) {
+      const route = routes[operation.operationId];
+      if (!route) continue;
+      operation.servers = [{ url: route.url }];
+      if (route.headers) operation["x-pontx-proxy-headers"] = route.headers;
+    }
+  }
   const document = {
     openapi: "3.0.3",
     info: {

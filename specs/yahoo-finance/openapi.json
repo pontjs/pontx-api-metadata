@@ -191,7 +191,15 @@
           "https://query2.finance.yahoo.com/v8/finance/chart/AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed."
+        "x-pontx-stability-note": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/v7/finance/quote": {
@@ -283,7 +291,15 @@
           "https://finance.yahoo.com/quote/AAPL/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic."
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/v7/finance/spark": {
@@ -394,7 +410,15 @@
           "https://finance.yahoo.com/quote/AAPL/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in Yahoo Finance's own market widgets."
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own market widgets.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/v1/finance/quoteType/": {
@@ -460,7 +484,15 @@
           "https://finance.yahoo.com/quote/AAPL/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed on Yahoo Finance's quote page."
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote page.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/v1/finance/search": {
@@ -541,7 +573,15 @@
           "https://finance.yahoo.com/lookup/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Provider-owned search endpoint family; validated as a public read-only request."
+        "x-pontx-stability-note": "Provider-owned search endpoint family; validated as a public read-only request.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/v10/finance/quoteSummary/{symbol}": {
@@ -624,7 +664,15 @@
           "https://finance.yahoo.com/quote/AAPL/profile/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Module availability and crumb requirements can change without notice."
+        "x-pontx-stability-note": "Module availability and crumb requirements can change without notice.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     },
     "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
@@ -716,7 +764,15 @@
           "https://finance.yahoo.com/quote/AAPL/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed on Yahoo Finance's quote chart; supported types are internal and may change."
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote chart; supported types are internal and may change.",
+        "servers": [
+          {
+            "url": "https://query1.finance.yahoo.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        }
       }
     }
   },

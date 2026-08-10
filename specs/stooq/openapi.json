@@ -77,7 +77,15 @@
           "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp and verified as a public CSV response."
+        "x-pontx-stability-note": "Used by FiApp and verified as a public CSV response.",
+        "servers": [
+          {
+            "url": "https://stooq.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "fi-api/1.0"
+        }
       }
     },
     "/q/d/l/": {
@@ -145,7 +153,15 @@
           "https://stooq.com/q/d/?s=aapl.us"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Linked by provider-owned historical-data pages and validated as read-only CSV."
+        "x-pontx-stability-note": "Linked by provider-owned historical-data pages and validated as read-only CSV.",
+        "servers": [
+          {
+            "url": "https://stooq.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "fi-api/1.0"
+        }
       }
     }
   },

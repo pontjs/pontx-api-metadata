@@ -22,7 +22,7 @@ Do not commit directly to `master` except for an explicitly approved emergency f
 
 Every API must have a stable upstream source, an attribution URL, a reviewed license, HTTPS servers, and credentials represented only as environment-variable names. Never commit real API keys or access tokens.
 
-For provider-owned but undocumented read-only web APIs, record `documentationStatus`, `evidenceUrls`, `verifiedAt`, and a bilingual `stabilityNote`. Each operation must also carry the matching `x-pontx-*` evidence extensions. Such collections must disable proxy execution and must not include login, account, trading, mutation, advertising, or user-data endpoints.
+For provider-owned but undocumented read-only web APIs, record `documentationStatus`, `evidenceUrls`, `verifiedAt`, and a bilingual `stabilityNote`. Each operation must also carry the matching `x-pontx-*` evidence extensions. Proxy execution may be enabled only for verified read-only endpoints with an endpoint-specific HTTPS server allowlist and curated fixed headers; login, account, trading, mutation, advertising, and user-data endpoints remain prohibited.
 
 ## Pull request checklist
 

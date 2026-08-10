@@ -170,6 +170,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -327,6 +331,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -496,6 +504,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -544,6 +556,10 @@
               "schemaName": "CurrenciesResponse"
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -1019,6 +1035,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1108,6 +1128,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1231,6 +1255,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1370,6 +1398,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1459,6 +1491,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1531,6 +1567,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1647,6 +1687,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1736,6 +1780,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1859,6 +1907,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1932,6 +1984,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -2009,6 +2065,10 @@
               }
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -3487,7 +3547,7 @@
       "packageName": "@pontx/api-massive",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
         "https://massive.com/docs/rest/stocks/overview"
@@ -3565,6 +3625,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
@@ -3642,6 +3706,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
@@ -3764,6 +3832,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
@@ -3844,6 +3916,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/snapshots/full-market-snapshot"
@@ -3932,6 +4008,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/tickers/all-tickers"
@@ -4005,6 +4085,10 @@
               ]
             }
           ],
+          "serverIds": [
+            "polygon-compatible"
+          ],
+          "proxyHeaders": {},
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
@@ -4036,7 +4120,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/yahoo-finance/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://finance.yahoo.com/",
-      "approvedSha256": "541abb72e0b48aa3a5d0ef961006ca33a23d5955c65107afb0d228c82d189ba0",
+      "approvedSha256": "4818d3242726c16ad5d9b2cf4c39f642bbfbf4b5b7a0b3f7de26fcaea176066b",
       "title": {
         "zh": "Yahoo Finance 网页市场数据 API",
         "en": "Yahoo Finance web market data API"
@@ -4049,7 +4133,7 @@
       "packageName": "@pontx/api-yahoo-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://finance.yahoo.com/quote/AAPL/"
@@ -4066,6 +4150,14 @@
           "description": {
             "zh": "Yahoo Finance 网页数据入口",
             "en": "Yahoo Finance web-data endpoint"
+          }
+        },
+        {
+          "id": "query2-finance-yahoo-com",
+          "url": "https://query2.finance.yahoo.com",
+          "description": {
+            "zh": "query2.finance.yahoo.com",
+            "en": "query2.finance.yahoo.com"
           }
         }
       ],
@@ -4161,6 +4253,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/",
@@ -4271,6 +4369,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4353,6 +4457,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4429,6 +4539,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4508,6 +4624,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://finance.yahoo.com/lookup/"
@@ -4575,6 +4697,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/profile/"
@@ -4671,6 +4799,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "query1"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4705,7 +4839,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/stooq/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://stooq.com/",
-      "approvedSha256": "1163bf3486d1c321fd1ba7ab6afcee0048e19ab33bbadc1092acc579bb38692f",
+      "approvedSha256": "adbb237258b38fd129843033bb4ca7492af596fd68763c5fd36ebf39035497cd",
       "title": {
         "zh": "Stooq 公共行情下载",
         "en": "Stooq public quote downloads"
@@ -4718,7 +4852,7 @@
       "packageName": "@pontx/api-stooq",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv",
@@ -4812,6 +4946,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
@@ -4894,6 +5034,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "default"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "fi-api/1.0"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://stooq.com/q/d/?s=aapl.us"
@@ -4916,7 +5062,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/sina-finance/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://finance.sina.com.cn/",
-      "approvedSha256": "8bd6a62d1f19e994da11d7abf36357c2316805782979d5cc3b3f375dab5f7cab",
+      "approvedSha256": "c939c240ea8a6b93df014ca00b30114848e5ee3d37b53637444f113a267137fd",
       "title": {
         "zh": "新浪财经网页行情 API",
         "en": "Sina Finance web quote API"
@@ -4929,7 +5075,7 @@
       "packageName": "@pontx/api-sina-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://finance.sina.com.cn/",
@@ -4947,6 +5093,14 @@
           "description": {
             "zh": "新浪行情文本入口",
             "en": "Sina quote text endpoint"
+          }
+        },
+        {
+          "id": "quotes-sina-cn",
+          "url": "https://quotes.sina.cn",
+          "description": {
+            "zh": "quotes.sina.cn",
+            "en": "quotes.sina.cn"
           }
         }
       ],
@@ -4991,6 +5145,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "hq"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://finance.sina.com.cn/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.sina.com.cn",
@@ -5071,6 +5231,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "quotes-sina-cn"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://finance.sina.com.cn/"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://finance.sina.com.cn/realstock/company/sh600000/nc.shtml"
@@ -5093,7 +5259,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/tencent-finance/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://gu.qq.com/",
-      "approvedSha256": "684f350c7a7da22711078a97726e417d3ba8a5f3bfaf6d5a3bf077aab555290f",
+      "approvedSha256": "5515770a9fc9e362810e3a4d150aeff989d0925fe69da31ec3b178629604fc4a",
       "title": {
         "zh": "腾讯财经网页行情 API",
         "en": "Tencent Finance web quote API"
@@ -5106,7 +5272,7 @@
       "packageName": "@pontx/api-tencent-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://gu.qq.com/",
@@ -5124,6 +5290,14 @@
           "description": {
             "zh": "腾讯 HTTPS 行情入口",
             "en": "Tencent HTTPS quote endpoint"
+          }
+        },
+        {
+          "id": "web-ifzq-gtimg-cn",
+          "url": "https://web.ifzq.gtimg.cn",
+          "description": {
+            "zh": "web.ifzq.gtimg.cn",
+            "en": "web.ifzq.gtimg.cn"
           }
         }
       ],
@@ -5168,6 +5342,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "quote"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://gu.qq.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://gu.qq.com",
@@ -5222,6 +5402,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "web-ifzq-gtimg-cn"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://gu.qq.com/"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://gu.qq.com/hk00700"
@@ -5279,6 +5465,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "web-ifzq-gtimg-cn"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://gu.qq.com/"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://gu.qq.com/hk00700"
@@ -5305,7 +5497,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "b534787441ac170ae8c5642db8bf04a025dae8a7aa6ec910ca00d1c1976f9b03",
+      "approvedSha256": "f2768c2172d18fe2a27469c303ebbc0298e5b3545047828a6d9f180a4de4e89b",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -5318,7 +5510,7 @@
       "packageName": "@pontx/api-eastmoney-funds",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://fundf10.eastmoney.com/jjjz_001072.html",
@@ -5336,6 +5528,22 @@
           "description": {
             "zh": "东方财富基金数据入口",
             "en": "Eastmoney fund-data endpoint"
+          }
+        },
+        {
+          "id": "fundgz-1234567-com-cn",
+          "url": "https://fundgz.1234567.com.cn",
+          "description": {
+            "zh": "fundgz.1234567.com.cn",
+            "en": "fundgz.1234567.com.cn"
+          }
+        },
+        {
+          "id": "push2-eastmoney-com",
+          "url": "https://push2.eastmoney.com",
+          "description": {
+            "zh": "push2.eastmoney.com",
+            "en": "push2.eastmoney.com"
           }
         }
       ],
@@ -5390,6 +5598,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "fundgz-1234567-com-cn"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://fund.eastmoney.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fund.eastmoney.com/001072.html",
@@ -5481,6 +5695,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "fund-api"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://fundf10.eastmoney.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -5586,6 +5806,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "fund-api"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://fundf10.eastmoney.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -5658,6 +5884,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "push2-eastmoney-com"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://fundf10.eastmoney.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -5691,7 +5923,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/cnbc-market-data/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://www.cnbc.com/quotes/",
-      "approvedSha256": "c97ba3530930533920275c1644184987a7c59f8135ea0864eac3dd72fa0bb089",
+      "approvedSha256": "4d3f5cf7648a3de62e04feafe5941a04927027eaa0460adf5dd8de9ed416cfec",
       "title": {
         "zh": "CNBC 网页行情 API",
         "en": "CNBC web quote API"
@@ -5704,7 +5936,7 @@
       "packageName": "@pontx/api-cnbc-market-data",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "observed",
       "evidenceUrls": [
         "https://www.cnbc.com/quotes/AAPL"
@@ -5721,6 +5953,14 @@
           "description": {
             "zh": "CNBC 行情 REST 入口",
             "en": "CNBC quote REST endpoint"
+          }
+        },
+        {
+          "id": "webql-redesign-cnbcfm-com",
+          "url": "https://webql-redesign.cnbcfm.com",
+          "description": {
+            "zh": "webql-redesign.cnbcfm.com",
+            "en": "webql-redesign.cnbcfm.com"
           }
         }
       ],
@@ -5819,6 +6059,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "quote"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://www.cnbc.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://www.cnbc.com/quotes/AAPL"
@@ -5898,6 +6144,12 @@
               ]
             }
           ],
+          "serverIds": [
+            "webql-redesign-cnbcfm-com"
+          ],
+          "proxyHeaders": {
+            "Referer": "https://www.cnbc.com/"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://www.cnbc.com/quotes/AAPL"
@@ -5923,7 +6175,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/i3investor-sgx/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://sgx.i3investor.com/",
-      "approvedSha256": "5d16c9874138b7da85a677e3f55b05ee8eca5a497032853ad4ff12c1ebfa229f",
+      "approvedSha256": "bb0484229d37d2a39f6758d0e5998c30327220b427ed12824340337f08d02e51",
       "title": {
         "zh": "i3Investor SGX 公共行情页",
         "en": "i3Investor SGX public market pages"
@@ -5936,7 +6188,7 @@
       "packageName": "@pontx/api-i3investor-sgx",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "proxyEnabled": false,
+      "proxyEnabled": true,
       "documentationStatus": "inferred",
       "evidenceUrls": [
         "https://sgx.i3investor.com/"
@@ -5997,6 +6249,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "sgx"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "fi-api/1.0"
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://sgx.i3investor.com/"
@@ -6046,6 +6304,12 @@
               "schemaType": "string"
             }
           ],
+          "serverIds": [
+            "sgx"
+          ],
+          "proxyHeaders": {
+            "User-Agent": "fi-api/1.0"
+          },
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://sgx.i3investor.com/"

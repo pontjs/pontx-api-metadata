@@ -63,7 +63,15 @@
           "https://fundgz.1234567.com.cn/js/001072.js"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp; returns a jsonpgz JSONP wrapper."
+        "x-pontx-stability-note": "Used by FiApp; returns a jsonpgz JSONP wrapper.",
+        "servers": [
+          {
+            "url": "https://fundgz.1234567.com.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://fund.eastmoney.com/"
+        }
       }
     },
     "/f10/lsjz": {
@@ -173,7 +181,15 @@
           "https://fundf10.eastmoney.com/jjjz_001072.html"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed directly in the provider-owned historical-NAV page and used by FiApp."
+        "x-pontx-stability-note": "Observed directly in the provider-owned historical-NAV page and used by FiApp.",
+        "servers": [
+          {
+            "url": "https://api.fund.eastmoney.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://fundf10.eastmoney.com/"
+        }
       }
     },
     "/f10/LSJZChart": {
@@ -254,7 +270,15 @@
           "https://fundf10.eastmoney.com/jjjz_001072.html"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Captured from the provider-owned historical-NAV page on 2026-08-10."
+        "x-pontx-stability-note": "Captured from the provider-owned historical-NAV page on 2026-08-10.",
+        "servers": [
+          {
+            "url": "https://api.fund.eastmoney.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://fundf10.eastmoney.com/"
+        }
       }
     },
     "/api/qt/ulist.np/get": {
@@ -341,7 +365,15 @@
           "https://fundf10.eastmoney.com/jjjz_001072.html"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed on the provider-owned fund page; field identifiers are internal."
+        "x-pontx-stability-note": "Observed on the provider-owned fund page; field identifiers are internal.",
+        "servers": [
+          {
+            "url": "https://push2.eastmoney.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://fundf10.eastmoney.com/"
+        }
       }
     }
   },

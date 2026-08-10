@@ -51,7 +51,15 @@
           "https://qt.gtimg.cn/q=hk00700"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text."
+        "x-pontx-stability-note": "Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text.",
+        "servers": [
+          {
+            "url": "https://qt.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     },
     "/appstock/app/fqkline/get": {
@@ -98,7 +106,15 @@
           "https://gu.qq.com/hk00700"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change."
+        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change.",
+        "servers": [
+          {
+            "url": "https://web.ifzq.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     },
     "/appstock/app/kline/kline": {
@@ -145,7 +161,15 @@
           "https://gu.qq.com/hk00700"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change."
+        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change.",
+        "servers": [
+          {
+            "url": "https://web.ifzq.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     }
   },

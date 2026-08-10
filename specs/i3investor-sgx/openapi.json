@@ -47,7 +47,15 @@
           "https://sgx.i3investor.com/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change."
+        "x-pontx-stability-note": "Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change.",
+        "servers": [
+          {
+            "url": "https://sgx.i3investor.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "fi-api/1.0"
+        }
       }
     },
     "/web/stock/overview/{code}": {
@@ -83,7 +91,15 @@
           "https://sgx.i3investor.com/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Provider-owned read-only stock page family; HTML structure is not versioned."
+        "x-pontx-stability-note": "Provider-owned read-only stock page family; HTML structure is not versioned.",
+        "servers": [
+          {
+            "url": "https://sgx.i3investor.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "User-Agent": "fi-api/1.0"
+        }
       }
     }
   },

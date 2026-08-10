@@ -134,7 +134,15 @@
           "https://www.cnbc.com/quotes/AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request."
+        "x-pontx-stability-note": "Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request.",
+        "servers": [
+          {
+            "url": "https://quote.cnbc.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://www.cnbc.com/"
+        }
       }
     },
     "/graphql": {
@@ -196,7 +204,15 @@
           "https://www.cnbc.com/quotes/AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+        "x-pontx-stability-note": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
+        "servers": [
+          {
+            "url": "https://webql-redesign.cnbcfm.com"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://www.cnbc.com/"
+        }
       }
     }
   },
