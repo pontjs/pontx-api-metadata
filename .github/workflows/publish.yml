@@ -5,11 +5,11 @@ on:
   pull_request:
     branches:
       - develop
-      - master
+      - main
   push:
     branches:
       - develop
-      - master
+      - main
 
 permissions:
   contents: read
@@ -43,7 +43,7 @@ jobs:
     if: github.event_name == 'push'
     needs: validate
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'master' && 'production' || 'preview' }}
+    environment: ${{ github.ref_name == 'main' && 'production' || 'preview' }}
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -74,7 +74,7 @@ jobs:
             exit 1
           fi
           target=()
-          if [ "${{ github.ref_name }}" = "master" ]; then
+          if [ "${{ github.ref_name }}" = "main" ]; then
             target+=(--prod)
           fi
           pnpm dlx vercel@latest deploy deploy-source \

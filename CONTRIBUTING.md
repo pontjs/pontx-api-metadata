@@ -5,11 +5,11 @@ Thank you for helping make reliable API metadata available to developers and age
 ## Branch workflow
 
 - `develop` is the integration branch. Pushes deploy the preview environment after validation.
-- `master` is the production branch. Pushes deploy the production environment after validation.
+- `main` is the production branch. Pushes deploy the production environment after validation.
 - Open feature and metadata pull requests against `develop`.
-- Promote reviewed changes from `develop` to `master` with a pull request.
+- Promote reviewed changes from `develop` to `main` with a pull request.
 
-Do not commit directly to `master` except for an explicitly approved emergency fix.
+Do not commit directly to `main` except for an explicitly approved emergency fix.
 
 ## Add or update an API
 
@@ -44,4 +44,4 @@ Repository administrators configure three GitHub Actions secrets:
 - `VERCEL_ORG_ID` for the `pontjs` Vercel team.
 - `VERCEL_PROJECT_ID` for the Pontx Hub Vercel project.
 
-The workflow validates the catalog, checks out the public Hub repository, and deploys it with `METADATA_REPO_RAW_URL` pinned to the pushed metadata branch. `develop` creates a Vercel Preview deployment; `master` deploys Production.
+The workflow validates the catalog, checks out the public Hub repository, and deploys it with `METADATA_REPO_RAW_URL` pinned to the pushed metadata branch. `develop` creates a Vercel Preview deployment; `main` deploys Production.
