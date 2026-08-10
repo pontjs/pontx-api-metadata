@@ -223,6 +223,10 @@ function makeOperation(document, path, method, operation, pathParameters, transl
       .map((server) => serverIdByUrl.get(server.url.replace(/\/$/, "")))
       .filter(Boolean),
     proxyHeaders: operation["x-pontx-proxy-headers"] ?? {},
+    proxyEnabled: operation["x-pontx-proxy-enabled"] ?? true,
+    ...(operation["x-pontx-proxy-disabled-reason"]
+      ? { proxyDisabledReason: operation["x-pontx-proxy-disabled-reason"] }
+      : {}),
     documentationStatus: operation["x-pontx-documentation-status"] ?? "official",
     evidenceUrls: operation["x-pontx-evidence"] ?? [],
     ...(operation["x-pontx-verified-at"] ? { verifiedAt: operation["x-pontx-verified-at"] } : {}),

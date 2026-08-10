@@ -149,7 +149,7 @@
       "get": {
         "operationId": "getQuoteChartData",
         "summary": "Get quote chart data through a persisted query",
-        "description": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
+        "description": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hash 9e1670c2… was observed on 2026-08-10 and may rotate.",
         "parameters": [
           {
             "name": "operationName",
@@ -157,7 +157,8 @@
             "description": "Persisted operation name",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "getQuoteChartData"
             }
           },
           {
@@ -166,7 +167,8 @@
             "description": "JSON-encoded query variables",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
             }
           },
           {
@@ -175,7 +177,8 @@
             "description": "JSON-encoded persisted-query hash",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}"
             }
           }
         ],
@@ -204,14 +207,15 @@
           "https://www.cnbc.com/quotes/AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
+        "x-pontx-stability-note": "CNBC uses persisted GraphQL queries; hash 9e1670c2… was observed on 2026-08-10 and may rotate.",
         "servers": [
           {
             "url": "https://webql-redesign.cnbcfm.com"
           }
         ],
         "x-pontx-proxy-headers": {
-          "Referer": "https://www.cnbc.com/"
+          "Referer": "https://www.cnbc.com/",
+          "partner": "cnbc01"
         }
       }
     }

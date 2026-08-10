@@ -174,6 +174,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -335,6 +336,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -508,6 +510,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -560,6 +563,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "responseExample": {
@@ -1039,6 +1043,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1132,6 +1137,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1259,6 +1265,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1402,6 +1409,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1495,6 +1503,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1571,6 +1580,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1691,6 +1701,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1784,6 +1795,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1911,6 +1923,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -1988,6 +2001,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -2069,6 +2083,7 @@
             "default"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
           "security": [
@@ -3629,6 +3644,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
@@ -3710,6 +3726,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
@@ -3836,6 +3853,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
@@ -3920,6 +3938,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/snapshots/full-market-snapshot"
@@ -4012,6 +4031,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/tickers/all-tickers"
@@ -4089,6 +4109,7 @@
             "polygon-compatible"
           ],
           "proxyHeaders": {},
+          "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [
             "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
@@ -4120,7 +4141,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/yahoo-finance/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://finance.yahoo.com/",
-      "approvedSha256": "4818d3242726c16ad5d9b2cf4c39f642bbfbf4b5b7a0b3f7de26fcaea176066b",
+      "approvedSha256": "621107feda55bd756fdfd7db4e00eef5080022c4c7f69297737cb1c0fd325c46",
       "title": {
         "zh": "Yahoo Finance 网页市场数据 API",
         "en": "Yahoo Finance web market data API"
@@ -4259,6 +4280,7 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/",
@@ -4320,7 +4342,7 @@
           },
           "description": {
             "zh": "返回多个证券的行情快照。",
-            "en": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic."
+            "en": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized."
           },
           "parameters": [
             {
@@ -4375,14 +4397,19 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "Yahoo 当前要求浏览器会话，匿名服务端请求返回 Unauthorized。",
+            "en": "Yahoo currently requires browser session state; anonymous server requests return Unauthorized."
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "Observed in Yahoo Finance's own quote-page traffic.",
-            "en": "Observed in Yahoo Finance's own quote-page traffic."
+            "zh": "Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized.",
+            "en": "Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized."
           },
           "responseExample": {
             "quoteResponse": {
@@ -4463,6 +4490,7 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4545,6 +4573,7 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4630,6 +4659,7 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://finance.yahoo.com/lookup/"
@@ -4702,6 +4732,11 @@
           ],
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
+          },
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "Yahoo 当前要求有效的 crumb 与 Cookie，Hub 不代替浏览器建立会话。",
+            "en": "Yahoo currently requires a valid crumb and cookie; Hub does not establish browser sessions."
           },
           "documentationStatus": "inferred",
           "evidenceUrls": [
@@ -4805,6 +4840,7 @@
           "proxyHeaders": {
             "User-Agent": "Mozilla/5.0 fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.yahoo.com/quote/AAPL/"
@@ -4839,7 +4875,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/stooq/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://stooq.com/",
-      "approvedSha256": "adbb237258b38fd129843033bb4ca7492af596fd68763c5fd36ebf39035497cd",
+      "approvedSha256": "27b5c6324b8c7c0f769dbe0278665023a7abffe335d121071692a546375f1802",
       "title": {
         "zh": "Stooq 公共行情下载",
         "en": "Stooq public quote downloads"
@@ -4887,7 +4923,7 @@
           },
           "description": {
             "zh": "按字段格式下载最新行情 CSV。",
-            "en": "Download current or latest quotes. Used by FiApp and verified as a public CSV response."
+            "en": "Download current or latest quotes. Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page."
           },
           "parameters": [
             {
@@ -4952,14 +4988,19 @@
           "proxyHeaders": {
             "User-Agent": "fi-api/1.0"
           },
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "该地址当前返回 Stooq 404 页面，已停止代理执行。",
+            "en": "This URL currently returns Stooq's 404 page, so proxy execution is disabled."
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "Used by FiApp and verified as a public CSV response.",
-            "en": "Used by FiApp and verified as a public CSV response."
+            "zh": "Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page.",
+            "en": "Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page."
           }
         },
         {
@@ -4974,7 +5015,7 @@
           },
           "description": {
             "zh": "按日期范围和周期下载历史行情 CSV。",
-            "en": "Download historical price data. Linked by provider-owned historical-data pages and validated as read-only CSV."
+            "en": "Download historical price data. Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV."
           },
           "parameters": [
             {
@@ -5040,14 +5081,19 @@
           "proxyHeaders": {
             "User-Agent": "fi-api/1.0"
           },
-          "documentationStatus": "inferred",
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。",
+            "en": "Stooq currently requires JavaScript browser verification, which Hub does not bypass."
+          },
+          "documentationStatus": "observed",
           "evidenceUrls": [
             "https://stooq.com/q/d/?s=aapl.us"
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "Linked by provider-owned historical-data pages and validated as read-only CSV.",
-            "en": "Linked by provider-owned historical-data pages and validated as read-only CSV."
+            "zh": "Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV.",
+            "en": "Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV."
           }
         }
       ],
@@ -5151,6 +5197,7 @@
           "proxyHeaders": {
             "Referer": "https://finance.sina.com.cn/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://finance.sina.com.cn",
@@ -5237,6 +5284,7 @@
           "proxyHeaders": {
             "Referer": "https://finance.sina.com.cn/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://finance.sina.com.cn/realstock/company/sh600000/nc.shtml"
@@ -5348,6 +5396,7 @@
           "proxyHeaders": {
             "Referer": "https://gu.qq.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://gu.qq.com",
@@ -5408,6 +5457,7 @@
           "proxyHeaders": {
             "Referer": "https://gu.qq.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://gu.qq.com/hk00700"
@@ -5471,6 +5521,7 @@
           "proxyHeaders": {
             "Referer": "https://gu.qq.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://gu.qq.com/hk00700"
@@ -5497,7 +5548,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "f2768c2172d18fe2a27469c303ebbc0298e5b3545047828a6d9f180a4de4e89b",
+      "approvedSha256": "1863c6626a0ceeba9a01f1cbbc4ab25b90374be4813a40a5c71837b6b2fccb94",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -5561,7 +5612,7 @@
           },
           "description": {
             "zh": "返回基金实时估值 JSONP。",
-            "en": "Get latest fund estimate. Used by FiApp; returns a jsonpgz JSONP wrapper."
+            "en": "Get latest fund estimate. Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP."
           },
           "parameters": [
             {
@@ -5604,6 +5655,11 @@
           "proxyHeaders": {
             "Referer": "https://fund.eastmoney.com/"
           },
+          "proxyEnabled": false,
+          "proxyDisabledReason": {
+            "zh": "该地址当前返回东方财富的页面不存在 HTML，已停止代理执行。",
+            "en": "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled."
+          },
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fund.eastmoney.com/001072.html",
@@ -5611,8 +5667,8 @@
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "Used by FiApp; returns a jsonpgz JSONP wrapper.",
-            "en": "Used by FiApp; returns a jsonpgz JSONP wrapper."
+            "zh": "Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP.",
+            "en": "Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP."
           }
         },
         {
@@ -5701,6 +5757,7 @@
           "proxyHeaders": {
             "Referer": "https://fundf10.eastmoney.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -5748,11 +5805,12 @@
             {
               "name": "type",
               "in": "query",
-              "type": "string",
+              "type": "integer",
               "description": {
                 "zh": "Chart type",
                 "en": "Chart type"
-              }
+              },
+              "example": 0
             },
             {
               "name": "pageIndex",
@@ -5762,7 +5820,7 @@
                 "zh": "One-based page",
                 "en": "One-based page"
               },
-              "example": 0
+              "example": 1
             },
             {
               "name": "pageSize",
@@ -5772,7 +5830,7 @@
                 "zh": "Maximum points",
                 "en": "Maximum points"
               },
-              "example": 0
+              "example": 400
             },
             {
               "name": "startDate",
@@ -5801,9 +5859,12 @@
                 "en": "Successful response"
               },
               "contentTypes": [
-                "application/javascript"
+                "application/json"
               ],
-              "schemaType": "string"
+              "schemaType": "object",
+              "properties": [
+                "Data"
+              ]
             }
           ],
           "serverIds": [
@@ -5812,6 +5873,7 @@
           "proxyHeaders": {
             "Referer": "https://fundf10.eastmoney.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
@@ -5820,6 +5882,15 @@
           "stabilityNote": {
             "zh": "Captured from the provider-owned historical-NAV page on 2026-08-10.",
             "en": "Captured from the provider-owned historical-NAV page on 2026-08-10."
+          },
+          "responseExample": {
+            "Data": [
+              {
+                "x": 0,
+                "y": 0,
+                "equityReturn": 0
+              }
+            ]
           }
         },
         {
@@ -5834,7 +5905,7 @@
           },
           "description": {
             "zh": "返回基金页面展示的市场指数快照。",
-            "en": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers are internal."
+            "en": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate."
           },
           "parameters": [
             {
@@ -5860,11 +5931,32 @@
             {
               "name": "fltt",
               "in": "query",
-              "type": "string",
+              "type": "integer",
               "description": {
                 "zh": "Number formatting mode",
                 "en": "Number formatting mode"
-              }
+              },
+              "example": 2
+            },
+            {
+              "name": "invt",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Provider request mode",
+                "en": "Provider request mode"
+              },
+              "example": 2
+            },
+            {
+              "name": "ut",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Public page request token",
+                "en": "Public page request token"
+              },
+              "example": "267f9ad526dbe6b0262ab19316f5a25b"
             }
           ],
           "responses": [
@@ -5890,14 +5982,15 @@
           "proxyHeaders": {
             "Referer": "https://fundf10.eastmoney.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://fundf10.eastmoney.com/jjjz_001072.html"
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "Observed on the provider-owned fund page; field identifiers are internal.",
-            "en": "Observed on the provider-owned fund page; field identifiers are internal."
+            "zh": "Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate.",
+            "en": "Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate."
           },
           "responseExample": {
             "rc": 0,
@@ -5923,7 +6016,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/cnbc-market-data/openapi.json",
       "license": "Proprietary / undocumented",
       "attributionUrl": "https://www.cnbc.com/quotes/",
-      "approvedSha256": "4d3f5cf7648a3de62e04feafe5941a04927027eaa0460adf5dd8de9ed416cfec",
+      "approvedSha256": "4bd0d4a327a34a8a3e41a0b29840001fe2fd6c78b5ada36416ce429a0d58429e",
       "title": {
         "zh": "CNBC 网页行情 API",
         "en": "CNBC web quote API"
@@ -6065,6 +6158,7 @@
           "proxyHeaders": {
             "Referer": "https://www.cnbc.com/"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://www.cnbc.com/quotes/AAPL"
@@ -6094,7 +6188,7 @@
           },
           "description": {
             "zh": "通过持久化 GraphQL 查询返回图表数据。",
-            "en": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+            "en": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hash 9e1670c2… was observed on 2026-08-10 and may rotate."
           },
           "parameters": [
             {
@@ -6105,7 +6199,8 @@
               "description": {
                 "zh": "Persisted operation name",
                 "en": "Persisted operation name"
-              }
+              },
+              "example": "getQuoteChartData"
             },
             {
               "name": "variables",
@@ -6115,7 +6210,8 @@
               "description": {
                 "zh": "JSON-encoded query variables",
                 "en": "JSON-encoded query variables"
-              }
+              },
+              "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
             },
             {
               "name": "extensions",
@@ -6125,7 +6221,8 @@
               "description": {
                 "zh": "JSON-encoded persisted-query hash",
                 "en": "JSON-encoded persisted-query hash"
-              }
+              },
+              "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}"
             }
           ],
           "responses": [
@@ -6148,16 +6245,18 @@
             "webql-redesign-cnbcfm-com"
           ],
           "proxyHeaders": {
-            "Referer": "https://www.cnbc.com/"
+            "Referer": "https://www.cnbc.com/",
+            "partner": "cnbc01"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://www.cnbc.com/quotes/AAPL"
           ],
           "verifiedAt": "2026-08-10",
           "stabilityNote": {
-            "zh": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
-            "en": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+            "zh": "CNBC uses persisted GraphQL queries; hash 9e1670c2… was observed on 2026-08-10 and may rotate.",
+            "en": "CNBC uses persisted GraphQL queries; hash 9e1670c2… was observed on 2026-08-10 and may rotate."
           },
           "responseExample": {
             "data": {}
@@ -6255,6 +6354,7 @@
           "proxyHeaders": {
             "User-Agent": "fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "observed",
           "evidenceUrls": [
             "https://sgx.i3investor.com/"
@@ -6310,6 +6410,7 @@
           "proxyHeaders": {
             "User-Agent": "fi-api/1.0"
           },
+          "proxyEnabled": true,
           "documentationStatus": "inferred",
           "evidenceUrls": [
             "https://sgx.i3investor.com/"

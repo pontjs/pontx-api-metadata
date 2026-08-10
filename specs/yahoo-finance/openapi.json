@@ -206,7 +206,7 @@
       "get": {
         "operationId": "getQuotes",
         "summary": "Get batch quote snapshots",
-        "description": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic.",
+        "description": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized.",
         "parameters": [
           {
             "name": "symbols",
@@ -291,7 +291,7 @@
           "https://finance.yahoo.com/quote/AAPL/"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic.",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -299,6 +299,11 @@
         ],
         "x-pontx-proxy-headers": {
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "Yahoo 当前要求浏览器会话，匿名服务端请求返回 Unauthorized。",
+          "en": "Yahoo currently requires browser session state; anonymous server requests return Unauthorized."
         }
       }
     },
@@ -672,6 +677,11 @@
         ],
         "x-pontx-proxy-headers": {
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "Yahoo 当前要求有效的 crumb 与 Cookie，Hub 不代替浏览器建立会话。",
+          "en": "Yahoo currently requires a valid crumb and cookie; Hub does not establish browser sessions."
         }
       }
     },

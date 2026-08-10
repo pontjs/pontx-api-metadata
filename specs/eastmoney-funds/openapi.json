@@ -24,7 +24,7 @@
       "get": {
         "operationId": "getFundEstimate",
         "summary": "Get latest fund estimate",
-        "description": "Get latest fund estimate. Used by FiApp; returns a jsonpgz JSONP wrapper.",
+        "description": "Get latest fund estimate. Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP.",
         "parameters": [
           {
             "name": "fundCode",
@@ -63,7 +63,7 @@
           "https://fundgz.1234567.com.cn/js/001072.js"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp; returns a jsonpgz JSONP wrapper.",
+        "x-pontx-stability-note": "Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP.",
         "servers": [
           {
             "url": "https://fundgz.1234567.com.cn"
@@ -71,6 +71,11 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://fund.eastmoney.com/"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "该地址当前返回东方财富的页面不存在 HTML，已停止代理执行。",
+          "en": "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled."
         }
       }
     },
@@ -213,7 +218,8 @@
             "description": "Chart type",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "default": 0
             }
           },
           {
@@ -222,7 +228,8 @@
             "description": "One-based page",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "default": 1
             }
           },
           {
@@ -231,7 +238,8 @@
             "description": "Maximum points",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "default": 400
             }
           },
           {
@@ -257,9 +265,33 @@
           "200": {
             "description": "Successful response",
             "content": {
-              "application/javascript": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "integer"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "equityReturn": {
+                            "type": "number"
+                          },
+                          "unitMoney": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
                 }
               }
             }
@@ -285,7 +317,7 @@
       "get": {
         "operationId": "getMarketIndexList",
         "summary": "Get related market-index snapshots",
-        "description": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers are internal.",
+        "description": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate.",
         "parameters": [
           {
             "name": "secids",
@@ -311,7 +343,28 @@
             "description": "Number formatting mode",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "default": 2
+            }
+          },
+          {
+            "name": "invt",
+            "in": "query",
+            "description": "Provider request mode",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 2
+            }
+          },
+          {
+            "name": "ut",
+            "in": "query",
+            "description": "Public page request token",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "267f9ad526dbe6b0262ab19316f5a25b"
             }
           }
         ],
@@ -365,7 +418,7 @@
           "https://fundf10.eastmoney.com/jjjz_001072.html"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed on the provider-owned fund page; field identifiers are internal.",
+        "x-pontx-stability-note": "Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate.",
         "servers": [
           {
             "url": "https://push2.eastmoney.com"

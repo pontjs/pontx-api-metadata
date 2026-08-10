@@ -18,7 +18,7 @@
       "get": {
         "operationId": "downloadLatestQuotes",
         "summary": "Download current or latest quotes",
-        "description": "Download current or latest quotes. Used by FiApp and verified as a public CSV response.",
+        "description": "Download current or latest quotes. Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page.",
         "parameters": [
           {
             "name": "s",
@@ -77,7 +77,7 @@
           "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Used by FiApp and verified as a public CSV response.",
+        "x-pontx-stability-note": "Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page.",
         "servers": [
           {
             "url": "https://stooq.com"
@@ -85,6 +85,11 @@
         ],
         "x-pontx-proxy-headers": {
           "User-Agent": "fi-api/1.0"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "该地址当前返回 Stooq 404 页面，已停止代理执行。",
+          "en": "This URL currently returns Stooq's 404 page, so proxy execution is disabled."
         }
       }
     },
@@ -92,7 +97,7 @@
       "get": {
         "operationId": "downloadHistoricalQuotes",
         "summary": "Download historical price data",
-        "description": "Download historical price data. Linked by provider-owned historical-data pages and validated as read-only CSV.",
+        "description": "Download historical price data. Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV.",
         "parameters": [
           {
             "name": "s",
@@ -148,12 +153,12 @@
             }
           }
         },
-        "x-pontx-documentation-status": "inferred",
+        "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
           "https://stooq.com/q/d/?s=aapl.us"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Linked by provider-owned historical-data pages and validated as read-only CSV.",
+        "x-pontx-stability-note": "Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV.",
         "servers": [
           {
             "url": "https://stooq.com"
@@ -161,6 +166,11 @@
         ],
         "x-pontx-proxy-headers": {
           "User-Agent": "fi-api/1.0"
+        },
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": {
+          "zh": "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。",
+          "en": "Stooq currently requires JavaScript browser verification, which Hub does not bypass."
         }
       }
     }
