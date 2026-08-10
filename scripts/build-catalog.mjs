@@ -133,7 +133,9 @@ function makeOperation(document, path, method, operation, pathParameters, transl
   const translation = translations?.[operationId];
   const enTitle = operation.summary || operationId;
   const enDescription = operation.description || operation.summary || operationId;
-  const parameters = [...(pathParameters ?? []), ...(operation.parameters ?? [])].map((parameter) => {
+  const resolvedParameters = [...(pathParameters ?? []), ...(operation.parameters ?? [])]
+    .map((parameter) => dereference(document, parameter));
+  const parameters = resolvedParameters.map((parameter) => {
     const schema = parameter.schema ?? {};
     return {
       name: parameter.name,
@@ -169,7 +171,7 @@ function makeOperation(document, path, method, operation, pathParameters, transl
           : {})
     });
   }
-  const bodyParameter = [...(pathParameters ?? []), ...(operation.parameters ?? [])]
+  const bodyParameter = resolvedParameters
     .find((parameter) => parameter.in === "body");
   const requestSchema = requestMedia?.schema ?? bodyParameter?.schema;
   const requestBody = requestSchema
