@@ -1,0 +1,155 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Stooq Public Quote Downloads",
+    "version": "2026-08-10",
+    "description": "Public read-only Stooq CSV quote and historical-download endpoints. The URL contract is observed rather than formally versioned.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://stooq.com"
+    }
+  ],
+  "paths": {
+    "/q/l/": {
+      "get": {
+        "operationId": "downloadLatestQuotes",
+        "summary": "Download current or latest quotes",
+        "description": "Download current or latest quotes. Used by FiApp and verified as a public CSV response.",
+        "parameters": [
+          {
+            "name": "s",
+            "in": "query",
+            "description": "Comma-separated Stooq symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "f",
+            "in": "query",
+            "description": "Field selection code",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "description": "Include header",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "e",
+            "in": "query",
+            "description": "Output format",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "csv"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Used by FiApp and verified as a public CSV response."
+      }
+    },
+    "/q/d/l/": {
+      "get": {
+        "operationId": "downloadHistoricalQuotes",
+        "summary": "Download historical price data",
+        "description": "Download historical price data. Linked by provider-owned historical-data pages and validated as read-only CSV.",
+        "parameters": [
+          {
+            "name": "s",
+            "in": "query",
+            "description": "Stooq symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "d1",
+            "in": "query",
+            "description": "Start date YYYYMMDD",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "d2",
+            "in": "query",
+            "description": "End date YYYYMMDD",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "i",
+            "in": "query",
+            "description": "Interval",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "d",
+                "w",
+                "m"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://stooq.com/q/d/?s=aapl.us"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Linked by provider-owned historical-data pages and validated as read-only CSV."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

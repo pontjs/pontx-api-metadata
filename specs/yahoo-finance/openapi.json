@@ -1,0 +1,726 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Yahoo Finance Web Market Data API",
+    "version": "2026-08-10",
+    "description": "Undocumented read-only Yahoo Finance web endpoints observed on provider-owned pages. These are not a supported Yahoo developer API.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://query1.finance.yahoo.com"
+    },
+    {
+      "url": "https://query2.finance.yahoo.com"
+    }
+  ],
+  "paths": {
+    "/v8/finance/chart/{symbol}": {
+      "get": {
+        "operationId": "getChart",
+        "summary": "Get chart and historical price data",
+        "description": "Get chart and historical price data. Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Yahoo Finance symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Requested range",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "description": "Bar interval",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "period1",
+            "in": "query",
+            "description": "Unix start time",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "period2",
+            "in": "query",
+            "description": "Unix end time",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "includePrePost",
+            "in": "query",
+            "description": "Include extended hours",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "chart": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "meta": {
+                                "type": "object",
+                                "properties": {
+                                  "symbol": {
+                                    "type": "string"
+                                  },
+                                  "currency": {
+                                    "type": "string"
+                                  },
+                                  "regularMarketPrice": {
+                                    "type": "number"
+                                  },
+                                  "previousClose": {
+                                    "type": "number"
+                                  },
+                                  "regularMarketTime": {
+                                    "type": "number"
+                                  }
+                                },
+                                "additionalProperties": true
+                              },
+                              "timestamp": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer"
+                                }
+                              },
+                              "indicators": {
+                                "type": "object",
+                                "properties": {
+                                  "quote": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "open": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "high": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "low": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "close": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "volume": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      },
+                                      "additionalProperties": true
+                                    }
+                                  }
+                                },
+                                "additionalProperties": true
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        },
+                        "error": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/",
+          "https://query2.finance.yahoo.com/v8/finance/chart/AAPL"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed."
+      }
+    },
+    "/v7/finance/quote": {
+      "get": {
+        "operationId": "getQuotes",
+        "summary": "Get batch quote snapshots",
+        "description": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic.",
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "query",
+            "description": "Comma-separated symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-separated response fields",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "formatted",
+            "in": "query",
+            "description": "Return formatted values",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "quoteResponse": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "regularMarketPrice": {
+                                "type": "number"
+                              },
+                              "regularMarketChangePercent": {
+                                "type": "number"
+                              },
+                              "regularMarketTime": {
+                                "type": "number"
+                              },
+                              "currency": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        },
+                        "error": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic."
+      }
+    },
+    "/v7/finance/spark": {
+      "get": {
+        "operationId": "getSpark",
+        "summary": "Get compact chart series",
+        "description": "Get compact chart series. Observed in Yahoo Finance's own market widgets.",
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "query",
+            "description": "Comma-separated symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "description": "Requested range",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "description": "Bar interval",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "spark": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "response": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "timestamp": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "indicators": {
+                                      "type": "object",
+                                      "properties": {
+                                        "quote": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "close": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "number"
+                                                }
+                                              }
+                                            },
+                                            "additionalProperties": true
+                                          }
+                                        }
+                                      },
+                                      "additionalProperties": true
+                                    }
+                                  },
+                                  "additionalProperties": true
+                                }
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own market widgets."
+      }
+    },
+    "/v1/finance/quoteType/": {
+      "get": {
+        "operationId": "getQuoteType",
+        "summary": "Get security type and identity",
+        "description": "Get security type and identity. Observed on Yahoo Finance's quote page.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "description": "Yahoo Finance symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "quoteType": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "quoteType": {
+                                "type": "string"
+                              },
+                              "longName": {
+                                "type": "string"
+                              },
+                              "exchange": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote page."
+      }
+    },
+    "/v1/finance/search": {
+      "get": {
+        "operationId": "searchSymbols",
+        "summary": "Search securities",
+        "description": "Search securities. Provider-owned search endpoint family; validated as a public read-only request.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search text",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "quotesCount",
+            "in": "query",
+            "description": "Maximum securities",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "newsCount",
+            "in": "query",
+            "description": "Maximum news results",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "quotes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "symbol": {
+                            "type": "string"
+                          },
+                          "shortname": {
+                            "type": "string"
+                          },
+                          "longname": {
+                            "type": "string"
+                          },
+                          "exchange": {
+                            "type": "string"
+                          },
+                          "quoteType": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/lookup/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Provider-owned search endpoint family; validated as a public read-only request."
+      }
+    },
+    "/v10/finance/quoteSummary/{symbol}": {
+      "get": {
+        "operationId": "getQuoteSummary",
+        "summary": "Get modular security details",
+        "description": "Get modular security details. Module availability and crumb requirements can change without notice.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Yahoo Finance symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modules",
+            "in": "query",
+            "description": "Comma-separated modules",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "quoteSummary": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "price": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              },
+                              "summaryDetail": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              },
+                              "assetProfile": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        },
+                        "error": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/profile/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Module availability and crumb requirements can change without notice."
+      }
+    },
+    "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
+      "get": {
+        "operationId": "getFundamentalTimeseries",
+        "summary": "Get fundamental and event time series",
+        "description": "Get fundamental and event time series. Observed on Yahoo Finance's quote chart; supported types are internal and may change.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Yahoo Finance symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Comma-separated series types",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "period1",
+            "in": "query",
+            "description": "Unix start time",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "period2",
+            "in": "query",
+            "description": "Unix end time",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "timeseries": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "meta": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              },
+                              "timestamp": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.yahoo.com/quote/AAPL/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote chart; supported types are internal and may change."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

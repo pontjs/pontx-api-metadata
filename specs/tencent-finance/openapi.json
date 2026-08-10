@@ -1,0 +1,155 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Tencent Finance Web Quote API",
+    "version": "2026-08-10",
+    "description": "Undocumented Tencent Finance read-only quote and chart endpoints used by public pages and FiApp.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://qt.gtimg.cn"
+    },
+    {
+      "url": "https://web.ifzq.gtimg.cn"
+    }
+  ],
+  "paths": {
+    "/q={symbols}": {
+      "get": {
+        "operationId": "getQuoteSnapshots",
+        "summary": "Get single or batch quote snapshots",
+        "description": "Get single or batch quote snapshots. Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text.",
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "path",
+            "description": "Comma-separated Tencent-prefixed symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://gu.qq.com",
+          "https://qt.gtimg.cn/q=hk00700"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text."
+      }
+    },
+    "/appstock/app/fqkline/get": {
+      "get": {
+        "operationId": "getForwardAdjustedKLine",
+        "summary": "Get adjusted K-line data",
+        "description": "Get adjusted K-line data. Observed in the provider's public chart family; response structure can change.",
+        "parameters": [
+          {
+            "name": "param",
+            "in": "query",
+            "description": "Comma-separated symbol, interval, start, end and count",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://gu.qq.com/hk00700"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change."
+      }
+    },
+    "/appstock/app/kline/kline": {
+      "get": {
+        "operationId": "getKLine",
+        "summary": "Get unadjusted K-line data",
+        "description": "Get unadjusted K-line data. Observed in the provider's public chart family; response structure can change.",
+        "parameters": [
+          {
+            "name": "param",
+            "in": "query",
+            "description": "Comma-separated symbol, interval, start, end and count",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://gu.qq.com/hk00700"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Observed in the provider's public chart family; response structure can change."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
