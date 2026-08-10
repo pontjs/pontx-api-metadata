@@ -23,7 +23,10 @@
       "packageName": "@pontx/api-frankfurter",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "cliName": "currency",
       "proxyEnabled": true,
+      "documentationStatus": "official",
+      "evidenceUrls": [],
       "servers": [
         {
           "id": "default",
@@ -167,6 +170,8 @@
               ]
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -322,6 +327,8 @@
               ]
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -489,6 +496,8 @@
               ]
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -535,6 +544,8 @@
               "schemaName": "CurrenciesResponse"
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
           "responseExample": {
             "EUR": "Euro",
             "USD": "United States Dollar",
@@ -880,7 +891,10 @@
       "packageName": "@pontx/api-dida365",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "cliName": "dida",
       "proxyEnabled": true,
+      "documentationStatus": "official",
+      "evidenceUrls": [],
       "servers": [
         {
           "id": "default",
@@ -896,9 +910,21 @@
           "id": "OAuth2",
           "type": "oauth2",
           "envVar": "DIDA365_ACCESS_TOKEN",
+          "tokenEndpointAuthMethod": "client_secret_post",
+          "pkce": "unsupported",
           "description": {
             "zh": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
             "en": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session."
+          },
+          "flows": {
+            "authorizationCode": {
+              "authorizationUrl": "https://dida365.com/oauth/authorize",
+              "tokenUrl": "https://dida365.com/oauth/token",
+              "scopes": {
+                "tasks:read": "Read tasks and projects",
+                "tasks:write": "Create, update, complete, and delete tasks and projects"
+              }
+            }
           }
         }
       ],
@@ -993,6 +1019,16 @@
               }
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:read"
+              ]
+            }
+          ],
           "responseExample": {
             "isAllDay": false,
             "completedTime": "2019-11-13T03:00:00+0000",
@@ -1070,6 +1106,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
             }
           ]
         },
@@ -1183,6 +1229,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
             }
           ],
           "responseExample": {
@@ -1314,6 +1370,16 @@
               }
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
+            }
+          ],
           "responseExample": {
             "isAllDay": false,
             "completedTime": "2019-11-13T03:00:00+0000",
@@ -1392,6 +1458,16 @@
                 "en": "Not Found"
               }
             }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
+            }
           ]
         },
         {
@@ -1453,6 +1529,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:read"
+              ]
             }
           ],
           "responseExample": [
@@ -1561,6 +1647,16 @@
               }
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
+            }
+          ],
           "responseExample": {
             "sortOrder": 0,
             "closed": false,
@@ -1638,6 +1734,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:read"
+              ]
             }
           ],
           "responseExample": {
@@ -1753,6 +1859,16 @@
               }
             }
           ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
+            }
+          ],
           "responseExample": {
             "sortOrder": 0,
             "closed": false,
@@ -1814,6 +1930,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:write"
+              ]
             }
           ]
         },
@@ -1881,6 +2007,16 @@
                 "zh": "Not Found",
                 "en": "Not Found"
               }
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [],
+          "security": [
+            {
+              "schemeId": "OAuth2",
+              "scopes": [
+                "tasks:read"
+              ]
             }
           ],
           "responseExample": {
@@ -3328,6 +3464,2600 @@
           }
         }
       ]
+    },
+    {
+      "slug": "massive",
+      "name": "Massive Stock Market Data API",
+      "provider": "Massive.com (formerly Polygon.io)",
+      "category": "Finance",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/massive/openapi.json",
+      "license": "Proprietary",
+      "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
+      "approvedSha256": "40b0335c8505eac43ef1be207f30cc63fedea2da170dd35c9832a787e6e989ec",
+      "title": {
+        "zh": "Massive 股票市场数据 API",
+        "en": "Massive stock market data API"
+      },
+      "summary": {
+        "zh": "查询股票成交、聚合行情、市场快照及证券参考资料。",
+        "en": "Query stock trades, aggregate bars, snapshots, and ticker reference data."
+      },
+      "accent": "#7c3aed",
+      "packageName": "@pontx/api-massive",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "official",
+      "evidenceUrls": [
+        "https://massive.com/docs/rest/stocks/overview"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "官方文档接口；可用数据取决于账户套餐与市场数据授权。",
+        "en": "Officially documented; availability depends on the account plan and market-data entitlements."
+      },
+      "servers": [
+        {
+          "id": "polygon-compatible",
+          "url": "https://api.polygon.io",
+          "description": {
+            "zh": "FiApp 当前使用的 Polygon 兼容入口",
+            "en": "Polygon-compatible endpoint currently used by FiApp"
+          }
+        }
+      ],
+      "auth": [
+        {
+          "id": "ApiKey",
+          "type": "apiKey",
+          "name": "apiKey",
+          "in": "query",
+          "envVar": "POLYGON_API_KEY",
+          "description": {
+            "zh": "Massive/Polygon API Key，仅在调用方会话中提供。",
+            "en": "Massive/Polygon API key, supplied only in the caller session."
+          }
+        }
+      ],
+      "operations": [
+        {
+          "slug": "get-last-trade",
+          "operationId": "getLastTrade",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v2/last/trade/{stocksTicker}",
+          "title": {
+            "zh": "获取最新成交",
+            "en": "Get the last stock trade"
+          },
+          "description": {
+            "zh": "返回指定股票最近一笔可用成交。",
+            "en": "Get the last stock trade. Officially documented endpoint; availability depends on the account's market-data plan."
+          },
+          "parameters": [
+            {
+              "name": "stocksTicker",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Case-sensitive stock ticker",
+                "en": "Case-sensitive stock ticker"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "status",
+                "request_id",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Officially documented endpoint; availability depends on the account's market-data plan.",
+            "en": "Officially documented endpoint; availability depends on the account's market-data plan."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": {
+              "p": 0,
+              "s": 0,
+              "t": 0
+            }
+          }
+        },
+        {
+          "slug": "get-previous-close",
+          "operationId": "getPreviousClose",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v2/aggs/ticker/{stocksTicker}/prev",
+          "title": {
+            "zh": "获取前一交易日行情",
+            "en": "Get previous-day aggregate"
+          },
+          "description": {
+            "zh": "返回指定股票前一交易日的聚合行情。",
+            "en": "Get previous-day aggregate. Officially documented aggregate endpoint."
+          },
+          "parameters": [
+            {
+              "name": "stocksTicker",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Stock ticker",
+                "en": "Stock ticker"
+              }
+            },
+            {
+              "name": "adjusted",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Return split-adjusted results",
+                "en": "Return split-adjusted results"
+              },
+              "example": true
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "status",
+                "ticker",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Officially documented aggregate endpoint.",
+            "en": "Officially documented aggregate endpoint."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": [
+              {
+                "c": 0,
+                "h": 0,
+                "l": 0,
+                "o": 0,
+                "v": 0,
+                "t": 0
+              }
+            ]
+          }
+        },
+        {
+          "slug": "get-aggregate-bars",
+          "operationId": "getAggregateBars",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}",
+          "title": {
+            "zh": "获取自定义周期 K 线",
+            "en": "Get custom aggregate bars"
+          },
+          "description": {
+            "zh": "按时间范围和周期查询聚合行情。",
+            "en": "Get custom aggregate bars. Officially documented aggregate endpoint."
+          },
+          "parameters": [
+            {
+              "name": "stocksTicker",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Stock ticker",
+                "en": "Stock ticker"
+              }
+            },
+            {
+              "name": "multiplier",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": {
+                "zh": "Timespan multiplier",
+                "en": "Timespan multiplier"
+              },
+              "example": 0
+            },
+            {
+              "name": "timespan",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "enum": [
+                "minute",
+                "hour",
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year"
+              ],
+              "description": {
+                "zh": "Bar unit",
+                "en": "Bar unit"
+              },
+              "example": "minute"
+            },
+            {
+              "name": "from",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Start date or timestamp",
+                "en": "Start date or timestamp"
+              }
+            },
+            {
+              "name": "to",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "End date or timestamp",
+                "en": "End date or timestamp"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "ticker",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Officially documented aggregate endpoint.",
+            "en": "Officially documented aggregate endpoint."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": [
+              {
+                "c": 0,
+                "h": 0,
+                "l": 0,
+                "o": 0,
+                "v": 0,
+                "t": 0
+              }
+            ]
+          }
+        },
+        {
+          "slug": "get-market-snapshot",
+          "operationId": "getMarketSnapshot",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v3/snapshot",
+          "title": {
+            "zh": "获取市场快照",
+            "en": "Get a stock-market snapshot"
+          },
+          "description": {
+            "zh": "返回一个或多个股票的市场快照。",
+            "en": "Get a stock-market snapshot. Officially documented snapshot family."
+          },
+          "parameters": [
+            {
+              "name": "ticker.any_of",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated tickers",
+                "en": "Comma-separated tickers"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Maximum results",
+                "en": "Maximum results"
+              },
+              "example": 0
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "status",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/snapshots/full-market-snapshot"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Officially documented snapshot family.",
+            "en": "Officially documented snapshot family."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": [
+              {
+                "value": 0,
+                "session": {
+                  "change_percent": 0,
+                  "close": 0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "slug": "list-tickers",
+          "operationId": "listTickers",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v3/reference/tickers",
+          "title": {
+            "zh": "搜索证券代码",
+            "en": "List and search supported tickers"
+          },
+          "description": {
+            "zh": "列出并筛选 Massive 支持的证券。",
+            "en": "List and search supported tickers. Official reference-data endpoint."
+          },
+          "parameters": [
+            {
+              "name": "ticker",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Ticker filter",
+                "en": "Ticker filter"
+              }
+            },
+            {
+              "name": "market",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Market filter",
+                "en": "Market filter"
+              }
+            },
+            {
+              "name": "active",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Active-listing filter",
+                "en": "Active-listing filter"
+              },
+              "example": false
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "status",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/tickers/all-tickers"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Official reference-data endpoint.",
+            "en": "Official reference-data endpoint."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": [
+              {}
+            ]
+          }
+        },
+        {
+          "slug": "get-ticker-details",
+          "operationId": "getTickerDetails",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v3/reference/tickers/{ticker}",
+          "title": {
+            "zh": "获取证券资料",
+            "en": "Get ticker reference details"
+          },
+          "description": {
+            "zh": "返回证券代码的参考资料。",
+            "en": "Get ticker reference details. Official reference-data endpoint."
+          },
+          "parameters": [
+            {
+              "name": "ticker",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Stock ticker",
+                "en": "Stock ticker"
+              }
+            },
+            {
+              "name": "date",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Point-in-time date",
+                "en": "Point-in-time date"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "status",
+                "results"
+              ]
+            }
+          ],
+          "documentationStatus": "official",
+          "evidenceUrls": [
+            "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Official reference-data endpoint.",
+            "en": "Official reference-data endpoint."
+          },
+          "security": [
+            {
+              "schemeId": "ApiKey",
+              "scopes": []
+            }
+          ],
+          "responseExample": {
+            "results": {}
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "yahoo-finance",
+      "name": "Yahoo Finance Web Market Data API",
+      "provider": "Yahoo Finance",
+      "category": "Finance",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/yahoo-finance/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://finance.yahoo.com/",
+      "approvedSha256": "541abb72e0b48aa3a5d0ef961006ca33a23d5955c65107afb0d228c82d189ba0",
+      "title": {
+        "zh": "Yahoo Finance 网页市场数据 API",
+        "en": "Yahoo Finance web market data API"
+      },
+      "summary": {
+        "zh": "查询行情、K 线、证券搜索、基础资料与基本面时间序列。",
+        "en": "Query quotes, charts, symbol search, profiles, and fundamental time series."
+      },
+      "accent": "#6001d2",
+      "packageName": "@pontx/api-yahoo-finance",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://finance.yahoo.com/quote/AAPL/"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "来自 Yahoo Finance 官网网络请求，不是受支持的开发者 API，可能无预告变更。",
+        "en": "Observed in Yahoo Finance web traffic; not a supported developer API and may change without notice."
+      },
+      "servers": [
+        {
+          "id": "query1",
+          "url": "https://query1.finance.yahoo.com",
+          "description": {
+            "zh": "Yahoo Finance 网页数据入口",
+            "en": "Yahoo Finance web-data endpoint"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-chart",
+          "operationId": "getChart",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v8/finance/chart/{symbol}",
+          "title": {
+            "zh": "获取行情与 K 线",
+            "en": "Get chart and historical price data"
+          },
+          "description": {
+            "zh": "返回证券元数据和历史价格序列。",
+            "en": "Get chart and historical price data. Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed."
+          },
+          "parameters": [
+            {
+              "name": "symbol",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Yahoo Finance symbol",
+                "en": "Yahoo Finance symbol"
+              }
+            },
+            {
+              "name": "range",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Requested range",
+                "en": "Requested range"
+              }
+            },
+            {
+              "name": "interval",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Bar interval",
+                "en": "Bar interval"
+              }
+            },
+            {
+              "name": "period1",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Unix start time",
+                "en": "Unix start time"
+              },
+              "example": 0
+            },
+            {
+              "name": "period2",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Unix end time",
+                "en": "Unix end time"
+              },
+              "example": 0
+            },
+            {
+              "name": "includePrePost",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Include extended hours",
+                "en": "Include extended hours"
+              },
+              "example": false
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "chart"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/",
+            "https://query2.finance.yahoo.com/v8/finance/chart/AAPL"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed.",
+            "en": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed."
+          },
+          "responseExample": {
+            "chart": {
+              "result": [
+                {
+                  "meta": {
+                    "regularMarketPrice": 0,
+                    "previousClose": 0,
+                    "regularMarketTime": 0
+                  },
+                  "timestamp": [
+                    0
+                  ],
+                  "indicators": {
+                    "quote": [
+                      {
+                        "open": [
+                          0
+                        ],
+                        "high": [
+                          0
+                        ],
+                        "low": [
+                          0
+                        ],
+                        "close": [
+                          0
+                        ],
+                        "volume": [
+                          0
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "error": {}
+            }
+          }
+        },
+        {
+          "slug": "get-quotes",
+          "operationId": "getQuotes",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v7/finance/quote",
+          "title": {
+            "zh": "获取批量行情",
+            "en": "Get batch quote snapshots"
+          },
+          "description": {
+            "zh": "返回多个证券的行情快照。",
+            "en": "Get batch quote snapshots. Observed in Yahoo Finance's own quote-page traffic."
+          },
+          "parameters": [
+            {
+              "name": "symbols",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated symbols",
+                "en": "Comma-separated symbols"
+              }
+            },
+            {
+              "name": "fields",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated response fields",
+                "en": "Comma-separated response fields"
+              }
+            },
+            {
+              "name": "formatted",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Return formatted values",
+                "en": "Return formatted values"
+              },
+              "example": false
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "quoteResponse"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed in Yahoo Finance's own quote-page traffic.",
+            "en": "Observed in Yahoo Finance's own quote-page traffic."
+          },
+          "responseExample": {
+            "quoteResponse": {
+              "result": [
+                {
+                  "regularMarketPrice": 0,
+                  "regularMarketChangePercent": 0,
+                  "regularMarketTime": 0
+                }
+              ],
+              "error": {}
+            }
+          }
+        },
+        {
+          "slug": "get-spark",
+          "operationId": "getSpark",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v7/finance/spark",
+          "title": {
+            "zh": "获取迷你图数据",
+            "en": "Get compact chart series"
+          },
+          "description": {
+            "zh": "返回紧凑的价格时间序列。",
+            "en": "Get compact chart series. Observed in Yahoo Finance's own market widgets."
+          },
+          "parameters": [
+            {
+              "name": "symbols",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated symbols",
+                "en": "Comma-separated symbols"
+              }
+            },
+            {
+              "name": "range",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Requested range",
+                "en": "Requested range"
+              }
+            },
+            {
+              "name": "interval",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Bar interval",
+                "en": "Bar interval"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "spark"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed in Yahoo Finance's own market widgets.",
+            "en": "Observed in Yahoo Finance's own market widgets."
+          },
+          "responseExample": {
+            "spark": {
+              "result": [
+                {
+                  "response": [
+                    {
+                      "timestamp": [
+                        0
+                      ],
+                      "indicators": {
+                        "quote": [
+                          {
+                            "close": [
+                              0
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "slug": "get-quote-type",
+          "operationId": "getQuoteType",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v1/finance/quoteType/",
+          "title": {
+            "zh": "获取证券类型",
+            "en": "Get security type and identity"
+          },
+          "description": {
+            "zh": "返回证券身份和交易所信息。",
+            "en": "Get security type and identity. Observed on Yahoo Finance's quote page."
+          },
+          "parameters": [
+            {
+              "name": "symbol",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Yahoo Finance symbol",
+                "en": "Yahoo Finance symbol"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "quoteType"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed on Yahoo Finance's quote page.",
+            "en": "Observed on Yahoo Finance's quote page."
+          },
+          "responseExample": {
+            "quoteType": {
+              "result": [
+                {}
+              ]
+            }
+          }
+        },
+        {
+          "slug": "search-symbols",
+          "operationId": "searchSymbols",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v1/finance/search",
+          "title": {
+            "zh": "搜索证券",
+            "en": "Search securities"
+          },
+          "description": {
+            "zh": "按文本搜索证券代码和名称。",
+            "en": "Search securities. Provider-owned search endpoint family; validated as a public read-only request."
+          },
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Search text",
+                "en": "Search text"
+              }
+            },
+            {
+              "name": "quotesCount",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Maximum securities",
+                "en": "Maximum securities"
+              },
+              "example": 0
+            },
+            {
+              "name": "newsCount",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Maximum news results",
+                "en": "Maximum news results"
+              },
+              "example": 0
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "quotes"
+              ]
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/lookup/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Provider-owned search endpoint family; validated as a public read-only request.",
+            "en": "Provider-owned search endpoint family; validated as a public read-only request."
+          },
+          "responseExample": {
+            "quotes": [
+              {}
+            ]
+          }
+        },
+        {
+          "slug": "get-quote-summary",
+          "operationId": "getQuoteSummary",
+          "tag": "default",
+          "method": "GET",
+          "path": "/v10/finance/quoteSummary/{symbol}",
+          "title": {
+            "zh": "获取证券模块资料",
+            "en": "Get modular security details"
+          },
+          "description": {
+            "zh": "按模块查询价格、摘要和公司资料。",
+            "en": "Get modular security details. Module availability and crumb requirements can change without notice."
+          },
+          "parameters": [
+            {
+              "name": "symbol",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Yahoo Finance symbol",
+                "en": "Yahoo Finance symbol"
+              }
+            },
+            {
+              "name": "modules",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated modules",
+                "en": "Comma-separated modules"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "quoteSummary"
+              ]
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/profile/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Module availability and crumb requirements can change without notice.",
+            "en": "Module availability and crumb requirements can change without notice."
+          },
+          "responseExample": {
+            "quoteSummary": {
+              "result": [
+                {
+                  "price": {},
+                  "summaryDetail": {},
+                  "assetProfile": {}
+                }
+              ],
+              "error": {}
+            }
+          }
+        },
+        {
+          "slug": "get-fundamental-timeseries",
+          "operationId": "getFundamentalTimeseries",
+          "tag": "default",
+          "method": "GET",
+          "path": "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}",
+          "title": {
+            "zh": "获取基本面时间序列",
+            "en": "Get fundamental and event time series"
+          },
+          "description": {
+            "zh": "返回基本面和事件时间序列。",
+            "en": "Get fundamental and event time series. Observed on Yahoo Finance's quote chart; supported types are internal and may change."
+          },
+          "parameters": [
+            {
+              "name": "symbol",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Yahoo Finance symbol",
+                "en": "Yahoo Finance symbol"
+              }
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated series types",
+                "en": "Comma-separated series types"
+              }
+            },
+            {
+              "name": "period1",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "description": {
+                "zh": "Unix start time",
+                "en": "Unix start time"
+              },
+              "example": 0
+            },
+            {
+              "name": "period2",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "description": {
+                "zh": "Unix end time",
+                "en": "Unix end time"
+              },
+              "example": 0
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "timeseries"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.yahoo.com/quote/AAPL/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed on Yahoo Finance's quote chart; supported types are internal and may change.",
+            "en": "Observed on Yahoo Finance's quote chart; supported types are internal and may change."
+          },
+          "responseExample": {
+            "timeseries": {
+              "result": [
+                {
+                  "meta": {},
+                  "timestamp": [
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "stooq",
+      "name": "Stooq Public Quote Downloads",
+      "provider": "Stooq",
+      "category": "Finance",
+      "featured": false,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/stooq/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://stooq.com/",
+      "approvedSha256": "1163bf3486d1c321fd1ba7ab6afcee0048e19ab33bbadc1092acc579bb38692f",
+      "title": {
+        "zh": "Stooq 公共行情下载",
+        "en": "Stooq public quote downloads"
+      },
+      "summary": {
+        "zh": "下载最新与历史行情 CSV。",
+        "en": "Download latest and historical market data as CSV."
+      },
+      "accent": "#2563eb",
+      "packageName": "@pontx/api-stooq",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv",
+        "https://stooq.com/q/d/?s=aapl.us"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "公开 CSV 下载接口未提供正式版本契约。",
+        "en": "Public CSV downloads without a formally versioned API contract."
+      },
+      "servers": [
+        {
+          "id": "default",
+          "url": "https://stooq.com",
+          "description": {
+            "zh": "Stooq 公共网站",
+            "en": "Stooq public website"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "download-latest-quotes",
+          "operationId": "downloadLatestQuotes",
+          "tag": "default",
+          "method": "GET",
+          "path": "/q/l/",
+          "title": {
+            "zh": "下载最新行情",
+            "en": "Download current or latest quotes"
+          },
+          "description": {
+            "zh": "按字段格式下载最新行情 CSV。",
+            "en": "Download current or latest quotes. Used by FiApp and verified as a public CSV response."
+          },
+          "parameters": [
+            {
+              "name": "s",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated Stooq symbols",
+                "en": "Comma-separated Stooq symbols"
+              }
+            },
+            {
+              "name": "f",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Field selection code",
+                "en": "Field selection code"
+              }
+            },
+            {
+              "name": "h",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Include header",
+                "en": "Include header"
+              },
+              "example": false
+            },
+            {
+              "name": "e",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "csv"
+              ],
+              "description": {
+                "zh": "Output format",
+                "en": "Output format"
+              },
+              "example": "csv"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/csv"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Used by FiApp and verified as a public CSV response.",
+            "en": "Used by FiApp and verified as a public CSV response."
+          }
+        },
+        {
+          "slug": "download-historical-quotes",
+          "operationId": "downloadHistoricalQuotes",
+          "tag": "default",
+          "method": "GET",
+          "path": "/q/d/l/",
+          "title": {
+            "zh": "下载历史行情",
+            "en": "Download historical price data"
+          },
+          "description": {
+            "zh": "按日期范围和周期下载历史行情 CSV。",
+            "en": "Download historical price data. Linked by provider-owned historical-data pages and validated as read-only CSV."
+          },
+          "parameters": [
+            {
+              "name": "s",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Stooq symbol",
+                "en": "Stooq symbol"
+              }
+            },
+            {
+              "name": "d1",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Start date YYYYMMDD",
+                "en": "Start date YYYYMMDD"
+              }
+            },
+            {
+              "name": "d2",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "End date YYYYMMDD",
+                "en": "End date YYYYMMDD"
+              }
+            },
+            {
+              "name": "i",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "d",
+                "w",
+                "m"
+              ],
+              "description": {
+                "zh": "Interval",
+                "en": "Interval"
+              },
+              "example": "d"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/csv"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://stooq.com/q/d/?s=aapl.us"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Linked by provider-owned historical-data pages and validated as read-only CSV.",
+            "en": "Linked by provider-owned historical-data pages and validated as read-only CSV."
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "sina-finance",
+      "name": "Sina Finance Web Quote API",
+      "provider": "Sina Finance",
+      "category": "Finance",
+      "featured": false,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/sina-finance/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://finance.sina.com.cn/",
+      "approvedSha256": "8bd6a62d1f19e994da11d7abf36357c2316805782979d5cc3b3f375dab5f7cab",
+      "title": {
+        "zh": "新浪财经网页行情 API",
+        "en": "Sina Finance web quote API"
+      },
+      "summary": {
+        "zh": "查询 A 股单个或批量快照及 K 线。",
+        "en": "Query single or batch A-share snapshots and K-line data."
+      },
+      "accent": "#e11d48",
+      "packageName": "@pontx/api-sina-finance",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://finance.sina.com.cn/",
+        "https://hq.sinajs.cn/list=sh000001"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "官网公开页面使用的内部文本/JSONP 接口，字段与编码可能变化。",
+        "en": "Internal text/JSONP endpoints used by public pages; fields and encoding may change."
+      },
+      "servers": [
+        {
+          "id": "hq",
+          "url": "https://hq.sinajs.cn",
+          "description": {
+            "zh": "新浪行情文本入口",
+            "en": "Sina quote text endpoint"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-quote-snapshots",
+          "operationId": "getQuoteSnapshots",
+          "tag": "default",
+          "method": "GET",
+          "path": "/list={symbols}",
+          "title": {
+            "zh": "获取行情快照",
+            "en": "Get single or batch quote snapshots"
+          },
+          "description": {
+            "zh": "返回一个或多个证券的文本行情。",
+            "en": "Get single or batch quote snapshots. Used by FiApp; response is GBK-oriented JavaScript assignment text."
+          },
+          "parameters": [
+            {
+              "name": "symbols",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated prefixed symbols",
+                "en": "Comma-separated prefixed symbols"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/plain"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://finance.sina.com.cn",
+            "https://hq.sinajs.cn/list=sh000001"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Used by FiApp; response is GBK-oriented JavaScript assignment text.",
+            "en": "Used by FiApp; response is GBK-oriented JavaScript assignment text."
+          }
+        },
+        {
+          "slug": "get-kline-data",
+          "operationId": "getKLineData",
+          "tag": "default",
+          "method": "GET",
+          "path": "/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData",
+          "title": {
+            "zh": "获取 K 线",
+            "en": "Get A-share K-line data"
+          },
+          "description": {
+            "zh": "返回指定证券的 JSONP K 线数据。",
+            "en": "Get A-share K-line data. Derived from provider-owned chart requests and validated as public JSONP."
+          },
+          "parameters": [
+            {
+              "name": "symbol",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Prefixed security symbol",
+                "en": "Prefixed security symbol"
+              }
+            },
+            {
+              "name": "scale",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "description": {
+                "zh": "Bar size in minutes",
+                "en": "Bar size in minutes"
+              },
+              "example": 0
+            },
+            {
+              "name": "ma",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Moving-average mode",
+                "en": "Moving-average mode"
+              }
+            },
+            {
+              "name": "datalen",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Maximum bars",
+                "en": "Maximum bars"
+              },
+              "example": 0
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/javascript"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://finance.sina.com.cn/realstock/company/sh600000/nc.shtml"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Derived from provider-owned chart requests and validated as public JSONP.",
+            "en": "Derived from provider-owned chart requests and validated as public JSONP."
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "tencent-finance",
+      "name": "Tencent Finance Web Quote API",
+      "provider": "Tencent Finance",
+      "category": "Finance",
+      "featured": false,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/tencent-finance/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://gu.qq.com/",
+      "approvedSha256": "684f350c7a7da22711078a97726e417d3ba8a5f3bfaf6d5a3bf077aab555290f",
+      "title": {
+        "zh": "腾讯财经网页行情 API",
+        "en": "Tencent Finance web quote API"
+      },
+      "summary": {
+        "zh": "查询港股/A 股快照和复权或非复权 K 线。",
+        "en": "Query HK/A-share snapshots and adjusted or unadjusted K-line data."
+      },
+      "accent": "#0284c7",
+      "packageName": "@pontx/api-tencent-finance",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://gu.qq.com/",
+        "https://qt.gtimg.cn/q=hk00700"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "官网公开页面使用的内部文本/JSON 接口，未提供版本承诺。",
+        "en": "Internal text/JSON endpoints used by public pages without a version guarantee."
+      },
+      "servers": [
+        {
+          "id": "quote",
+          "url": "https://qt.gtimg.cn",
+          "description": {
+            "zh": "腾讯 HTTPS 行情入口",
+            "en": "Tencent HTTPS quote endpoint"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-quote-snapshots",
+          "operationId": "getQuoteSnapshots",
+          "tag": "default",
+          "method": "GET",
+          "path": "/q={symbols}",
+          "title": {
+            "zh": "获取行情快照",
+            "en": "Get single or batch quote snapshots"
+          },
+          "description": {
+            "zh": "返回一个或多个证券的文本行情。",
+            "en": "Get single or batch quote snapshots. Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text."
+          },
+          "parameters": [
+            {
+              "name": "symbols",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated Tencent-prefixed symbols",
+                "en": "Comma-separated Tencent-prefixed symbols"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/plain"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://gu.qq.com",
+            "https://qt.gtimg.cn/q=hk00700"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text.",
+            "en": "Used by FiApp; HTTPS was verified on 2026-08-10. Response is JavaScript assignment text."
+          }
+        },
+        {
+          "slug": "get-forward-adjusted-kline",
+          "operationId": "getForwardAdjustedKLine",
+          "tag": "default",
+          "method": "GET",
+          "path": "/appstock/app/fqkline/get",
+          "title": {
+            "zh": "获取复权 K 线",
+            "en": "Get adjusted K-line data"
+          },
+          "description": {
+            "zh": "返回复权价格序列。",
+            "en": "Get adjusted K-line data. Observed in the provider's public chart family; response structure can change."
+          },
+          "parameters": [
+            {
+              "name": "param",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated symbol, interval, start, end and count",
+                "en": "Comma-separated symbol, interval, start, end and count"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "code",
+                "data"
+              ]
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://gu.qq.com/hk00700"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed in the provider's public chart family; response structure can change.",
+            "en": "Observed in the provider's public chart family; response structure can change."
+          },
+          "responseExample": {
+            "code": 0,
+            "data": {}
+          }
+        },
+        {
+          "slug": "get-kline",
+          "operationId": "getKLine",
+          "tag": "default",
+          "method": "GET",
+          "path": "/appstock/app/kline/kline",
+          "title": {
+            "zh": "获取非复权 K 线",
+            "en": "Get unadjusted K-line data"
+          },
+          "description": {
+            "zh": "返回非复权价格序列。",
+            "en": "Get unadjusted K-line data. Observed in the provider's public chart family; response structure can change."
+          },
+          "parameters": [
+            {
+              "name": "param",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated symbol, interval, start, end and count",
+                "en": "Comma-separated symbol, interval, start, end and count"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "code",
+                "data"
+              ]
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://gu.qq.com/hk00700"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed in the provider's public chart family; response structure can change.",
+            "en": "Observed in the provider's public chart family; response structure can change."
+          },
+          "responseExample": {
+            "code": 0,
+            "data": {}
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "eastmoney-funds",
+      "name": "Eastmoney Fund Web Data API",
+      "provider": "Eastmoney / Tiantian Fund",
+      "category": "Finance",
+      "featured": true,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/eastmoney-funds/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://fund.eastmoney.com/",
+      "approvedSha256": "b534787441ac170ae8c5642db8bf04a025dae8a7aa6ec910ca00d1c1976f9b03",
+      "title": {
+        "zh": "东方财富基金网页数据 API",
+        "en": "Eastmoney fund web data API"
+      },
+      "summary": {
+        "zh": "查询基金实时估值、历史净值、净值图表与关联指数。",
+        "en": "Query fund estimates, historical NAV, NAV charts, and related indices."
+      },
+      "accent": "#dc2626",
+      "packageName": "@pontx/api-eastmoney-funds",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://fundf10.eastmoney.com/jjjz_001072.html",
+        "https://fundgz.1234567.com.cn/js/001072.js"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "天天基金官网实际使用的 JSON/JSONP 接口，字段标识属于内部契约。",
+        "en": "JSON/JSONP endpoints used by Tiantian Fund pages; field identifiers are internal."
+      },
+      "servers": [
+        {
+          "id": "fund-api",
+          "url": "https://api.fund.eastmoney.com",
+          "description": {
+            "zh": "东方财富基金数据入口",
+            "en": "Eastmoney fund-data endpoint"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-fund-estimate",
+          "operationId": "getFundEstimate",
+          "tag": "default",
+          "method": "GET",
+          "path": "/js/{fundCode}.js",
+          "title": {
+            "zh": "获取基金估值",
+            "en": "Get latest fund estimate"
+          },
+          "description": {
+            "zh": "返回基金实时估值 JSONP。",
+            "en": "Get latest fund estimate. Used by FiApp; returns a jsonpgz JSONP wrapper."
+          },
+          "parameters": [
+            {
+              "name": "fundCode",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Six-digit fund code",
+                "en": "Six-digit fund code"
+              }
+            },
+            {
+              "name": "rt",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Cache-busting timestamp",
+                "en": "Cache-busting timestamp"
+              },
+              "example": 0
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/javascript"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://fund.eastmoney.com/001072.html",
+            "https://fundgz.1234567.com.cn/js/001072.js"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Used by FiApp; returns a jsonpgz JSONP wrapper.",
+            "en": "Used by FiApp; returns a jsonpgz JSONP wrapper."
+          }
+        },
+        {
+          "slug": "list-historical-nav",
+          "operationId": "listHistoricalNav",
+          "tag": "default",
+          "method": "GET",
+          "path": "/f10/lsjz",
+          "title": {
+            "zh": "获取历史净值",
+            "en": "List historical fund NAV"
+          },
+          "description": {
+            "zh": "分页返回基金历史净值。",
+            "en": "List historical fund NAV. Observed directly in the provider-owned historical-NAV page and used by FiApp."
+          },
+          "parameters": [
+            {
+              "name": "fundCode",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Six-digit fund code",
+                "en": "Six-digit fund code"
+              }
+            },
+            {
+              "name": "pageIndex",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "One-based page",
+                "en": "One-based page"
+              },
+              "example": 1
+            },
+            {
+              "name": "pageSize",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Rows per page",
+                "en": "Rows per page"
+              },
+              "example": 20
+            },
+            {
+              "name": "startDate",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Start date",
+                "en": "Start date"
+              }
+            },
+            {
+              "name": "endDate",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "End date",
+                "en": "End date"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "Data"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://fundf10.eastmoney.com/jjjz_001072.html"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed directly in the provider-owned historical-NAV page and used by FiApp.",
+            "en": "Observed directly in the provider-owned historical-NAV page and used by FiApp."
+          },
+          "responseExample": {
+            "Data": {
+              "LSJZList": [
+                {}
+              ],
+              "TotalCount": 0,
+              "PageIndex": 0
+            }
+          }
+        },
+        {
+          "slug": "get-historical-nav-chart",
+          "operationId": "getHistoricalNavChart",
+          "tag": "default",
+          "method": "GET",
+          "path": "/f10/LSJZChart",
+          "title": {
+            "zh": "获取净值图表",
+            "en": "Get historical NAV chart series"
+          },
+          "description": {
+            "zh": "返回历史净值图表序列。",
+            "en": "Get historical NAV chart series. Captured from the provider-owned historical-NAV page on 2026-08-10."
+          },
+          "parameters": [
+            {
+              "name": "fundCode",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Six-digit fund code",
+                "en": "Six-digit fund code"
+              }
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Chart type",
+                "en": "Chart type"
+              }
+            },
+            {
+              "name": "pageIndex",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "One-based page",
+                "en": "One-based page"
+              },
+              "example": 0
+            },
+            {
+              "name": "pageSize",
+              "in": "query",
+              "type": "integer",
+              "description": {
+                "zh": "Maximum points",
+                "en": "Maximum points"
+              },
+              "example": 0
+            },
+            {
+              "name": "startDate",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Start date",
+                "en": "Start date"
+              }
+            },
+            {
+              "name": "endDate",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "End date",
+                "en": "End date"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/javascript"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://fundf10.eastmoney.com/jjjz_001072.html"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Captured from the provider-owned historical-NAV page on 2026-08-10.",
+            "en": "Captured from the provider-owned historical-NAV page on 2026-08-10."
+          }
+        },
+        {
+          "slug": "get-market-index-list",
+          "operationId": "getMarketIndexList",
+          "tag": "default",
+          "method": "GET",
+          "path": "/api/qt/ulist.np/get",
+          "title": {
+            "zh": "获取关联指数",
+            "en": "Get related market-index snapshots"
+          },
+          "description": {
+            "zh": "返回基金页面展示的市场指数快照。",
+            "en": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers are internal."
+          },
+          "parameters": [
+            {
+              "name": "secids",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated Eastmoney security IDs",
+                "en": "Comma-separated Eastmoney security IDs"
+              }
+            },
+            {
+              "name": "fields",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated response fields",
+                "en": "Comma-separated response fields"
+              }
+            },
+            {
+              "name": "fltt",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Number formatting mode",
+                "en": "Number formatting mode"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "rc",
+                "data"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://fundf10.eastmoney.com/jjjz_001072.html"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Observed on the provider-owned fund page; field identifiers are internal.",
+            "en": "Observed on the provider-owned fund page; field identifiers are internal."
+          },
+          "responseExample": {
+            "rc": 0,
+            "data": {
+              "diff": [
+                {
+                  "f2": 0,
+                  "f3": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "cnbc-market-data",
+      "name": "CNBC Web Quote API",
+      "provider": "CNBC",
+      "category": "Finance",
+      "featured": false,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/cnbc-market-data/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://www.cnbc.com/quotes/",
+      "approvedSha256": "c97ba3530930533920275c1644184987a7c59f8135ea0864eac3dd72fa0bb089",
+      "title": {
+        "zh": "CNBC 网页行情 API",
+        "en": "CNBC web quote API"
+      },
+      "summary": {
+        "zh": "查询单个/批量行情和官网图表数据。",
+        "en": "Query single or batch quotes and provider chart data."
+      },
+      "accent": "#005594",
+      "packageName": "@pontx/api-cnbc-market-data",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "observed",
+      "evidenceUrls": [
+        "https://www.cnbc.com/quotes/AAPL"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "CNBC 行情页实际使用的 REST 与持久化 GraphQL 查询，哈希和结构可能变化。",
+        "en": "REST and persisted GraphQL requests used by CNBC quote pages; hashes and shapes may change."
+      },
+      "servers": [
+        {
+          "id": "quote",
+          "url": "https://quote.cnbc.com",
+          "description": {
+            "zh": "CNBC 行情 REST 入口",
+            "en": "CNBC quote REST endpoint"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-rest-quotes",
+          "operationId": "getRestQuotes",
+          "tag": "default",
+          "method": "GET",
+          "path": "/quote-html-webservice/restQuote/symbolType/symbol",
+          "title": {
+            "zh": "获取行情",
+            "en": "Get single or batch quote data"
+          },
+          "description": {
+            "zh": "返回单个或批量证券行情。",
+            "en": "Get single or batch quote data. Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request."
+          },
+          "parameters": [
+            {
+              "name": "symbols",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Comma-separated symbols",
+                "en": "Comma-separated symbols"
+              }
+            },
+            {
+              "name": "requestMethod",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "Client request mode",
+                "en": "Client request mode"
+              }
+            },
+            {
+              "name": "partnerId",
+              "in": "query",
+              "type": "string",
+              "description": {
+                "zh": "CNBC partner identifier",
+                "en": "CNBC partner identifier"
+              }
+            },
+            {
+              "name": "fund",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Include fund data",
+                "en": "Include fund data"
+              },
+              "example": false
+            },
+            {
+              "name": "exthrs",
+              "in": "query",
+              "type": "boolean",
+              "description": {
+                "zh": "Include extended hours",
+                "en": "Include extended hours"
+              },
+              "example": false
+            },
+            {
+              "name": "output",
+              "in": "query",
+              "type": "string",
+              "enum": [
+                "json"
+              ],
+              "description": {
+                "zh": "Output format",
+                "en": "Output format"
+              },
+              "example": "json"
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "FormattedQuoteResult"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://www.cnbc.com/quotes/AAPL"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request.",
+            "en": "Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request."
+          },
+          "responseExample": {
+            "FormattedQuoteResult": {
+              "FormattedQuote": [
+                {}
+              ]
+            }
+          }
+        },
+        {
+          "slug": "get-quote-chart-data",
+          "operationId": "getQuoteChartData",
+          "tag": "default",
+          "method": "GET",
+          "path": "/graphql",
+          "title": {
+            "zh": "获取图表数据",
+            "en": "Get quote chart data through a persisted query"
+          },
+          "description": {
+            "zh": "通过持久化 GraphQL 查询返回图表数据。",
+            "en": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+          },
+          "parameters": [
+            {
+              "name": "operationName",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Persisted operation name",
+                "en": "Persisted operation name"
+              }
+            },
+            {
+              "name": "variables",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "JSON-encoded query variables",
+                "en": "JSON-encoded query variables"
+              }
+            },
+            {
+              "name": "extensions",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "JSON-encoded persisted-query hash",
+                "en": "JSON-encoded persisted-query hash"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "application/json"
+              ],
+              "schemaType": "object",
+              "properties": [
+                "data"
+              ]
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://www.cnbc.com/quotes/AAPL"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
+            "en": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+          },
+          "responseExample": {
+            "data": {}
+          }
+        }
+      ],
+      "schemas": []
+    },
+    {
+      "slug": "i3investor-sgx",
+      "name": "i3Investor SGX Public Pages",
+      "provider": "i3Investor",
+      "category": "Finance",
+      "featured": false,
+      "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/specs/i3investor-sgx/openapi.json",
+      "license": "Proprietary / undocumented",
+      "attributionUrl": "https://sgx.i3investor.com/",
+      "approvedSha256": "5d16c9874138b7da85a677e3f55b05ee8eca5a497032853ad4ff12c1ebfa229f",
+      "title": {
+        "zh": "i3Investor SGX 公共行情页",
+        "en": "i3Investor SGX public market pages"
+      },
+      "summary": {
+        "zh": "读取新加坡股票报价及概览 HTML 页面中的稳定语义字段。",
+        "en": "Read stable semantic fields from SGX stock quote and overview HTML pages."
+      },
+      "accent": "#0f766e",
+      "packageName": "@pontx/api-i3investor-sgx",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "planned",
+      "proxyEnabled": false,
+      "documentationStatus": "inferred",
+      "evidenceUrls": [
+        "https://sgx.i3investor.com/"
+      ],
+      "verifiedAt": "2026-08-10",
+      "stabilityNote": {
+        "zh": "这是 HTML 网页读取集合，不是 JSON API；页面结构可能变化。",
+        "en": "This is an HTML page-reading collection, not a JSON API; markup may change."
+      },
+      "servers": [
+        {
+          "id": "sgx",
+          "url": "https://sgx.i3investor.com",
+          "description": {
+            "zh": "i3Investor 新加坡站点",
+            "en": "i3Investor Singapore site"
+          }
+        }
+      ],
+      "auth": [],
+      "operations": [
+        {
+          "slug": "get-sgx-stock-page",
+          "operationId": "getSgxStockPage",
+          "tag": "default",
+          "method": "GET",
+          "path": "/servlets/stk/{code}.jsp",
+          "title": {
+            "zh": "获取股票报价页",
+            "en": "Get an SGX stock quote page"
+          },
+          "description": {
+            "zh": "返回包含 JSON-LD 报价和可见行情字段的 HTML。",
+            "en": "Get an SGX stock quote page. Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change."
+          },
+          "parameters": [
+            {
+              "name": "code",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "Lowercase SGX stock code",
+                "en": "Lowercase SGX stock code"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/html"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "observed",
+          "evidenceUrls": [
+            "https://sgx.i3investor.com/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change.",
+            "en": "Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change."
+          }
+        },
+        {
+          "slug": "get-sgx-stock-overview",
+          "operationId": "getSgxStockOverview",
+          "tag": "default",
+          "method": "GET",
+          "path": "/web/stock/overview/{code}",
+          "title": {
+            "zh": "获取股票概览页",
+            "en": "Get an SGX stock overview page"
+          },
+          "description": {
+            "zh": "返回股票概览 HTML 页面。",
+            "en": "Get an SGX stock overview page. Provider-owned read-only stock page family; HTML structure is not versioned."
+          },
+          "parameters": [
+            {
+              "name": "code",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": {
+                "zh": "SGX stock code",
+                "en": "SGX stock code"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "status": "200",
+              "description": {
+                "zh": "Successful response",
+                "en": "Successful response"
+              },
+              "contentTypes": [
+                "text/html"
+              ],
+              "schemaType": "string"
+            }
+          ],
+          "documentationStatus": "inferred",
+          "evidenceUrls": [
+            "https://sgx.i3investor.com/"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": {
+            "zh": "Provider-owned read-only stock page family; HTML structure is not versioned.",
+            "en": "Provider-owned read-only stock page family; HTML structure is not versioned."
+          }
+        }
+      ],
+      "schemas": []
     }
   ]
 }

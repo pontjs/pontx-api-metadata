@@ -1,0 +1,124 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sina Finance Web Quote API",
+    "version": "2026-08-10",
+    "description": "Undocumented Sina Finance text and JSONP market-data endpoints observed in public pages and FiApp.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://hq.sinajs.cn"
+    },
+    {
+      "url": "https://quotes.sina.cn"
+    }
+  ],
+  "paths": {
+    "/list={symbols}": {
+      "get": {
+        "operationId": "getQuoteSnapshots",
+        "summary": "Get single or batch quote snapshots",
+        "description": "Get single or batch quote snapshots. Used by FiApp; response is GBK-oriented JavaScript assignment text.",
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "path",
+            "description": "Comma-separated prefixed symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://finance.sina.com.cn",
+          "https://hq.sinajs.cn/list=sh000001"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Used by FiApp; response is GBK-oriented JavaScript assignment text."
+      }
+    },
+    "/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData": {
+      "get": {
+        "operationId": "getKLineData",
+        "summary": "Get A-share K-line data",
+        "description": "Get A-share K-line data. Derived from provider-owned chart requests and validated as public JSONP.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "description": "Prefixed security symbol",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scale",
+            "in": "query",
+            "description": "Bar size in minutes",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "ma",
+            "in": "query",
+            "description": "Moving-average mode",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datalen",
+            "in": "query",
+            "description": "Maximum bars",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/javascript": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://finance.sina.com.cn/realstock/company/sh600000/nc.shtml"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Derived from provider-owned chart requests and validated as public JSONP."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

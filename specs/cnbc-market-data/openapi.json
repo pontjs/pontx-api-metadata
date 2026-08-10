@@ -1,0 +1,206 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CNBC Web Quote API",
+    "version": "2026-08-10",
+    "description": "Undocumented CNBC read-only quote and chart endpoints observed on CNBC's own quote pages and used by FiApp.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://quote.cnbc.com"
+    },
+    {
+      "url": "https://webql-redesign.cnbcfm.com"
+    }
+  ],
+  "paths": {
+    "/quote-html-webservice/restQuote/symbolType/symbol": {
+      "get": {
+        "operationId": "getRestQuotes",
+        "summary": "Get single or batch quote data",
+        "description": "Get single or batch quote data. Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request.",
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "query",
+            "description": "Comma-separated symbols",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestMethod",
+            "in": "query",
+            "description": "Client request mode",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partnerId",
+            "in": "query",
+            "description": "CNBC partner identifier",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fund",
+            "in": "query",
+            "description": "Include fund data",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "exthrs",
+            "in": "query",
+            "description": "Include extended hours",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "output",
+            "in": "query",
+            "description": "Output format",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "FormattedQuoteResult": {
+                      "type": "object",
+                      "properties": {
+                        "FormattedQuote": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "last": {
+                                "type": "string"
+                              },
+                              "change_pct": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "last_time_msec": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://www.cnbc.com/quotes/AAPL"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Captured from CNBC's own quote page on 2026-08-10 and adjacent to FiApp's legacy quick-quote request."
+      }
+    },
+    "/graphql": {
+      "get": {
+        "operationId": "getQuoteChartData",
+        "summary": "Get quote chart data through a persisted query",
+        "description": "Get quote chart data through a persisted query. CNBC uses persisted GraphQL queries; hashes and shapes may change without notice.",
+        "parameters": [
+          {
+            "name": "operationName",
+            "in": "query",
+            "description": "Persisted operation name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variables",
+            "in": "query",
+            "description": "JSON-encoded query variables",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "extensions",
+            "in": "query",
+            "description": "JSON-encoded persisted-query hash",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://www.cnbc.com/quotes/AAPL"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "CNBC uses persisted GraphQL queries; hashes and shapes may change without notice."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

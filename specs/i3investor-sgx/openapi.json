@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "i3Investor SGX Public Pages",
+    "version": "2026-08-10",
+    "description": "Public i3Investor SGX HTML market pages. This collection documents stable read-only page inputs and extractable semantic fields, not a JSON API.",
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sgx.i3investor.com"
+    }
+  ],
+  "paths": {
+    "/servlets/stk/{code}.jsp": {
+      "get": {
+        "operationId": "getSgxStockPage",
+        "summary": "Get an SGX stock quote page",
+        "description": "Get an SGX stock quote page. Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Lowercase SGX stock code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://sgx.i3investor.com/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Used by FiApp. Price is extracted from JSON-LD and change percentage from visible HTML; page markup may change."
+      }
+    },
+    "/web/stock/overview/{code}": {
+      "get": {
+        "operationId": "getSgxStockOverview",
+        "summary": "Get an SGX stock overview page",
+        "description": "Get an SGX stock overview page. Provider-owned read-only stock page family; HTML structure is not versioned.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "SGX stock code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "inferred",
+        "x-pontx-evidence": [
+          "https://sgx.i3investor.com/"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Provider-owned read-only stock page family; HTML structure is not versioned."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

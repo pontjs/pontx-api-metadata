@@ -185,6 +185,12 @@ function makeOperation(document, path, method, operation, pathParameters, transl
   const responseEntries = Object.entries(operation.responses ?? {});
   const response = responseEntries.find(([status]) => status.startsWith("2"))?.[1];
   const responseMedia = pickMedia(response?.content);
+  const security = (operation.security ?? document.security ?? []).flatMap((requirement) =>
+    Object.entries(requirement).map(([schemeId, scopes]) => ({
+      schemeId,
+      scopes: Array.isArray(scopes) ? scopes : []
+    }))
+  );
   const responses = responseEntries.map(([status, responseValue]) => {
     const responseContentTypes = Object.keys(responseValue?.content ?? {});
     const media = pickMedia(responseValue?.content);
@@ -213,6 +219,13 @@ function makeOperation(document, path, method, operation, pathParameters, transl
     parameters,
     ...(requestBody ? { requestBody } : {}),
     responses,
+    documentationStatus: operation["x-pontx-documentation-status"] ?? "official",
+    evidenceUrls: operation["x-pontx-evidence"] ?? [],
+    ...(operation["x-pontx-verified-at"] ? { verifiedAt: operation["x-pontx-verified-at"] } : {}),
+    ...(operation["x-pontx-stability-note"]
+      ? { stabilityNote: localized(operation["x-pontx-stability-note"], operation["x-pontx-stability-note"]) }
+      : {}),
+    ...(security.length ? { security } : {}),
     ...(responseMedia?.example !== undefined
       ? { responseExample: responseMedia.example }
       : exampleFor(document, responseMedia?.schema) !== undefined
@@ -220,6 +233,19 @@ function makeOperation(document, path, method, operation, pathParameters, transl
         : {}),
     ...(operation.deprecated ? { deprecated: true } : {})
   };
+}
+
+function makeAuth(document, entryAuth) {
+  const schemes = document.components?.securitySchemes ?? {};
+  return entryAuth.map((auth) => {
+    if (auth.type !== "oauth2") return auth;
+    const openapiScheme = schemes[auth.id];
+    if (!openapiScheme || openapiScheme.type !== "oauth2") return auth;
+    return {
+      ...auth,
+      flows: openapiScheme.flows ?? {}
+    };
+  });
 }
 
 const apis = [];
@@ -256,9 +282,14 @@ for (const entry of source.apis) {
     packageName: entry.packageName,
     sdkVersion: entry.sdkVersion,
     sdkStatus: entry.sdkStatus,
+    ...(entry.cliName ? { cliName: entry.cliName } : {}),
     proxyEnabled: entry.proxyEnabled,
+    documentationStatus: entry.documentationStatus ?? "official",
+    evidenceUrls: entry.evidenceUrls ?? [],
+    ...(entry.verifiedAt ? { verifiedAt: entry.verifiedAt } : {}),
+    ...(entry.stabilityNote ? { stabilityNote: entry.stabilityNote } : {}),
     servers: [entry.server],
-    auth: entry.auth,
+    auth: makeAuth(document, entry.auth),
     operations,
     schemas
   });

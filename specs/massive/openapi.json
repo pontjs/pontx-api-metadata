@@ -1,0 +1,528 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Massive Stock Market Data API",
+    "version": "2026-08-10",
+    "description": "Official Massive (formerly Polygon.io) read-only stock market REST API surface used by FiApp and its adjacent market-data resources.",
+    "license": {
+      "name": "Proprietary"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.polygon.io",
+      "description": "Polygon-compatible production endpoint used by FiApp"
+    }
+  ],
+  "paths": {
+    "/v2/last/trade/{stocksTicker}": {
+      "get": {
+        "operationId": "getLastTrade",
+        "summary": "Get the last stock trade",
+        "description": "Get the last stock trade. Officially documented endpoint; availability depends on the account's market-data plan.",
+        "parameters": [
+          {
+            "name": "stocksTicker",
+            "in": "path",
+            "description": "Case-sensitive stock ticker",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "request_id": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "T": {
+                          "type": "string"
+                        },
+                        "p": {
+                          "type": "number"
+                        },
+                        "s": {
+                          "type": "number"
+                        },
+                        "t": {
+                          "type": "number"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Officially documented endpoint; availability depends on the account's market-data plan."
+      }
+    },
+    "/v2/aggs/ticker/{stocksTicker}/prev": {
+      "get": {
+        "operationId": "getPreviousClose",
+        "summary": "Get previous-day aggregate",
+        "description": "Get previous-day aggregate. Officially documented aggregate endpoint.",
+        "parameters": [
+          {
+            "name": "stocksTicker",
+            "in": "path",
+            "description": "Stock ticker",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adjusted",
+            "in": "query",
+            "description": "Return split-adjusted results",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "c": {
+                            "type": "number"
+                          },
+                          "h": {
+                            "type": "number"
+                          },
+                          "l": {
+                            "type": "number"
+                          },
+                          "o": {
+                            "type": "number"
+                          },
+                          "v": {
+                            "type": "number"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Officially documented aggregate endpoint."
+      }
+    },
+    "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}": {
+      "get": {
+        "operationId": "getAggregateBars",
+        "summary": "Get custom aggregate bars",
+        "description": "Get custom aggregate bars. Officially documented aggregate endpoint.",
+        "parameters": [
+          {
+            "name": "stocksTicker",
+            "in": "path",
+            "description": "Stock ticker",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "multiplier",
+            "in": "path",
+            "description": "Timespan multiplier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "timespan",
+            "in": "path",
+            "description": "Bar unit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "minute",
+                "hour",
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "in": "path",
+            "description": "Start date or timestamp",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "description": "End date or timestamp",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "c": {
+                            "type": "number"
+                          },
+                          "h": {
+                            "type": "number"
+                          },
+                          "l": {
+                            "type": "number"
+                          },
+                          "o": {
+                            "type": "number"
+                          },
+                          "v": {
+                            "type": "number"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Officially documented aggregate endpoint."
+      }
+    },
+    "/v3/snapshot": {
+      "get": {
+        "operationId": "getMarketSnapshot",
+        "summary": "Get a stock-market snapshot",
+        "description": "Get a stock-market snapshot. Officially documented snapshot family.",
+        "parameters": [
+          {
+            "name": "ticker.any_of",
+            "in": "query",
+            "description": "Comma-separated tickers",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum results",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ticker": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "number"
+                          },
+                          "session": {
+                            "type": "object",
+                            "properties": {
+                              "change_percent": {
+                                "type": "number"
+                              },
+                              "close": {
+                                "type": "number"
+                              }
+                            },
+                            "additionalProperties": true
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/snapshots/full-market-snapshot"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Officially documented snapshot family."
+      }
+    },
+    "/v3/reference/tickers": {
+      "get": {
+        "operationId": "listTickers",
+        "summary": "List and search supported tickers",
+        "description": "List and search supported tickers. Official reference-data endpoint.",
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "query",
+            "description": "Ticker filter",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "market",
+            "in": "query",
+            "description": "Market filter",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Active-listing filter",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ticker": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "market": {
+                            "type": "string"
+                          },
+                          "locale": {
+                            "type": "string"
+                          },
+                          "currency_name": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/tickers/all-tickers"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Official reference-data endpoint."
+      }
+    },
+    "/v3/reference/tickers/{ticker}": {
+      "get": {
+        "operationId": "getTickerDetails",
+        "summary": "Get ticker reference details",
+        "description": "Get ticker reference details. Official reference-data endpoint.",
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "description": "Stock ticker",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Point-in-time date",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "ticker": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "market": {
+                          "type": "string"
+                        },
+                        "primary_exchange": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "Official reference-data endpoint."
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "apiKey"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": []
+    }
+  ]
+}
