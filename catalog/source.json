@@ -110,6 +110,18 @@
           "envVar": "DIDA365_ACCESS_TOKEN",
           "tokenEndpointAuthMethod": "client_secret_post",
           "pkce": "unsupported",
+          "credentialGuide": {
+            "url": "https://developer.dida365.com/",
+            "title": {
+              "zh": "前往滴答清单开发者中心申请凭证",
+              "en": "Create credentials in the Dida365 Developer Center"
+            },
+            "steps": [
+              { "zh": "登录开发者中心并创建一个应用（New App）。", "en": "Sign in to the Developer Center and create a New App." },
+              { "zh": "把 Pontx Hub 显示的回调地址填写到应用的 OAuth Redirect URL。", "en": "Paste the callback URL shown by Pontx Hub into the app's OAuth Redirect URL." },
+              { "zh": "保存应用，然后复制生成的 Client ID 和 Client Secret 到下方输入框。", "en": "Save the app, then copy its Client ID and Client Secret into the fields below." }
+            ]
+          },
           "description": {
             "zh": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
             "en": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session."
