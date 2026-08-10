@@ -133,7 +133,9 @@ function makeOperation(document, path, method, operation, pathParameters, transl
   const translation = translations?.[operationId];
   const enTitle = operation.summary || operationId;
   const enDescription = operation.description || operation.summary || operationId;
-  const parameters = [...(pathParameters ?? []), ...(operation.parameters ?? [])].map((parameter) => {
+  const resolvedParameters = [...(pathParameters ?? []), ...(operation.parameters ?? [])]
+    .map((parameter) => dereference(document, parameter));
+  const parameters = resolvedParameters.map((parameter) => {
     const schema = parameter.schema ?? {};
     return {
       name: parameter.name,
@@ -169,7 +171,7 @@ function makeOperation(document, path, method, operation, pathParameters, transl
           : {})
     });
   }
-  const bodyParameter = [...(pathParameters ?? []), ...(operation.parameters ?? [])]
+  const bodyParameter = resolvedParameters
     .find((parameter) => parameter.in === "body");
   const requestSchema = requestMedia?.schema ?? bodyParameter?.schema;
   const requestBody = requestSchema
@@ -292,7 +294,7 @@ for (const entry of source.apis) {
     provider: entry.provider,
     category: entry.category,
     featured: entry.featured,
-    sourceUrl: `https://raw.githubusercontent.com/pontjs/pontx-api-metadata/master/${entry.specFile}`,
+    sourceUrl: `https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/${entry.specFile}`,
     license: entry.license,
     attributionUrl: entry.attributionUrl,
     approvedSha256: entry.approvedSha256,

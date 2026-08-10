@@ -3,7 +3,7 @@
   "info": {
     "title": "Frankfurter API",
     "version": "1.0.0",
-    "description": "Frankfurter is a free, open-source currency data API that tracks reference exchange rates published by the European Central Bank.\n\n## Features\n- No API keys required\n- No usage limits\n- Daily updates around 16:00 CET\n- Support for 31+ currencies\n- CORS-enabled for browser usage\n- Historical data available\n\n## Data Source\nExchange rates are sourced from the European Central Bank and other financial institutions.\n",
+    "description": "Frankfurter v1 is a free, open-source API for current and historical foreign-exchange reference rates. It requires no API key and provides latest-working-day rates, historical rates, time series, currency filtering, and amount conversion. v1 has been superseded by v2 but, according to the official documentation, will continue to work. Rates normally update around 16:00 CET on working days; dates are stored in UTC, and today's result can change when new rates arrive.\n",
     "contact": {
       "name": "Frankfurter API",
       "url": "https://frankfurter.dev"
@@ -36,8 +36,9 @@
           "Exchange Rates"
         ],
         "summary": "Get latest exchange rates",
-        "description": "Retrieves the most recent exchange rates. Rates are updated daily around 16:00 CET.\nBy default, returns all available currencies with EUR as the base currency.\n",
+        "description": "Retrieves the latest working day's exchange rates. Rates normally update around 16:00 CET. By default, returns all available quote currencies with EUR as the base currency. Use `symbols` to reduce the response size.\n",
         "operationId": "getLatestRates",
+        "deprecated": true,
         "parameters": [
           {
             "name": "amount",
@@ -49,6 +50,7 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
+              "exclusiveMinimum": true,
               "example": 100
             }
           },
@@ -126,9 +128,9 @@
                       "base": "EUR",
                       "date": "2026-01-23",
                       "rates": {
-                        "USD": 1.0445,
-                        "GBP": 0.8342,
-                        "JPY": 161.23
+                        "USD": 1.1742,
+                        "GBP": 0.8681,
+                        "JPY": 185.71
                       }
                     }
                   },
@@ -139,8 +141,8 @@
                       "base": "EUR",
                       "date": "2026-01-23",
                       "rates": {
-                        "USD": 104.45,
-                        "GBP": 83.42
+                        "USD": 117.42,
+                        "GBP": 86.81
                       }
                     }
                   },
@@ -151,9 +153,9 @@
                       "base": "USD",
                       "date": "2026-01-23",
                       "rates": {
-                        "EUR": 0.9574,
-                        "GBP": 0.7986,
-                        "JPY": 154.32
+                        "EUR": 0.85164,
+                        "GBP": 0.73931,
+                        "JPY": 158.16
                       }
                     }
                   }
@@ -161,8 +163,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid parameters)",
+          "404": {
+            "description": "No rates found, for example because a currency is unsupported",
             "content": {
               "application/json": {
                 "schema": {
@@ -172,20 +174,22 @@
                   "invalidCurrency": {
                     "summary": "Invalid currency code",
                     "value": {
-                      "error": "Invalid base currency",
-                      "message": "Currency code XXX is not supported"
+                      "message": "not found"
                     }
                   }
                 }
               }
             }
           },
-          "404": {
-            "description": "Resource not found",
+          "422": {
+            "description": "Unprocessable query parameter, for example an amount that is zero, negative, or not numeric",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid amount"
                 }
               }
             }
@@ -199,8 +203,9 @@
           "Exchange Rates"
         ],
         "summary": "Get historical exchange rates",
-        "description": "Retrieves exchange rates for a specific date in the past.\nHistorical data is available from 1999-01-04 onwards.\n",
+        "description": "Retrieves rates for a calendar date. Frankfurter stores dates in UTC. Non-working dates resolve to the latest available working-day observation on or before the requested date; the returned `date` therefore may differ from the requested date. Today's result can change when new rates arrive. v1 EUR history begins on 1999-01-04.\n",
         "operationId": "getHistoricalRates",
+        "deprecated": true,
         "parameters": [
           {
             "name": "date",
@@ -223,7 +228,8 @@
               "type": "number",
               "format": "double",
               "default": 1,
-              "minimum": 0
+              "minimum": 0,
+              "exclusiveMinimum": true
             }
           },
           {
@@ -298,9 +304,9 @@
                       "base": "EUR",
                       "date": "2024-01-15",
                       "rates": {
-                        "USD": 1.0875,
-                        "GBP": 0.8563,
-                        "JPY": 158.91
+                        "USD": 1.0945,
+                        "GBP": 0.86075,
+                        "JPY": 159.67
                       }
                     }
                   }
@@ -308,8 +314,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid date format or parameters)",
+          "404": {
+            "description": "No data available for the specified date",
             "content": {
               "application/json": {
                 "schema": {
@@ -318,8 +324,103 @@
               }
             }
           },
+          "422": {
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "invalidDate": {
+                    "value": {
+                      "message": "invalid date"
+                    }
+                  },
+                  "invalidAmount": {
+                    "value": {
+                      "message": "invalid amount"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{start_date}..": {
+      "get": {
+        "tags": [
+          "Exchange Rates"
+        ],
+        "summary": "Get an open-ended time series of exchange rates",
+        "description": "Retrieves available working-day exchange-rate observations from a start date through the latest observation. The returned `start_date` can precede the requested calendar date when the range starts on a non-working day, and `end_date` identifies the latest observation available when the response was generated.\n",
+        "operationId": "getOpenEndedTimeSeriesRates",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "path",
+            "description": "Start date in ISO 8601 format (YYYY-MM-DD)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "example": "2026-08-01"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/AmountParam"
+          },
+          {
+            "$ref": "#/components/parameters/BaseParam"
+          },
+          {
+            "$ref": "#/components/parameters/SymbolsParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with exchange rates from the requested start through the latest observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponse"
+                },
+                "example": {
+                  "amount": 1,
+                  "base": "EUR",
+                  "start_date": "2026-07-31",
+                  "end_date": "2026-08-07",
+                  "rates": {
+                    "2026-07-31": {
+                      "USD": 1.1485
+                    },
+                    "2026-08-03": {
+                      "USD": 1.1535
+                    },
+                    "2026-08-07": {
+                      "USD": 1.1535
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "No data available for the specified date",
+            "description": "No data available for the specified start date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
             "content": {
               "application/json": {
                 "schema": {
@@ -337,8 +438,9 @@
           "Exchange Rates"
         ],
         "summary": "Get time series of exchange rates",
-        "description": "Retrieves exchange rates for a date range, returning daily rates between the start and end dates (inclusive).\nIf end_date is omitted, returns all rates from start_date to the latest available date.\n",
+        "description": "Retrieves available working-day exchange-rate observations over a date range. The response boundaries describe the first and last observations returned and can differ from the requested calendar boundaries. To fetch through the present, omit the end date in the actual URL as documented by Frankfurter (`YYYY-MM-DD..`).\n",
         "operationId": "getTimeSeriesRates",
+        "deprecated": true,
         "parameters": [
           {
             "name": "start_date",
@@ -356,7 +458,7 @@
             "name": "end_date",
             "in": "path",
             "description": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date",
@@ -373,7 +475,8 @@
               "type": "number",
               "format": "double",
               "default": 1,
-              "minimum": 0
+              "minimum": 0,
+              "exclusiveMinimum": true
             }
           },
           {
@@ -446,28 +549,28 @@
                     "value": {
                       "amount": 1,
                       "base": "EUR",
-                      "start_date": "2024-01-01",
+                      "start_date": "2023-12-29",
                       "end_date": "2024-01-05",
                       "rates": {
-                        "2024-01-01": {
-                          "USD": 1.1047,
-                          "GBP": 0.8692
+                        "2023-12-29": {
+                          "USD": 1.105,
+                          "GBP": 0.86905
                         },
                         "2024-01-02": {
-                          "USD": 1.1023,
-                          "GBP": 0.8671
+                          "USD": 1.0956,
+                          "GBP": 0.86645
                         },
                         "2024-01-03": {
-                          "USD": 1.0952,
-                          "GBP": 0.8643
+                          "USD": 1.0919,
+                          "GBP": 0.8647
                         },
                         "2024-01-04": {
-                          "USD": 1.0931,
-                          "GBP": 0.8625
+                          "USD": 1.0953,
+                          "GBP": 0.86278
                         },
                         "2024-01-05": {
-                          "USD": 1.0912,
-                          "GBP": 0.8604
+                          "USD": 1.0921,
+                          "GBP": 0.8621
                         }
                       }
                     }
@@ -495,8 +598,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid date format or date range)",
+          "404": {
+            "description": "No data available for the specified date range",
             "content": {
               "application/json": {
                 "schema": {
@@ -505,8 +608,8 @@
               }
             }
           },
-          "404": {
-            "description": "No data available for the specified date range",
+          "422": {
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
             "content": {
               "application/json": {
                 "schema": {
@@ -526,6 +629,7 @@
         "summary": "Get list of supported currencies",
         "description": "Returns a list of all currency codes supported by the API along with their full names.\nThis endpoint requires no parameters.\n",
         "operationId": "getCurrencies",
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "Successful response with list of supported currencies",
@@ -595,7 +699,8 @@
             "format": "double",
             "description": "The amount used for conversion",
             "example": 1,
-            "minimum": 0
+            "minimum": 0,
+            "exclusiveMinimum": true
           },
           "base": {
             "type": "string",
@@ -656,7 +761,7 @@
             "format": "date",
             "description": "The start date of the time series",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-            "example": "2024-01-01"
+              "example": "2023-12-29"
           },
           "end_date": {
             "type": "string",
@@ -707,15 +812,10 @@
         "type": "object",
         "description": "Error response",
         "properties": {
-          "error": {
-            "type": "string",
-            "description": "Short error identifier",
-            "example": "Invalid base currency"
-          },
           "message": {
             "type": "string",
-            "description": "Detailed error message",
-            "example": "Currency code XXX is not supported"
+            "description": "Error message returned by the service",
+            "example": "not found"
           }
         }
       }
@@ -730,7 +830,8 @@
           "type": "number",
           "format": "double",
           "default": 1,
-          "minimum": 0
+          "minimum": 0,
+          "exclusiveMinimum": true
         }
       },
       "BaseParam": {

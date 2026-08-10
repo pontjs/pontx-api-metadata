@@ -3,7 +3,7 @@
   "info": {
     "title": "Eastmoney Fund Web Data API",
     "version": "2026-08-10",
-    "description": "Undocumented Eastmoney/Tiantian Fund read-only JSONP endpoints observed on provider-owned fund pages and used by FiApp.",
+    "description": "Undocumented Eastmoney/Tiantian Fund read-only web endpoints observed on provider-owned fund pages. Wire formats include JSON, a historical JSONP estimate route that currently returns HTML, and provider-internal field identifiers. This is an evidence-labelled web interface, not an official developer API.",
     "license": {
       "name": "Proprietary / undocumented"
     }
@@ -24,35 +24,42 @@
       "get": {
         "operationId": "getFundEstimate",
         "summary": "Get latest fund estimate",
-        "description": "Get latest fund estimate. Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP.",
+        "description": "Historical estimate route whose successful legacy wire format was `jsonpgz({...});`, with string fields such as `fundcode`, `name`, `jzrq` (NAV date), `dwjz` (unit NAV), `gsz` (estimated NAV), `gszzl` (estimated percent change) and `gztime` (estimate time). A read-only verification on 2026-08-10 returned Eastmoney's UTF-8 page-not-found HTML with HTTP 200, so callers must inspect the media type/body and must not assume JSONP.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "path",
-            "description": "Six-digit fund code",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "pattern": "^[0-9]{6}$"
+            },
+            "example": "001072"
           },
           {
             "name": "rt",
             "in": "query",
-            "description": "Cache-busting timestamp",
+            "description": "Cache-busting Unix timestamp in milliseconds; it does not change the represented fund.",
             "required": false,
             "schema": {
-              "type": "integer"
-            }
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1770000000000
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Legacy JavaScript/JSONP on success; currently an HTTP-200 page-not-found HTML document.",
             "content": {
               "application/javascript": {
-                "schema": {
-                  "type": "string"
-                }
+                "schema": { "$ref": "#/components/schemas/LegacyFundEstimateJsonp" },
+                "example": "jsonpgz({\"fundcode\":\"001072\",\"name\":\"...\",\"jzrq\":\"2025-09-02\",\"dwjz\":\"2.6170\",\"gsz\":\"2.6300\",\"gszzl\":\"0.50\",\"gztime\":\"2025-09-03 15:00\"});"
+              },
+              "text/html": {
+                "schema": { "$ref": "#/components/schemas/EastmoneyNotFoundHtml" },
+                "example": "<!doctype html><html><head><title>页面未找到 - 东方财富网</title>..."
               }
             }
           }
@@ -83,16 +90,18 @@
       "get": {
         "operationId": "listHistoricalNav",
         "summary": "List historical fund NAV",
-        "description": "List historical fund NAV. Observed directly in the provider-owned historical-NAV page and used by FiApp.",
+        "description": "Returns paginated historical unit and cumulative NAV rows as JSON. Numeric NAV values and growth rates are encoded as strings. Pagination metadata (`TotalCount`, `PageSize`, `PageIndex`) is at the response root, while `Data.LSJZList` contains rows.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "query",
-            "description": "Six-digit fund code",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "pattern": "^[0-9]{6}$"
+            },
+            "example": "001072"
           },
           {
             "name": "pageIndex",
@@ -101,7 +110,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 1
+              "default": 1,
+              "minimum": 1
             }
           },
           {
@@ -111,25 +121,28 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 20
+              "default": 20,
+              "minimum": 1
             }
           },
           {
             "name": "startDate",
             "in": "query",
-            "description": "Start date",
+            "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means no lower bound.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date"
             }
           },
           {
             "name": "endDate",
             "in": "query",
-            "description": "End date",
+            "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means no upper bound.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date"
             }
           }
         ],
@@ -138,44 +151,16 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "Data": {
-                      "type": "object",
-                      "properties": {
-                        "LSJZList": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "FSRQ": {
-                                "type": "string"
-                              },
-                              "DWJZ": {
-                                "type": "string"
-                              },
-                              "LJJZ": {
-                                "type": "string"
-                              },
-                              "JZZZL": {
-                                "type": "string"
-                              }
-                            },
-                            "additionalProperties": true
-                          }
-                        },
-                        "TotalCount": {
-                          "type": "integer"
-                        },
-                        "PageIndex": {
-                          "type": "integer"
-                        }
-                      },
-                      "additionalProperties": true
-                    }
+                "schema": { "$ref": "#/components/schemas/HistoricalNavResponse" },
+                "examples": {
+                  "populated": {
+                    "summary": "Two historical NAV rows",
+                    "value": { "Data": { "LSJZList": [{ "FSRQ": "2026-08-07", "DWJZ": "4.6050", "LJJZ": "4.6580", "SDATE": null, "ACTUALSYI": "", "NAVTYPE": "1", "JZZZL": "3.58", "SGZT": "开放申购", "SHZT": "开放赎回", "FHFCZ": "", "FHFCZ10": "", "FHFCBZ": "", "DTYPE": null, "FHSP": "" }], "FundType": "001", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 2723, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
                   },
-                  "additionalProperties": true
+                  "unknownFund": {
+                    "summary": "Unknown fund code is represented as a successful empty page, not an HTTP error",
+                    "value": { "Data": { "LSJZList": [], "FundType": "", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 0, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
+                  }
                 }
               }
             }
@@ -183,10 +168,11 @@
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
-          "https://fundf10.eastmoney.com/jjjz_001072.html"
+          "https://fundf10.eastmoney.com/jjjz_001072.html",
+          "https://api.fund.eastmoney.com/f10/lsjz?fundCode=001072&pageIndex=1&pageSize=2&startDate=&endDate="
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed directly in the provider-owned historical-NAV page and used by FiApp.",
+        "x-pontx-stability-note": "Read-only JSON request verified on 2026-08-10. Provider field names are abbreviated and undocumented; unknown fields are intentionally preserved.",
         "servers": [
           {
             "url": "https://api.fund.eastmoney.com"
@@ -201,25 +187,28 @@
       "get": {
         "operationId": "getHistoricalNavChart",
         "summary": "Get historical NAV chart series",
-        "description": "Get historical NAV chart series. Captured from the provider-owned historical-NAV page on 2026-08-10.",
+        "description": "Returns chart points as positional two-element arrays `[Unix epoch milliseconds, unit NAV]`, not objects. The response also includes root-level status and pagination metadata. A 2026-08-10 request showed that `pageSize=3` was ignored and the response reported its effective `PageSize` as 400, so callers should use the returned metadata rather than assuming the request limit is honored.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "query",
-            "description": "Six-digit fund code",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "pattern": "^[0-9]{6}$"
+            },
+            "example": "001072"
           },
           {
             "name": "type",
             "in": "query",
-            "description": "Chart type",
+            "description": "Provider chart-series selector. Only value `0` was observed for unit NAV; other values are undocumented.",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 0
+              "default": 0,
+              "enum": [0]
             }
           },
           {
@@ -229,35 +218,39 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 1
+              "default": 1,
+              "minimum": 1
             }
           },
           {
             "name": "pageSize",
             "in": "query",
-            "description": "Maximum points",
+            "description": "Requested maximum points. The provider may ignore this value and return/report an effective page size of 400.",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 400
+              "default": 400,
+              "minimum": 1
             }
           },
           {
             "name": "startDate",
             "in": "query",
-            "description": "Start date",
+            "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date"
             }
           },
           {
             "name": "endDate",
             "in": "query",
-            "description": "End date",
+            "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date"
             }
           }
         ],
@@ -266,43 +259,19 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "Data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "integer"
-                          },
-                          "y": {
-                            "type": "number"
-                          },
-                          "equityReturn": {
-                            "type": "number"
-                          },
-                          "unitMoney": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    }
-                  },
-                  "additionalProperties": true
-                }
+                "schema": { "$ref": "#/components/schemas/HistoricalNavChartResponse" },
+                "example": { "Data": [[1754870400000, 2.59], [1754956800000, 2.617]], "ErrCode": 0, "ErrMsg": null, "TotalCount": 241, "Expansion": null, "PageSize": 400, "PageIndex": 1 }
               }
             }
           }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
-          "https://fundf10.eastmoney.com/jjjz_001072.html"
+          "https://fundf10.eastmoney.com/jjjz_001072.html",
+          "https://api.fund.eastmoney.com/f10/LSJZChart?fundCode=001072&type=0&pageIndex=1&pageSize=400&startDate=&endDate="
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Captured from the provider-owned historical-NAV page on 2026-08-10.",
+        "x-pontx-stability-note": "Read-only JSON request verified on 2026-08-10. The actual wire format is a two-number tuple, and provider pagination behavior may differ from requested values.",
         "servers": [
           {
             "url": "https://api.fund.eastmoney.com"
@@ -317,44 +286,49 @@
       "get": {
         "operationId": "getMarketIndexList",
         "summary": "Get related market-index snapshots",
-        "description": "Get related market-index snapshots. Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate.",
+        "description": "Requests related market-index snapshots using Eastmoney's provider-internal field IDs. With the curated fields, `f2` is latest price, `f3` is percentage change, `f12` is security code and `f14` is display name. Server-to-server verification on 2026-08-10 returned an empty connection response, so this operation remains documented but execution-disabled.",
         "parameters": [
           {
             "name": "secids",
             "in": "query",
-            "description": "Comma-separated Eastmoney security IDs",
+            "description": "Comma-separated Eastmoney security IDs in `market.code` form; observed market IDs include `1` for Shanghai and `0` for Shenzhen.",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "1.000001,0.399001"
           },
           {
             "name": "fields",
             "in": "query",
-            "description": "Comma-separated response fields",
+            "description": "Comma-separated provider field IDs. Curated mapping: `f2` latest price, `f3` percentage change, `f12` code, `f14` name.",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "default": "f2,f3,f12,f14"
+            },
+            "example": "f2,f3,f12,f14"
           },
           {
             "name": "fltt",
             "in": "query",
-            "description": "Number formatting mode",
+            "description": "Provider number-formatting mode. Observed value `2` returns scaled decimal numbers.",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 2
+              "default": 2,
+              "enum": [2]
             }
           },
           {
             "name": "invt",
             "in": "query",
-            "description": "Provider request mode",
+            "description": "Provider request mode; only observed value `2` is documented.",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 2
+              "default": 2,
+              "enum": [2]
             }
           },
           {
@@ -373,52 +347,18 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "rc": {
-                      "type": "integer"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "diff": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "f2": {
-                                "type": "number"
-                              },
-                              "f3": {
-                                "type": "number"
-                              },
-                              "f12": {
-                                "type": "string"
-                              },
-                              "f14": {
-                                "type": "string"
-                              }
-                            },
-                            "additionalProperties": true
-                          }
-                        }
-                      },
-                      "additionalProperties": true
-                    }
-                  },
-                  "additionalProperties": true
-                }
+                "schema": { "$ref": "#/components/schemas/MarketIndexListResponse" }
               }
             }
           }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
-          "https://fundf10.eastmoney.com/jjjz_001072.html"
+          "https://fundf10.eastmoney.com/jjjz_001072.html",
+          "https://push2.eastmoney.com/api/qt/ulist.np/get?secids=1.000001,0.399001&fields=f2,f3,f12,f14&fltt=2&invt=2&ut=267f9ad526dbe6b0262ab19316f5a25b"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Observed on the provider-owned fund page; field identifiers and the public page token are internal and may rotate.",
+        "x-pontx-stability-note": "Observed on the provider-owned fund page. A server-side read-only request on 2026-08-10 ended with an empty reply; browser behavior, field IDs and the public-page token remain provider-internal and may change.",
         "servers": [
           {
             "url": "https://push2.eastmoney.com"
@@ -429,13 +369,122 @@
         },
         "x-pontx-proxy-enabled": false,
         "x-pontx-proxy-disabled-reason": {
-          "zh": "该接口在官网浏览器中可用，但服务端请求会重定向；Hub 不跟随供应商重定向。",
-          "en": "This endpoint works in the provider browser page but redirects server requests; Hub does not follow provider redirects."
+          "zh": "该接口来自官网页面，但 2026-08-10 服务端只读验证收到空响应；内部字段与页面令牌也可能变化，因此停止代理执行。",
+          "en": "This endpoint is used by the provider page, but server-side verification returned an empty reply on 2026-08-10; internal fields and the page token may also change, so proxy execution is disabled."
         }
       }
     }
   },
   "components": {
-    "schemas": {}
+    "schemas": {
+      "LegacyFundEstimateJsonp": {
+        "type": "string",
+        "description": "Deprecated JavaScript callback text `jsonpgz(<FundEstimate object>);`. This is not raw JSON and the route currently returns HTML instead.",
+        "example": "jsonpgz({\"fundcode\":\"001072\",\"name\":\"华安智能装备主题股票A\",\"jzrq\":\"2025-09-02\",\"dwjz\":\"2.6170\",\"gsz\":\"2.6300\",\"gszzl\":\"0.50\",\"gztime\":\"2025-09-03 15:00\"});"
+      },
+      "EastmoneyNotFoundHtml": {
+        "type": "string",
+        "description": "Eastmoney UTF-8 page-not-found document returned with HTTP 200; consumers must not parse it as JSONP."
+      },
+      "HistoricalNavRow": {
+        "type": "object",
+        "description": "One published fund NAV row. Provider abbreviations and decimal-as-string encoding are preserved.",
+        "properties": {
+          "FSRQ": { "type": "string", "format": "date", "description": "NAV publication date.", "example": "2026-08-07" },
+          "DWJZ": { "type": "string", "description": "Unit NAV decimal string.", "example": "4.6050" },
+          "LJJZ": { "type": "string", "description": "Cumulative NAV decimal string.", "example": "4.6580" },
+          "SDATE": { "type": "string", "nullable": true, "description": "Undocumented secondary date; observed as null." },
+          "ACTUALSYI": { "type": "string", "description": "Actual yield text for products where applicable; observed empty for this equity fund.", "example": "" },
+          "NAVTYPE": { "type": "string", "description": "Provider NAV type code; observed value `1` for the sample fund.", "example": "1" },
+          "JZZZL": { "type": "string", "description": "Daily NAV growth percentage without `%`.", "example": "3.58" },
+          "SGZT": { "type": "string", "description": "Chinese subscription-status text; provider values are not treated as a closed enum.", "example": "开放申购" },
+          "SHZT": { "type": "string", "description": "Chinese redemption-status text; provider values are not treated as a closed enum.", "example": "开放赎回" },
+          "FHFCZ": { "type": "string", "description": "Undocumented dividend field; often empty." },
+          "FHFCZ10": { "type": "string", "description": "Undocumented dividend field; often empty." },
+          "FHFCBZ": { "type": "string", "description": "Undocumented dividend note; often empty." },
+          "DTYPE": { "type": "string", "nullable": true, "description": "Undocumented provider type; observed as null." },
+          "FHSP": { "type": "string", "description": "Undocumented dividend field; often empty." }
+        },
+        "additionalProperties": true
+      },
+      "HistoricalNavData": {
+        "type": "object",
+        "properties": {
+          "LSJZList": { "type": "array", "items": { "$ref": "#/components/schemas/HistoricalNavRow" } },
+          "FundType": { "type": "string", "nullable": true, "description": "Provider fund-type code; empty for unknown funds.", "example": "001" },
+          "SYType": { "type": "string", "nullable": true, "description": "Undocumented yield type; observed as null." },
+          "isNewType": { "type": "boolean", "example": false },
+          "Feature": { "type": "string", "nullable": true, "description": "Undocumented feature marker; observed as null." }
+        },
+        "additionalProperties": true
+      },
+      "HistoricalNavResponse": {
+        "type": "object",
+        "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
+        "properties": {
+          "Data": { "$ref": "#/components/schemas/HistoricalNavData" },
+          "ErrCode": { "type": "integer", "description": "Provider business status; observed as 0 even for an unknown fund code.", "example": 0 },
+          "ErrMsg": { "type": "string", "nullable": true, "example": null },
+          "TotalCount": { "type": "integer", "minimum": 0, "example": 2723 },
+          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
+          "PageSize": { "type": "integer", "minimum": 1, "example": 2 },
+          "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
+        },
+        "additionalProperties": true
+      },
+      "NavChartPoint": {
+        "type": "array",
+        "description": "Positional tuple `[Unix epoch milliseconds, unit NAV]`.",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": { "type": "number" },
+        "example": [1754870400000, 2.59]
+      },
+      "HistoricalNavChartResponse": {
+        "type": "object",
+        "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
+        "properties": {
+          "Data": { "type": "array", "items": { "$ref": "#/components/schemas/NavChartPoint" } },
+          "ErrCode": { "type": "integer", "description": "Provider business status; observed success value 0.", "example": 0 },
+          "ErrMsg": { "type": "string", "nullable": true, "example": null },
+          "TotalCount": { "type": "integer", "minimum": 0, "example": 241 },
+          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
+          "PageSize": { "type": "integer", "description": "Effective provider page size; observed as 400 even when 3 was requested.", "example": 400 },
+          "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
+        },
+        "additionalProperties": true
+      },
+      "MarketIndexSnapshot": {
+        "type": "object",
+        "properties": {
+          "f2": { "type": "number", "description": "Latest price when `fltt=2`." },
+          "f3": { "type": "number", "description": "Percentage change when `fltt=2`." },
+          "f12": { "type": "string", "description": "Security code." },
+          "f14": { "type": "string", "description": "Display name." }
+        },
+        "additionalProperties": true
+      },
+      "MarketIndexListResponse": {
+        "type": "object",
+        "description": "Historically observed Eastmoney push2 envelope. Current server-side access was not reproduced, so fields remain permissive.",
+        "properties": {
+          "rc": { "type": "integer", "description": "Provider return code; historically 0 on success." },
+          "rt": { "type": "integer", "description": "Provider response type/version marker." },
+          "svr": { "type": "integer", "description": "Provider server identifier." },
+          "lt": { "type": "integer", "description": "Undocumented provider flag." },
+          "full": { "type": "integer", "description": "Undocumented completeness flag." },
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "total": { "type": "integer", "minimum": 0 },
+              "diff": { "type": "array", "items": { "$ref": "#/components/schemas/MarketIndexSnapshot" } }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
   }
 }

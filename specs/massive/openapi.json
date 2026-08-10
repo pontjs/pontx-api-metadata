@@ -3,15 +3,15 @@
   "info": {
     "title": "Massive Stock Market Data API",
     "version": "2026-08-10",
-    "description": "Official Massive (formerly Polygon.io) read-only stock market REST API surface used by FiApp and its adjacent market-data resources.",
+    "description": "Curated read-only Massive stock market REST API surface for quotes, aggregates, snapshots, and ticker reference data. Massive was formerly Polygon.io; endpoint access, recency, and history vary by subscription plan.",
     "license": {
       "name": "Proprietary"
     }
   },
   "servers": [
     {
-      "url": "https://api.polygon.io",
-      "description": "Polygon-compatible production endpoint used by FiApp"
+      "url": "https://api.massive.com",
+      "description": "Official Massive production REST API"
     }
   ],
   "paths": {
@@ -19,15 +19,16 @@
       "get": {
         "operationId": "getLastTrade",
         "summary": "Get the last stock trade",
-        "description": "Get the last stock trade. Officially documented endpoint; availability depends on the account's market-data plan.",
+        "description": "Retrieve the latest available trade for a case-sensitive stock ticker. The result includes price, size, exchange, conditions, and nanosecond timestamps when supplied by the feed. Availability and recency depend on the account's stock-data plan.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "Case-sensitive stock ticker",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "AAPL"
             }
           }
         ],
@@ -37,34 +38,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "request_id": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "object",
-                      "properties": {
-                        "T": {
-                          "type": "string"
-                        },
-                        "p": {
-                          "type": "number"
-                        },
-                        "s": {
-                          "type": "number"
-                        },
-                        "t": {
-                          "type": "number"
-                        }
-                      },
-                      "additionalProperties": true
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/LastTradeResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -82,15 +66,16 @@
       "get": {
         "operationId": "getPreviousClose",
         "summary": "Get previous-day aggregate",
-        "description": "Get previous-day aggregate. Officially documented aggregate endpoint.",
+        "description": "Retrieve the previous trading day's OHLC, volume, VWAP, and transaction count for a stock ticker. Results are split-adjusted by default.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "Stock ticker",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "AAPL"
             }
           },
           {
@@ -110,43 +95,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "ticker": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "c": {
-                            "type": "number"
-                          },
-                          "h": {
-                            "type": "number"
-                          },
-                          "l": {
-                            "type": "number"
-                          },
-                          "o": {
-                            "type": "number"
-                          },
-                          "v": {
-                            "type": "number"
-                          },
-                          "t": {
-                            "type": "number"
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/AggregateResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -164,15 +123,16 @@
       "get": {
         "operationId": "getAggregateBars",
         "summary": "Get custom aggregate bars",
-        "description": "Get custom aggregate bars. Officially documented aggregate endpoint.",
+        "description": "Retrieve historical OHLC and volume bars over a custom date range in Eastern Time. Bars are built from qualifying trades; an interval with no eligible trades is omitted rather than returned as an empty bar.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "Stock ticker",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "AAPL"
             }
           },
           {
@@ -206,19 +166,57 @@
           {
             "name": "from",
             "in": "path",
-            "description": "Start date or timestamp",
+            "description": "Start date in `YYYY-MM-DD` format or Unix timestamp in milliseconds.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "2025-01-02"
             }
           },
           {
             "name": "to",
             "in": "path",
-            "description": "End date or timestamp",
+            "description": "End date in `YYYY-MM-DD` format or Unix timestamp in milliseconds.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "2025-01-31"
+            }
+          },
+          {
+            "name": "adjusted",
+            "in": "query",
+            "description": "Whether results are adjusted for stock splits.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Order bars by their start timestamp.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of base aggregates queried to construct results.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50000,
+              "default": 5000
             }
           }
         ],
@@ -228,40 +226,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ticker": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "c": {
-                            "type": "number"
-                          },
-                          "h": {
-                            "type": "number"
-                          },
-                          "l": {
-                            "type": "number"
-                          },
-                          "o": {
-                            "type": "number"
-                          },
-                          "v": {
-                            "type": "number"
-                          },
-                          "t": {
-                            "type": "number"
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/AggregateResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -278,8 +253,8 @@
     "/v3/snapshot": {
       "get": {
         "operationId": "getMarketSnapshot",
-        "summary": "Get a stock-market snapshot",
-        "description": "Get a stock-market snapshot. Officially documented snapshot family.",
+        "summary": "Get unified market snapshots",
+        "description": "Retrieve paginated snapshots across stocks, options, forex, crypto, and indices. A snapshot can include current session metrics plus the latest trade, quote, and minute bar according to plan entitlements.",
         "parameters": [
           {
             "name": "ticker.any_of",
@@ -291,12 +266,56 @@
             }
           },
           {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by asset class.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "crypto",
+                "fx",
+                "indices",
+                "options",
+                "stocks"
+              ]
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Order results using the selected sort field.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
             "name": "limit",
             "in": "query",
             "description": "Maximum results",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 250,
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field used for result ordering.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ticker"
+              ]
             }
           }
         ],
@@ -306,40 +325,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "ticker": {
-                            "type": "string"
-                          },
-                          "value": {
-                            "type": "number"
-                          },
-                          "session": {
-                            "type": "object",
-                            "properties": {
-                              "change_percent": {
-                                "type": "number"
-                              },
-                              "close": {
-                                "type": "number"
-                              }
-                            },
-                            "additionalProperties": true
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/UnifiedSnapshotResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -347,17 +343,17 @@
         },
         "x-pontx-documentation-status": "official",
         "x-pontx-evidence": [
-          "https://massive.com/docs/rest/stocks/snapshots/full-market-snapshot"
+          "https://massive.com/docs/rest/stocks/snapshots/unified-snapshot"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Officially documented snapshot family."
+        "x-pontx-stability-note": "Official unified snapshot endpoint; returned fields and recency vary by asset-class subscription."
       }
     },
     "/v3/reference/tickers": {
       "get": {
         "operationId": "listTickers",
         "summary": "List and search supported tickers",
-        "description": "List and search supported tickers. Official reference-data endpoint.",
+        "description": "Retrieve a paginated list of ticker symbols across supported asset classes. Filter by symbol, asset type, market, exchange, identifiers, date, search text, or active status.",
         "parameters": [
           {
             "name": "ticker",
@@ -369,12 +365,77 @@
             }
           },
           {
+            "name": "type",
+            "in": "query",
+            "description": "Ticker type code from the Ticker Types endpoint.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "market",
             "in": "query",
             "description": "Market filter",
             "required": false,
             "schema": {
+              "type": "string",
+              "enum": [
+                "stocks",
+                "crypto",
+                "fx",
+                "otc",
+                "indices"
+              ]
+            }
+          },
+          {
+            "name": "exchange",
+            "in": "query",
+            "description": "Primary exchange Market Identifier Code (MIC), for example `XNAS`.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "XNAS"
+            }
+          },
+          {
+            "name": "cusip",
+            "in": "query",
+            "description": "CUSIP to query. CUSIPs may be used as filters but are not returned for legal reasons.",
+            "required": false,
+            "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "cik",
+            "in": "query",
+            "description": "SEC Central Index Key.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2025-01-31"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search text matched against ticker symbols and company names.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Apple"
             }
           },
           {
@@ -383,7 +444,50 @@
             "description": "Active-listing filter",
             "required": false,
             "schema": {
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Order results using the selected sort field.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results per page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field used for ordering.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ticker",
+                "name",
+                "market",
+                "locale",
+                "primary_exchange",
+                "currency_symbol"
+              ]
             }
           }
         ],
@@ -393,37 +497,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "ticker": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "market": {
-                            "type": "string"
-                          },
-                          "locale": {
-                            "type": "string"
-                          },
-                          "currency_name": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/TickerListResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -455,10 +539,12 @@
           {
             "name": "date",
             "in": "query",
-            "description": "Point-in-time date",
+            "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date",
+              "example": "2025-01-31"
             }
           }
         ],
@@ -468,34 +554,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "results": {
-                      "type": "object",
-                      "properties": {
-                        "ticker": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "market": {
-                          "type": "string"
-                        },
-                        "primary_exchange": {
-                          "type": "string"
-                        }
-                      },
-                      "additionalProperties": true
-                    }
-                  },
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/TickerDetailsResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -511,7 +580,739 @@
     }
   },
   "components": {
-    "schemas": {},
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Error payload returned when Massive cannot authorize or fulfill a request.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Machine-readable request status.",
+            "example": "ERROR"
+          },
+          "error": {
+            "type": "string",
+            "description": "Short error category or message.",
+            "example": "API Key was not provided"
+          },
+          "message": {
+            "type": "string",
+            "description": "Additional human-readable error detail."
+          },
+          "request_id": {
+            "type": "string",
+            "description": "Server-assigned request identifier for support and diagnostics."
+          }
+        },
+        "additionalProperties": true
+      },
+      "AggregateBar": {
+        "type": "object",
+        "description": "OHLC aggregate constructed from qualifying trades in one time window.",
+        "required": [
+          "c",
+          "h",
+          "l",
+          "o",
+          "t",
+          "v"
+        ],
+        "properties": {
+          "T": {
+            "type": "string",
+            "description": "Exchange ticker symbol; commonly present in previous-day responses.",
+            "example": "AAPL"
+          },
+          "c": {
+            "type": "number",
+            "description": "Close price.",
+            "example": 115.97
+          },
+          "h": {
+            "type": "number",
+            "description": "Highest price.",
+            "example": 117.59
+          },
+          "l": {
+            "type": "number",
+            "description": "Lowest price.",
+            "example": 114.13
+          },
+          "n": {
+            "type": "integer",
+            "description": "Number of transactions in the aggregate window.",
+            "example": 2
+          },
+          "o": {
+            "type": "number",
+            "description": "Open price.",
+            "example": 115.55
+          },
+          "otc": {
+            "type": "boolean",
+            "description": "True for an OTC aggregate; omitted when false."
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Window start as a Unix timestamp in milliseconds.",
+            "example": 1605042000000
+          },
+          "v": {
+            "type": "number",
+            "description": "Trading volume.",
+            "example": 131704427
+          },
+          "vw": {
+            "type": "number",
+            "description": "Volume-weighted average price.",
+            "example": 116.3058
+          }
+        },
+        "additionalProperties": true
+      },
+      "AggregateResponse": {
+        "type": "object",
+        "required": [
+          "ticker",
+          "queryCount",
+          "resultsCount",
+          "status"
+        ],
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "Exchange ticker symbol.",
+            "example": "AAPL"
+          },
+          "adjusted": {
+            "type": "boolean",
+            "description": "Whether prices are adjusted for splits.",
+            "example": true
+          },
+          "queryCount": {
+            "type": "integer",
+            "description": "Number of base minute or day aggregates queried.",
+            "example": 1
+          },
+          "request_id": {
+            "type": "string",
+            "description": "Server-assigned request identifier."
+          },
+          "resultsCount": {
+            "type": "integer",
+            "description": "Number of result bars returned.",
+            "example": 1
+          },
+          "status": {
+            "type": "string",
+            "description": "Request status.",
+            "example": "OK"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AggregateBar"
+            }
+          },
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied."
+          }
+        },
+        "additionalProperties": true
+      },
+      "LastTrade": {
+        "type": "object",
+        "required": [
+          "T",
+          "ds",
+          "i",
+          "p",
+          "q",
+          "t",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "T": {
+            "type": "string",
+            "description": "Exchange ticker symbol.",
+            "example": "AAPL"
+          },
+          "c": {
+            "type": "array",
+            "description": "Trade condition codes.",
+            "items": {
+              "type": "integer"
+            },
+            "example": [
+              37
+            ]
+          },
+          "ds": {
+            "type": "string",
+            "description": "Trade size including any fractional component, encoded as a decimal string.",
+            "example": "25.0"
+          },
+          "e": {
+            "type": "integer",
+            "description": "Trade correction indicator."
+          },
+          "f": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds."
+          },
+          "i": {
+            "type": "string",
+            "description": "Trade identifier, unique per ticker/exchange/TRF combination.",
+            "example": "118749"
+          },
+          "p": {
+            "type": "number",
+            "description": "Price per whole share.",
+            "example": 129.8473
+          },
+          "q": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Increasing event sequence number for the ticker; gaps are possible.",
+            "example": 3135876
+          },
+          "r": {
+            "type": "integer",
+            "description": "Trade Reporting Facility identifier.",
+            "example": 202
+          },
+          "s": {
+            "type": "number",
+            "description": "Trade size in shares.",
+            "example": 25
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64",
+            "description": "SIP receipt time as a Unix timestamp in nanoseconds."
+          },
+          "x": {
+            "type": "integer",
+            "description": "Exchange identifier; resolve through Massive exchange reference data.",
+            "example": 4
+          },
+          "y": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds."
+          },
+          "z": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ],
+            "description": "Listing tape: 1=A (NYSE), 2=B (NYSE Arca/NYSE American), 3=C (Nasdaq).",
+            "example": 3
+          }
+        },
+        "additionalProperties": true
+      },
+      "LastTradeResponse": {
+        "type": "object",
+        "required": [
+          "request_id",
+          "status"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "Server-assigned request identifier."
+          },
+          "results": {
+            "$ref": "#/components/schemas/LastTrade"
+          },
+          "status": {
+            "type": "string",
+            "description": "Request status.",
+            "example": "OK"
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotSession": {
+        "type": "object",
+        "description": "Metrics for the current trading session; availability varies by asset class and entitlement.",
+        "properties": {
+          "change": {
+            "type": "number",
+            "description": "Absolute session price change."
+          },
+          "change_percent": {
+            "type": "number",
+            "description": "Session percentage change."
+          },
+          "early_trading_change": {
+            "type": "number"
+          },
+          "early_trading_change_percent": {
+            "type": "number"
+          },
+          "regular_trading_change": {
+            "type": "number"
+          },
+          "regular_trading_change_percent": {
+            "type": "number"
+          },
+          "late_trading_change": {
+            "type": "number"
+          },
+          "late_trading_change_percent": {
+            "type": "number"
+          },
+          "close": {
+            "type": "number"
+          },
+          "high": {
+            "type": "number"
+          },
+          "low": {
+            "type": "number"
+          },
+          "open": {
+            "type": "number"
+          },
+          "volume": {
+            "type": "number"
+          },
+          "previous_close": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "vwap": {
+            "type": "number"
+          },
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Last update as a Unix timestamp in nanoseconds."
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotQuote": {
+        "type": "object",
+        "properties": {
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in nanoseconds."
+          },
+          "timeframe": {
+            "type": "string",
+            "description": "Data recency label.",
+            "example": "REAL-TIME"
+          },
+          "ask": {
+            "type": "number"
+          },
+          "ask_size": {
+            "type": "number"
+          },
+          "ask_exchange": {
+            "type": "integer"
+          },
+          "bid": {
+            "type": "number"
+          },
+          "bid_size": {
+            "type": "number"
+          },
+          "bid_exchange": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotTrade": {
+        "type": "object",
+        "properties": {
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in nanoseconds."
+          },
+          "timeframe": {
+            "type": "string",
+            "example": "REAL-TIME"
+          },
+          "id": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "size": {
+            "type": "number"
+          },
+          "exchange": {
+            "type": "integer"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotMinuteBar": {
+        "type": "object",
+        "properties": {
+          "close": {
+            "type": "number"
+          },
+          "high": {
+            "type": "number"
+          },
+          "low": {
+            "type": "number"
+          },
+          "open": {
+            "type": "number"
+          },
+          "transactions": {
+            "type": "integer"
+          },
+          "volume": {
+            "type": "number"
+          },
+          "vwap": {
+            "type": "number"
+          },
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in nanoseconds."
+          }
+        },
+        "additionalProperties": true
+      },
+      "UnifiedSnapshot": {
+        "type": "object",
+        "required": [
+          "ticker"
+        ],
+        "properties": {
+          "ticker": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "crypto",
+              "fx",
+              "indices",
+              "options",
+              "stocks"
+            ]
+          },
+          "market_status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "closed",
+              "early_trading",
+              "regular_trading",
+              "late_trading"
+            ]
+          },
+          "error": {
+            "type": "string",
+            "description": "Error category for this ticker."
+          },
+          "message": {
+            "type": "string",
+            "description": "Error detail for this ticker."
+          },
+          "fmv": {
+            "type": "number",
+            "description": "Massive Fair Market Value; limited to eligible Business plans."
+          },
+          "fmv_last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "FMV calculation time as a Unix timestamp in nanoseconds."
+          },
+          "session": {
+            "$ref": "#/components/schemas/SnapshotSession"
+          },
+          "last_quote": {
+            "$ref": "#/components/schemas/SnapshotQuote"
+          },
+          "last_trade": {
+            "$ref": "#/components/schemas/SnapshotTrade"
+          },
+          "last_minute": {
+            "$ref": "#/components/schemas/SnapshotMinuteBar"
+          }
+        },
+        "additionalProperties": true
+      },
+      "UnifiedSnapshotResponse": {
+        "type": "object",
+        "required": [
+          "request_id",
+          "status"
+        ],
+        "properties": {
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute URL for the next page, when present."
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UnifiedSnapshot"
+            }
+          },
+          "status": {
+            "type": "string",
+            "example": "OK"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Ticker": {
+        "type": "object",
+        "required": [
+          "ticker",
+          "name"
+        ],
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "description": "Whether the asset was actively traded on the queried date."
+          },
+          "base_currency_name": {
+            "type": "string"
+          },
+          "base_currency_symbol": {
+            "type": "string",
+            "description": "ISO 4217 code of the priced-against currency."
+          },
+          "cik": {
+            "type": "string"
+          },
+          "composite_figi": {
+            "type": "string"
+          },
+          "currency_name": {
+            "type": "string"
+          },
+          "currency_symbol": {
+            "type": "string",
+            "description": "ISO 4217 trading currency code."
+          },
+          "delisted_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_updated_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "global",
+              "us"
+            ]
+          },
+          "market": {
+            "type": "string",
+            "enum": [
+              "crypto",
+              "fx",
+              "indices",
+              "otc",
+              "stocks"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "primary_exchange": {
+            "type": "string",
+            "description": "ISO 10383 MIC of the primary exchange."
+          },
+          "share_class_figi": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "Massive ticker-type code."
+          }
+        },
+        "additionalProperties": true
+      },
+      "TickerListResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute URL for the next page, when present."
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ticker"
+            }
+          },
+          "status": {
+            "type": "string",
+            "example": "OK"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Branding": {
+        "type": "object",
+        "description": "Visual-branding URLs may require the same API key when fetched.",
+        "properties": {
+          "icon_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TickerDetails": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Ticker"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "address": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "branding": {
+                "$ref": "#/components/schemas/Branding"
+              },
+              "description": {
+                "type": "string"
+              },
+              "homepage_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "list_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "market_cap": {
+                "type": "number"
+              },
+              "phone_number": {
+                "type": "string"
+              },
+              "round_lot": {
+                "type": "number"
+              },
+              "share_class_shares_outstanding": {
+                "type": "number"
+              },
+              "sic_code": {
+                "type": "string"
+              },
+              "sic_description": {
+                "type": "string"
+              },
+              "ticker_root": {
+                "type": "string"
+              },
+              "ticker_suffix": {
+                "type": "string"
+              },
+              "total_employees": {
+                "type": "number"
+              },
+              "weighted_shares_outstanding": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      },
+      "TickerDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "results": {
+            "$ref": "#/components/schemas/TickerDetails"
+          },
+          "status": {
+            "type": "string",
+            "example": "OK"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
     "securitySchemes": {
       "ApiKey": {
         "type": "apiKey",

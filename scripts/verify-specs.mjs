@@ -29,13 +29,15 @@ for (const api of source.apis) {
       if (operationIds.has(operation.operationId)) throw new Error(`${api.slug}: duplicate operationId ${operation.operationId}`);
       operationIds.add(operation.operationId);
 
-      if (api.documentationStatus && !operation["x-pontx-documentation-status"]) {
+      const requiresOperationEvidence =
+        api.documentationStatus === "observed" || api.documentationStatus === "inferred";
+      if (requiresOperationEvidence && !operation["x-pontx-documentation-status"]) {
         throw new Error(`${api.slug}: ${operation.operationId} has no documentation status`);
       }
-      if (api.documentationStatus && !(operation["x-pontx-evidence"]?.length > 0)) {
+      if (requiresOperationEvidence && !(operation["x-pontx-evidence"]?.length > 0)) {
         throw new Error(`${api.slug}: ${operation.operationId} has no evidence URL`);
       }
-      if (api.documentationStatus && !operation["x-pontx-verified-at"]) {
+      if (requiresOperationEvidence && !operation["x-pontx-verified-at"]) {
         throw new Error(`${api.slug}: ${operation.operationId} has no verification date`);
       }
     }
