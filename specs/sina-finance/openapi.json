@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Sina Finance Web Quote API",
+    "title": "新浪财经网页行情 API",
     "version": "2026-08-10",
-    "description": "Provider-owned but undocumented Sina Finance market-data URLs observed in public pages and reproducible read-only requests. Responses are JavaScript assignment/JSONP-like wire formats rather than JSON APIs, field contracts are not formally versioned, and consumers must decode the declared Chinese charset before parsing.",
+    "description": "在公开页面及可复现的只读请求中观察到的新浪财经自有但未公开文档的市场数据 URL。响应采用 JavaScript 赋值语句或类似 JSONP 的传输格式，而非 JSON API；字段契约没有正式版本控制，使用者必须先按响应声明的中文字符集解码，再进行解析。",
     "license": {
       "name": "Proprietary / undocumented"
     }
@@ -20,13 +20,13 @@
     "/list={symbols}": {
       "get": {
         "operationId": "getQuoteSnapshots",
-        "summary": "Get single or batch quote snapshots",
-        "description": "Return one JavaScript variable assignment per requested symbol. Verified on 2026-08-10 with the provider-required Finance referer. The response declares `application/javascript; charset=GB18030`; each quoted value is a comma-separated positional record, not JSON. For an A-share equity, the observed conventional order is name, open, previous close, last, high, low, bid, ask, volume, amount, five bid price/size pairs, five ask price/size pairs, date, time, and status. This field mapping is inferred from values rather than formal documentation. Index records can leave order-book positions zero, so clients must preserve empty/trailing fields and avoid assuming every instrument has the equity layout.",
+        "summary": "获取行情快照",
+        "description": "返回一个或多个证券的文本行情。",
         "parameters": [
           {
             "name": "symbols",
             "in": "path",
-            "description": "Comma-separated Sina identifiers. Observed A-share prefixes are `sh` (Shanghai) and `sz` (Shenzhen), followed by six digits; mixed-instrument batches may have different positional record semantics.",
+            "description": "以逗号分隔的新浪证券标识。观察到的 A 股前缀为 `sh`（上海）和 `sz`（深圳），后接六位数字；混合证券类型的批量请求可能具有不同的位置记录语义。",
             "required": true,
             "schema": {
               "type": "string",
@@ -37,7 +37,7 @@
         ],
         "responses": {
           "200": {
-            "description": "JavaScript assignments encoded as GB18030. Decode bytes before interpreting Chinese names, then split assignments and positional records carefully.",
+            "description": "以 GB18030 编码的 JavaScript 赋值语句。应先解码字节再解释中文名称，然后谨慎拆分赋值语句与位置记录。",
             "content": {
               "application/javascript": {
                 "schema": {
@@ -54,7 +54,7 @@
           "https://hq.sinajs.cn/list=sh000001"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Reproduced on 2026-08-10 with a Sina Finance Referer. Undocumented positional fields and instrument-specific layouts may change without notice; response bytes declare GB18030.",
+        "x-pontx-stability-note": "已于 2026-08-10 使用新浪财经 Referer 复现。未公开文档的位置字段和特定证券布局可能在不另行通知的情况下发生变化；响应字节声明使用 GB18030 编码。",
         "servers": [
           {
             "url": "https://hq.sinajs.cn"
@@ -68,13 +68,13 @@
     "/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData": {
       "get": {
         "operationId": "getKLineData",
-        "summary": "Get A-share K-line data",
-        "description": "Return recent A-share bars wrapped in provider JavaScript (`var _data=(...);`) and preceded by a script-comment redirect guard. This is not bare JSON. Read-only requests on 2026-08-10 reproduced scales 1, 5, 15, 30, 60, and 240. Intraday records included day, OHLC, volume, and amount; scale 240 produced date-only daily records and omitted amount in the observed sample. Numeric values are commonly serialized as strings.",
+        "summary": "获取 K 线",
+        "description": "返回指定证券的 JSONP K 线数据。",
         "parameters": [
           {
             "name": "symbol",
             "in": "query",
-            "description": "Single prefixed A-share symbol (`sh` or `sz` plus six digits).",
+            "description": "带前缀的单个 A 股证券标识（`sh` 或 `sz` 后接六位数字）。",
             "required": true,
             "schema": {
               "type": "string",
@@ -85,7 +85,7 @@
           {
             "name": "scale",
             "in": "query",
-            "description": "Observed bar scale. Values 1–60 returned intraday timestamps; 240 returned daily date labels in the 2026-08-10 sample. The provider does not publish a stability guarantee for this enum.",
+            "description": "观察到的 K 线周期。值 1–60 返回日内时间戳；在 2026-08-10 的样本中，240 返回日线日期标签。提供方没有为此枚举发布稳定性保证。",
             "required": true,
             "schema": {
               "type": "integer",
@@ -103,7 +103,7 @@
           {
             "name": "ma",
             "in": "query",
-            "description": "Observed moving-average selector. `no` returns no MA fields; a numeric string such as `5` adds fields such as `ma_price5` and `ma_volume5`. Other combinations are undocumented, so this is not constrained as a closed enum.",
+            "description": "观察到的移动平均线选择器。`no` 不返回均线字段；`5` 等数字字符串会增加 `ma_price5` 和 `ma_volume5` 等字段。其他组合没有公开文档，因此这里不将其限制为封闭枚举。",
             "required": false,
             "schema": {
               "type": "string",
@@ -113,7 +113,7 @@
           {
             "name": "datalen",
             "in": "query",
-            "description": "Requested maximum number of most-recent bars. Positive integers are observed; the provider may enforce an undocumented cap.",
+            "description": "请求的最近 K 线最大数量。已观察到正整数取值；提供方可能施加未公开文档的上限。",
             "required": false,
             "schema": {
               "type": "integer",
@@ -124,7 +124,7 @@
         ],
         "responses": {
           "200": {
-            "description": "GBK-declared JavaScript wrapper containing an array of bar objects; not bare JSON.",
+            "description": "声明为 GBK 编码、包含 K 线对象数组的 JavaScript 包装内容；并非裸 JSON。",
             "content": {
               "application/javascript": {
                 "schema": {
@@ -141,7 +141,7 @@
           "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData?symbol=sh600000&scale=5&ma=no&datalen=3"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Reproduced on 2026-08-10 for scales 1/5/15/30/60/240. The undocumented JavaScript wrapper, optional fields, numeric-string encoding, and scale semantics may change without notice.",
+        "x-pontx-stability-note": "已于 2026-08-10 复现周期 1/5/15/30/60/240。未公开文档的 JavaScript 包装、可选字段、数字字符串编码和周期语义可能在不另行通知的情况下发生变化。",
         "servers": [
           {
             "url": "https://quotes.sina.cn"
@@ -157,60 +157,66 @@
     "schemas": {
       "QuoteAssignmentWireText": {
         "type": "string",
-        "description": "Raw GB18030-decoded wire text containing one `var hq_str_<symbol>=\"...\";` assignment per symbol. This is JavaScript source text, not JSON. Do not execute it. Extract only the quoted assignment value, preserve empty/trailing comma fields, then map positions with the separately documented logical schema.",
+        "title": "新浪报价赋值文本原始响应",
+        "description": "GB18030 解码后的 JavaScript 赋值文本，每个代码对应一个 var hq_str_<symbol>；它不是 JSON，不应执行，只能安全提取引号内容并保留空字段。",
         "x-pontx-decoded-record-schema": "#/components/schemas/EquityQuotePositionalRecord"
       },
       "EquityQuotePositionalRecord": {
         "type": "object",
-        "description": "Logical model after safely parsing one A-share equity assignment. It is not the HTTP wire shape. Positions are zero-based comma-field indexes inferred by comparing live Sina quote-page values on 2026-08-10; Sina does not publish this contract. Do not apply it to indexes or other instrument classes without validation.",
+        "title": "新浪 A 股报价解析模型",
+        "description": "从单条赋值内容按逗号位置解析出的 A 股逻辑模型，不是 HTTP 原始响应；字段位置来自实测，不可未经验证用于指数或其他品种。",
         "required": ["name", "open", "previousClose", "last", "high", "low", "volume", "amount", "date", "time"],
         "properties": {
-          "name": {"type": "string", "description": "Security name after GB18030 decoding.", "example": "浦发银行", "x-pontx-position": 0, "x-pontx-confidence": "high-inferred"},
+          "name": {"type": "string", "description": "经 GB18030 解码后的证券名称。", "example": "浦发银行", "x-pontx-position": 0, "x-pontx-confidence": "high-inferred"},
           "open": {"type": "number", "format": "double", "example": 9.2, "x-pontx-position": 1, "x-pontx-confidence": "high-inferred"},
           "previousClose": {"type": "number", "format": "double", "example": 9.21, "x-pontx-position": 2, "x-pontx-confidence": "high-inferred"},
           "last": {"type": "number", "format": "double", "example": 9.34, "x-pontx-position": 3, "x-pontx-confidence": "high-inferred"},
           "high": {"type": "number", "format": "double", "example": 9.38, "x-pontx-position": 4, "x-pontx-confidence": "high-inferred"},
           "low": {"type": "number", "format": "double", "example": 9.16, "x-pontx-position": 5, "x-pontx-confidence": "high-inferred"},
-          "bid": {"type": "number", "format": "double", "description": "Observed aggregate/current bid field; exact provider terminology is undocumented.", "example": 9.33, "x-pontx-position": 6, "x-pontx-confidence": "medium-inferred"},
-          "ask": {"type": "number", "format": "double", "description": "Observed aggregate/current ask field; exact provider terminology is undocumented.", "example": 9.34, "x-pontx-position": 7, "x-pontx-confidence": "medium-inferred"},
-          "volume": {"type": "integer", "format": "int64", "description": "Observed cumulative traded shares for the A-share sample.", "example": 44494391, "x-pontx-position": 8, "x-pontx-confidence": "high-inferred"},
-          "amount": {"type": "number", "format": "double", "description": "Observed cumulative traded amount in CNY for the A-share sample.", "example": 413333674, "x-pontx-position": 9, "x-pontx-confidence": "high-inferred"},
-          "bidLevels": {"type": "array", "description": "Five logical bid levels parsed from alternating size/price fields at zero-based positions 10–19.", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [10, 19], "x-pontx-confidence": "high-inferred"},
-          "askLevels": {"type": "array", "description": "Five logical ask levels parsed from alternating size/price fields at zero-based positions 20–29.", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [20, 29], "x-pontx-confidence": "high-inferred"},
+          "bid": {"type": "number", "format": "double", "description": "观察到的汇总/当前买价字段；提供方未公开其确切术语。", "example": 9.33, "x-pontx-position": 6, "x-pontx-confidence": "medium-inferred"},
+          "ask": {"type": "number", "format": "double", "description": "观察到的汇总/当前卖价字段；提供方未公开其确切术语。", "example": 9.34, "x-pontx-position": 7, "x-pontx-confidence": "medium-inferred"},
+          "volume": {"type": "integer", "format": "int64", "description": "A 股样本中观察到的累计成交股数。", "example": 44494391, "x-pontx-position": 8, "x-pontx-confidence": "high-inferred"},
+          "amount": {"type": "number", "format": "double", "description": "A 股样本中观察到的累计成交金额，单位为人民币元。", "example": 413333674, "x-pontx-position": 9, "x-pontx-confidence": "high-inferred"},
+          "bidLevels": {"type": "array", "description": "从零基位置 10–19 中交替出现的委托量/价格字段解析出的五档逻辑买盘。", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [10, 19], "x-pontx-confidence": "high-inferred"},
+          "askLevels": {"type": "array", "description": "从零基位置 20–29 中交替出现的委托量/价格字段解析出的五档逻辑卖盘。", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [20, 29], "x-pontx-confidence": "high-inferred"},
           "date": {"type": "string", "format": "date", "example": "2026-08-10", "x-pontx-position": 30, "x-pontx-confidence": "high-inferred"},
           "time": {"type": "string", "pattern": "^[0-9]{2}:[0-9]{2}:[0-9]{2}$", "example": "11:30:00", "x-pontx-position": 31, "x-pontx-confidence": "high-inferred"},
-          "unmappedFields": {"type": "array", "items": {"type": "string"}, "description": "All remaining positions, including status/trailing fields. Preserve verbatim because their meaning is not confirmed."}
+          "unmappedFields": {"type": "array", "items": {"type": "string"}, "description": "所有剩余位置，包括状态字段和末尾字段。由于其含义尚未确认，应原样保留。"}
         },
         "additionalProperties": false
       },
       "OrderBookLevel": {
         "type": "object",
+        "title": "新浪买卖盘档位",
+        "description": "从 A 股位置记录解析出的一个买盘或卖盘档位，包含价格和申报股数。",
         "required": ["size", "price"],
         "properties": {
-          "size": {"type": "integer", "format": "int64", "description": "Observed order size in shares."},
+          "size": {"type": "integer", "format": "int64", "description": "观察到的委托股数。"},
           "price": {"type": "number", "format": "double"}
         },
         "additionalProperties": false
       },
       "KLineAssignmentWireText": {
         "type": "string",
-        "description": "Raw GBK-decoded JavaScript text: a redirect-guard comment followed by `var _data=([<objects>]);`. It is not JSON on the wire. Remove only the known wrapper and parse the enclosed JSON array as data; never execute the response.",
+        "title": "新浪 K 线赋值文本原始响应",
+        "description": "GBK 解码的 JavaScript 包装文本，由重定向防护注释和 var _data=([...]); 构成；只能剥离已知包装后解析 JSON 数组，禁止执行。",
         "x-pontx-decoded-record-schema": "#/components/schemas/KLineBar"
       },
       "KLineBar": {
         "type": "object",
-        "description": "Logical bar object parsed from the JavaScript wrapper. OHLC and volume are serialized as strings. Intraday bars observed at scales 1/5/15/30/60 include amount; daily scale 240 omitted amount in repeated 2026-08-10 checks.",
+        "title": "新浪 K 线解析模型",
+        "description": "从赋值包装中解析的 OHLCV 行情柱；数值在原始响应中为字符串，日线实测可能不含成交额。",
         "required": ["day", "open", "high", "low", "close", "volume"],
         "properties": {
-          "day": {"type": "string", "description": "`YYYY-MM-DD HH:mm:ss` for observed intraday scales, or `YYYY-MM-DD` for scale 240.", "example": "2026-08-10 11:30:00"},
+          "day": {"type": "string", "description": "观察到的日内周期使用 `YYYY-MM-DD HH:mm:ss`，周期 240 使用 `YYYY-MM-DD`。", "example": "2026-08-10 11:30:00"},
           "open": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.350"},
           "high": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.360"},
           "low": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.330"},
           "close": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.340"},
           "volume": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$", "example": "535200"},
-          "amount": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$", "description": "Observed on intraday bars; absent from the scale-240 sample.", "example": "5002350.0828"},
-          "ma_price5": {"type": "number", "format": "double", "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.", "example": 9.358},
-          "ma_volume5": {"type": "number", "format": "double", "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.", "example": 75330516}
+          "amount": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$", "description": "在日内 K 线上观察到；周期 240 的样本中不存在。", "example": "5002350.0828"},
+          "ma_price5": {"type": "number", "format": "double", "description": "`ma=5` 时返回的可选字段示例；后缀与请求的移动平均窗口一致。", "example": 9.358},
+          "ma_volume5": {"type": "number", "format": "double", "description": "`ma=5` 时返回的可选字段示例；后缀与请求的移动平均窗口一致。", "example": 75330516}
         },
         "additionalProperties": true
       }

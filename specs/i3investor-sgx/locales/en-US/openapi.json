@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "i3Investor SGX Public Stock Pages",
+    "version": "2026-08-10",
+    "description": "Observed public HTML pages operated by i3Investor for Singapore-listed securities. This is not an official developer API. The specification records reproducible page inputs, media type, and semantically extractable fields; consumers must parse provider-controlled HTML and tolerate template changes, display-formatted values, cookies, and anti-bot controls.",
+    "license": { "name": "Proprietary / undocumented" }
+  },
+  "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor Singapore portal" }],
+  "paths": {
+    "/servlets/stk/{code}.jsp": {
+      "get": {
+        "operationId": "getSgxLegacyStockOverviewPage",
+        "deprecated": false,
+        "summary": "Get the legacy SGX stock overview HTML page",
+        "description": "Returns the legacy desktop stock page. On 2026-08-10, `/servlets/stk/d05.jsp` returned HTML containing Schema.org JSON-LD (`WebPage` with an `Offer` price and `SGD` currency), plus visible last price, signed absolute/percentage change, day range, volume, issuer name, and research fields. Values are presentation text and can be delayed. Cloudflare may set anonymous tracking/session cookies; callers should not persist them as API credentials.",
+        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "Case-insensitive SGX counter code used by i3Investor. Ordinary shares often resemble `D05`; REITs and warrants may include letters/digits such as `A17U`. The site commonly emits lowercase canonical links.", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "d05" }],
+        "responses": {
+          "200": { "description": "Provider-controlled HTML document, observed with `Content-Type: text/html;charset=UTF-8`. A 200 response must still be checked for the requested symbol: an unknown code was observed to return the Stock Search HTML page with status 200 rather than 404.", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/LegacyStockHtml" }, "example": "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..." } } },
+          "404": { "description": "Counter page not found. This status remains documented for compatibility, but the verified unknown-code request returned the Stock Search HTML page with status 200 instead." },
+          "403": { "description": "Request rejected by provider or Cloudflare anti-bot controls." }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://sgx.i3investor.com/servlets/stk/d05.jsp",
+          "https://sgx.i3investor.com/jsp/stocks.jsp?g=S&s=D"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "The legacy page returned HTTP 200 and JSON-LD plus visible quote fields during verification. HTML selectors, Cloudflare behavior, cookies, and displayed data can change without versioning; JSON-LD currently covers price/currency but not change or volume.",
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+      }
+    },
+    "/web/stock/overview/{code}": {
+      "get": {
+        "operationId": "getSgxStockOverviewPage",
+        "deprecated": false,
+        "summary": "Get the current SGX stock overview HTML page",
+        "description": "Returns i3Investor's current responsive overview page. This route was directly verified (not inferred) with `D05` on 2026-08-10. The document exposes issuer and sector metadata plus visible last price, signed absolute/percentage change, day range, volume, bid/ask sizes, business description, and related research. Unlike the legacy template, the verified page did not expose the quote as the same Schema.org Offer JSON-LD, so extractors should use labelled visible sections and metadata rather than assume parity between templates.",
+        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "Case-insensitive SGX counter code in i3Investor's routing namespace.", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "D05" }],
+        "responses": {
+          "200": { "description": "Provider-controlled responsive HTML document, observed with `Content-Type: text/html;charset=UTF-8`. Validate the issuer/code in page metadata before extracting values: an unknown code was observed to return the SGX Market Summary HTML page with status 200 rather than 404.", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/ResponsiveStockHtml" }, "example": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>" } } },
+          "404": { "description": "Counter page not found. This status remains documented for compatibility, but the verified unknown-code request returned the SGX Market Summary HTML page with status 200 instead." },
+          "403": { "description": "Request rejected by provider or Cloudflare anti-bot controls." }
+        },
+        "x-pontx-documentation-status": "observed",
+        "x-pontx-evidence": [
+          "https://sgx.i3investor.com/web/stock/overview/D05",
+          "https://sgx.i3investor.com/web/stock/analysis-performance/D05"
+        ],
+        "x-pontx-verified-at": "2026-08-10",
+        "x-pontx-stability-note": "The responsive page returned HTTP 200 with labelled quote fields during verification. Its markup is not versioned, differs from the legacy servlet template, and may be changed or protected by Cloudflare without notice.",
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LegacyStockHtml": { "title": "LegacyStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema." },
+      "ResponsiveStockHtml": { "title": "ResponsiveStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text." }
+    }
+  }
+}

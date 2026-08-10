@@ -13,12 +13,22 @@ Do not commit directly to `main` except for an explicitly approved emergency fix
 
 ## Add or update an API
 
-1. Add the approved OpenAPI document at `specs/<slug>/openapi.json`.
-2. Add or update the curated entry in `catalog/source.json`.
-3. Record the exact SHA-256 of the OpenAPI document in `approvedSha256`.
-4. Run `node scripts/build-catalog.mjs`.
-5. Run `node scripts/verify-specs.mjs`.
-6. Commit both the source metadata and generated `catalog/catalog.json`.
+1. Add the canonical Chinese OpenAPI document at `specs/<slug>/openapi.json`.
+2. Add its structurally identical English translation at
+   `specs/<slug>/locales/en-US/openapi.json`.
+3. Add or update Chinese product metadata in `catalog/source.json` and English
+   product copy in `catalog/locales/en-US.json`.
+4. Record the exact SHA-256 values in `approvedSha256` and
+   `approvedLocaleSha256.en-US`.
+5. Run `node scripts/test-locales.mjs` and `node scripts/lint-locales.mjs`.
+6. Run `node scripts/build-catalog.mjs` and `node scripts/verify-specs.mjs`.
+7. Commit all source locale files and the generated `catalog/catalog.json`.
+
+Locale names must be BCP 47 tags (`zh-CN`, `en-US`). A translation may change
+only approved prose fields. Do not translate or reorder paths, HTTP methods,
+operation IDs, tags, parameter names, Schema/property names, formats,
+constraints, examples, security declarations, server URLs, or Pontx execution
+policy. Locale lint reports violations with an exact JSON Pointer.
 
 Every API must have a stable upstream source, an attribution URL, a reviewed license, HTTPS servers, and credentials represented only as environment-variable names. Never commit real API keys or access tokens.
 
@@ -27,6 +37,7 @@ For provider-owned but undocumented read-only web APIs, record `documentationSta
 ## Pull request checklist
 
 - The OpenAPI document parses successfully.
+- `node scripts/lint-locales.mjs` confirms that locale files differ only in prose.
 - The approved SHA-256 matches the committed document.
 - Chinese and English titles and summaries are useful and accurate.
 - Important data structures have useful bilingual entries in `schemaTranslations`.

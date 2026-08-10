@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "defaultLocale": "zh-CN",
+  "locales": [
+    "en-US"
+  ],
   "apis": [
     {
       "slug": "frankfurter",
@@ -8,7 +12,10 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter/openapi.json",
-      "approvedSha256": "9e16fd13a674c7117c2a942eaa6cb086742c945ad78aab4facc5d344dff94027",
+      "approvedSha256": "b980d5fbdd216238d8457b33589587a615267e500da0906d62956610b90aabbf",
+      "approvedLocaleSha256": {
+        "en-US": "f97e87910d2406c83ad5f6a7a0aff404a99e85907f32195a5a3410550938be5c"
+      },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
       "documentationStatus": "official",
@@ -18,73 +25,21 @@
         "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "无需鉴权的只读公共 API。v1 已由 v2 取代，但上游承诺继续长期提供；目录中的 v1 Endpoint 已标记为 deprecated。",
-        "en": "Read-only public API without authentication. v1 is superseded by v2 but remains available long term; its catalog endpoints are marked deprecated."
-      },
+      "stabilityNote": "无需鉴权的只读公共 API。v1 已由 v2 取代，但上游承诺继续长期提供；目录中的 v1 Endpoint 已标记为 deprecated。",
       "accent": "#2d6cdf",
       "packageName": "@pontx/api-frankfurter",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
       "cliName": "currency",
       "proxyEnabled": true,
-      "title": {
-        "zh": "Frankfurter 汇率 API",
-        "en": "Frankfurter exchange-rate API"
-      },
-      "summary": {
-        "zh": "无需 API Key，查询欧洲央行参考汇率、货币列表及历史时间序列；当前集合对应仍可用的 v1。",
-        "en": "Query ECB reference rates, currencies, and historical time series without an API key; this collection covers the still-available v1."
-      },
+      "title": "Frankfurter 汇率 API",
+      "summary": "无需 API Key，查询欧洲央行参考汇率、货币列表及历史时间序列；当前集合对应仍可用的 v1。",
       "server": {
         "id": "default",
         "url": "https://api.frankfurter.dev/v1",
-        "description": {
-          "zh": "Frankfurter v1 公共 API",
-          "en": "Frankfurter v1 public API"
-        }
+        "description": "Frankfurter v1 公共 API"
       },
-      "auth": [],
-      "translations": {
-        "getCurrencies": {
-          "title": "获取支持的货币",
-          "description": "返回可用于汇率查询的货币代码与名称。"
-        },
-        "getLatestRates": {
-          "title": "获取最新汇率",
-          "description": "返回最近一个有效参考日的汇率。"
-        },
-        "getHistoricalRates": {
-          "title": "获取历史汇率",
-          "description": "返回指定参考日期的汇率。"
-        },
-        "getTimeSeriesRates": {
-          "title": "获取汇率时间序列",
-          "description": "返回指定日期区间内的汇率变化。"
-        },
-        "getOpenEndedTimeSeriesRates": {
-          "title": "获取开放结束日期的汇率时间序列",
-          "description": "从指定起始日期返回到最近有效参考日的每日汇率时间序列。"
-        }
-      },
-      "schemaTranslations": {
-        "ExchangeRateResponse": {
-          "title": "汇率响应",
-          "description": "指定日期的汇率与换算金额。"
-        },
-        "TimeSeriesResponse": {
-          "title": "汇率时间序列响应",
-          "description": "指定日期区间内的每日汇率集合。"
-        },
-        "CurrenciesResponse": {
-          "title": "货币列表响应",
-          "description": "货币代码与货币名称的映射。"
-        },
-        "Error": {
-          "title": "错误响应",
-          "description": "接口未找到汇率数据时返回的错误消息。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "dida365",
@@ -93,7 +48,10 @@
       "category": "Productivity",
       "featured": true,
       "specFile": "specs/dida365/openapi.json",
-      "approvedSha256": "ae4ef1f0d8c2d1655dfc20ec71da43cbf50a3fe5c791b626f3f046012a62b712",
+      "approvedSha256": "2cbb05aff23610809d669c07fb377a4b6be59524167d0aaf8741bb688666511f",
+      "approvedLocaleSha256": {
+        "en-US": "f8496ced7d083d83f99c5c4d7b85f32bc9e977ef4b4608fea778f1aef938b30a"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
       "documentationStatus": "official",
@@ -102,31 +60,19 @@
         "https://developer.dida365.com/docs/openapi.md"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。",
-        "en": "Official OAuth 2.0 API. Reads and writes require user authorization and are limited by the tasks:read and tasks:write scopes."
-      },
+      "stabilityNote": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。",
       "accent": "#1dbf73",
       "packageName": "@pontx/api-dida365",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
       "cliName": "dida",
       "proxyEnabled": true,
-      "title": {
-        "zh": "滴答清单开放 API",
-        "en": "Dida365 Open API"
-      },
-      "summary": {
-        "zh": "通过 OAuth 2.0 管理滴答清单的项目、任务、评论、标签、专注记录、倒数日、习惯与打卡。",
-        "en": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins."
-      },
+      "title": "滴答清单开放 API",
+      "summary": "通过 OAuth 2.0 管理滴答清单的项目、任务、评论、标签、专注记录、倒数日、习惯与打卡。",
       "server": {
         "id": "default",
         "url": "https://api.dida365.com",
-        "description": {
-          "zh": "Dida365 Open API",
-          "en": "Dida365 Open API"
-        }
+        "description": "Dida365 Open API"
       },
       "auth": [
         {
@@ -137,319 +83,16 @@
           "pkce": "unsupported",
           "credentialGuide": {
             "url": "https://developer.dida365.com/",
-            "title": {
-              "zh": "前往滴答清单开发者中心申请凭证",
-              "en": "Create credentials in the Dida365 Developer Center"
-            },
+            "title": "前往滴答清单开发者中心申请凭证",
             "steps": [
-              {
-                "zh": "登录开发者中心并创建一个应用（New App）。",
-                "en": "Sign in to the Developer Center and create a New App."
-              },
-              {
-                "zh": "把 Pontx Hub 显示的回调地址填写到应用的 OAuth Redirect URL。",
-                "en": "Paste the callback URL shown by Pontx Hub into the app's OAuth Redirect URL."
-              },
-              {
-                "zh": "保存应用，然后复制生成的 Client ID 和 Client Secret 到下方输入框。",
-                "en": "Save the app, then copy its Client ID and Client Secret into the fields below."
-              }
+              "登录开发者中心并创建一个应用（New App）。",
+              "把 Pontx Hub 显示的回调地址填写到应用的 OAuth Redirect URL。",
+              "保存应用，然后复制生成的 Client ID 和 Client Secret 到下方输入框。"
             ]
           },
-          "description": {
-            "zh": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
-            "en": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session."
-          }
+          "description": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。"
         }
-      ],
-      "parameterTranslations": {
-        "Project identifier": "项目 ID",
-        "Task identifier": "任务 ID"
-      },
-      "translations": {
-        "getTaskByProjectIdAndTaskId": {
-          "title": "获取指定任务",
-          "description": "根据项目 ID 和任务 ID 返回一个任务，包含 dueDate 等任务字段。"
-        },
-        "deleteTask": {
-          "title": "删除任务",
-          "description": "删除指定项目中的任务。"
-        },
-        "createTask": {
-          "title": "创建任务",
-          "description": "创建一个新的任务。"
-        },
-        "updateTask": {
-          "title": "更新任务",
-          "description": "更新已有任务的内容。"
-        },
-        "completeTask": {
-          "title": "完成任务",
-          "description": "将指定任务标记为完成。"
-        },
-        "getUserProjects": {
-          "title": "获取项目列表",
-          "description": "获取当前用户的项目列表。"
-        },
-        "createProject": {
-          "title": "创建项目",
-          "description": "创建一个新的项目。"
-        },
-        "getProjectById": {
-          "title": "获取项目",
-          "description": "根据项目 ID 获取项目。"
-        },
-        "updateProject": {
-          "title": "更新项目",
-          "description": "更新已有项目的内容。"
-        },
-        "deleteProject": {
-          "title": "删除项目",
-          "description": "删除指定项目。"
-        },
-        "getProjectWithData": {
-          "title": "获取项目及数据",
-          "description": "获取项目、任务和相关数据。"
-        },
-        "moveTask": {
-          "title": "移动任务到其他项目",
-          "description": "将指定任务从来源项目移动到目标项目，并返回移动结果。"
-        },
-        "listCompletedTasks": {
-          "title": "查询已完成任务",
-          "description": "按项目和完成时间范围查询已完成的任务。"
-        },
-        "filterTasks": {
-          "title": "筛选任务",
-          "description": "按项目、开始时间、优先级、标签和状态组合筛选任务。"
-        },
-        "getTaskComments": {
-          "title": "获取任务评论",
-          "description": "读取指定项目任务下的评论列表。"
-        },
-        "addTaskComment": {
-          "title": "添加任务评论",
-          "description": "在指定项目任务下发布一条评论，不创建或修改任务本身。"
-        },
-        "deleteTaskComment": {
-          "title": "删除任务评论",
-          "description": "删除指定任务下的一条评论。"
-        },
-        "getProjectGroups": {
-          "title": "获取项目分组",
-          "description": "获取当前用户的项目分组列表。"
-        },
-        "createProjectGroup": {
-          "title": "创建项目分组",
-          "description": "创建用于组织项目的分组。"
-        },
-        "updateProjectGroup": {
-          "title": "更新项目分组",
-          "description": "修改指定项目分组的名称。"
-        },
-        "deleteProjectGroup": {
-          "title": "删除项目分组",
-          "description": "删除指定的项目分组。"
-        },
-        "getColumns": {
-          "title": "获取项目看板列",
-          "description": "获取指定项目中的看板列。"
-        },
-        "createColumn": {
-          "title": "创建项目看板列",
-          "description": "在指定项目的看板中创建一列。"
-        },
-        "updateColumn": {
-          "title": "更新项目看板列",
-          "description": "修改指定项目看板列的名称。"
-        },
-        "getTags": {
-          "title": "获取任务标签",
-          "description": "获取当前用户可用于任务分类的标签。"
-        },
-        "createTag": {
-          "title": "新建标签",
-          "description": "添加一个用于分类和筛选的标签。"
-        },
-        "getFocusById": {
-          "title": "获取专注记录",
-          "description": "按专注记录 ID 和类型读取一条番茄专注或正向计时记录。"
-        },
-        "deleteFocus": {
-          "title": "删除专注记录",
-          "description": "删除指定的番茄专注或正向计时记录。"
-        },
-        "getFocusesByTimeRange": {
-          "title": "查询时间范围内的专注记录",
-          "description": "按起止时间和专注类型查询专注记录，查询区间最长三十天。"
-        },
-        "createFocus": {
-          "title": "创建专注记录",
-          "description": "记录一次番茄专注或正向计时，可关联已有任务。"
-        },
-        "getCountdowns": {
-          "title": "获取倒数日列表",
-          "description": "获取当前用户配置的倒数日及其日期、提醒和显示设置。"
-        },
-        "getHabitCheckIns": {
-          "title": "查询习惯打卡记录",
-          "description": "按习惯 ID 列表和日期范围查询习惯打卡记录。"
-        },
-        "getHabits": {
-          "title": "获取习惯列表",
-          "description": "获取当前用户的全部习惯及其目标和重复规则。"
-        },
-        "createHabit": {
-          "title": "创建习惯",
-          "description": "创建一项带目标、频率和提醒设置的习惯。"
-        },
-        "getHabitById": {
-          "title": "获取指定习惯",
-          "description": "根据习惯 ID 获取目标、重复规则和累计打卡信息。"
-        },
-        "updateHabit": {
-          "title": "更新习惯",
-          "description": "修改指定习惯的目标、频率、提醒或展示设置。"
-        },
-        "upsertHabitCheckIn": {
-          "title": "写入习惯打卡",
-          "description": "为指定习惯创建或更新某个日期的打卡数值与状态。"
-        }
-      },
-      "schemaTranslations": {
-        "ChecklistItem": {
-          "title": "检查项",
-          "description": "任务检查清单中的子任务。"
-        },
-        "Task": {
-          "title": "任务",
-          "description": "滴答清单中的任务或检查清单。"
-        },
-        "TaskCreate": {
-          "title": "创建任务请求",
-          "description": "创建新任务时提交的数据结构。"
-        },
-        "TaskUpdate": {
-          "title": "更新任务请求",
-          "description": "更新已有任务时提交的数据结构。"
-        },
-        "ChecklistItemCreate": {
-          "title": "创建检查项请求",
-          "description": "创建或更新任务检查项的数据结构。"
-        },
-        "Project": {
-          "title": "项目",
-          "description": "代表任务列表或笔记集合的项目。"
-        },
-        "ProjectCreate": {
-          "title": "创建项目请求",
-          "description": "创建新项目时提交的数据结构。"
-        },
-        "ProjectUpdate": {
-          "title": "更新项目请求",
-          "description": "更新已有项目时提交的数据结构。"
-        },
-        "Column": {
-          "title": "看板列",
-          "description": "项目看板视图中的列。"
-        },
-        "ProjectData": {
-          "title": "项目数据",
-          "description": "包含项目信息、任务与看板列的聚合数据。"
-        },
-        "TaskMoveRequest": {
-          "title": "移动任务请求",
-          "description": "指定任务、来源项目和目标项目的移动请求。"
-        },
-        "TaskMoveResult": {
-          "title": "任务移动结果",
-          "description": "任务移动后的任务 ID 与实体标签。"
-        },
-        "CompletedTaskFilter": {
-          "title": "已完成任务筛选条件",
-          "description": "用于限定项目和完成时间范围的查询条件。"
-        },
-        "TaskFilter": {
-          "title": "任务组合筛选条件",
-          "description": "按项目、时间、优先级、标签和状态筛选任务的条件。"
-        },
-        "OpenComment": {
-          "title": "任务评论",
-          "description": "任务下的评论内容及创建、修改时间。"
-        },
-        "OpenProjectGroup": {
-          "title": "项目分组",
-          "description": "用于组织多个项目的分组及其排序信息。"
-        },
-        "ProjectGroupCreate": {
-          "title": "创建项目分组请求",
-          "description": "创建项目分组时提交的名称。"
-        },
-        "ProjectGroupUpdate": {
-          "title": "更新项目分组请求",
-          "description": "更新项目分组名称时提交的数据。"
-        },
-        "ColumnCreate": {
-          "title": "创建看板列请求",
-          "description": "在项目看板中创建列时提交的名称。"
-        },
-        "ColumnUpdate": {
-          "title": "更新看板列请求",
-          "description": "修改项目看板列名称时提交的数据。"
-        },
-        "OpenTag": {
-          "title": "任务标签",
-          "description": "任务分类标签的名称、显示文字和排序信息。"
-        },
-        "TagCreate": {
-          "title": "创建任务标签请求",
-          "description": "创建标签时提交的规范化名称和显示文字。"
-        },
-        "OpenPomodoroTaskBrief": {
-          "title": "专注关联事项摘要",
-          "description": "专注记录所关联任务、习惯或计时器的简要信息。"
-        },
-        "OpenFocus": {
-          "title": "专注记录",
-          "description": "一次番茄专注或正向计时的时间、状态和关联事项。"
-        },
-        "FocusCreate": {
-          "title": "创建专注记录请求",
-          "description": "记录专注类型、起止时间、时长和关联任务的数据。"
-        },
-        "OpenCountdown": {
-          "title": "倒数日",
-          "description": "倒数日的目标日期、重复规则、提醒和显示设置。"
-        },
-        "HabitWritable": {
-          "title": "习惯可编辑字段",
-          "description": "习惯目标、频率、提醒、记录和展示设置的公共字段。"
-        },
-        "HabitCreate": {
-          "title": "创建习惯请求",
-          "description": "创建习惯时提交的名称、目标和重复设置。"
-        },
-        "HabitUpdate": {
-          "title": "更新习惯请求",
-          "description": "修改习惯目标、频率、提醒或展示设置的数据。"
-        },
-        "OpenHabit": {
-          "title": "习惯",
-          "description": "习惯的目标、重复规则、累计打卡和状态信息。"
-        },
-        "OpenHabitCheckinData": {
-          "title": "单次习惯打卡数据",
-          "description": "某一天习惯打卡的日期、数值、目标和状态。"
-        },
-        "HabitCheckInUpsert": {
-          "title": "写入习惯打卡请求",
-          "description": "创建或更新指定日期习惯打卡时提交的数据。"
-        },
-        "OpenHabitCheckin": {
-          "title": "习惯打卡记录集",
-          "description": "某项习惯按年份组织的多条打卡记录。"
-        }
-      }
+      ]
     },
     {
       "slug": "massive",
@@ -458,7 +101,10 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "16b1a319244f3c9bc0a31ef35875e44abc70d9cbc069dad6c4a5e34c14ce029b",
+      "approvedSha256": "9d003f70293c3a77c1a4c0906ed591a815d6591ce4043229c2a796ce5a4abe53",
+      "approvedLocaleSha256": {
+        "en-US": "7d65f42a1eae732ca27a265c16cc5b74f8dae9ef86d7b73e7c71b4d35e5e7ca0"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
       "documentationStatus": "official",
@@ -466,30 +112,18 @@
         "https://massive.com/docs/rest/stocks/overview"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "官方文档接口；可用数据取决于账户套餐与市场数据授权。",
-        "en": "Officially documented; availability depends on the account plan and market-data entitlements."
-      },
+      "stabilityNote": "官方文档接口；可用数据取决于账户套餐与市场数据授权。",
       "accent": "#7c3aed",
       "packageName": "@pontx/api-massive",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "Massive 股票市场数据 API",
-        "en": "Massive stock market data API"
-      },
-      "summary": {
-        "zh": "使用 Massive API Key 查询美股最新成交、OHLC 聚合、统一市场快照与证券参考资料；可用性取决于数据套餐。",
-        "en": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan."
-      },
+      "title": "Massive 股票市场数据 API",
+      "summary": "使用 Massive API Key 查询美股最新成交、OHLC 聚合、统一市场快照与证券参考资料；可用性取决于数据套餐。",
       "server": {
         "id": "massive",
         "url": "https://api.massive.com",
-        "description": {
-          "zh": "Massive 官方 REST API 入口",
-          "en": "Official Massive REST API endpoint"
-        }
+        "description": "Massive 官方 REST API 入口"
       },
       "auth": [
         {
@@ -498,108 +132,9 @@
           "name": "apiKey",
           "in": "query",
           "envVar": "MASSIVE_API_KEY",
-          "description": {
-            "zh": "Massive API Key，仅在调用方会话中提供。",
-            "en": "Massive API key, supplied only in the caller session."
-          }
+          "description": "Massive API Key，仅在调用方会话中提供。"
         }
-      ],
-      "translations": {
-        "getLastTrade": {
-          "title": "获取最新成交",
-          "description": "返回指定股票最近一笔可用成交。"
-        },
-        "getPreviousClose": {
-          "title": "获取前一交易日行情",
-          "description": "返回指定股票前一交易日的聚合行情。"
-        },
-        "getAggregateBars": {
-          "title": "获取自定义周期 K 线",
-          "description": "按时间范围和周期查询聚合行情。"
-        },
-        "getMarketSnapshot": {
-          "title": "获取市场快照",
-          "description": "返回一个或多个股票的市场快照。"
-        },
-        "listTickers": {
-          "title": "搜索证券代码",
-          "description": "列出并筛选 Massive 支持的证券。"
-        },
-        "getTickerDetails": {
-          "title": "获取证券资料",
-          "description": "返回证券代码的参考资料。"
-        }
-      },
-      "schemaTranslations": {
-        "ErrorResponse": {
-          "title": "Massive 错误响应",
-          "description": "Massive 因认证、授权、参数、限流或服务问题无法完成请求时返回的错误信息。"
-        },
-        "AggregateBar": {
-          "title": "OHLC 聚合行情柱",
-          "description": "由一个时间窗口内符合条件的成交构建的开盘、最高、最低、收盘、成交量与成交笔数行情柱。"
-        },
-        "AggregateResponse": {
-          "title": "聚合行情响应",
-          "description": "包含股票代码、复权标记、查询及结果数量、OHLC 行情柱，并可携带下一页地址的响应。"
-        },
-        "LastTrade": {
-          "title": "最新成交记录",
-          "description": "Massive 行情源中的最新股票成交，包含价格、股数、交易所、成交条件、序列号和纳秒时间戳。"
-        },
-        "LastTradeResponse": {
-          "title": "最新成交响应",
-          "description": "包含请求标识、状态和最新成交记录的响应。"
-        },
-        "SnapshotSession": {
-          "title": "交易时段快照",
-          "description": "当前交易日的价格变化、早盘/常规/盘后变化、OHLC、成交量、VWAP 与更新时间；字段取决于资产类别和订阅权限。"
-        },
-        "SnapshotQuote": {
-          "title": "最新报价快照",
-          "description": "最新买卖报价、数量、交易所、数据时效标签与纳秒更新时间。"
-        },
-        "SnapshotTrade": {
-          "title": "最新成交快照",
-          "description": "统一快照中的最新成交价格、数量、交易所、成交条件与数据时效。"
-        },
-        "SnapshotMinuteBar": {
-          "title": "最新分钟行情柱",
-          "description": "统一快照中的最近一分钟 OHLC、成交量、成交笔数、VWAP 与更新时间。"
-        },
-        "UnifiedSnapshot": {
-          "title": "统一市场快照",
-          "description": "股票、期权、外汇、加密货币或指数的统一快照；可包含交易时段、最新报价、最新成交、分钟行情及受套餐限制的 FMV。"
-        },
-        "UnifiedSnapshotResponse": {
-          "title": "统一市场快照响应",
-          "description": "包含跨资产快照列表、请求状态和可选下一页地址的分页响应。"
-        },
-        "Ticker": {
-          "title": "Massive 标的代码",
-          "description": "Massive 支持的证券或资产代码及其名称、市场、地区、币种、交易所、标识符和活跃状态。"
-        },
-        "TickerListResponse": {
-          "title": "标的代码列表响应",
-          "description": "匹配筛选条件的标的代码分页列表，包含数量、请求标识和下一页地址。"
-        },
-        "Address": {
-          "title": "公司地址",
-          "description": "标的所属公司的总部地址，包括街道、城市、州和邮政编码。"
-        },
-        "Branding": {
-          "title": "品牌资源",
-          "description": "公司图标和徽标地址；下载这些资源时可能仍需提供 Massive API 密钥。"
-        },
-        "TickerDetails": {
-          "title": "标的详细资料",
-          "description": "单个标的的基础资料、公司说明、行业分类、标准标识符、市值、股份、员工、地址和品牌资源。"
-        },
-        "TickerDetailsResponse": {
-          "title": "标的详细资料响应",
-          "description": "包含请求状态、请求标识和单个标的详细资料的响应。"
-        }
-      }
+      ]
     },
     {
       "slug": "yahoo-finance",
@@ -608,7 +143,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/yahoo-finance/openapi.json",
-      "approvedSha256": "37a02b7939a05897ee32c5ea0fb1967de12a476f728717a199eb5f2aea8efac0",
+      "approvedSha256": "d0011b132cfea782316681d8836849782b617e53893c633eff8c7de3b1d84e71",
+      "approvedLocaleSha256": {
+        "en-US": "a9709b17b8970933a0741033b8098ddb076a8b1448f07d67abcbbd98337cfa1a"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://finance.yahoo.com/",
       "documentationStatus": "observed",
@@ -617,76 +155,20 @@
         "https://legal.yahoo.com/us/en/yahoo/terms/product-atos/finance/index.html"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "来自 Yahoo Finance 官网网络请求，不是受支持的开发者 API，可能无预告变更。",
-        "en": "Observed in Yahoo Finance web traffic; not a supported developer API and may change without notice."
-      },
+      "stabilityNote": "来自 Yahoo Finance 官网网络请求，不是受支持的开发者 API，可能无预告变更。",
       "accent": "#6001d2",
       "packageName": "@pontx/api-yahoo-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "Yahoo Finance 网页市场数据 API",
-        "en": "Yahoo Finance web market data API"
-      },
-      "summary": {
-        "zh": "观测自 Yahoo Finance 网页流量的非官方接口，可检索行情、K 线、证券与基本面数据；部分路由需要浏览器 crumb，全部仅用于预览。",
-        "en": "Observed, unsupported Yahoo Finance web endpoints for quotes, charts, symbols, and fundamentals; some routes require a browser crumb and all are preview-only."
-      },
+      "title": "Yahoo Finance 网页市场数据 API",
+      "summary": "观测自 Yahoo Finance 网页流量的非官方接口，可检索行情、K 线、证券与基本面数据；部分路由需要浏览器 crumb，全部仅用于预览。",
       "server": {
         "id": "query1",
         "url": "https://query1.finance.yahoo.com",
-        "description": {
-          "zh": "Yahoo Finance 网页数据入口",
-          "en": "Yahoo Finance web-data endpoint"
-        }
+        "description": "Yahoo Finance 网页数据入口"
       },
-      "auth": [],
-      "translations": {
-        "getChart": {
-          "title": "获取行情与 K 线",
-          "description": "返回证券元数据和历史价格序列。"
-        },
-        "getQuotes": {
-          "title": "获取批量行情",
-          "description": "返回多个证券的行情快照。"
-        },
-        "getSpark": {
-          "title": "获取迷你图数据",
-          "description": "返回紧凑的价格时间序列。"
-        },
-        "getQuoteType": {
-          "title": "获取证券类型",
-          "description": "返回证券身份和交易所信息。"
-        },
-        "searchSymbols": {
-          "title": "搜索证券",
-          "description": "按文本搜索证券代码和名称。"
-        },
-        "getQuoteSummary": {
-          "title": "获取证券模块资料",
-          "description": "按模块查询价格、摘要和公司资料。"
-        },
-        "getFundamentalTimeseries": {
-          "title": "获取基本面时间序列",
-          "description": "返回基本面和事件时间序列。"
-        }
-      },
-      "schemaTranslations": {
-        "YahooError": {
-          "title": "Yahoo 提供方错误",
-          "description": "Yahoo 观察到的错误对象；图表类请求成功时通常为 null，错误代码和文本由提供方控制。"
-        },
-        "FinanceErrorResponse": {
-          "title": "Yahoo Finance 错误响应",
-          "description": "报价、搜索发现及部分基本面接口观察到的错误包络。"
-        },
-        "ChartErrorResponse": {
-          "title": "Yahoo 图表错误响应",
-          "description": "图表接口族观察到的错误包络，包含 chart.result 与 chart.error。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "stooq",
@@ -695,7 +177,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "a42886aaa29b9acfe4ba495c6fb35b5a00dac93d2a265348fd4374ac08fd202f",
+      "approvedSha256": "1e4c0aef52f6f5342d457c75e0221ee7b81178c557973b29162b569fd432772f",
+      "approvedLocaleSha256": {
+        "en-US": "3b6376625484111a297c3bf6ea4d0753c17356d4405fc66ad6368d9c1488366b"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
       "documentationStatus": "observed",
@@ -704,60 +189,20 @@
         "https://stooq.com/q/d/?s=aapl.us"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "非官方版本化 API。最新行情路由当前返回 404，历史下载路由当前返回 JavaScript 浏览器验证页，不能视为可自动集成。",
-        "en": "Not a versioned developer API. The latest-quote route currently returns 404 and the historical route returns a JavaScript browser-verification page, so neither is currently automatable."
-      },
+      "stabilityNote": "非官方版本化 API。最新行情路由当前返回 404，历史下载路由当前返回 JavaScript 浏览器验证页，不能视为可自动集成。",
       "accent": "#2563eb",
       "packageName": "@pontx/api-stooq",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "Stooq 公共行情下载",
-        "en": "Stooq public quote downloads"
-      },
-      "summary": {
-        "zh": "记录 Stooq 历史公开 CSV 下载格式及当前 404/浏览器验证状态；仅供检索与请求预览。",
-        "en": "Documents Stooq's legacy public CSV downloads and their current 404/browser-verification behavior; available for discovery and preview only."
-      },
+      "title": "Stooq 公共行情下载",
+      "summary": "记录 Stooq 历史公开 CSV 下载格式及当前 404/浏览器验证状态；仅供检索与请求预览。",
       "server": {
         "id": "default",
         "url": "https://stooq.com",
-        "description": {
-          "zh": "Stooq 公共网站",
-          "en": "Stooq public website"
-        }
+        "description": "Stooq 公共网站"
       },
-      "auth": [],
-      "translations": {
-        "downloadLatestQuotes": {
-          "title": "下载最新行情",
-          "description": "按字段格式下载最新行情 CSV。"
-        },
-        "downloadHistoricalQuotes": {
-          "title": "下载历史行情",
-          "description": "按日期范围和周期下载历史行情 CSV。"
-        }
-      },
-      "schemaTranslations": {
-        "LatestQuoteCsv": {
-          "title": "Stooq 最新报价 CSV 原始响应",
-          "description": "由 f 参数决定列顺序的旧版最新报价 CSV 文本；当前验证未能重新获得此格式，不应假定仍可用。"
-        },
-        "HistoricalQuoteCsv": {
-          "title": "Stooq 历史行情 CSV 原始响应",
-          "description": "表头为 Date,Open,High,Low,Close,Volume 的历史 OHLCV CSV 文本；当前匿名访问实际返回浏览器验证页。"
-        },
-        "StooqNotFoundHtml": {
-          "title": "Stooq 接口已移除页面",
-          "description": "旧版最新报价地址当前以 HTTP 404 返回的 Stooq 品牌 HTML 页面，不是行情数据。"
-        },
-        "BrowserVerificationHtml": {
-          "title": "Stooq 浏览器验证页",
-          "description": "HTTP 200 返回的 JavaScript SHA-256 工作量证明页面，属于反自动化响应而非行情数据；客户端不应自动绕过。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "sina-finance",
@@ -766,7 +211,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/sina-finance/openapi.json",
-      "approvedSha256": "ca787bcb5972a92b1531c9cbc96db499a0ffe0c50da375236cf9b3b7a52fa3b7",
+      "approvedSha256": "539d8793c45c79bd99432898f8ad4e7f60ade452d4cb67dd2264d74b22a49b43",
+      "approvedLocaleSha256": {
+        "en-US": "a2a1a0b65c24de9282b5438c51c2eedfdb1cf729d7bec11eb760a1ac1a2c5071"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
       "documentationStatus": "observed",
@@ -775,64 +223,20 @@
         "https://hq.sinajs.cn/list=sh000001"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "官网公开页面使用的内部文本/JSONP 接口，字段与编码可能变化。",
-        "en": "Internal text/JSONP endpoints used by public pages; fields and encoding may change."
-      },
+      "stabilityNote": "官网公开页面使用的内部文本/JSONP 接口，字段与编码可能变化。",
       "accent": "#e11d48",
       "packageName": "@pontx/api-sina-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "新浪财经行情服务 API",
-        "en": "Sina Finance web quote API"
-      },
-      "summary": {
-        "zh": "观测自新浪财经网页的内部行情接口，覆盖 GB18030 JavaScript 快照和 1–240 分钟 K 线；字段位置可能漂移。",
-        "en": "Observed Sina Finance web endpoints for GB18030 JavaScript quote snapshots and 1–240 minute K-lines; positional fields may drift."
-      },
+      "title": "新浪财经行情服务 API",
+      "summary": "观测自新浪财经网页的内部行情接口，覆盖 GB18030 JavaScript 快照和 1–240 分钟 K 线；字段位置可能漂移。",
       "server": {
         "id": "hq",
         "url": "https://hq.sinajs.cn",
-        "description": {
-          "zh": "新浪行情文本入口",
-          "en": "Sina quote text endpoint"
-        }
+        "description": "新浪行情文本入口"
       },
-      "auth": [],
-      "translations": {
-        "getQuoteSnapshots": {
-          "title": "获取行情快照",
-          "description": "返回一个或多个证券的文本行情。"
-        },
-        "getKLineData": {
-          "title": "获取 K 线",
-          "description": "返回指定证券的 JSONP K 线数据。"
-        }
-      },
-      "schemaTranslations": {
-        "QuoteAssignmentWireText": {
-          "title": "新浪报价赋值文本原始响应",
-          "description": "GB18030 解码后的 JavaScript 赋值文本，每个代码对应一个 var hq_str_<symbol>；它不是 JSON，不应执行，只能安全提取引号内容并保留空字段。"
-        },
-        "EquityQuotePositionalRecord": {
-          "title": "新浪 A 股报价解析模型",
-          "description": "从单条赋值内容按逗号位置解析出的 A 股逻辑模型，不是 HTTP 原始响应；字段位置来自实测，不可未经验证用于指数或其他品种。"
-        },
-        "OrderBookLevel": {
-          "title": "新浪买卖盘档位",
-          "description": "从 A 股位置记录解析出的一个买盘或卖盘档位，包含价格和申报股数。"
-        },
-        "KLineAssignmentWireText": {
-          "title": "新浪 K 线赋值文本原始响应",
-          "description": "GBK 解码的 JavaScript 包装文本，由重定向防护注释和 var _data=([...]); 构成；只能剥离已知包装后解析 JSON 数组，禁止执行。"
-        },
-        "KLineBar": {
-          "title": "新浪 K 线解析模型",
-          "description": "从赋值包装中解析的 OHLCV 行情柱；数值在原始响应中为字符串，日线实测可能不含成交额。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "tencent-finance",
@@ -841,7 +245,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/tencent-finance/openapi.json",
-      "approvedSha256": "e7c6ffe3a72216b935310a8197577f20d3b187bf4a3f4d02b5736428dea5b9bc",
+      "approvedSha256": "8ae1bbaaa89667a7577e31d8ed196611338b0be7e93b108c23448b1a5fd02b0d",
+      "approvedLocaleSha256": {
+        "en-US": "f86aa97afa2df0bff2e141b95219c3c6bc6dd6e941053e81c604a2fab9a94137"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
       "documentationStatus": "observed",
@@ -850,72 +257,20 @@
         "https://qt.gtimg.cn/q=hk00700"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "官网公开页面使用的内部文本/JSON 接口，未提供版本承诺。",
-        "en": "Internal text/JSON endpoints used by public pages without a version guarantee."
-      },
+      "stabilityNote": "官网公开页面使用的内部文本/JSON 接口，未提供版本承诺。",
       "accent": "#0284c7",
       "packageName": "@pontx/api-tencent-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "腾讯财经网页行情 API",
-        "en": "Tencent Finance web quote API"
-      },
-      "summary": {
-        "zh": "观测自腾讯财经网页的内部接口，覆盖 A 股、港股、美股快照及 day/week/month 复权或非复权 K 线。",
-        "en": "Observed Tencent Finance web endpoints for mainland, Hong Kong, and U.S. quote snapshots plus adjusted or unadjusted day/week/month K-lines."
-      },
+      "title": "腾讯财经网页行情 API",
+      "summary": "观测自腾讯财经网页的内部接口，覆盖 A 股、港股、美股快照及 day/week/month 复权或非复权 K 线。",
       "server": {
         "id": "quote",
         "url": "https://qt.gtimg.cn",
-        "description": {
-          "zh": "腾讯 HTTPS 行情入口",
-          "en": "Tencent HTTPS quote endpoint"
-        }
+        "description": "腾讯 HTTPS 行情入口"
       },
-      "auth": [],
-      "translations": {
-        "getQuoteSnapshots": {
-          "title": "获取行情快照",
-          "description": "返回一个或多个证券的文本行情。"
-        },
-        "getForwardAdjustedKLine": {
-          "title": "获取复权 K 线",
-          "description": "返回复权价格序列。"
-        },
-        "getKLine": {
-          "title": "获取非复权 K 线",
-          "description": "返回非复权价格序列。"
-        }
-      },
-      "schemaTranslations": {
-        "KLineEnvelope": {
-          "title": "腾讯 K 线响应包络",
-          "description": "腾讯 K 线接口返回的 JSON 包络，按证券代码组织数据并包含状态码和提示文本。"
-        },
-        "KLineSecurityData": {
-          "title": "腾讯单证券 K 线解析模型",
-          "description": "单个证券的逻辑 K 线数据；序列键为 day/week/month，复权路由会带 qfq 或 hfq 前缀。"
-        },
-        "CandleSeries": {
-          "title": "腾讯 K 线序列",
-          "description": "按时间正序排列的蜡烛图元组列表；提供方可能在 count 指定数量之外附加当前未完成行情柱。"
-        },
-        "CandleTuple": {
-          "title": "腾讯 K 线元组",
-          "description": "固定为日期、开盘、收盘、最高、最低、成交量的六项元组，数值在原始响应中保持字符串。"
-        },
-        "QuoteAssignmentWireText": {
-          "title": "腾讯报价赋值文本原始响应",
-          "description": "GBK 解码的 v_<symbol> JavaScript 赋值文本，不是 JSON 或 HTML；禁止执行，应仅提取引号内容并按波浪号切分，保留空字段。"
-        },
-        "CommonQuotePositionalRecord": {
-          "title": "腾讯跨市场报价解析模型",
-          "description": "从赋值文本按位置解析的 A 股、港股和美股公共字段逻辑模型，不是原始响应；未确认的市场特有字段保留在 unmappedFields。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "eastmoney-funds",
@@ -924,7 +279,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/eastmoney-funds/openapi.json",
-      "approvedSha256": "bc5501c0276c2ccc27b55a0b0de2f207bc50d1d98c1831f31988ae4afb979a6c",
+      "approvedSha256": "f5077c9d062988bc15701598996a3ffee23829f2945b7299b870312fb3588637",
+      "approvedLocaleSha256": {
+        "en-US": "eed55dfdd3f5eaf9b7de2f72598236abbc5842dd436d9a78ecbcb096433d9293"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
       "documentationStatus": "observed",
@@ -933,88 +291,20 @@
         "https://fundgz.1234567.com.cn/js/001072.js"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "天天基金官网实际使用的 JSON/JSONP 接口，字段标识属于内部契约。",
-        "en": "JSON/JSONP endpoints used by Tiantian Fund pages; field identifiers are internal."
-      },
+      "stabilityNote": "天天基金官网实际使用的 JSON/JSONP 接口，字段标识属于内部契约。",
       "accent": "#dc2626",
       "packageName": "@pontx/api-eastmoney-funds",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "东方财富基金网页数据 API",
-        "en": "Eastmoney fund web data API"
-      },
-      "summary": {
-        "zh": "观测自天天基金网页的数据接口；历史净值与图表仍可查询，实时估值已返回失效页，关联指数路由当前不稳定。",
-        "en": "Observed Tiantian Fund web endpoints: historical NAV and charts remain queryable, while the estimate route now returns a missing page and the related-index route is unstable."
-      },
+      "title": "东方财富基金网页数据 API",
+      "summary": "观测自天天基金网页的数据接口；历史净值与图表仍可查询，实时估值已返回失效页，关联指数路由当前不稳定。",
       "server": {
         "id": "fund-api",
         "url": "https://api.fund.eastmoney.com",
-        "description": {
-          "zh": "东方财富基金数据入口",
-          "en": "Eastmoney fund-data endpoint"
-        }
+        "description": "东方财富基金数据入口"
       },
-      "auth": [],
-      "translations": {
-        "getFundEstimate": {
-          "title": "获取基金估值",
-          "description": "返回基金实时估值 JSONP。"
-        },
-        "listHistoricalNav": {
-          "title": "获取历史净值",
-          "description": "分页返回基金历史净值。"
-        },
-        "getHistoricalNavChart": {
-          "title": "获取净值图表",
-          "description": "返回历史净值图表序列。"
-        },
-        "getMarketIndexList": {
-          "title": "获取关联指数",
-          "description": "返回基金页面展示的市场指数快照。"
-        }
-      },
-      "schemaTranslations": {
-        "LegacyFundEstimateJsonp": {
-          "title": "东方财富旧基金估值 JSONP 原始响应",
-          "description": "旧接口的 jsonpgz(...) JavaScript 回调文本，不是裸 JSON；该路由当前实际返回失效 HTML 页面。"
-        },
-        "EastmoneyNotFoundHtml": {
-          "title": "东方财富接口失效页面",
-          "description": "东方财富以 HTTP 200 返回的 UTF-8 页面不存在 HTML 文档，客户端不得将其按 JSONP 解析。"
-        },
-        "HistoricalNavRow": {
-          "title": "基金历史净值记录",
-          "description": "一条已发布的基金单位净值、累计净值、日增长率、申购赎回状态和分红信息；保留提供方缩写及数字字符串编码。"
-        },
-        "HistoricalNavData": {
-          "title": "基金历史净值分页数据",
-          "description": "基金历史净值记录列表及总页数、当前页、每页数量等分页信息。"
-        },
-        "HistoricalNavResponse": {
-          "title": "基金历史净值响应",
-          "description": "东方财富基金历史净值接口的状态、消息和分页数据响应。"
-        },
-        "NavChartPoint": {
-          "title": "基金净值图表点",
-          "description": "由 Unix 毫秒时间戳和单位净值组成的二项位置元组。"
-        },
-        "HistoricalNavChartResponse": {
-          "title": "基金历史净值图表响应",
-          "description": "基金代码、名称和历史单位净值图表点序列。"
-        },
-        "MarketIndexSnapshot": {
-          "title": "市场指数快照",
-          "description": "东方财富 push2 行情中的指数代码、名称、最新点位、涨跌额和涨跌幅快照。"
-        },
-        "MarketIndexListResponse": {
-          "title": "市场指数列表响应",
-          "description": "历史观察到的东方财富 push2 指数列表包络；当前服务端访问未复现，字段保持宽松。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "cnbc-market-data",
@@ -1023,7 +313,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/cnbc-market-data/openapi.json",
-      "approvedSha256": "4a3f26d8c19b885eaa8ce60db4240ee8c627ac1bfe8753cb797be3107fdd9d49",
+      "approvedSha256": "17cff205de5ce73a8172bc2bb018bdebe6ab3cabda4c42c9ffe95b60d5566195",
+      "approvedLocaleSha256": {
+        "en-US": "2d8615d13440356be55d1871dcd0a6f87c45f80b48f7ae7ba3a1896baeb59281"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
       "documentationStatus": "observed",
@@ -1031,64 +324,20 @@
         "https://www.cnbc.com/quotes/AAPL"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "CNBC 行情页实际使用的 REST 与持久化 GraphQL 查询，哈希和结构可能变化。",
-        "en": "REST and persisted GraphQL requests used by CNBC quote pages; hashes and shapes may change."
-      },
+      "stabilityNote": "CNBC 行情页实际使用的 REST 与持久化 GraphQL 查询，哈希和结构可能变化。",
       "accent": "#005594",
       "packageName": "@pontx/api-cnbc-market-data",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "CNBC 网页行情 API",
-        "en": "CNBC web quote API"
-      },
-      "summary": {
-        "zh": "观测自 CNBC 行情页的内部 REST 与持久化 GraphQL 接口；批量报价可只读调用，图表查询仍属实验性。",
-        "en": "Observed CNBC quote-page REST and persisted GraphQL endpoints; batch quotes are callable read-only, while chart retrieval remains experimental."
-      },
+      "title": "CNBC 网页行情 API",
+      "summary": "观测自 CNBC 行情页的内部 REST 与持久化 GraphQL 接口；批量报价可只读调用，图表查询仍属实验性。",
       "server": {
         "id": "quote",
         "url": "https://quote.cnbc.com",
-        "description": {
-          "zh": "CNBC 行情 REST 入口",
-          "en": "CNBC quote REST endpoint"
-        }
+        "description": "CNBC 行情 REST 入口"
       },
-      "auth": [],
-      "translations": {
-        "getRestQuotes": {
-          "title": "获取行情",
-          "description": "返回单个或批量证券行情。"
-        },
-        "getQuoteChartData": {
-          "title": "获取图表数据",
-          "description": "通过持久化 GraphQL 查询返回图表数据。"
-        }
-      },
-      "schemaTranslations": {
-        "FormattedQuoteResponse": {
-          "title": "CNBC 格式化报价响应",
-          "description": "CNBC 报价接口返回的格式化证券报价列表响应。"
-        },
-        "FormattedQuote": {
-          "title": "CNBC 格式化报价",
-          "description": "证券代码、名称、交易所、最新价、涨跌、成交量、开收盘与时间戳等展示型报价字段。"
-        },
-        "ExtendedMarketQuote": {
-          "title": "CNBC 延长交易时段报价",
-          "description": "盘前或盘后时段的最新价、涨跌、成交量与更新时间。"
-        },
-        "QuoteChartGraphQLResponse": {
-          "title": "CNBC 报价图表 GraphQL 响应",
-          "description": "CNBC GraphQL quoteChart 查询的 data 包络及可选错误列表。"
-        },
-        "QuoteChartData": {
-          "title": "CNBC 报价图表数据",
-          "description": "指定证券和时间范围的图表数据点及相关报价元数据。"
-        }
-      }
+      "auth": []
     },
     {
       "slug": "i3investor-sgx",
@@ -1097,7 +346,10 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "9953c3f7e96c9180d49e1cd07222503484f68b89dc1ca281f40d2385c7e41e33",
+      "approvedSha256": "75f8c2fbdfa8905b71e710d996eb49500b0398c379243fee4d9fc70b4e8f3b35",
+      "approvedLocaleSha256": {
+        "en-US": "bbb743925f8da9cd2ae483ffd08b34948ecab0e0a7720553b29f1f5c75aedc7c"
+      },
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
       "documentationStatus": "inferred",
@@ -1105,60 +357,20 @@
         "https://sgx.i3investor.com/"
       ],
       "verifiedAt": "2026-08-10",
-      "stabilityNote": {
-        "zh": "这是 HTML 网页读取集合，不是 JSON API；页面结构可能变化。",
-        "en": "This is an HTML page-reading collection, not a JSON API; markup may change."
-      },
+      "stabilityNote": "这是 HTML 网页读取集合，不是 JSON API；页面结构可能变化。",
       "accent": "#0f766e",
       "packageName": "@pontx/api-i3investor-sgx",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
-      "title": {
-        "zh": "i3Investor SGX 公共行情页",
-        "en": "i3Investor SGX public market pages"
-      },
-      "summary": {
-        "zh": "读取 i3Investor SGX 股票 HTML 页面并提取报价、盘口与区间等语义字段；无效代码也会返回 HTTP 200 的回退页面。",
-        "en": "Reads i3Investor SGX HTML pages for quote, bid/ask, and range semantics; invalid symbols also return HTTP 200 fallback pages."
-      },
+      "title": "i3Investor SGX 公共行情页",
+      "summary": "读取 i3Investor SGX 股票 HTML 页面并提取报价、盘口与区间等语义字段；无效代码也会返回 HTTP 200 的回退页面。",
       "server": {
         "id": "sgx",
         "url": "https://sgx.i3investor.com",
-        "description": {
-          "zh": "i3Investor 新加坡站点",
-          "en": "i3Investor Singapore site"
-        }
+        "description": "i3Investor 新加坡站点"
       },
-      "auth": [],
-      "translations": {
-        "getSgxStockPage": {
-          "title": "获取股票报价页",
-          "description": "返回包含 JSON-LD 报价和可见行情字段的 HTML。"
-        },
-        "getSgxStockOverview": {
-          "title": "获取股票概览页",
-          "description": "返回股票概览 HTML 页面。"
-        },
-        "getSgxLegacyStockOverviewPage": {
-          "title": "获取旧版 SGX 股票概览页",
-          "description": "返回 i3Investor 旧版桌面股票 HTML；可从 JSON-LD 和可见文本提取新交所代码、SGD 价格、涨跌、区间、成交量及公司资料。"
-        },
-        "getSgxStockOverviewPage": {
-          "title": "获取当前 SGX 股票概览页",
-          "description": "返回已验证的 i3Investor 响应式 HTML 页面；应从带标签的可见区域和元数据提取价格、涨跌、成交量、买卖盘和公司说明。"
-        }
-      },
-      "schemaTranslations": {
-        "LegacyStockHtml": {
-          "title": "旧版 SGX 股票 HTML 原始响应",
-          "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。"
-        },
-        "ResponsiveStockHtml": {
-          "title": "当前 SGX 股票 HTML 原始响应",
-          "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。"
-        }
-      }
+      "auth": []
     }
   ]
 }

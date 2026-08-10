@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Frankfurter API 汇率服务",
+    "title": "Frankfurter API",
     "version": "1.0.0",
-    "description": "Frankfurter v1 是一个免费、开源的 API，用于获取当前及历史外汇参考汇率。它无需 API 密钥，支持查询最近工作日汇率、历史汇率、时间序列、按货币筛选以及金额换算。v1 已由 v2 取代，但根据官方文档仍将继续可用。汇率通常在工作日的欧洲中部时间 16:00 左右更新；日期以 UTC 存储，当新汇率发布后，当日查询结果可能发生变化。\n",
+    "description": "Frankfurter v1 is a free, open-source API for current and historical foreign-exchange reference rates. It requires no API key and provides latest-working-day rates, historical rates, time series, currency filtering, and amount conversion. v1 has been superseded by v2 but, according to the official documentation, will continue to work. Rates normally update around 16:00 CET on working days; dates are stored in UTC, and today's result can change when new rates arrive.\n",
     "contact": {
       "name": "Frankfurter API",
       "url": "https://frankfurter.dev"
@@ -16,17 +16,17 @@
   "servers": [
     {
       "url": "https://api.frankfurter.dev/v1",
-      "description": "生产服务器"
+      "description": "Production server"
     }
   ],
   "tags": [
     {
       "name": "Exchange Rates",
-      "description": "用于获取货币汇率的接口"
+      "description": "Operations for retrieving currency exchange rates"
     },
     {
       "name": "Currencies",
-      "description": "用于列出受支持货币的接口"
+      "description": "Operations for listing supported currencies"
     }
   ],
   "paths": {
@@ -35,15 +35,15 @@
         "tags": [
           "Exchange Rates"
         ],
-        "summary": "获取最新汇率",
-        "description": "返回最近一个有效参考日的汇率。",
+        "summary": "Get latest exchange rates",
+        "description": "Retrieves the latest working day's exchange rates. Rates normally update around 16:00 CET. By default, returns all available quote currencies with EUR as the base currency. Use `symbols` to reduce the response size.\n",
         "operationId": "getLatestRates",
         "deprecated": true,
         "parameters": [
           {
             "name": "amount",
             "in": "query",
-            "description": "要换算的金额（默认为 1）",
+            "description": "The amount to be converted (default is 1)",
             "required": false,
             "schema": {
               "type": "number",
@@ -57,7 +57,7 @@
           {
             "name": "base",
             "in": "query",
-            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "description": "Base currency code (three-letter ISO 4217 code)",
             "required": false,
             "schema": {
               "type": "string",
@@ -101,7 +101,7 @@
           {
             "name": "symbols",
             "in": "query",
-            "description": "以逗号分隔的货币代码列表，用于限制响应范围。\n如未指定，则返回所有可用货币。\n",
+            "description": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned.\n",
             "required": false,
             "schema": {
               "type": "string",
@@ -114,7 +114,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功返回汇率",
+            "description": "Successful response with exchange rates",
             "content": {
               "application/json": {
                 "schema": {
@@ -122,7 +122,7 @@
                 },
                 "examples": {
                   "default": {
-                    "summary": "默认以 EUR 为基准的最新汇率",
+                    "summary": "Default latest rates with EUR base",
                     "value": {
                       "amount": 1,
                       "base": "EUR",
@@ -135,7 +135,7 @@
                     }
                   },
                   "customAmount": {
-                    "summary": "将 100 EUR 换算为 USD 和 GBP",
+                    "summary": "Convert 100 EUR to USD and GBP",
                     "value": {
                       "amount": 100,
                       "base": "EUR",
@@ -147,7 +147,7 @@
                     }
                   },
                   "differentBase": {
-                    "summary": "以 USD 为基准的最新汇率",
+                    "summary": "Latest rates with USD as base",
                     "value": {
                       "amount": 1,
                       "base": "USD",
@@ -164,7 +164,7 @@
             }
           },
           "404": {
-            "description": "未找到汇率，例如指定的货币不受支持",
+            "description": "No rates found, for example because a currency is unsupported",
             "content": {
               "application/json": {
                 "schema": {
@@ -172,7 +172,7 @@
                 },
                 "examples": {
                   "invalidCurrency": {
-                    "summary": "无效的货币代码",
+                    "summary": "Invalid currency code",
                     "value": {
                       "message": "not found"
                     }
@@ -182,7 +182,7 @@
             }
           },
           "422": {
-            "description": "无法处理查询参数，例如金额为零、负数或非数字",
+            "description": "Unprocessable query parameter, for example an amount that is zero, negative, or not numeric",
             "content": {
               "application/json": {
                 "schema": {
@@ -202,15 +202,15 @@
         "tags": [
           "Exchange Rates"
         ],
-        "summary": "获取历史汇率",
-        "description": "返回指定参考日期的汇率。",
+        "summary": "Get historical exchange rates",
+        "description": "Retrieves rates for a calendar date. Frankfurter stores dates in UTC. Non-working dates resolve to the latest available working-day observation on or before the requested date; the returned `date` therefore may differ from the requested date. Today's result can change when new rates arrive. v1 EUR history begins on 1999-01-04.\n",
         "operationId": "getHistoricalRates",
         "deprecated": true,
         "parameters": [
           {
             "name": "date",
             "in": "path",
-            "description": "ISO 8601 格式的日期（YYYY-MM-DD）",
+            "description": "Date in ISO 8601 format (YYYY-MM-DD)",
             "required": true,
             "schema": {
               "type": "string",
@@ -222,7 +222,7 @@
           {
             "name": "amount",
             "in": "query",
-            "description": "要换算的金额（默认为 1）",
+            "description": "The amount to be converted (default is 1)",
             "required": false,
             "schema": {
               "type": "number",
@@ -235,7 +235,7 @@
           {
             "name": "base",
             "in": "query",
-            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "description": "Base currency code (three-letter ISO 4217 code)",
             "required": false,
             "schema": {
               "type": "string",
@@ -278,7 +278,7 @@
           {
             "name": "symbols",
             "in": "query",
-            "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+            "description": "Comma-separated list of currency codes to limit the response",
             "required": false,
             "schema": {
               "type": "string",
@@ -290,7 +290,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功返回历史汇率",
+            "description": "Successful response with historical exchange rates",
             "content": {
               "application/json": {
                 "schema": {
@@ -298,7 +298,7 @@
                 },
                 "examples": {
                   "historical": {
-                    "summary": "指定日期的历史汇率",
+                    "summary": "Historical rates for a specific date",
                     "value": {
                       "amount": 1,
                       "base": "EUR",
@@ -315,7 +315,7 @@
             }
           },
           "404": {
-            "description": "指定日期没有可用数据",
+            "description": "No data available for the specified date",
             "content": {
               "application/json": {
                 "schema": {
@@ -325,7 +325,7 @@
             }
           },
           "422": {
-            "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
             "content": {
               "application/json": {
                 "schema": {
@@ -354,15 +354,15 @@
         "tags": [
           "Exchange Rates"
         ],
-        "summary": "获取开放结束日期的汇率时间序列",
-        "description": "从指定起始日期返回到最近有效参考日的每日汇率时间序列。",
+        "summary": "Get an open-ended time series of exchange rates",
+        "description": "Retrieves available working-day exchange-rate observations from a start date through the latest observation. The returned `start_date` can precede the requested calendar date when the range starts on a non-working day, and `end_date` identifies the latest observation available when the response was generated.\n",
         "operationId": "getOpenEndedTimeSeriesRates",
         "deprecated": true,
         "parameters": [
           {
             "name": "start_date",
             "in": "path",
-            "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
+            "description": "Start date in ISO 8601 format (YYYY-MM-DD)",
             "required": true,
             "schema": {
               "type": "string",
@@ -383,7 +383,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功返回从请求起始日期到最新观测值的汇率",
+            "description": "Successful response with exchange rates from the requested start through the latest observation",
             "content": {
               "application/json": {
                 "schema": {
@@ -410,7 +410,7 @@
             }
           },
           "404": {
-            "description": "指定起始日期没有可用数据",
+            "description": "No data available for the specified start date",
             "content": {
               "application/json": {
                 "schema": {
@@ -420,7 +420,7 @@
             }
           },
           "422": {
-            "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
             "content": {
               "application/json": {
                 "schema": {
@@ -437,15 +437,15 @@
         "tags": [
           "Exchange Rates"
         ],
-        "summary": "获取汇率时间序列",
-        "description": "返回指定日期区间内的汇率变化。",
+        "summary": "Get time series of exchange rates",
+        "description": "Retrieves available working-day exchange-rate observations over a date range. The response boundaries describe the first and last observations returned and can differ from the requested calendar boundaries. To fetch through the present, omit the end date in the actual URL as documented by Frankfurter (`YYYY-MM-DD..`).\n",
         "operationId": "getTimeSeriesRates",
         "deprecated": true,
         "parameters": [
           {
             "name": "start_date",
             "in": "path",
-            "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
+            "description": "Start date in ISO 8601 format (YYYY-MM-DD)",
             "required": true,
             "schema": {
               "type": "string",
@@ -457,7 +457,7 @@
           {
             "name": "end_date",
             "in": "path",
-            "description": "ISO 8601 格式的结束日期（YYYY-MM-DD）。\n可使用 \"start_date..\" 格式省略结束日期，以获取从 start_date 起的所有汇率。\n",
+            "description": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards.\n",
             "required": true,
             "schema": {
               "type": "string",
@@ -469,7 +469,7 @@
           {
             "name": "amount",
             "in": "query",
-            "description": "要换算的金额（默认为 1）",
+            "description": "The amount to be converted (default is 1)",
             "required": false,
             "schema": {
               "type": "number",
@@ -482,7 +482,7 @@
           {
             "name": "base",
             "in": "query",
-            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "description": "Base currency code (three-letter ISO 4217 code)",
             "required": false,
             "schema": {
               "type": "string",
@@ -525,7 +525,7 @@
           {
             "name": "symbols",
             "in": "query",
-            "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+            "description": "Comma-separated list of currency codes to limit the response",
             "required": false,
             "schema": {
               "type": "string",
@@ -537,7 +537,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功返回时间序列汇率",
+            "description": "Successful response with time series exchange rates",
             "content": {
               "application/json": {
                 "schema": {
@@ -545,7 +545,7 @@
                 },
                 "examples": {
                   "timeSeries": {
-                    "summary": "指定日期范围的时间序列",
+                    "summary": "Time series for a date range",
                     "value": {
                       "amount": 1,
                       "base": "EUR",
@@ -576,7 +576,7 @@
                     }
                   },
                   "openEnded": {
-                    "summary": "开放结束日期的时间序列（从 start_date 到最新日期）",
+                    "summary": "Open-ended time series (from start_date to latest)",
                     "value": {
                       "amount": 1,
                       "base": "EUR",
@@ -599,7 +599,7 @@
             }
           },
           "404": {
-            "description": "指定日期范围没有可用数据",
+            "description": "No data available for the specified date range",
             "content": {
               "application/json": {
                 "schema": {
@@ -609,7 +609,7 @@
             }
           },
           "422": {
-            "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+            "description": "Unprocessable date or query parameter, for example an invalid calendar date or amount",
             "content": {
               "application/json": {
                 "schema": {
@@ -626,13 +626,13 @@
         "tags": [
           "Currencies"
         ],
-        "summary": "获取支持的货币",
-        "description": "返回可用于汇率查询的货币代码与名称。",
+        "summary": "Get list of supported currencies",
+        "description": "Returns a list of all currency codes supported by the API along with their full names.\nThis endpoint requires no parameters.\n",
         "operationId": "getCurrencies",
         "deprecated": true,
         "responses": {
           "200": {
-            "description": "成功返回受支持的货币列表",
+            "description": "Successful response with list of supported currencies",
             "content": {
               "application/json": {
                 "schema": {
@@ -640,7 +640,7 @@
                 },
                 "examples": {
                   "currencies": {
-                    "summary": "所有受支持货币的列表",
+                    "summary": "List of all supported currencies",
                     "value": {
                       "AUD": "Australian Dollar",
                       "BRL": "Brazilian Real",
@@ -685,9 +685,9 @@
   "components": {
     "schemas": {
       "ExchangeRateResponse": {
-        "title": "汇率响应",
+        "title": "ExchangeRateResponse",
         "type": "object",
-        "description": "指定日期的汇率与换算金额。",
+        "description": "Response containing exchange rates for a single date",
         "required": [
           "amount",
           "base",
@@ -698,27 +698,27 @@
           "amount": {
             "type": "number",
             "format": "double",
-            "description": "用于换算的金额",
+            "description": "The amount used for conversion",
             "example": 1,
             "minimum": 0,
             "exclusiveMinimum": true
           },
           "base": {
             "type": "string",
-            "description": "基准货币代码（ISO 4217）",
+            "description": "The base currency code (ISO 4217)",
             "pattern": "^[A-Z]{3}$",
             "example": "EUR"
           },
           "date": {
             "type": "string",
             "format": "date",
-            "description": "ISO 8601 格式的汇率日期",
+            "description": "The date of the exchange rates in ISO 8601 format",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "example": "2026-01-23"
           },
           "rates": {
             "type": "object",
-            "description": "以键值对表示的汇率（货币代码对应汇率）",
+            "description": "Exchange rates as key-value pairs (currency code to rate)",
             "additionalProperties": {
               "type": "number",
               "format": "double"
@@ -734,9 +734,9 @@
         }
       },
       "TimeSeriesResponse": {
-        "title": "汇率时间序列响应",
+        "title": "TimeSeriesResponse",
         "type": "object",
-        "description": "指定日期区间内的每日汇率集合。",
+        "description": "Response containing exchange rates for a date range",
         "required": [
           "amount",
           "base",
@@ -748,36 +748,36 @@
           "amount": {
             "type": "number",
             "format": "double",
-            "description": "用于换算的金额",
+            "description": "The amount used for conversion",
             "example": 1,
             "minimum": 0
           },
           "base": {
             "type": "string",
-            "description": "基准货币代码（ISO 4217）",
+            "description": "The base currency code (ISO 4217)",
             "pattern": "^[A-Z]{3}$",
             "example": "EUR"
           },
           "start_date": {
             "type": "string",
             "format": "date",
-            "description": "时间序列的起始日期",
+            "description": "The start date of the time series",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
               "example": "2023-12-29"
           },
           "end_date": {
             "type": "string",
             "format": "date",
-            "description": "时间序列的结束日期",
+            "description": "The end date of the time series",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "example": "2024-01-31"
           },
           "rates": {
             "type": "object",
-            "description": "按日期组织的汇率",
+            "description": "Exchange rates organized by date",
             "additionalProperties": {
               "type": "object",
-              "description": "指定日期的汇率",
+              "description": "Exchange rates for a specific date",
               "additionalProperties": {
                 "type": "number",
                 "format": "double"
@@ -797,9 +797,9 @@
         }
       },
       "CurrenciesResponse": {
-        "title": "货币列表响应",
+        "title": "CurrenciesResponse",
         "type": "object",
-        "description": "货币代码与货币名称的映射。",
+        "description": "Map of currency codes to their full names",
         "additionalProperties": {
           "type": "string"
         },
@@ -812,13 +812,13 @@
         }
       },
       "Error": {
-        "title": "错误响应",
+        "title": "Error",
         "type": "object",
-        "description": "接口未找到汇率数据时返回的错误消息。",
+        "description": "Error response",
         "properties": {
           "message": {
             "type": "string",
-            "description": "服务返回的错误消息",
+            "description": "Error message returned by the service",
             "example": "not found"
           }
         }
@@ -828,7 +828,7 @@
       "AmountParam": {
         "name": "amount",
         "in": "query",
-        "description": "要换算的金额（默认为 1）",
+        "description": "The amount to be converted (default is 1)",
         "required": false,
         "schema": {
           "type": "number",
@@ -841,7 +841,7 @@
       "BaseParam": {
         "name": "base",
         "in": "query",
-        "description": "基准货币代码（三位 ISO 4217 代码）",
+        "description": "Base currency code (three-letter ISO 4217 code)",
         "required": false,
         "schema": {
           "type": "string",
@@ -852,7 +852,7 @@
       "SymbolsParam": {
         "name": "symbols",
         "in": "query",
-        "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+        "description": "Comma-separated list of currency codes to limit the response",
         "required": false,
         "schema": {
           "type": "string",
@@ -864,7 +864,7 @@
     }
   },
   "externalDocs": {
-    "description": "Frankfurter API 官方文档",
+    "description": "Official Frankfurter API Documentation",
     "url": "https://frankfurter.dev"
   }
 }

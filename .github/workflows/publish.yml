@@ -30,6 +30,12 @@ jobs:
         with:
           node-version: 22
 
+      - name: Test locale lint rules
+        run: node scripts/test-locales.mjs
+
+      - name: Lint localized specifications
+        run: node scripts/lint-locales.mjs
+
       - name: Rebuild catalog
         run: node scripts/build-catalog.mjs
 

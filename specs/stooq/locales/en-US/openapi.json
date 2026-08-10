@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Stooq 公开行情下载",
+    "title": "Stooq Public Quote Downloads",
     "version": "2026-08-10",
-    "description": "在公开行情页面和现有客户端中观察到的 Stooq 自有下载 URL，未提供公开文档。它们并非具有正式版本控制的开发者 API。2026-08-10 的观察结果显示，最新行情 URL 返回 HTTP 404，历史数据下载 URL 返回 JavaScript 浏览器验证页面而非 CSV；使用者必须在解析前检查状态码和 Content-Type。",
+    "description": "Provider-owned, undocumented Stooq download URLs observed on public quote pages and in existing clients. They are not a formally versioned developer API. As observed on 2026-08-10, the latest-quote URL returned HTTP 404 and the historical-download URL returned a JavaScript browser-verification page instead of CSV; consumers must inspect status and Content-Type before parsing.",
     "license": {
       "name": "Proprietary / undocumented"
     }
@@ -17,13 +17,13 @@
     "/q/l/": {
       "get": {
         "operationId": "downloadLatestQuotes",
-        "summary": "下载最新行情",
-        "description": "按字段格式下载最新行情 CSV。",
+        "summary": "Download current or latest quotes",
+        "description": "Legacy latest-quote CSV download URL. The query shape and field-code convention are inferred from historical clients; Stooq does not publish a current developer contract. A direct request on 2026-08-10 returned HTTP 404 with an HTML page, so no successful CSV response is currently verified.",
         "parameters": [
           {
             "name": "s",
             "in": "query",
-            "description": "一个或多个 Stooq 证券标识，历史用法中以逗号分隔。例如美国市场的苹果公司使用 `aapl.us`。证券标识后缀由提供方定义，此处未穷举。",
+            "description": "One or more Stooq ticker identifiers, historically separated by commas. Examples include `aapl.us` for Apple on the US market. Symbol suffixes are provider-specific and are not exhaustively documented here.",
             "required": true,
             "schema": {
               "type": "string",
@@ -33,7 +33,7 @@
           {
             "name": "f",
             "in": "query",
-            "description": "旧版 CSV 接口使用的紧凑有序字段选择代码。现有请求中观察到示例 `sd2t2ohlcvp`；由于提供方目前没有正式文档，不将各字母声明为稳定的公开枚举。",
+            "description": "Compact ordered field-selection code used by the legacy CSV endpoint. The example `sd2t2ohlcvp` is observed in existing requests; individual letters are not asserted as a stable public enum because the provider has no current formal documentation.",
             "required": false,
             "schema": {
               "type": "string",
@@ -43,7 +43,7 @@
           {
             "name": "h",
             "in": "query",
-            "description": "用于请求 CSV 表头的存在即生效式旧版标志。历史 URL 通常包含独立的 `h`，而不是 `h=true`；通用 OpenAPI 客户端可能以不同方式序列化此布尔值。",
+            "description": "Presence-style legacy flag requesting a CSV header. Historical URLs commonly contain bare `h` rather than `h=true`; generic OpenAPI clients may serialize this boolean differently.",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -53,7 +53,7 @@
           {
             "name": "e",
             "in": "query",
-            "description": "请求的输出格式。该 URL 仅有 CSV 格式的证据。",
+            "description": "Requested output format. Only CSV is evidenced for this URL.",
             "required": false,
             "schema": {
               "type": "string",
@@ -65,13 +65,13 @@
         ],
         "responses": {
           "200": {
-            "description": "历史上预期的 CSV 响应；2026-08-10 未能复现。",
+            "description": "Historically expected CSV response; not reproduced on 2026-08-10.",
             "content": {
               "text/csv": {
                 "schema": { "$ref": "#/components/schemas/LatestQuoteCsv" },
                 "examples": {
                   "illustrativeLegacyShape": {
-                    "summary": "仅用于说明旧版列结构；并非本次验证捕获的响应",
+                    "summary": "Illustrative legacy column shape only; not a response captured in the current verification",
                     "value": "Symbol,Date,Time,Open,High,Low,Close,Volume,Previous\nAAPL.US,YYYY-MM-DD,HH:MM:SS,OPEN,HIGH,LOW,CLOSE,VOLUME,PREVIOUS"
                   }
                 }
@@ -79,7 +79,7 @@
             }
           },
           "404": {
-            "description": "观察到的旧版接口不可用响应（2026-08-10）。",
+            "description": "Observed legacy endpoint unavailable response (2026-08-10).",
             "content": {
               "text/html": {
                 "schema": { "$ref": "#/components/schemas/StooqNotFoundHtml" },
@@ -93,7 +93,7 @@
           "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "FiApp 历史上曾使用此接口；2026-08-10 的提供方验证返回 Stooq 404 页面。",
+        "x-pontx-stability-note": "Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page.",
         "servers": [
           {
             "url": "https://stooq.com"
@@ -103,19 +103,19 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "该地址当前返回 Stooq 404 页面，已停止代理执行。"
+        "x-pontx-proxy-disabled-reason": "This URL currently returns Stooq's 404 page, so proxy execution is disabled."
       }
     },
     "/q/d/l/": {
       "get": {
         "operationId": "downloadHistoricalQuotes",
-        "summary": "下载历史行情",
-        "description": "按日期范围和周期下载历史行情 CSV。",
+        "summary": "Download historical price data",
+        "description": "Legacy historical OHLCV CSV download URL linked conceptually from provider-owned historical-data pages. A direct automated request on 2026-08-10 received HTTP 200 `text/html` containing a JavaScript proof-of-work browser check, not CSV. The Hub does not attempt to solve or bypass that check.",
         "parameters": [
           {
             "name": "s",
             "in": "query",
-            "description": "单个由提供方定义的 Stooq 证券标识，例如 `aapl.us`。",
+            "description": "Single provider-specific Stooq ticker identifier, for example `aapl.us`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -125,7 +125,7 @@
           {
             "name": "d1",
             "in": "query",
-            "description": "以 `YYYYMMDD` 编码的闭区间开始日期（历史观察到的约定）。",
+            "description": "Inclusive start date encoded as `YYYYMMDD` (historically observed convention).",
             "required": false,
             "schema": {
               "type": "string",
@@ -136,7 +136,7 @@
           {
             "name": "d2",
             "in": "query",
-            "description": "以 `YYYYMMDD` 编码的闭区间结束日期（历史观察到的约定）。",
+            "description": "Inclusive end date encoded as `YYYYMMDD` (historically observed convention).",
             "required": false,
             "schema": {
               "type": "string",
@@ -147,7 +147,7 @@
           {
             "name": "i",
             "in": "query",
-            "description": "历史 K 线周期：日、周或月。",
+            "description": "Historical bar interval: daily, weekly, or monthly.",
             "required": false,
             "schema": {
               "type": "string",
@@ -161,13 +161,13 @@
         ],
         "responses": {
           "200": {
-            "description": "可能是历史上预期的 CSV，也可能是当前观察到的 HTTP 200 浏览器验证 HTML；解析前应检查 Content-Type。",
+            "description": "Either the historically expected CSV or the currently observed HTTP-200 browser-verification HTML; inspect Content-Type before parsing.",
             "content": {
               "text/csv": {
                 "schema": { "$ref": "#/components/schemas/HistoricalQuoteCsv" },
                 "examples": {
                   "illustrativeLegacyShape": {
-                    "summary": "仅用于说明旧版列结构；本次验证返回的是 HTML",
+                    "summary": "Illustrative legacy column shape only; current verification returned HTML",
                     "value": "Date,Open,High,Low,Close,Volume\nYYYY-MM-DD,OPEN,HIGH,LOW,CLOSE,VOLUME"
                   }
                 }
@@ -185,7 +185,7 @@
           "https://stooq.com/q/d/l/?s=aapl.us&d1=20260801&d2=20260810&i=d"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "提供方自有历史数据页面；自动化请求目前收到 Stooq 的 JavaScript 验证页面，而非 CSV。",
+        "x-pontx-stability-note": "Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV.",
         "servers": [
           {
             "url": "https://stooq.com"
@@ -195,7 +195,7 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。"
+        "x-pontx-proxy-disabled-reason": "Stooq currently requires JavaScript browser verification, which Hub does not bypass."
       }
     }
   },
@@ -203,24 +203,24 @@
     "schemas": {
       "LatestQuoteCsv": {
         "type": "string",
-        "title": "Stooq 最新报价 CSV 原始响应",
-        "description": "由 f 参数决定列顺序的旧版最新报价 CSV 文本；当前验证未能重新获得此格式，不应假定仍可用。"
+        "title": "LatestQuoteCsv",
+        "description": "Legacy CSV text. Column order is selected by `f`; the illustrated header corresponds to `sd2t2ohlcvp`. This wire format was not reproduced during the current verification."
       },
       "HistoricalQuoteCsv": {
         "type": "string",
-        "title": "Stooq 历史行情 CSV 原始响应",
-        "description": "表头为 Date,Open,High,Low,Close,Volume 的历史 OHLCV CSV 文本；当前匿名访问实际返回浏览器验证页。"
+        "title": "HistoricalQuoteCsv",
+        "description": "Historical OHLCV CSV text with header `Date,Open,High,Low,Close,Volume`. The current unauthenticated response is browser-verification HTML, not this representation."
       },
       "StooqNotFoundHtml": {
         "type": "string",
-        "title": "Stooq 接口已移除页面",
-        "description": "旧版最新报价地址当前以 HTTP 404 返回的 Stooq 品牌 HTML 页面，不是行情数据。",
+        "title": "StooqNotFoundHtml",
+        "description": "Stooq-branded HTML page returned with HTTP 404 for the removed latest-quote URL.",
         "example": "<meta charset=utf-8><title>Stooq</title>...The page you requested does not exist or has been moved..."
       },
       "BrowserVerificationHtml": {
         "type": "string",
-        "title": "Stooq 浏览器验证页",
-        "description": "HTTP 200 返回的 JavaScript SHA-256 工作量证明页面，属于反自动化响应而非行情数据；客户端不应自动绕过。",
+        "title": "BrowserVerificationHtml",
+        "description": "HTTP-200 no-store HTML containing a JavaScript SHA-256 proof-of-work challenge and a no-JavaScript warning. This is an anti-automation response, not quote data; clients should not bypass it automatically.",
         "example": "<!DOCTYPE html><html>...<noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript>..."
       }
     }

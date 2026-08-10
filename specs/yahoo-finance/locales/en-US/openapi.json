@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Yahoo Finance 网页市场数据 API",
+    "title": "Yahoo Finance Web Market Data API",
     "version": "2026-08-10",
-    "description": "Yahoo Finance 官方网页使用的未公开、只读 JSON 接口的非官方元数据。Yahoo 并未将这些接口作为公开的 Finance 开发者 API 发布或提供支持；路径、字段、认证方式和可用性均可能随时变化。下方引用的 Yahoo 官方帮助页面仅说明面向用户的图表、历史数据和搜索功能，并非此传输协议的文档。观测到的属性被特意建模为开放且非穷尽的结构，不构成官方契约。Yahoo 帮助说明，所展示的信息仅供参考，可能存在交易所延迟且不得再分发；Yahoo 条款还禁止未经事先许可的自动化采集。访问或复用前，请审阅适用条款及数据提供商限制。",
+    "description": "Unofficial metadata for undocumented, read-only JSON endpoints used by provider-owned Yahoo Finance pages. Yahoo does not publish or support these endpoints as a public Finance developer API; paths, fields, authentication and availability may change without notice. The provider-owned Help pages cited below document the corresponding user-facing chart, historical-data and search features, not this wire protocol. Observed properties are deliberately modeled as open, non-exhaustive shapes and are not an official contract. Yahoo Help says displayed information is informational, may have exchange delays and must not be redistributed; Yahoo Terms also prohibit automated collection without prior permission. Review the applicable terms and data-provider restrictions before access or reuse.",
     "license": {
       "name": "Proprietary / undocumented"
     },
@@ -13,21 +13,21 @@
     ]
   },
   "externalDocs": {
-    "description": "Yahoo 帮助：Yahoo Finance 提供的市场数据与研究工具（功能文档，并非 API 文档）",
+    "description": "Yahoo Help: market data and research tools available in Yahoo Finance (feature documentation, not API documentation)",
     "url": "https://help.yahoo.com/kb/market-data-research-tools-yahoo-finance-sln24381.html"
   },
   "tags": [
     {
       "name": "Charts",
-      "description": "观测到的图表和紧凑时间序列请求。非官方且无公开文档。"
+      "description": "Observed chart and compact time-series requests. Unofficial and undocumented."
     },
     {
       "name": "Discovery",
-      "description": "观测到的标的代码查找和金融工具身份信息请求。非官方且无公开文档。"
+      "description": "Observed symbol lookup and instrument identity requests. Unofficial and undocumented."
     },
     {
       "name": "Fundamentals",
-      "description": "观测到的模块化基本面数据请求。部分接口需要 Yahoo 浏览器会话状态。"
+      "description": "Observed modular fundamentals requests. Some endpoints require Yahoo browser-session state."
     }
   ],
   "servers": [
@@ -43,13 +43,13 @@
       "get": {
         "operationId": "getChart",
         "tags": ["Charts"],
-        "summary": "获取行情与 K 线",
-        "description": "返回证券元数据和历史价格序列。",
+        "summary": "Get chart and historical price data",
+        "description": "Get chart and historical price data. Observed anonymously on both query1 and query2 on 2026-08-10; compatibility is not guaranteed. Yahoo's user-facing chart supports date ranges and intervals, but does not document this JSON protocol. Array members under `indicators` align by index with `timestamp` and can contain nulls.",
         "parameters": [
           {
             "name": "symbol",
             "in": "path",
-            "description": "Yahoo Finance 标的代码，必须与行情页面 URL 中使用的值完全一致。例如，美股 `AAPL`、指数 `^GSPC`，以及带交易所后缀的 `0700.HK`。",
+            "description": "Yahoo Finance symbol exactly as used in quote-page URLs. Examples include US equity `AAPL`, index `^GSPC`, and exchange-suffixed `0700.HK`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -59,7 +59,7 @@
           {
             "name": "range",
             "in": "query",
-            "description": "相对回溯范围。请勿与 `period1`/`period2` 同时发送。日内时间间隔的数据仅保留在有限的近期范围内；不支持的组合会返回 422。",
+            "description": "Relative lookback range. Do not send together with `period1`/`period2`. Intraday intervals are retained only for limited recent ranges; unsupported combinations return 422.",
             "required": false,
             "schema": {
               "type": "string",
@@ -71,7 +71,7 @@
           {
             "name": "interval",
             "in": "query",
-            "description": "采样间隔。可用性取决于时间范围和金融工具；Yahoo 可能拒绝时间过久的日内数据请求。",
+            "description": "Sampling interval. Availability depends on range and instrument; Yahoo may reject overly old intraday requests.",
             "required": false,
             "schema": {
               "type": "string",
@@ -83,7 +83,7 @@
           {
             "name": "period1",
             "in": "query",
-            "description": "以 Unix 秒表示的包含式起始时间。请与 `period2` 搭配使用，不要使用 `range`。",
+            "description": "Inclusive start time as Unix seconds. Use with `period2` instead of `range`.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -94,7 +94,7 @@
           {
             "name": "period2",
             "in": "query",
-            "description": "以 Unix 秒表示的排除式结束时间。请与 `period1` 搭配使用，不要使用 `range`。",
+            "description": "Exclusive end time as Unix seconds. Use with `period1` instead of `range`.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -105,7 +105,7 @@
           {
             "name": "includePrePost",
             "in": "query",
-            "description": "包含盘前盘后时段",
+            "description": "Include extended hours",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -116,7 +116,7 @@
         ],
         "responses": {
           "200": {
-            "description": "图表结果。价格数组按索引与 `timestamp` 对齐；当某根 K 线没有对应值时，单个价格或成交量条目可能为 null。",
+            "description": "Chart result. Price arrays align by index with `timestamp`; individual price or volume entries can be null when a bar has no value.",
             "content": {
               "application/json": {
                 "schema": {
@@ -143,7 +143,7 @@
                                   },
                                   "exchangeName": {
                                     "type": "string",
-                                    "description": "观测到的 Yahoo 交易所代码；并非封闭的代码表。",
+                                    "description": "Observed Yahoo exchange code; not a closed registry.",
                                     "example": "NMS"
                                   },
                                   "fullExchangeName": {
@@ -152,7 +152,7 @@
                                   },
                                   "instrumentType": {
                                     "type": "string",
-                                    "description": "观测到的由提供商控制的金融工具类别；特意不设为封闭枚举。",
+                                    "description": "Observed provider-controlled instrument category; intentionally not a closed enum.",
                                     "example": "EQUITY"
                                   },
                                   "regularMarketPrice": {
@@ -166,12 +166,12 @@
                                   "regularMarketTime": {
                                     "type": "integer",
                                     "format": "int64",
-                                    "description": "Unix 秒。",
+                                    "description": "Unix seconds.",
                                     "example": 1786132801
                                   },
                                   "gmtoffset": {
                                     "type": "integer",
-                                    "description": "观测到的 UTC 偏移量，单位为秒。",
+                                    "description": "Observed UTC offset in seconds.",
                                     "example": -14400
                                   },
                                   "exchangeTimezoneName": {
@@ -188,7 +188,7 @@
                                   },
                                   "validRanges": {
                                     "type": "array",
-                                    "description": "提供商为该结果返回的可用范围；取值可能变化。",
+                                    "description": "Provider-returned ranges for this result; values can change.",
                                     "items": {"type": "string"},
                                     "example": ["1d", "5d", "1mo", "max"]
                                   }
@@ -197,7 +197,7 @@
                               },
                               "timestamp": {
                                 "type": "array",
-                                "description": "以 Unix 秒表示的 K 线时间戳。价格和成交量数组使用相同的索引。",
+                                "description": "Bar timestamps as Unix seconds. Price and volume arrays use matching indexes.",
                                 "items": {
                                   "type": "integer",
                                   "format": "int64"
@@ -254,7 +254,7 @@
                                   },
                                   "adjclose": {
                                     "type": "array",
-                                    "description": "观测到的复权收盘价序列；并非所有金融工具或时间间隔都会返回。",
+                                    "description": "Observed adjusted-close series; not present for every instrument or interval.",
                                     "items": {
                                       "type": "object",
                                       "properties": {
@@ -284,7 +284,7 @@
             }
           },
           "422": {
-            "description": "标的代码、时间段、时间间隔或范围与间隔组合无效。",
+            "description": "Invalid symbol, period, interval, or range/interval combination.",
             "content": {
               "application/json": {
                 "schema": {"$ref": "#/components/schemas/ChartErrorResponse"}
@@ -292,7 +292,7 @@
             }
           },
           "404": {
-            "description": "当标的代码未知、为空或已退市时观测到此响应。响应体使用 `chart` 错误信封。",
+            "description": "Observed for an unknown, blank or delisted symbol. The body uses the `chart` error envelope.",
             "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChartErrorResponse"}}}
           },
           "429": {"$ref": "#/components/responses/RateLimited"}
@@ -305,7 +305,7 @@
           "https://in.help.yahoo.com/kb/finance/download-historical-data-yahoo-finance-sln2311.html"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在 Yahoo Finance 行情页面的网络流量中观测到，FiApp 也在使用；不保证兼容性。",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -315,20 +315,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "这是 Yahoo 未公开支持的网页接口；为避免将不稳定的第三方端点包装成受支持 API，Hub 禁用代理执行。"
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled to avoid presenting it as a stable public API."
       }
     },
     "/v7/finance/quote": {
       "get": {
         "operationId": "getQuotes",
         "tags": ["Discovery"],
-        "summary": "获取批量行情",
-        "description": "返回多个证券的行情快照。",
+        "summary": "Get batch quote snapshots",
+        "description": "Get batch quote snapshots. The success shape is retained from observed Yahoo page traffic, not an official contract. A fresh anonymous query1 request returned HTTP 401 with a top-level `finance` error on 2026-08-10; browser cookie or other provider-controlled authorization state may be required.",
         "parameters": [
           {
             "name": "symbols",
             "in": "query",
-            "description": "以逗号分隔的 Yahoo Finance 标的代码，例如 `AAPL,MSFT`。",
+            "description": "Comma-separated Yahoo Finance symbols, for example `AAPL,MSFT`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -338,7 +338,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "观测到的以逗号分隔的字段投影。Yahoo 既未发布完整字段清单，也未提供稳定性保证。",
+            "description": "Observed comma-separated field projection. Yahoo publishes neither a complete field registry nor stability guarantees.",
             "required": false,
             "schema": {
               "type": "string",
@@ -348,7 +348,7 @@
           {
             "name": "formatted",
             "in": "query",
-            "description": "返回格式化后的值",
+            "description": "Return formatted values",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -359,7 +359,7 @@
         ],
         "responses": {
           "200": {
-            "description": "观测到的浏览器会话成功响应信封。不表示匿名访问可用。",
+            "description": "Observed browser-session success envelope. Anonymous availability is not implied.",
             "content": {
               "application/json": {
                 "schema": {
@@ -403,7 +403,7 @@
             }
           },
           "401": {
-            "description": "观测到的匿名访问响应：需要 Yahoo 浏览器会话或其他由提供商控制的授权状态。",
+            "description": "Observed anonymous response: Yahoo browser session or other provider-controlled authorization state is required.",
             "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
           },
           "429": {"$ref": "#/components/responses/RateLimited"}
@@ -414,7 +414,7 @@
           "https://query1.finance.yahoo.com/v7/finance/quote?symbols=AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在 Yahoo Finance 自有行情页面流量中观测到；目前匿名服务端请求会返回 Unauthorized。",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -424,20 +424,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Yahoo 当前要求浏览器会话，匿名服务端请求返回 Unauthorized。"
+        "x-pontx-proxy-disabled-reason": "Yahoo currently requires browser session state; anonymous server requests return Unauthorized."
       }
     },
     "/v7/finance/spark": {
       "get": {
         "operationId": "getSpark",
         "tags": ["Charts"],
-        "summary": "获取迷你图数据",
-        "description": "返回紧凑的价格时间序列。",
+        "summary": "Get compact chart series",
+        "description": "Get compact chart series for one or more symbols. A query2 anonymous sample returned HTTP 200 on 2026-08-10. Each result has a symbol and a `response` array containing chart-like objects; response availability and fields remain undocumented.",
         "parameters": [
           {
             "name": "symbols",
             "in": "query",
-            "description": "以逗号分隔的 Yahoo Finance 标的代码。",
+            "description": "Comma-separated Yahoo Finance symbols.",
             "required": true,
             "schema": {
               "type": "string",
@@ -447,7 +447,7 @@
           {
             "name": "range",
             "in": "query",
-            "description": "请求的时间范围",
+            "description": "Requested range",
             "required": false,
             "schema": {
               "type": "string",
@@ -459,7 +459,7 @@
           {
             "name": "interval",
             "in": "query",
-            "description": "K 线时间间隔",
+            "description": "Bar interval",
             "required": false,
             "schema": {
               "type": "string",
@@ -471,7 +471,7 @@
         ],
         "responses": {
           "200": {
-            "description": "观测到的紧凑图表响应信封。在已验证的成功样本中，`spark.error` 为 null。",
+            "description": "Observed compact chart envelope. `spark.error` was null in the verified success sample.",
             "content": {
               "application/json": {
                 "schema": {
@@ -495,7 +495,7 @@
                                   "properties": {
                                     "meta": {
                                       "type": "object",
-                                      "description": "观测到的图表元数据；使用与图表接口相同的开放式提供商结构。",
+                                      "description": "Observed chart metadata; uses the same open provider shape as the chart endpoint.",
                                       "properties": {
                                         "currency": {"type": "string", "example": "USD"},
                                         "symbol": {"type": "string", "example": "AAPL"},
@@ -553,7 +553,7 @@
               }
             }
           },
-          "400": {"description": "缺少 symbols/range/interval 参数，或参数无效。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
+          "400": {"description": "Missing or invalid symbols/range/interval parameter.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
           "429": {"$ref": "#/components/responses/RateLimited"}
         },
         "x-pontx-documentation-status": "observed",
@@ -562,7 +562,7 @@
           "https://query1.finance.yahoo.com/v7/finance/spark?symbols=AAPL,MSFT&range=5d&interval=1d"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在 Yahoo Finance 自有市场组件中观测到。",
+        "x-pontx-stability-note": "Observed in Yahoo Finance's own market widgets.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -572,20 +572,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "这是 Yahoo 未公开支持的网页接口；Hub 禁用代理执行。"
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
       }
     },
     "/v1/finance/quoteType/": {
       "get": {
         "operationId": "getQuoteType",
         "tags": ["Discovery"],
-        "summary": "获取证券类型",
-        "description": "返回证券身份和交易所信息。",
+        "summary": "Get security type and identity",
+        "description": "Get security type and identity. A query1 anonymous sample returned HTTP 200 on 2026-08-10. Category, exchange and feature-flag fields are provider-controlled and remain an open shape.",
         "parameters": [
           {
             "name": "symbol",
             "in": "query",
-            "description": "Yahoo Finance 标的代码",
+            "description": "Yahoo Finance symbol",
             "required": true,
             "schema": {
               "type": "string",
@@ -595,7 +595,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -615,7 +615,7 @@
                               },
                               "quoteType": {
                                 "type": "string",
-                                "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`MUTUALFUND`、`INDEX`、`CURRENCY`、`CRYPTOCURRENCY`、`FUTURE` 或 `OPTION`。此字段特意不设为封闭枚举。"
+                                "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `MUTUALFUND`, `INDEX`, `CURRENCY`, `CRYPTOCURRENCY`, `FUTURE` or `OPTION`. This is intentionally not a closed enum."
                               },
                               "longName": {
                                 "type": "string",
@@ -623,7 +623,7 @@
                               },
                               "exchange": {
                                 "type": "string",
-                                "description": "观测到的 Yahoo 交易所代码；并非封闭的代码表。",
+                                "description": "Observed Yahoo exchange code; not a closed registry.",
                                 "example": "NMS"
                               },
                               "exchangeTimezoneName": {
@@ -649,7 +649,7 @@
             }
           },
           "400": {
-            "description": "缺少必需的 `symbol` 查询参数时观测到此响应。",
+            "description": "Observed when the required `symbol` query parameter is absent.",
             "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
           },
           "429": {"$ref": "#/components/responses/RateLimited"}
@@ -660,7 +660,7 @@
           "https://query1.finance.yahoo.com/v1/finance/quoteType/?symbol=AAPL"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在 Yahoo Finance 行情页面中观测到。",
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote page.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -670,20 +670,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "这是 Yahoo 未公开支持的网页接口；Hub 禁用代理执行。"
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
       }
     },
     "/v1/finance/search": {
       "get": {
         "operationId": "searchSymbols",
         "tags": ["Discovery"],
-        "summary": "搜索证券",
-        "description": "按文本搜索证券代码和名称。",
+        "summary": "Search securities",
+        "description": "Search securities by symbol or name. A query2 anonymous sample returned HTTP 200 on 2026-08-10. Yahoo Help documents the search feature, not this JSON shape; result ranking, auxiliary collections and timing fields can change.",
         "parameters": [
           {
             "name": "q",
             "in": "query",
-            "description": "自由文本形式的公司名称、标的代码、基金名称、指数或其他证券查询。",
+            "description": "Free-text company name, symbol, fund name, index or other security query.",
             "required": true,
             "schema": {
               "type": "string",
@@ -694,7 +694,7 @@
           {
             "name": "quotesCount",
             "in": "query",
-            "description": "证券结果最大数量",
+            "description": "Maximum securities",
             "required": false,
             "schema": {
               "type": "integer",
@@ -706,7 +706,7 @@
           {
             "name": "newsCount",
             "in": "query",
-            "description": "新闻结果最大数量",
+            "description": "Maximum news results",
             "required": false,
             "schema": {
               "type": "integer",
@@ -718,7 +718,7 @@
         ],
         "responses": {
           "200": {
-            "description": "观测到的搜索响应。`quotes` 是非穷尽的字段投影；提供商还可能返回新闻、导航、列表、研究及其他集合。",
+            "description": "Observed search response. `quotes` is a non-exhaustive projection; the provider can also return news, navigation, lists, research and other collections.",
             "content": {
               "application/json": {
                 "schema": {
@@ -726,7 +726,7 @@
                   "properties": {
                     "count": {
                       "type": "integer",
-                      "description": "观测到的已返回行情匹配数量。",
+                      "description": "Observed number of returned quote matches.",
                       "example": 2
                     },
                     "quotes": {
@@ -750,16 +750,16 @@
                           },
                           "quoteType": {
                             "type": "string",
-                            "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`INDEX`、`CURRENCY` 或 `CRYPTOCURRENCY`。"
+                            "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `INDEX`, `CURRENCY` or `CRYPTOCURRENCY`."
                           },
                           "typeDisp": {
                             "type": "string",
-                            "description": "观测到的本地化/显示类别。",
+                            "description": "Observed localized/display category.",
                             "example": "Equity"
                           },
                           "exchDisp": {
                             "type": "string",
-                            "description": "观测到的交易所显示标签。",
+                            "description": "Observed exchange display label.",
                             "example": "NASDAQ"
                           },
                           "sector": {
@@ -780,7 +780,7 @@
               }
             }
           },
-          "400": {"description": "缺少搜索查询，或查询无效。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
+          "400": {"description": "Missing or invalid search query.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
           "429": {"$ref": "#/components/responses/RateLimited"}
         },
         "x-pontx-documentation-status": "observed",
@@ -789,7 +789,7 @@
           "https://query1.finance.yahoo.com/v1/finance/search?q=Apple&quotesCount=2&newsCount=0"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "提供商自有的搜索接口系列；已验证为公开只读请求。",
+        "x-pontx-stability-note": "Provider-owned search endpoint family; validated as a public read-only request.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -799,20 +799,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "这是 Yahoo 未公开支持的网页接口；Hub 禁用代理执行。"
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
       }
     },
     "/v10/finance/quoteSummary/{symbol}": {
       "get": {
         "operationId": "getQuoteSummary",
         "tags": ["Fundamentals"],
-        "summary": "获取证券模块资料",
-        "description": "按模块查询价格、摘要和公司资料。",
+        "summary": "Get modular security details",
+        "description": "Get modular security details. A fresh anonymous query1 request returned HTTP 401 `Invalid Crumb` on 2026-08-10. A crumb is coupled to provider-controlled browser cookie state; this metadata does not describe a supported authentication flow. Module names and fields can change without notice.",
         "parameters": [
           {
             "name": "symbol",
             "in": "path",
-            "description": "Yahoo Finance 标的代码",
+            "description": "Yahoo Finance symbol",
             "required": true,
             "schema": {
               "type": "string",
@@ -822,7 +822,7 @@
           {
             "name": "modules",
             "in": "query",
-            "description": "以逗号分隔的提供商模块名称。常见观测值包括 `price`、`summaryDetail`、`assetProfile`、`defaultKeyStatistics`、`financialData`、`calendarEvents`、`recommendationTrend`、`earningsTrend`、`fundProfile` 和 `topHoldings`。可用性取决于金融工具类型和 Yahoo 会话状态。",
+            "description": "Comma-separated provider module names. Common observed values include `price`, `summaryDetail`, `assetProfile`, `defaultKeyStatistics`, `financialData`, `calendarEvents`, `recommendationTrend`, `earningsTrend`, `fundProfile`, and `topHoldings`. Availability depends on instrument type and Yahoo session state.",
             "required": true,
             "schema": {
               "type": "string",
@@ -832,7 +832,7 @@
         ],
         "responses": {
           "200": {
-            "description": "推断的会话授权成功响应信封。由于 Yahoo 未发布模块 Schema，模块对象特意保持开放。",
+            "description": "Inferred session-authorized success envelope. Module objects are intentionally open because Yahoo publishes no module schema.",
             "content": {
               "application/json": {
                 "schema": {
@@ -876,7 +876,7 @@
             }
           },
           "401": {
-            "description": "缺少有效 crumb/Cookie 组合时观测到的匿名访问响应。",
+            "description": "Observed anonymous response when a valid crumb/cookie pair is absent.",
             "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
           },
           "429": {"$ref": "#/components/responses/RateLimited"}
@@ -887,7 +887,7 @@
           "https://query1.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=price,summaryDetail"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "模块可用性和 crumb 要求可能随时变化。",
+        "x-pontx-stability-note": "Module availability and crumb requirements can change without notice.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -897,20 +897,20 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Yahoo 当前要求有效的 crumb 与 Cookie，Hub 不代替浏览器建立会话。"
+        "x-pontx-proxy-disabled-reason": "Yahoo currently requires a valid crumb and cookie; Hub does not establish browser sessions."
       }
     },
     "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
       "get": {
         "operationId": "getFundamentalTimeseries",
         "tags": ["Fundamentals"],
-        "summary": "获取基本面时间序列",
-        "description": "返回基本面和事件时间序列。",
+        "summary": "Get fundamental and event time series",
+        "description": "Get fundamental and event time series. A query2 anonymous request for `trailingMarketCap` returned HTTP 200 on 2026-08-10. Supported type identifiers and dynamically named result arrays are internal and may change; they are observations, not an enum or official contract.",
         "parameters": [
           {
             "name": "symbol",
             "in": "path",
-            "description": "Yahoo Finance 标的代码",
+            "description": "Yahoo Finance symbol",
             "required": true,
             "schema": {
               "type": "string",
@@ -920,7 +920,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "以逗号分隔的内部序列标识符。例如：`trailingMarketCap`。Yahoo 未发布完整的支持值清单；标识符因金融工具而异，且可能变化。",
+            "description": "Comma-separated internal series identifiers. Example: `trailingMarketCap`. Yahoo does not publish a complete supported-value registry; identifiers vary by instrument and may change.",
             "required": false,
             "schema": {
               "type": "string",
@@ -930,7 +930,7 @@
           {
             "name": "period1",
             "in": "query",
-            "description": "可选的包含式观测起始边界，以 Unix 秒表示。省略时，Yahoo 会选择由提供商控制的默认时间窗口。",
+            "description": "Optional inclusive observed start bound as Unix seconds. When omitted, Yahoo selects a provider-controlled default window.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -941,7 +941,7 @@
           {
             "name": "period2",
             "in": "query",
-            "description": "可选的观测结束边界，以 Unix 秒表示。省略时，Yahoo 会选择由提供商控制的默认时间窗口。",
+            "description": "Optional observed end bound as Unix seconds. When omitted, Yahoo selects a provider-controlled default window.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -952,7 +952,7 @@
         ],
         "responses": {
           "200": {
-            "description": "观测到的时间序列响应信封。每个条目除 `meta` 和 `timestamp` 外，还可能包含一个名称与请求类型相同的属性。",
+            "description": "Observed timeseries envelope. Each item can contain a property whose name equals the requested type, alongside `meta` and `timestamp`.",
             "content": {
               "application/json": {
                 "schema": {
@@ -968,7 +968,7 @@
                             "properties": {
                               "meta": {
                                 "type": "object",
-                                "description": "观测到的请求身份标识数组。",
+                                "description": "Observed request identity arrays.",
                                 "properties": {
                                   "symbol": {"type": "array", "items": {"type": "string"}, "example": ["AAPL"]},
                                   "type": {"type": "array", "items": {"type": "string"}, "example": ["trailingMarketCap"]}
@@ -984,13 +984,13 @@
                               },
                               "trailingMarketCap": {
                                 "type": "array",
-                                "description": "与请求类型匹配的动态命名序列属性示例。请求其他类型时会生成名称不同的属性。",
+                                "description": "Example of a dynamically named series property matching the requested type. Other requested types produce differently named properties.",
                                 "items": {
                                   "type": "object",
                                   "properties": {
                                     "dataId": {"type": "integer", "example": 40001},
                                     "asOfDate": {"type": "string", "format": "date", "example": "2024-07-12"},
-                                    "periodType": {"type": "string", "description": "观测到的提供商周期标签；并非封闭枚举。", "example": "TTM"},
+                                    "periodType": {"type": "string", "description": "Observed provider period label; not a closed enum.", "example": "TTM"},
                                     "currencyCode": {"type": "string", "example": "USD"},
                                     "reportedValue": {
                                       "type": "object",
@@ -1018,7 +1018,7 @@
               }
             }
           },
-          "400": {"description": "type 或 period 参数格式错误。在 2026-08-10 的匿名样本中，仅省略参数并未产生错误。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
+          "400": {"description": "Malformed type or period parameter. Omission alone did not produce an error in the 2026-08-10 anonymous sample.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
           "429": {"$ref": "#/components/responses/RateLimited"}
         },
         "x-pontx-documentation-status": "observed",
@@ -1027,7 +1027,7 @@
           "https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/AAPL?type=trailingMarketCap&period1=1704067200&period2=1735689600"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在 Yahoo Finance 行情图表中观测到；受支持类型属于内部实现，可能变化。",
+        "x-pontx-stability-note": "Observed on Yahoo Finance's quote chart; supported types are internal and may change.",
         "servers": [
           {
             "url": "https://query1.finance.yahoo.com"
@@ -1037,7 +1037,7 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "这是 Yahoo 未公开支持的网页接口；类型标识和响应字段可能变化，Hub 禁用代理执行。"
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint with unstable type identifiers and fields; Hub proxy execution is disabled."
       }
     }
   },
@@ -1046,18 +1046,18 @@
       "YahooError": {
         "type": "object",
         "nullable": true,
-        "title": "Yahoo 提供方错误",
-        "description": "Yahoo 观察到的错误对象；图表类请求成功时通常为 null，错误代码和文本由提供方控制。",
+        "title": "YahooError",
+        "description": "Observed provider error object. It is null on successful chart-like envelopes; fields and wording are provider-controlled.",
         "properties": {
-          "code": {"type": "string", "description": "观测到的符号代码或人类可读代码；特意不设为封闭枚举。", "example": "Unauthorized"},
+          "code": {"type": "string", "description": "Observed symbolic or human-readable code; intentionally not a closed enum.", "example": "Unauthorized"},
           "description": {"type": "string", "example": "User is unable to access this feature - https://bit.ly/yahoo-finance-api-feedback"}
         },
         "additionalProperties": true
       },
       "FinanceErrorResponse": {
         "type": "object",
-        "title": "Yahoo Finance 错误响应",
-        "description": "报价、搜索发现及部分基本面接口观察到的错误包络。",
+        "title": "FinanceErrorResponse",
+        "description": "Observed error envelope used by quote, discovery and some fundamentals endpoints.",
         "required": ["finance"],
         "properties": {
           "finance": {
@@ -1074,8 +1074,8 @@
       },
       "ChartErrorResponse": {
         "type": "object",
-        "title": "Yahoo 图表错误响应",
-        "description": "图表接口族观察到的错误包络，包含 chart.result 与 chart.error。",
+        "title": "ChartErrorResponse",
+        "description": "Observed chart-family error envelope.",
         "required": ["chart"],
         "properties": {
           "chart": {
@@ -1093,10 +1093,10 @@
     },
     "responses": {
       "RateLimited": {
-        "description": "受到 Yahoo 限流。对于这些不受支持的网页接口，配额、重置行为和重试时机均未公开；请勿假定固定退避时间，也不要尝试绕过限流。",
+        "description": "Rate limited by Yahoo. Quotas, reset behavior and retry timing are not published for these unsupported web endpoints; do not assume a fixed backoff or attempt to bypass throttling.",
         "headers": {
           "Retry-After": {
-            "description": "提供商可能返回此字段，但不保证存在。",
+            "description": "May be supplied by the provider; presence is not guaranteed.",
             "schema": {"type": "string"}
           }
         },

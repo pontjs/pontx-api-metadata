@@ -1,33 +1,33 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "CNBC Web Market Data API",
+    "title": "CNBC 网页市场数据 API",
     "version": "2026-08-10",
-    "description": "Observed, undocumented, read-only web endpoints operated by CNBC for quote-page data. They are not a supported developer API: request headers may be required by the CDN, persisted-query hashes may rotate, fields are display-formatted strings, and availability or schema may change without notice.",
+    "description": "由 CNBC 运营、经观测获得且未公开文档的只读网页接口，用于提供行情页面数据。这些接口并非受支持的开发者 API：CDN 可能要求特定请求头，持久化查询哈希可能轮换，字段值是面向展示格式化后的字符串，可用性或数据结构也可能随时变更。",
     "license": { "name": "Proprietary / undocumented" }
   },
   "servers": [
-    { "url": "https://quote.cnbc.com", "description": "CNBC quote cache web service" },
-    { "url": "https://webql-redesign.cnbcfm.com", "description": "CNBC persisted GraphQL service" }
+    { "url": "https://quote.cnbc.com", "description": "CNBC 行情缓存网页服务" },
+    { "url": "https://webql-redesign.cnbcfm.com", "description": "CNBC 持久化 GraphQL 服务" }
   ],
   "paths": {
     "/quote-html-webservice/restQuote/symbolType/symbol": {
       "get": {
         "operationId": "getRestQuotes",
-        "summary": "Get display-formatted quotes for one or more symbols",
-        "description": "Returns CNBC quote-cache records. A browser-like User-Agent and CNBC Referer were required in a reproducible 2026-08-10 request; the same request without them received HTTP 403 from Akamai. Multiple symbols must be separated with `|`; a comma-separated `AAPL,MSFT` request was treated as one invalid symbol and returned `code: 1`. Numeric market values are generally locale-formatted strings (for example `313.33`, `32,322,778`, `4.573T`, and `+0.29%`), so consumers must not assume JSON numbers. Delayed/real-time status and attribution are conveyed by fields such as `source`, `provider`, and `realTime`.",
+        "summary": "获取行情",
+        "description": "返回单个或批量证券行情。",
         "servers": [{ "url": "https://quote.cnbc.com" }],
         "parameters": [
-          { "name": "symbols", "in": "query", "required": true, "description": "One CNBC symbol, or multiple symbols separated by a vertical bar (`|`). Examples include equities (`AAPL`), indices (`.SPX`), and multiple symbols (`AAPL|MSFT`). This is a wire-format string, not an OpenAPI exploded array.", "schema": { "type": "string", "minLength": 1, "pattern": "^[^,]+$" }, "example": "AAPL|MSFT" },
-          { "name": "requestMethod", "in": "query", "description": "Observed client mode. `quick` is used by the quote-page request.", "schema": { "type": "string", "enum": ["quick"], "default": "quick" }, "example": "quick" },
-          { "name": "partnerId", "in": "query", "description": "Observed CNBC partner identifier; `2` was verified, but this is not a public client credential or documented contract.", "schema": { "type": "integer", "enum": [2], "default": 2 }, "example": 2 },
-          { "name": "fund", "in": "query", "description": "Observed 0/1 flag requesting fund-related fields.", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
-          { "name": "exthrs", "in": "query", "description": "Observed 0/1 flag requesting `ExtendedMktQuote` when available.", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
-          { "name": "output", "in": "query", "description": "Observed wire format.", "schema": { "type": "string", "enum": ["json"], "default": "json" }, "example": "json" }
+          { "name": "symbols", "in": "query", "required": true, "description": "一个 CNBC 标的代码，或用竖线（`|`）分隔的多个标的代码。例如股票（`AAPL`）、指数（`.SPX`）和多个标的（`AAPL|MSFT`）。这是一个传输格式字符串，并非 OpenAPI 展开数组。", "schema": { "type": "string", "minLength": 1, "pattern": "^[^,]+$" }, "example": "AAPL|MSFT" },
+          { "name": "requestMethod", "in": "query", "description": "观测到的客户端模式。行情页面请求使用 `quick`。", "schema": { "type": "string", "enum": ["quick"], "default": "quick" }, "example": "quick" },
+          { "name": "partnerId", "in": "query", "description": "观测到的 CNBC 合作方标识；已验证值 `2`，但它不是公开的客户端凭据或已公开文档的契约。", "schema": { "type": "integer", "enum": [2], "default": 2 }, "example": 2 },
+          { "name": "fund", "in": "query", "description": "观测到的 0/1 标志，用于请求基金相关字段。", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
+          { "name": "exthrs", "in": "query", "description": "观测到的 0/1 标志，用于在可用时请求 `ExtendedMktQuote`。", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
+          { "name": "output", "in": "query", "description": "观测到的传输格式。", "schema": { "type": "string", "enum": ["json"], "default": "json" }, "example": "json" }
         ],
         "responses": {
-          "200": { "description": "JSON envelope containing one record per requested symbol. Unknown symbols are represented in the same HTTP 200 envelope by a record containing the requested `symbol` and non-zero `code` (observed: `1`), rather than by an HTTP error.", "headers": { "Cache-Control": { "description": "CDN cache policy; `max-age=5` was observed.", "schema": { "type": "string" }, "example": "max-age=5" }, "Expires": { "description": "HTTP expiry time supplied by the quote cache.", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:39 GMT" }, "X-TTL": { "description": "Observed CNBC cache TTL header, in seconds.", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FormattedQuoteResponse" }, "example": { "FormattedQuoteResult": { "FormattedQuote": [{ "symbol": "AAPL", "code": 0, "name": "Apple Inc", "last": "313.33", "change": "+0.92", "change_pct": "+0.29%", "currencyCode": "USD", "volume": "32,322,778", "realTime": "true", "curmktstatus": "POST_MKT" }] } } } } },
-          "403": { "description": "CDN access denied, observed when browser-like request headers were absent or rejected.", "content": { "text/html": { "schema": { "type": "string" }, "example": "<HTML><HEAD><TITLE>Access Denied</TITLE>..." } } }
+          "200": { "description": "JSON 信封中，每个请求标的对应一条记录。未知标的不会产生 HTTP 错误，而是在同一个 HTTP 200 信封中返回一条包含所请求 `symbol` 和非零 `code`（观测值：`1`）的记录。", "headers": { "Cache-Control": { "description": "CDN 缓存策略；观测到 `max-age=5`。", "schema": { "type": "string" }, "example": "max-age=5" }, "Expires": { "description": "行情缓存提供的 HTTP 过期时间。", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:39 GMT" }, "X-TTL": { "description": "观测到的 CNBC 缓存 TTL 响应头，单位为秒。", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FormattedQuoteResponse" }, "example": { "FormattedQuoteResult": { "FormattedQuote": [{ "symbol": "AAPL", "code": 0, "name": "Apple Inc", "last": "313.33", "change": "+0.92", "change_pct": "+0.29%", "currencyCode": "USD", "volume": "32,322,778", "realTime": "true", "curmktstatus": "POST_MKT" }] } } } } },
+          "403": { "description": "CDN 拒绝访问；在缺少类似浏览器的请求头或这些请求头被拒绝时观测到此响应。", "content": { "text/html": { "schema": { "type": "string" }, "example": "<HTML><HEAD><TITLE>Access Denied</TITLE>..." } } }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -35,24 +35,24 @@
           "https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=AAPL&requestMethod=quick&partnerId=2&fund=1&exthrs=1&output=json"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Undocumented display-data endpoint behind Akamai. Browser-like User-Agent and CNBC Referer were necessary in the verification environment; throttling, blocking, field changes, and formatted-string values remain likely.",
+        "x-pontx-stability-note": "位于 Akamai 后方、未公开文档的展示数据接口。在验证环境中必须提供类似浏览器的 User-Agent 和 CNBC Referer；仍很可能发生限流、封禁、字段变更以及使用格式化字符串值的情况。",
         "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" }
       }
     },
     "/graphql": {
       "get": {
         "operationId": "getQuoteChartData",
-        "summary": "Get CNBC quote chart data with the persisted query",
-        "description": "Executes an undocumented persisted GraphQL query. The recorded SHA-256 hash was accepted on 2026-08-10, but the documented sample variables produced a successful envelope whose chart fields were null. Treat this endpoint as experimental: the variable contract and persisted hash are frontend implementation details and may rotate independently.",
+        "summary": "获取图表数据",
+        "description": "通过持久化 GraphQL 查询返回图表数据。",
         "servers": [{ "url": "https://webql-redesign.cnbcfm.com" }],
         "parameters": [
-          { "name": "operationName", "in": "query", "required": true, "description": "Persisted GraphQL operation name.", "schema": { "type": "string", "enum": ["getQuoteChartData"], "default": "getQuoteChartData" }, "example": "getQuoteChartData" },
-          { "name": "variables", "in": "query", "required": true, "description": "URL-encoded JSON object. The shown shape is observed but not a stable public contract.", "schema": { "type": "string" }, "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}" },
-          { "name": "extensions", "in": "query", "required": true, "description": "URL-encoded Apollo persisted-query descriptor. The hash can rotate with CNBC frontend deployments.", "schema": { "type": "string" }, "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}" }
+          { "name": "operationName", "in": "query", "required": true, "description": "持久化 GraphQL 操作名称。", "schema": { "type": "string", "enum": ["getQuoteChartData"], "default": "getQuoteChartData" }, "example": "getQuoteChartData" },
+          { "name": "variables", "in": "query", "required": true, "description": "经 URL 编码的 JSON 对象。所示结构来自观测，并非稳定的公开契约。", "schema": { "type": "string" }, "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}" },
+          { "name": "extensions", "in": "query", "required": true, "description": "经 URL 编码的 Apollo 持久化查询描述对象。哈希可能随 CNBC 前端部署而轮换。", "schema": { "type": "string" }, "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}" }
         ],
         "responses": {
-          "200": { "description": "GraphQL response; HTTP 200 may still contain null data or an `errors` array.", "headers": { "Cache-Control": { "description": "CDN cache policy; `max-age=15` was observed.", "schema": { "type": "string" }, "example": "max-age=15" }, "Expires": { "description": "HTTP expiry time supplied by the service.", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:50 GMT" }, "X-TTL": { "description": "Observed CNBC cache TTL header, in seconds.", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/QuoteChartGraphQLResponse" }, "example": { "data": { "chartData": { "symbol": null, "timeRange": null, "allSymbols": null, "priceBars": null, "__typename": "chartdata" } } } } } },
-          "400": { "description": "Malformed query parameters or persisted-query request." }
+          "200": { "description": "GraphQL 响应；HTTP 200 仍可能包含 null 数据或 `errors` 数组。", "headers": { "Cache-Control": { "description": "CDN 缓存策略；观测到 `max-age=15`。", "schema": { "type": "string" }, "example": "max-age=15" }, "Expires": { "description": "服务提供的 HTTP 过期时间。", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:50 GMT" }, "X-TTL": { "description": "观测到的 CNBC 缓存 TTL 响应头，单位为秒。", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/QuoteChartGraphQLResponse" }, "example": { "data": { "chartData": { "symbol": null, "timeRange": null, "allSymbols": null, "priceBars": null, "__typename": "chartdata" } } } } } },
+          "400": { "description": "查询参数或持久化查询请求格式错误。" }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -60,24 +60,24 @@
           "https://webql-redesign.cnbcfm.com/graphql?operationName=getQuoteChartData&variables=%7B%22symbol%22%3A%22AAPL%22%2C%22timeRange%22%3A%221D%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%229e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b%22%7D%7D"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Persisted hash remained accepted, but the sample variable shape returned null chart fields. Do not rely on successful HTTP status as proof of usable chart data.",
+        "x-pontx-stability-note": "持久化哈希仍可被接受，但示例变量结构返回的图表字段均为 null。不要将成功的 HTTP 状态视为图表数据可用的证明。",
         "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" }
       }
     }
   },
   "components": {
     "schemas": {
-      "FormattedQuoteResponse": { "type": "object", "required": ["FormattedQuoteResult"], "properties": { "FormattedQuoteResult": { "type": "object", "required": ["FormattedQuote"], "properties": { "FormattedQuote": { "type": "array", "items": { "$ref": "#/components/schemas/FormattedQuote" } } }, "additionalProperties": true } }, "additionalProperties": true },
-      "FormattedQuote": { "type": "object", "required": ["symbol", "code"], "properties": {
-        "symbol": { "type": "string", "example": "AAPL" }, "symbolType": { "type": "string", "example": "symbol" }, "code": { "type": "integer", "description": "Per-symbol result code.", "example": 0 }, "name": { "type": "string", "example": "Apple Inc" }, "shortName": { "type": "string", "example": "AAPL" },
-        "last": { "type": "string", "description": "Display-formatted last price; percentage-bearing instruments may include `%` (for example `4.656%`).", "example": "313.33" }, "last_timedate": { "type": "string", "description": "Provider-formatted display date/time; observed shapes vary by instrument.", "example": "08/07/26 EDT" }, "last_time": { "type": "string", "description": "Machine-oriented quote time. Observed as either a date (`2026-08-07`) or an offset timestamp (`2026-08-10T00:17:13.000-0400`), so no single OpenAPI string format is asserted.", "example": "2026-08-07" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"], "example": "UP" },
+      "FormattedQuoteResponse": { "title": "CNBC 格式化报价响应", "description": "CNBC 报价接口返回的格式化证券报价列表响应。", "type": "object", "required": ["FormattedQuoteResult"], "properties": { "FormattedQuoteResult": { "type": "object", "required": ["FormattedQuote"], "properties": { "FormattedQuote": { "type": "array", "items": { "$ref": "#/components/schemas/FormattedQuote" } } }, "additionalProperties": true } }, "additionalProperties": true },
+      "FormattedQuote": { "title": "CNBC 格式化报价", "description": "证券代码、名称、交易所、最新价、涨跌、成交量、开收盘与时间戳等展示型报价字段。", "type": "object", "required": ["symbol", "code"], "properties": {
+        "symbol": { "type": "string", "example": "AAPL" }, "symbolType": { "type": "string", "example": "symbol" }, "code": { "type": "integer", "description": "每个标的的结果代码。", "example": 0 }, "name": { "type": "string", "example": "Apple Inc" }, "shortName": { "type": "string", "example": "AAPL" },
+        "last": { "type": "string", "description": "展示格式的最新价格；带百分比的标的可能包含 `%`（例如 `4.656%`）。", "example": "313.33" }, "last_timedate": { "type": "string", "description": "由提供方格式化的展示日期/时间；观测到的形式因标的而异。", "example": "08/07/26 EDT" }, "last_time": { "type": "string", "description": "面向机器处理的行情时间。观测值可能是日期（`2026-08-07`），也可能是带时区偏移的时间戳（`2026-08-10T00:17:13.000-0400`），因此未指定单一 OpenAPI 字符串格式。", "example": "2026-08-07" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"], "example": "UP" },
         "type": { "type": "string", "example": "STOCK" }, "subType": { "type": "string", "example": "Common Stock" }, "exchange": { "type": "string", "example": "NASDAQ" }, "source": { "type": "string", "example": "Last NASDAQ LS, VOL From CTA" }, "open": { "type": "string", "example": "311.45" }, "high": { "type": "string", "example": "314.81" }, "low": { "type": "string", "example": "310.74" },
         "change": { "type": "string", "example": "+0.92" }, "change_pct": { "type": "string", "example": "+0.29%" }, "currencyCode": { "type": "string", "example": "USD" }, "volume": { "type": "string", "example": "32,322,778" }, "volume_alt": { "type": "string", "example": "32.3M" }, "provider": { "type": "string", "example": "CNBC QUOTE CACHE" }, "previous_day_closing": { "type": "string", "example": "312.41" },
-        "realTime": { "type": "string", "enum": ["true", "false"], "description": "Observed as a string, not a JSON boolean.", "example": "true" }, "curmktstatus": { "type": "string", "enum": ["PRE_MKT", "REG_MKT", "POST_MKT", "CLOSED"], "example": "POST_MKT" }, "ExtendedMktQuote": { "$ref": "#/components/schemas/ExtendedMarketQuote" }
+        "realTime": { "type": "string", "enum": ["true", "false"], "description": "观测值为字符串，而非 JSON 布尔值。", "example": "true" }, "curmktstatus": { "type": "string", "enum": ["PRE_MKT", "REG_MKT", "POST_MKT", "CLOSED"], "example": "POST_MKT" }, "ExtendedMktQuote": { "$ref": "#/components/schemas/ExtendedMarketQuote" }
       }, "additionalProperties": true },
-      "ExtendedMarketQuote": { "type": "object", "properties": { "type": { "type": "string", "enum": ["PRE_MKT", "POST_MKT"] }, "source": { "type": "string" }, "last": { "type": "string", "example": "313.15" }, "last_timedate": { "type": "string" }, "last_time": { "type": "string", "description": "Observed date/time string; kept format-free because CNBC formats vary by instrument and feed." }, "change": { "type": "string", "example": "-0.18" }, "change_pct": { "type": "string", "example": "-0.06%" }, "volume": { "type": "string", "example": "1,630,014" }, "volume_alt": { "type": "string", "description": "Abbreviated display volume.", "example": "1.6M" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"] }, "mktcapView": { "type": "string", "description": "Display-formatted market capitalization when supplied.", "example": "4.57T" } }, "additionalProperties": true },
-      "QuoteChartGraphQLResponse": { "type": "object", "properties": { "data": { "type": "object", "nullable": true, "properties": { "chartData": { "$ref": "#/components/schemas/QuoteChartData" } }, "additionalProperties": true }, "errors": { "type": "array", "items": { "type": "object", "properties": { "message": { "type": "string" } }, "additionalProperties": true } } }, "additionalProperties": true },
-      "QuoteChartData": { "type": "object", "nullable": true, "properties": { "symbol": { "type": "string", "nullable": true }, "timeRange": { "type": "string", "nullable": true }, "allSymbols": { "type": "array", "nullable": true, "items": { "type": "string" } }, "priceBars": { "type": "array", "nullable": true, "items": { "type": "object", "additionalProperties": true } }, "__typename": { "type": "string", "example": "chartdata" } }, "additionalProperties": true }
+      "ExtendedMarketQuote": { "title": "CNBC 延长交易时段报价", "description": "盘前或盘后时段的最新价、涨跌、成交量与更新时间。", "type": "object", "properties": { "type": { "type": "string", "enum": ["PRE_MKT", "POST_MKT"] }, "source": { "type": "string" }, "last": { "type": "string", "example": "313.15" }, "last_timedate": { "type": "string" }, "last_time": { "type": "string", "description": "观测到的日期/时间字符串；由于 CNBC 格式因标的和数据源而异，因此未限定格式。" }, "change": { "type": "string", "example": "-0.18" }, "change_pct": { "type": "string", "example": "-0.06%" }, "volume": { "type": "string", "example": "1,630,014" }, "volume_alt": { "type": "string", "description": "缩写显示的成交量。", "example": "1.6M" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"] }, "mktcapView": { "type": "string", "description": "提供该字段时，表示按展示格式处理的市值。", "example": "4.57T" } }, "additionalProperties": true },
+      "QuoteChartGraphQLResponse": { "title": "CNBC 报价图表 GraphQL 响应", "description": "CNBC GraphQL quoteChart 查询的 data 包络及可选错误列表。", "type": "object", "properties": { "data": { "type": "object", "nullable": true, "properties": { "chartData": { "$ref": "#/components/schemas/QuoteChartData" } }, "additionalProperties": true }, "errors": { "type": "array", "items": { "type": "object", "properties": { "message": { "type": "string" } }, "additionalProperties": true } } }, "additionalProperties": true },
+      "QuoteChartData": { "title": "CNBC 报价图表数据", "description": "指定证券和时间范围的图表数据点及相关报价元数据。", "type": "object", "nullable": true, "properties": { "symbol": { "type": "string", "nullable": true }, "timeRange": { "type": "string", "nullable": true }, "allSymbols": { "type": "array", "nullable": true, "items": { "type": "string" } }, "priceBars": { "type": "array", "nullable": true, "items": { "type": "object", "additionalProperties": true } }, "__typename": { "type": "string", "example": "chartdata" } }, "additionalProperties": true }
     }
   }
 }

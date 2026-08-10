@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "locale": "en-US",
+  "apis": {
+    "frankfurter": {
+      "title": "Frankfurter exchange-rate API",
+      "summary": "Query ECB reference rates, currencies, and historical time series without an API key; this collection covers the still-available v1.",
+      "stabilityNote": "Read-only public API without authentication. v1 is superseded by v2 but remains available long term; its catalog endpoints are marked deprecated.",
+      "server": {
+        "description": "Frankfurter v1 public API"
+      }
+    },
+    "dida365": {
+      "title": "Dida365 Open API",
+      "summary": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins.",
+      "stabilityNote": "Official OAuth 2.0 API. Reads and writes require user authorization and are limited by the tasks:read and tasks:write scopes.",
+      "server": {
+        "description": "Dida365 Open API"
+      },
+      "auth": {
+        "OAuth2": {
+          "description": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session.",
+          "credentialGuide": {
+            "title": "Create credentials in the Dida365 Developer Center",
+            "steps": [
+              "Sign in to the Developer Center and create a New App.",
+              "Paste the callback URL shown by Pontx Hub into the app's OAuth Redirect URL.",
+              "Save the app, then copy its Client ID and Client Secret into the fields below."
+            ]
+          }
+        }
+      }
+    },
+    "massive": {
+      "title": "Massive stock market data API",
+      "summary": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan.",
+      "stabilityNote": "Officially documented; availability depends on the account plan and market-data entitlements.",
+      "server": {
+        "description": "Official Massive REST API endpoint"
+      },
+      "auth": {
+        "ApiKey": {
+          "description": "Massive API key, supplied only in the caller session."
+        }
+      }
+    },
+    "yahoo-finance": {
+      "title": "Yahoo Finance web market data API",
+      "summary": "Observed, unsupported Yahoo Finance web endpoints for quotes, charts, symbols, and fundamentals; some routes require a browser crumb and all are preview-only.",
+      "stabilityNote": "Observed in Yahoo Finance web traffic; not a supported developer API and may change without notice.",
+      "server": {
+        "description": "Yahoo Finance web-data endpoint"
+      }
+    },
+    "stooq": {
+      "title": "Stooq public quote downloads",
+      "summary": "Documents Stooq's legacy public CSV downloads and their current 404/browser-verification behavior; available for discovery and preview only.",
+      "stabilityNote": "Not a versioned developer API. The latest-quote route currently returns 404 and the historical route returns a JavaScript browser-verification page, so neither is currently automatable.",
+      "server": {
+        "description": "Stooq public website"
+      }
+    },
+    "sina-finance": {
+      "title": "Sina Finance web quote API",
+      "summary": "Observed Sina Finance web endpoints for GB18030 JavaScript quote snapshots and 1–240 minute K-lines; positional fields may drift.",
+      "stabilityNote": "Internal text/JSONP endpoints used by public pages; fields and encoding may change.",
+      "server": {
+        "description": "Sina quote text endpoint"
+      }
+    },
+    "tencent-finance": {
+      "title": "Tencent Finance web quote API",
+      "summary": "Observed Tencent Finance web endpoints for mainland, Hong Kong, and U.S. quote snapshots plus adjusted or unadjusted day/week/month K-lines.",
+      "stabilityNote": "Internal text/JSON endpoints used by public pages without a version guarantee.",
+      "server": {
+        "description": "Tencent HTTPS quote endpoint"
+      }
+    },
+    "eastmoney-funds": {
+      "title": "Eastmoney fund web data API",
+      "summary": "Observed Tiantian Fund web endpoints: historical NAV and charts remain queryable, while the estimate route now returns a missing page and the related-index route is unstable.",
+      "stabilityNote": "JSON/JSONP endpoints used by Tiantian Fund pages; field identifiers are internal.",
+      "server": {
+        "description": "Eastmoney fund-data endpoint"
+      }
+    },
+    "cnbc-market-data": {
+      "title": "CNBC web quote API",
+      "summary": "Observed CNBC quote-page REST and persisted GraphQL endpoints; batch quotes are callable read-only, while chart retrieval remains experimental.",
+      "stabilityNote": "REST and persisted GraphQL requests used by CNBC quote pages; hashes and shapes may change.",
+      "server": {
+        "description": "CNBC quote REST endpoint"
+      }
+    },
+    "i3investor-sgx": {
+      "title": "i3Investor SGX public market pages",
+      "summary": "Reads i3Investor SGX HTML pages for quote, bid/ask, and range semantics; invalid symbols also return HTTP 200 fallback pages.",
+      "stabilityNote": "This is an HTML page-reading collection, not a JSON API; markup may change.",
+      "server": {
+        "description": "i3Investor Singapore site"
+      }
+    }
+  }
+}

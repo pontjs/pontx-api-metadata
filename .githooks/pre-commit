@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+targets=".github/workflows/publish.yml CONTRIBUTING.md README.md catalog scripts specs .githooks"
+if ! git diff --quiet -- $targets; then
+  echo "Locale validation requires metadata changes to be fully staged (no partial staging)." >&2
+  exit 1
+fi
+untracked=$(git ls-files --others --exclude-standard -- $targets)
+if [ -n "$untracked" ]; then
+  echo "Locale validation found untracked metadata files; stage or remove them first:" >&2
+  echo "$untracked" >&2
+  exit 1
+fi
+
+node scripts/test-locales.mjs
+node scripts/lint-locales.mjs
+node scripts/build-catalog.mjs
+node scripts/verify-specs.mjs
+git diff --exit-code -- catalog/catalog.json

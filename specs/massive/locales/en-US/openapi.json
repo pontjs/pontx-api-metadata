@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Massive 股票市场数据 API",
+    "title": "Massive Stock Market Data API",
     "version": "2026-08-10",
-    "description": "经过整理的只读 Massive 股票市场 REST API，涵盖报价、聚合行情、市场快照和股票代码参考数据。Massive 原名 Polygon.io；接口访问权限、数据时效性和历史数据范围因订阅方案而异。",
+    "description": "Curated read-only Massive stock market REST API surface for quotes, aggregates, snapshots, and ticker reference data. Massive was formerly Polygon.io; endpoint access, recency, and history vary by subscription plan.",
     "license": {
       "name": "Proprietary"
     }
@@ -11,20 +11,20 @@
   "servers": [
     {
       "url": "https://api.massive.com",
-      "description": "Massive 官方生产环境 REST API"
+      "description": "Official Massive production REST API"
     }
   ],
   "paths": {
     "/v2/last/trade/{stocksTicker}": {
       "get": {
         "operationId": "getLastTrade",
-        "summary": "获取最新成交",
-        "description": "返回指定股票最近一笔可用成交。",
+        "summary": "Get the last stock trade",
+        "description": "Retrieve the latest available trade for a case-sensitive stock ticker. The result includes price, size, exchange, conditions, and nanosecond timestamps when supplied by the feed. Availability and recency depend on the account's stock-data plan.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -34,7 +34,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -44,7 +44,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,19 +59,19 @@
           "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方文档收录的接口；可用性取决于账户的市场数据订阅方案。"
+        "x-pontx-stability-note": "Officially documented endpoint; availability depends on the account's market-data plan."
       }
     },
     "/v2/aggs/ticker/{stocksTicker}/prev": {
       "get": {
         "operationId": "getPreviousClose",
-        "summary": "获取前一交易日行情",
-        "description": "返回指定股票前一交易日的聚合行情。",
+        "summary": "Get previous-day aggregate",
+        "description": "Retrieve the previous trading day's OHLC, volume, VWAP, and transaction count for a stock ticker. Results are split-adjusted by default.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -81,7 +81,7 @@
           {
             "name": "adjusted",
             "in": "query",
-            "description": "返回按股票拆分复权后的结果",
+            "description": "Return split-adjusted results",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -91,7 +91,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -101,7 +101,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -116,19 +116,19 @@
           "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方文档收录的聚合行情接口。"
+        "x-pontx-stability-note": "Officially documented aggregate endpoint."
       }
     },
     "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}": {
       "get": {
         "operationId": "getAggregateBars",
-        "summary": "获取自定义周期 K 线",
-        "description": "按时间范围和周期查询聚合行情。",
+        "summary": "Get custom aggregate bars",
+        "description": "Retrieve historical OHLC and volume bars over a custom date range in Eastern Time. Bars are built from qualifying trades; an interval with no eligible trades is omitted rather than returned as an empty bar.",
         "parameters": [
           {
             "name": "stocksTicker",
             "in": "path",
-            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "description": "Case-sensitive stock ticker, for example `AAPL`.",
             "required": true,
             "schema": {
               "type": "string",
@@ -138,7 +138,7 @@
           {
             "name": "multiplier",
             "in": "path",
-            "description": "时间跨度倍数",
+            "description": "Timespan multiplier",
             "required": true,
             "schema": {
               "type": "integer",
@@ -148,7 +148,7 @@
           {
             "name": "timespan",
             "in": "path",
-            "description": "行情柱时间单位",
+            "description": "Bar unit",
             "required": true,
             "schema": {
               "type": "string",
@@ -166,7 +166,7 @@
           {
             "name": "from",
             "in": "path",
-            "description": "`YYYY-MM-DD` 格式的起始日期或毫秒级 Unix 时间戳。",
+            "description": "Start date in `YYYY-MM-DD` format or Unix timestamp in milliseconds.",
             "required": true,
             "schema": {
               "type": "string",
@@ -176,7 +176,7 @@
           {
             "name": "to",
             "in": "path",
-            "description": "`YYYY-MM-DD` 格式的结束日期或毫秒级 Unix 时间戳。",
+            "description": "End date in `YYYY-MM-DD` format or Unix timestamp in milliseconds.",
             "required": true,
             "schema": {
               "type": "string",
@@ -186,7 +186,7 @@
           {
             "name": "adjusted",
             "in": "query",
-            "description": "结果是否按股票拆分进行复权。",
+            "description": "Whether results are adjusted for stock splits.",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -196,7 +196,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "按行情柱的起始时间戳排序。",
+            "description": "Order bars by their start timestamp.",
             "required": false,
             "schema": {
               "type": "string",
@@ -210,7 +210,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "为构建结果而查询的基础聚合记录的最大数量。",
+            "description": "Maximum number of base aggregates queried to construct results.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -222,7 +222,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -232,7 +232,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -247,19 +247,19 @@
           "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方文档收录的聚合行情接口。"
+        "x-pontx-stability-note": "Officially documented aggregate endpoint."
       }
     },
     "/v3/snapshot": {
       "get": {
         "operationId": "getMarketSnapshot",
-        "summary": "获取市场快照",
-        "description": "返回一个或多个股票的市场快照。",
+        "summary": "Get unified market snapshots",
+        "description": "Retrieve paginated snapshots across stocks, options, forex, crypto, and indices. A snapshot can include current session metrics plus the latest trade, quote, and minute bar according to plan entitlements.",
         "parameters": [
           {
             "name": "ticker.any_of",
             "in": "query",
-            "description": "以逗号分隔的股票代码",
+            "description": "Comma-separated tickers",
             "required": false,
             "schema": {
               "type": "string"
@@ -268,7 +268,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "按资产类别筛选。",
+            "description": "Filter by asset class.",
             "required": false,
             "schema": {
               "type": "string",
@@ -284,7 +284,7 @@
           {
             "name": "order",
             "in": "query",
-            "description": "使用选定的排序字段对结果排序。",
+            "description": "Order results using the selected sort field.",
             "required": false,
             "schema": {
               "type": "string",
@@ -297,7 +297,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "最大结果数量",
+            "description": "Maximum results",
             "required": false,
             "schema": {
               "type": "integer",
@@ -309,7 +309,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "用于结果排序的字段。",
+            "description": "Field used for result ordering.",
             "required": false,
             "schema": {
               "type": "string",
@@ -321,7 +321,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -331,7 +331,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -346,19 +346,19 @@
           "https://massive.com/docs/rest/stocks/snapshots/unified-snapshot"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方统一市场快照接口；返回字段和数据时效性因资产类别订阅方案而异。"
+        "x-pontx-stability-note": "Official unified snapshot endpoint; returned fields and recency vary by asset-class subscription."
       }
     },
     "/v3/reference/tickers": {
       "get": {
         "operationId": "listTickers",
-        "summary": "搜索证券代码",
-        "description": "列出并筛选 Massive 支持的证券。",
+        "summary": "List and search supported tickers",
+        "description": "Retrieve a paginated list of ticker symbols across supported asset classes. Filter by symbol, asset type, market, exchange, identifiers, date, search text, or active status.",
         "parameters": [
           {
             "name": "ticker",
             "in": "query",
-            "description": "股票代码筛选条件",
+            "description": "Ticker filter",
             "required": false,
             "schema": {
               "type": "string"
@@ -367,7 +367,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "来自股票代码类型接口的代码类型。",
+            "description": "Ticker type code from the Ticker Types endpoint.",
             "required": false,
             "schema": {
               "type": "string"
@@ -376,7 +376,7 @@
           {
             "name": "market",
             "in": "query",
-            "description": "市场筛选条件",
+            "description": "Market filter",
             "required": false,
             "schema": {
               "type": "string",
@@ -392,7 +392,7 @@
           {
             "name": "exchange",
             "in": "query",
-            "description": "主要交易所的市场标识码（MIC），例如 `XNAS`。",
+            "description": "Primary exchange Market Identifier Code (MIC), for example `XNAS`.",
             "required": false,
             "schema": {
               "type": "string",
@@ -402,7 +402,7 @@
           {
             "name": "cusip",
             "in": "query",
-            "description": "要查询的 CUSIP。CUSIP 可用作筛选条件，但出于法律原因不会在结果中返回。",
+            "description": "CUSIP to query. CUSIPs may be used as filters but are not returned for legal reasons.",
             "required": false,
             "schema": {
               "type": "string"
@@ -411,7 +411,7 @@
           {
             "name": "cik",
             "in": "query",
-            "description": "美国证券交易委员会（SEC）中央索引键（CIK）。",
+            "description": "SEC Central Index Key.",
             "required": false,
             "schema": {
               "type": "string"
@@ -420,7 +420,7 @@
           {
             "name": "date",
             "in": "query",
-            "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。",
+            "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date.",
             "required": false,
             "schema": {
               "type": "string",
@@ -431,7 +431,7 @@
           {
             "name": "search",
             "in": "query",
-            "description": "用于匹配股票代码和公司名称的搜索文本。",
+            "description": "Search text matched against ticker symbols and company names.",
             "required": false,
             "schema": {
               "type": "string",
@@ -441,7 +441,7 @@
           {
             "name": "active",
             "in": "query",
-            "description": "上市状态筛选条件",
+            "description": "Active-listing filter",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -451,7 +451,7 @@
           {
             "name": "order",
             "in": "query",
-            "description": "使用选定的排序字段对结果排序。",
+            "description": "Order results using the selected sort field.",
             "required": false,
             "schema": {
               "type": "string",
@@ -464,7 +464,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "每页结果的最大数量。",
+            "description": "Maximum number of results per page.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -476,7 +476,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "用于排序的字段。",
+            "description": "Field used for ordering.",
             "required": false,
             "schema": {
               "type": "string",
@@ -493,7 +493,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -503,7 +503,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -518,19 +518,19 @@
           "https://massive.com/docs/rest/stocks/tickers/all-tickers"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方参考数据接口。"
+        "x-pontx-stability-note": "Official reference-data endpoint."
       }
     },
     "/v3/reference/tickers/{ticker}": {
       "get": {
         "operationId": "getTickerDetails",
-        "summary": "获取证券资料",
-        "description": "返回证券代码的参考资料。",
+        "summary": "Get ticker reference details",
+        "description": "Get ticker reference details. Official reference-data endpoint.",
         "parameters": [
           {
             "name": "ticker",
             "in": "path",
-            "description": "股票代码",
+            "description": "Stock ticker",
             "required": true,
             "schema": {
               "type": "string"
@@ -539,7 +539,7 @@
           {
             "name": "date",
             "in": "query",
-            "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。",
+            "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date.",
             "required": false,
             "schema": {
               "type": "string",
@@ -550,7 +550,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -560,7 +560,7 @@
             }
           },
           "default": {
-            "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+            "description": "Request failed because of authentication, authorization, validation, rate limiting, or a server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -575,42 +575,42 @@
           "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "官方参考数据接口。"
+        "x-pontx-stability-note": "Official reference-data endpoint."
       }
     }
   },
   "components": {
     "schemas": {
       "ErrorResponse": {
-        "title": "Massive 错误响应",
+        "title": "ErrorResponse",
         "type": "object",
-        "description": "Massive 因认证、授权、参数、限流或服务问题无法完成请求时返回的错误信息。",
+        "description": "Error payload returned when Massive cannot authorize or fulfill a request.",
         "properties": {
           "status": {
             "type": "string",
-            "description": "机器可读的请求状态。",
+            "description": "Machine-readable request status.",
             "example": "ERROR"
           },
           "error": {
             "type": "string",
-            "description": "简短的错误类别或消息。",
+            "description": "Short error category or message.",
             "example": "API Key was not provided"
           },
           "message": {
             "type": "string",
-            "description": "额外的用户可读错误详情。"
+            "description": "Additional human-readable error detail."
           },
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符，用于支持和诊断。"
+            "description": "Server-assigned request identifier for support and diagnostics."
           }
         },
         "additionalProperties": true
       },
       "AggregateBar": {
-        "title": "OHLC 聚合行情柱",
+        "title": "AggregateBar",
         "type": "object",
-        "description": "由一个时间窗口内符合条件的成交构建的开盘、最高、最低、收盘、成交量与成交笔数行情柱。",
+        "description": "OHLC aggregate constructed from qualifying trades in one time window.",
         "required": [
           "c",
           "h",
@@ -622,61 +622,61 @@
         "properties": {
           "T": {
             "type": "string",
-            "description": "交易所股票代码；通常出现在上一交易日响应中。",
+            "description": "Exchange ticker symbol; commonly present in previous-day responses.",
             "example": "AAPL"
           },
           "c": {
             "type": "number",
-            "description": "收盘价。",
+            "description": "Close price.",
             "example": 115.97
           },
           "h": {
             "type": "number",
-            "description": "最高价。",
+            "description": "Highest price.",
             "example": 117.59
           },
           "l": {
             "type": "number",
-            "description": "最低价。",
+            "description": "Lowest price.",
             "example": 114.13
           },
           "n": {
             "type": "integer",
-            "description": "聚合时间窗口内的成交笔数。",
+            "description": "Number of transactions in the aggregate window.",
             "example": 2
           },
           "o": {
             "type": "number",
-            "description": "开盘价。",
+            "description": "Open price.",
             "example": 115.55
           },
           "otc": {
             "type": "boolean",
-            "description": "场外交易（OTC）聚合行情时为 true；为 false 时省略。"
+            "description": "True for an OTC aggregate; omitted when false."
           },
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "以毫秒级 Unix 时间戳表示的时间窗口起始时间。",
+            "description": "Window start as a Unix timestamp in milliseconds.",
             "example": 1605042000000
           },
           "v": {
             "type": "number",
-            "description": "成交量。",
+            "description": "Trading volume.",
             "example": 131704427
           },
           "vw": {
             "type": "number",
-            "description": "成交量加权平均价。",
+            "description": "Volume-weighted average price.",
             "example": 116.3058
           }
         },
         "additionalProperties": true
       },
       "AggregateResponse": {
-        "title": "聚合行情响应",
+        "title": "AggregateResponse",
         "type": "object",
-        "description": "包含股票代码、复权标记、查询及结果数量、OHLC 行情柱，并可携带下一页地址的响应。",
+        "description": "AggregateResponse data structure",
         "required": [
           "ticker",
           "queryCount",
@@ -686,31 +686,31 @@
         "properties": {
           "ticker": {
             "type": "string",
-            "description": "交易所股票代码。",
+            "description": "Exchange ticker symbol.",
             "example": "AAPL"
           },
           "adjusted": {
             "type": "boolean",
-            "description": "价格是否按股票拆分进行复权。",
+            "description": "Whether prices are adjusted for splits.",
             "example": true
           },
           "queryCount": {
             "type": "integer",
-            "description": "查询的分钟级或日级基础聚合记录数量。",
+            "description": "Number of base minute or day aggregates queried.",
             "example": 1
           },
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "Server-assigned request identifier."
           },
           "resultsCount": {
             "type": "integer",
-            "description": "返回的结果行情柱数量。",
+            "description": "Number of result bars returned.",
             "example": 1
           },
           "status": {
             "type": "string",
-            "description": "请求状态。",
+            "description": "Request status.",
             "example": "OK"
           },
           "results": {
@@ -722,15 +722,15 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。"
+            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied."
           }
         },
         "additionalProperties": true
       },
       "LastTrade": {
-        "title": "最新成交记录",
+        "title": "LastTrade",
         "type": "object",
-        "description": "Massive 行情源中的最新股票成交，包含价格、股数、交易所、成交条件、序列号和纳秒时间戳。",
+        "description": "LastTrade data structure",
         "required": [
           "T",
           "ds",
@@ -744,12 +744,12 @@
         "properties": {
           "T": {
             "type": "string",
-            "description": "交易所股票代码。",
+            "description": "Exchange ticker symbol.",
             "example": "AAPL"
           },
           "c": {
             "type": "array",
-            "description": "成交条件代码。",
+            "description": "Trade condition codes.",
             "items": {
               "type": "integer"
             },
@@ -759,58 +759,58 @@
           },
           "ds": {
             "type": "string",
-            "description": "包含小数部分的成交数量，以十进制字符串编码。",
+            "description": "Trade size including any fractional component, encoded as a decimal string.",
             "example": "25.0"
           },
           "e": {
             "type": "integer",
-            "description": "成交更正标识。"
+            "description": "Trade correction indicator."
           },
           "f": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。"
+            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds."
           },
           "i": {
             "type": "string",
-            "description": "成交标识符，在每个股票代码、交易所与 TRF 组合中唯一。",
+            "description": "Trade identifier, unique per ticker/exchange/TRF combination.",
             "example": "118749"
           },
           "p": {
             "type": "number",
-            "description": "每整股价格。",
+            "description": "Price per whole share.",
             "example": 129.8473
           },
           "q": {
             "type": "integer",
             "format": "int64",
-            "description": "该股票代码递增的事件序列号；序列中可能存在间隔。",
+            "description": "Increasing event sequence number for the ticker; gaps are possible.",
             "example": 3135876
           },
           "r": {
             "type": "integer",
-            "description": "交易报告设施（TRF）标识符。",
+            "description": "Trade Reporting Facility identifier.",
             "example": 202
           },
           "s": {
             "type": "number",
-            "description": "以股数表示的成交数量。",
+            "description": "Trade size in shares.",
             "example": 25
           },
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。"
+            "description": "SIP receipt time as a Unix timestamp in nanoseconds."
           },
           "x": {
             "type": "integer",
-            "description": "交易所标识符；可通过 Massive 交易所参考数据解析。",
+            "description": "Exchange identifier; resolve through Massive exchange reference data.",
             "example": 4
           },
           "y": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。"
+            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds."
           },
           "z": {
             "type": "integer",
@@ -819,16 +819,16 @@
               2,
               3
             ],
-            "description": "上市行情带：1=A（NYSE），2=B（NYSE Arca/NYSE American），3=C（Nasdaq）。",
+            "description": "Listing tape: 1=A (NYSE), 2=B (NYSE Arca/NYSE American), 3=C (Nasdaq).",
             "example": 3
           }
         },
         "additionalProperties": true
       },
       "LastTradeResponse": {
-        "title": "最新成交响应",
+        "title": "LastTradeResponse",
         "type": "object",
-        "description": "包含请求标识、状态和最新成交记录的响应。",
+        "description": "LastTradeResponse data structure",
         "required": [
           "request_id",
           "status"
@@ -836,31 +836,31 @@
         "properties": {
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "Server-assigned request identifier."
           },
           "results": {
             "$ref": "#/components/schemas/LastTrade"
           },
           "status": {
             "type": "string",
-            "description": "请求状态。",
+            "description": "Request status.",
             "example": "OK"
           }
         },
         "additionalProperties": true
       },
       "SnapshotSession": {
-        "title": "交易时段快照",
+        "title": "SnapshotSession",
         "type": "object",
-        "description": "当前交易日的价格变化、早盘/常规/盘后变化、OHLC、成交量、VWAP 与更新时间；字段取决于资产类别和订阅权限。",
+        "description": "Metrics for the current trading session; availability varies by asset class and entitlement.",
         "properties": {
           "change": {
             "type": "number",
-            "description": "交易时段的绝对价格变动。"
+            "description": "Absolute session price change."
           },
           "change_percent": {
             "type": "number",
-            "description": "交易时段的百分比变动。"
+            "description": "Session percentage change."
           },
           "early_trading_change": {
             "type": "number"
@@ -907,24 +907,24 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。"
+            "description": "Last update as a Unix timestamp in nanoseconds."
           }
         },
         "additionalProperties": true
       },
       "SnapshotQuote": {
-        "title": "最新报价快照",
+        "title": "SnapshotQuote",
         "type": "object",
-        "description": "最新买卖报价、数量、交易所、数据时效标签与纳秒更新时间。",
+        "description": "SnapshotQuote data structure",
         "properties": {
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "Unix timestamp in nanoseconds."
           },
           "timeframe": {
             "type": "string",
-            "description": "数据时效性标签。",
+            "description": "Data recency label.",
             "example": "REAL-TIME"
           },
           "ask": {
@@ -949,14 +949,14 @@
         "additionalProperties": true
       },
       "SnapshotTrade": {
-        "title": "最新成交快照",
+        "title": "SnapshotTrade",
         "type": "object",
-        "description": "统一快照中的最新成交价格、数量、交易所、成交条件与数据时效。",
+        "description": "SnapshotTrade data structure",
         "properties": {
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "Unix timestamp in nanoseconds."
           },
           "timeframe": {
             "type": "string",
@@ -984,9 +984,9 @@
         "additionalProperties": true
       },
       "SnapshotMinuteBar": {
-        "title": "最新分钟行情柱",
+        "title": "SnapshotMinuteBar",
         "type": "object",
-        "description": "统一快照中的最近一分钟 OHLC、成交量、成交笔数、VWAP 与更新时间。",
+        "description": "SnapshotMinuteBar data structure",
         "properties": {
           "close": {
             "type": "number"
@@ -1012,15 +1012,15 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "Unix timestamp in nanoseconds."
           }
         },
         "additionalProperties": true
       },
       "UnifiedSnapshot": {
-        "title": "统一市场快照",
+        "title": "UnifiedSnapshot",
         "type": "object",
-        "description": "股票、期权、外汇、加密货币或指数的统一快照；可包含交易时段、最新报价、最新成交、分钟行情及受套餐限制的 FMV。",
+        "description": "UnifiedSnapshot data structure",
         "required": [
           "ticker"
         ],
@@ -1053,20 +1053,20 @@
           },
           "error": {
             "type": "string",
-            "description": "此股票代码对应的错误类别。"
+            "description": "Error category for this ticker."
           },
           "message": {
             "type": "string",
-            "description": "此股票代码对应的错误详情。"
+            "description": "Error detail for this ticker."
           },
           "fmv": {
             "type": "number",
-            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。"
+            "description": "Massive Fair Market Value; limited to eligible Business plans."
           },
           "fmv_last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。"
+            "description": "FMV calculation time as a Unix timestamp in nanoseconds."
           },
           "session": {
             "$ref": "#/components/schemas/SnapshotSession"
@@ -1084,9 +1084,9 @@
         "additionalProperties": true
       },
       "UnifiedSnapshotResponse": {
-        "title": "统一市场快照响应",
+        "title": "UnifiedSnapshotResponse",
         "type": "object",
-        "description": "包含跨资产快照列表、请求状态和可选下一页地址的分页响应。",
+        "description": "UnifiedSnapshotResponse data structure",
         "required": [
           "request_id",
           "status"
@@ -1095,7 +1095,7 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。"
+            "description": "Absolute URL for the next page, when present."
           },
           "request_id": {
             "type": "string"
@@ -1114,9 +1114,9 @@
         "additionalProperties": true
       },
       "Ticker": {
-        "title": "Massive 标的代码",
+        "title": "Ticker",
         "type": "object",
-        "description": "Massive 支持的证券或资产代码及其名称、市场、地区、币种、交易所、标识符和活跃状态。",
+        "description": "Ticker data structure",
         "required": [
           "ticker",
           "name"
@@ -1124,14 +1124,14 @@
         "properties": {
           "active": {
             "type": "boolean",
-            "description": "该资产在查询日期是否处于活跃交易状态。"
+            "description": "Whether the asset was actively traded on the queried date."
           },
           "base_currency_name": {
             "type": "string"
           },
           "base_currency_symbol": {
             "type": "string",
-            "description": "计价对象货币的 ISO 4217 代码。"
+            "description": "ISO 4217 code of the priced-against currency."
           },
           "cik": {
             "type": "string"
@@ -1144,7 +1144,7 @@
           },
           "currency_symbol": {
             "type": "string",
-            "description": "交易货币的 ISO 4217 代码。"
+            "description": "ISO 4217 trading currency code."
           },
           "delisted_utc": {
             "type": "string",
@@ -1176,7 +1176,7 @@
           },
           "primary_exchange": {
             "type": "string",
-            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。"
+            "description": "ISO 10383 MIC of the primary exchange."
           },
           "share_class_figi": {
             "type": "string"
@@ -1186,15 +1186,15 @@
           },
           "type": {
             "type": "string",
-            "description": "Massive 股票代码类型。"
+            "description": "Massive ticker-type code."
           }
         },
         "additionalProperties": true
       },
       "TickerListResponse": {
-        "title": "标的代码列表响应",
+        "title": "TickerListResponse",
         "type": "object",
-        "description": "匹配筛选条件的标的代码分页列表，包含数量、请求标识和下一页地址。",
+        "description": "TickerListResponse data structure",
         "properties": {
           "count": {
             "type": "integer"
@@ -1202,7 +1202,7 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。"
+            "description": "Absolute URL for the next page, when present."
           },
           "request_id": {
             "type": "string"
@@ -1221,9 +1221,9 @@
         "additionalProperties": true
       },
       "Address": {
-        "title": "公司地址",
+        "title": "Address",
         "type": "object",
-        "description": "标的所属公司的总部地址，包括街道、城市、州和邮政编码。",
+        "description": "Address data structure",
         "properties": {
           "address1": {
             "type": "string"
@@ -1244,9 +1244,9 @@
         "additionalProperties": true
       },
       "Branding": {
-        "title": "品牌资源",
+        "title": "Branding",
         "type": "object",
-        "description": "公司图标和徽标地址；下载这些资源时可能仍需提供 Massive API 密钥。",
+        "description": "Visual-branding URLs may require the same API key when fetched.",
         "properties": {
           "icon_url": {
             "type": "string",
@@ -1260,8 +1260,8 @@
         "additionalProperties": false
       },
       "TickerDetails": {
-        "title": "标的详细资料",
-        "description": "单个标的的基础资料、公司说明、行业分类、标准标识符、市值、股份、员工、地址和品牌资源。",
+        "title": "TickerDetails",
+        "description": "TickerDetails data structure",
         "allOf": [
           {
             "$ref": "#/components/schemas/Ticker"
@@ -1322,9 +1322,9 @@
         ]
       },
       "TickerDetailsResponse": {
-        "title": "标的详细资料响应",
+        "title": "TickerDetailsResponse",
         "type": "object",
-        "description": "包含请求状态、请求标识和单个标的详细资料的响应。",
+        "description": "TickerDetailsResponse data structure",
         "properties": {
           "count": {
             "type": "integer"

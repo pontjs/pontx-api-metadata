@@ -1,24 +1,24 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "i3Investor SGX Public Stock Pages",
+    "title": "i3Investor SGX 公开股票页面",
     "version": "2026-08-10",
-    "description": "Observed public HTML pages operated by i3Investor for Singapore-listed securities. This is not an official developer API. The specification records reproducible page inputs, media type, and semantically extractable fields; consumers must parse provider-controlled HTML and tolerate template changes, display-formatted values, cookies, and anti-bot controls.",
+    "description": "由 i3Investor 运营、面向新加坡上市证券的公开 HTML 页面，经观测整理而成。这不是官方开发者 API。本规范记录可复现的页面输入、媒体类型和可按语义提取的字段；使用方必须解析由提供方控制的 HTML，并能容忍模板变更、展示格式值、Cookie 和反机器人控制。",
     "license": { "name": "Proprietary / undocumented" }
   },
-  "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor Singapore portal" }],
+  "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor 新加坡门户" }],
   "paths": {
     "/servlets/stk/{code}.jsp": {
       "get": {
         "operationId": "getSgxLegacyStockOverviewPage",
         "deprecated": false,
-        "summary": "Get the legacy SGX stock overview HTML page",
-        "description": "Returns the legacy desktop stock page. On 2026-08-10, `/servlets/stk/d05.jsp` returned HTML containing Schema.org JSON-LD (`WebPage` with an `Offer` price and `SGD` currency), plus visible last price, signed absolute/percentage change, day range, volume, issuer name, and research fields. Values are presentation text and can be delayed. Cloudflare may set anonymous tracking/session cookies; callers should not persist them as API credentials.",
-        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "Case-insensitive SGX counter code used by i3Investor. Ordinary shares often resemble `D05`; REITs and warrants may include letters/digits such as `A17U`. The site commonly emits lowercase canonical links.", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "d05" }],
+        "summary": "获取旧版 SGX 股票概览页",
+        "description": "返回 i3Investor 旧版桌面股票 HTML；可从 JSON-LD 和可见文本提取新交所代码、SGD 价格、涨跌、区间、成交量及公司资料。",
+        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "i3Investor 使用的 SGX 股票代码，不区分大小写。普通股代码通常类似 `D05`；REIT 和权证代码可能包含字母/数字，例如 `A17U`。该网站通常生成小写的规范链接。", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "d05" }],
         "responses": {
-          "200": { "description": "Provider-controlled HTML document, observed with `Content-Type: text/html;charset=UTF-8`. A 200 response must still be checked for the requested symbol: an unknown code was observed to return the Stock Search HTML page with status 200 rather than 404.", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/LegacyStockHtml" }, "example": "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..." } } },
-          "404": { "description": "Counter page not found. This status remains documented for compatibility, but the verified unknown-code request returned the Stock Search HTML page with status 200 instead." },
-          "403": { "description": "Request rejected by provider or Cloudflare anti-bot controls." }
+          "200": { "description": "由提供方控制的 HTML 文档，观测到的 `Content-Type` 为 `text/html;charset=UTF-8`。收到 200 响应时仍必须核对请求的股票代码：观测到未知代码返回的是 HTTP 200 的股票搜索 HTML 页面，而不是 404。", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/LegacyStockHtml" }, "example": "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..." } } },
+          "404": { "description": "未找到股票页面。为兼容性仍记录此状态，但经验证的未知代码请求返回的是 HTTP 200 的股票搜索 HTML 页面。" },
+          "403": { "description": "请求被提供方或 Cloudflare 反机器人控制拒绝。" }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -26,7 +26,7 @@
           "https://sgx.i3investor.com/jsp/stocks.jsp?g=S&s=D"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "The legacy page returned HTTP 200 and JSON-LD plus visible quote fields during verification. HTML selectors, Cloudflare behavior, cookies, and displayed data can change without versioning; JSON-LD currently covers price/currency but not change or volume.",
+        "x-pontx-stability-note": "验证期间，旧版页面返回 HTTP 200，并包含 JSON-LD 和页面可见的行情字段。HTML 选择器、Cloudflare 行为、Cookie 和展示数据可能在没有版本标识的情况下发生变化；当前 JSON-LD 涵盖价格/币种，但不包含涨跌或成交量。",
         "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
       }
     },
@@ -34,13 +34,13 @@
       "get": {
         "operationId": "getSgxStockOverviewPage",
         "deprecated": false,
-        "summary": "Get the current SGX stock overview HTML page",
-        "description": "Returns i3Investor's current responsive overview page. This route was directly verified (not inferred) with `D05` on 2026-08-10. The document exposes issuer and sector metadata plus visible last price, signed absolute/percentage change, day range, volume, bid/ask sizes, business description, and related research. Unlike the legacy template, the verified page did not expose the quote as the same Schema.org Offer JSON-LD, so extractors should use labelled visible sections and metadata rather than assume parity between templates.",
-        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "Case-insensitive SGX counter code in i3Investor's routing namespace.", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "D05" }],
+        "summary": "获取当前 SGX 股票概览页",
+        "description": "返回已验证的 i3Investor 响应式 HTML 页面；应从带标签的可见区域和元数据提取价格、涨跌、成交量、买卖盘和公司说明。",
+        "parameters": [{ "name": "code", "in": "path", "required": true, "description": "i3Investor 路由命名空间中的 SGX 股票代码，不区分大小写。", "schema": { "type": "string", "pattern": "^[A-Za-z0-9]{1,12}$", "minLength": 1, "maxLength": 12 }, "example": "D05" }],
         "responses": {
-          "200": { "description": "Provider-controlled responsive HTML document, observed with `Content-Type: text/html;charset=UTF-8`. Validate the issuer/code in page metadata before extracting values: an unknown code was observed to return the SGX Market Summary HTML page with status 200 rather than 404.", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/ResponsiveStockHtml" }, "example": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>" } } },
-          "404": { "description": "Counter page not found. This status remains documented for compatibility, but the verified unknown-code request returned the SGX Market Summary HTML page with status 200 instead." },
-          "403": { "description": "Request rejected by provider or Cloudflare anti-bot controls." }
+          "200": { "description": "由提供方控制的响应式 HTML 文档，观测到的 `Content-Type` 为 `text/html;charset=UTF-8`。提取值之前，应先验证页面元数据中的发行方/代码：观测到未知代码返回的是 HTTP 200 的 SGX 市场摘要 HTML 页面，而不是 404。", "content": { "text/html": { "schema": { "$ref": "#/components/schemas/ResponsiveStockHtml" }, "example": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>" } } },
+          "404": { "description": "未找到股票页面。为兼容性仍记录此状态，但经验证的未知代码请求返回的是 HTTP 200 的 SGX 市场摘要 HTML 页面。" },
+          "403": { "description": "请求被提供方或 Cloudflare 反机器人控制拒绝。" }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -48,15 +48,15 @@
           "https://sgx.i3investor.com/web/stock/analysis-performance/D05"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "The responsive page returned HTTP 200 with labelled quote fields during verification. Its markup is not versioned, differs from the legacy servlet template, and may be changed or protected by Cloudflare without notice.",
+        "x-pontx-stability-note": "验证期间，响应式页面返回 HTTP 200，并包含带标签的行情字段。其标记结构没有版本标识，与旧版 servlet 模板不同，并且可能在不另行通知的情况下被更改或受 Cloudflare 保护。",
         "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
       }
     }
   },
   "components": {
     "schemas": {
-      "LegacyStockHtml": { "type": "string", "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema." },
-      "ResponsiveStockHtml": { "type": "string", "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text." }
+      "LegacyStockHtml": { "title": "旧版 SGX 股票 HTML 原始响应", "type": "string", "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。" },
+      "ResponsiveStockHtml": { "title": "当前 SGX 股票 HTML 原始响应", "type": "string", "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。" }
     }
   }
 }

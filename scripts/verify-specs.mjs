@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { localizedSpecPath } from "./lib/localization.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const source = JSON.parse(await readFile(resolve(root, "catalog/source.json"), "utf8"));
@@ -14,6 +15,13 @@ for (const api of source.apis) {
   const spec = await readFile(resolve(root, api.specFile));
   const actual = createHash("sha256").update(spec).digest("hex");
   if (actual !== api.approvedSha256) throw new Error(`${api.slug}: SHA-256 mismatch`);
+  for (const locale of source.locales ?? []) {
+    const localizedSpec = await readFile(localizedSpecPath(root, api.specFile, locale));
+    const localizedActual = createHash("sha256").update(localizedSpec).digest("hex");
+    if (localizedActual !== api.approvedLocaleSha256?.[locale]) {
+      throw new Error(`${api.slug} ${locale}: SHA-256 mismatch`);
+    }
+  }
   if (!compiled.apis.find((item) => item.slug === api.slug)) throw new Error(`${api.slug}: missing from compiled catalog`);
 
   const document = JSON.parse(spec.toString("utf8"));
@@ -43,4 +51,6 @@ for (const api of source.apis) {
     }
   }
 }
-console.log(`Verified ${source.apis.length} approved OpenAPI documents.`);
+console.log(
+  `Verified ${source.apis.length} approved OpenAPI documents in ${1 + (source.locales?.length ?? 0)} locale(s).`
+);

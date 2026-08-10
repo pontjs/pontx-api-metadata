@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "东方财富基金网页数据 API",
+    "title": "Eastmoney Fund Web Data API",
     "version": "2026-08-10",
-    "description": "在服务商自有基金页面上观测到的东方财富／天天基金未公开只读网页接口。传输格式包括 JSON、一个目前返回 HTML 的历史 JSONP 估值接口，以及服务商内部字段标识符。这是带有证据标注的网页接口，并非官方开发者 API。",
+    "description": "Undocumented Eastmoney/Tiantian Fund read-only web endpoints observed on provider-owned fund pages. Wire formats include JSON, a historical JSONP estimate route that currently returns HTML, and provider-internal field identifiers. This is an evidence-labelled web interface, not an official developer API.",
     "license": {
       "name": "Proprietary / undocumented"
     }
@@ -23,13 +23,13 @@
     "/js/{fundCode}.js": {
       "get": {
         "operationId": "getFundEstimate",
-        "summary": "获取基金估值",
-        "description": "返回基金实时估值 JSONP。",
+        "summary": "Get latest fund estimate",
+        "description": "Historical estimate route whose successful legacy wire format was `jsonpgz({...});`, with string fields such as `fundcode`, `name`, `jzrq` (NAV date), `dwjz` (unit NAV), `gsz` (estimated NAV), `gszzl` (estimated percent change) and `gztime` (estimate time). A read-only verification on 2026-08-10 returned Eastmoney's UTF-8 page-not-found HTML with HTTP 200, so callers must inspect the media type/body and must not assume JSONP.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "path",
-            "description": "六位中国大陆基金代码。",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
               "type": "string",
@@ -40,7 +40,7 @@
           {
             "name": "rt",
             "in": "query",
-            "description": "用于绕过缓存的 Unix 毫秒时间戳；不会改变所表示的基金。",
+            "description": "Cache-busting Unix timestamp in milliseconds; it does not change the represented fund.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -51,7 +51,7 @@
         ],
         "responses": {
           "200": {
-            "description": "旧版成功响应为 JavaScript/JSONP；目前为 HTTP 200 的页面未找到 HTML 文档。",
+            "description": "Legacy JavaScript/JSONP on success; currently an HTTP-200 page-not-found HTML document.",
             "content": {
               "application/javascript": {
                 "schema": { "$ref": "#/components/schemas/LegacyFundEstimateJsonp" },
@@ -70,7 +70,7 @@
           "https://fundgz.1234567.com.cn/js/001072.js"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "FiApp 曾使用该接口；2026-08-10 的服务商验证返回东方财富页面未找到 HTML，而非 JSONP。",
+        "x-pontx-stability-note": "Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP.",
         "servers": [
           {
             "url": "https://fundgz.1234567.com.cn"
@@ -80,19 +80,19 @@
           "Referer": "https://fund.eastmoney.com/"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "该地址当前返回东方财富的页面不存在 HTML，已停止代理执行。"
+        "x-pontx-proxy-disabled-reason": "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled."
       }
     },
     "/f10/lsjz": {
       "get": {
         "operationId": "listHistoricalNav",
-        "summary": "获取历史净值",
-        "description": "分页返回基金历史净值。",
+        "summary": "List historical fund NAV",
+        "description": "Returns paginated historical unit and cumulative NAV rows as JSON. Numeric NAV values and growth rates are encoded as strings. Pagination metadata (`TotalCount`, `PageSize`, `PageIndex`) is at the response root, while `Data.LSJZList` contains rows.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "query",
-            "description": "六位中国大陆基金代码。",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
               "type": "string",
@@ -103,7 +103,7 @@
           {
             "name": "pageIndex",
             "in": "query",
-            "description": "从 1 开始的页码",
+            "description": "One-based page",
             "required": false,
             "schema": {
               "type": "integer",
@@ -114,7 +114,7 @@
           {
             "name": "pageSize",
             "in": "query",
-            "description": "每页记录数",
+            "description": "Rows per page",
             "required": false,
             "schema": {
               "type": "integer",
@@ -125,7 +125,7 @@
           {
             "name": "startDate",
             "in": "query",
-            "description": "包含边界的起始日期，格式为 `YYYY-MM-DD`；空值表示无起始日期限制。",
+            "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means no lower bound.",
             "required": false,
             "schema": {
               "type": "string",
@@ -135,7 +135,7 @@
           {
             "name": "endDate",
             "in": "query",
-            "description": "包含边界的结束日期，格式为 `YYYY-MM-DD`；空值表示无结束日期限制。",
+            "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means no upper bound.",
             "required": false,
             "schema": {
               "type": "string",
@@ -145,17 +145,17 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/HistoricalNavResponse" },
                 "examples": {
                   "populated": {
-                    "summary": "两条历史净值记录",
+                    "summary": "Two historical NAV rows",
                     "value": { "Data": { "LSJZList": [{ "FSRQ": "2026-08-07", "DWJZ": "4.6050", "LJJZ": "4.6580", "SDATE": null, "ACTUALSYI": "", "NAVTYPE": "1", "JZZZL": "3.58", "SGZT": "开放申购", "SHZT": "开放赎回", "FHFCZ": "", "FHFCZ10": "", "FHFCBZ": "", "DTYPE": null, "FHSP": "" }], "FundType": "001", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 2723, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
                   },
                   "unknownFund": {
-                    "summary": "未知基金代码表示为成功的空页面，而非 HTTP 错误",
+                    "summary": "Unknown fund code is represented as a successful empty page, not an HTTP error",
                     "value": { "Data": { "LSJZList": [], "FundType": "", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 0, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
                   }
                 }
@@ -169,7 +169,7 @@
           "https://api.fund.eastmoney.com/f10/lsjz?fundCode=001072&pageIndex=1&pageSize=2&startDate=&endDate="
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "只读 JSON 请求已于 2026-08-10 验证。服务商字段名为未公开的缩写；未知字段被有意保留。",
+        "x-pontx-stability-note": "Read-only JSON request verified on 2026-08-10. Provider field names are abbreviated and undocumented; unknown fields are intentionally preserved.",
         "servers": [
           {
             "url": "https://api.fund.eastmoney.com"
@@ -183,13 +183,13 @@
     "/f10/LSJZChart": {
       "get": {
         "operationId": "getHistoricalNavChart",
-        "summary": "获取净值图表",
-        "description": "返回历史净值图表序列。",
+        "summary": "Get historical NAV chart series",
+        "description": "Returns chart points as positional two-element arrays `[Unix epoch milliseconds, unit NAV]`, not objects. The response also includes root-level status and pagination metadata. A 2026-08-10 request showed that `pageSize=3` was ignored and the response reported its effective `PageSize` as 400, so callers should use the returned metadata rather than assuming the request limit is honored.",
         "parameters": [
           {
             "name": "fundCode",
             "in": "query",
-            "description": "六位中国大陆基金代码。",
+            "description": "Six-digit mainland fund code.",
             "required": true,
             "schema": {
               "type": "string",
@@ -200,7 +200,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "服务商图表序列选择器。单位净值仅观测到值 `0`；其他值未公开。",
+            "description": "Provider chart-series selector. Only value `0` was observed for unit NAV; other values are undocumented.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -211,7 +211,7 @@
           {
             "name": "pageIndex",
             "in": "query",
-            "description": "从 1 开始的页码",
+            "description": "One-based page",
             "required": false,
             "schema": {
               "type": "integer",
@@ -222,7 +222,7 @@
           {
             "name": "pageSize",
             "in": "query",
-            "description": "请求的最大数据点数。服务商可能忽略该值，并返回或报告实际页大小为 400。",
+            "description": "Requested maximum points. The provider may ignore this value and return/report an effective page size of 400.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -233,7 +233,7 @@
           {
             "name": "startDate",
             "in": "query",
-            "description": "包含边界的起始日期，格式为 `YYYY-MM-DD`；空值表示使用服务商默认范围。",
+            "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
             "required": false,
             "schema": {
               "type": "string",
@@ -243,7 +243,7 @@
           {
             "name": "endDate",
             "in": "query",
-            "description": "包含边界的结束日期，格式为 `YYYY-MM-DD`；空值表示使用服务商默认范围。",
+            "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
             "required": false,
             "schema": {
               "type": "string",
@@ -253,7 +253,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/HistoricalNavChartResponse" },
@@ -268,7 +268,7 @@
           "https://api.fund.eastmoney.com/f10/LSJZChart?fundCode=001072&type=0&pageIndex=1&pageSize=400&startDate=&endDate="
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "只读 JSON 请求已于 2026-08-10 验证。实际传输格式为双数字元组，服务商的分页行为可能与请求值不同。",
+        "x-pontx-stability-note": "Read-only JSON request verified on 2026-08-10. The actual wire format is a two-number tuple, and provider pagination behavior may differ from requested values.",
         "servers": [
           {
             "url": "https://api.fund.eastmoney.com"
@@ -282,13 +282,13 @@
     "/api/qt/ulist.np/get": {
       "get": {
         "operationId": "getMarketIndexList",
-        "summary": "获取关联指数",
-        "description": "返回基金页面展示的市场指数快照。",
+        "summary": "Get related market-index snapshots",
+        "description": "Requests related market-index snapshots using Eastmoney's provider-internal field IDs. With the curated fields, `f2` is latest price, `f3` is percentage change, `f12` is security code and `f14` is display name. Server-to-server verification on 2026-08-10 returned an empty connection response, so this operation remains documented but execution-disabled.",
         "parameters": [
           {
             "name": "secids",
             "in": "query",
-            "description": "以逗号分隔、格式为 `market.code` 的东方财富证券 ID；观测到的市场 ID 包括上海的 `1` 和深圳的 `0`。",
+            "description": "Comma-separated Eastmoney security IDs in `market.code` form; observed market IDs include `1` for Shanghai and `0` for Shenzhen.",
             "required": true,
             "schema": {
               "type": "string"
@@ -298,7 +298,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "以逗号分隔的服务商字段 ID。已整理映射：`f2` 为最新价格，`f3` 为涨跌幅，`f12` 为代码，`f14` 为名称。",
+            "description": "Comma-separated provider field IDs. Curated mapping: `f2` latest price, `f3` percentage change, `f12` code, `f14` name.",
             "required": true,
             "schema": {
               "type": "string",
@@ -309,7 +309,7 @@
           {
             "name": "fltt",
             "in": "query",
-            "description": "服务商数字格式模式。观测值 `2` 返回按比例转换后的小数。",
+            "description": "Provider number-formatting mode. Observed value `2` returns scaled decimal numbers.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -320,7 +320,7 @@
           {
             "name": "invt",
             "in": "query",
-            "description": "服务商请求模式；仅记录了观测值 `2`。",
+            "description": "Provider request mode; only observed value `2` is documented.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -331,7 +331,7 @@
           {
             "name": "ut",
             "in": "query",
-            "description": "公开页面请求令牌",
+            "description": "Public page request token",
             "required": false,
             "schema": {
               "type": "string",
@@ -341,7 +341,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/MarketIndexListResponse" }
@@ -355,7 +355,7 @@
           "https://push2.eastmoney.com/api/qt/ulist.np/get?secids=1.000001,0.399001&fields=f2,f3,f12,f14&fltt=2&invt=2&ut=267f9ad526dbe6b0262ab19316f5a25b"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "在服务商自有基金页面上观测到该接口。2026-08-10 的服务端只读请求以空响应结束；浏览器行为、字段 ID 和公开页面令牌仍属服务商内部实现，可能发生变化。",
+        "x-pontx-stability-note": "Observed on the provider-owned fund page. A server-side read-only request on 2026-08-10 ended with an empty reply; browser behavior, field IDs and the public-page token remain provider-internal and may change.",
         "servers": [
           {
             "url": "https://push2.eastmoney.com"
@@ -365,7 +365,7 @@
           "Referer": "https://fundf10.eastmoney.com/"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "该接口来自官网页面，但 2026-08-10 服务端只读验证收到空响应；内部字段与页面令牌也可能变化，因此停止代理执行。"
+        "x-pontx-proxy-disabled-reason": "This endpoint is used by the provider page, but server-side verification returned an empty reply on 2026-08-10; internal fields and the page token may also change, so proxy execution is disabled."
       }
     }
   },
@@ -373,61 +373,61 @@
     "schemas": {
       "LegacyFundEstimateJsonp": {
         "type": "string",
-        "title": "东方财富旧基金估值 JSONP 原始响应",
-        "description": "旧接口的 jsonpgz(...) JavaScript 回调文本，不是裸 JSON；该路由当前实际返回失效 HTML 页面。",
+        "title": "LegacyFundEstimateJsonp",
+        "description": "Deprecated JavaScript callback text `jsonpgz(<FundEstimate object>);`. This is not raw JSON and the route currently returns HTML instead.",
         "example": "jsonpgz({\"fundcode\":\"001072\",\"name\":\"华安智能装备主题股票A\",\"jzrq\":\"2025-09-02\",\"dwjz\":\"2.6170\",\"gsz\":\"2.6300\",\"gszzl\":\"0.50\",\"gztime\":\"2025-09-03 15:00\"});"
       },
       "EastmoneyNotFoundHtml": {
         "type": "string",
-        "title": "东方财富接口失效页面",
-        "description": "东方财富以 HTTP 200 返回的 UTF-8 页面不存在 HTML 文档，客户端不得将其按 JSONP 解析。"
+        "title": "EastmoneyNotFoundHtml",
+        "description": "Eastmoney UTF-8 page-not-found document returned with HTTP 200; consumers must not parse it as JSONP."
       },
       "HistoricalNavRow": {
         "type": "object",
-        "title": "基金历史净值记录",
-        "description": "一条已发布的基金单位净值、累计净值、日增长率、申购赎回状态和分红信息；保留提供方缩写及数字字符串编码。",
+        "title": "HistoricalNavRow",
+        "description": "One published fund NAV row. Provider abbreviations and decimal-as-string encoding are preserved.",
         "properties": {
-          "FSRQ": { "type": "string", "format": "date", "description": "净值发布日期。", "example": "2026-08-07" },
-          "DWJZ": { "type": "string", "description": "单位净值小数字符串。", "example": "4.6050" },
-          "LJJZ": { "type": "string", "description": "累计净值小数字符串。", "example": "4.6580" },
-          "SDATE": { "type": "string", "nullable": true, "description": "未公开的次要日期；观测值为 null。" },
-          "ACTUALSYI": { "type": "string", "description": "适用产品的实际收益文本；在该股票型基金上观测为空。", "example": "" },
-          "NAVTYPE": { "type": "string", "description": "服务商净值类型代码；样本基金观测值为 `1`。", "example": "1" },
-          "JZZZL": { "type": "string", "description": "不含 `%` 的每日净值增长百分比。", "example": "3.58" },
-          "SGZT": { "type": "string", "description": "中文申购状态文本；服务商取值不视为封闭枚举。", "example": "开放申购" },
-          "SHZT": { "type": "string", "description": "中文赎回状态文本；服务商取值不视为封闭枚举。", "example": "开放赎回" },
-          "FHFCZ": { "type": "string", "description": "未公开的分红字段；通常为空。" },
-          "FHFCZ10": { "type": "string", "description": "未公开的分红字段；通常为空。" },
-          "FHFCBZ": { "type": "string", "description": "未公开的分红备注；通常为空。" },
-          "DTYPE": { "type": "string", "nullable": true, "description": "未公开的服务商类型；观测值为 null。" },
-          "FHSP": { "type": "string", "description": "未公开的分红字段；通常为空。" }
+          "FSRQ": { "type": "string", "format": "date", "description": "NAV publication date.", "example": "2026-08-07" },
+          "DWJZ": { "type": "string", "description": "Unit NAV decimal string.", "example": "4.6050" },
+          "LJJZ": { "type": "string", "description": "Cumulative NAV decimal string.", "example": "4.6580" },
+          "SDATE": { "type": "string", "nullable": true, "description": "Undocumented secondary date; observed as null." },
+          "ACTUALSYI": { "type": "string", "description": "Actual yield text for products where applicable; observed empty for this equity fund.", "example": "" },
+          "NAVTYPE": { "type": "string", "description": "Provider NAV type code; observed value `1` for the sample fund.", "example": "1" },
+          "JZZZL": { "type": "string", "description": "Daily NAV growth percentage without `%`.", "example": "3.58" },
+          "SGZT": { "type": "string", "description": "Chinese subscription-status text; provider values are not treated as a closed enum.", "example": "开放申购" },
+          "SHZT": { "type": "string", "description": "Chinese redemption-status text; provider values are not treated as a closed enum.", "example": "开放赎回" },
+          "FHFCZ": { "type": "string", "description": "Undocumented dividend field; often empty." },
+          "FHFCZ10": { "type": "string", "description": "Undocumented dividend field; often empty." },
+          "FHFCBZ": { "type": "string", "description": "Undocumented dividend note; often empty." },
+          "DTYPE": { "type": "string", "nullable": true, "description": "Undocumented provider type; observed as null." },
+          "FHSP": { "type": "string", "description": "Undocumented dividend field; often empty." }
         },
         "additionalProperties": true
       },
       "HistoricalNavData": {
         "type": "object",
-        "title": "基金历史净值分页数据",
-        "description": "基金历史净值记录列表及总页数、当前页、每页数量等分页信息。",
+        "title": "HistoricalNavData",
+        "description": "HistoricalNavData data structure",
         "properties": {
           "LSJZList": { "type": "array", "items": { "$ref": "#/components/schemas/HistoricalNavRow" } },
-          "FundType": { "type": "string", "nullable": true, "description": "服务商基金类型代码；未知基金为空。", "example": "001" },
-          "SYType": { "type": "string", "nullable": true, "description": "未公开的收益类型；观测值为 null。" },
+          "FundType": { "type": "string", "nullable": true, "description": "Provider fund-type code; empty for unknown funds.", "example": "001" },
+          "SYType": { "type": "string", "nullable": true, "description": "Undocumented yield type; observed as null." },
           "isNewType": { "type": "boolean", "example": false },
-          "Feature": { "type": "string", "nullable": true, "description": "未公开的特征标记；观测值为 null。" }
+          "Feature": { "type": "string", "nullable": true, "description": "Undocumented feature marker; observed as null." }
         },
         "additionalProperties": true
       },
       "HistoricalNavResponse": {
         "type": "object",
-        "title": "基金历史净值响应",
-        "description": "东方财富基金历史净值接口的状态、消息和分页数据响应。",
+        "title": "HistoricalNavResponse",
+        "description": "HistoricalNavResponse data structure",
         "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
         "properties": {
           "Data": { "$ref": "#/components/schemas/HistoricalNavData" },
-          "ErrCode": { "type": "integer", "description": "服务商业务状态；即使基金代码未知，观测值仍为 0。", "example": 0 },
+          "ErrCode": { "type": "integer", "description": "Provider business status; observed as 0 even for an unknown fund code.", "example": 0 },
           "ErrMsg": { "type": "string", "nullable": true, "example": null },
           "TotalCount": { "type": "integer", "minimum": 0, "example": 2723 },
-          "Expansion": { "type": "object", "nullable": true, "description": "未公开的扩展负载；观测值为 null。" },
+          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
           "PageSize": { "type": "integer", "minimum": 1, "example": 2 },
           "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
         },
@@ -435,8 +435,8 @@
       },
       "NavChartPoint": {
         "type": "array",
-        "title": "基金净值图表点",
-        "description": "由 Unix 毫秒时间戳和单位净值组成的二项位置元组。",
+        "title": "NavChartPoint",
+        "description": "Positional tuple `[Unix epoch milliseconds, unit NAV]`.",
         "minItems": 2,
         "maxItems": 2,
         "items": { "type": "number" },
@@ -444,42 +444,42 @@
       },
       "HistoricalNavChartResponse": {
         "type": "object",
-        "title": "基金历史净值图表响应",
-        "description": "基金代码、名称和历史单位净值图表点序列。",
+        "title": "HistoricalNavChartResponse",
+        "description": "HistoricalNavChartResponse data structure",
         "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
         "properties": {
           "Data": { "type": "array", "items": { "$ref": "#/components/schemas/NavChartPoint" } },
-          "ErrCode": { "type": "integer", "description": "服务商业务状态；观测到的成功值为 0。", "example": 0 },
+          "ErrCode": { "type": "integer", "description": "Provider business status; observed success value 0.", "example": 0 },
           "ErrMsg": { "type": "string", "nullable": true, "example": null },
           "TotalCount": { "type": "integer", "minimum": 0, "example": 241 },
-          "Expansion": { "type": "object", "nullable": true, "description": "未公开的扩展负载；观测值为 null。" },
-          "PageSize": { "type": "integer", "description": "服务商实际页大小；即使请求值为 3，观测值仍为 400。", "example": 400 },
+          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
+          "PageSize": { "type": "integer", "description": "Effective provider page size; observed as 400 even when 3 was requested.", "example": 400 },
           "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
         },
         "additionalProperties": true
       },
       "MarketIndexSnapshot": {
         "type": "object",
-        "title": "市场指数快照",
-        "description": "东方财富 push2 行情中的指数代码、名称、最新点位、涨跌额和涨跌幅快照。",
+        "title": "MarketIndexSnapshot",
+        "description": "MarketIndexSnapshot data structure",
         "properties": {
-          "f2": { "type": "number", "description": "`fltt=2` 时的最新价格。" },
-          "f3": { "type": "number", "description": "`fltt=2` 时的涨跌幅百分比。" },
-          "f12": { "type": "string", "description": "证券代码。" },
-          "f14": { "type": "string", "description": "显示名称。" }
+          "f2": { "type": "number", "description": "Latest price when `fltt=2`." },
+          "f3": { "type": "number", "description": "Percentage change when `fltt=2`." },
+          "f12": { "type": "string", "description": "Security code." },
+          "f14": { "type": "string", "description": "Display name." }
         },
         "additionalProperties": true
       },
       "MarketIndexListResponse": {
         "type": "object",
-        "title": "市场指数列表响应",
-        "description": "历史观察到的东方财富 push2 指数列表包络；当前服务端访问未复现，字段保持宽松。",
+        "title": "MarketIndexListResponse",
+        "description": "Historically observed Eastmoney push2 envelope. Current server-side access was not reproduced, so fields remain permissive.",
         "properties": {
-          "rc": { "type": "integer", "description": "服务商返回码；历史上成功时为 0。" },
-          "rt": { "type": "integer", "description": "服务商响应类型／版本标记。" },
-          "svr": { "type": "integer", "description": "服务商服务器标识符。" },
-          "lt": { "type": "integer", "description": "未公开的服务商标志。" },
-          "full": { "type": "integer", "description": "未公开的完整性标志。" },
+          "rc": { "type": "integer", "description": "Provider return code; historically 0 on success." },
+          "rt": { "type": "integer", "description": "Provider response type/version marker." },
+          "svr": { "type": "integer", "description": "Provider server identifier." },
+          "lt": { "type": "integer", "description": "Undocumented provider flag." },
+          "full": { "type": "integer", "description": "Undocumented completeness flag." },
           "data": {
             "type": "object",
             "nullable": true,

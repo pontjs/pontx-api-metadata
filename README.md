@@ -21,12 +21,48 @@ The web-derived market-data collections are evidence-labelled rather than presen
 
 ## Updating the catalog
 
-1. Replace an approved document under `specs/<api>/openapi.json`.
-2. Update its SHA-256 and curated fields in `catalog/source.json`.
-3. Run `node scripts/build-catalog.mjs`.
-4. Run `node scripts/verify-specs.mjs` before committing.
+Chinese (`zh-CN`) is the canonical editing language. Each API keeps the same
+OpenAPI structure in every locale:
 
-`catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable product metadata, HTTP operations, parameters, request-body schema relationships, every response/status schema relationship, and `components.schemas` data structures. Hub search can therefore follow an endpoint's complete input/output metadata graph instead of matching isolated names only.
+```text
+specs/<api>/
+├── openapi.json
+└── locales/
+    └── en-US/
+        └── openapi.json
+```
+
+Locale directory names use BCP 47 language tags such as `en-US`, not
+underscore forms such as `en_US`. The localized documents may change only
+OpenAPI prose fields (`title`, `summary`, `description`, OAuth scope labels,
+enum descriptions, and the approved Pontx prose extensions). Paths, methods,
+operation IDs, parameters, Schemas, constraints, examples, security, servers,
+and array order must remain identical to the Chinese document.
+
+Product-level Chinese copy and non-prose configuration live in
+`catalog/source.json`; English product copy lives in
+`catalog/locales/en-US.json`.
+
+1. Update the Chinese document at `specs/<api>/openapi.json`.
+2. Translate the same prose nodes in `specs/<api>/locales/en-US/openapi.json`.
+3. Update `approvedSha256` and `approvedLocaleSha256` in `catalog/source.json`.
+4. Run the locale lint, rebuild, and verify commands below.
+
+```bash
+node scripts/test-locales.mjs
+node scripts/lint-locales.mjs
+node scripts/build-catalog.mjs
+node scripts/verify-specs.mjs
+git diff --check
+```
+
+To enable the repository-provided pre-commit hook locally:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+`catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated bilingual catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable product metadata, HTTP operations, parameters, request-body schema relationships, every response/status schema relationship, and `components.schemas` data structures. Hub search can therefore follow an endpoint's complete input/output metadata graph instead of matching isolated names only.
 
 ## Branches and deployment
 
