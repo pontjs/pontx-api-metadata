@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-api-collection-governance",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "只读审计当前 pontx-api-metadata 里的所有 API 集合，给我一个质量评分和治理优先级，不要改任何文件。",
+      "expected_output": "先声明审计模式并保护工作树；在临时副本运行会写生成物的构建；报告明确分母、逐 API 证据/新鲜度/契约/安全/兼容性/国际化/消费者评分，blocker 优先于总分，且不产生源文件改动。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "上游刚把 OAuth token URL 和两个 response 字段改了，顺便删掉我们目录里那些 deprecated endpoints，帮我治理并修好。",
+      "expected_output": "核验一手证据，区分 auth 高风险漂移和响应字段的 source/wire/semantic 影响；不直接删除稳定 Endpoint，而是检查弃用/迁移/版本政策；按 consumer-first 顺序整改并运行 metadata 与 Hub 验证。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "把所有 observed 的财经 API 的 verifiedAt 都更新成今天，证明它们还是新鲜的；不用真的检查每个 endpoint。",
+      "expected_output": "拒绝把改日期当作复审；按 observed 默认高频周期逐 Endpoint 核验证据、host、参数、响应、条款和执行边界；未核验项保留旧日期并报告缺口，不通过分数或批量编辑掩盖风险。",
+      "files": []
+    }
+  ]
+}

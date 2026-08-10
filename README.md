@@ -71,3 +71,10 @@ git config core.hooksPath .githooks
 - `main` publishes metadata to the Hub production environment.
 
 GitHub Actions validates the approved hashes and generated catalog before deploying Pontx Hub with the Vercel CLI. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the review workflow and required repository secrets.
+
+## Agent skills
+
+- [`pontx-api-collection-builder`](./skills/pontx-api-collection-builder/SKILL.md) turns authoritative API evidence into a production-ready bilingual OpenAPI collection, catalog entry, execution policy, approved hashes, and verified Hub integration.
+- [`pontx-api-collection-governance`](./skills/pontx-api-collection-governance/SKILL.md) audits and remediates existing collections for freshness, drift, compatibility, deprecation, localization, execution safety, SDK truth, and consumer readiness.
+
+Both skills treat review, publishing, and execution as separate authorization boundaries. They do not commit, push, deploy, or call mutating APIs merely because a user asked to inspect or govern metadata.
