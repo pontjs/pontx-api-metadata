@@ -873,58 +873,75 @@
         "properties": {
           "change": {
             "type": "number",
-            "description": "交易时段的绝对价格变动。"
+            "description": "交易时段的绝对价格变动。",
+            "example": 2.588
           },
           "change_percent": {
             "type": "number",
-            "description": "交易时段的百分比变动。"
+            "description": "交易时段的百分比变动。",
+            "example": 1.492
           },
           "early_trading_change": {
-            "type": "number"
+            "type": "number",
+            "example": 0
           },
           "early_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "example": 0
           },
           "regular_trading_change": {
-            "type": "number"
+            "type": "number",
+            "example": 2.01
           },
           "regular_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "example": 1.159
           },
           "late_trading_change": {
-            "type": "number"
+            "type": "number",
+            "example": 0.578
           },
           "late_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "example": 0.329
           },
           "close": {
-            "type": "number"
+            "type": "number",
+            "example": 175.51
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "example": 176.63
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "example": 175.02
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "example": 176.04
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "example": 46632535
           },
           "previous_close": {
-            "type": "number"
+            "type": "number",
+            "example": 173.5
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "example": 176.0883
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "example": 175.8562
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。"
+            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。",
+            "example": 1753833601079793200
           }
         },
         "additionalProperties": true
@@ -937,7 +954,8 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1753833599239197400
           },
           "timeframe": {
             "type": "string",
@@ -945,22 +963,28 @@
             "example": "REAL-TIME"
           },
           "ask": {
-            "type": "number"
+            "type": "number",
+            "example": 176.09
           },
           "ask_size": {
-            "type": "number"
+            "type": "number",
+            "example": 3
           },
           "ask_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12
           },
           "bid": {
-            "type": "number"
+            "type": "number",
+            "example": 176.05
           },
           "bid_size": {
-            "type": "number"
+            "type": "number",
+            "example": 1
           },
           "bid_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12
           }
         },
         "additionalProperties": true
@@ -973,28 +997,34 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1753833599213779700
           },
           "timeframe": {
             "type": "string",
             "example": "REAL-TIME"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "example": "593866"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "example": 176.0883
           },
           "size": {
-            "type": "number"
+            "type": "number",
+            "example": 48
           },
           "exchange": {
-            "type": "integer"
+            "type": "integer",
+            "example": 4
           },
           "conditions": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "example": 12
             }
           }
         },
@@ -1006,30 +1036,38 @@
         "description": "统一快照中的最近一分钟 OHLC、成交量、成交笔数、VWAP 与更新时间。",
         "properties": {
           "close": {
-            "type": "number"
+            "type": "number",
+            "example": 176.08
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "example": 176.1
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "example": 176.04
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "example": 176.04
           },
           "transactions": {
-            "type": "integer"
+            "type": "integer",
+            "example": 133
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "example": 25313
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "example": 176.0761
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1753833601079793200
           }
         },
         "additionalProperties": true
@@ -1043,10 +1081,14 @@
         ],
         "properties": {
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "资产的股票代码符号。",
+            "example": "NVDA"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "合约名称。",
+            "example": "Nvidia Corp"
           },
           "type": {
             "type": "string",
@@ -1056,7 +1098,9 @@
               "indices",
               "options",
               "stocks"
-            ]
+            ],
+            "description": "此股票代码的资产类别。",
+            "example": "stocks"
           },
           "market_status": {
             "type": "string",
@@ -1066,24 +1110,30 @@
               "early_trading",
               "regular_trading",
               "late_trading"
-            ]
+            ],
+            "description": "交易此股票代码的市场状态。股票、期权、加密货币和外汇快照的可能值为 open、closed、early_trading 或 late_trading；指数快照的可能值为 regular_trading、closed、early_trading 和 late_trading。",
+            "example": "closed"
           },
           "error": {
             "type": "string",
-            "description": "此股票代码对应的错误类别。"
+            "description": "此股票代码对应的错误类别。",
+            "example": "NOT_FOUND"
           },
           "message": {
             "type": "string",
-            "description": "此股票代码对应的错误详情。"
+            "description": "此股票代码对应的错误详情。",
+            "example": "Ticker not found."
           },
           "fmv": {
             "type": "number",
-            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。"
+            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。",
+            "example": 0.05
           },
           "fmv_last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。"
+            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。",
+            "example": 1636573458757383400
           },
           "session": {
             "$ref": "#/components/schemas/SnapshotSession"
@@ -1115,16 +1165,20 @@
             "description": "下一页的绝对 URL（如有）。"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "example": "cef2c957341a8e50b6455a7b8ef9702e"
           },
           "results": {
             "type": "array",
+            "description": "包含所请求数据的结果数组。",
             "items": {
               "$ref": "#/components/schemas/UnifiedSnapshot"
             }
           },
           "status": {
             "type": "string",
+            "description": "本次请求响应的状态。",
             "example": "OK"
           }
         },
@@ -1141,23 +1195,31 @@
         "properties": {
           "active": {
             "type": "boolean",
-            "description": "该资产在查询日期是否处于活跃交易状态。"
+            "description": "该资产在查询日期是否处于活跃交易状态。",
+            "example": true
           },
           "base_currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "此资产计价所对应货币的名称。"
           },
           "base_currency_symbol": {
             "type": "string",
             "description": "计价对象货币的 ISO 4217 代码。"
           },
           "cik": {
-            "type": "string"
+            "type": "string",
+            "description": "此股票代码的 CIK 编号。",
+            "example": "0001090872"
           },
           "composite_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "此股票代码的复合 OpenFIGI 编号。",
+            "example": "BBG000BWQYZ5"
           },
           "currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "此资产交易所用货币的名称。",
+            "example": "usd"
           },
           "currency_symbol": {
             "type": "string",
@@ -1165,18 +1227,23 @@
           },
           "delisted_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "此资产最后交易的日期。"
           },
           "last_updated_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "这些信息准确截至此时间。",
+            "example": "2021-04-25T00:00:00Z"
           },
           "locale": {
             "type": "string",
             "enum": [
               "global",
               "us"
-            ]
+            ],
+            "description": "资产所属地区。",
+            "example": "us"
           },
           "market": {
             "type": "string",
@@ -1186,24 +1253,34 @@
               "indices",
               "otc",
               "stocks"
-            ]
+            ],
+            "description": "资产的市场类型。",
+            "example": "stocks"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "资产名称。对于股票/权益证券，这是公司的注册名称；对于加密货币/外汇，这是货币或币对名称。",
+            "example": "Agilent Technologies Inc."
           },
           "primary_exchange": {
             "type": "string",
-            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。"
+            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。",
+            "example": "XNYS"
           },
           "share_class_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "此股票代码的股类 OpenFIGI 编号。",
+            "example": "BBG001SCTQY4"
           },
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "此项目交易使用的交易所代码。",
+            "example": "A"
           },
           "type": {
             "type": "string",
-            "description": "Massive 股票代码类型。"
+            "description": "Massive 股票代码类型。",
+            "example": "CS"
           }
         },
         "additionalProperties": true
@@ -1214,24 +1291,31 @@
         "description": "匹配筛选条件的标的代码分页列表，包含数量、请求标识和下一页地址。",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "本次请求的结果总数。",
+            "example": 1
           },
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。"
+            "description": "下一页的绝对 URL（如有）。",
+            "example": "https://api.massive.com/v3/reference/tickers?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "example": "e70013d92930de90e089dc8fa098888e"
           },
           "results": {
             "type": "array",
+            "description": "与查询匹配的股票代码数组。注意：虽然可以按 CUSIP 查询，但出于法律原因，响应不会返回 CUSIP。",
             "items": {
               "$ref": "#/components/schemas/Ticker"
             }
           },
           "status": {
             "type": "string",
+            "description": "本次请求响应的状态。",
             "example": "OK"
           }
         },
@@ -1243,19 +1327,23 @@
         "description": "标的所属公司的总部地址，包括街道、城市、州和邮政编码。",
         "properties": {
           "address1": {
-            "type": "string"
+            "type": "string",
+            "example": "One Apple Park Way"
           },
           "address2": {
             "type": "string"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "example": "Cupertino"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "example": "CA"
           },
           "postal_code": {
-            "type": "string"
+            "type": "string",
+            "example": "95014"
           }
         },
         "additionalProperties": true
@@ -1267,11 +1355,13 @@
         "properties": {
           "icon_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://api.massive.com/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_icon.png"
           },
           "logo_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://api.massive.com/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_logo.svg"
           }
         },
         "additionalProperties": false
@@ -1293,45 +1383,70 @@
                 "$ref": "#/components/schemas/Branding"
               },
               "description": {
-                "type": "string"
+                "type": "string",
+                "description": "公司及其业务或产品的说明。",
+                "example": "Apple designs a wide variety of consumer electronic devices, including smartphones (iPhone), tablets (iPad), PCs (Mac), smartwatches (Apple Watch), AirPods, and TV boxes (Apple TV), among others."
               },
               "homepage_url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "description": "公司网站主页的 URL。",
+                "example": "https://www.apple.com"
               },
               "list_date": {
                 "type": "string",
-                "format": "date"
+                "format": "date",
+                "description": "该代码首次公开上市的日期，格式为 YYYY-MM-DD。",
+                "example": "1980-12-12"
               },
               "market_cap": {
-                "type": "number"
+                "type": "number",
+                "description": "该股票代码的最近收盘价乘以加权流通股数。",
+                "example": 2771126040150
               },
               "phone_number": {
-                "type": "string"
+                "type": "string",
+                "description": "此股票代码背后公司的电话号码。",
+                "example": "(408) 996-1010"
               },
               "round_lot": {
-                "type": "number"
+                "type": "number",
+                "description": "该证券的整手交易单位大小。",
+                "example": 100
               },
               "share_class_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "该特定股类记录的流通股数量。",
+                "example": 16406400000
               },
               "sic_code": {
-                "type": "string"
+                "type": "string",
+                "description": "此股票代码的标准行业分类（SIC）代码。",
+                "example": "3571"
               },
               "sic_description": {
-                "type": "string"
+                "type": "string",
+                "description": "此股票代码 SIC 代码的说明。",
+                "example": "ELECTRONIC COMPUTERS"
               },
               "ticker_root": {
-                "type": "string"
+                "type": "string",
+                "description": "指定股票代码的根代码。例如，BRK.A 的根代码是 BRK。",
+                "example": "AAPL"
               },
               "ticker_suffix": {
-                "type": "string"
+                "type": "string",
+                "description": "指定股票代码的后缀。例如，BRK.A 的后缀是 A。"
               },
               "total_employees": {
-                "type": "number"
+                "type": "number",
+                "description": "公司的大致员工人数。",
+                "example": 154000
               },
               "weighted_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "假设其他股类的所有股份均转换为此股类后计算的流通股数。",
+                "example": 16334371000
               }
             },
             "additionalProperties": true
@@ -1344,16 +1459,20 @@
         "description": "包含请求状态、请求标识和单个标的详细资料的响应。",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "本次请求的结果总数。"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "example": "31d59dda-80e5-4721-8496-d0d32a654afe"
           },
           "results": {
             "$ref": "#/components/schemas/TickerDetails"
           },
           "status": {
             "type": "string",
+            "description": "本次请求响应的状态。",
             "example": "OK"
           }
         },

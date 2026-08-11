@@ -140,9 +140,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "e9a9ed4d7eb98cbcb21a82177072168063e8a4fd18deadee9400b1c7ec9ed1e3",
+      "approvedSha256": "0806c36458fd84a806e4db04953ad10874ef462331bf7bb1665393dda95a60ab",
       "approvedLocaleSha256": {
-        "en-US": "9d1629ffa865e7b6255e1693635a2551633f0a28020b991622e12f4d53e6a00b"
+        "en-US": "a6d26ea80cd74fe1b5c4edf0051c082deda3126c0477f10f91d0eb795a633f48"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
