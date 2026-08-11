@@ -2883,7 +2883,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
-      "approvedSha256": "94471a0415745ba290e93fc9bb52fc9f68d8301d7ecd976275357e0b9040d4f8",
+      "approvedSha256": "9e65c4babf48d6c0898073f9a854f6dd99ec1304ebedaa9d9efd42c14d54a621",
       "title": {
         "zh": "滴答清单开放 API",
         "en": "Dida365 Open API"
@@ -8307,6 +8307,7 @@
                 "description": "List of project identifiers",
                 "items": {
                   "type": "string",
+                  "description": "Project identifier",
                   "example": "69a850f41c20d2030e148fdf"
                 }
               },
@@ -8335,6 +8336,7 @@
                   "description": "项目标识符列表",
                   "items": {
                     "type": "string",
+                    "description": "项目标识符",
                     "example": "69a850f41c20d2030e148fdf"
                   }
                 },
@@ -8428,6 +8430,7 @@
                 "description": "Filters tasks belonging to the specified project ID",
                 "items": {
                   "type": "string",
+                  "description": "Project identifier",
                   "example": "69a850f41c20d2030e148fdf"
                 }
               },
@@ -8448,6 +8451,7 @@
                 "description": "0 none, 1 low, 3 medium, 5 high",
                 "items": {
                   "type": "integer",
+                  "description": "Task priority",
                   "enum": [
                     0,
                     1,
@@ -8468,6 +8472,7 @@
                 "description": "Tasks must contain all specified tags",
                 "items": {
                   "type": "string",
+                  "description": "Task tag",
                   "example": "urgent"
                 }
               },
@@ -8476,6 +8481,7 @@
                 "description": "Filters tasks by current status codes: 0 Open, 2 Completed",
                 "items": {
                   "type": "integer",
+                  "description": "Task status code",
                   "enum": [
                     0,
                     2
@@ -8500,6 +8506,7 @@
                   "description": "筛选属于指定项目 ID 的任务",
                   "items": {
                     "type": "string",
+                    "description": "项目标识符",
                     "example": "69a850f41c20d2030e148fdf"
                   }
                 },
@@ -8520,6 +8527,7 @@
                   "description": "0 表示无优先级，1 表示低，3 表示中，5 表示高",
                   "items": {
                     "type": "integer",
+                    "description": "任务优先级",
                     "enum": [
                       0,
                       1,
@@ -8540,6 +8548,7 @@
                   "description": "任务必须包含所有指定标签",
                   "items": {
                     "type": "string",
+                    "description": "任务标签",
                     "example": "urgent"
                   }
                 },
@@ -8548,6 +8557,7 @@
                   "description": "按任务当前状态码筛选；0 表示未完成，2 表示已完成",
                   "items": {
                     "type": "integer",
+                    "description": "任务状态码",
                     "enum": [
                       0,
                       2
@@ -9765,6 +9775,7 @@
                 "description": "Relation types",
                 "items": {
                   "type": "integer",
+                  "description": "Relation type",
                   "example": 0
                 }
               }
@@ -9886,6 +9897,7 @@
                   "description": "关联类型列表",
                   "items": {
                     "type": "integer",
+                    "description": "关联类型",
                     "example": 0
                   }
                 }
@@ -10035,7 +10047,8 @@
                 "type": "array",
                 "description": "Relation types",
                 "items": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Relation type"
                 }
               }
             }
@@ -10097,7 +10110,8 @@
                   "type": "array",
                   "description": "关联类型列表",
                   "items": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "关联类型"
                   }
                 }
               }
@@ -10361,7 +10375,8 @@
                 "type": "array",
                 "description": "Reminders",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Reminder"
                 }
               },
               "annoyingAlert": {
@@ -10397,7 +10412,8 @@
                 "type": "array",
                 "description": "Style colors",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Style color"
                 }
               },
               "dateDisplayFormat": {
@@ -10486,7 +10502,8 @@
                   "type": "array",
                   "description": "提醒列表",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "提醒"
                   }
                 },
                 "annoyingAlert": {
@@ -10522,7 +10539,8 @@
                   "type": "array",
                   "description": "样式颜色列表",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "样式颜色"
                   }
                 },
                 "dateDisplayFormat": {
@@ -10799,7 +10817,8 @@
                 "type": "array",
                 "description": "Habit reminders",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Habit reminder"
                 }
               },
               "recordEnable": {
@@ -10830,7 +10849,8 @@
                 "type": "array",
                 "description": "Excluded dates",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Excluded date"
                 }
               },
               "style": {
@@ -10903,7 +10923,8 @@
                   "type": "array",
                   "description": "习惯提醒列表",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "习惯提醒"
                   }
                 },
                 "recordEnable": {
@@ -10934,7 +10955,8 @@
                   "type": "array",
                   "description": "排除日期列表",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "排除日期"
                   }
                 },
                 "style": {
@@ -11949,6 +11971,7 @@
                 "description": "List of reminder triggers",
                 "items": {
                   "type": "string",
+                  "description": "Reminder trigger",
                   "example": "TRIGGER:P0DT9H0M0S"
                 },
                 "example": [
@@ -11961,6 +11984,7 @@
                 "description": "Tags assigned to the task",
                 "items": {
                   "type": "string",
+                  "description": "Task tag",
                   "example": "work"
                 },
                 "example": [
@@ -12094,6 +12118,7 @@
                   "description": "提醒触发器列表",
                   "items": {
                     "type": "string",
+                    "description": "提醒触发器",
                     "example": "TRIGGER:P0DT9H0M0S"
                   },
                   "example": [
@@ -12106,6 +12131,7 @@
                   "description": "分配给任务的标签",
                   "items": {
                     "type": "string",
+                    "description": "任务标签",
                     "example": "work"
                   },
                   "example": [
@@ -12355,6 +12381,7 @@
                 "description": "Lists of reminders specific to the task",
                 "items": {
                   "type": "string",
+                  "description": "Task-specific reminder",
                   "example": "TRIGGER:P0DT9H0M0S"
                 }
               },
@@ -12363,6 +12390,7 @@
                 "description": "Tags assigned to the task",
                 "items": {
                   "type": "string",
+                  "description": "Task tag",
                   "example": "work"
                 },
                 "example": [
@@ -12453,6 +12481,7 @@
                   "description": "任务专属提醒列表",
                   "items": {
                     "type": "string",
+                    "description": "任务专属提醒",
                     "example": "TRIGGER:P0DT9H0M0S"
                   }
                 },
@@ -12461,6 +12490,7 @@
                   "description": "分配给任务的标签",
                   "items": {
                     "type": "string",
+                    "description": "任务标签",
                     "example": "work"
                   },
                   "example": [
@@ -12701,6 +12731,7 @@
                 "description": "Lists of reminders specific to the task",
                 "items": {
                   "type": "string",
+                  "description": "Task-specific reminder",
                   "example": "TRIGGER:P0DT9H0M0S"
                 }
               },
@@ -12709,6 +12740,7 @@
                 "description": "Tags assigned to the task",
                 "items": {
                   "type": "string",
+                  "description": "Task tag",
                   "example": "work"
                 },
                 "example": [
@@ -12804,6 +12836,7 @@
                   "description": "任务专属提醒列表",
                   "items": {
                     "type": "string",
+                    "description": "任务专属提醒",
                     "example": "TRIGGER:P0DT9H0M0S"
                   }
                 },
@@ -12812,6 +12845,7 @@
                   "description": "分配给任务的标签",
                   "items": {
                     "type": "string",
+                    "description": "任务标签",
                     "example": "work"
                   },
                   "example": [

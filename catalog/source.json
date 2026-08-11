@@ -86,9 +86,9 @@
       "category": "Productivity",
       "featured": true,
       "specFile": "specs/dida365/openapi.json",
-      "approvedSha256": "94471a0415745ba290e93fc9bb52fc9f68d8301d7ecd976275357e0b9040d4f8",
+      "approvedSha256": "9e65c4babf48d6c0898073f9a854f6dd99ec1304ebedaa9d9efd42c14d54a621",
       "approvedLocaleSha256": {
-        "en-US": "88d0a0baf07ff441bbe6f05c608aaf785f35af721914176ab7b6a6b7a89209d2"
+        "en-US": "294acdfb6641d893dcda44e7a54e3a2a3651485de374abf0c268a50c5b4460fb"
       },
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
