@@ -10,6 +10,7 @@
     { "url": "https://quote.cnbc.com", "description": "CNBC quote cache web service" },
     { "url": "https://webql-redesign.cnbcfm.com", "description": "CNBC persisted GraphQL service" }
   ],
+  "tags": [{ "name": "common", "description": "CNBC quote and chart endpoints" }],
   "paths": {
     "/quote-html-webservice/restQuote/symbolType/symbol": {
       "get": {

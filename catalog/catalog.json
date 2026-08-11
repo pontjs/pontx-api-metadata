@@ -1310,7 +1310,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "6311a4b3221ec3d5e15c67c334f1d677cde50e0bd0b42aaa900007eb263f8924",
+      "approvedSha256": "6fd4c79e6674dcd8b4bf2866b9476f6e899ef39f1acbec0ea696719f06342fa9",
       "title": {
         "zh": "Frankfurter v2 汇率 API",
         "en": "Frankfurter v2 exchange-rate API"
@@ -1931,8 +1931,8 @@
         {
           "name": "Rate",
           "title": {
-            "zh": "Rate",
-            "en": "Rate"
+            "zh": "汇率记录",
+            "en": "Rate record"
           },
           "description": {
             "zh": "Rate 数据结构",
@@ -1993,6 +1993,7 @@
             }
           ],
           "schema": {
+            "title": "Rate record",
             "type": "object",
             "properties": {
               "date": {
@@ -2055,6 +2056,7 @@
           },
           "localizedSchema": {
             "zh": {
+              "title": "汇率记录",
               "type": "object",
               "properties": {
                 "date": {
@@ -2120,8 +2122,8 @@
         {
           "name": "Currency",
           "title": {
-            "zh": "Currency",
-            "en": "Currency"
+            "zh": "货币摘要",
+            "en": "Currency summary"
           },
           "description": {
             "zh": "Currency 数据结构",
@@ -2187,6 +2189,7 @@
             }
           ],
           "schema": {
+            "title": "Currency summary",
             "type": "object",
             "properties": {
               "iso_code": {
@@ -2235,6 +2238,7 @@
           },
           "localizedSchema": {
             "zh": {
+              "title": "货币摘要",
               "type": "object",
               "properties": {
                 "iso_code": {
@@ -2286,8 +2290,8 @@
         {
           "name": "CurrencyDetail",
           "title": {
-            "zh": "CurrencyDetail",
-            "en": "CurrencyDetail"
+            "zh": "货币详情",
+            "en": "Currency details"
           },
           "description": {
             "zh": "CurrencyDetail 数据结构",
@@ -2351,6 +2355,7 @@
             }
           ],
           "schema": {
+            "title": "Currency details",
             "type": "object",
             "properties": {
               "iso_code": {
@@ -2409,6 +2414,7 @@
           },
           "localizedSchema": {
             "zh": {
+              "title": "货币详情",
               "type": "object",
               "properties": {
                 "iso_code": {
@@ -2470,8 +2476,8 @@
         {
           "name": "Provider",
           "title": {
-            "zh": "Provider",
-            "en": "Provider"
+            "zh": "汇率数据提供方",
+            "en": "Exchange-rate data provider"
           },
           "description": {
             "zh": "Provider 数据结构",
@@ -2589,6 +2595,7 @@
             }
           ],
           "schema": {
+            "title": "Exchange-rate data provider",
             "type": "object",
             "properties": {
               "key": {
@@ -2689,6 +2696,7 @@
           },
           "localizedSchema": {
             "zh": {
+              "title": "汇率数据提供方",
               "type": "object",
               "properties": {
                 "key": {
@@ -12648,7 +12656,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/massive/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
-      "approvedSha256": "e12cd88515a7869a7113f7fc9d743478820d5fcfad50cfbb7f04c7ce3118bb85",
+      "approvedSha256": "c3715b258ee35a0421a3d63dfdc1304b07f87a3ad0f758cb5035d71641348dd6",
       "title": {
         "zh": "Massive 股票市场数据 API",
         "en": "Massive stock market data API"
@@ -17790,7 +17798,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/stooq/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
-      "approvedSha256": "70642fb2338df5b61b5fec39b8b9452d95653c3ae3f65a67264fe5f8fb1da800",
+      "approvedSha256": "bf87cd1602930960bb05e07e8d00f1b7d380bd76c065dbde45a06fbadefc1ea7",
       "title": {
         "zh": "Stooq 公共行情下载",
         "en": "Stooq public quote downloads"
@@ -18198,7 +18206,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/sina-finance/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
-      "approvedSha256": "1126212eeea1e4207124c667853e78d74a8849a5e2d1c5bb9e75f4846db54618",
+      "approvedSha256": "97b179857a2a7cf5ab3a6141e265f759f1684b0660fef482ecee50133d7e15f5",
       "title": {
         "zh": "新浪财经行情服务 API",
         "en": "Sina Finance web quote API"
@@ -19236,7 +19244,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/tencent-finance/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
-      "approvedSha256": "b4ed601694e7c6a3b504bf4b524f901d905bb99a519f669e120befca6ef14edb",
+      "approvedSha256": "09773828c91ad73691f431217ab45ab40bcb039ff63c5c0a702ac5db3bf7b2e8",
       "title": {
         "zh": "腾讯财经网页行情 API",
         "en": "Tencent Finance web quote API"
@@ -20257,7 +20265,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "749af44a0bf1ced64587e38a022d81e9afecabc05f990ea5fd0c0f9a8d0f08f5",
+      "approvedSha256": "11bba188251c267c88eab17307caaea3187c3813ca31893e5f4de424d4c0a104",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -21979,7 +21987,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/cnbc-market-data/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
-      "approvedSha256": "3a403b3979d13bc60c53a10bb576f5d5ea1d36e3bf3fd5f44baec5c6d4b4f804",
+      "approvedSha256": "d1a3b72bbb88c05da32f971771b93379db3e26679b9739306b86997923ca15d2",
       "title": {
         "zh": "CNBC 网页行情 API",
         "en": "CNBC web quote API"
@@ -23247,7 +23255,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/i3investor-sgx/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
-      "approvedSha256": "afe70fca99d032aacb1dc1669dd265c1ea9d7879ab0337499ea2ce798b009bfc",
+      "approvedSha256": "7816d40d84cde04a045048d9a3dc5338530c355985c369a7949858c0a8fe0767",
       "title": {
         "zh": "i3Investor SGX 公共行情页",
         "en": "i3Investor SGX public market pages"

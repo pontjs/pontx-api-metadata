@@ -17,6 +17,7 @@
       "url": "https://api.frankfurter.dev/v2"
     }
   ],
+  "tags": [{ "name": "common", "description": "Rates, currencies, and data-provider endpoints" }],
   "paths": {
     "/rates": {
       "get": {
@@ -281,6 +282,7 @@
     },
     "schemas": {
       "Rate": {
+        "title": "Rate record",
         "type": "object",
         "properties": {
           "date": {
@@ -319,6 +321,7 @@
         "required": ["date", "base", "quote", "rate"]
       },
       "Currency": {
+        "title": "Currency summary",
         "type": "object",
         "properties": {
           "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
@@ -331,6 +334,7 @@
         "required": ["iso_code", "name"]
       },
       "CurrencyDetail": {
+        "title": "Currency details",
         "type": "object",
         "properties": {
           "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
@@ -356,6 +360,7 @@
         "required": ["iso_code", "name"]
       },
       "Provider": {
+        "title": "Exchange-rate data provider",
         "type": "object",
         "properties": {
           "key": { "type": "string", "description": "Provider identifier" },

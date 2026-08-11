@@ -17,6 +17,7 @@
       "url": "https://api.frankfurter.dev/v2"
     }
   ],
+  "tags": [{ "name": "common", "description": "汇率、货币与数据提供方接口" }],
   "paths": {
     "/rates": {
       "get": {
@@ -281,6 +282,7 @@
     },
     "schemas": {
       "Rate": {
+        "title": "汇率记录",
         "type": "object",
         "properties": {
           "date": {
@@ -319,6 +321,7 @@
         "required": ["date", "base", "quote", "rate"]
       },
       "Currency": {
+        "title": "货币摘要",
         "type": "object",
         "properties": {
           "iso_code": { "type": "string", "description": "ISO 4217 货币代码" },
@@ -331,6 +334,7 @@
         "required": ["iso_code", "name"]
       },
       "CurrencyDetail": {
+        "title": "货币详情",
         "type": "object",
         "properties": {
           "iso_code": { "type": "string", "description": "ISO 4217 货币代码" },
@@ -356,6 +360,7 @@
         "required": ["iso_code", "name"]
       },
       "Provider": {
+        "title": "汇率数据提供方",
         "type": "object",
         "properties": {
           "key": { "type": "string", "description": "数据提供方标识" },

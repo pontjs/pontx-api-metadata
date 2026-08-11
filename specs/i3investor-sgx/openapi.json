@@ -7,6 +7,7 @@
     "license": { "name": "Proprietary / undocumented" }
   },
   "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor 新加坡门户" }],
+  "tags": [{ "name": "common", "description": "SGX 股票行情 HTML 页面接口" }],
   "paths": {
     "/servlets/stk/{code}.jsp": {
       "get": {

@@ -19,6 +19,7 @@
       "url": "https://push2.eastmoney.com"
     }
   ],
+  "tags": [{ "name": "common", "description": "基金估值与历史净值接口" }],
   "paths": {
     "/js/{fundCode}.js": {
       "get": {

@@ -10,7 +10,10 @@
     { "url": "https://qt.gtimg.cn", "description": "Snapshot host" },
     { "url": "https://web.ifzq.gtimg.cn", "description": "Chart host" }
   ],
-  "tags": [{ "name": "Quotes" }, { "name": "Charts" }],
+  "tags": [
+    { "name": "Quotes", "description": "Security quote snapshot endpoints" },
+    { "name": "Charts", "description": "Adjusted and unadjusted K-line chart endpoints" }
+  ],
   "paths": {
     "/q={symbols}": {
       "get": {

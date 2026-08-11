@@ -49,9 +49,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "6311a4b3221ec3d5e15c67c334f1d677cde50e0bd0b42aaa900007eb263f8924",
+      "approvedSha256": "6fd4c79e6674dcd8b4bf2866b9476f6e899ef39f1acbec0ea696719f06342fa9",
       "approvedLocaleSha256": {
-        "en-US": "f86b37c3b64afeee9940b97eab0852a0c93db9fdc5f7db33969542b6300b1a17"
+        "en-US": "0d299695577803bdeb2ba1a2825ff5d565c9e8b586a08db14f315f25c49fae6a"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -140,9 +140,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "e12cd88515a7869a7113f7fc9d743478820d5fcfad50cfbb7f04c7ce3118bb85",
+      "approvedSha256": "c3715b258ee35a0421a3d63dfdc1304b07f87a3ad0f758cb5035d71641348dd6",
       "approvedLocaleSha256": {
-        "en-US": "0512568f14a3d9ee3af0cd39bc797153780076296db19f85cb9fac0f8363c4bb"
+        "en-US": "2ab0b2a69f7a81eb70d2c52b9cf8f79f23676af30b7059955e9cd10410ad9ba4"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
@@ -218,9 +218,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "70642fb2338df5b61b5fec39b8b9452d95653c3ae3f65a67264fe5f8fb1da800",
+      "approvedSha256": "bf87cd1602930960bb05e07e8d00f1b7d380bd76c065dbde45a06fbadefc1ea7",
       "approvedLocaleSha256": {
-        "en-US": "89deea7e9e1de70ecdec2a5912428c36f0bade7bc660a62142b66882307ed78f"
+        "en-US": "a29ddce4805497048dbd0cc715c517fb2dadee9b6be46f01856cf59e467ae7ad"
       },
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
@@ -253,9 +253,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/sina-finance/openapi.json",
-      "approvedSha256": "1126212eeea1e4207124c667853e78d74a8849a5e2d1c5bb9e75f4846db54618",
+      "approvedSha256": "97b179857a2a7cf5ab3a6141e265f759f1684b0660fef482ecee50133d7e15f5",
       "approvedLocaleSha256": {
-        "en-US": "4d37fddb5d0a60b558ae3fc21b0793915433372138d01006d8605f601d5e0cad"
+        "en-US": "b2399e22aae7560cbf11eb49d38c3dc47e525715ca341a91da7491c45f8c57d6"
       },
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
@@ -288,9 +288,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/tencent-finance/openapi.json",
-      "approvedSha256": "b4ed601694e7c6a3b504bf4b524f901d905bb99a519f669e120befca6ef14edb",
+      "approvedSha256": "09773828c91ad73691f431217ab45ab40bcb039ff63c5c0a702ac5db3bf7b2e8",
       "approvedLocaleSha256": {
-        "en-US": "ac7767d58eaab4f50073fdef7712177f97e0d9f8db0b42e7b2fb0c919a2ef690"
+        "en-US": "b6646e66591470b882831219031be2d348477d3d181f876a341331adfc178983"
       },
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
@@ -323,9 +323,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/eastmoney-funds/openapi.json",
-      "approvedSha256": "749af44a0bf1ced64587e38a022d81e9afecabc05f990ea5fd0c0f9a8d0f08f5",
+      "approvedSha256": "11bba188251c267c88eab17307caaea3187c3813ca31893e5f4de424d4c0a104",
       "approvedLocaleSha256": {
-        "en-US": "8e0b576d3db7100b15ebee5483049cac6925831e6afb979293e2db7e5fc9ab35"
+        "en-US": "fe7e7bc83ba0576818dcc27bf321c23aaf25f3758b3af7f2794574f07c9a5378"
       },
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
@@ -358,9 +358,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/cnbc-market-data/openapi.json",
-      "approvedSha256": "3a403b3979d13bc60c53a10bb576f5d5ea1d36e3bf3fd5f44baec5c6d4b4f804",
+      "approvedSha256": "d1a3b72bbb88c05da32f971771b93379db3e26679b9739306b86997923ca15d2",
       "approvedLocaleSha256": {
-        "en-US": "54a2e59222be2fd0d8e3e9be337a35aaff0bc97e390b45fe2a3a7e185795fa0f"
+        "en-US": "e06cba917614631f6c884f1a5e7675e2e7f103323a717ba9bd767860c2167787"
       },
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
@@ -392,9 +392,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "afe70fca99d032aacb1dc1669dd265c1ea9d7879ab0337499ea2ce798b009bfc",
+      "approvedSha256": "7816d40d84cde04a045048d9a3dc5338530c355985c369a7949858c0a8fe0767",
       "approvedLocaleSha256": {
-        "en-US": "97b20c9f4f14b3d33e03f892db8fc98c5b5312ee342d552bb8d414a631006950"
+        "en-US": "d78a73295df0e7c926ebb1344c26cf677acf46da4206e7ab0caecb1feb15ebd4"
       },
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
