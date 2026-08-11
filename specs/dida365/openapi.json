@@ -645,7 +645,7 @@
       "CompletedTaskFilter": {"title": "已完成任务筛选条件", "description": "用于限定项目和完成时间范围的查询条件。", "type": "object", "properties": {"projectIds": {"type": "array", "description": "项目标识符列表", "items": {"type": "string", "description": "项目标识符", "example": "69a850f41c20d2030e148fdf"}}, "startDate": {"type": "string", "format": "date-time", "description": "包含边界的 completedTime 下限", "example": "2026-04-01T00:00:00+0800"}, "endDate": {"type": "string", "format": "date-time", "description": "包含边界的 completedTime 上限", "example": "2026-04-30T23:59:59+0800"}}},
       "TaskFilter": {"title": "任务组合筛选条件", "description": "按项目、时间、优先级、标签和状态筛选任务的条件。", "type": "object", "properties": {"projectIds": {"type": "array", "description": "筛选属于指定项目 ID 的任务", "items": {"type": "string", "description": "项目标识符", "example": "69a850f41c20d2030e148fdf"}}, "startDate": {"type": "string", "format": "date-time", "description": "筛选 startDate 大于或等于此值的任务", "example": "2026-03-01T00:58:20.000+0000"}, "endDate": {"type": "string", "format": "date-time", "description": "筛选 startDate 小于或等于此值的任务", "example": "2026-03-06T10:58:20.000+0000"}, "priority": {"type": "array", "description": "0 表示无优先级，1 表示低，3 表示中，5 表示高", "items": {"type": "integer", "description": "任务优先级", "enum": [0, 1, 3, 5], "x-enum-descriptions": ["无", "低", "中", "高"], "example": 0}}, "tag": {"type": "array", "description": "任务必须包含所有指定标签", "items": {"type": "string", "description": "任务标签", "example": "urgent"}}, "status": {"type": "array", "description": "按任务当前状态码筛选；0 表示未完成，2 表示已完成", "items": {"type": "integer", "description": "任务状态码", "enum": [0, 2], "x-enum-descriptions": ["未完成", "已完成"], "example": 0}}}},
       "OpenComment": {"title": "任务评论", "type": "object", "description": "任务下的评论内容及创建、修改时间。", "properties": {"id": {"type": "string", "description": "评论标识符", "example": "comment-1"}, "userId": {"type": "integer", "format": "int64", "description": "用户 ID"}, "title": {"type": "string", "description": "评论文本", "example": "Comment text"}, "createdTime": {"type": "string", "format": "date-time", "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ", "example": "2026-04-07T09:00:00+0000"}, "modifiedTime": {"type": "string", "format": "date-time", "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ", "example": "2026-04-07T09:00:00+0000"}, "replyCommentId": {"type": "string", "description": "所回复评论的标识符"}, "replyUserId": {"type": "integer", "format": "int64", "description": "所回复用户的 ID"}}},
-      "OpenProjectGroup": {"title": "项目分组", "description": "用于组织多个项目的分组及其排序信息。", "type": "object", "properties": {"id": {"type": "string", "description": "项目分组标识符", "example": "group-1"}, "name": {"type": "string", "maxLength": 64, "description": "项目分组名称", "example": "Group Name"}, "sortOrder": {"type": "integer", "format": "int64", "description": "排序值", "example": 0}, "showAll": {"type": "boolean", "description": "是否显示分组中的所有项目", "example": true}, "viewMode": {"type": "string", "description": "项目分组视图模式", "enum": ["list", "kanban", "timeline"], "example": "list"}}},
+      "OpenProjectGroup": {"title": "项目分组", "description": "用于组织多个项目的分组及其排序信息。", "type": "object", "properties": {"id": {"type": "string", "description": "项目分组标识符", "example": "group-1"}, "name": {"type": "string", "maxLength": 64, "description": "项目分组名称", "example": "Group Name"}, "sortOrder": {"type": "integer", "format": "int64", "description": "排序值", "example": 0}, "showAll": {"type": "boolean", "description": "是否显示分组中的所有项目", "example": true}, "viewMode": {"type": "string", "description": "项目分组视图模式", "enum": ["list", "kanban", "timeline"], "x-enum-descriptions": ["列表", "看板", "时间线"], "example": "list"}}},
       "ProjectGroupCreate": {"title": "创建项目分组请求", "description": "创建项目分组时提交的名称。", "type": "object", "required": ["name"], "properties": {"name": {"type": "string", "maxLength": 64, "description": "项目分组名称，最多 64 个字符", "example": "Group Name"}}},
       "ProjectGroupUpdate": {"title": "更新项目分组请求", "description": "更新项目分组名称时提交的数据。", "type": "object", "properties": {"name": {"type": "string", "maxLength": 64, "description": "项目分组名称，最多 64 个字符", "example": "New Group Name"}}},
       "ColumnCreate": {"title": "创建看板列请求", "description": "在项目看板中创建列时提交的名称。", "type": "object", "required": ["name"], "properties": {"name": {"type": "string", "maxLength": 1000, "description": "看板列名称，最多 1000 个字符", "example": "Column Name"}}},
@@ -823,6 +823,7 @@
             "type": "string",
             "description": "任务类型",
             "enum": ["TEXT", "NOTE", "CHECKLIST"],
+            "x-enum-descriptions": ["文本任务", "笔记", "清单"],
             "example": "CHECKLIST"
           }
         }
@@ -1086,18 +1087,21 @@
             "type": "string",
             "description": "视图模式",
             "enum": ["list", "kanban", "timeline"],
+            "x-enum-descriptions": ["列表", "看板", "时间线"],
             "example": "list"
           },
           "permission": {
             "type": "string",
             "description": "用户对项目的权限级别",
             "enum": ["read", "write", "comment"],
+            "x-enum-descriptions": ["读取", "写入", "评论"],
             "example": "write"
           },
           "kind": {
             "type": "string",
             "description": "项目类型",
             "enum": ["TASK", "NOTE"],
+            "x-enum-descriptions": ["任务项目", "笔记项目"],
             "example": "TASK"
           }
         }
@@ -1128,12 +1132,14 @@
             "type": "string",
             "description": "视图模式",
             "enum": ["list", "kanban", "timeline"],
+            "x-enum-descriptions": ["列表", "看板", "时间线"],
             "example": "list"
           },
           "kind": {
             "type": "string",
             "description": "项目类型",
             "enum": ["TASK", "NOTE"],
+            "x-enum-descriptions": ["任务项目", "笔记项目"],
             "example": "TASK"
           }
         }
@@ -1163,12 +1169,14 @@
             "type": "string",
             "description": "视图模式",
             "enum": ["list", "kanban", "timeline"],
+            "x-enum-descriptions": ["列表", "看板", "时间线"],
             "example": "list"
           },
           "kind": {
             "type": "string",
             "description": "项目类型",
             "enum": ["TASK", "NOTE"],
+            "x-enum-descriptions": ["任务项目", "笔记项目"],
             "example": "TASK"
           }
         }

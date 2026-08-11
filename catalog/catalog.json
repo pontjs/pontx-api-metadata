@@ -2895,7 +2895,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
-      "approvedSha256": "9e65c4babf48d6c0898073f9a854f6dd99ec1304ebedaa9d9efd42c14d54a621",
+      "approvedSha256": "c0762edea589c9e888d6e1bedcca7ea2ba21dc9e1ea3fa17d26cfc6877c8b035",
       "title": {
         "zh": "滴答清单开放 API",
         "en": "Dida365 Open API"
@@ -8838,6 +8838,11 @@
                   "kanban",
                   "timeline"
                 ],
+                "x-enum-descriptions": [
+                  "List",
+                  "Kanban",
+                  "Timeline"
+                ],
                 "example": "list"
               }
             }
@@ -8877,6 +8882,11 @@
                     "list",
                     "kanban",
                     "timeline"
+                  ],
+                  "x-enum-descriptions": [
+                    "列表",
+                    "看板",
+                    "时间线"
                   ],
                   "example": "list"
                 }
@@ -12048,6 +12058,11 @@
                   "NOTE",
                   "CHECKLIST"
                 ],
+                "x-enum-descriptions": [
+                  "Text task",
+                  "Note",
+                  "Checklist"
+                ],
                 "example": "CHECKLIST"
               }
             }
@@ -12194,6 +12209,11 @@
                     "TEXT",
                     "NOTE",
                     "CHECKLIST"
+                  ],
+                  "x-enum-descriptions": [
+                    "文本任务",
+                    "笔记",
+                    "清单"
                   ],
                   "example": "CHECKLIST"
                 }
@@ -13193,6 +13213,11 @@
                   "kanban",
                   "timeline"
                 ],
+                "x-enum-descriptions": [
+                  "List",
+                  "Kanban",
+                  "Timeline"
+                ],
                 "example": "list"
               },
               "permission": {
@@ -13203,6 +13228,11 @@
                   "write",
                   "comment"
                 ],
+                "x-enum-descriptions": [
+                  "Read",
+                  "Write",
+                  "Comment"
+                ],
                 "example": "write"
               },
               "kind": {
@@ -13211,6 +13241,10 @@
                 "enum": [
                   "TASK",
                   "NOTE"
+                ],
+                "x-enum-descriptions": [
+                  "Task project",
+                  "Note project"
                 ],
                 "example": "TASK"
               }
@@ -13261,6 +13295,11 @@
                     "kanban",
                     "timeline"
                   ],
+                  "x-enum-descriptions": [
+                    "列表",
+                    "看板",
+                    "时间线"
+                  ],
                   "example": "list"
                 },
                 "permission": {
@@ -13271,6 +13310,11 @@
                     "write",
                     "comment"
                   ],
+                  "x-enum-descriptions": [
+                    "读取",
+                    "写入",
+                    "评论"
+                  ],
                   "example": "write"
                 },
                 "kind": {
@@ -13279,6 +13323,10 @@
                   "enum": [
                     "TASK",
                     "NOTE"
+                  ],
+                  "x-enum-descriptions": [
+                    "任务项目",
+                    "笔记项目"
                   ],
                   "example": "TASK"
                 }
@@ -13376,6 +13424,11 @@
                   "kanban",
                   "timeline"
                 ],
+                "x-enum-descriptions": [
+                  "List",
+                  "Kanban",
+                  "Timeline"
+                ],
                 "example": "list"
               },
               "kind": {
@@ -13384,6 +13437,10 @@
                 "enum": [
                   "TASK",
                   "NOTE"
+                ],
+                "x-enum-descriptions": [
+                  "Task project",
+                  "Note project"
                 ],
                 "example": "TASK"
               }
@@ -13422,6 +13479,11 @@
                     "kanban",
                     "timeline"
                   ],
+                  "x-enum-descriptions": [
+                    "列表",
+                    "看板",
+                    "时间线"
+                  ],
                   "example": "list"
                 },
                 "kind": {
@@ -13430,6 +13492,10 @@
                   "enum": [
                     "TASK",
                     "NOTE"
+                  ],
+                  "x-enum-descriptions": [
+                    "任务项目",
+                    "笔记项目"
                   ],
                   "example": "TASK"
                 }
@@ -13521,6 +13587,11 @@
                   "kanban",
                   "timeline"
                 ],
+                "x-enum-descriptions": [
+                  "List",
+                  "Kanban",
+                  "Timeline"
+                ],
                 "example": "list"
               },
               "kind": {
@@ -13529,6 +13600,10 @@
                 "enum": [
                   "TASK",
                   "NOTE"
+                ],
+                "x-enum-descriptions": [
+                  "Task project",
+                  "Note project"
                 ],
                 "example": "TASK"
               }
@@ -13564,6 +13639,11 @@
                     "kanban",
                     "timeline"
                   ],
+                  "x-enum-descriptions": [
+                    "列表",
+                    "看板",
+                    "时间线"
+                  ],
                   "example": "list"
                 },
                 "kind": {
@@ -13572,6 +13652,10 @@
                   "enum": [
                     "TASK",
                     "NOTE"
+                  ],
+                  "x-enum-descriptions": [
+                    "任务项目",
+                    "笔记项目"
                   ],
                   "example": "TASK"
                 }
