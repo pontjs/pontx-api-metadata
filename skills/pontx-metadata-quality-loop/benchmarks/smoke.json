@@ -23,13 +23,14 @@
       },
       "fixture": {
         "status": 200,
-        "data": {
-          "date": "2026-08-11",
-          "base": "USD",
-          "rates": {
-            "EUR": 0.86
+        "data": [
+          {
+            "date": "2026-08-11",
+            "base": "USD",
+            "quote": "EUR",
+            "rate": 0.86
           }
-        },
+        ],
         "headers": {
           "content-type": "application/json"
         }

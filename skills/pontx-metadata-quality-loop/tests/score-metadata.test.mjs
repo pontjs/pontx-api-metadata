@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const testDir = path.dirname(fileURLToPath(import.meta.url));
 const script = path.resolve(testDir, "../scripts/score-metadata.mjs");
+const repository = path.resolve(testDir, "../../..");
 
 function write(filePath, contents) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
@@ -81,6 +82,35 @@ export function mergeEvaluationReport(report, dynamic) {
   return { directory, metadata, specModule, pontxModule, benchmark };
 }
 
+function resolveSchema(spec, schema) {
+  if (!schema?.$ref?.startsWith("#/")) return schema;
+  return schema.$ref.slice(2).split("/").reduce((value, segment) => value?.[segment], spec);
+}
+
+function assertSchemaValue(spec, unresolvedSchema, value, pointer) {
+  const schema = resolveSchema(spec, unresolvedSchema);
+  assert.ok(schema, `Unresolved response schema at ${pointer}`);
+  if (schema.type === "array") assert.ok(Array.isArray(value), `${pointer} must be an array`);
+  if (schema.type === "object") assert.ok(value && typeof value === "object" && !Array.isArray(value), `${pointer} must be an object`);
+  if (schema.type === "string") assert.equal(typeof value, "string", `${pointer} must be a string`);
+  if (schema.type === "number") assert.equal(typeof value, "number", `${pointer} must be a number`);
+  if (schema.type === "integer") assert.ok(Number.isInteger(value), `${pointer} must be an integer`);
+  if (schema.type === "boolean") assert.equal(typeof value, "boolean", `${pointer} must be a boolean`);
+  if (Array.isArray(value) && schema.items) {
+    value.forEach((item, index) => assertSchemaValue(spec, schema.items, item, `${pointer}/${index}`));
+  }
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    for (const required of schema.required || []) {
+      assert.ok(Object.prototype.hasOwnProperty.call(value, required), `${pointer}/${required} is required`);
+    }
+    for (const [name, propertySchema] of Object.entries(schema.properties || {})) {
+      if (Object.prototype.hasOwnProperty.call(value, name)) {
+        assertSchemaValue(spec, propertySchema, value[name], `${pointer}/${name}`);
+      }
+    }
+  }
+}
+
 test("runs an explicit independent benchmark and reports executed dynamic evidence", () => {
   const fixture = fixtureWorkspace();
   const output = execFileSync(process.execPath, [script,
@@ -101,6 +131,25 @@ test("runs an explicit independent benchmark and reports executed dynamic eviden
   assert.equal(report.coverage.deterministic, 1);
   assert.match(report.dynamic.evidence.benchmarkHash, /^[a-f0-9]{64}$/);
   assert.equal(report.dynamic.evidence.executed, true);
+});
+
+test("checked-in golden fixtures conform to their target success response schemas", () => {
+  const benchmark = JSON.parse(fs.readFileSync(path.resolve(testDir, "../benchmarks/smoke.json"), "utf8"));
+  for (const item of benchmark.cases) {
+    const spec = JSON.parse(fs.readFileSync(
+      path.join(repository, "specs", item.collection, "openapi.json"),
+      "utf8",
+    ));
+    const operationId = item.expected.api.split("/").at(-1);
+    const operations = Object.values(spec.paths).flatMap((pathItem) => Object.values(pathItem));
+    const operation = operations.find((candidate) => candidate?.operationId === operationId);
+    assert.ok(operation, `Unknown benchmark operation ${item.expected.api}`);
+    const status = String(item.fixture.status ?? 200);
+    const response = operation.responses?.[status] || operation.responses?.[`${status[0]}XX`];
+    const schema = response?.content?.["application/json"]?.schema;
+    assert.ok(schema, `No JSON response schema for ${item.id} status ${status}`);
+    assertSchemaValue(spec, schema, item.fixture.data, `benchmark:${item.id}#/fixture/data`);
+  }
 });
 
 test("does not accept a benchmark hash as a substitute for execution", () => {
