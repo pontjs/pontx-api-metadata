@@ -13910,7 +13910,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/massive/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
-      "approvedSha256": "1725c0620dc6669fe246308b0b2af1e7d2fa488e58d5883a778404cb5b3cc686",
+      "approvedSha256": "2bf6c8c52ebe4826e9c85f7e7286b9a8fb41860a98ba62823af44f52a5053e86",
       "title": {
         "zh": "Massive 股票市场数据 API",
         "en": "Massive stock market data API"
@@ -14477,10 +14477,14 @@
               "name": "ticker.any_of",
               "in": "query",
               "type": "string",
+              "examples": [
+                "AAPL"
+              ],
               "description": {
                 "zh": "以逗号分隔的股票代码",
                 "en": "Comma-separated tickers"
-              }
+              },
+              "example": "AAPL"
             },
             {
               "name": "type",
@@ -14493,10 +14497,14 @@
                 "options",
                 "stocks"
               ],
+              "examples": [
+                "stocks"
+              ],
               "description": {
                 "zh": "按资产类别筛选。",
                 "en": "Filter by asset class."
-              }
+              },
+              "example": "stocks"
             },
             {
               "name": "order",
@@ -14651,19 +14659,27 @@
               "name": "ticker",
               "in": "query",
               "type": "string",
+              "examples": [
+                "A"
+              ],
               "description": {
                 "zh": "股票代码筛选条件",
                 "en": "Ticker filter"
-              }
+              },
+              "example": "A"
             },
             {
               "name": "type",
               "in": "query",
               "type": "string",
+              "examples": [
+                "CS"
+              ],
               "description": {
                 "zh": "来自股票代码类型接口的代码类型。",
                 "en": "Ticker type code from the Ticker Types endpoint."
-              }
+              },
+              "example": "CS"
             },
             {
               "name": "market",
@@ -14676,10 +14692,14 @@
                 "otc",
                 "indices"
               ],
+              "examples": [
+                "stocks"
+              ],
               "description": {
                 "zh": "市场筛选条件",
                 "en": "Market filter"
-              }
+              },
+              "example": "stocks"
             },
             {
               "name": "exchange",
@@ -14704,10 +14724,14 @@
               "name": "cik",
               "in": "query",
               "type": "string",
+              "examples": [
+                "0001090872"
+              ],
               "description": {
                 "zh": "美国证券交易委员会（SEC）中央索引键（CIK）。",
                 "en": "SEC Central Index Key."
-              }
+              },
+              "example": "0001090872"
             },
             {
               "name": "date",
@@ -17937,7 +17961,10 @@
             "properties": {
               "count": {
                 "type": "integer",
-                "description": "The total number of results for this request."
+                "description": "The total number of results for this request.",
+                "examples": [
+                  1
+                ]
               },
               "request_id": {
                 "type": "string",
@@ -17963,7 +17990,10 @@
               "properties": {
                 "count": {
                   "type": "integer",
-                  "description": "本次请求的结果总数。"
+                  "description": "本次请求的结果总数。",
+                  "examples": [
+                    1
+                  ]
                 },
                 "request_id": {
                   "type": "string",

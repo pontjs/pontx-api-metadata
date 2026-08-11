@@ -272,7 +272,10 @@
             "description": "以逗号分隔的股票代码",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "AAPL"
+              ]
             }
           },
           {
@@ -287,6 +290,9 @@
                 "fx",
                 "indices",
                 "options",
+                "stocks"
+              ],
+              "examples": [
                 "stocks"
               ]
             }
@@ -373,7 +379,10 @@
             "description": "股票代码筛选条件",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "A"
+              ]
             }
           },
           {
@@ -382,7 +391,10 @@
             "description": "来自股票代码类型接口的代码类型。",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "CS"
+              ]
             }
           },
           {
@@ -398,6 +410,9 @@
                 "fx",
                 "otc",
                 "indices"
+              ],
+              "examples": [
+                "stocks"
               ]
             }
           },
@@ -426,7 +441,10 @@
             "description": "美国证券交易委员会（SEC）中央索引键（CIK）。",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "0001090872"
+              ]
             }
           },
           {
@@ -1468,7 +1486,10 @@
         "properties": {
           "count": {
             "type": "integer",
-            "description": "本次请求的结果总数。"
+            "description": "本次请求的结果总数。",
+            "examples": [
+              1
+            ]
           },
           "request_id": {
             "type": "string",

@@ -272,7 +272,10 @@
             "description": "Comma-separated tickers",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "AAPL"
+              ]
             }
           },
           {
@@ -287,6 +290,9 @@
                 "fx",
                 "indices",
                 "options",
+                "stocks"
+              ],
+              "examples": [
                 "stocks"
               ]
             }
@@ -373,7 +379,10 @@
             "description": "Ticker filter",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "A"
+              ]
             }
           },
           {
@@ -382,7 +391,10 @@
             "description": "Ticker type code from the Ticker Types endpoint.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "CS"
+              ]
             }
           },
           {
@@ -398,6 +410,9 @@
                 "fx",
                 "otc",
                 "indices"
+              ],
+              "examples": [
+                "stocks"
               ]
             }
           },
@@ -426,7 +441,10 @@
             "description": "SEC Central Index Key.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "examples": [
+                "0001090872"
+              ]
             }
           },
           {
@@ -1468,7 +1486,10 @@
         "properties": {
           "count": {
             "type": "integer",
-            "description": "The total number of results for this request."
+            "description": "The total number of results for this request.",
+            "examples": [
+              1
+            ]
           },
           "request_id": {
             "type": "string",
