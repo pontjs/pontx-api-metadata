@@ -33,6 +33,17 @@
         "A dynamic pass-to-fail regression blocks acceptance",
         "The invalid comparison does not increment stagnation"
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "评分状态里已经填了 benchmarkHash，但 scorer 只跑了静态规则并给出 95.6/100 provisional。这个能算动态基线吗？请接入一个不访问生产 API 的真实 dry-run benchmark。",
+      "expected_output": "拒绝把 hash 或静态投影当动态证据；显式加载独立 PontxEvalCase fixture，通过 Pontx Codex adapter 和 dry-run 拦截执行每个 case 至少三次，并报告内容哈希、case traces 和确定性 coverage。",
+      "files": [],
+      "expectations": [
+        "A benchmark hash alone is rejected as dynamic evidence",
+        "Every dynamic case executes at least three dry-run fixture attempts",
+        "The report includes a content-derived benchmark hash, per-case results, and deterministic coverage"
+      ]
     }
   ]
 }

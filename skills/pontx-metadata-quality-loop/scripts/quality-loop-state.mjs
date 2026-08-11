@@ -41,8 +41,23 @@ function required(options, key) {
   return options[key];
 }
 
-function snapshot(report) {
+function snapshot(report, benchmarkHash) {
   const dynamic = typeof report.dynamicScore === "number";
+  if (dynamic) {
+    const evidence = report.dynamic?.evidence;
+    const cases = report.dynamic?.caseResults;
+    const hasRunEvidence = (item) => (item.attempts >= 3 && item.traces?.length >= 3)
+      || (item.attempts === 0 && item.traces?.length === 0
+        && item.attribution === "metadata_or_contract"
+        && item.findings?.some((finding) => finding.ruleId === "dynamic.expected-api-missing"));
+    if (report.provisional === true || evidence?.valid !== true || evidence?.executed !== true
+      || evidence?.adapter !== "codex" || evidence?.benchmarkHash !== benchmarkHash
+      || report.dynamic?.runsPerCase < 3 || !Array.isArray(cases) || cases.length === 0
+      || evidence?.caseCount !== cases.length || new Set(cases.map((item) => item.id)).size !== cases.length
+      || cases.some((item) => !hasRunEvidence(item))) {
+      throw new Error("Dynamic report lacks comparable executed benchmark evidence");
+    }
+  }
   const score = dynamic ? report.score : report.staticScore;
   if (typeof score !== "number" || !Number.isFinite(score)) throw new Error("Report has no comparable score");
   return {
@@ -130,7 +145,8 @@ async function run() {
   const { command, options } = parseArgs(process.argv.slice(2));
   if (command === "init") {
     const report = await readJson(required(options, "baseline"));
-    const baseline = snapshot(report);
+    const reportFingerprints = fingerprints(options);
+    const baseline = snapshot(report, reportFingerprints.benchmarkHash);
     const state = {
       version: STATE_VERSION,
       status: baseline.score >= baseline.maxScore ? "stopped" : "ready",
@@ -140,7 +156,7 @@ async function run() {
       maxConsecutiveRejections: Number(options["max-rejections"] || 3),
       consecutiveRejections: 0,
       acceptedMetadataCommit: required(options, "metadata-commit"),
-      fingerprints: fingerprints(options),
+      fingerprints: reportFingerprints,
       baseline,
       pendingCandidate: null,
       concerns: [],
@@ -158,8 +174,9 @@ async function run() {
     if (state.status === "stopped") throw new Error("The loop is stopped; start a new epoch to continue");
     const report = await readJson(required(options, "candidate"));
     const gates = await readJson(required(options, "gates"));
-    const candidate = snapshot(report);
-    const result = assessCandidate(state, candidate, fingerprints(options), gates, options);
+    const candidateFingerprints = fingerprints(options);
+    const candidate = snapshot(report, candidateFingerprints.benchmarkHash);
+    const result = assessCandidate(state, candidate, candidateFingerprints, gates, options);
     state.cycle += 1;
     state.pendingCandidate = {
       ...result,
@@ -242,12 +259,13 @@ async function run() {
   if (command === "new-epoch") {
     if (state.pendingCandidate) throw new Error("Finalize the pending candidate before starting a new epoch");
     const report = await readJson(required(options, "baseline"));
-    const baseline = snapshot(report);
+    const reportFingerprints = fingerprints(options);
+    const baseline = snapshot(report, reportFingerprints.benchmarkHash);
     state.epoch += 1;
     state.status = baseline.score >= baseline.maxScore ? "stopped" : "ready";
     state.stopReason = state.status === "stopped" ? "max-score" : null;
     state.consecutiveRejections = 0;
-    state.fingerprints = fingerprints(options);
+    state.fingerprints = reportFingerprints;
     state.baseline = baseline;
     state.history.push({ type: "new-epoch", at: now(), epoch: state.epoch });
     await writeJson(statePath, state);

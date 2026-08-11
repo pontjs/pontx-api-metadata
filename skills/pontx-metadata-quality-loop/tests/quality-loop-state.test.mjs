@@ -28,11 +28,28 @@ function report(score, options = {}) {
 }
 
 function dynamicReport(score, caseResults) {
+  const cases = caseResults.map((item) => ({
+    attempts: 3,
+    traces: [{}, {}, {}],
+    ...item,
+  }));
   return {
     ...report(45),
     score,
     dynamicScore: score - 45,
-    dynamic: { caseResults },
+    provisional: false,
+    coverage: { deterministic: 1 },
+    dynamic: {
+      runsPerCase: 3,
+      evidence: {
+        valid: true,
+        executed: true,
+        adapter: "codex",
+        benchmarkHash: "bench-1",
+        caseCount: cases.length,
+      },
+      caseResults: cases,
+    },
   };
 }
 
@@ -162,6 +179,44 @@ test("rejects a dynamic score gain that regresses a previously passing case", ()
     dynamicReport(81, [{ id: "safe-read", passed: false }]));
   assert.equal(decision.decision, "reject");
   assert.ok(decision.reasons.includes("dynamic-case-regression:safe-read"));
+});
+
+test("refuses a dynamic score that only claims a benchmark fingerprint", () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "pontx-quality-loop-"));
+  const baseline = path.join(directory, "baseline.json");
+  const statePath = path.join(directory, "state.json");
+  writeJson(baseline, {
+    ...report(45),
+    score: 90,
+    dynamicScore: 45,
+    dynamic: { caseResults: [] },
+  });
+  assert.throws(() => execFileSync(process.execPath,
+    [script, "init", "--state", statePath, "--baseline", baseline,
+      "--metadata-commit", "base", "--evaluator-commit", "eval-1",
+      "--benchmark-hash", "bench-1", "--runtime-hash", "node-22"],
+    { cwd: directory, encoding: "utf8", stdio: "pipe" }),
+  );
+});
+
+test("accepts an explicit missing-API preflight failure without fabricated traces", () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "pontx-quality-loop-"));
+  const baseline = path.join(directory, "baseline.json");
+  const statePath = path.join(directory, "state.json");
+  const value = dynamicReport(45, [{
+    id: "missing-api",
+    passed: false,
+    attempts: 0,
+    traces: [],
+    attribution: "metadata_or_contract",
+    findings: [{ ruleId: "dynamic.expected-api-missing" }],
+  }]);
+  writeJson(baseline, value);
+  const state = run(directory, "init", "--state", statePath, "--baseline", baseline,
+    "--metadata-commit", "base", "--evaluator-commit", "eval-1",
+    "--benchmark-hash", "bench-1", "--runtime-hash", "node-22");
+  assert.equal(state.baseline.mode, "dynamic");
+  assert.equal(state.baseline.passingCases["missing-api"], false);
 });
 
 test("rejects evaluator concerns without a concrete minimal reproduction", () => {

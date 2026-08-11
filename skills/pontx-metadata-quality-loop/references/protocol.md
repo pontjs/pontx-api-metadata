@@ -12,6 +12,15 @@ Static-only reports compare `staticScore` on a 50-point scale. Reports with a
 dynamic score compare `score` on a 100-point scale. Never compare a provisional
 static projection with a completed dynamic score.
 
+A dynamic report is comparable only when the scorer actually executed the
+independent benchmark with the Pontx Codex adapter. The report must be
+non-provisional, contain at least three traces for every executable case, and
+carry a content-derived benchmark hash in `dynamic.evidence` that matches the
+state fingerprint. The one valid zero-attempt result is a preflight Critical
+showing that the benchmark API is absent, because no Agent run is then possible.
+A supplied hash, adapter self-report, or projected static score is not execution
+evidence.
+
 ## 2. State transitions
 
 ```text
@@ -35,6 +44,11 @@ The scorer is read-only and reports:
 - findings with paths, affected Endpoints and remediation;
 - commands, exit codes and whether generated output reproduced cleanly;
 - evaluator concerns with a minimal fixture when applicable.
+
+In dynamic mode the scorer also reports the benchmark path and content hash,
+adapter identity, runs per case, per-case traces/pass state, and deterministic
+CLI coverage across every Metadata collection. Dynamic mode is explicit opt-in;
+without a benchmark file the report remains static and provisional.
 
 The scorer must not repair files, regenerate checked-in output in the target
 worktree, or accept an improver's claimed score. Run generators in an authorized
@@ -99,6 +113,11 @@ high-risk cases. A final acceptance report uses at least three attempts per
 case and compares the same cases. A candidate fails the regression guard when
 any previously passing case becomes failing, even when its average total score
 increases.
+
+The checked-in smoke benchmark is a protocol-level seed, not a claim of broad
+catalog coverage. Extend it with independent cases before using the dynamic
+score as a release-quality signal. Never derive expected requests from the
+Metadata being scored, access production APIs, or expose provider credentials.
 
 ## 8. Stop semantics
 

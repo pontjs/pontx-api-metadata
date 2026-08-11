@@ -36,6 +36,25 @@ node skills/pontx-metadata-quality-loop/scripts/score-metadata.mjs \
   --output "$RUN_DIR/baseline.json"
 ```
 
+上面的报告仅有 `staticScore`，`score` 是 provisional 投影，不能作为动态
+执行证据。需要比较 100 分制时，必须显式执行独立 fixture benchmark：
+
+```bash
+node skills/pontx-metadata-quality-loop/scripts/score-metadata.mjs \
+  --metadata-repo "$METADATA_WORKTREE" \
+  --spec-module "$PONTX_REPO/packages/spec/lib/index.js" \
+  --pontx-module "$PONTX_REPO/packages/pontx/lib/index.js" \
+  --dynamic-benchmark skills/pontx-metadata-quality-loop/benchmarks/smoke.json \
+  --dynamic-adapter codex \
+  --runs-per-case 3 \
+  --output "$RUN_DIR/baseline.json"
+```
+
+动态模式只接受 Pontx 的 `CodexAgentAdapter`。它在隔离工作区通过 fixture
+拦截请求，并要求先 dry-run；不要传生产凭证。benchmark 内容的 SHA-256
+由 scorer 自己计算并写入 `dynamic.evidence`。手工提供 `benchmarkHash`、复用
+静态投影或使用返回固定成功结果的 adapter 都不能生成可比较动态分数。
+
 使用确定性状态机初始化 epoch：
 
 ```bash
@@ -106,6 +125,9 @@ node skills/pontx-metadata-quality-loop/scripts/quality-loop-state.mjs new-epoch
 候选必须同时满足：
 
 - 可比较分数严格提高；静态最小增量默认 `0.01`，动态最小增量默认 `0.5`；
+- 动态报告非 provisional，独立 benchmark 每个可执行 case 至少有 3 条真实
+  trace（缺失目标 API 的 preflight Critical 可为 0 次），且报告中的 benchmark
+  hash 与 state fingerprint 一致；
 - Critical 不增加，任何评分维度不回退；
 - 确定性 CLI coverage 不回退；
 - 没有动态 case 从通过变成失败；
