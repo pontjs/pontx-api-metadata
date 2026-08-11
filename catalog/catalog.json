@@ -13700,7 +13700,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/massive/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
-      "approvedSha256": "c3715b258ee35a0421a3d63dfdc1304b07f87a3ad0f758cb5035d71641348dd6",
+      "approvedSha256": "e9a9ed4d7eb98cbcb21a82177072168063e8a4fd18deadee9400b1c7ec9ed1e3",
       "title": {
         "zh": "Massive 股票市场数据 API",
         "en": "Massive stock market data API"
@@ -13905,7 +13905,8 @@
               "description": {
                 "zh": "返回按股票拆分复权后的结果",
                 "en": "Return split-adjusted results"
-              }
+              },
+              "example": true
             }
           ],
           "responses": [
@@ -14047,7 +14048,8 @@
               "description": {
                 "zh": "时间跨度倍数",
                 "en": "Timespan multiplier"
-              }
+              },
+              "example": 1
             },
             {
               "name": "timespan",
@@ -14066,7 +14068,8 @@
               "description": {
                 "zh": "行情柱时间单位",
                 "en": "Bar unit"
-              }
+              },
+              "example": "minute"
             },
             {
               "name": "from",
@@ -14098,7 +14101,8 @@
               "description": {
                 "zh": "结果是否按股票拆分进行复权。",
                 "en": "Whether results are adjusted for stock splits."
-              }
+              },
+              "example": true
             },
             {
               "name": "sort",
@@ -14112,7 +14116,8 @@
               "description": {
                 "zh": "按行情柱的起始时间戳排序。",
                 "en": "Order bars by their start timestamp."
-              }
+              },
+              "example": "asc"
             },
             {
               "name": "limit",
@@ -14124,7 +14129,8 @@
               "description": {
                 "zh": "为构建结果而查询的基础聚合记录的最大数量。",
                 "en": "Maximum number of base aggregates queried to construct results."
-              }
+              },
+              "example": 5000
             }
           ],
           "responses": [
@@ -14300,7 +14306,8 @@
               "description": {
                 "zh": "最大结果数量",
                 "en": "Maximum results"
-              }
+              },
+              "example": 10
             },
             {
               "name": "sort",
@@ -14511,7 +14518,8 @@
               "description": {
                 "zh": "上市状态筛选条件",
                 "en": "Active-listing filter"
-              }
+              },
+              "example": true
             },
             {
               "name": "order",
@@ -14536,7 +14544,8 @@
               "description": {
                 "zh": "每页结果的最大数量。",
                 "en": "Maximum number of results per page."
-              }
+              },
+              "example": 100
             },
             {
               "name": "sort",
@@ -14669,7 +14678,8 @@
               "description": {
                 "zh": "股票代码",
                 "en": "Stock ticker"
-              }
+              },
+              "example": "AAPL"
             },
             {
               "name": "date",
