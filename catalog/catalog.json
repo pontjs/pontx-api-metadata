@@ -2883,7 +2883,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
-      "approvedSha256": "0623894edf340bef60627df6b8278514c2620310b2c3418a953c5417a3ffd7c5",
+      "approvedSha256": "94471a0415745ba290e93fc9bb52fc9f68d8301d7ecd976275357e0b9040d4f8",
       "title": {
         "zh": "滴答清单开放 API",
         "en": "Dida365 Open API"
@@ -8454,6 +8454,12 @@
                     3,
                     5
                   ],
+                  "x-enum-descriptions": [
+                    "None",
+                    "Low",
+                    "Medium",
+                    "High"
+                  ],
                   "example": 0
                 }
               },
@@ -8473,6 +8479,10 @@
                   "enum": [
                     0,
                     2
+                  ],
+                  "x-enum-descriptions": [
+                    "Open",
+                    "Completed"
                   ],
                   "example": 0
                 }
@@ -8516,6 +8526,12 @@
                       3,
                       5
                     ],
+                    "x-enum-descriptions": [
+                      "无",
+                      "低",
+                      "中",
+                      "高"
+                    ],
                     "example": 0
                   }
                 },
@@ -8535,6 +8551,10 @@
                     "enum": [
                       0,
                       2
+                    ],
+                    "x-enum-descriptions": [
+                      "未完成",
+                      "已完成"
                     ],
                     "example": 0
                   }
@@ -9166,6 +9186,10 @@
                   1,
                   2
                 ],
+                "x-enum-descriptions": [
+                  "Personal",
+                  "Team"
+                ],
                 "example": 1
               }
             }
@@ -9208,6 +9232,10 @@
                   "enum": [
                     1,
                     2
+                  ],
+                  "x-enum-descriptions": [
+                    "个人",
+                    "团队"
                   ],
                   "example": 1
                 }
@@ -9644,6 +9672,10 @@
                   0,
                   1
                 ],
+                "x-enum-descriptions": [
+                  "Pomodoro",
+                  "Timing"
+                ],
                 "description": "0 Pomodoro, 1 Timing",
                 "example": 0
               },
@@ -9760,6 +9792,10 @@
                   "enum": [
                     0,
                     1
+                  ],
+                  "x-enum-descriptions": [
+                    "番茄专注",
+                    "正向计时"
                   ],
                   "description": "0 表示番茄专注，1 表示正向计时",
                   "example": 0
@@ -9958,6 +9994,10 @@
                   0,
                   1
                 ],
+                "x-enum-descriptions": [
+                  "Pomodoro",
+                  "Timing"
+                ],
                 "description": "0 Pomodoro, 1 Timing"
               },
               "taskId": {
@@ -10015,6 +10055,10 @@
                   "enum": [
                     0,
                     1
+                  ],
+                  "x-enum-descriptions": [
+                    "番茄专注",
+                    "正向计时"
                   ],
                   "description": "0 表示番茄专注，1 表示正向计时"
                 },
@@ -11565,10 +11609,10 @@
                   0,
                   1
                 ],
-                "x-enum-descriptions": {
-                  "0": "Normal",
-                  "1": "Completed"
-                },
+                "x-enum-descriptions": [
+                  "Normal",
+                  "Completed"
+                ],
                 "example": 0
               },
               "completedTime": {
@@ -11625,10 +11669,10 @@
                     0,
                     1
                   ],
-                  "x-enum-descriptions": {
-                    "0": "正常",
-                    "1": "已完成"
-                  },
+                  "x-enum-descriptions": [
+                    "正常",
+                    "已完成"
+                  ],
                   "example": 0
                 },
                 "completedTime": {
@@ -11892,12 +11936,12 @@
                   3,
                   5
                 ],
-                "x-enum-descriptions": {
-                  "0": "None",
-                  "1": "Low",
-                  "3": "Medium",
-                  "5": "High"
-                },
+                "x-enum-descriptions": [
+                  "None",
+                  "Low",
+                  "Medium",
+                  "High"
+                ],
                 "example": 1
               },
               "reminders": {
@@ -11949,10 +11993,10 @@
                   0,
                   2
                 ],
-                "x-enum-descriptions": {
-                  "0": "Normal",
-                  "2": "Completed"
-                },
+                "x-enum-descriptions": [
+                  "Normal",
+                  "Completed"
+                ],
                 "example": 0
               },
               "timeZone": {
@@ -12037,12 +12081,12 @@
                     3,
                     5
                   ],
-                  "x-enum-descriptions": {
-                    "0": "无",
-                    "1": "低",
-                    "3": "中",
-                    "5": "高"
-                  },
+                  "x-enum-descriptions": [
+                    "无",
+                    "低",
+                    "中",
+                    "高"
+                  ],
                   "example": 1
                 },
                 "reminders": {
@@ -12094,10 +12138,10 @@
                     0,
                     2
                   ],
-                  "x-enum-descriptions": {
-                    "0": "正常",
-                    "2": "已完成"
-                  },
+                  "x-enum-descriptions": [
+                    "正常",
+                    "已完成"
+                  ],
                   "example": 0
                 },
                 "timeZone": {
