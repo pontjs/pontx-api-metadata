@@ -18842,7 +18842,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/stooq/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
-      "approvedSha256": "bf87cd1602930960bb05e07e8d00f1b7d380bd76c065dbde45a06fbadefc1ea7",
+      "approvedSha256": "23e535a4194ee3712512e1e82ecdf5c778a0c47e9ca71291d58ef4bc76d704b1",
       "title": {
         "zh": "Stooq 公共行情下载",
         "en": "Stooq public quote downloads"
@@ -18938,7 +18938,8 @@
               "description": {
                 "zh": "请求的输出格式。该 URL 仅有 CSV 格式的证据。",
                 "en": "Requested output format. Only CSV is evidenced for this URL."
-              }
+              },
+              "example": "csv"
             }
           ],
           "responses": [
@@ -19069,7 +19070,8 @@
               "description": {
                 "zh": "历史 K 线周期：日、周或月。",
                 "en": "Historical bar interval: daily, weekly, or monthly."
-              }
+              },
+              "example": "d"
             }
           ],
           "responses": [

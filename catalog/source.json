@@ -218,9 +218,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "bf87cd1602930960bb05e07e8d00f1b7d380bd76c065dbde45a06fbadefc1ea7",
+      "approvedSha256": "23e535a4194ee3712512e1e82ecdf5c778a0c47e9ca71291d58ef4bc76d704b1",
       "approvedLocaleSha256": {
-        "en-US": "a29ddce4805497048dbd0cc715c517fb2dadee9b6be46f01856cf59e467ae7ad"
+        "en-US": "f19fb1231b925552bd4127f184cf4527a9ebbac5eeab104c9cc8cf51fe12061c"
       },
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
