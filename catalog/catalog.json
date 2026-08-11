@@ -1328,7 +1328,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "80df5c0939d4da527a9abdeab75d969b751489ecc0a23ccc62933935bfdf9951",
+      "approvedSha256": "9d22bc0dcd4a27cb627660c6599338069a6c6dcfa2b413a3f0985d2f1e97eac5",
       "title": {
         "zh": "Frankfurter v2 汇率 API",
         "en": "Frankfurter v2 exchange-rate API"
@@ -2732,6 +2732,12 @@
                   "monthly",
                   null
                 ],
+                "x-enum-descriptions": [
+                  "Daily",
+                  "Weekly",
+                  "Monthly",
+                  "Historical only; no scheduled cadence"
+                ],
                 "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
               },
               "publishes_missed": {
@@ -2843,6 +2849,12 @@
                     "weekly",
                     "monthly",
                     null
+                  ],
+                  "x-enum-descriptions": [
+                    "每日",
+                    "每周",
+                    "每月",
+                    "仅历史数据，无计划发布频率"
                   ],
                   "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。"
                 },
