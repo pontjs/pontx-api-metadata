@@ -13,6 +13,7 @@
       "url": "https://stooq.com"
     }
   ],
+  "tags": [{ "name": "common", "description": "最新与历史行情下载接口" }],
   "paths": {
     "/q/l/": {
       "get": {
@@ -59,7 +60,8 @@
               "type": "string",
               "enum": [
                 "csv"
-              ]
+              ],
+              "example": "csv"
             }
           }
         ],
@@ -156,7 +158,8 @@
                 "d",
                 "w",
                 "m"
-              ]
+              ],
+              "example": "d"
             }
           }
         ],

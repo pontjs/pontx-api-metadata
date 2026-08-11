@@ -10,6 +10,7 @@
     { "url": "https://quote.cnbc.com", "description": "CNBC 行情缓存网页服务" },
     { "url": "https://webql-redesign.cnbcfm.com", "description": "CNBC 持久化 GraphQL 服务" }
   ],
+  "tags": [{ "name": "common", "description": "CNBC 行情与图表接口" }],
   "paths": {
     "/quote-html-webservice/restQuote/symbolType/symbol": {
       "get": {

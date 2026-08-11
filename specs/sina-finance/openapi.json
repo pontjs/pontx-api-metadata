@@ -16,6 +16,7 @@
       "url": "https://quotes.sina.cn"
     }
   ],
+  "tags": [{ "name": "common", "description": "证券快照与 K 线行情接口" }],
   "paths": {
     "/list={symbols}": {
       "get": {

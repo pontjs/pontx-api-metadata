@@ -1,0 +1,49 @@
+{
+  "skill_name": "pontx-metadata-quality-loop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "在一个包含 11 个 API 的 pontx-api-metadata 分支上循环提分。每轮只能合并真正增分的候选；连续三次不增分后停止。请保留运行状态和最终报告。",
+      "expected_output": "创建隔离的 scorer/improver 流程，使用相同 fingerprint 比分，通过两阶段 assess/finalize 接受候选，并在三次连续拒绝后停止。",
+      "files": [],
+      "expectations": [
+        "Scorer is read-only and separate from the improver",
+        "Candidate state is finalized only after merge or discard",
+        "Three comparable consecutive rejections stop the loop"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "提分 Agent 说修好了 20 个问题，但复评总分没变；同时它怀疑 request-examples.values 对 allOf body 有误判。应该怎么处理？",
+      "expected_output": "不合并零增分候选；记录一次拒绝；以最小复现上报 concern，并让独立 evaluator auditor 验证，不能由提分 Agent 直接修改规则。",
+      "files": [],
+      "expectations": [
+        "A zero-score-gain candidate is discarded",
+        "The evaluator concern includes a minimal reproduction",
+        "Evaluator changes do not count as metadata score gains"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "候选从 92.1 提升到 92.8，但一个原本通过的高风险动态 case 失败了，而且评分时 evaluator commit 也变了。能合并吗？",
+      "expected_output": "判定不可比较并拒绝直接合并；统一 evaluator fingerprint 后重跑，且任何 high-risk pass-to-fail 都会触发回归保护。",
+      "files": [],
+      "expectations": [
+        "Different evaluator fingerprints make reports incomparable",
+        "A dynamic pass-to-fail regression blocks acceptance",
+        "The invalid comparison does not increment stagnation"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "评分状态里已经填了 benchmarkHash，但 scorer 只跑了静态规则并给出 95.6/100 provisional。这个能算动态基线吗？请接入一个不访问生产 API 的真实 dry-run benchmark。",
+      "expected_output": "拒绝把 hash 或静态投影当动态证据；显式加载独立 PontxEvalCase fixture，通过 Pontx Codex adapter 和 dry-run 拦截执行每个 case 至少三次，并报告内容哈希、case traces 和确定性 coverage。",
+      "files": [],
+      "expectations": [
+        "A benchmark hash alone is rejected as dynamic evidence",
+        "Every dynamic case executes at least three dry-run fixture attempts",
+        "The report includes a content-derived benchmark hash, per-case results, and deterministic coverage"
+      ]
+    }
+  ]
+}

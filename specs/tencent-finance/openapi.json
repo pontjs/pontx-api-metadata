@@ -10,7 +10,10 @@
     { "url": "https://qt.gtimg.cn", "description": "快照主机" },
     { "url": "https://web.ifzq.gtimg.cn", "description": "图表主机" }
   ],
-  "tags": [{ "name": "Quotes" }, { "name": "Charts" }],
+  "tags": [
+    { "name": "Quotes", "description": "证券行情快照接口" },
+    { "name": "Charts", "description": "复权与非复权 K 线图表接口" }
+  ],
   "paths": {
     "/q={symbols}": {
       "get": {

@@ -16,6 +16,7 @@
       "url": "https://quotes.sina.cn"
     }
   ],
+  "tags": [{ "name": "common", "description": "Security snapshot and K-line quote endpoints" }],
   "paths": {
     "/list={symbols}": {
       "get": {

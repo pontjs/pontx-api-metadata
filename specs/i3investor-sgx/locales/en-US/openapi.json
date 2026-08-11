@@ -7,6 +7,7 @@
     "license": { "name": "Proprietary / undocumented" }
   },
   "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor Singapore portal" }],
+  "tags": [{ "name": "common", "description": "SGX stock-quote HTML page endpoints" }],
   "paths": {
     "/servlets/stk/{code}.jsp": {
       "get": {
@@ -57,8 +58,8 @@
   },
   "components": {
     "schemas": {
-      "LegacyStockHtml": { "title": "LegacyStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema." },
-      "ResponsiveStockHtml": { "title": "ResponsiveStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text." }
+      "LegacyStockHtml": { "title": "LegacyStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema.", "examples": ["<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..."] },
+      "ResponsiveStockHtml": { "title": "ResponsiveStockHtml", "type": "string", "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text.", "examples": ["<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>"] }
     }
   }
 }

@@ -7,6 +7,7 @@
     "license": { "name": "Proprietary / undocumented" }
   },
   "servers": [{ "url": "https://sgx.i3investor.com", "description": "i3Investor 新加坡门户" }],
+  "tags": [{ "name": "common", "description": "SGX 股票行情 HTML 页面接口" }],
   "paths": {
     "/servlets/stk/{code}.jsp": {
       "get": {
@@ -57,8 +58,8 @@
   },
   "components": {
     "schemas": {
-      "LegacyStockHtml": { "title": "旧版 SGX 股票 HTML 原始响应", "type": "string", "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。" },
-      "ResponsiveStockHtml": { "title": "当前 SGX 股票 HTML 原始响应", "type": "string", "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。" }
+      "LegacyStockHtml": { "title": "旧版 SGX 股票 HTML 原始响应", "type": "string", "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。", "examples": ["<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..."] },
+      "ResponsiveStockHtml": { "title": "当前 SGX 股票 HTML 原始响应", "type": "string", "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。", "examples": ["<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>"] }
     }
   }
 }

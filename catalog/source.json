@@ -12,9 +12,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter/openapi.json",
-      "approvedSha256": "616d302d1e78238a93c1df2c74d5cb2eacaadbbea8b96523826e65f954a94b31",
+      "approvedSha256": "8181a8068e2cda017c5317768c33396cd424d1571cfb5bff7ea0bd5b4223a041",
       "approvedLocaleSha256": {
-        "en-US": "9e2fee826100109b17736953e092e036c379fcdc165bd32e52940da7fd09e711"
+        "en-US": "8d8db9a84e05ece0ab6b63a08f27a22500c3a69e15a349231b796ee4440cf11b"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -49,9 +49,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "6311a4b3221ec3d5e15c67c334f1d677cde50e0bd0b42aaa900007eb263f8924",
+      "approvedSha256": "fe01735617ad28b96cd7115e6e2c70783959b8e05726a513948afe991df0b550",
       "approvedLocaleSha256": {
-        "en-US": "f86b37c3b64afeee9940b97eab0852a0c93db9fdc5f7db33969542b6300b1a17"
+        "en-US": "72f2d8853f7bc348b1a757da4ab1ee483d2ec24bca29ff317e078daf7b05b017"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -86,9 +86,9 @@
       "category": "Productivity",
       "featured": true,
       "specFile": "specs/dida365/openapi.json",
-      "approvedSha256": "b3d6694c66700a5385c1f339fe8c93729dd261ac79272e5807c04cdb13c31334",
+      "approvedSha256": "89d6f648ee651d24ea720aac4e6dd99b858a9692d83fb3530bba03e328db416a",
       "approvedLocaleSha256": {
-        "en-US": "85d107bae39e0578747bc28ee6d5419ec7f5b327a037596facd5679cf5224c96"
+        "en-US": "886ee6abec9b1f6f29f2a616926bc4e6f7a38a37ad48e0ed8f1dc75daf270119"
       },
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
@@ -140,9 +140,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "e12cd88515a7869a7113f7fc9d743478820d5fcfad50cfbb7f04c7ce3118bb85",
+      "approvedSha256": "2bf6c8c52ebe4826e9c85f7e7286b9a8fb41860a98ba62823af44f52a5053e86",
       "approvedLocaleSha256": {
-        "en-US": "0512568f14a3d9ee3af0cd39bc797153780076296db19f85cb9fac0f8363c4bb"
+        "en-US": "5a1de613cf7798e4a61673672755de9961234d96195b665aaf151d5dd0786143"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
@@ -218,9 +218,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "70642fb2338df5b61b5fec39b8b9452d95653c3ae3f65a67264fe5f8fb1da800",
+      "approvedSha256": "23e535a4194ee3712512e1e82ecdf5c778a0c47e9ca71291d58ef4bc76d704b1",
       "approvedLocaleSha256": {
-        "en-US": "89deea7e9e1de70ecdec2a5912428c36f0bade7bc660a62142b66882307ed78f"
+        "en-US": "f19fb1231b925552bd4127f184cf4527a9ebbac5eeab104c9cc8cf51fe12061c"
       },
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
@@ -253,9 +253,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/sina-finance/openapi.json",
-      "approvedSha256": "1126212eeea1e4207124c667853e78d74a8849a5e2d1c5bb9e75f4846db54618",
+      "approvedSha256": "97b179857a2a7cf5ab3a6141e265f759f1684b0660fef482ecee50133d7e15f5",
       "approvedLocaleSha256": {
-        "en-US": "4d37fddb5d0a60b558ae3fc21b0793915433372138d01006d8605f601d5e0cad"
+        "en-US": "b2399e22aae7560cbf11eb49d38c3dc47e525715ca341a91da7491c45f8c57d6"
       },
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
@@ -288,9 +288,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/tencent-finance/openapi.json",
-      "approvedSha256": "b4ed601694e7c6a3b504bf4b524f901d905bb99a519f669e120befca6ef14edb",
+      "approvedSha256": "09773828c91ad73691f431217ab45ab40bcb039ff63c5c0a702ac5db3bf7b2e8",
       "approvedLocaleSha256": {
-        "en-US": "ac7767d58eaab4f50073fdef7712177f97e0d9f8db0b42e7b2fb0c919a2ef690"
+        "en-US": "b6646e66591470b882831219031be2d348477d3d181f876a341331adfc178983"
       },
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
@@ -323,9 +323,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/eastmoney-funds/openapi.json",
-      "approvedSha256": "749af44a0bf1ced64587e38a022d81e9afecabc05f990ea5fd0c0f9a8d0f08f5",
+      "approvedSha256": "53bdbdcfa4bd49a1c2b3cb6cd3eaff9c37c73abc0a20b90c0d7936d0874c1303",
       "approvedLocaleSha256": {
-        "en-US": "8e0b576d3db7100b15ebee5483049cac6925831e6afb979293e2db7e5fc9ab35"
+        "en-US": "d00adde30e29c9d3a107096be85d828b6f086add1759bb9279f70d07e15f2c81"
       },
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
@@ -358,9 +358,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/cnbc-market-data/openapi.json",
-      "approvedSha256": "3a403b3979d13bc60c53a10bb576f5d5ea1d36e3bf3fd5f44baec5c6d4b4f804",
+      "approvedSha256": "d1a3b72bbb88c05da32f971771b93379db3e26679b9739306b86997923ca15d2",
       "approvedLocaleSha256": {
-        "en-US": "54a2e59222be2fd0d8e3e9be337a35aaff0bc97e390b45fe2a3a7e185795fa0f"
+        "en-US": "e06cba917614631f6c884f1a5e7675e2e7f103323a717ba9bd767860c2167787"
       },
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
@@ -392,9 +392,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "afe70fca99d032aacb1dc1669dd265c1ea9d7879ab0337499ea2ce798b009bfc",
+      "approvedSha256": "499ba2bb4c5af3ce4c30c1cacfba9e1e19d2019dd60ff5f6e58dc94ef1583321",
       "approvedLocaleSha256": {
-        "en-US": "97b20c9f4f14b3d33e03f892db8fc98c5b5312ee342d552bb8d414a631006950"
+        "en-US": "d090c0970cb24b01d518dbbcef04b29c33355066ed1522d8bb3b0c73e6905a1b"
       },
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
