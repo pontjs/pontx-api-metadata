@@ -2808,7 +2808,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
-      "approvedSha256": "436253187ca8138cc9dbb4e110cc677f3ee044754e6e88e461f39201cd1115e7",
+      "approvedSha256": "6b387ce197699d0a0052f217634aaddd28b7b65d5bedb889d206f69daad7abd9",
       "title": {
         "zh": "滴答清单开放 API",
         "en": "Dida365 Open API"
@@ -8191,7 +8191,11 @@
           "properties": [
             {
               "name": "projectIds",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "项目标识符列表",
+                "en": "List of project identifiers"
+              }
             },
             {
               "name": "startDate",
@@ -8219,6 +8223,7 @@
             "properties": {
               "projectIds": {
                 "type": "array",
+                "description": "List of project identifiers",
                 "items": {
                   "type": "string",
                   "example": "69a850f41c20d2030e148fdf"
@@ -8246,6 +8251,7 @@
               "properties": {
                 "projectIds": {
                   "type": "array",
+                  "description": "项目标识符列表",
                   "items": {
                     "type": "string",
                     "example": "69a850f41c20d2030e148fdf"
@@ -8282,17 +8288,29 @@
           "properties": [
             {
               "name": "projectIds",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "筛选属于指定项目 ID 的任务",
+                "en": "Filters tasks belonging to the specified project ID"
+              }
             },
             {
               "name": "startDate",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "筛选 startDate 大于或等于此值的任务",
+                "en": "Filters tasks where the task's startDate is greater than or equal to startDate"
+              }
             },
             {
               "name": "endDate",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "筛选 startDate 小于或等于此值的任务",
+                "en": "Filters tasks where the task's startDate is less than or equal to endDate"
+              }
             },
             {
               "name": "priority",
@@ -8312,7 +8330,11 @@
             },
             {
               "name": "status",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "按任务当前状态码筛选；0 表示未完成，2 表示已完成",
+                "en": "Filters tasks by current status codes: 0 Open, 2 Completed"
+              }
             }
           ],
           "schema": {
@@ -8322,6 +8344,7 @@
             "properties": {
               "projectIds": {
                 "type": "array",
+                "description": "Filters tasks belonging to the specified project ID",
                 "items": {
                   "type": "string",
                   "example": "69a850f41c20d2030e148fdf"
@@ -8330,11 +8353,13 @@
               "startDate": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Filters tasks where the task's startDate is greater than or equal to startDate",
                 "example": "2026-03-01T00:58:20.000+0000"
               },
               "endDate": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Filters tasks where the task's startDate is less than or equal to endDate",
                 "example": "2026-03-06T10:58:20.000+0000"
               },
               "priority": {
@@ -8361,6 +8386,7 @@
               },
               "status": {
                 "type": "array",
+                "description": "Filters tasks by current status codes: 0 Open, 2 Completed",
                 "items": {
                   "type": "integer",
                   "enum": [
@@ -8380,6 +8406,7 @@
               "properties": {
                 "projectIds": {
                   "type": "array",
+                  "description": "筛选属于指定项目 ID 的任务",
                   "items": {
                     "type": "string",
                     "example": "69a850f41c20d2030e148fdf"
@@ -8388,11 +8415,13 @@
                 "startDate": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "筛选 startDate 大于或等于此值的任务",
                   "example": "2026-03-01T00:58:20.000+0000"
                 },
                 "endDate": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "筛选 startDate 小于或等于此值的任务",
                   "example": "2026-03-06T10:58:20.000+0000"
                 },
                 "priority": {
@@ -8419,6 +8448,7 @@
                 },
                 "status": {
                   "type": "array",
+                  "description": "按任务当前状态码筛选；0 表示未完成，2 表示已完成",
                   "items": {
                     "type": "integer",
                     "enum": [
@@ -8447,35 +8477,63 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "评论标识符",
+                "en": "Comment identifier"
+              }
             },
             {
               "name": "userId",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "用户 ID",
+                "en": "User id"
+              }
             },
             {
               "name": "title",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "评论文本",
+                "en": "Comment text"
+              }
             },
             {
               "name": "createdTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "modifiedTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "replyCommentId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "所回复评论的标识符",
+                "en": "Reply comment identifier"
+              }
             },
             {
               "name": "replyUserId",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "所回复用户的 ID",
+                "en": "Reply user id"
+              }
             }
           ],
           "schema": {
@@ -8485,32 +8543,39 @@
             "properties": {
               "id": {
                 "type": "string",
+                "description": "Comment identifier",
                 "example": "comment-1"
               },
               "userId": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "User id"
               },
               "title": {
                 "type": "string",
+                "description": "Comment text",
                 "example": "Comment text"
               },
               "createdTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:00:00+0000"
               },
               "modifiedTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:00:00+0000"
               },
               "replyCommentId": {
-                "type": "string"
+                "type": "string",
+                "description": "Reply comment identifier"
               },
               "replyUserId": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Reply user id"
               }
             }
           },
@@ -8522,32 +8587,39 @@
               "properties": {
                 "id": {
                   "type": "string",
+                  "description": "评论标识符",
                   "example": "comment-1"
                 },
                 "userId": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "用户 ID"
                 },
                 "title": {
                   "type": "string",
+                  "description": "评论文本",
                   "example": "Comment text"
                 },
                 "createdTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:00:00+0000"
                 },
                 "modifiedTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:00:00+0000"
                 },
                 "replyCommentId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "所回复评论的标识符"
                 },
                 "replyUserId": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "所回复用户的 ID"
                 }
               }
             }
@@ -8568,16 +8640,28 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "项目分组标识符",
+                "en": "Project group identifier"
+              }
             },
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "项目分组名称",
+                "en": "Project group name"
+              }
             },
             {
               "name": "sortOrder",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "排序值",
+                "en": "Sort order value"
+              }
             },
             {
               "name": "showAll",
@@ -8603,16 +8687,19 @@
             "properties": {
               "id": {
                 "type": "string",
+                "description": "Project group identifier",
                 "example": "group-1"
               },
               "name": {
                 "type": "string",
                 "maxLength": 64,
+                "description": "Project group name",
                 "example": "Group Name"
               },
               "sortOrder": {
                 "type": "integer",
                 "format": "int64",
+                "description": "Sort order value",
                 "example": 0
               },
               "showAll": {
@@ -8640,16 +8727,19 @@
               "properties": {
                 "id": {
                   "type": "string",
+                  "description": "项目分组标识符",
                   "example": "group-1"
                 },
                 "name": {
                   "type": "string",
                   "maxLength": 64,
+                  "description": "项目分组名称",
                   "example": "Group Name"
                 },
                 "sortOrder": {
                   "type": "integer",
                   "format": "int64",
+                  "description": "排序值",
                   "example": 0
                 },
                 "showAll": {
@@ -8689,6 +8779,10 @@
             {
               "name": "name",
               "type": "string",
+              "description": {
+                "zh": "项目分组名称，最多 64 个字符",
+                "en": "Project group name (max 64 chars)"
+              },
               "required": true
             }
           ],
@@ -8703,6 +8797,7 @@
               "name": {
                 "type": "string",
                 "maxLength": 64,
+                "description": "Project group name (max 64 chars)",
                 "example": "Group Name"
               }
             }
@@ -8719,6 +8814,7 @@
                 "name": {
                   "type": "string",
                   "maxLength": 64,
+                  "description": "项目分组名称，最多 64 个字符",
                   "example": "Group Name"
                 }
               }
@@ -8740,7 +8836,11 @@
           "properties": [
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "项目分组名称，最多 64 个字符",
+                "en": "Project group name (max 64 chars)"
+              }
             }
           ],
           "schema": {
@@ -8751,6 +8851,7 @@
               "name": {
                 "type": "string",
                 "maxLength": 64,
+                "description": "Project group name (max 64 chars)",
                 "example": "New Group Name"
               }
             }
@@ -8764,6 +8865,7 @@
                 "name": {
                   "type": "string",
                   "maxLength": 64,
+                  "description": "项目分组名称，最多 64 个字符",
                   "example": "New Group Name"
                 }
               }
@@ -8788,6 +8890,10 @@
             {
               "name": "name",
               "type": "string",
+              "description": {
+                "zh": "看板列名称，最多 1000 个字符",
+                "en": "Column name (max 1000 chars)"
+              },
               "required": true
             }
           ],
@@ -8802,6 +8908,7 @@
               "name": {
                 "type": "string",
                 "maxLength": 1000,
+                "description": "Column name (max 1000 chars)",
                 "example": "Column Name"
               }
             }
@@ -8818,6 +8925,7 @@
                 "name": {
                   "type": "string",
                   "maxLength": 1000,
+                  "description": "看板列名称，最多 1000 个字符",
                   "example": "Column Name"
                 }
               }
@@ -8839,7 +8947,11 @@
           "properties": [
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "看板列名称，最多 1000 个字符",
+                "en": "Column name (max 1000 chars)"
+              }
             }
           ],
           "schema": {
@@ -8850,6 +8962,7 @@
               "name": {
                 "type": "string",
                 "maxLength": 1000,
+                "description": "Column name (max 1000 chars)",
                 "example": "New Column Name"
               }
             }
@@ -8863,6 +8976,7 @@
                 "name": {
                   "type": "string",
                   "maxLength": 1000,
+                  "description": "看板列名称，最多 1000 个字符",
                   "example": "New Column Name"
                 }
               }
@@ -8884,20 +8998,36 @@
           "properties": [
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "标签名称",
+                "en": "Tag name"
+              }
             },
             {
               "name": "label",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "标签显示文字",
+                "en": "Tag label"
+              }
             },
             {
               "name": "sortOrder",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "排序值",
+                "en": "Sort order value"
+              }
             },
             {
               "name": "color",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "标签颜色",
+                "en": "Tag color"
+              }
             },
             {
               "name": "parent",
@@ -8924,19 +9054,23 @@
             "properties": {
               "name": {
                 "type": "string",
+                "description": "Tag name",
                 "example": "work"
               },
               "label": {
                 "type": "string",
+                "description": "Tag label",
                 "example": "work"
               },
               "sortOrder": {
                 "type": "integer",
                 "format": "int64",
+                "description": "Sort order value",
                 "example": 0
               },
               "color": {
                 "type": "string",
+                "description": "Tag color",
                 "example": "#F18181"
               },
               "parent": {
@@ -8963,19 +9097,23 @@
               "properties": {
                 "name": {
                   "type": "string",
+                  "description": "标签名称",
                   "example": "work"
                 },
                 "label": {
                   "type": "string",
+                  "description": "标签显示文字",
                   "example": "work"
                 },
                 "sortOrder": {
                   "type": "integer",
                   "format": "int64",
+                  "description": "排序值",
                   "example": 0
                 },
                 "color": {
                   "type": "string",
+                  "description": "标签颜色",
                   "example": "#F18181"
                 },
                 "parent": {
@@ -9095,33 +9233,61 @@
           "properties": [
             {
               "name": "taskId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "任务 ID",
+                "en": "Task id"
+              }
             },
             {
               "name": "title",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "任务标题",
+                "en": "Task title"
+              }
             },
             {
               "name": "habitId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯 ID",
+                "en": "Habit id"
+              }
             },
             {
               "name": "timerId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "计时器 ID",
+                "en": "Timer id"
+              }
             },
             {
               "name": "timerName",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "计时器名称",
+                "en": "Timer name"
+              }
             },
             {
               "name": "startTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "任务专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Task focus start time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "endTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "任务专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Task focus end time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             }
           ],
           "schema": {
@@ -9130,28 +9296,35 @@
             "type": "object",
             "properties": {
               "taskId": {
-                "type": "string"
+                "type": "string",
+                "description": "Task id"
               },
               "title": {
-                "type": "string"
+                "type": "string",
+                "description": "Task title"
               },
               "habitId": {
-                "type": "string"
+                "type": "string",
+                "description": "Habit id"
               },
               "timerId": {
-                "type": "string"
+                "type": "string",
+                "description": "Timer id"
               },
               "timerName": {
-                "type": "string"
+                "type": "string",
+                "description": "Timer name"
               },
               "startTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Task focus start time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:00:00+0800"
               },
               "endTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Task focus end time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:25:00+0800"
               }
             }
@@ -9163,28 +9336,35 @@
               "type": "object",
               "properties": {
                 "taskId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "任务 ID"
                 },
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "任务标题"
                 },
                 "habitId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "习惯 ID"
                 },
                 "timerId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "计时器 ID"
                 },
                 "timerName": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "计时器名称"
                 },
                 "startTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "任务专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:00:00+0800"
                 },
                 "endTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "任务专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:25:00+0800"
                 }
               }
@@ -9206,12 +9386,20 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "专注记录的唯一 ID",
+                "en": "Focus unique id"
+              }
             },
             {
               "name": "userId",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "用户 ID",
+                "en": "User id"
+              }
             },
             {
               "name": "type",
@@ -9224,31 +9412,55 @@
             },
             {
               "name": "taskId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "任务 ID",
+                "en": "Task id"
+              }
             },
             {
               "name": "note",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "专注备注",
+                "en": "Focus note"
+              }
             },
             {
               "name": "tasks",
               "type": "array",
+              "description": {
+                "zh": "关联任务摘要列表",
+                "en": "Related task briefs"
+              },
               "ref": "OpenPomodoroTaskBrief"
             },
             {
               "name": "status",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "番茄专注状态",
+                "en": "Pomodoro status"
+              }
             },
             {
               "name": "startTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "endTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "pauseDuration",
@@ -9270,35 +9482,63 @@
             },
             {
               "name": "added",
-              "type": "boolean"
+              "type": "boolean",
+              "description": {
+                "zh": "记录是否已添加",
+                "en": "Whether record was added"
+              }
             },
             {
               "name": "createdTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "modifiedTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "etimestamp",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "实体时间戳",
+                "en": "Entity timestamp"
+              }
             },
             {
               "name": "etag",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "实体标签",
+                "en": "Entity tag"
+              }
             },
             {
               "name": "duration",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "专注时长",
+                "en": "Focus duration"
+              }
             },
             {
               "name": "relationType",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "关联类型列表",
+                "en": "Relation types"
+              }
             }
           ],
           "schema": {
@@ -9307,11 +9547,13 @@
             "description": "Pomodoro or timing focus record",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "description": "Focus unique id"
               },
               "userId": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "User id"
               },
               "type": {
                 "type": "integer",
@@ -9323,29 +9565,35 @@
                 "description": "0 Pomodoro, 1 Timing"
               },
               "taskId": {
-                "type": "string"
+                "type": "string",
+                "description": "Task id"
               },
               "note": {
-                "type": "string"
+                "type": "string",
+                "description": "Focus note"
               },
               "tasks": {
                 "type": "array",
+                "description": "Related task briefs",
                 "items": {
                   "$ref": "#/components/schemas/OpenPomodoroTaskBrief"
                 }
               },
               "status": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Pomodoro status"
               },
               "startTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:00:00+0800"
               },
               "endTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T09:25:00+0800"
               },
               "pauseDuration": {
@@ -9359,29 +9607,36 @@
                 "description": "Adjusted time in seconds"
               },
               "added": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "Whether record was added"
               },
               "createdTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
               },
               "modifiedTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
               },
               "etimestamp": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Entity timestamp"
               },
               "etag": {
-                "type": "string"
+                "type": "string",
+                "description": "Entity tag"
               },
               "duration": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Focus duration"
               },
               "relationType": {
                 "type": "array",
+                "description": "Relation types",
                 "items": {
                   "type": "integer"
                 }
@@ -9395,11 +9650,13 @@
               "description": "一次番茄专注或正向计时的时间、状态和关联事项。",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "专注记录的唯一 ID"
                 },
                 "userId": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "用户 ID"
                 },
                 "type": {
                   "type": "integer",
@@ -9411,29 +9668,35 @@
                   "description": "0 表示番茄专注，1 表示正向计时"
                 },
                 "taskId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "任务 ID"
                 },
                 "note": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "专注备注"
                 },
                 "tasks": {
                   "type": "array",
+                  "description": "关联任务摘要列表",
                   "items": {
                     "$ref": "#/components/schemas/OpenPomodoroTaskBrief"
                   }
                 },
                 "status": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "番茄专注状态"
                 },
                 "startTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:00:00+0800"
                 },
                 "endTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:25:00+0800"
                 },
                 "pauseDuration": {
@@ -9447,29 +9710,36 @@
                   "description": "调整时间（秒）"
                 },
                 "added": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "记录是否已添加"
                 },
                 "createdTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 },
                 "modifiedTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 },
                 "etimestamp": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "实体时间戳"
                 },
                 "etag": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "实体标签"
                 },
                 "duration": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "专注时长"
                 },
                 "relationType": {
                   "type": "array",
+                  "description": "关联类型列表",
                   "items": {
                     "type": "integer"
                   }
@@ -9505,35 +9775,63 @@
             },
             {
               "name": "taskId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "任务 ID",
+                "en": "Task id"
+              }
             },
             {
               "name": "note",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "专注备注，最多 5000 个字符",
+                "en": "Focus note (max 5000 chars)"
+              }
             },
             {
               "name": "startTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
             },
             {
               "name": "endTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ format"
+              }
             },
             {
               "name": "pauseDuration",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "暂停时长（秒）",
+                "en": "Pause duration in seconds"
+              }
             },
             {
               "name": "duration",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "专注时长",
+                "en": "Focus duration"
+              }
             },
             {
               "name": "relationType",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "关联类型列表",
+                "en": "Relation types"
+              }
             }
           ],
           "schema": {
@@ -9554,32 +9852,39 @@
                 "description": "0 Pomodoro, 1 Timing"
               },
               "taskId": {
-                "type": "string"
+                "type": "string",
+                "description": "Task id"
               },
               "note": {
                 "type": "string",
-                "maxLength": 5000
+                "maxLength": 5000,
+                "description": "Focus note (max 5000 chars)"
               },
               "startTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ format",
                 "example": "2026-04-07T09:00:00+0800"
               },
               "endTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ format",
                 "example": "2026-04-07T09:25:00+0800"
               },
               "pauseDuration": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Pause duration in seconds"
               },
               "duration": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Focus duration"
               },
               "relationType": {
                 "type": "array",
+                "description": "Relation types",
                 "items": {
                   "type": "integer"
                 }
@@ -9605,32 +9910,39 @@
                   "description": "0 表示番茄专注，1 表示正向计时"
                 },
                 "taskId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "任务 ID"
                 },
                 "note": {
                   "type": "string",
-                  "maxLength": 5000
+                  "maxLength": 5000,
+                  "description": "专注备注，最多 5000 个字符"
                 },
                 "startTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:00:00+0800"
                 },
                 "endTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T09:25:00+0800"
                 },
                 "pauseDuration": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "暂停时长（秒）"
                 },
                 "duration": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "专注时长"
                 },
                 "relationType": {
                   "type": "array",
+                  "description": "关联类型列表",
                   "items": {
                     "type": "integer"
                   }
@@ -9654,24 +9966,44 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "倒数日标识符",
+                "en": "Countdown identifier"
+              }
             },
             {
               "name": "type",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "倒数日类型",
+                "en": "Countdown type"
+              }
             },
             {
               "name": "iconRes",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "图标资源",
+                "en": "Icon resource"
+              }
             },
             {
               "name": "color",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "倒数日颜色",
+                "en": "Countdown color"
+              }
             },
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "倒数日名称",
+                "en": "Countdown name"
+              }
             },
             {
               "name": "date",
@@ -9684,79 +10016,147 @@
             },
             {
               "name": "ignoreYear",
-              "type": "boolean"
+              "type": "boolean",
+              "description": {
+                "zh": "是否忽略年份",
+                "en": "Whether to ignore year"
+              }
             },
             {
               "name": "showCalendarType",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "显示日历类型",
+                "en": "Show calendar type"
+              }
             },
             {
               "name": "reminders",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "提醒列表",
+                "en": "Reminders"
+              }
             },
             {
               "name": "annoyingAlert",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "强提醒设置",
+                "en": "Annoying alert"
+              }
             },
             {
               "name": "repeatFlag",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "重复规则",
+                "en": "Recurring rules"
+              }
             },
             {
               "name": "remark",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "备注",
+                "en": "Remark"
+              }
             },
             {
               "name": "status",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "倒数日状态",
+                "en": "Countdown status"
+              }
             },
             {
               "name": "sortOrder",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "排序值",
+                "en": "Sort order value"
+              }
             },
             {
               "name": "style",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "样式",
+                "en": "Style"
+              }
             },
             {
               "name": "styleColor",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "样式颜色列表",
+                "en": "Style colors"
+              }
             },
             {
               "name": "dateDisplayFormat",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "日期显示格式",
+                "en": "Date display format"
+              }
             },
             {
               "name": "timerMode",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "计时器模式",
+                "en": "Timer mode"
+              }
             },
             {
               "name": "showAge",
-              "type": "boolean"
+              "type": "boolean",
+              "description": {
+                "zh": "是否显示年龄",
+                "en": "Whether to show age"
+              }
             },
             {
               "name": "daysOption",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "天数选项",
+                "en": "Days option"
+              }
             },
             {
               "name": "showRemark",
-              "type": "boolean"
+              "type": "boolean",
+              "description": {
+                "zh": "是否显示备注",
+                "en": "Whether to show remark"
+              }
             },
             {
               "name": "createdTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "modifiedTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             }
           ],
           "schema": {
@@ -9765,21 +10165,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "description": "Countdown identifier"
               },
               "type": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Countdown type"
               },
               "iconRes": {
-                "type": "string"
+                "type": "string",
+                "description": "Icon resource"
               },
               "color": {
                 "type": "string",
+                "description": "Countdown color",
                 "example": "#4D8CF5"
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "description": "Countdown name"
               },
               "date": {
                 "type": "integer",
@@ -9788,70 +10193,87 @@
                 "example": 20260407
               },
               "ignoreYear": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "Whether to ignore year"
               },
               "showCalendarType": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Show calendar type"
               },
               "reminders": {
                 "type": "array",
+                "description": "Reminders",
                 "items": {
                   "type": "string"
                 }
               },
               "annoyingAlert": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Annoying alert"
               },
               "repeatFlag": {
                 "type": "string",
+                "description": "Recurring rules",
                 "example": "RRULE:FREQ=DAILY;INTERVAL=1"
               },
               "remark": {
-                "type": "string"
+                "type": "string",
+                "description": "Remark"
               },
               "status": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Countdown status"
               },
               "sortOrder": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Sort order value"
               },
               "style": {
-                "type": "string"
+                "type": "string",
+                "description": "Style"
               },
               "styleColor": {
                 "type": "array",
+                "description": "Style colors",
                 "items": {
                   "type": "string"
                 }
               },
               "dateDisplayFormat": {
-                "type": "string"
+                "type": "string",
+                "description": "Date display format"
               },
               "timerMode": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Timer mode"
               },
               "showAge": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "Whether to show age"
               },
               "daysOption": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Days option"
               },
               "showRemark": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "Whether to show remark"
               },
               "createdTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
               },
               "modifiedTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
               }
             }
           },
@@ -9862,21 +10284,26 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "倒数日标识符"
                 },
                 "type": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "倒数日类型"
                 },
                 "iconRes": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "图标资源"
                 },
                 "color": {
                   "type": "string",
+                  "description": "倒数日颜色",
                   "example": "#4D8CF5"
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "倒数日名称"
                 },
                 "date": {
                   "type": "integer",
@@ -9885,70 +10312,87 @@
                   "example": 20260407
                 },
                 "ignoreYear": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "是否忽略年份"
                 },
                 "showCalendarType": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "显示日历类型"
                 },
                 "reminders": {
                   "type": "array",
+                  "description": "提醒列表",
                   "items": {
                     "type": "string"
                   }
                 },
                 "annoyingAlert": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "强提醒设置"
                 },
                 "repeatFlag": {
                   "type": "string",
+                  "description": "重复规则",
                   "example": "RRULE:FREQ=DAILY;INTERVAL=1"
                 },
                 "remark": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "备注"
                 },
                 "status": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "倒数日状态"
                 },
                 "sortOrder": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "排序值"
                 },
                 "style": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "样式"
                 },
                 "styleColor": {
                   "type": "array",
+                  "description": "样式颜色列表",
                   "items": {
                     "type": "string"
                   }
                 },
                 "dateDisplayFormat": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "日期显示格式"
                 },
                 "timerMode": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "计时器模式"
                 },
                 "showAge": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "是否显示年龄"
                 },
                 "daysOption": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "天数选项"
                 },
                 "showRemark": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "是否显示备注"
                 },
                 "createdTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 },
                 "modifiedTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 }
               }
             }
@@ -9969,91 +10413,163 @@
           "properties": [
             {
               "name": "name",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯名称",
+                "en": "Habit name"
+              }
             },
             {
               "name": "iconRes",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯图标资源",
+                "en": "Habit icon resource"
+              }
             },
             {
               "name": "color",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯颜色",
+                "en": "Habit color"
+              }
             },
             {
               "name": "sortOrder",
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": {
+                "zh": "习惯排序值",
+                "en": "Habit sort order"
+              }
             },
             {
               "name": "status",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "习惯状态",
+                "en": "Habit status"
+              }
             },
             {
               "name": "encouragement",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯鼓励语",
+                "en": "Habit encouragement message"
+              }
             },
             {
               "name": "type",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯类型",
+                "en": "Habit type"
+              }
             },
             {
               "name": "goal",
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": {
+                "zh": "习惯目标",
+                "en": "Habit goal"
+              }
             },
             {
               "name": "step",
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": {
+                "zh": "习惯步进值",
+                "en": "Habit step"
+              }
             },
             {
               "name": "unit",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯单位",
+                "en": "Habit unit"
+              }
             },
             {
               "name": "repeatRule",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯重复规则",
+                "en": "Habit repeat rule"
+              }
             },
             {
               "name": "reminders",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "习惯提醒列表",
+                "en": "Habit reminders"
+              }
             },
             {
               "name": "recordEnable",
-              "type": "boolean"
+              "type": "boolean",
+              "description": {
+                "zh": "是否启用记录",
+                "en": "Whether record is enabled"
+              }
             },
             {
               "name": "sectionId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯分区标识符",
+                "en": "Habit section identifier"
+              }
             },
             {
               "name": "targetDays",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "目标天数",
+                "en": "Target days"
+              }
             },
             {
               "name": "targetStartDate",
               "type": "integer",
               "format": "int32",
               "description": {
-                "zh": "日期，格式为 YYYYMMDD",
-                "en": "Date in YYYYMMDD format"
+                "zh": "目标开始日期，格式为 YYYYMMDD",
+                "en": "Target start date in YYYYMMDD format"
               }
             },
             {
               "name": "completedCycles",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "已完成周期数",
+                "en": "Completed cycles"
+              }
             },
             {
               "name": "exDates",
-              "type": "array"
+              "type": "array",
+              "description": {
+                "zh": "排除日期列表",
+                "en": "Excluded dates"
+              }
             },
             {
               "name": "style",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "习惯样式",
+                "en": "Habit style"
+              }
             }
           ],
           "schema": {
@@ -10063,81 +10579,99 @@
             "properties": {
               "name": {
                 "type": "string",
-                "maxLength": 1000
+                "maxLength": 1000,
+                "description": "Habit name"
               },
               "iconRes": {
-                "type": "string"
+                "type": "string",
+                "description": "Habit icon resource"
               },
               "color": {
                 "type": "string",
+                "description": "Habit color",
                 "example": "#4D8CF5"
               },
               "sortOrder": {
                 "type": "integer",
-                "format": "int64"
+                "format": "int64",
+                "description": "Habit sort order"
               },
               "status": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Habit status"
               },
               "encouragement": {
-                "type": "string"
+                "type": "string",
+                "description": "Habit encouragement message"
               },
               "type": {
                 "type": "string",
+                "description": "Habit type",
                 "example": "Boolean"
               },
               "goal": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "Habit goal"
               },
               "step": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "Habit step"
               },
               "unit": {
                 "type": "string",
+                "description": "Habit unit",
                 "example": "Count"
               },
               "repeatRule": {
                 "type": "string",
+                "description": "Habit repeat rule",
                 "example": "RRULE:FREQ=DAILY;INTERVAL=1"
               },
               "reminders": {
                 "type": "array",
+                "description": "Habit reminders",
                 "items": {
                   "type": "string"
                 }
               },
               "recordEnable": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "Whether record is enabled"
               },
               "sectionId": {
-                "type": "string"
+                "type": "string",
+                "description": "Habit section identifier"
               },
               "targetDays": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Target days"
               },
               "targetStartDate": {
                 "type": "integer",
                 "format": "int32",
-                "description": "Date in YYYYMMDD format",
+                "description": "Target start date in YYYYMMDD format",
                 "example": 20240101
               },
               "completedCycles": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Completed cycles"
               },
               "exDates": {
                 "type": "array",
+                "description": "Excluded dates",
                 "items": {
                   "type": "string"
                 }
               },
               "style": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Habit style"
               }
             }
           },
@@ -10149,81 +10683,99 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "maxLength": 1000
+                  "maxLength": 1000,
+                  "description": "习惯名称"
                 },
                 "iconRes": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "习惯图标资源"
                 },
                 "color": {
                   "type": "string",
+                  "description": "习惯颜色",
                   "example": "#4D8CF5"
                 },
                 "sortOrder": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "习惯排序值"
                 },
                 "status": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "习惯状态"
                 },
                 "encouragement": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "习惯鼓励语"
                 },
                 "type": {
                   "type": "string",
+                  "description": "习惯类型",
                   "example": "Boolean"
                 },
                 "goal": {
                   "type": "number",
-                  "format": "double"
+                  "format": "double",
+                  "description": "习惯目标"
                 },
                 "step": {
                   "type": "number",
-                  "format": "double"
+                  "format": "double",
+                  "description": "习惯步进值"
                 },
                 "unit": {
                   "type": "string",
+                  "description": "习惯单位",
                   "example": "Count"
                 },
                 "repeatRule": {
                   "type": "string",
+                  "description": "习惯重复规则",
                   "example": "RRULE:FREQ=DAILY;INTERVAL=1"
                 },
                 "reminders": {
                   "type": "array",
+                  "description": "习惯提醒列表",
                   "items": {
                     "type": "string"
                   }
                 },
                 "recordEnable": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "是否启用记录"
                 },
                 "sectionId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "习惯分区标识符"
                 },
                 "targetDays": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "目标天数"
                 },
                 "targetStartDate": {
                   "type": "integer",
                   "format": "int32",
-                  "description": "日期，格式为 YYYYMMDD",
+                  "description": "目标开始日期，格式为 YYYYMMDD",
                   "example": 20240101
                 },
                 "completedCycles": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "已完成周期数"
                 },
                 "exDates": {
                   "type": "array",
+                  "description": "排除日期列表",
                   "items": {
                     "type": "string"
                   }
                 },
                 "style": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "习惯样式"
                 }
               }
             }
@@ -10333,26 +10885,32 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Habit unique id"
                   },
                   "totalCheckIns": {
                     "type": "integer",
-                    "format": "int32"
+                    "format": "int32",
+                    "description": "Total check-ins"
                   },
                   "createdTime": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
                   },
                   "modifiedTime": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
                   },
                   "archivedTime": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Archived time in yyyy-MM-dd'T'HH:mm:ssZ"
                   },
                   "etag": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Habit etag"
                   }
                 }
               }
@@ -10370,26 +10928,32 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "习惯唯一 ID"
                     },
                     "totalCheckIns": {
                       "type": "integer",
-                      "format": "int32"
+                      "format": "int32",
+                      "description": "累计打卡次数"
                     },
                     "createdTime": {
                       "type": "string",
-                      "format": "date-time"
+                      "format": "date-time",
+                      "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                     },
                     "modifiedTime": {
                       "type": "string",
-                      "format": "date-time"
+                      "format": "date-time",
+                      "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                     },
                     "archivedTime": {
                       "type": "string",
-                      "format": "date-time"
+                      "format": "date-time",
+                      "description": "归档时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                     },
                     "etag": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "习惯实体标签"
                     }
                   }
                 }
@@ -10412,7 +10976,11 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "打卡 ID",
+                "en": "Check-in id"
+              }
             },
             {
               "name": "stamp",
@@ -10426,27 +10994,47 @@
             {
               "name": "time",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "打卡时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Check-in time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "opTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "操作时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Operation time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "value",
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": {
+                "zh": "打卡值，默认为 1.0",
+                "en": "Check-in value. Default is 1.0"
+              }
             },
             {
               "name": "goal",
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": {
+                "zh": "打卡目标，默认为 1.0",
+                "en": "Check-in goal. Default is 1.0"
+              }
             },
             {
               "name": "status",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "打卡状态",
+                "en": "Check-in status"
+              }
             }
           ],
           "schema": {
@@ -10455,7 +11043,8 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "description": "Check-in id"
               },
               "stamp": {
                 "type": "integer",
@@ -10466,26 +11055,31 @@
               "time": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Check-in time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T08:00:00+0000"
               },
               "opTime": {
                 "type": "string",
                 "format": "date-time",
+                "description": "Operation time in yyyy-MM-dd'T'HH:mm:ssZ",
                 "example": "2026-04-07T08:00:00+0000"
               },
               "value": {
                 "type": "number",
                 "format": "double",
+                "description": "Check-in value. Default is 1.0",
                 "default": 1
               },
               "goal": {
                 "type": "number",
                 "format": "double",
+                "description": "Check-in goal. Default is 1.0",
                 "default": 1
               },
               "status": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "description": "Check-in status"
               }
             }
           },
@@ -10496,7 +11090,8 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "打卡 ID"
                 },
                 "stamp": {
                   "type": "integer",
@@ -10507,26 +11102,31 @@
                 "time": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "打卡时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T08:00:00+0000"
                 },
                 "opTime": {
                   "type": "string",
                   "format": "date-time",
+                  "description": "操作时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
                   "example": "2026-04-07T08:00:00+0000"
                 },
                 "value": {
                   "type": "number",
                   "format": "double",
+                  "description": "打卡值，默认为 1.0",
                   "default": 1
                 },
                 "goal": {
                   "type": "number",
                   "format": "double",
+                  "description": "打卡目标，默认为 1.0",
                   "default": 1
                 },
                 "status": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "打卡状态"
                 }
               }
             }
@@ -10593,34 +11193,62 @@
           "properties": [
             {
               "name": "id",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "打卡记录文档 ID",
+                "en": "Check-in document id"
+              }
             },
             {
               "name": "habitId",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "习惯 ID",
+                "en": "Habit id"
+              }
             },
             {
               "name": "createdTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "modifiedTime",
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": {
+                "zh": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "en": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
+              }
             },
             {
               "name": "etag",
-              "type": "string"
+              "type": "string",
+              "description": {
+                "zh": "打卡记录实体标签",
+                "en": "Check-in etag"
+              }
             },
             {
               "name": "year",
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": {
+                "zh": "年份",
+                "en": "Year"
+              }
             },
             {
               "name": "checkins",
               "type": "array",
+              "description": {
+                "zh": "打卡条目列表",
+                "en": "Check-in entries"
+              },
               "ref": "OpenHabitCheckinData"
             }
           ],
@@ -10630,29 +11258,36 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "description": "Check-in document id"
               },
               "habitId": {
-                "type": "string"
+                "type": "string",
+                "description": "Habit id"
               },
               "createdTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ"
               },
               "modifiedTime": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ"
               },
               "etag": {
-                "type": "string"
+                "type": "string",
+                "description": "Check-in etag"
               },
               "year": {
                 "type": "integer",
                 "format": "int32",
+                "description": "Year",
                 "example": 2026
               },
               "checkins": {
                 "type": "array",
+                "description": "Check-in entries",
                 "items": {
                   "$ref": "#/components/schemas/OpenHabitCheckinData"
                 }
@@ -10666,29 +11301,36 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "打卡记录文档 ID"
                 },
                 "habitId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "习惯 ID"
                 },
                 "createdTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 },
                 "modifiedTime": {
                   "type": "string",
-                  "format": "date-time"
+                  "format": "date-time",
+                  "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ"
                 },
                 "etag": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "打卡记录实体标签"
                 },
                 "year": {
                   "type": "integer",
                   "format": "int32",
+                  "description": "年份",
                   "example": 2026
                 },
                 "checkins": {
                   "type": "array",
+                  "description": "打卡条目列表",
                   "items": {
                     "$ref": "#/components/schemas/OpenHabitCheckinData"
                   }
