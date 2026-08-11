@@ -230,7 +230,8 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "example": 1
             }
           },
           {
@@ -242,6 +243,7 @@
               "type": "string",
               "pattern": "^[A-Z]{3}$",
               "default": "EUR",
+              "example": "EUR",
               "enum": [
                 "AUD",
                 "BRL",
@@ -479,7 +481,8 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "example": 1
             }
           },
           {
@@ -491,6 +494,7 @@
               "type": "string",
               "pattern": "^[A-Z]{3}$",
               "default": "EUR",
+              "example": "EUR",
               "enum": [
                 "AUD",
                 "BRL",
@@ -846,7 +850,8 @@
           "format": "double",
           "default": 1,
           "minimum": 0,
-          "exclusiveMinimum": true
+          "exclusiveMinimum": true,
+          "example": 1
         }
       },
       "BaseParam": {
@@ -857,7 +862,8 @@
         "schema": {
           "type": "string",
           "pattern": "^[A-Z]{3}$",
-          "default": "EUR"
+          "default": "EUR",
+          "example": "EUR"
         }
       },
       "SymbolsParam": {

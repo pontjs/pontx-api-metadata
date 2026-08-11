@@ -10,7 +10,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "548ede4f845093e73eb300daf6411ec49cd6effbf203768c244f50aa5c15868b",
+      "approvedSha256": "8181a8068e2cda017c5317768c33396cd424d1571cfb5bff7ea0bd5b4223a041",
       "title": {
         "zh": "Frankfurter 汇率 API",
         "en": "Frankfurter exchange-rate API"
@@ -267,7 +267,8 @@
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              }
+              },
+              "example": 1
             },
             {
               "name": "base",
@@ -310,7 +311,8 @@
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              }
+              },
+              "example": "EUR"
             },
             {
               "name": "symbols",
@@ -455,7 +457,8 @@
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              }
+              },
+              "example": 1
             },
             {
               "name": "base",
@@ -466,7 +469,8 @@
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              }
+              },
+              "example": "EUR"
             },
             {
               "name": "symbols",
@@ -630,7 +634,8 @@
               "description": {
                 "zh": "要换算的金额（默认为 1）",
                 "en": "The amount to be converted (default is 1)"
-              }
+              },
+              "example": 1
             },
             {
               "name": "base",
@@ -673,7 +678,8 @@
               "description": {
                 "zh": "基准货币代码（三位 ISO 4217 代码）",
                 "en": "Base currency code (three-letter ISO 4217 code)"
-              }
+              },
+              "example": "EUR"
             },
             {
               "name": "symbols",
