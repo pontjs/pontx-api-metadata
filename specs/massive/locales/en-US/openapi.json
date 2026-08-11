@@ -718,7 +718,8 @@
           },
           "request_id": {
             "type": "string",
-            "description": "Server-assigned request identifier."
+            "description": "Server-assigned request identifier.",
+            "example": "6a7e466379af0a71039d60cc78e72282"
           },
           "resultsCount": {
             "type": "integer",
@@ -732,6 +733,7 @@
           },
           "results": {
             "type": "array",
+            "description": "An array of results containing the requested data.",
             "items": {
               "$ref": "#/components/schemas/AggregateBar"
             }
@@ -739,7 +741,8 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied."
+            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied.",
+            "example": "https://api.massive.com/v2/aggs/ticker/AAPL/range/1/day/1578114000000/2020-01-10?cursor=bGltaXQ9MiZzb3J0PWFzYw"
           }
         },
         "additionalProperties": true
@@ -768,7 +771,8 @@
             "type": "array",
             "description": "Trade condition codes.",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "example": 37
             },
             "example": [
               37
@@ -786,7 +790,8 @@
           "f": {
             "type": "integer",
             "format": "int64",
-            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds."
+            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds.",
+            "example": 1617901342969796400
           },
           "i": {
             "type": "string",
@@ -817,7 +822,8 @@
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "SIP receipt time as a Unix timestamp in nanoseconds."
+            "description": "SIP receipt time as a Unix timestamp in nanoseconds.",
+            "example": 1617901342969834000
           },
           "x": {
             "type": "integer",
@@ -827,7 +833,8 @@
           "y": {
             "type": "integer",
             "format": "int64",
-            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds."
+            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds.",
+            "example": 1617901342968000000
           },
           "z": {
             "type": "integer",
@@ -853,7 +860,8 @@
         "properties": {
           "request_id": {
             "type": "string",
-            "description": "Server-assigned request identifier."
+            "description": "Server-assigned request identifier.",
+            "example": "f05562305bd26ced64b98ed68b3c5d96"
           },
           "results": {
             "$ref": "#/components/schemas/LastTrade"

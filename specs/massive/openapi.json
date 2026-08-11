@@ -718,7 +718,8 @@
           },
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "由服务器分配的请求标识符。",
+            "example": "6a7e466379af0a71039d60cc78e72282"
           },
           "resultsCount": {
             "type": "integer",
@@ -732,6 +733,7 @@
           },
           "results": {
             "type": "array",
+            "description": "包含所请求数据的结果数组。",
             "items": {
               "$ref": "#/components/schemas/AggregateBar"
             }
@@ -739,7 +741,8 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。"
+            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。",
+            "example": "https://api.massive.com/v2/aggs/ticker/AAPL/range/1/day/1578114000000/2020-01-10?cursor=bGltaXQ9MiZzb3J0PWFzYw"
           }
         },
         "additionalProperties": true
@@ -768,7 +771,8 @@
             "type": "array",
             "description": "成交条件代码。",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "example": 37
             },
             "example": [
               37
@@ -786,7 +790,8 @@
           "f": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。"
+            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。",
+            "example": 1617901342969796400
           },
           "i": {
             "type": "string",
@@ -817,7 +822,8 @@
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。"
+            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。",
+            "example": 1617901342969834000
           },
           "x": {
             "type": "integer",
@@ -827,7 +833,8 @@
           "y": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。"
+            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。",
+            "example": 1617901342968000000
           },
           "z": {
             "type": "integer",
@@ -853,7 +860,8 @@
         "properties": {
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "由服务器分配的请求标识符。",
+            "example": "f05562305bd26ced64b98ed68b3c5d96"
           },
           "results": {
             "$ref": "#/components/schemas/LastTrade"
