@@ -31,7 +31,8 @@
             "schema": {
               "type": "string",
               "pattern": "^(sh|sz)[0-9]{6}(,(sh|sz)[0-9]{6})*$",
-              "example": "sh000001,sh600000"
+              "example": "sh000001,sh600000",
+              "description": "Comma-separated Sina identifiers. Observed A-share prefixes are `sh` (Shanghai) and `sz` (Shenzhen), followed by six digits; mixed-instrument batches may have different positional record semantics."
             }
           }
         ],
@@ -46,6 +47,9 @@
                 "example": "var hq_str_sh600000=\"浦发银行,9.200,9.210,9.340,9.380,9.160,9.330,9.340,44494391,413333674.000,136600,9.330,295500,9.320,223100,9.310,108500,9.300,71800,9.290,1300,9.340,142300,9.350,224600,9.360,450500,9.370,1289595,9.380,2026-08-10,11:30:00,00,\";"
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -79,7 +83,8 @@
             "schema": {
               "type": "string",
               "pattern": "^(sh|sz)[0-9]{6}$",
-              "example": "sh600000"
+              "example": "sh600000",
+              "description": "Single prefixed A-share symbol (`sh` or `sz` plus six digits)."
             }
           },
           {
@@ -97,7 +102,16 @@
                 60,
                 240
               ],
-              "example": 5
+              "example": 5,
+              "description": "Observed bar scale. Values 1–60 returned intraday timestamps; 240 returned daily date labels in the 2026-08-10 sample. The provider does not publish a stability guarantee for this enum.",
+              "x-enum-descriptions": [
+                "Value 1.",
+                "Value 5.",
+                "Value 15.",
+                "Value 30.",
+                "Value 60.",
+                "Value 240."
+              ]
             }
           },
           {
@@ -107,7 +121,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "no"
+              "example": "no",
+              "description": "Observed moving-average selector. `no` returns no MA fields; a numeric string such as `5` adds fields such as `ma_price5` and `ma_volume5`. Other combinations are undocumented, so this is not constrained as a closed enum."
             }
           },
           {
@@ -118,7 +133,8 @@
             "schema": {
               "type": "integer",
               "minimum": 1,
-              "example": 3
+              "example": 3,
+              "description": "Requested maximum number of most-recent bars. Positive integers are observed; the provider may enforce an undocumented cap."
             }
           }
         ],
@@ -133,6 +149,9 @@
                 "example": "/*<script>location.href='//sina.com';</script>*/\nvar _data=([{\"day\":\"2026-08-10 11:20:00\",\"open\":\"9.340\",\"high\":\"9.360\",\"low\":\"9.340\",\"close\":\"9.360\",\"volume\":\"505900\",\"amount\":\"4730174.1052\"}]);"
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "inferred",
@@ -159,29 +178,158 @@
         "type": "string",
         "title": "QuoteAssignmentWireText",
         "description": "Raw GB18030-decoded wire text containing one `var hq_str_<symbol>=\"...\";` assignment per symbol. This is JavaScript source text, not JSON. Do not execute it. Extract only the quoted assignment value, preserve empty/trailing comma fields, then map positions with the separately documented logical schema.",
-        "x-pontx-decoded-record-schema": "#/components/schemas/EquityQuotePositionalRecord"
+        "x-pontx-decoded-record-schema": "#/components/schemas/EquityQuotePositionalRecord",
+        "example": "example"
       },
       "EquityQuotePositionalRecord": {
         "type": "object",
         "title": "EquityQuotePositionalRecord",
         "description": "Logical model after safely parsing one A-share equity assignment. It is not the HTTP wire shape. Positions are zero-based comma-field indexes inferred by comparing live Sina quote-page values on 2026-08-10; Sina does not publish this contract. Do not apply it to indexes or other instrument classes without validation.",
-        "required": ["name", "open", "previousClose", "last", "high", "low", "volume", "amount", "date", "time"],
+        "required": [
+          "name",
+          "open",
+          "previousClose",
+          "last",
+          "high",
+          "low",
+          "volume",
+          "amount",
+          "date",
+          "time"
+        ],
         "properties": {
-          "name": {"type": "string", "description": "Security name after GB18030 decoding.", "example": "浦发银行", "x-pontx-position": 0, "x-pontx-confidence": "high-inferred"},
-          "open": {"type": "number", "format": "double", "example": 9.2, "x-pontx-position": 1, "x-pontx-confidence": "high-inferred"},
-          "previousClose": {"type": "number", "format": "double", "example": 9.21, "x-pontx-position": 2, "x-pontx-confidence": "high-inferred"},
-          "last": {"type": "number", "format": "double", "example": 9.34, "x-pontx-position": 3, "x-pontx-confidence": "high-inferred"},
-          "high": {"type": "number", "format": "double", "example": 9.38, "x-pontx-position": 4, "x-pontx-confidence": "high-inferred"},
-          "low": {"type": "number", "format": "double", "example": 9.16, "x-pontx-position": 5, "x-pontx-confidence": "high-inferred"},
-          "bid": {"type": "number", "format": "double", "description": "Observed aggregate/current bid field; exact provider terminology is undocumented.", "example": 9.33, "x-pontx-position": 6, "x-pontx-confidence": "medium-inferred"},
-          "ask": {"type": "number", "format": "double", "description": "Observed aggregate/current ask field; exact provider terminology is undocumented.", "example": 9.34, "x-pontx-position": 7, "x-pontx-confidence": "medium-inferred"},
-          "volume": {"type": "integer", "format": "int64", "description": "Observed cumulative traded shares for the A-share sample.", "example": 44494391, "x-pontx-position": 8, "x-pontx-confidence": "high-inferred"},
-          "amount": {"type": "number", "format": "double", "description": "Observed cumulative traded amount in CNY for the A-share sample.", "example": 413333674, "x-pontx-position": 9, "x-pontx-confidence": "high-inferred"},
-          "bidLevels": {"type": "array", "description": "Five logical bid levels parsed from alternating size/price fields at zero-based positions 10–19.", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [10, 19], "x-pontx-confidence": "high-inferred"},
-          "askLevels": {"type": "array", "description": "Five logical ask levels parsed from alternating size/price fields at zero-based positions 20–29.", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/components/schemas/OrderBookLevel"}, "x-pontx-position-range": [20, 29], "x-pontx-confidence": "high-inferred"},
-          "date": {"type": "string", "format": "date", "example": "2026-08-10", "x-pontx-position": 30, "x-pontx-confidence": "high-inferred"},
-          "time": {"type": "string", "pattern": "^[0-9]{2}:[0-9]{2}:[0-9]{2}$", "example": "11:30:00", "x-pontx-position": 31, "x-pontx-confidence": "high-inferred"},
-          "unmappedFields": {"type": "array", "items": {"type": "string"}, "description": "All remaining positions, including status/trailing fields. Preserve verbatim because their meaning is not confirmed."}
+          "name": {
+            "type": "string",
+            "description": "Security name after GB18030 decoding.",
+            "example": "浦发银行",
+            "x-pontx-position": 0,
+            "x-pontx-confidence": "high-inferred"
+          },
+          "open": {
+            "type": "number",
+            "format": "double",
+            "example": 9.2,
+            "x-pontx-position": 1,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Open in the Equity Quote Positional Record structure."
+          },
+          "previousClose": {
+            "type": "number",
+            "format": "double",
+            "example": 9.21,
+            "x-pontx-position": 2,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Previous Close in the Equity Quote Positional Record structure."
+          },
+          "last": {
+            "type": "number",
+            "format": "double",
+            "example": 9.34,
+            "x-pontx-position": 3,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Last in the Equity Quote Positional Record structure."
+          },
+          "high": {
+            "type": "number",
+            "format": "double",
+            "example": 9.38,
+            "x-pontx-position": 4,
+            "x-pontx-confidence": "high-inferred",
+            "description": "High in the Equity Quote Positional Record structure."
+          },
+          "low": {
+            "type": "number",
+            "format": "double",
+            "example": 9.16,
+            "x-pontx-position": 5,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Low in the Equity Quote Positional Record structure."
+          },
+          "bid": {
+            "type": "number",
+            "format": "double",
+            "description": "Observed aggregate/current bid field; exact provider terminology is undocumented.",
+            "example": 9.33,
+            "x-pontx-position": 6,
+            "x-pontx-confidence": "medium-inferred"
+          },
+          "ask": {
+            "type": "number",
+            "format": "double",
+            "description": "Observed aggregate/current ask field; exact provider terminology is undocumented.",
+            "example": 9.34,
+            "x-pontx-position": 7,
+            "x-pontx-confidence": "medium-inferred"
+          },
+          "volume": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Observed cumulative traded shares for the A-share sample.",
+            "example": 44494391,
+            "x-pontx-position": 8,
+            "x-pontx-confidence": "high-inferred"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Observed cumulative traded amount in CNY for the A-share sample.",
+            "example": 413333674,
+            "x-pontx-position": 9,
+            "x-pontx-confidence": "high-inferred"
+          },
+          "bidLevels": {
+            "type": "array",
+            "description": "Five logical bid levels parsed from alternating size/price fields at zero-based positions 10–19.",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+              "$ref": "#/components/schemas/OrderBookLevel"
+            },
+            "x-pontx-position-range": [
+              10,
+              19
+            ],
+            "x-pontx-confidence": "high-inferred"
+          },
+          "askLevels": {
+            "type": "array",
+            "description": "Five logical ask levels parsed from alternating size/price fields at zero-based positions 20–29.",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+              "$ref": "#/components/schemas/OrderBookLevel"
+            },
+            "x-pontx-position-range": [
+              20,
+              29
+            ],
+            "x-pontx-confidence": "high-inferred"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-08-10",
+            "x-pontx-position": 30,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Date in the Equity Quote Positional Record structure."
+          },
+          "time": {
+            "type": "string",
+            "pattern": "^[0-9]{2}:[0-9]{2}:[0-9]{2}$",
+            "example": "11:30:00",
+            "x-pontx-position": 31,
+            "x-pontx-confidence": "high-inferred",
+            "description": "Time in the Equity Quote Positional Record structure."
+          },
+          "unmappedFields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Unmapped Fields item in the Equity Quote Positional Record structure.",
+              "example": "example"
+            },
+            "description": "All remaining positions, including status/trailing fields. Preserve verbatim because their meaning is not confirmed."
+          }
         },
         "additionalProperties": false
       },
@@ -189,10 +337,23 @@
         "type": "object",
         "title": "OrderBookLevel",
         "description": "OrderBookLevel data structure",
-        "required": ["size", "price"],
+        "required": [
+          "size",
+          "price"
+        ],
         "properties": {
-          "size": {"type": "integer", "format": "int64", "description": "Observed order size in shares."},
-          "price": {"type": "number", "format": "double"}
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Observed order size in shares.",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "description": "Price in the Order Book Level structure.",
+            "example": 1
+          }
         },
         "additionalProperties": false
       },
@@ -200,26 +361,84 @@
         "type": "string",
         "title": "KLineAssignmentWireText",
         "description": "Raw GBK-decoded JavaScript text: a redirect-guard comment followed by `var _data=([<objects>]);`. It is not JSON on the wire. Remove only the known wrapper and parse the enclosed JSON array as data; never execute the response.",
-        "x-pontx-decoded-record-schema": "#/components/schemas/KLineBar"
+        "x-pontx-decoded-record-schema": "#/components/schemas/KLineBar",
+        "example": "example"
       },
       "KLineBar": {
         "type": "object",
         "title": "KLineBar",
         "description": "Logical bar object parsed from the JavaScript wrapper. OHLC and volume are serialized as strings. Intraday bars observed at scales 1/5/15/30/60 include amount; daily scale 240 omitted amount in repeated 2026-08-10 checks.",
-        "required": ["day", "open", "high", "low", "close", "volume"],
+        "required": [
+          "day",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume"
+        ],
         "properties": {
-          "day": {"type": "string", "description": "`YYYY-MM-DD HH:mm:ss` for observed intraday scales, or `YYYY-MM-DD` for scale 240.", "example": "2026-08-10 11:30:00"},
-          "open": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.350"},
-          "high": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.360"},
-          "low": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.330"},
-          "close": {"type": "string", "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$", "example": "9.340"},
-          "volume": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$", "example": "535200"},
-          "amount": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$", "description": "Observed on intraday bars; absent from the scale-240 sample.", "example": "5002350.0828"},
-          "ma_price5": {"type": "number", "format": "double", "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.", "example": 9.358},
-          "ma_volume5": {"type": "number", "format": "double", "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.", "example": 75330516}
+          "day": {
+            "type": "string",
+            "description": "`YYYY-MM-DD HH:mm:ss` for observed intraday scales, or `YYYY-MM-DD` for scale 240.",
+            "example": "2026-08-10 11:30:00"
+          },
+          "open": {
+            "type": "string",
+            "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+            "example": "9.350",
+            "description": "Open in the KLine Bar structure."
+          },
+          "high": {
+            "type": "string",
+            "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+            "example": "9.360",
+            "description": "High in the KLine Bar structure."
+          },
+          "low": {
+            "type": "string",
+            "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+            "example": "9.330",
+            "description": "Low in the KLine Bar structure."
+          },
+          "close": {
+            "type": "string",
+            "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+            "example": "9.340",
+            "description": "Close in the KLine Bar structure."
+          },
+          "volume": {
+            "type": "string",
+            "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+            "example": "535200",
+            "description": "Volume in the KLine Bar structure."
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+            "description": "Observed on intraday bars; absent from the scale-240 sample.",
+            "example": "5002350.0828"
+          },
+          "ma_price5": {
+            "type": "number",
+            "format": "double",
+            "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.",
+            "example": 9.358
+          },
+          "ma_volume5": {
+            "type": "number",
+            "format": "double",
+            "description": "Example optional field returned when `ma=5`; the suffix follows the requested moving-average window.",
+            "example": 75330516
+          }
         },
         "additionalProperties": true
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
+    }
+  ]
 }

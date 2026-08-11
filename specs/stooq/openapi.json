@@ -27,7 +27,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "aapl.us"
+              "example": "aapl.us",
+              "description": "一个或多个 Stooq 证券标识，历史用法中以逗号分隔。例如美国市场的苹果公司使用 `aapl.us`。证券标识后缀由提供方定义，此处未穷举。"
             }
           },
           {
@@ -37,7 +38,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "sd2t2ohlcvp"
+              "example": "sd2t2ohlcvp",
+              "description": "旧版 CSV 接口使用的紧凑有序字段选择代码。现有请求中观察到示例 `sd2t2ohlcvp`；由于提供方目前没有正式文档，不将各字母声明为稳定的公开枚举。"
             }
           },
           {
@@ -47,7 +49,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": false
+              "default": false,
+              "description": "用于请求 CSV 表头的存在即生效式旧版标志。历史 URL 通常包含独立的 `h`，而不是 `h=true`；通用 OpenAPI 客户端可能以不同方式序列化此布尔值。",
+              "example": false
             }
           },
           {
@@ -59,6 +63,11 @@
               "type": "string",
               "enum": [
                 "csv"
+              ],
+              "description": "请求的输出格式。该 URL 仅有 CSV 格式的证据。",
+              "example": "csv",
+              "x-enum-descriptions": [
+                "取值 csv。"
               ]
             }
           }
@@ -68,7 +77,9 @@
             "description": "历史上预期的 CSV 响应；2026-08-10 未能复现。",
             "content": {
               "text/csv": {
-                "schema": { "$ref": "#/components/schemas/LatestQuoteCsv" },
+                "schema": {
+                  "$ref": "#/components/schemas/LatestQuoteCsv"
+                },
                 "examples": {
                   "illustrativeLegacyShape": {
                     "summary": "仅用于说明旧版列结构；并非本次验证捕获的响应",
@@ -82,7 +93,9 @@
             "description": "观察到的旧版接口不可用响应（2026-08-10）。",
             "content": {
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/StooqNotFoundHtml" },
+                "schema": {
+                  "$ref": "#/components/schemas/StooqNotFoundHtml"
+                },
                 "example": "<meta charset=utf-8><title>Stooq</title>...The page you requested does not exist or has been moved..."
               }
             }
@@ -119,7 +132,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "aapl.us"
+              "example": "aapl.us",
+              "description": "单个由提供方定义的 Stooq 证券标识，例如 `aapl.us`。"
             }
           },
           {
@@ -130,7 +144,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[0-9]{8}$",
-              "example": "20260801"
+              "example": "20260801",
+              "description": "以 `YYYYMMDD` 编码的闭区间开始日期（历史观察到的约定）。"
             }
           },
           {
@@ -141,7 +156,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[0-9]{8}$",
-              "example": "20260810"
+              "example": "20260810",
+              "description": "以 `YYYYMMDD` 编码的闭区间结束日期（历史观察到的约定）。"
             }
           },
           {
@@ -155,6 +171,13 @@
                 "d",
                 "w",
                 "m"
+              ],
+              "description": "历史 K 线周期：日、周或月。",
+              "example": "d",
+              "x-enum-descriptions": [
+                "取值 d。",
+                "取值 w。",
+                "取值 m。"
               ]
             }
           }
@@ -164,7 +187,9 @@
             "description": "可能是历史上预期的 CSV，也可能是当前观察到的 HTTP 200 浏览器验证 HTML；解析前应检查 Content-Type。",
             "content": {
               "text/csv": {
-                "schema": { "$ref": "#/components/schemas/HistoricalQuoteCsv" },
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricalQuoteCsv"
+                },
                 "examples": {
                   "illustrativeLegacyShape": {
                     "summary": "仅用于说明旧版列结构；本次验证返回的是 HTML",
@@ -173,10 +198,15 @@
                 }
               },
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/BrowserVerificationHtml" },
+                "schema": {
+                  "$ref": "#/components/schemas/BrowserVerificationHtml"
+                },
                 "example": "<!DOCTYPE html><html>...<noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript>..."
               }
             }
+          },
+          "default": {
+            "description": "请求失败。"
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -204,12 +234,14 @@
       "LatestQuoteCsv": {
         "type": "string",
         "title": "Stooq 最新报价 CSV 原始响应",
-        "description": "由 f 参数决定列顺序的旧版最新报价 CSV 文本；当前验证未能重新获得此格式，不应假定仍可用。"
+        "description": "由 f 参数决定列顺序的旧版最新报价 CSV 文本；当前验证未能重新获得此格式，不应假定仍可用。",
+        "example": "example"
       },
       "HistoricalQuoteCsv": {
         "type": "string",
         "title": "Stooq 历史行情 CSV 原始响应",
-        "description": "表头为 Date,Open,High,Low,Close,Volume 的历史 OHLCV CSV 文本；当前匿名访问实际返回浏览器验证页。"
+        "description": "表头为 Date,Open,High,Low,Close,Volume 的历史 OHLCV CSV 文本；当前匿名访问实际返回浏览器验证页。",
+        "example": "example"
       },
       "StooqNotFoundHtml": {
         "type": "string",
@@ -224,5 +256,11 @@
         "example": "<!DOCTYPE html><html>...<noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript>..."
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "通用接口。"
+    }
+  ]
 }

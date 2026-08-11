@@ -42,7 +42,9 @@
     "/v8/finance/chart/{symbol}": {
       "get": {
         "operationId": "getChart",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "获取行情与 K 线",
         "description": "返回证券元数据和历史价格序列。",
         "parameters": [
@@ -53,7 +55,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance 标的代码，必须与行情页面 URL 中使用的值完全一致。例如，美股 `AAPL`、指数 `^GSPC`，以及带交易所后缀的 `0700.HK`。"
             }
           },
           {
@@ -63,9 +66,35 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"],
+              "enum": [
+                "1d",
+                "5d",
+                "1mo",
+                "3mo",
+                "6mo",
+                "1y",
+                "2y",
+                "5y",
+                "10y",
+                "ytd",
+                "max"
+              ],
               "default": "1mo",
-              "example": "5d"
+              "example": "5d",
+              "description": "相对回溯范围。请勿与 `period1`/`period2` 同时发送。日内时间间隔的数据仅保留在有限的近期范围内；不支持的组合会返回 422。",
+              "x-enum-descriptions": [
+                "取值 1d。",
+                "取值 5d。",
+                "取值 1mo。",
+                "取值 3mo。",
+                "取值 6mo。",
+                "取值 1y。",
+                "取值 2y。",
+                "取值 5y。",
+                "取值 10y。",
+                "取值 ytd。",
+                "取值 max。"
+              ]
             }
           },
           {
@@ -75,9 +104,39 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"],
+              "enum": [
+                "1m",
+                "2m",
+                "5m",
+                "15m",
+                "30m",
+                "60m",
+                "90m",
+                "1h",
+                "1d",
+                "5d",
+                "1wk",
+                "1mo",
+                "3mo"
+              ],
               "default": "1d",
-              "example": "1d"
+              "example": "1d",
+              "description": "采样间隔。可用性取决于时间范围和金融工具；Yahoo 可能拒绝时间过久的日内数据请求。",
+              "x-enum-descriptions": [
+                "取值 1m。",
+                "取值 2m。",
+                "取值 5m。",
+                "取值 15m。",
+                "取值 30m。",
+                "取值 60m。",
+                "取值 90m。",
+                "取值 1h。",
+                "取值 1d。",
+                "取值 5d。",
+                "取值 1wk。",
+                "取值 1mo。",
+                "取值 3mo。"
+              ]
             }
           },
           {
@@ -88,7 +147,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1704067200
+              "example": 1704067200,
+              "description": "以 Unix 秒表示的包含式起始时间。请与 `period2` 搭配使用，不要使用 `range`。"
             }
           },
           {
@@ -99,7 +159,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1706745600
+              "example": 1706745600,
+              "description": "以 Unix 秒表示的排除式结束时间。请与 `period1` 搭配使用，不要使用 `range`。"
             }
           },
           {
@@ -110,7 +171,8 @@
             "schema": {
               "type": "boolean",
               "default": false,
-              "example": false
+              "example": false,
+              "description": "包含盘前盘后时段"
             }
           }
         ],
@@ -135,11 +197,13 @@
                                 "properties": {
                                   "symbol": {
                                     "type": "string",
-                                    "example": "AAPL"
+                                    "example": "AAPL",
+                                    "description": "meta 数据结构中的代码。"
                                   },
                                   "currency": {
                                     "type": "string",
-                                    "example": "USD"
+                                    "example": "USD",
+                                    "description": "meta 数据结构中的货币代码。"
                                   },
                                   "exchangeName": {
                                     "type": "string",
@@ -148,7 +212,8 @@
                                   },
                                   "fullExchangeName": {
                                     "type": "string",
-                                    "example": "NasdaqGS"
+                                    "example": "NasdaqGS",
+                                    "description": "meta 数据结构中的fullExchangeName 字段。"
                                   },
                                   "instrumentType": {
                                     "type": "string",
@@ -157,11 +222,13 @@
                                   },
                                   "regularMarketPrice": {
                                     "type": "number",
-                                    "example": 313.33
+                                    "example": 313.33,
+                                    "description": "meta 数据结构中的regularMarketPrice 字段。"
                                   },
                                   "chartPreviousClose": {
                                     "type": "number",
-                                    "example": 308.91
+                                    "example": 308.91,
+                                    "description": "meta 数据结构中的chartPreviousClose 字段。"
                                   },
                                   "regularMarketTime": {
                                     "type": "integer",
@@ -176,33 +243,51 @@
                                   },
                                   "exchangeTimezoneName": {
                                     "type": "string",
-                                    "example": "America/New_York"
+                                    "example": "America/New_York",
+                                    "description": "meta 数据结构中的exchangeTimezoneName 字段。"
                                   },
                                   "dataGranularity": {
                                     "type": "string",
-                                    "example": "1d"
+                                    "example": "1d",
+                                    "description": "meta 数据结构中的dataGranularity 字段。"
                                   },
                                   "range": {
                                     "type": "string",
-                                    "example": "5d"
+                                    "example": "5d",
+                                    "description": "meta 数据结构中的range 字段。"
                                   },
                                   "validRanges": {
                                     "type": "array",
                                     "description": "提供商为该结果返回的可用范围；取值可能变化。",
-                                    "items": {"type": "string"},
-                                    "example": ["1d", "5d", "1mo", "max"]
+                                    "items": {
+                                      "type": "string",
+                                      "description": "meta 数据结构中的validRanges item 字段。",
+                                      "example": "example"
+                                    },
+                                    "example": [
+                                      "1d",
+                                      "5d",
+                                      "1mo",
+                                      "max"
+                                    ]
                                   }
                                 },
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "result item 数据结构中的meta 字段。"
                               },
                               "timestamp": {
                                 "type": "array",
                                 "description": "以 Unix 秒表示的 K 线时间戳。价格和成交量数组使用相同的索引。",
                                 "items": {
                                   "type": "integer",
-                                  "format": "int64"
+                                  "format": "int64",
+                                  "description": "result item 数据结构中的timestamp item 字段。",
+                                  "example": 1
                                 },
-                                "example": [1704067200, 1704153600]
+                                "example": [
+                                  1704067200,
+                                  1704153600
+                                ]
                               },
                               "indicators": {
                                 "type": "object",
@@ -216,41 +301,58 @@
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "quote item 数据结构中的open item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "quote item 数据结构中的open 字段。"
                                         },
                                         "high": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "quote item 数据结构中的high item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "quote item 数据结构中的high 字段。"
                                         },
                                         "low": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "quote item 数据结构中的low item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "quote item 数据结构中的low 字段。"
                                         },
                                         "close": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "quote item 数据结构中的close item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "quote item 数据结构中的close 字段。"
                                         },
                                         "volume": {
                                           "type": "array",
                                           "items": {
                                             "type": "integer",
                                             "format": "int64",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "quote item 数据结构中的volume item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "quote item 数据结构中的volume 字段。"
                                         }
                                       },
-                                      "additionalProperties": true
-                                    }
+                                      "additionalProperties": true,
+                                      "description": "indicators 数据结构中的quote item 字段。"
+                                    },
+                                    "description": "indicators 数据结构中的计价货币。"
                                   },
                                   "adjclose": {
                                     "type": "array",
@@ -258,27 +360,57 @@
                                     "items": {
                                       "type": "object",
                                       "properties": {
-                                        "adjclose": {"type": "array", "items": {"type": "number", "nullable": true}}
+                                        "adjclose": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number",
+                                            "nullable": true,
+                                            "description": "adjclose item 数据结构中的adjclose item 字段。",
+                                            "example": 1
+                                          },
+                                          "description": "adjclose item 数据结构中的adjclose 字段。"
+                                        }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "indicators 数据结构中的adjclose item 字段。"
                                     }
                                   }
                                 },
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "result item 数据结构中的indicators 字段。"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "chart 数据结构中的result item 字段。"
+                          },
+                          "description": "chart 数据结构中的结果。"
                         },
                         "error": {
-                          "allOf": [{"$ref": "#/components/schemas/YahooError"}],
-                          "nullable": true
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/YahooError"
+                            }
+                          ],
+                          "nullable": true,
+                          "description": "chart 数据结构中的错误信息。"
                         }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getChart response 数据结构中的chart 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getChart 数据结构中的getChart response 字段。"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "当标的代码未知、为空或已退市时观测到此响应。响应体使用 `chart` 错误信封。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartErrorResponse"
                 }
               }
             }
@@ -287,15 +419,15 @@
             "description": "标的代码、时间段、时间间隔或范围与间隔组合无效。",
             "content": {
               "application/json": {
-                "schema": {"$ref": "#/components/schemas/ChartErrorResponse"}
+                "schema": {
+                  "$ref": "#/components/schemas/ChartErrorResponse"
+                }
               }
             }
           },
-          "404": {
-            "description": "当标的代码未知、为空或已退市时观测到此响应。响应体使用 `chart` 错误信封。",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChartErrorResponse"}}}
-          },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -321,7 +453,9 @@
     "/v7/finance/quote": {
       "get": {
         "operationId": "getQuotes",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "获取批量行情",
         "description": "返回多个证券的行情快照。",
         "parameters": [
@@ -332,7 +466,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL,MSFT"
+              "example": "AAPL,MSFT",
+              "description": "以逗号分隔的 Yahoo Finance 标的代码，例如 `AAPL,MSFT`。"
             }
           },
           {
@@ -342,7 +477,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "symbol,regularMarketPrice,currency"
+              "example": "symbol,regularMarketPrice,currency",
+              "description": "观测到的以逗号分隔的字段投影。Yahoo 既未发布完整字段清单，也未提供稳定性保证。"
             }
           },
           {
@@ -353,7 +489,8 @@
             "schema": {
               "type": "boolean",
               "default": false,
-              "example": false
+              "example": false,
+              "description": "返回格式化后的值"
             }
           }
         ],
@@ -374,39 +511,63 @@
                             "type": "object",
                             "properties": {
                               "symbol": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "result item 数据结构中的代码。",
+                                "example": "AAPL"
                               },
                               "regularMarketPrice": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "result item 数据结构中的regularMarketPrice 字段。",
+                                "example": 1
                               },
                               "regularMarketChangePercent": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "result item 数据结构中的regularMarketChangePercent 字段。",
+                                "example": 1
                               },
                               "regularMarketTime": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "result item 数据结构中的regularMarketTime 字段。",
+                                "example": 1
                               },
                               "currency": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "result item 数据结构中的货币代码。",
+                                "example": "USD"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "quoteResponse 数据结构中的result item 字段。"
+                          },
+                          "description": "quoteResponse 数据结构中的结果。"
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getQuotes response 数据结构中的quoteResponse 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getQuotes 数据结构中的getQuotes response 字段。"
                 }
               }
             }
           },
           "401": {
             "description": "观测到的匿名访问响应：需要 Yahoo 浏览器会话或其他由提供商控制的授权状态。",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -430,7 +591,9 @@
     "/v7/finance/spark": {
       "get": {
         "operationId": "getSpark",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "获取迷你图数据",
         "description": "返回紧凑的价格时间序列。",
         "parameters": [
@@ -441,7 +604,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL,MSFT"
+              "example": "AAPL,MSFT",
+              "description": "以逗号分隔的 Yahoo Finance 标的代码。"
             }
           },
           {
@@ -451,9 +615,35 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"],
+              "enum": [
+                "1d",
+                "5d",
+                "1mo",
+                "3mo",
+                "6mo",
+                "1y",
+                "2y",
+                "5y",
+                "10y",
+                "ytd",
+                "max"
+              ],
               "default": "1d",
-              "example": "5d"
+              "example": "5d",
+              "description": "请求的时间范围",
+              "x-enum-descriptions": [
+                "取值 1d。",
+                "取值 5d。",
+                "取值 1mo。",
+                "取值 3mo。",
+                "取值 6mo。",
+                "取值 1y。",
+                "取值 2y。",
+                "取值 5y。",
+                "取值 10y。",
+                "取值 ytd。",
+                "取值 max。"
+              ]
             }
           },
           {
@@ -463,9 +653,39 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"],
+              "enum": [
+                "1m",
+                "2m",
+                "5m",
+                "15m",
+                "30m",
+                "60m",
+                "90m",
+                "1h",
+                "1d",
+                "5d",
+                "1wk",
+                "1mo",
+                "3mo"
+              ],
               "default": "5m",
-              "example": "1d"
+              "example": "1d",
+              "description": "K 线时间间隔",
+              "x-enum-descriptions": [
+                "取值 1m。",
+                "取值 2m。",
+                "取值 5m。",
+                "取值 15m。",
+                "取值 30m。",
+                "取值 60m。",
+                "取值 90m。",
+                "取值 1h。",
+                "取值 1d。",
+                "取值 5d。",
+                "取值 1wk。",
+                "取值 1mo。",
+                "取值 3mo。"
+              ]
             }
           }
         ],
@@ -486,7 +706,9 @@
                             "type": "object",
                             "properties": {
                               "symbol": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "result item 数据结构中的代码。",
+                                "example": "AAPL"
                               },
                               "response": {
                                 "type": "array",
@@ -497,10 +719,26 @@
                                       "type": "object",
                                       "description": "观测到的图表元数据；使用与图表接口相同的开放式提供商结构。",
                                       "properties": {
-                                        "currency": {"type": "string", "example": "USD"},
-                                        "symbol": {"type": "string", "example": "AAPL"},
-                                        "dataGranularity": {"type": "string", "example": "1d"},
-                                        "range": {"type": "string", "example": "5d"}
+                                        "currency": {
+                                          "type": "string",
+                                          "example": "USD",
+                                          "description": "meta 数据结构中的货币代码。"
+                                        },
+                                        "symbol": {
+                                          "type": "string",
+                                          "example": "AAPL",
+                                          "description": "meta 数据结构中的代码。"
+                                        },
+                                        "dataGranularity": {
+                                          "type": "string",
+                                          "example": "1d",
+                                          "description": "meta 数据结构中的dataGranularity 字段。"
+                                        },
+                                        "range": {
+                                          "type": "string",
+                                          "example": "5d",
+                                          "description": "meta 数据结构中的range 字段。"
+                                        }
                                       },
                                       "additionalProperties": true
                                     },
@@ -508,9 +746,15 @@
                                       "type": "array",
                                       "items": {
                                         "type": "integer",
-                                        "format": "int64"
+                                        "format": "int64",
+                                        "description": "response item 数据结构中的timestamp item 字段。",
+                                        "example": 1
                                       },
-                                      "example": [1704067200, 1704153600]
+                                      "example": [
+                                        1704067200,
+                                        1704153600
+                                      ],
+                                      "description": "response item 数据结构中的时间戳。"
                                     },
                                     "indicators": {
                                       "type": "object",
@@ -524,37 +768,61 @@
                                                 "type": "array",
                                                 "items": {
                                                   "type": "number",
-                                                  "nullable": true
-                                                }
+                                                  "nullable": true,
+                                                  "description": "quote item 数据结构中的close item 字段。",
+                                                  "example": 1
+                                                },
+                                                "description": "quote item 数据结构中的close 字段。"
                                               }
                                             },
-                                            "additionalProperties": true
-                                          }
+                                            "additionalProperties": true,
+                                            "description": "indicators 数据结构中的quote item 字段。"
+                                          },
+                                          "description": "indicators 数据结构中的计价货币。"
                                         }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "response item 数据结构中的indicators 字段。"
                                     }
                                   },
-                                  "additionalProperties": true
-                                }
+                                  "additionalProperties": true,
+                                  "description": "result item 数据结构中的response item 字段。"
+                                },
+                                "description": "result item 数据结构中的response 字段。"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "spark 数据结构中的result item 字段。"
+                          },
+                          "description": "spark 数据结构中的结果。"
+                        },
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
                         }
-                        ,
-                        "error": {"$ref": "#/components/schemas/YahooError"}
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getSpark response 数据结构中的spark 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getSpark 数据结构中的getSpark response 字段。"
                 }
               }
             }
           },
-          "400": {"description": "缺少 symbols/range/interval 参数，或参数无效。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "缺少 symbols/range/interval 参数，或参数无效。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -578,7 +846,9 @@
     "/v1/finance/quoteType/": {
       "get": {
         "operationId": "getQuoteType",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "获取证券类型",
         "description": "返回证券身份和交易所信息。",
         "parameters": [
@@ -589,7 +859,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance 标的代码"
             }
           }
         ],
@@ -611,15 +882,18 @@
                             "properties": {
                               "symbol": {
                                 "type": "string",
-                                "example": "AAPL"
+                                "example": "AAPL",
+                                "description": "result item 数据结构中的代码。"
                               },
                               "quoteType": {
                                 "type": "string",
-                                "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`MUTUALFUND`、`INDEX`、`CURRENCY`、`CRYPTOCURRENCY`、`FUTURE` 或 `OPTION`。此字段特意不设为封闭枚举。"
+                                "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`MUTUALFUND`、`INDEX`、`CURRENCY`、`CRYPTOCURRENCY`、`FUTURE` 或 `OPTION`。此字段特意不设为封闭枚举。",
+                                "example": "example"
                               },
                               "longName": {
                                 "type": "string",
-                                "example": "Apple Inc."
+                                "example": "Apple Inc.",
+                                "description": "result item 数据结构中的longName 字段。"
                               },
                               "exchange": {
                                 "type": "string",
@@ -628,31 +902,47 @@
                               },
                               "exchangeTimezoneName": {
                                 "type": "string",
-                                "example": "America/New_York"
+                                "example": "America/New_York",
+                                "description": "result item 数据结构中的exchangeTimezoneName 字段。"
                               },
                               "market": {
                                 "type": "string",
-                                "example": "us_market"
+                                "example": "us_market",
+                                "description": "result item 数据结构中的market 字段。"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "quoteType 数据结构中的result item 字段。"
+                          },
+                          "description": "quoteType 数据结构中的结果。"
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getQuoteType response 数据结构中的quoteType 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getQuoteType 数据结构中的getQuoteType response 字段。"
                 }
               }
             }
           },
           "400": {
             "description": "缺少必需的 `symbol` 查询参数时观测到此响应。",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -676,7 +966,9 @@
     "/v1/finance/search": {
       "get": {
         "operationId": "searchSymbols",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "搜索证券",
         "description": "按文本搜索证券代码和名称。",
         "parameters": [
@@ -688,7 +980,8 @@
             "schema": {
               "type": "string",
               "minLength": 1,
-              "example": "Apple"
+              "example": "Apple",
+              "description": "自由文本形式的公司名称、标的代码、基金名称、指数或其他证券查询。"
             }
           },
           {
@@ -700,7 +993,8 @@
               "type": "integer",
               "minimum": 0,
               "default": 6,
-              "example": 2
+              "example": 2,
+              "description": "证券结果最大数量"
             }
           },
           {
@@ -712,7 +1006,8 @@
               "type": "integer",
               "minimum": 0,
               "default": 4,
-              "example": 0
+              "example": 0,
+              "description": "新闻结果最大数量"
             }
           }
         ],
@@ -736,21 +1031,28 @@
                         "properties": {
                           "symbol": {
                             "type": "string",
-                            "example": "AAPL"
+                            "example": "AAPL",
+                            "description": "quotes item 数据结构中的代码。"
                           },
                           "shortname": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "quotes item 数据结构中的shortname 字段。",
+                            "example": "Example"
                           },
                           "longname": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "quotes item 数据结构中的longname 字段。",
+                            "example": "Example"
                           },
                           "exchange": {
                             "type": "string",
-                            "example": "NMS"
+                            "example": "NMS",
+                            "description": "quotes item 数据结构中的exchange 字段。"
                           },
                           "quoteType": {
                             "type": "string",
-                            "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`INDEX`、`CURRENCY` 或 `CRYPTOCURRENCY`。"
+                            "description": "由提供商控制的金融工具类别，例如 `EQUITY`、`ETF`、`INDEX`、`CURRENCY` 或 `CRYPTOCURRENCY`。",
+                            "example": "example"
                           },
                           "typeDisp": {
                             "type": "string",
@@ -764,24 +1066,40 @@
                           },
                           "sector": {
                             "type": "string",
-                            "example": "Technology"
+                            "example": "Technology",
+                            "description": "quotes item 数据结构中的sector 字段。"
                           },
                           "industry": {
                             "type": "string",
-                            "example": "Consumer Electronics"
+                            "example": "Consumer Electronics",
+                            "description": "quotes item 数据结构中的industry 字段。"
                           }
                         },
-                        "additionalProperties": true
-                      }
+                        "additionalProperties": true,
+                        "description": "searchSymbols response 数据结构中的quotes item 字段。"
+                      },
+                      "description": "searchSymbols response 数据结构中的quotes 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "searchSymbols 数据结构中的searchSymbols response 字段。"
                 }
               }
             }
           },
-          "400": {"description": "缺少搜索查询，或查询无效。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "缺少搜索查询，或查询无效。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -805,7 +1123,9 @@
     "/v10/finance/quoteSummary/{symbol}": {
       "get": {
         "operationId": "getQuoteSummary",
-        "tags": ["Fundamentals"],
+        "tags": [
+          "Fundamentals"
+        ],
         "summary": "获取证券模块资料",
         "description": "按模块查询价格、摘要和公司资料。",
         "parameters": [
@@ -816,7 +1136,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance 标的代码"
             }
           },
           {
@@ -826,7 +1147,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "price,summaryDetail"
+              "example": "price,summaryDetail",
+              "description": "以逗号分隔的提供商模块名称。常见观测值包括 `price`、`summaryDetail`、`assetProfile`、`defaultKeyStatistics`、`financialData`、`calendarEvents`、`recommendationTrend`、`earningsTrend`、`fundProfile` 和 `topHoldings`。可用性取决于金融工具类型和 Yahoo 会话状态。"
             }
           }
         ],
@@ -849,37 +1171,54 @@
                               "price": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "result item 数据结构中的价格。"
                               },
                               "summaryDetail": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "result item 数据结构中的summaryDetail 字段。"
                               },
                               "assetProfile": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "result item 数据结构中的assetProfile 字段。"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "quoteSummary 数据结构中的result item 字段。"
+                          },
+                          "description": "quoteSummary 数据结构中的结果。"
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getQuoteSummary response 数据结构中的quoteSummary 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getQuoteSummary 数据结构中的getQuoteSummary response 字段。"
                 }
               }
             }
           },
           "401": {
             "description": "缺少有效 crumb/Cookie 组合时观测到的匿名访问响应。",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "inferred",
         "x-pontx-evidence": [
@@ -903,7 +1242,9 @@
     "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
       "get": {
         "operationId": "getFundamentalTimeseries",
-        "tags": ["Fundamentals"],
+        "tags": [
+          "Fundamentals"
+        ],
         "summary": "获取基本面时间序列",
         "description": "返回基本面和事件时间序列。",
         "parameters": [
@@ -914,7 +1255,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance 标的代码"
             }
           },
           {
@@ -924,7 +1266,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "trailingMarketCap"
+              "example": "trailingMarketCap",
+              "description": "以逗号分隔的内部序列标识符。例如：`trailingMarketCap`。Yahoo 未发布完整的支持值清单；标识符因金融工具而异，且可能变化。"
             }
           },
           {
@@ -935,7 +1278,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1704067200
+              "example": 1704067200,
+              "description": "可选的包含式观测起始边界，以 Unix 秒表示。省略时，Yahoo 会选择由提供商控制的默认时间窗口。"
             }
           },
           {
@@ -946,7 +1290,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1735689600
+              "example": 1735689600,
+              "description": "可选的观测结束边界，以 Unix 秒表示。省略时，Yahoo 会选择由提供商控制的默认时间窗口。"
             }
           }
         ],
@@ -970,17 +1315,45 @@
                                 "type": "object",
                                 "description": "观测到的请求身份标识数组。",
                                 "properties": {
-                                  "symbol": {"type": "array", "items": {"type": "string"}, "example": ["AAPL"]},
-                                  "type": {"type": "array", "items": {"type": "string"}, "example": ["trailingMarketCap"]}
+                                  "symbol": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "description": "meta 数据结构中的symbol item 字段。",
+                                      "example": "AAPL"
+                                    },
+                                    "example": [
+                                      "AAPL"
+                                    ],
+                                    "description": "meta 数据结构中的代码。"
+                                  },
+                                  "type": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "description": "meta 数据结构中的type item 字段。",
+                                      "example": "example"
+                                    },
+                                    "example": [
+                                      "trailingMarketCap"
+                                    ],
+                                    "description": "meta 数据结构中的类型。"
+                                  }
                                 },
                                 "additionalProperties": true
                               },
                               "timestamp": {
                                 "type": "array",
                                 "items": {
-                                  "type": "integer"
+                                  "type": "integer",
+                                  "description": "result item 数据结构中的timestamp item 字段。",
+                                  "example": 1
                                 },
-                                "example": [1717977600, 1720742400]
+                                "example": [
+                                  1717977600,
+                                  1720742400
+                                ],
+                                "description": "result item 数据结构中的时间戳。"
                               },
                               "trailingMarketCap": {
                                 "type": "array",
@@ -988,38 +1361,82 @@
                                 "items": {
                                   "type": "object",
                                   "properties": {
-                                    "dataId": {"type": "integer", "example": 40001},
-                                    "asOfDate": {"type": "string", "format": "date", "example": "2024-07-12"},
-                                    "periodType": {"type": "string", "description": "观测到的提供商周期标签；并非封闭枚举。", "example": "TTM"},
-                                    "currencyCode": {"type": "string", "example": "USD"},
+                                    "dataId": {
+                                      "type": "integer",
+                                      "example": 40001,
+                                      "description": "trailingMarketCap item 数据结构中的dataId 字段。"
+                                    },
+                                    "asOfDate": {
+                                      "type": "string",
+                                      "format": "date",
+                                      "example": "2024-07-12",
+                                      "description": "trailingMarketCap item 数据结构中的asOfDate 字段。"
+                                    },
+                                    "periodType": {
+                                      "type": "string",
+                                      "description": "观测到的提供商周期标签；并非封闭枚举。",
+                                      "example": "TTM"
+                                    },
+                                    "currencyCode": {
+                                      "type": "string",
+                                      "example": "USD",
+                                      "description": "trailingMarketCap item 数据结构中的currencyCode 字段。"
+                                    },
                                     "reportedValue": {
                                       "type": "object",
                                       "properties": {
-                                        "raw": {"type": "number", "example": 3536499331660},
-                                        "fmt": {"type": "string", "example": "3.54T"}
+                                        "raw": {
+                                          "type": "number",
+                                          "example": 3536499331660,
+                                          "description": "reportedValue 数据结构中的raw 字段。"
+                                        },
+                                        "fmt": {
+                                          "type": "string",
+                                          "example": "3.54T",
+                                          "description": "reportedValue 数据结构中的fmt 字段。"
+                                        }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "trailingMarketCap item 数据结构中的reportedValue 字段。"
                                     }
                                   },
-                                  "additionalProperties": true
+                                  "additionalProperties": true,
+                                  "description": "result item 数据结构中的trailingMarketCap item 字段。"
                                 }
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "timeseries 数据结构中的result item 字段。"
+                          },
+                          "description": "timeseries 数据结构中的结果。"
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "getFundamentalTimeseries response 数据结构中的timeseries 字段。"
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "getFundamentalTimeseries 数据结构中的getFundamentalTimeseries response 字段。"
                 }
               }
             }
           },
-          "400": {"description": "type 或 period 参数格式错误。在 2026-08-10 的匿名样本中，仅省略参数并未产生错误。", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "type 或 period 参数格式错误。在 2026-08-10 的匿名样本中，仅省略参数并未产生错误。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -1049,8 +1466,16 @@
         "title": "Yahoo 提供方错误",
         "description": "Yahoo 观察到的错误对象；图表类请求成功时通常为 null，错误代码和文本由提供方控制。",
         "properties": {
-          "code": {"type": "string", "description": "观测到的符号代码或人类可读代码；特意不设为封闭枚举。", "example": "Unauthorized"},
-          "description": {"type": "string", "example": "User is unable to access this feature - https://bit.ly/yahoo-finance-api-feedback"}
+          "code": {
+            "type": "string",
+            "description": "观测到的符号代码或人类可读代码；特意不设为封闭枚举。",
+            "example": "Unauthorized"
+          },
+          "description": {
+            "type": "string",
+            "example": "User is unable to access this feature - https://bit.ly/yahoo-finance-api-feedback",
+            "description": "Yahoo 提供方错误 数据结构中的说明。"
+          }
         },
         "additionalProperties": true
       },
@@ -1058,16 +1483,31 @@
         "type": "object",
         "title": "Yahoo Finance 错误响应",
         "description": "报价、搜索发现及部分基本面接口观察到的错误包络。",
-        "required": ["finance"],
+        "required": [
+          "finance"
+        ],
         "properties": {
           "finance": {
             "type": "object",
-            "required": ["error"],
+            "required": [
+              "error"
+            ],
             "properties": {
-              "result": {"type": "array", "nullable": true, "items": {}, "example": null},
-              "error": {"$ref": "#/components/schemas/YahooError"}
+              "result": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "description": "finance 数据结构中的result item 字段。"
+                },
+                "example": null,
+                "description": "finance 数据结构中的结果。"
+              },
+              "error": {
+                "$ref": "#/components/schemas/YahooError"
+              }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Yahoo Finance 错误响应 数据结构中的finance 字段。"
           }
         },
         "additionalProperties": true
@@ -1076,16 +1516,31 @@
         "type": "object",
         "title": "Yahoo 图表错误响应",
         "description": "图表接口族观察到的错误包络，包含 chart.result 与 chart.error。",
-        "required": ["chart"],
+        "required": [
+          "chart"
+        ],
         "properties": {
           "chart": {
             "type": "object",
-            "required": ["error"],
+            "required": [
+              "error"
+            ],
             "properties": {
-              "result": {"type": "array", "nullable": true, "items": {}, "example": null},
-              "error": {"$ref": "#/components/schemas/YahooError"}
+              "result": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "description": "chart 数据结构中的result item 字段。"
+                },
+                "example": null,
+                "description": "chart 数据结构中的结果。"
+              },
+              "error": {
+                "$ref": "#/components/schemas/YahooError"
+              }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Yahoo 图表错误响应 数据结构中的chart 字段。"
           }
         },
         "additionalProperties": true
@@ -1097,15 +1552,25 @@
         "headers": {
           "Retry-After": {
             "description": "提供商可能返回此字段，但不保证存在。",
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "description": "RateLimited 数据结构中的Retry-After 字段。",
+              "example": "example"
+            }
           }
         },
         "content": {
           "application/json": {
-            "schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}
+            "schema": {
+              "$ref": "#/components/schemas/FinanceErrorResponse"
+            }
           },
           "text/plain": {
-            "schema": {"type": "string", "example": "Too Many Requests"}
+            "schema": {
+              "type": "string",
+              "example": "Too Many Requests",
+              "description": "RateLimited 数据结构中的RateLimited response 字段。"
+            }
           }
         }
       }

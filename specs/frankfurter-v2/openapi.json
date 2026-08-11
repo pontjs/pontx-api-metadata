@@ -24,14 +24,30 @@
         "summary": "获取汇率",
         "description": "返回跨数据提供方混合计算的汇率。不传日期参数时返回最新汇率，每条记录代表一个货币对。响应包含基准货币自身的恒等记录（base 与 quote 相同、rate 为 1），且与其他记录一样受 quotes 过滤。接口支持任意长度的日粒度日期区间及完整历史。限制：使用 `providers` 或 `expand=providers` 时会逐日重新计算混合值，日粒度超过 5 年的区间将返回 422；若 `providers` 最多指定 5 个提供方且 `quotes` 最多指定 5 种货币，则不受此限制。不指定 `providers` 时，`expand=providers` 会忽略 `quotes` 对计算量的缩减，因此应使用 `group=week` 或 `group=month` 聚合、指定 `providers`，或拆分日期区间。",
         "parameters": [
-          { "$ref": "#/components/parameters/date" },
-          { "$ref": "#/components/parameters/from" },
-          { "$ref": "#/components/parameters/to" },
-          { "$ref": "#/components/parameters/base" },
-          { "$ref": "#/components/parameters/quotes" },
-          { "$ref": "#/components/parameters/providers" },
-          { "$ref": "#/components/parameters/group" },
-          { "$ref": "#/components/parameters/expand" }
+          {
+            "$ref": "#/components/parameters/date"
+          },
+          {
+            "$ref": "#/components/parameters/from"
+          },
+          {
+            "$ref": "#/components/parameters/to"
+          },
+          {
+            "$ref": "#/components/parameters/base"
+          },
+          {
+            "$ref": "#/components/parameters/quotes"
+          },
+          {
+            "$ref": "#/components/parameters/providers"
+          },
+          {
+            "$ref": "#/components/parameters/group"
+          },
+          {
+            "$ref": "#/components/parameters/expand"
+          }
         ],
         "responses": {
           "200": {
@@ -40,26 +56,51 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Rate" }
+                  "items": {
+                    "$ref": "#/components/schemas/Rate"
+                  },
+                  "description": "getRates 数据结构中的getRates response 字段。"
                 },
                 "example": [
-                  { "date": "2024-01-15", "base": "EUR", "quote": "EUR", "rate": 1.0 },
-                  { "date": "2024-01-15", "base": "EUR", "quote": "GBP", "rate": 0.8623 },
-                  { "date": "2024-01-15", "base": "EUR", "quote": "USD", "rate": 1.089 }
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "EUR",
+                    "rate": 1
+                  },
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "GBP",
+                    "rate": 0.8623
+                  },
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "USD",
+                    "rate": 1.089
+                  }
                 ]
               },
               "application/x-ndjson": {
                 "schema": {
                   "type": "string",
-                  "description": "Rate 对象的 NDJSON 流，每行一个独立 JSON 对象"
+                  "description": "Rate 对象的 NDJSON 流，每行一个独立 JSON 对象",
+                  "example": "example"
                 },
                 "example": "{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"USD\", \"rate\": 1.089 }\n{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"GBP\", \"rate\": 0.8623 }\n"
               }
             }
           },
-          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref": "#/components/responses/NotFound" },
-          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
         }
       }
     },
@@ -73,30 +114,55 @@
             "name": "base",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "EUR" }
+            "schema": {
+              "type": "string",
+              "example": "EUR",
+              "description": "getRate 数据结构中的基准货币。"
+            }
           },
           {
             "name": "quote",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": {
+              "type": "string",
+              "example": "USD",
+              "description": "getRate 数据结构中的计价货币。"
+            }
           },
-          { "$ref": "#/components/parameters/date" },
-          { "$ref": "#/components/parameters/providers" }
+          {
+            "$ref": "#/components/parameters/date"
+          },
+          {
+            "$ref": "#/components/parameters/providers"
+          }
         ],
         "responses": {
           "200": {
             "description": "单一货币对汇率",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Rate" },
-                "example": { "date": "2026-03-25", "base": "EUR", "quote": "USD", "rate": 1.1568 }
+                "schema": {
+                  "$ref": "#/components/schemas/Rate"
+                },
+                "example": {
+                  "date": "2026-03-25",
+                  "base": "EUR",
+                  "quote": "USD",
+                  "rate": 1.1568
+                }
               }
             }
           },
-          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref": "#/components/responses/NotFound" },
-          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
         }
       }
     },
@@ -110,7 +176,11 @@
             "name": "code",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": {
+              "type": "string",
+              "example": "USD",
+              "description": "getCurrency 数据结构中的代码。"
+            }
           }
         ],
         "responses": {
@@ -118,12 +188,26 @@
             "description": "货币详情",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CurrencyDetail" },
-                "example": { "iso_code": "USD", "iso_numeric": "840", "name": "United States Dollar", "symbol": "$", "providers": ["ECB", "BOC", "FED"] }
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDetail"
+                },
+                "example": {
+                  "iso_code": "USD",
+                  "iso_numeric": "840",
+                  "name": "United States Dollar",
+                  "symbol": "$",
+                  "providers": [
+                    "ECB",
+                    "BOC",
+                    "FED"
+                  ]
+                }
               }
             }
           },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
       }
     },
@@ -138,9 +222,21 @@
             "in": "query",
             "description": "设为 'all' 时包含已停用的历史货币",
             "required": false,
-            "schema": { "type": "string", "enum": ["all"] }
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all"
+              ],
+              "description": "设为 'all' 时包含已停用的历史货币",
+              "example": "all",
+              "x-enum-descriptions": [
+                "取值 all。"
+              ]
+            }
           },
-          { "$ref": "#/components/parameters/providers" }
+          {
+            "$ref": "#/components/parameters/providers"
+          }
         ],
         "responses": {
           "200": {
@@ -149,14 +245,34 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Currency" }
+                  "items": {
+                    "$ref": "#/components/schemas/Currency"
+                  },
+                  "description": "getCurrencies 数据结构中的getCurrencies response 字段。"
                 },
                 "example": [
-                  { "iso_code": "EUR", "iso_numeric": "978", "name": "Euro", "symbol": "\u20ac", "start_date": "1999-01-04", "end_date": "2026-03-17" },
-                  { "iso_code": "USD", "iso_numeric": "840", "name": "United States Dollar", "symbol": "$", "start_date": "1999-01-04", "end_date": "2026-03-17" }
+                  {
+                    "iso_code": "EUR",
+                    "iso_numeric": "978",
+                    "name": "Euro",
+                    "symbol": "€",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17"
+                  },
+                  {
+                    "iso_code": "USD",
+                    "iso_numeric": "840",
+                    "name": "United States Dollar",
+                    "symbol": "$",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17"
+                  }
                 ]
               }
             }
+          },
+          "default": {
+            "description": "请求失败。"
           }
         }
       }
@@ -173,13 +289,33 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Provider" }
+                  "items": {
+                    "$ref": "#/components/schemas/Provider"
+                  },
+                  "description": "getProviders 数据结构中的getProviders response 字段。"
                 },
                 "example": [
-                  { "key": "ECB", "name": "European Central Bank", "country_code": "EU", "rate_type": "reference", "pivot_currency": "EUR", "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html", "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html", "start_date": "1999-01-04", "end_date": "2026-03-17", "currencies": ["USD", "GBP"] }
+                  {
+                    "key": "ECB",
+                    "name": "European Central Bank",
+                    "country_code": "EU",
+                    "rate_type": "reference",
+                    "pivot_currency": "EUR",
+                    "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+                    "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17",
+                    "currencies": [
+                      "USD",
+                      "GBP"
+                    ]
+                  }
                 ]
               }
             }
+          },
+          "default": {
+            "description": "请求失败。"
           }
         }
       }
@@ -195,7 +331,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-15"
+          "example": "2024-01-15",
+          "description": "指定日期（YYYY-MM-DD），不能与 from/to 同时使用。"
         }
       },
       "from": {
@@ -206,7 +343,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-01"
+          "example": "2024-01-01",
+          "description": "日期区间起点（YYYY-MM-DD）"
         }
       },
       "to": {
@@ -217,7 +355,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-31"
+          "example": "2024-01-31",
+          "description": "日期区间终点（YYYY-MM-DD），默认为今天。"
         }
       },
       "base": {
@@ -228,7 +367,8 @@
         "schema": {
           "type": "string",
           "default": "EUR",
-          "example": "USD"
+          "example": "USD",
+          "description": "基准货币，默认为 EUR"
         }
       },
       "quotes": {
@@ -238,7 +378,8 @@
         "required": false,
         "schema": {
           "type": "string",
-          "example": "USD,GBP,JPY"
+          "example": "USD,GBP,JPY",
+          "description": "要包含的计价货币代码，以逗号分隔"
         }
       },
       "providers": {
@@ -248,7 +389,8 @@
         "required": false,
         "schema": {
           "type": "string",
-          "example": "ECB,TCMB"
+          "example": "ECB,TCMB",
+          "description": "要包含的数据提供方代码，以逗号分隔"
         }
       },
       "group": {
@@ -258,8 +400,16 @@
         "required": false,
         "schema": {
           "type": "string",
-          "enum": ["week", "month"],
-          "example": "month"
+          "enum": [
+            "week",
+            "month"
+          ],
+          "example": "month",
+          "description": "按时间周期对汇率降采样，仅适用于日期区间。",
+          "x-enum-descriptions": [
+            "取值 week。",
+            "取值 month。"
+          ]
         }
       },
       "expand": {
@@ -269,8 +419,14 @@
         "required": false,
         "schema": {
           "type": "string",
-          "enum": ["providers"],
-          "example": "providers"
+          "enum": [
+            "providers"
+          ],
+          "example": "providers",
+          "description": "每条记录要展开的可选字段，以逗号分隔。目前支持 `providers`：为每条记录增加 `{ key, date, rate }` 对象数组，展示各提供方的观测日期与汇率。因共识过滤被判为异常值，或因货币锚定关系而被覆盖的提供方，会标记 `excluded: true`。若锚定货币记录由系统合成且没有提供方直接发布该计价货币，则省略此字段。CSV 输出中，`providers` 列使用 `|` 连接 `KEY:RATE`，被排除的条目末尾附加 `*`（例如 `ECB:0.92|FED:1.50*`）。",
+          "x-enum-descriptions": [
+            "取值 providers。"
+          ]
         }
       }
     },
@@ -281,20 +437,24 @@
           "date": {
             "type": "string",
             "format": "date",
-            "description": "汇率日期"
+            "description": "汇率日期",
+            "example": "2026-01-23"
           },
           "base": {
             "type": "string",
-            "description": "基准货币代码"
+            "description": "基准货币代码",
+            "example": "USD"
           },
           "quote": {
             "type": "string",
-            "description": "计价货币代码"
+            "description": "计价货币代码",
+            "example": "USD"
           },
           "rate": {
             "type": "number",
             "description": "汇率数值",
-            "exclusiveMinimum": 0
+            "exclusiveMinimum": 0,
+            "example": 0.1
           },
           "providers": {
             "type": "array",
@@ -302,83 +462,290 @@
             "items": {
               "type": "object",
               "properties": {
-                "key": { "type": "string", "description": "数据提供方代码" },
-                "date": { "type": "string", "format": "date", "description": "此条目采用的提供方观测日期" },
-                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "提供方汇率，已换算到当前记录的基准货币" },
-                "excluded": { "type": "boolean", "description": "此条目未参与混合汇率时出现且值为 true" }
+                "key": {
+                  "type": "string",
+                  "description": "数据提供方代码",
+                  "example": "example"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "此条目采用的提供方观测日期",
+                  "example": "2026-01-23"
+                },
+                "rate": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "提供方汇率，已换算到当前记录的基准货币",
+                  "example": 0.1
+                },
+                "excluded": {
+                  "type": "boolean",
+                  "description": "此条目未参与混合汇率时出现且值为 true",
+                  "example": true
+                }
               },
-              "required": ["key", "date", "rate"]
+              "required": [
+                "key",
+                "date",
+                "rate"
+              ],
+              "description": "Rate 数据结构中的providers item 字段。"
             }
           }
         },
-        "required": ["date", "base", "quote", "rate"]
+        "required": [
+          "date",
+          "base",
+          "quote",
+          "rate"
+        ],
+        "description": "Rate 数据结构中的Rate 字段。"
       },
       "Currency": {
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 货币代码" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 数字代码" },
-          "name": { "type": "string", "description": "货币完整名称" },
-          "symbol": { "type": ["string", "null"], "description": "货币符号" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "最早可用日期" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "最新可用日期" }
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 货币代码",
+            "example": "example-code"
+          },
+          "iso_numeric": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 4217 数字代码",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "货币完整名称",
+            "example": "Example"
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "货币符号",
+            "example": "AAPL"
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "最早可用日期",
+            "example": "2026-01-23"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "最新可用日期",
+            "example": "2026-01-23"
+          }
         },
-        "required": ["iso_code", "name"]
+        "required": [
+          "iso_code",
+          "name"
+        ],
+        "description": "Currency 数据结构中的货币代码。"
       },
       "CurrencyDetail": {
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 货币代码" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 数字代码" },
-          "name": { "type": "string", "description": "货币完整名称" },
-          "symbol": { "type": ["string", "null"], "description": "货币符号" },
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 货币代码",
+            "example": "example-code"
+          },
+          "iso_numeric": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 4217 数字代码",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "货币完整名称",
+            "example": "Example"
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "货币符号",
+            "example": "AAPL"
+          },
           "providers": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "description": "CurrencyDetail 数据结构中的providers item 字段。",
+              "example": "example"
+            },
             "description": "发布此货币汇率的数据提供方代码"
           },
           "peg": {
             "type": "object",
             "properties": {
-              "base": { "type": "string" },
-              "rate": { "type": "number" },
-              "authority": { "type": "string" },
-              "source": { "type": "string", "format": "uri" }
+              "base": {
+                "type": "string",
+                "description": "peg 数据结构中的基准货币。",
+                "example": "USD"
+              },
+              "rate": {
+                "type": "number",
+                "description": "peg 数据结构中的rate 字段。",
+                "example": 1
+              },
+              "authority": {
+                "type": "string",
+                "description": "peg 数据结构中的authority 字段。",
+                "example": "example"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri",
+                "description": "peg 数据结构中的source 字段。",
+                "example": "https://example.com/resource"
+              }
             },
             "description": "锚定汇率元数据，仅锚定货币包含此字段"
           }
         },
-        "required": ["iso_code", "name"]
+        "required": [
+          "iso_code",
+          "name"
+        ],
+        "description": "CurrencyDetail 数据结构中的CurrencyDetail 字段。"
       },
       "Provider": {
         "type": "object",
         "properties": {
-          "key": { "type": "string", "description": "数据提供方标识" },
-          "name": { "type": "string", "description": "数据提供方完整名称" },
-          "country_code": { "type": ["string", "null"], "description": "ISO 3166-1 alpha-2 国家或地区代码" },
-          "rate_type": { "type": ["string", "null"], "description": "数据源采用的官方汇率类型" },
-          "pivot_currency": { "type": ["string", "null"], "description": "提供方发布汇率时采用的基准货币" },
-          "data_url": { "type": ["string", "null"], "format": "uri", "description": "原始数据源链接" },
-          "terms_url": { "type": ["string", "null"], "format": "uri", "description": "使用条款链接" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "最早可用日期" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "最新可用日期" },
+          "key": {
+            "type": "string",
+            "description": "数据提供方标识",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "数据提供方完整名称",
+            "example": "Example"
+          },
+          "country_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 3166-1 alpha-2 国家或地区代码",
+            "example": "example-code"
+          },
+          "rate_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "数据源采用的官方汇率类型",
+            "example": "example"
+          },
+          "pivot_currency": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "提供方发布汇率时采用的基准货币",
+            "example": "USD"
+          },
+          "data_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "原始数据源链接",
+            "example": "https://example.com/resource"
+          },
+          "terms_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "使用条款链接",
+            "example": "https://example.com/resource"
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "最早可用日期",
+            "example": "2026-01-23"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "最新可用日期",
+            "example": "2026-01-23"
+          },
           "publish_cadence": {
-            "type": ["string", "null"],
-            "enum": ["daily", "weekly", "monthly", null],
-            "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。"
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "daily",
+              "weekly",
+              "monthly",
+              null
+            ],
+            "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。",
+            "example": "daily",
+            "x-enum-descriptions": [
+              "取值 daily。",
+              "取值 weekly。",
+              "取值 monthly。",
+              "无值。"
+            ]
           },
           "publishes_missed": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "minimum": 0,
-            "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。"
+            "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。",
+            "example": 1
           },
           "currencies": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "description": "Provider 数据结构中的currencies item 字段。",
+              "example": "example"
+            },
             "description": "此提供方覆盖的货币代码"
           }
         },
-        "required": ["key", "name", "currencies"]
+        "required": [
+          "key",
+          "name",
+          "currencies"
+        ],
+        "description": "Provider 数据结构中的Provider 字段。"
       }
     },
     "responses": {
@@ -389,8 +756,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "UnprocessableEntity response 数据结构中的消息。",
+                  "example": "Example message"
+                }
+              },
+              "description": "UnprocessableEntity 数据结构中的UnprocessableEntity response 字段。"
             }
           }
         }
@@ -402,8 +774,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "NotFound response 数据结构中的消息。",
+                  "example": "Example message"
+                }
+              },
+              "description": "NotFound 数据结构中的NotFound response 字段。"
             }
           }
         }
@@ -415,12 +792,23 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "ServiceUnavailable response 数据结构中的消息。",
+                  "example": "Example message"
+                }
+              },
+              "description": "ServiceUnavailable 数据结构中的ServiceUnavailable response 字段。"
             }
           }
         }
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "通用接口。"
+    }
+  ]
 }

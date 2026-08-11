@@ -28,7 +28,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "区分大小写的股票代码，例如 `AAPL`。"
             }
           }
         ],
@@ -75,7 +76,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "区分大小写的股票代码，例如 `AAPL`。"
             }
           },
           {
@@ -85,7 +87,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "返回按股票拆分复权后的结果",
+              "example": true
             }
           }
         ],
@@ -132,7 +136,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "区分大小写的股票代码，例如 `AAPL`。"
             }
           },
           {
@@ -142,7 +147,9 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "minimum": 1
+              "minimum": 1,
+              "description": "时间跨度倍数",
+              "example": 1
             }
           },
           {
@@ -160,6 +167,17 @@
                 "month",
                 "quarter",
                 "year"
+              ],
+              "description": "行情柱时间单位",
+              "example": "minute",
+              "x-enum-descriptions": [
+                "取值 minute。",
+                "取值 hour。",
+                "取值 day。",
+                "取值 week。",
+                "取值 month。",
+                "取值 quarter。",
+                "取值 year。"
               ]
             }
           },
@@ -170,7 +188,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "2025-01-02"
+              "example": "2025-01-02",
+              "description": "`YYYY-MM-DD` 格式的起始日期或毫秒级 Unix 时间戳。"
             }
           },
           {
@@ -180,7 +199,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "`YYYY-MM-DD` 格式的结束日期或毫秒级 Unix 时间戳。"
             }
           },
           {
@@ -190,7 +210,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "结果是否按股票拆分进行复权。",
+              "example": true
             }
           },
           {
@@ -204,7 +226,13 @@
                 "asc",
                 "desc"
               ],
-              "default": "asc"
+              "default": "asc",
+              "description": "按行情柱的起始时间戳排序。",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "取值 asc。",
+                "取值 desc。"
+              ]
             }
           },
           {
@@ -216,7 +244,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 50000,
-              "default": 5000
+              "default": 5000,
+              "description": "为构建结果而查询的基础聚合记录的最大数量。",
+              "example": 5000
             }
           }
         ],
@@ -262,7 +292,9 @@
             "description": "以逗号分隔的股票代码",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "以逗号分隔的股票代码",
+              "example": "AAPL"
             }
           },
           {
@@ -278,6 +310,15 @@
                 "indices",
                 "options",
                 "stocks"
+              ],
+              "description": "按资产类别筛选。",
+              "example": "crypto",
+              "x-enum-descriptions": [
+                "取值 crypto。",
+                "取值 fx。",
+                "取值 indices。",
+                "取值 options。",
+                "取值 stocks。"
               ]
             }
           },
@@ -291,6 +332,12 @@
               "enum": [
                 "asc",
                 "desc"
+              ],
+              "description": "使用选定的排序字段对结果排序。",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "取值 asc。",
+                "取值 desc。"
               ]
             }
           },
@@ -303,7 +350,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 250,
-              "default": 10
+              "default": 10,
+              "description": "最大结果数量",
+              "example": 10
             }
           },
           {
@@ -315,6 +364,11 @@
               "type": "string",
               "enum": [
                 "ticker"
+              ],
+              "description": "用于结果排序的字段。",
+              "example": "ticker",
+              "x-enum-descriptions": [
+                "取值 ticker。"
               ]
             }
           }
@@ -361,7 +415,9 @@
             "description": "股票代码筛选条件",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "股票代码筛选条件",
+              "example": "AAPL"
             }
           },
           {
@@ -370,7 +426,9 @@
             "description": "来自股票代码类型接口的代码类型。",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "来自股票代码类型接口的代码类型。",
+              "example": "example"
             }
           },
           {
@@ -386,6 +444,15 @@
                 "fx",
                 "otc",
                 "indices"
+              ],
+              "description": "市场筛选条件",
+              "example": "stocks",
+              "x-enum-descriptions": [
+                "取值 stocks。",
+                "取值 crypto。",
+                "取值 fx。",
+                "取值 otc。",
+                "取值 indices。"
               ]
             }
           },
@@ -396,7 +463,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "XNAS"
+              "example": "XNAS",
+              "description": "主要交易所的市场标识码（MIC），例如 `XNAS`。"
             }
           },
           {
@@ -405,7 +473,9 @@
             "description": "要查询的 CUSIP。CUSIP 可用作筛选条件，但出于法律原因不会在结果中返回。",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "要查询的 CUSIP。CUSIP 可用作筛选条件，但出于法律原因不会在结果中返回。",
+              "example": "example"
             }
           },
           {
@@ -414,7 +484,9 @@
             "description": "美国证券交易委员会（SEC）中央索引键（CIK）。",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "美国证券交易委员会（SEC）中央索引键（CIK）。",
+              "example": "example"
             }
           },
           {
@@ -425,7 +497,8 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。"
             }
           },
           {
@@ -435,7 +508,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "Apple"
+              "example": "Apple",
+              "description": "用于匹配股票代码和公司名称的搜索文本。"
             }
           },
           {
@@ -445,7 +519,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "上市状态筛选条件",
+              "example": true
             }
           },
           {
@@ -458,6 +534,12 @@
               "enum": [
                 "asc",
                 "desc"
+              ],
+              "description": "使用选定的排序字段对结果排序。",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "取值 asc。",
+                "取值 desc。"
               ]
             }
           },
@@ -470,7 +552,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 1000,
-              "default": 100
+              "default": 100,
+              "description": "每页结果的最大数量。",
+              "example": 100
             }
           },
           {
@@ -487,6 +571,16 @@
                 "locale",
                 "primary_exchange",
                 "currency_symbol"
+              ],
+              "description": "用于排序的字段。",
+              "example": "ticker",
+              "x-enum-descriptions": [
+                "取值 ticker。",
+                "取值 name。",
+                "取值 market。",
+                "取值 locale。",
+                "取值 primary_exchange。",
+                "取值 currency_symbol。"
               ]
             }
           }
@@ -533,7 +627,9 @@
             "description": "股票代码",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "股票代码",
+              "example": "AAPL"
             }
           },
           {
@@ -544,7 +640,8 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。"
             }
           }
         ],
@@ -598,11 +695,13 @@
           },
           "message": {
             "type": "string",
-            "description": "额外的用户可读错误详情。"
+            "description": "额外的用户可读错误详情。",
+            "example": "Example message"
           },
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符，用于支持和诊断。"
+            "description": "由服务器分配的请求标识符，用于支持和诊断。",
+            "example": "massive-example-id"
           }
         },
         "additionalProperties": true
@@ -652,7 +751,8 @@
           },
           "otc": {
             "type": "boolean",
-            "description": "场外交易（OTC）聚合行情时为 true；为 false 时省略。"
+            "description": "场外交易（OTC）聚合行情时为 true；为 false 时省略。",
+            "example": true
           },
           "t": {
             "type": "integer",
@@ -701,7 +801,8 @@
           },
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "由服务器分配的请求标识符。",
+            "example": "massive-example-id"
           },
           "resultsCount": {
             "type": "integer",
@@ -717,12 +818,14 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AggregateBar"
-            }
+            },
+            "description": "聚合行情响应 数据结构中的results 字段。"
           },
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。"
+            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。",
+            "example": "https://example.com/resource"
           }
         },
         "additionalProperties": true
@@ -751,7 +854,9 @@
             "type": "array",
             "description": "成交条件代码。",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "description": "最新成交记录 数据结构中的c item 字段。",
+              "example": 1
             },
             "example": [
               37
@@ -764,12 +869,14 @@
           },
           "e": {
             "type": "integer",
-            "description": "成交更正标识。"
+            "description": "成交更正标识。",
+            "example": 1
           },
           "f": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。"
+            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。",
+            "example": 1
           },
           "i": {
             "type": "string",
@@ -800,7 +907,8 @@
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。"
+            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。",
+            "example": 1
           },
           "x": {
             "type": "integer",
@@ -810,7 +918,8 @@
           "y": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。"
+            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。",
+            "example": 1
           },
           "z": {
             "type": "integer",
@@ -820,7 +929,12 @@
               3
             ],
             "description": "上市行情带：1=A（NYSE），2=B（NYSE Arca/NYSE American），3=C（Nasdaq）。",
-            "example": 3
+            "example": 3,
+            "x-enum-descriptions": [
+              "取值 1。",
+              "取值 2。",
+              "取值 3。"
+            ]
           }
         },
         "additionalProperties": true
@@ -836,7 +950,8 @@
         "properties": {
           "request_id": {
             "type": "string",
-            "description": "由服务器分配的请求标识符。"
+            "description": "由服务器分配的请求标识符。",
+            "example": "massive-example-id"
           },
           "results": {
             "$ref": "#/components/schemas/LastTrade"
@@ -856,58 +971,89 @@
         "properties": {
           "change": {
             "type": "number",
-            "description": "交易时段的绝对价格变动。"
+            "description": "交易时段的绝对价格变动。",
+            "example": 1
           },
           "change_percent": {
             "type": "number",
-            "description": "交易时段的百分比变动。"
+            "description": "交易时段的百分比变动。",
+            "example": 1
           },
           "early_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的early_trading_change 字段。",
+            "example": 1
           },
           "early_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的early_trading_change_percent 字段。",
+            "example": 1
           },
           "regular_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的regular_trading_change 字段。",
+            "example": 1
           },
           "regular_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的regular_trading_change_percent 字段。",
+            "example": 1
           },
           "late_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的late_trading_change 字段。",
+            "example": 1
           },
           "late_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的late_trading_change_percent 字段。",
+            "example": 1
           },
           "close": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的close 字段。",
+            "example": 1
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的high 字段。",
+            "example": 1
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的low 字段。",
+            "example": 1
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的open 字段。",
+            "example": 1
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的volume 字段。",
+            "example": 1
           },
           "previous_close": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的previous_close 字段。",
+            "example": 1
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的价格。",
+            "example": 1
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "description": "交易时段快照 数据结构中的vwap 字段。",
+            "example": 1
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。"
+            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -920,7 +1066,8 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1
           },
           "timeframe": {
             "type": "string",
@@ -928,22 +1075,34 @@
             "example": "REAL-TIME"
           },
           "ask": {
-            "type": "number"
+            "type": "number",
+            "description": "最新报价快照 数据结构中的ask 字段。",
+            "example": 1
           },
           "ask_size": {
-            "type": "number"
+            "type": "number",
+            "description": "最新报价快照 数据结构中的ask_size 字段。",
+            "example": 1
           },
           "ask_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "最新报价快照 数据结构中的ask_exchange 字段。",
+            "example": 1
           },
           "bid": {
-            "type": "number"
+            "type": "number",
+            "description": "最新报价快照 数据结构中的bid 字段。",
+            "example": 1
           },
           "bid_size": {
-            "type": "number"
+            "type": "number",
+            "description": "最新报价快照 数据结构中的bid_size 字段。",
+            "example": 1
           },
           "bid_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "最新报价快照 数据结构中的bid_exchange 字段。",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -956,29 +1115,42 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1
           },
           "timeframe": {
             "type": "string",
-            "example": "REAL-TIME"
+            "example": "REAL-TIME",
+            "description": "最新成交快照 数据结构中的timeframe 字段。"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "最新成交快照 数据结构中的标识。",
+            "example": "massive-example-id"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "description": "最新成交快照 数据结构中的价格。",
+            "example": 1
           },
           "size": {
-            "type": "number"
+            "type": "number",
+            "description": "最新成交快照 数据结构中的大小。",
+            "example": 1
           },
           "exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "最新成交快照 数据结构中的exchange 字段。",
+            "example": 1
           },
           "conditions": {
             "type": "array",
             "items": {
-              "type": "integer"
-            }
+              "type": "integer",
+              "description": "最新成交快照 数据结构中的conditions item 字段。",
+              "example": 1
+            },
+            "description": "最新成交快照 数据结构中的conditions 字段。"
           }
         },
         "additionalProperties": true
@@ -989,30 +1161,45 @@
         "description": "统一快照中的最近一分钟 OHLC、成交量、成交笔数、VWAP 与更新时间。",
         "properties": {
           "close": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的close 字段。",
+            "example": 1
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的high 字段。",
+            "example": 1
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的low 字段。",
+            "example": 1
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的open 字段。",
+            "example": 1
           },
           "transactions": {
-            "type": "integer"
+            "type": "integer",
+            "description": "最新分钟行情柱 数据结构中的transactions 字段。",
+            "example": 1
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的volume 字段。",
+            "example": 1
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "description": "最新分钟行情柱 数据结构中的vwap 字段。",
+            "example": 1
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "纳秒级 Unix 时间戳。"
+            "description": "纳秒级 Unix 时间戳。",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -1026,10 +1213,14 @@
         ],
         "properties": {
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "统一市场快照 数据结构中的证券代码。",
+            "example": "AAPL"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "统一市场快照 数据结构中的名称。",
+            "example": "Example"
           },
           "type": {
             "type": "string",
@@ -1039,6 +1230,15 @@
               "indices",
               "options",
               "stocks"
+            ],
+            "description": "统一市场快照 数据结构中的类型。",
+            "example": "crypto",
+            "x-enum-descriptions": [
+              "取值 crypto。",
+              "取值 fx。",
+              "取值 indices。",
+              "取值 options。",
+              "取值 stocks。"
             ]
           },
           "market_status": {
@@ -1049,24 +1249,37 @@
               "early_trading",
               "regular_trading",
               "late_trading"
+            ],
+            "description": "统一市场快照 数据结构中的market_status 字段。",
+            "example": "open",
+            "x-enum-descriptions": [
+              "取值 open。",
+              "取值 closed。",
+              "取值 early_trading。",
+              "取值 regular_trading。",
+              "取值 late_trading。"
             ]
           },
           "error": {
             "type": "string",
-            "description": "此股票代码对应的错误类别。"
+            "description": "此股票代码对应的错误类别。",
+            "example": "Example message"
           },
           "message": {
             "type": "string",
-            "description": "此股票代码对应的错误详情。"
+            "description": "此股票代码对应的错误详情。",
+            "example": "Example message"
           },
           "fmv": {
             "type": "number",
-            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。"
+            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。",
+            "example": 1
           },
           "fmv_last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。"
+            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。",
+            "example": 1
           },
           "session": {
             "$ref": "#/components/schemas/SnapshotSession"
@@ -1095,20 +1308,25 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。"
+            "description": "下一页的绝对 URL（如有）。",
+            "example": "https://example.com/resource"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "统一市场快照响应 数据结构中的request_id 字段。",
+            "example": "massive-example-id"
           },
           "results": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/UnifiedSnapshot"
-            }
+            },
+            "description": "统一市场快照响应 数据结构中的results 字段。"
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "统一市场快照响应 数据结构中的状态。"
           }
         },
         "additionalProperties": true
@@ -1124,41 +1342,62 @@
         "properties": {
           "active": {
             "type": "boolean",
-            "description": "该资产在查询日期是否处于活跃交易状态。"
+            "description": "该资产在查询日期是否处于活跃交易状态。",
+            "example": true
           },
           "base_currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的base_currency_name 字段。",
+            "example": "USD"
           },
           "base_currency_symbol": {
             "type": "string",
-            "description": "计价对象货币的 ISO 4217 代码。"
+            "description": "计价对象货币的 ISO 4217 代码。",
+            "example": "USD"
           },
           "cik": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的cik 字段。",
+            "example": "example"
           },
           "composite_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的composite_figi 字段。",
+            "example": "example"
           },
           "currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的currency_name 字段。",
+            "example": "USD"
           },
           "currency_symbol": {
             "type": "string",
-            "description": "交易货币的 ISO 4217 代码。"
+            "description": "交易货币的 ISO 4217 代码。",
+            "example": "USD"
           },
           "delisted_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Massive 标的代码 数据结构中的delisted_utc 字段。",
+            "example": "2026-01-23T12:00:00Z"
           },
           "last_updated_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Massive 标的代码 数据结构中的last_updated_utc 字段。",
+            "example": "2026-01-23T12:00:00Z"
           },
           "locale": {
             "type": "string",
             "enum": [
               "global",
               "us"
+            ],
+            "description": "Massive 标的代码 数据结构中的locale 字段。",
+            "example": "global",
+            "x-enum-descriptions": [
+              "取值 global。",
+              "取值 us。"
             ]
           },
           "market": {
@@ -1169,24 +1408,41 @@
               "indices",
               "otc",
               "stocks"
+            ],
+            "description": "Massive 标的代码 数据结构中的market 字段。",
+            "example": "crypto",
+            "x-enum-descriptions": [
+              "取值 crypto。",
+              "取值 fx。",
+              "取值 indices。",
+              "取值 otc。",
+              "取值 stocks。"
             ]
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的名称。",
+            "example": "Example"
           },
           "primary_exchange": {
             "type": "string",
-            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。"
+            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。",
+            "example": "example"
           },
           "share_class_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的share_class_figi 字段。",
+            "example": "example"
           },
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "Massive 标的代码 数据结构中的证券代码。",
+            "example": "AAPL"
           },
           "type": {
             "type": "string",
-            "description": "Massive 股票代码类型。"
+            "description": "Massive 股票代码类型。",
+            "example": "example"
           }
         },
         "additionalProperties": true
@@ -1197,25 +1453,32 @@
         "description": "匹配筛选条件的标的代码分页列表，包含数量、请求标识和下一页地址。",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "标的代码列表响应 数据结构中的数量。",
+            "example": 1
           },
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "下一页的绝对 URL（如有）。"
+            "description": "下一页的绝对 URL（如有）。",
+            "example": "https://example.com/resource"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "标的代码列表响应 数据结构中的request_id 字段。",
+            "example": "massive-example-id"
           },
           "results": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Ticker"
-            }
+            },
+            "description": "标的代码列表响应 数据结构中的results 字段。"
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "标的代码列表响应 数据结构中的状态。"
           }
         },
         "additionalProperties": true
@@ -1226,19 +1489,29 @@
         "description": "标的所属公司的总部地址，包括街道、城市、州和邮政编码。",
         "properties": {
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "公司地址 数据结构中的address1 字段。",
+            "example": "example"
           },
           "address2": {
-            "type": "string"
+            "type": "string",
+            "description": "公司地址 数据结构中的address2 字段。",
+            "example": "example"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "description": "公司地址 数据结构中的city 字段。",
+            "example": "example"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "公司地址 数据结构中的state 字段。",
+            "example": "example"
           },
           "postal_code": {
-            "type": "string"
+            "type": "string",
+            "description": "公司地址 数据结构中的postal_code 字段。",
+            "example": "example-code"
           }
         },
         "additionalProperties": true
@@ -1250,11 +1523,15 @@
         "properties": {
           "icon_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "品牌资源 数据结构中的icon_url 字段。",
+            "example": "https://example.com/resource"
           },
           "logo_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "品牌资源 数据结构中的logo_url 字段。",
+            "example": "https://example.com/resource"
           }
         },
         "additionalProperties": false
@@ -1276,48 +1553,75 @@
                 "$ref": "#/components/schemas/Branding"
               },
               "description": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的说明。",
+                "example": "example"
               },
               "homepage_url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "description": "TickerDetails allOf 2 数据结构中的homepage_url 字段。",
+                "example": "https://example.com/resource"
               },
               "list_date": {
                 "type": "string",
-                "format": "date"
+                "format": "date",
+                "description": "TickerDetails allOf 2 数据结构中的list_date 字段。",
+                "example": "2026-01-23"
               },
               "market_cap": {
-                "type": "number"
+                "type": "number",
+                "description": "TickerDetails allOf 2 数据结构中的market_cap 字段。",
+                "example": 1
               },
               "phone_number": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的phone_number 字段。",
+                "example": "example"
               },
               "round_lot": {
-                "type": "number"
+                "type": "number",
+                "description": "TickerDetails allOf 2 数据结构中的round_lot 字段。",
+                "example": 1
               },
               "share_class_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "TickerDetails allOf 2 数据结构中的share_class_shares_outstanding 字段。",
+                "example": 1
               },
               "sic_code": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的sic_code 字段。",
+                "example": "example-code"
               },
               "sic_description": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的sic_description 字段。",
+                "example": "example"
               },
               "ticker_root": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的ticker_root 字段。",
+                "example": "AAPL"
               },
               "ticker_suffix": {
-                "type": "string"
+                "type": "string",
+                "description": "TickerDetails allOf 2 数据结构中的ticker_suffix 字段。",
+                "example": "AAPL"
               },
               "total_employees": {
-                "type": "number"
+                "type": "number",
+                "description": "TickerDetails allOf 2 数据结构中的total_employees 字段。",
+                "example": 1
               },
               "weighted_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "TickerDetails allOf 2 数据结构中的weighted_shares_outstanding 字段。",
+                "example": 1
               }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "TickerDetails 数据结构中的TickerDetails allOf 2 字段。"
           }
         ]
       },
@@ -1327,17 +1631,22 @@
         "description": "包含请求状态、请求标识和单个标的详细资料的响应。",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "标的详细资料响应 数据结构中的数量。",
+            "example": 1
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "标的详细资料响应 数据结构中的request_id 字段。",
+            "example": "massive-example-id"
           },
           "results": {
             "$ref": "#/components/schemas/TickerDetails"
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "标的详细资料响应 数据结构中的状态。"
           }
         },
         "additionalProperties": true
@@ -1354,6 +1663,12 @@
   "security": [
     {
       "ApiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "common",
+      "description": "通用接口。"
     }
   ]
 }
