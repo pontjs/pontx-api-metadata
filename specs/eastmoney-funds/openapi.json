@@ -110,7 +110,8 @@
             "schema": {
               "type": "integer",
               "default": 1,
-              "minimum": 1
+              "minimum": 1,
+              "example": 1
             }
           },
           {
@@ -121,7 +122,8 @@
             "schema": {
               "type": "integer",
               "default": 20,
-              "minimum": 1
+              "minimum": 1,
+              "example": 20
             }
           },
           {
@@ -208,7 +210,8 @@
             "schema": {
               "type": "integer",
               "default": 0,
-              "enum": [0]
+              "enum": [0],
+              "example": 0
             }
           },
           {
@@ -219,7 +222,8 @@
             "schema": {
               "type": "integer",
               "default": 1,
-              "minimum": 1
+              "minimum": 1,
+              "example": 1
             }
           },
           {
@@ -230,7 +234,8 @@
             "schema": {
               "type": "integer",
               "default": 400,
-              "minimum": 1
+              "minimum": 1,
+              "example": 400
             }
           },
           {
@@ -318,7 +323,8 @@
             "schema": {
               "type": "integer",
               "default": 2,
-              "enum": [2]
+              "enum": [2],
+              "example": 2
             }
           },
           {
@@ -329,7 +335,8 @@
             "schema": {
               "type": "integer",
               "default": 2,
-              "enum": [2]
+              "enum": [2],
+              "example": 2
             }
           },
           {

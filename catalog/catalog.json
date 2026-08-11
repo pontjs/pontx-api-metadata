@@ -21311,7 +21311,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "11bba188251c267c88eab17307caaea3187c3813ca31893e5f4de424d4c0a104",
+      "approvedSha256": "53bdbdcfa4bd49a1c2b3cb6cd3eaff9c37c73abc0a20b90c0d7936d0874c1303",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -21500,7 +21500,8 @@
               "description": {
                 "zh": "从 1 开始的页码",
                 "en": "One-based page"
-              }
+              },
+              "example": 1
             },
             {
               "name": "pageSize",
@@ -21511,7 +21512,8 @@
               "description": {
                 "zh": "每页记录数",
                 "en": "Rows per page"
-              }
+              },
+              "example": 20
             },
             {
               "name": "startDate",
@@ -21658,7 +21660,8 @@
               "description": {
                 "zh": "服务商图表序列选择器。单位净值仅观测到值 `0`；其他值未公开。",
                 "en": "Provider chart-series selector. Only value `0` was observed for unit NAV; other values are undocumented."
-              }
+              },
+              "example": 0
             },
             {
               "name": "pageIndex",
@@ -21669,7 +21672,8 @@
               "description": {
                 "zh": "从 1 开始的页码",
                 "en": "One-based page"
-              }
+              },
+              "example": 1
             },
             {
               "name": "pageSize",
@@ -21680,7 +21684,8 @@
               "description": {
                 "zh": "请求的最大数据点数。服务商可能忽略该值，并返回或报告实际页大小为 400。",
                 "en": "Requested maximum points. The provider may ignore this value and return/report an effective page size of 400."
-              }
+              },
+              "example": 400
             },
             {
               "name": "startDate",
@@ -21834,7 +21839,8 @@
               "description": {
                 "zh": "服务商数字格式模式。观测值 `2` 返回按比例转换后的小数。",
                 "en": "Provider number-formatting mode. Observed value `2` returns scaled decimal numbers."
-              }
+              },
+              "example": 2
             },
             {
               "name": "invt",
@@ -21847,7 +21853,8 @@
               "description": {
                 "zh": "服务商请求模式；仅记录了观测值 `2`。",
                 "en": "Provider request mode; only observed value `2` is documented."
-              }
+              },
+              "example": 2
             },
             {
               "name": "ut",
