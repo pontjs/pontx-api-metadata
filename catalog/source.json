@@ -392,9 +392,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "7816d40d84cde04a045048d9a3dc5338530c355985c369a7949858c0a8fe0767",
+      "approvedSha256": "499ba2bb4c5af3ce4c30c1cacfba9e1e19d2019dd60ff5f6e58dc94ef1583321",
       "approvedLocaleSha256": {
-        "en-US": "d78a73295df0e7c926ebb1344c26cf677acf46da4206e7ab0caecb1feb15ebd4"
+        "en-US": "d090c0970cb24b01d518dbbcef04b29c33355066ed1522d8bb3b0c73e6905a1b"
       },
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",

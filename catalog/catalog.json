@@ -24281,7 +24281,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/i3investor-sgx/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
-      "approvedSha256": "7816d40d84cde04a045048d9a3dc5338530c355985c369a7949858c0a8fe0767",
+      "approvedSha256": "499ba2bb4c5af3ce4c30c1cacfba9e1e19d2019dd60ff5f6e58dc94ef1583321",
       "title": {
         "zh": "i3Investor SGX 公共行情页",
         "en": "i3Investor SGX public market pages"
@@ -24532,13 +24532,19 @@
           "schema": {
             "title": "LegacyStockHtml",
             "type": "string",
-            "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema."
+            "description": "Raw HTML. Semantically extractable fields observed in the document include `name`, `code`, `company`, JSON-LD `offers.price`, JSON-LD `offers.priceCurrency` (`SGD`), last price, signed change, change percent, day range, trading volume, exchange, company description, 52-week range, and price target. These are extraction targets, not a JSON response schema.",
+            "examples": [
+              "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..."
+            ]
           },
           "localizedSchema": {
             "zh": {
               "title": "旧版 SGX 股票 HTML 原始响应",
               "type": "string",
-              "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。"
+              "description": "旧版桌面页面原始 HTML；可提取 JSON-LD 报价、SGD 币种、股票代码、价格、涨跌、区间、成交量和公司资料，但它不是 JSON 接口。",
+              "examples": [
+                "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..."
+              ]
             }
           }
         },
@@ -24558,13 +24564,19 @@
           "schema": {
             "title": "ResponsiveStockHtml",
             "type": "string",
-            "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text."
+            "description": "Raw HTML. Semantically extractable fields observed in labelled metadata/sections include stock name, SGX code, issuer, sector, last price, absolute change, percentage change, day range, trading volume, bid price/size, ask price/size, and business description. Values remain display-formatted text.",
+            "examples": [
+              "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>"
+            ]
           },
           "localizedSchema": {
             "zh": {
               "title": "当前 SGX 股票 HTML 原始响应",
               "type": "string",
-              "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。"
+              "description": "当前响应式页面原始 HTML；报价和公司字段是展示格式文本，需按标签和页面区块解析，不能假设与旧版 JSON-LD 结构一致。",
+              "examples": [
+                "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>"
+              ]
             }
           }
         }
