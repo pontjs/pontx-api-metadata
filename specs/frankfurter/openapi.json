@@ -726,7 +726,9 @@
             "description": "以键值对表示的汇率（货币代码对应汇率）",
             "additionalProperties": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "货币代码对应的汇率值",
+              "example": 1.91
             },
             "example": {
               "USD": 1.0445,
@@ -785,7 +787,9 @@
               "description": "指定日期的汇率",
               "additionalProperties": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "指定日期下货币代码对应的汇率值",
+                "example": 1.91
               }
             },
             "example": {
@@ -806,7 +810,9 @@
         "type": "object",
         "description": "货币代码与货币名称的映射。",
         "additionalProperties": {
-          "type": "string"
+          "type": "string",
+          "description": "货币的完整名称",
+          "example": "Australian Dollar"
         },
         "example": {
           "EUR": "Euro",

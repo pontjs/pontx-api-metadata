@@ -726,7 +726,9 @@
             "description": "Exchange rates as key-value pairs (currency code to rate)",
             "additionalProperties": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "Exchange rate value for a currency code",
+              "example": 1.91
             },
             "example": {
               "USD": 1.0445,
@@ -785,7 +787,9 @@
               "description": "Exchange rates for a specific date",
               "additionalProperties": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "Exchange rate value for a currency code on the specified date",
+                "example": 1.91
               }
             },
             "example": {
@@ -806,7 +810,9 @@
         "type": "object",
         "description": "Map of currency codes to their full names",
         "additionalProperties": {
-          "type": "string"
+          "type": "string",
+          "description": "Full name of the currency",
+          "example": "Australian Dollar"
         },
         "example": {
           "EUR": "Euro",

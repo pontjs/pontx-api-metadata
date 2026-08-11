@@ -10,7 +10,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "616d302d1e78238a93c1df2c74d5cb2eacaadbbea8b96523826e65f954a94b31",
+      "approvedSha256": "548ede4f845093e73eb300daf6411ec49cd6effbf203768c244f50aa5c15868b",
       "title": {
         "zh": "Frankfurter 汇率 API",
         "en": "Frankfurter exchange-rate API"
@@ -943,7 +943,9 @@
                 "description": "Exchange rates as key-value pairs (currency code to rate)",
                 "additionalProperties": {
                   "type": "number",
-                  "format": "double"
+                  "format": "double",
+                  "description": "Exchange rate value for a currency code",
+                  "example": 1.91
                 },
                 "example": {
                   "USD": 1.0445,
@@ -993,7 +995,9 @@
                   "description": "以键值对表示的汇率（货币代码对应汇率）",
                   "additionalProperties": {
                     "type": "number",
-                    "format": "double"
+                    "format": "double",
+                    "description": "货币代码对应的汇率值",
+                    "example": 1.91
                   },
                   "example": {
                     "USD": 1.0445,
@@ -1122,7 +1126,9 @@
                   "description": "Exchange rates for a specific date",
                   "additionalProperties": {
                     "type": "number",
-                    "format": "double"
+                    "format": "double",
+                    "description": "Exchange rate value for a currency code on the specified date",
+                    "example": 1.91
                   }
                 },
                 "example": {
@@ -1186,7 +1192,9 @@
                     "description": "指定日期的汇率",
                     "additionalProperties": {
                       "type": "number",
-                      "format": "double"
+                      "format": "double",
+                      "description": "指定日期下货币代码对应的汇率值",
+                      "example": 1.91
                     }
                   },
                   "example": {
@@ -1222,7 +1230,9 @@
             "type": "object",
             "description": "Map of currency codes to their full names",
             "additionalProperties": {
-              "type": "string"
+              "type": "string",
+              "description": "Full name of the currency",
+              "example": "Australian Dollar"
             },
             "example": {
               "EUR": "Euro",
@@ -1238,7 +1248,9 @@
               "type": "object",
               "description": "货币代码与货币名称的映射。",
               "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "description": "货币的完整名称",
+                "example": "Australian Dollar"
               },
               "example": {
                 "EUR": "Euro",
