@@ -1310,7 +1310,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "6fd4c79e6674dcd8b4bf2866b9476f6e899ef39f1acbec0ea696719f06342fa9",
+      "approvedSha256": "80df5c0939d4da527a9abdeab75d969b751489ecc0a23ccc62933935bfdf9951",
       "title": {
         "zh": "Frankfurter v2 汇率 API",
         "en": "Frankfurter v2 exchange-rate API"
@@ -1763,7 +1763,8 @@
               "description": {
                 "zh": "设为 'all' 时包含已停用的历史货币",
                 "en": "Set to 'all' to include legacy currencies"
-              }
+              },
+              "example": "all"
             },
             {
               "name": "providers",
@@ -1999,26 +2000,31 @@
               "date": {
                 "type": "string",
                 "format": "date",
-                "description": "The date of the rate"
+                "description": "The date of the rate",
+                "example": "2024-01-15"
               },
               "base": {
                 "type": "string",
-                "description": "Base currency code"
+                "description": "Base currency code",
+                "example": "EUR"
               },
               "quote": {
                 "type": "string",
-                "description": "Quote currency code"
+                "description": "Quote currency code",
+                "example": "USD"
               },
               "rate": {
                 "type": "number",
                 "description": "Exchange rate value",
-                "exclusiveMinimum": 0
+                "exclusiveMinimum": 0,
+                "example": 1.089
               },
               "providers": {
                 "type": "array",
                 "description": "Per-provider rates for this pair. Present only when `expand=providers` is set. Each entry has the provider's observation date and published rate (rebased to the row's base). Entries with `excluded: true` did not contribute to the blended `rate` — either flagged as outliers by the consensus filter, or overridden by a currency peg. Omitted on synthesized peg rows where no provider published the quote.",
                 "items": {
                   "type": "object",
+                  "description": "Each entry has the provider's observation date and published rate (rebased to the row's base).",
                   "properties": {
                     "key": {
                       "type": "string",
@@ -2062,26 +2068,31 @@
                 "date": {
                   "type": "string",
                   "format": "date",
-                  "description": "汇率日期"
+                  "description": "汇率日期",
+                  "example": "2024-01-15"
                 },
                 "base": {
                   "type": "string",
-                  "description": "基准货币代码"
+                  "description": "基准货币代码",
+                  "example": "EUR"
                 },
                 "quote": {
                   "type": "string",
-                  "description": "计价货币代码"
+                  "description": "计价货币代码",
+                  "example": "USD"
                 },
                 "rate": {
                   "type": "number",
                   "description": "汇率数值",
-                  "exclusiveMinimum": 0
+                  "exclusiveMinimum": 0,
+                  "example": 1.089
                 },
                 "providers": {
                   "type": "array",
                   "description": "该货币对按提供方拆分的汇率，仅在设置 `expand=providers` 时出现。每项包含提供方的观测日期，以及换算到当前记录基准货币后的发布汇率。标记 `excluded: true` 的条目未参与混合 `rate`，原因可能是被共识过滤判为异常值，或被货币锚定关系覆盖。若锚定货币记录由系统合成且没有提供方直接发布该计价货币，则省略此字段。",
                   "items": {
                     "type": "object",
+                    "description": "每项包含提供方的观测日期，以及换算到当前记录基准货币后的发布汇率。",
                     "properties": {
                       "key": {
                         "type": "string",
@@ -2194,25 +2205,29 @@
             "properties": {
               "iso_code": {
                 "type": "string",
-                "description": "ISO 4217 currency code"
+                "description": "ISO 4217 currency code",
+                "example": "EUR"
               },
               "iso_numeric": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "ISO 4217 numeric code"
+                "description": "ISO 4217 numeric code",
+                "example": "978"
               },
               "name": {
                 "type": "string",
-                "description": "Full currency name"
+                "description": "Full currency name",
+                "example": "Euro"
               },
               "symbol": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "Currency symbol"
+                "description": "Currency symbol",
+                "example": "€"
               },
               "start_date": {
                 "type": [
@@ -2220,7 +2235,8 @@
                   "null"
                 ],
                 "format": "date",
-                "description": "Earliest available date"
+                "description": "Earliest available date",
+                "example": "1999-01-04"
               },
               "end_date": {
                 "type": [
@@ -2228,7 +2244,8 @@
                   "null"
                 ],
                 "format": "date",
-                "description": "Latest available date"
+                "description": "Latest available date",
+                "example": "2026-03-17"
               }
             },
             "required": [
@@ -2243,25 +2260,29 @@
               "properties": {
                 "iso_code": {
                   "type": "string",
-                  "description": "ISO 4217 货币代码"
+                  "description": "ISO 4217 货币代码",
+                  "example": "EUR"
                 },
                 "iso_numeric": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "ISO 4217 数字代码"
+                  "description": "ISO 4217 数字代码",
+                  "example": "978"
                 },
                 "name": {
                   "type": "string",
-                  "description": "货币完整名称"
+                  "description": "货币完整名称",
+                  "example": "Euro"
                 },
                 "symbol": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "货币符号"
+                  "description": "货币符号",
+                  "example": "€"
                 },
                 "start_date": {
                   "type": [
@@ -2269,7 +2290,8 @@
                     "null"
                   ],
                   "format": "date",
-                  "description": "最早可用日期"
+                  "description": "最早可用日期",
+                  "example": "1999-01-04"
                 },
                 "end_date": {
                   "type": [
@@ -2277,7 +2299,8 @@
                     "null"
                   ],
                   "format": "date",
-                  "description": "最新可用日期"
+                  "description": "最新可用日期",
+                  "example": "2026-03-17"
                 }
               },
               "required": [
@@ -2360,30 +2383,36 @@
             "properties": {
               "iso_code": {
                 "type": "string",
-                "description": "ISO 4217 currency code"
+                "description": "ISO 4217 currency code",
+                "example": "USD"
               },
               "iso_numeric": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "ISO 4217 numeric code"
+                "description": "ISO 4217 numeric code",
+                "example": "840"
               },
               "name": {
                 "type": "string",
-                "description": "Full currency name"
+                "description": "Full currency name",
+                "example": "United States Dollar"
               },
               "symbol": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "Currency symbol"
+                "description": "Currency symbol",
+                "example": "$"
               },
               "providers": {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Provider keys that publish this currency",
+                  "example": "ECB"
                 },
                 "description": "Provider keys that publish this currency"
               },
@@ -2419,30 +2448,36 @@
               "properties": {
                 "iso_code": {
                   "type": "string",
-                  "description": "ISO 4217 货币代码"
+                  "description": "ISO 4217 货币代码",
+                  "example": "USD"
                 },
                 "iso_numeric": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "ISO 4217 数字代码"
+                  "description": "ISO 4217 数字代码",
+                  "example": "840"
                 },
                 "name": {
                   "type": "string",
-                  "description": "货币完整名称"
+                  "description": "货币完整名称",
+                  "example": "United States Dollar"
                 },
                 "symbol": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "货币符号"
+                  "description": "货币符号",
+                  "example": "$"
                 },
                 "providers": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "发布此货币汇率的数据提供方代码",
+                    "example": "ECB"
                   },
                   "description": "发布此货币汇率的数据提供方代码"
                 },
@@ -2600,32 +2635,37 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Provider identifier"
+                "description": "Provider identifier",
+                "example": "ECB"
               },
               "name": {
                 "type": "string",
-                "description": "Full provider name"
+                "description": "Full provider name",
+                "example": "European Central Bank"
               },
               "country_code": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "ISO 3166-1 alpha-2 country code"
+                "description": "ISO 3166-1 alpha-2 country code",
+                "example": "EU"
               },
               "rate_type": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "Official rate type as used by the source"
+                "description": "Official rate type as used by the source",
+                "example": "reference"
               },
               "pivot_currency": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "description": "Base currency for published rates"
+                "description": "Base currency for published rates",
+                "example": "EUR"
               },
               "data_url": {
                 "type": [
@@ -2633,7 +2673,8 @@
                   "null"
                 ],
                 "format": "uri",
-                "description": "Link to the data source"
+                "description": "Link to the data source",
+                "example": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
               },
               "terms_url": {
                 "type": [
@@ -2641,7 +2682,8 @@
                   "null"
                 ],
                 "format": "uri",
-                "description": "Link to terms of use"
+                "description": "Link to terms of use",
+                "example": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
               },
               "start_date": {
                 "type": [
@@ -2649,7 +2691,8 @@
                   "null"
                 ],
                 "format": "date",
-                "description": "Earliest available date"
+                "description": "Earliest available date",
+                "example": "1999-01-04"
               },
               "end_date": {
                 "type": [
@@ -2657,7 +2700,8 @@
                   "null"
                 ],
                 "format": "date",
-                "description": "Latest available date"
+                "description": "Latest available date",
+                "example": "2026-03-17"
               },
               "publish_cadence": {
                 "type": [
@@ -2683,7 +2727,9 @@
               "currencies": {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Currency codes covered by this provider",
+                  "example": "USD"
                 },
                 "description": "Currency codes covered by this provider"
               }
@@ -2701,32 +2747,37 @@
               "properties": {
                 "key": {
                   "type": "string",
-                  "description": "数据提供方标识"
+                  "description": "数据提供方标识",
+                  "example": "ECB"
                 },
                 "name": {
                   "type": "string",
-                  "description": "数据提供方完整名称"
+                  "description": "数据提供方完整名称",
+                  "example": "European Central Bank"
                 },
                 "country_code": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "ISO 3166-1 alpha-2 国家或地区代码"
+                  "description": "ISO 3166-1 alpha-2 国家或地区代码",
+                  "example": "EU"
                 },
                 "rate_type": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "数据源采用的官方汇率类型"
+                  "description": "数据源采用的官方汇率类型",
+                  "example": "reference"
                 },
                 "pivot_currency": {
                   "type": [
                     "string",
                     "null"
                   ],
-                  "description": "提供方发布汇率时采用的基准货币"
+                  "description": "提供方发布汇率时采用的基准货币",
+                  "example": "EUR"
                 },
                 "data_url": {
                   "type": [
@@ -2734,7 +2785,8 @@
                     "null"
                   ],
                   "format": "uri",
-                  "description": "原始数据源链接"
+                  "description": "原始数据源链接",
+                  "example": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
                 },
                 "terms_url": {
                   "type": [
@@ -2742,7 +2794,8 @@
                     "null"
                   ],
                   "format": "uri",
-                  "description": "使用条款链接"
+                  "description": "使用条款链接",
+                  "example": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
                 },
                 "start_date": {
                   "type": [
@@ -2750,7 +2803,8 @@
                     "null"
                   ],
                   "format": "date",
-                  "description": "最早可用日期"
+                  "description": "最早可用日期",
+                  "example": "1999-01-04"
                 },
                 "end_date": {
                   "type": [
@@ -2758,7 +2812,8 @@
                     "null"
                   ],
                   "format": "date",
-                  "description": "最新可用日期"
+                  "description": "最新可用日期",
+                  "example": "2026-03-17"
                 },
                 "publish_cadence": {
                   "type": [
@@ -2784,7 +2839,9 @@
                 "currencies": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "此提供方覆盖的货币代码",
+                    "example": "USD"
                   },
                   "description": "此提供方覆盖的货币代码"
                 }

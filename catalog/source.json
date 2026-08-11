@@ -49,9 +49,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "6fd4c79e6674dcd8b4bf2866b9476f6e899ef39f1acbec0ea696719f06342fa9",
+      "approvedSha256": "80df5c0939d4da527a9abdeab75d969b751489ecc0a23ccc62933935bfdf9951",
       "approvedLocaleSha256": {
-        "en-US": "0d299695577803bdeb2ba1a2825ff5d565c9e8b586a08db14f315f25c49fae6a"
+        "en-US": "7ffcd91e78c3331525415a24bfe328a38852c9c20d025cb232c345368dbb5326"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",

@@ -41,6 +41,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
+                  "description": "Exchange rates",
                   "items": { "$ref": "#/components/schemas/Rate" }
                 },
                 "example": [
@@ -75,13 +76,13 @@
             "name": "base",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "EUR" }
+            "schema": { "type": "string", "description": "Base currency code", "example": "EUR" }
           },
           {
             "name": "quote",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": { "type": "string", "description": "Quote currency code", "example": "USD" }
           },
           { "$ref": "#/components/parameters/date" },
           { "$ref": "#/components/parameters/providers" }
@@ -113,7 +114,7 @@
             "name": "code",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": { "type": "string", "description": "ISO 4217 currency code", "example": "USD" }
           }
         ],
         "responses": {
@@ -142,7 +143,7 @@
             "in": "query",
             "description": "Set to 'all' to include legacy currencies",
             "required": false,
-            "schema": { "type": "string", "enum": ["all"] }
+            "schema": { "type": "string", "enum": ["all"], "example": "all" }
           },
           { "$ref": "#/components/parameters/providers" }
         ],
@@ -153,6 +154,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
+                  "description": "Available currencies",
                   "items": { "$ref": "#/components/schemas/Currency" }
                 },
                 "example": [
@@ -178,6 +180,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
+                  "description": "Available providers",
                   "items": { "$ref": "#/components/schemas/Provider" }
                 },
                 "example": [
@@ -288,26 +291,31 @@
           "date": {
             "type": "string",
             "format": "date",
-            "description": "The date of the rate"
+            "description": "The date of the rate",
+            "example": "2024-01-15"
           },
           "base": {
             "type": "string",
-            "description": "Base currency code"
+            "description": "Base currency code",
+            "example": "EUR"
           },
           "quote": {
             "type": "string",
-            "description": "Quote currency code"
+            "description": "Quote currency code",
+            "example": "USD"
           },
           "rate": {
             "type": "number",
             "description": "Exchange rate value",
-            "exclusiveMinimum": 0
+            "exclusiveMinimum": 0,
+            "example": 1.089
           },
           "providers": {
             "type": "array",
             "description": "Per-provider rates for this pair. Present only when `expand=providers` is set. Each entry has the provider's observation date and published rate (rebased to the row's base). Entries with `excluded: true` did not contribute to the blended `rate` — either flagged as outliers by the consensus filter, or overridden by a currency peg. Omitted on synthesized peg rows where no provider published the quote.",
             "items": {
               "type": "object",
+              "description": "Each entry has the provider's observation date and published rate (rebased to the row's base).",
               "properties": {
                 "key": { "type": "string", "description": "Provider key" },
                 "date": { "type": "string", "format": "date", "description": "Provider observation date used for this entry" },
@@ -324,12 +332,12 @@
         "title": "Currency summary",
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code" },
-          "name": { "type": "string", "description": "Full currency name" },
-          "symbol": { "type": ["string", "null"], "description": "Currency symbol" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date" }
+          "iso_code": { "type": "string", "description": "ISO 4217 currency code", "example": "EUR" },
+          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code", "example": "978" },
+          "name": { "type": "string", "description": "Full currency name", "example": "Euro" },
+          "symbol": { "type": ["string", "null"], "description": "Currency symbol", "example": "€" },
+          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date", "example": "1999-01-04" },
+          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date", "example": "2026-03-17" }
         },
         "required": ["iso_code", "name"]
       },
@@ -337,13 +345,13 @@
         "title": "Currency details",
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code" },
-          "name": { "type": "string", "description": "Full currency name" },
-          "symbol": { "type": ["string", "null"], "description": "Currency symbol" },
+          "iso_code": { "type": "string", "description": "ISO 4217 currency code", "example": "USD" },
+          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code", "example": "840" },
+          "name": { "type": "string", "description": "Full currency name", "example": "United States Dollar" },
+          "symbol": { "type": ["string", "null"], "description": "Currency symbol", "example": "$" },
           "providers": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": { "type": "string", "description": "Provider keys that publish this currency", "example": "ECB" },
             "description": "Provider keys that publish this currency"
           },
           "peg": {
@@ -363,15 +371,15 @@
         "title": "Exchange-rate data provider",
         "type": "object",
         "properties": {
-          "key": { "type": "string", "description": "Provider identifier" },
-          "name": { "type": "string", "description": "Full provider name" },
-          "country_code": { "type": ["string", "null"], "description": "ISO 3166-1 alpha-2 country code" },
-          "rate_type": { "type": ["string", "null"], "description": "Official rate type as used by the source" },
-          "pivot_currency": { "type": ["string", "null"], "description": "Base currency for published rates" },
-          "data_url": { "type": ["string", "null"], "format": "uri", "description": "Link to the data source" },
-          "terms_url": { "type": ["string", "null"], "format": "uri", "description": "Link to terms of use" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date" },
+          "key": { "type": "string", "description": "Provider identifier", "example": "ECB" },
+          "name": { "type": "string", "description": "Full provider name", "example": "European Central Bank" },
+          "country_code": { "type": ["string", "null"], "description": "ISO 3166-1 alpha-2 country code", "example": "EU" },
+          "rate_type": { "type": ["string", "null"], "description": "Official rate type as used by the source", "example": "reference" },
+          "pivot_currency": { "type": ["string", "null"], "description": "Base currency for published rates", "example": "EUR" },
+          "data_url": { "type": ["string", "null"], "format": "uri", "description": "Link to the data source", "example": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" },
+          "terms_url": { "type": ["string", "null"], "format": "uri", "description": "Link to terms of use", "example": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html" },
+          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date", "example": "1999-01-04" },
+          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date", "example": "2026-03-17" },
           "publish_cadence": {
             "type": ["string", "null"],
             "enum": ["daily", "weekly", "monthly", null],
@@ -384,7 +392,7 @@
           },
           "currencies": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": { "type": "string", "description": "Currency codes covered by this provider", "example": "USD" },
             "description": "Currency codes covered by this provider"
           }
         },
@@ -398,6 +406,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "description": "Invalid request",
               "properties": {
                 "message": { "type": "string" }
               }
@@ -411,6 +420,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "description": "No data found",
               "properties": {
                 "message": { "type": "string" }
               }
@@ -424,6 +434,7 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
               "properties": {
                 "message": { "type": "string" }
               }
