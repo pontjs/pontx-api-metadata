@@ -42,7 +42,9 @@
     "/v8/finance/chart/{symbol}": {
       "get": {
         "operationId": "getChart",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "Get chart and historical price data",
         "description": "Get chart and historical price data. Observed anonymously on both query1 and query2 on 2026-08-10; compatibility is not guaranteed. Yahoo's user-facing chart supports date ranges and intervals, but does not document this JSON protocol. Array members under `indicators` align by index with `timestamp` and can contain nulls.",
         "parameters": [
@@ -53,7 +55,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance symbol exactly as used in quote-page URLs. Examples include US equity `AAPL`, index `^GSPC`, and exchange-suffixed `0700.HK`."
             }
           },
           {
@@ -63,9 +66,35 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"],
+              "enum": [
+                "1d",
+                "5d",
+                "1mo",
+                "3mo",
+                "6mo",
+                "1y",
+                "2y",
+                "5y",
+                "10y",
+                "ytd",
+                "max"
+              ],
               "default": "1mo",
-              "example": "5d"
+              "example": "5d",
+              "description": "Relative lookback range. Do not send together with `period1`/`period2`. Intraday intervals are retained only for limited recent ranges; unsupported combinations return 422.",
+              "x-enum-descriptions": [
+                "Value 1d.",
+                "Value 5d.",
+                "Value 1mo.",
+                "Value 3mo.",
+                "Value 6mo.",
+                "Value 1y.",
+                "Value 2y.",
+                "Value 5y.",
+                "Value 10y.",
+                "Value ytd.",
+                "Value max."
+              ]
             }
           },
           {
@@ -75,9 +104,39 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"],
+              "enum": [
+                "1m",
+                "2m",
+                "5m",
+                "15m",
+                "30m",
+                "60m",
+                "90m",
+                "1h",
+                "1d",
+                "5d",
+                "1wk",
+                "1mo",
+                "3mo"
+              ],
               "default": "1d",
-              "example": "1d"
+              "example": "1d",
+              "description": "Sampling interval. Availability depends on range and instrument; Yahoo may reject overly old intraday requests.",
+              "x-enum-descriptions": [
+                "Value 1m.",
+                "Value 2m.",
+                "Value 5m.",
+                "Value 15m.",
+                "Value 30m.",
+                "Value 60m.",
+                "Value 90m.",
+                "Value 1h.",
+                "Value 1d.",
+                "Value 5d.",
+                "Value 1wk.",
+                "Value 1mo.",
+                "Value 3mo."
+              ]
             }
           },
           {
@@ -88,7 +147,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1704067200
+              "example": 1704067200,
+              "description": "Inclusive start time as Unix seconds. Use with `period2` instead of `range`."
             }
           },
           {
@@ -99,7 +159,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1706745600
+              "example": 1706745600,
+              "description": "Exclusive end time as Unix seconds. Use with `period1` instead of `range`."
             }
           },
           {
@@ -110,7 +171,8 @@
             "schema": {
               "type": "boolean",
               "default": false,
-              "example": false
+              "example": false,
+              "description": "Include extended hours"
             }
           }
         ],
@@ -135,11 +197,13 @@
                                 "properties": {
                                   "symbol": {
                                     "type": "string",
-                                    "example": "AAPL"
+                                    "example": "AAPL",
+                                    "description": "Symbol in the meta structure."
                                   },
                                   "currency": {
                                     "type": "string",
-                                    "example": "USD"
+                                    "example": "USD",
+                                    "description": "Currency in the meta structure."
                                   },
                                   "exchangeName": {
                                     "type": "string",
@@ -148,7 +212,8 @@
                                   },
                                   "fullExchangeName": {
                                     "type": "string",
-                                    "example": "NasdaqGS"
+                                    "example": "NasdaqGS",
+                                    "description": "Full Exchange Name in the meta structure."
                                   },
                                   "instrumentType": {
                                     "type": "string",
@@ -157,11 +222,13 @@
                                   },
                                   "regularMarketPrice": {
                                     "type": "number",
-                                    "example": 313.33
+                                    "example": 313.33,
+                                    "description": "Regular Market Price in the meta structure."
                                   },
                                   "chartPreviousClose": {
                                     "type": "number",
-                                    "example": 308.91
+                                    "example": 308.91,
+                                    "description": "Chart Previous Close in the meta structure."
                                   },
                                   "regularMarketTime": {
                                     "type": "integer",
@@ -176,33 +243,51 @@
                                   },
                                   "exchangeTimezoneName": {
                                     "type": "string",
-                                    "example": "America/New_York"
+                                    "example": "America/New_York",
+                                    "description": "Exchange Timezone Name in the meta structure."
                                   },
                                   "dataGranularity": {
                                     "type": "string",
-                                    "example": "1d"
+                                    "example": "1d",
+                                    "description": "Data Granularity in the meta structure."
                                   },
                                   "range": {
                                     "type": "string",
-                                    "example": "5d"
+                                    "example": "5d",
+                                    "description": "Range in the meta structure."
                                   },
                                   "validRanges": {
                                     "type": "array",
                                     "description": "Provider-returned ranges for this result; values can change.",
-                                    "items": {"type": "string"},
-                                    "example": ["1d", "5d", "1mo", "max"]
+                                    "items": {
+                                      "type": "string",
+                                      "description": "Valid Ranges item in the meta structure.",
+                                      "example": "example"
+                                    },
+                                    "example": [
+                                      "1d",
+                                      "5d",
+                                      "1mo",
+                                      "max"
+                                    ]
                                   }
                                 },
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "Meta in the result item structure."
                               },
                               "timestamp": {
                                 "type": "array",
                                 "description": "Bar timestamps as Unix seconds. Price and volume arrays use matching indexes.",
                                 "items": {
                                   "type": "integer",
-                                  "format": "int64"
+                                  "format": "int64",
+                                  "description": "Timestamp item in the result item structure.",
+                                  "example": 1
                                 },
-                                "example": [1704067200, 1704153600]
+                                "example": [
+                                  1704067200,
+                                  1704153600
+                                ]
                               },
                               "indicators": {
                                 "type": "object",
@@ -216,41 +301,58 @@
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "Open item in the quote item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "Open in the quote item structure."
                                         },
                                         "high": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "High item in the quote item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "High in the quote item structure."
                                         },
                                         "low": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "Low item in the quote item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "Low in the quote item structure."
                                         },
                                         "close": {
                                           "type": "array",
                                           "items": {
                                             "type": "number",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "Close item in the quote item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "Close in the quote item structure."
                                         },
                                         "volume": {
                                           "type": "array",
                                           "items": {
                                             "type": "integer",
                                             "format": "int64",
-                                            "nullable": true
-                                          }
+                                            "nullable": true,
+                                            "description": "Volume item in the quote item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "Volume in the quote item structure."
                                         }
                                       },
-                                      "additionalProperties": true
-                                    }
+                                      "additionalProperties": true,
+                                      "description": "Quote item in the indicators structure."
+                                    },
+                                    "description": "Quote in the indicators structure."
                                   },
                                   "adjclose": {
                                     "type": "array",
@@ -258,27 +360,57 @@
                                     "items": {
                                       "type": "object",
                                       "properties": {
-                                        "adjclose": {"type": "array", "items": {"type": "number", "nullable": true}}
+                                        "adjclose": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number",
+                                            "nullable": true,
+                                            "description": "Adjclose item in the adjclose item structure.",
+                                            "example": 1
+                                          },
+                                          "description": "Adjclose in the adjclose item structure."
+                                        }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "Adjclose item in the indicators structure."
                                     }
                                   }
                                 },
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "Indicators in the result item structure."
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the chart structure."
+                          },
+                          "description": "Result in the chart structure."
                         },
                         "error": {
-                          "allOf": [{"$ref": "#/components/schemas/YahooError"}],
-                          "nullable": true
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/YahooError"
+                            }
+                          ],
+                          "nullable": true,
+                          "description": "Error in the chart structure."
                         }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Chart in the get Chart response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Chart response in the get Chart structure."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Observed for an unknown, blank or delisted symbol. The body uses the `chart` error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartErrorResponse"
                 }
               }
             }
@@ -287,15 +419,15 @@
             "description": "Invalid symbol, period, interval, or range/interval combination.",
             "content": {
               "application/json": {
-                "schema": {"$ref": "#/components/schemas/ChartErrorResponse"}
+                "schema": {
+                  "$ref": "#/components/schemas/ChartErrorResponse"
+                }
               }
             }
           },
-          "404": {
-            "description": "Observed for an unknown, blank or delisted symbol. The body uses the `chart` error envelope.",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChartErrorResponse"}}}
-          },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -321,7 +453,9 @@
     "/v7/finance/quote": {
       "get": {
         "operationId": "getQuotes",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "Get batch quote snapshots",
         "description": "Get batch quote snapshots. The success shape is retained from observed Yahoo page traffic, not an official contract. A fresh anonymous query1 request returned HTTP 401 with a top-level `finance` error on 2026-08-10; browser cookie or other provider-controlled authorization state may be required.",
         "parameters": [
@@ -332,7 +466,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL,MSFT"
+              "example": "AAPL,MSFT",
+              "description": "Comma-separated Yahoo Finance symbols, for example `AAPL,MSFT`."
             }
           },
           {
@@ -342,7 +477,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "symbol,regularMarketPrice,currency"
+              "example": "symbol,regularMarketPrice,currency",
+              "description": "Observed comma-separated field projection. Yahoo publishes neither a complete field registry nor stability guarantees."
             }
           },
           {
@@ -353,7 +489,8 @@
             "schema": {
               "type": "boolean",
               "default": false,
-              "example": false
+              "example": false,
+              "description": "Return formatted values"
             }
           }
         ],
@@ -374,39 +511,63 @@
                             "type": "object",
                             "properties": {
                               "symbol": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Symbol in the result item structure.",
+                                "example": "AAPL"
                               },
                               "regularMarketPrice": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "Regular Market Price in the result item structure.",
+                                "example": 1
                               },
                               "regularMarketChangePercent": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "Regular Market Change Percent in the result item structure.",
+                                "example": 1
                               },
                               "regularMarketTime": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "Regular Market Time in the result item structure.",
+                                "example": 1
                               },
                               "currency": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Currency in the result item structure.",
+                                "example": "USD"
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the quote Response structure."
+                          },
+                          "description": "Result in the quote Response structure."
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Quote Response in the get Quotes response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Quotes response in the get Quotes structure."
                 }
               }
             }
           },
           "401": {
             "description": "Observed anonymous response: Yahoo browser session or other provider-controlled authorization state is required.",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -430,7 +591,9 @@
     "/v7/finance/spark": {
       "get": {
         "operationId": "getSpark",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "Get compact chart series",
         "description": "Get compact chart series for one or more symbols. A query2 anonymous sample returned HTTP 200 on 2026-08-10. Each result has a symbol and a `response` array containing chart-like objects; response availability and fields remain undocumented.",
         "parameters": [
@@ -441,7 +604,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL,MSFT"
+              "example": "AAPL,MSFT",
+              "description": "Comma-separated Yahoo Finance symbols."
             }
           },
           {
@@ -451,9 +615,35 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"],
+              "enum": [
+                "1d",
+                "5d",
+                "1mo",
+                "3mo",
+                "6mo",
+                "1y",
+                "2y",
+                "5y",
+                "10y",
+                "ytd",
+                "max"
+              ],
               "default": "1d",
-              "example": "5d"
+              "example": "5d",
+              "description": "Requested range",
+              "x-enum-descriptions": [
+                "Value 1d.",
+                "Value 5d.",
+                "Value 1mo.",
+                "Value 3mo.",
+                "Value 6mo.",
+                "Value 1y.",
+                "Value 2y.",
+                "Value 5y.",
+                "Value 10y.",
+                "Value ytd.",
+                "Value max."
+              ]
             }
           },
           {
@@ -463,9 +653,39 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"],
+              "enum": [
+                "1m",
+                "2m",
+                "5m",
+                "15m",
+                "30m",
+                "60m",
+                "90m",
+                "1h",
+                "1d",
+                "5d",
+                "1wk",
+                "1mo",
+                "3mo"
+              ],
               "default": "5m",
-              "example": "1d"
+              "example": "1d",
+              "description": "Bar interval",
+              "x-enum-descriptions": [
+                "Value 1m.",
+                "Value 2m.",
+                "Value 5m.",
+                "Value 15m.",
+                "Value 30m.",
+                "Value 60m.",
+                "Value 90m.",
+                "Value 1h.",
+                "Value 1d.",
+                "Value 5d.",
+                "Value 1wk.",
+                "Value 1mo.",
+                "Value 3mo."
+              ]
             }
           }
         ],
@@ -486,7 +706,9 @@
                             "type": "object",
                             "properties": {
                               "symbol": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Symbol in the result item structure.",
+                                "example": "AAPL"
                               },
                               "response": {
                                 "type": "array",
@@ -497,10 +719,26 @@
                                       "type": "object",
                                       "description": "Observed chart metadata; uses the same open provider shape as the chart endpoint.",
                                       "properties": {
-                                        "currency": {"type": "string", "example": "USD"},
-                                        "symbol": {"type": "string", "example": "AAPL"},
-                                        "dataGranularity": {"type": "string", "example": "1d"},
-                                        "range": {"type": "string", "example": "5d"}
+                                        "currency": {
+                                          "type": "string",
+                                          "example": "USD",
+                                          "description": "Currency in the meta structure."
+                                        },
+                                        "symbol": {
+                                          "type": "string",
+                                          "example": "AAPL",
+                                          "description": "Symbol in the meta structure."
+                                        },
+                                        "dataGranularity": {
+                                          "type": "string",
+                                          "example": "1d",
+                                          "description": "Data Granularity in the meta structure."
+                                        },
+                                        "range": {
+                                          "type": "string",
+                                          "example": "5d",
+                                          "description": "Range in the meta structure."
+                                        }
                                       },
                                       "additionalProperties": true
                                     },
@@ -508,9 +746,15 @@
                                       "type": "array",
                                       "items": {
                                         "type": "integer",
-                                        "format": "int64"
+                                        "format": "int64",
+                                        "description": "Timestamp item in the response item structure.",
+                                        "example": 1
                                       },
-                                      "example": [1704067200, 1704153600]
+                                      "example": [
+                                        1704067200,
+                                        1704153600
+                                      ],
+                                      "description": "Timestamp in the response item structure."
                                     },
                                     "indicators": {
                                       "type": "object",
@@ -524,37 +768,61 @@
                                                 "type": "array",
                                                 "items": {
                                                   "type": "number",
-                                                  "nullable": true
-                                                }
+                                                  "nullable": true,
+                                                  "description": "Close item in the quote item structure.",
+                                                  "example": 1
+                                                },
+                                                "description": "Close in the quote item structure."
                                               }
                                             },
-                                            "additionalProperties": true
-                                          }
+                                            "additionalProperties": true,
+                                            "description": "Quote item in the indicators structure."
+                                          },
+                                          "description": "Quote in the indicators structure."
                                         }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "Indicators in the response item structure."
                                     }
                                   },
-                                  "additionalProperties": true
-                                }
+                                  "additionalProperties": true,
+                                  "description": "Response item in the result item structure."
+                                },
+                                "description": "Response in the result item structure."
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the spark structure."
+                          },
+                          "description": "Result in the spark structure."
+                        },
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
                         }
-                        ,
-                        "error": {"$ref": "#/components/schemas/YahooError"}
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Spark in the get Spark response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Spark response in the get Spark structure."
                 }
               }
             }
           },
-          "400": {"description": "Missing or invalid symbols/range/interval parameter.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "Missing or invalid symbols/range/interval parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -578,7 +846,9 @@
     "/v1/finance/quoteType/": {
       "get": {
         "operationId": "getQuoteType",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "Get security type and identity",
         "description": "Get security type and identity. A query1 anonymous sample returned HTTP 200 on 2026-08-10. Category, exchange and feature-flag fields are provider-controlled and remain an open shape.",
         "parameters": [
@@ -589,7 +859,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance symbol"
             }
           }
         ],
@@ -611,15 +882,18 @@
                             "properties": {
                               "symbol": {
                                 "type": "string",
-                                "example": "AAPL"
+                                "example": "AAPL",
+                                "description": "Symbol in the result item structure."
                               },
                               "quoteType": {
                                 "type": "string",
-                                "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `MUTUALFUND`, `INDEX`, `CURRENCY`, `CRYPTOCURRENCY`, `FUTURE` or `OPTION`. This is intentionally not a closed enum."
+                                "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `MUTUALFUND`, `INDEX`, `CURRENCY`, `CRYPTOCURRENCY`, `FUTURE` or `OPTION`. This is intentionally not a closed enum.",
+                                "example": "example"
                               },
                               "longName": {
                                 "type": "string",
-                                "example": "Apple Inc."
+                                "example": "Apple Inc.",
+                                "description": "Long Name in the result item structure."
                               },
                               "exchange": {
                                 "type": "string",
@@ -628,31 +902,47 @@
                               },
                               "exchangeTimezoneName": {
                                 "type": "string",
-                                "example": "America/New_York"
+                                "example": "America/New_York",
+                                "description": "Exchange Timezone Name in the result item structure."
                               },
                               "market": {
                                 "type": "string",
-                                "example": "us_market"
+                                "example": "us_market",
+                                "description": "Market in the result item structure."
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the quote Type structure."
+                          },
+                          "description": "Result in the quote Type structure."
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Quote Type in the get Quote Type response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Quote Type response in the get Quote Type structure."
                 }
               }
             }
           },
           "400": {
             "description": "Observed when the required `symbol` query parameter is absent.",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -676,7 +966,9 @@
     "/v1/finance/search": {
       "get": {
         "operationId": "searchSymbols",
-        "tags": ["Discovery"],
+        "tags": [
+          "Discovery"
+        ],
         "summary": "Search securities",
         "description": "Search securities by symbol or name. A query2 anonymous sample returned HTTP 200 on 2026-08-10. Yahoo Help documents the search feature, not this JSON shape; result ranking, auxiliary collections and timing fields can change.",
         "parameters": [
@@ -688,7 +980,8 @@
             "schema": {
               "type": "string",
               "minLength": 1,
-              "example": "Apple"
+              "example": "Apple",
+              "description": "Free-text company name, symbol, fund name, index or other security query."
             }
           },
           {
@@ -700,7 +993,8 @@
               "type": "integer",
               "minimum": 0,
               "default": 6,
-              "example": 2
+              "example": 2,
+              "description": "Maximum securities"
             }
           },
           {
@@ -712,7 +1006,8 @@
               "type": "integer",
               "minimum": 0,
               "default": 4,
-              "example": 0
+              "example": 0,
+              "description": "Maximum news results"
             }
           }
         ],
@@ -736,21 +1031,28 @@
                         "properties": {
                           "symbol": {
                             "type": "string",
-                            "example": "AAPL"
+                            "example": "AAPL",
+                            "description": "Symbol in the quotes item structure."
                           },
                           "shortname": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Shortname in the quotes item structure.",
+                            "example": "Example"
                           },
                           "longname": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Longname in the quotes item structure.",
+                            "example": "Example"
                           },
                           "exchange": {
                             "type": "string",
-                            "example": "NMS"
+                            "example": "NMS",
+                            "description": "Exchange in the quotes item structure."
                           },
                           "quoteType": {
                             "type": "string",
-                            "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `INDEX`, `CURRENCY` or `CRYPTOCURRENCY`."
+                            "description": "Provider-controlled instrument category such as `EQUITY`, `ETF`, `INDEX`, `CURRENCY` or `CRYPTOCURRENCY`.",
+                            "example": "example"
                           },
                           "typeDisp": {
                             "type": "string",
@@ -764,24 +1066,40 @@
                           },
                           "sector": {
                             "type": "string",
-                            "example": "Technology"
+                            "example": "Technology",
+                            "description": "Sector in the quotes item structure."
                           },
                           "industry": {
                             "type": "string",
-                            "example": "Consumer Electronics"
+                            "example": "Consumer Electronics",
+                            "description": "Industry in the quotes item structure."
                           }
                         },
-                        "additionalProperties": true
-                      }
+                        "additionalProperties": true,
+                        "description": "Quotes item in the search Symbols response structure."
+                      },
+                      "description": "Quotes in the search Symbols response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Search Symbols response in the search Symbols structure."
                 }
               }
             }
           },
-          "400": {"description": "Missing or invalid search query.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "Missing or invalid search query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -805,7 +1123,9 @@
     "/v10/finance/quoteSummary/{symbol}": {
       "get": {
         "operationId": "getQuoteSummary",
-        "tags": ["Fundamentals"],
+        "tags": [
+          "Fundamentals"
+        ],
         "summary": "Get modular security details",
         "description": "Get modular security details. A fresh anonymous query1 request returned HTTP 401 `Invalid Crumb` on 2026-08-10. A crumb is coupled to provider-controlled browser cookie state; this metadata does not describe a supported authentication flow. Module names and fields can change without notice.",
         "parameters": [
@@ -816,7 +1136,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance symbol"
             }
           },
           {
@@ -826,7 +1147,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "price,summaryDetail"
+              "example": "price,summaryDetail",
+              "description": "Comma-separated provider module names. Common observed values include `price`, `summaryDetail`, `assetProfile`, `defaultKeyStatistics`, `financialData`, `calendarEvents`, `recommendationTrend`, `earningsTrend`, `fundProfile`, and `topHoldings`. Availability depends on instrument type and Yahoo session state."
             }
           }
         ],
@@ -849,37 +1171,54 @@
                               "price": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "Price in the result item structure."
                               },
                               "summaryDetail": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "Summary Detail in the result item structure."
                               },
                               "assetProfile": {
                                 "type": "object",
                                 "properties": {},
-                                "additionalProperties": true
+                                "additionalProperties": true,
+                                "description": "Asset Profile in the result item structure."
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the quote Summary structure."
+                          },
+                          "description": "Result in the quote Summary structure."
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Quote Summary in the get Quote Summary response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Quote Summary response in the get Quote Summary structure."
                 }
               }
             }
           },
           "401": {
             "description": "Observed anonymous response when a valid crumb/cookie pair is absent.",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
           },
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "inferred",
         "x-pontx-evidence": [
@@ -903,7 +1242,9 @@
     "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
       "get": {
         "operationId": "getFundamentalTimeseries",
-        "tags": ["Fundamentals"],
+        "tags": [
+          "Fundamentals"
+        ],
         "summary": "Get fundamental and event time series",
         "description": "Get fundamental and event time series. A query2 anonymous request for `trailingMarketCap` returned HTTP 200 on 2026-08-10. Supported type identifiers and dynamically named result arrays are internal and may change; they are observations, not an enum or official contract.",
         "parameters": [
@@ -914,7 +1255,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Yahoo Finance symbol"
             }
           },
           {
@@ -924,7 +1266,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "trailingMarketCap"
+              "example": "trailingMarketCap",
+              "description": "Comma-separated internal series identifiers. Example: `trailingMarketCap`. Yahoo does not publish a complete supported-value registry; identifiers vary by instrument and may change."
             }
           },
           {
@@ -935,7 +1278,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1704067200
+              "example": 1704067200,
+              "description": "Optional inclusive observed start bound as Unix seconds. When omitted, Yahoo selects a provider-controlled default window."
             }
           },
           {
@@ -946,7 +1290,8 @@
             "schema": {
               "type": "integer",
               "format": "int64",
-              "example": 1735689600
+              "example": 1735689600,
+              "description": "Optional observed end bound as Unix seconds. When omitted, Yahoo selects a provider-controlled default window."
             }
           }
         ],
@@ -970,17 +1315,45 @@
                                 "type": "object",
                                 "description": "Observed request identity arrays.",
                                 "properties": {
-                                  "symbol": {"type": "array", "items": {"type": "string"}, "example": ["AAPL"]},
-                                  "type": {"type": "array", "items": {"type": "string"}, "example": ["trailingMarketCap"]}
+                                  "symbol": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "description": "Symbol item in the meta structure.",
+                                      "example": "AAPL"
+                                    },
+                                    "example": [
+                                      "AAPL"
+                                    ],
+                                    "description": "Symbol in the meta structure."
+                                  },
+                                  "type": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "description": "Type item in the meta structure.",
+                                      "example": "example"
+                                    },
+                                    "example": [
+                                      "trailingMarketCap"
+                                    ],
+                                    "description": "Type in the meta structure."
+                                  }
                                 },
                                 "additionalProperties": true
                               },
                               "timestamp": {
                                 "type": "array",
                                 "items": {
-                                  "type": "integer"
+                                  "type": "integer",
+                                  "description": "Timestamp item in the result item structure.",
+                                  "example": 1
                                 },
-                                "example": [1717977600, 1720742400]
+                                "example": [
+                                  1717977600,
+                                  1720742400
+                                ],
+                                "description": "Timestamp in the result item structure."
                               },
                               "trailingMarketCap": {
                                 "type": "array",
@@ -988,38 +1361,82 @@
                                 "items": {
                                   "type": "object",
                                   "properties": {
-                                    "dataId": {"type": "integer", "example": 40001},
-                                    "asOfDate": {"type": "string", "format": "date", "example": "2024-07-12"},
-                                    "periodType": {"type": "string", "description": "Observed provider period label; not a closed enum.", "example": "TTM"},
-                                    "currencyCode": {"type": "string", "example": "USD"},
+                                    "dataId": {
+                                      "type": "integer",
+                                      "example": 40001,
+                                      "description": "Data Id in the trailing Market Cap item structure."
+                                    },
+                                    "asOfDate": {
+                                      "type": "string",
+                                      "format": "date",
+                                      "example": "2024-07-12",
+                                      "description": "As Of Date in the trailing Market Cap item structure."
+                                    },
+                                    "periodType": {
+                                      "type": "string",
+                                      "description": "Observed provider period label; not a closed enum.",
+                                      "example": "TTM"
+                                    },
+                                    "currencyCode": {
+                                      "type": "string",
+                                      "example": "USD",
+                                      "description": "Currency Code in the trailing Market Cap item structure."
+                                    },
                                     "reportedValue": {
                                       "type": "object",
                                       "properties": {
-                                        "raw": {"type": "number", "example": 3536499331660},
-                                        "fmt": {"type": "string", "example": "3.54T"}
+                                        "raw": {
+                                          "type": "number",
+                                          "example": 3536499331660,
+                                          "description": "Raw in the reported Value structure."
+                                        },
+                                        "fmt": {
+                                          "type": "string",
+                                          "example": "3.54T",
+                                          "description": "Fmt in the reported Value structure."
+                                        }
                                       },
-                                      "additionalProperties": true
+                                      "additionalProperties": true,
+                                      "description": "Reported Value in the trailing Market Cap item structure."
                                     }
                                   },
-                                  "additionalProperties": true
+                                  "additionalProperties": true,
+                                  "description": "Trailing Market Cap item in the result item structure."
                                 }
                               }
                             },
-                            "additionalProperties": true
-                          }
+                            "additionalProperties": true,
+                            "description": "Result item in the timeseries structure."
+                          },
+                          "description": "Result in the timeseries structure."
                         },
-                        "error": {"$ref": "#/components/schemas/YahooError"}
+                        "error": {
+                          "$ref": "#/components/schemas/YahooError"
+                        }
                       },
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "description": "Timeseries in the get Fundamental Timeseries response structure."
                     }
                   },
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "description": "Get Fundamental Timeseries response in the get Fundamental Timeseries structure."
                 }
               }
             }
           },
-          "400": {"description": "Malformed type or period parameter. Omission alone did not produce an error in the 2026-08-10 anonymous sample.", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}}}},
-          "429": {"$ref": "#/components/responses/RateLimited"}
+          "400": {
+            "description": "Malformed type or period parameter. Omission alone did not produce an error in the 2026-08-10 anonymous sample.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -1049,8 +1466,16 @@
         "title": "YahooError",
         "description": "Observed provider error object. It is null on successful chart-like envelopes; fields and wording are provider-controlled.",
         "properties": {
-          "code": {"type": "string", "description": "Observed symbolic or human-readable code; intentionally not a closed enum.", "example": "Unauthorized"},
-          "description": {"type": "string", "example": "User is unable to access this feature - https://bit.ly/yahoo-finance-api-feedback"}
+          "code": {
+            "type": "string",
+            "description": "Observed symbolic or human-readable code; intentionally not a closed enum.",
+            "example": "Unauthorized"
+          },
+          "description": {
+            "type": "string",
+            "example": "User is unable to access this feature - https://bit.ly/yahoo-finance-api-feedback",
+            "description": "Description in the Yahoo Error structure."
+          }
         },
         "additionalProperties": true
       },
@@ -1058,16 +1483,31 @@
         "type": "object",
         "title": "FinanceErrorResponse",
         "description": "Observed error envelope used by quote, discovery and some fundamentals endpoints.",
-        "required": ["finance"],
+        "required": [
+          "finance"
+        ],
         "properties": {
           "finance": {
             "type": "object",
-            "required": ["error"],
+            "required": [
+              "error"
+            ],
             "properties": {
-              "result": {"type": "array", "nullable": true, "items": {}, "example": null},
-              "error": {"$ref": "#/components/schemas/YahooError"}
+              "result": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "description": "Result item in the finance structure."
+                },
+                "example": null,
+                "description": "Result in the finance structure."
+              },
+              "error": {
+                "$ref": "#/components/schemas/YahooError"
+              }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Finance in the Finance Error Response structure."
           }
         },
         "additionalProperties": true
@@ -1076,16 +1516,31 @@
         "type": "object",
         "title": "ChartErrorResponse",
         "description": "Observed chart-family error envelope.",
-        "required": ["chart"],
+        "required": [
+          "chart"
+        ],
         "properties": {
           "chart": {
             "type": "object",
-            "required": ["error"],
+            "required": [
+              "error"
+            ],
             "properties": {
-              "result": {"type": "array", "nullable": true, "items": {}, "example": null},
-              "error": {"$ref": "#/components/schemas/YahooError"}
+              "result": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "description": "Result item in the chart structure."
+                },
+                "example": null,
+                "description": "Result in the chart structure."
+              },
+              "error": {
+                "$ref": "#/components/schemas/YahooError"
+              }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Chart in the Chart Error Response structure."
           }
         },
         "additionalProperties": true
@@ -1097,15 +1552,25 @@
         "headers": {
           "Retry-After": {
             "description": "May be supplied by the provider; presence is not guaranteed.",
-            "schema": {"type": "string"}
+            "schema": {
+              "type": "string",
+              "description": "Retry After in the Rate Limited structure.",
+              "example": "example"
+            }
           }
         },
         "content": {
           "application/json": {
-            "schema": {"$ref": "#/components/schemas/FinanceErrorResponse"}
+            "schema": {
+              "$ref": "#/components/schemas/FinanceErrorResponse"
+            }
           },
           "text/plain": {
-            "schema": {"type": "string", "example": "Too Many Requests"}
+            "schema": {
+              "type": "string",
+              "example": "Too Many Requests",
+              "description": "Rate Limited response in the Rate Limited structure."
+            }
           }
         }
       }

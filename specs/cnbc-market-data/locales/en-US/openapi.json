@@ -4,11 +4,19 @@
     "title": "CNBC Web Market Data API",
     "version": "2026-08-10",
     "description": "Observed, undocumented, read-only web endpoints operated by CNBC for quote-page data. They are not a supported developer API: request headers may be required by the CDN, persisted-query hashes may rotate, fields are display-formatted strings, and availability or schema may change without notice.",
-    "license": { "name": "Proprietary / undocumented" }
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
   },
   "servers": [
-    { "url": "https://quote.cnbc.com", "description": "CNBC quote cache web service" },
-    { "url": "https://webql-redesign.cnbcfm.com", "description": "CNBC persisted GraphQL service" }
+    {
+      "url": "https://quote.cnbc.com",
+      "description": "CNBC quote cache web service"
+    },
+    {
+      "url": "https://webql-redesign.cnbcfm.com",
+      "description": "CNBC persisted GraphQL service"
+    }
   ],
   "paths": {
     "/quote-html-webservice/restQuote/symbolType/symbol": {
@@ -16,18 +24,192 @@
         "operationId": "getRestQuotes",
         "summary": "Get display-formatted quotes for one or more symbols",
         "description": "Returns CNBC quote-cache records. A browser-like User-Agent and CNBC Referer were required in a reproducible 2026-08-10 request; the same request without them received HTTP 403 from Akamai. Multiple symbols must be separated with `|`; a comma-separated `AAPL,MSFT` request was treated as one invalid symbol and returned `code: 1`. Numeric market values are generally locale-formatted strings (for example `313.33`, `32,322,778`, `4.573T`, and `+0.29%`), so consumers must not assume JSON numbers. Delayed/real-time status and attribution are conveyed by fields such as `source`, `provider`, and `realTime`.",
-        "servers": [{ "url": "https://quote.cnbc.com" }],
+        "servers": [
+          {
+            "url": "https://quote.cnbc.com"
+          }
+        ],
         "parameters": [
-          { "name": "symbols", "in": "query", "required": true, "description": "One CNBC symbol, or multiple symbols separated by a vertical bar (`|`). Examples include equities (`AAPL`), indices (`.SPX`), and multiple symbols (`AAPL|MSFT`). This is a wire-format string, not an OpenAPI exploded array.", "schema": { "type": "string", "minLength": 1, "pattern": "^[^,]+$" }, "example": "AAPL|MSFT" },
-          { "name": "requestMethod", "in": "query", "description": "Observed client mode. `quick` is used by the quote-page request.", "schema": { "type": "string", "enum": ["quick"], "default": "quick" }, "example": "quick" },
-          { "name": "partnerId", "in": "query", "description": "Observed CNBC partner identifier; `2` was verified, but this is not a public client credential or documented contract.", "schema": { "type": "integer", "enum": [2], "default": 2 }, "example": 2 },
-          { "name": "fund", "in": "query", "description": "Observed 0/1 flag requesting fund-related fields.", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
-          { "name": "exthrs", "in": "query", "description": "Observed 0/1 flag requesting `ExtendedMktQuote` when available.", "schema": { "type": "integer", "enum": [0, 1], "default": 1 }, "example": 1 },
-          { "name": "output", "in": "query", "description": "Observed wire format.", "schema": { "type": "string", "enum": ["json"], "default": "json" }, "example": "json" }
+          {
+            "name": "symbols",
+            "in": "query",
+            "required": true,
+            "description": "One CNBC symbol, or multiple symbols separated by a vertical bar (`|`). Examples include equities (`AAPL`), indices (`.SPX`), and multiple symbols (`AAPL|MSFT`). This is a wire-format string, not an OpenAPI exploded array.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^,]+$",
+              "description": "One CNBC symbol, or multiple symbols separated by a vertical bar (`|`). Examples include equities (`AAPL`), indices (`.SPX`), and multiple symbols (`AAPL|MSFT`). This is a wire-format string, not an OpenAPI exploded array.",
+              "example": "AAPL|MSFT"
+            },
+            "example": "AAPL|MSFT"
+          },
+          {
+            "name": "requestMethod",
+            "in": "query",
+            "description": "Observed client mode. `quick` is used by the quote-page request.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "quick"
+              ],
+              "default": "quick",
+              "description": "Observed client mode. `quick` is used by the quote-page request.",
+              "example": "quick",
+              "x-enum-descriptions": [
+                "Value quick."
+              ]
+            },
+            "example": "quick"
+          },
+          {
+            "name": "partnerId",
+            "in": "query",
+            "description": "Observed CNBC partner identifier; `2` was verified, but this is not a public client credential or documented contract.",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                2
+              ],
+              "default": 2,
+              "description": "Observed CNBC partner identifier; `2` was verified, but this is not a public client credential or documented contract.",
+              "example": 2,
+              "x-enum-descriptions": [
+                "Value 2."
+              ]
+            },
+            "example": 2
+          },
+          {
+            "name": "fund",
+            "in": "query",
+            "description": "Observed 0/1 flag requesting fund-related fields.",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ],
+              "default": 1,
+              "description": "Observed 0/1 flag requesting fund-related fields.",
+              "example": 1,
+              "x-enum-descriptions": [
+                "Value 0.",
+                "Value 1."
+              ]
+            },
+            "example": 1
+          },
+          {
+            "name": "exthrs",
+            "in": "query",
+            "description": "Observed 0/1 flag requesting `ExtendedMktQuote` when available.",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ],
+              "default": 1,
+              "description": "Observed 0/1 flag requesting `ExtendedMktQuote` when available.",
+              "example": 1,
+              "x-enum-descriptions": [
+                "Value 0.",
+                "Value 1."
+              ]
+            },
+            "example": 1
+          },
+          {
+            "name": "output",
+            "in": "query",
+            "description": "Observed wire format.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json"
+              ],
+              "default": "json",
+              "description": "Observed wire format.",
+              "example": "json",
+              "x-enum-descriptions": [
+                "Value json."
+              ]
+            },
+            "example": "json"
+          }
         ],
         "responses": {
-          "200": { "description": "JSON envelope containing one record per requested symbol. Unknown symbols are represented in the same HTTP 200 envelope by a record containing the requested `symbol` and non-zero `code` (observed: `1`), rather than by an HTTP error.", "headers": { "Cache-Control": { "description": "CDN cache policy; `max-age=5` was observed.", "schema": { "type": "string" }, "example": "max-age=5" }, "Expires": { "description": "HTTP expiry time supplied by the quote cache.", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:39 GMT" }, "X-TTL": { "description": "Observed CNBC cache TTL header, in seconds.", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FormattedQuoteResponse" }, "example": { "FormattedQuoteResult": { "FormattedQuote": [{ "symbol": "AAPL", "code": 0, "name": "Apple Inc", "last": "313.33", "change": "+0.92", "change_pct": "+0.29%", "currencyCode": "USD", "volume": "32,322,778", "realTime": "true", "curmktstatus": "POST_MKT" }] } } } } },
-          "403": { "description": "CDN access denied, observed when browser-like request headers were absent or rejected.", "content": { "text/html": { "schema": { "type": "string" }, "example": "<HTML><HEAD><TITLE>Access Denied</TITLE>..." } } }
+          "200": {
+            "description": "JSON envelope containing one record per requested symbol. Unknown symbols are represented in the same HTTP 200 envelope by a record containing the requested `symbol` and non-zero `code` (observed: `1`), rather than by an HTTP error.",
+            "headers": {
+              "Cache-Control": {
+                "description": "CDN cache policy; `max-age=5` was observed.",
+                "schema": {
+                  "type": "string",
+                  "description": "Cache Control in the get Rest Quotes structure.",
+                  "example": "example"
+                },
+                "example": "max-age=5"
+              },
+              "Expires": {
+                "description": "HTTP expiry time supplied by the quote cache.",
+                "schema": {
+                  "type": "string",
+                  "description": "Expires in the get Rest Quotes structure.",
+                  "example": "example"
+                },
+                "example": "Mon, 10 Aug 2026 04:17:39 GMT"
+              },
+              "X-TTL": {
+                "description": "Observed CNBC cache TTL header, in seconds.",
+                "schema": {
+                  "type": "string",
+                  "description": "X TTL in the get Rest Quotes structure.",
+                  "example": "example"
+                },
+                "example": "10.000"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormattedQuoteResponse"
+                },
+                "example": {
+                  "FormattedQuoteResult": {
+                    "FormattedQuote": [
+                      {
+                        "symbol": "AAPL",
+                        "code": 0,
+                        "name": "Apple Inc",
+                        "last": "313.33",
+                        "change": "+0.92",
+                        "change_pct": "+0.29%",
+                        "currencyCode": "USD",
+                        "volume": "32,322,778",
+                        "realTime": "true",
+                        "curmktstatus": "POST_MKT"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CDN access denied, observed when browser-like request headers were absent or rejected.",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "description": "Get Rest Quotes response in the get Rest Quotes structure.",
+                  "example": "example"
+                },
+                "example": "<HTML><HEAD><TITLE>Access Denied</TITLE>..."
+              }
+            }
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -36,7 +218,10 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Undocumented display-data endpoint behind Akamai. Browser-like User-Agent and CNBC Referer were necessary in the verification environment; throttling, blocking, field changes, and formatted-string values remain likely.",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": {
+          "Referer": "https://www.cnbc.com/",
+          "User-Agent": "Mozilla/5.0"
+        }
       }
     },
     "/graphql": {
@@ -44,15 +229,110 @@
         "operationId": "getQuoteChartData",
         "summary": "Get CNBC quote chart data with the persisted query",
         "description": "Executes an undocumented persisted GraphQL query. The recorded SHA-256 hash was accepted on 2026-08-10, but the documented sample variables produced a successful envelope whose chart fields were null. Treat this endpoint as experimental: the variable contract and persisted hash are frontend implementation details and may rotate independently.",
-        "servers": [{ "url": "https://webql-redesign.cnbcfm.com" }],
+        "servers": [
+          {
+            "url": "https://webql-redesign.cnbcfm.com"
+          }
+        ],
         "parameters": [
-          { "name": "operationName", "in": "query", "required": true, "description": "Persisted GraphQL operation name.", "schema": { "type": "string", "enum": ["getQuoteChartData"], "default": "getQuoteChartData" }, "example": "getQuoteChartData" },
-          { "name": "variables", "in": "query", "required": true, "description": "URL-encoded JSON object. The shown shape is observed but not a stable public contract.", "schema": { "type": "string" }, "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}" },
-          { "name": "extensions", "in": "query", "required": true, "description": "URL-encoded Apollo persisted-query descriptor. The hash can rotate with CNBC frontend deployments.", "schema": { "type": "string" }, "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}" }
+          {
+            "name": "operationName",
+            "in": "query",
+            "required": true,
+            "description": "Persisted GraphQL operation name.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "getQuoteChartData"
+              ],
+              "default": "getQuoteChartData",
+              "description": "Persisted GraphQL operation name.",
+              "example": "getQuoteChartData",
+              "x-enum-descriptions": [
+                "Value getQuoteChartData."
+              ]
+            },
+            "example": "getQuoteChartData"
+          },
+          {
+            "name": "variables",
+            "in": "query",
+            "required": true,
+            "description": "URL-encoded JSON object. The shown shape is observed but not a stable public contract.",
+            "schema": {
+              "type": "string",
+              "description": "URL-encoded JSON object. The shown shape is observed but not a stable public contract.",
+              "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
+            },
+            "example": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
+          },
+          {
+            "name": "extensions",
+            "in": "query",
+            "required": true,
+            "description": "URL-encoded Apollo persisted-query descriptor. The hash can rotate with CNBC frontend deployments.",
+            "schema": {
+              "type": "string",
+              "description": "URL-encoded Apollo persisted-query descriptor. The hash can rotate with CNBC frontend deployments.",
+              "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}"
+            },
+            "example": "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9e1670c29a10707c417a1efd327d4b2b1d456b77f1426e7e84fb7d399416bb6b\"}}"
+          }
         ],
         "responses": {
-          "200": { "description": "GraphQL response; HTTP 200 may still contain null data or an `errors` array.", "headers": { "Cache-Control": { "description": "CDN cache policy; `max-age=15` was observed.", "schema": { "type": "string" }, "example": "max-age=15" }, "Expires": { "description": "HTTP expiry time supplied by the service.", "schema": { "type": "string" }, "example": "Mon, 10 Aug 2026 04:17:50 GMT" }, "X-TTL": { "description": "Observed CNBC cache TTL header, in seconds.", "schema": { "type": "string" }, "example": "10.000" } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/QuoteChartGraphQLResponse" }, "example": { "data": { "chartData": { "symbol": null, "timeRange": null, "allSymbols": null, "priceBars": null, "__typename": "chartdata" } } } } } },
-          "400": { "description": "Malformed query parameters or persisted-query request." }
+          "200": {
+            "description": "GraphQL response; HTTP 200 may still contain null data or an `errors` array.",
+            "headers": {
+              "Cache-Control": {
+                "description": "CDN cache policy; `max-age=15` was observed.",
+                "schema": {
+                  "type": "string",
+                  "description": "Cache Control in the get Quote Chart Data structure.",
+                  "example": "example"
+                },
+                "example": "max-age=15"
+              },
+              "Expires": {
+                "description": "HTTP expiry time supplied by the service.",
+                "schema": {
+                  "type": "string",
+                  "description": "Expires in the get Quote Chart Data structure.",
+                  "example": "example"
+                },
+                "example": "Mon, 10 Aug 2026 04:17:50 GMT"
+              },
+              "X-TTL": {
+                "description": "Observed CNBC cache TTL header, in seconds.",
+                "schema": {
+                  "type": "string",
+                  "description": "X TTL in the get Quote Chart Data structure.",
+                  "example": "example"
+                },
+                "example": "10.000"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteChartGraphQLResponse"
+                },
+                "example": {
+                  "data": {
+                    "chartData": {
+                      "symbol": null,
+                      "timeRange": null,
+                      "allSymbols": null,
+                      "priceBars": null,
+                      "__typename": "chartdata"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed query parameters or persisted-query request."
+          }
         },
         "x-pontx-documentation-status": "observed",
         "x-pontx-evidence": [
@@ -61,23 +341,382 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Persisted hash remained accepted, but the sample variable shape returned null chart fields. Do not rely on successful HTTP status as proof of usable chart data.",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" }
+        "x-pontx-proxy-headers": {
+          "Referer": "https://www.cnbc.com/",
+          "User-Agent": "Mozilla/5.0",
+          "partner": "cnbc01"
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "FormattedQuoteResponse": { "title": "FormattedQuoteResponse", "description": "FormattedQuoteResponse data structure", "type": "object", "required": ["FormattedQuoteResult"], "properties": { "FormattedQuoteResult": { "type": "object", "required": ["FormattedQuote"], "properties": { "FormattedQuote": { "type": "array", "items": { "$ref": "#/components/schemas/FormattedQuote" } } }, "additionalProperties": true } }, "additionalProperties": true },
-      "FormattedQuote": { "title": "FormattedQuote", "description": "FormattedQuote data structure", "type": "object", "required": ["symbol", "code"], "properties": {
-        "symbol": { "type": "string", "example": "AAPL" }, "symbolType": { "type": "string", "example": "symbol" }, "code": { "type": "integer", "description": "Per-symbol result code.", "example": 0 }, "name": { "type": "string", "example": "Apple Inc" }, "shortName": { "type": "string", "example": "AAPL" },
-        "last": { "type": "string", "description": "Display-formatted last price; percentage-bearing instruments may include `%` (for example `4.656%`).", "example": "313.33" }, "last_timedate": { "type": "string", "description": "Provider-formatted display date/time; observed shapes vary by instrument.", "example": "08/07/26 EDT" }, "last_time": { "type": "string", "description": "Machine-oriented quote time. Observed as either a date (`2026-08-07`) or an offset timestamp (`2026-08-10T00:17:13.000-0400`), so no single OpenAPI string format is asserted.", "example": "2026-08-07" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"], "example": "UP" },
-        "type": { "type": "string", "example": "STOCK" }, "subType": { "type": "string", "example": "Common Stock" }, "exchange": { "type": "string", "example": "NASDAQ" }, "source": { "type": "string", "example": "Last NASDAQ LS, VOL From CTA" }, "open": { "type": "string", "example": "311.45" }, "high": { "type": "string", "example": "314.81" }, "low": { "type": "string", "example": "310.74" },
-        "change": { "type": "string", "example": "+0.92" }, "change_pct": { "type": "string", "example": "+0.29%" }, "currencyCode": { "type": "string", "example": "USD" }, "volume": { "type": "string", "example": "32,322,778" }, "volume_alt": { "type": "string", "example": "32.3M" }, "provider": { "type": "string", "example": "CNBC QUOTE CACHE" }, "previous_day_closing": { "type": "string", "example": "312.41" },
-        "realTime": { "type": "string", "enum": ["true", "false"], "description": "Observed as a string, not a JSON boolean.", "example": "true" }, "curmktstatus": { "type": "string", "enum": ["PRE_MKT", "REG_MKT", "POST_MKT", "CLOSED"], "example": "POST_MKT" }, "ExtendedMktQuote": { "$ref": "#/components/schemas/ExtendedMarketQuote" }
-      }, "additionalProperties": true },
-      "ExtendedMarketQuote": { "title": "ExtendedMarketQuote", "description": "ExtendedMarketQuote data structure", "type": "object", "properties": { "type": { "type": "string", "enum": ["PRE_MKT", "POST_MKT"] }, "source": { "type": "string" }, "last": { "type": "string", "example": "313.15" }, "last_timedate": { "type": "string" }, "last_time": { "type": "string", "description": "Observed date/time string; kept format-free because CNBC formats vary by instrument and feed." }, "change": { "type": "string", "example": "-0.18" }, "change_pct": { "type": "string", "example": "-0.06%" }, "volume": { "type": "string", "example": "1,630,014" }, "volume_alt": { "type": "string", "description": "Abbreviated display volume.", "example": "1.6M" }, "changetype": { "type": "string", "enum": ["UP", "DOWN", "UNCH"] }, "mktcapView": { "type": "string", "description": "Display-formatted market capitalization when supplied.", "example": "4.57T" } }, "additionalProperties": true },
-      "QuoteChartGraphQLResponse": { "title": "QuoteChartGraphQLResponse", "description": "QuoteChartGraphQLResponse data structure", "type": "object", "properties": { "data": { "type": "object", "nullable": true, "properties": { "chartData": { "$ref": "#/components/schemas/QuoteChartData" } }, "additionalProperties": true }, "errors": { "type": "array", "items": { "type": "object", "properties": { "message": { "type": "string" } }, "additionalProperties": true } } }, "additionalProperties": true },
-      "QuoteChartData": { "title": "QuoteChartData", "description": "QuoteChartData data structure", "type": "object", "nullable": true, "properties": { "symbol": { "type": "string", "nullable": true }, "timeRange": { "type": "string", "nullable": true }, "allSymbols": { "type": "array", "nullable": true, "items": { "type": "string" } }, "priceBars": { "type": "array", "nullable": true, "items": { "type": "object", "additionalProperties": true } }, "__typename": { "type": "string", "example": "chartdata" } }, "additionalProperties": true }
+      "FormattedQuoteResponse": {
+        "title": "FormattedQuoteResponse",
+        "description": "FormattedQuoteResponse data structure",
+        "type": "object",
+        "required": [
+          "FormattedQuoteResult"
+        ],
+        "properties": {
+          "FormattedQuoteResult": {
+            "type": "object",
+            "required": [
+              "FormattedQuote"
+            ],
+            "properties": {
+              "FormattedQuote": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FormattedQuote"
+                },
+                "description": "Formatted Quote in the Formatted Quote Result structure."
+              }
+            },
+            "additionalProperties": true,
+            "description": "Formatted Quote Result in the Formatted Quote Response structure."
+          }
+        },
+        "additionalProperties": true
+      },
+      "FormattedQuote": {
+        "title": "FormattedQuote",
+        "description": "FormattedQuote data structure",
+        "type": "object",
+        "required": [
+          "symbol",
+          "code"
+        ],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "example": "AAPL",
+            "description": "Symbol in the Formatted Quote structure."
+          },
+          "symbolType": {
+            "type": "string",
+            "example": "symbol",
+            "description": "Symbol Type in the Formatted Quote structure."
+          },
+          "code": {
+            "type": "integer",
+            "description": "Per-symbol result code.",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "Apple Inc",
+            "description": "Name in the Formatted Quote structure."
+          },
+          "shortName": {
+            "type": "string",
+            "example": "AAPL",
+            "description": "Short Name in the Formatted Quote structure."
+          },
+          "last": {
+            "type": "string",
+            "description": "Display-formatted last price; percentage-bearing instruments may include `%` (for example `4.656%`).",
+            "example": "313.33"
+          },
+          "last_timedate": {
+            "type": "string",
+            "description": "Provider-formatted display date/time; observed shapes vary by instrument.",
+            "example": "08/07/26 EDT"
+          },
+          "last_time": {
+            "type": "string",
+            "description": "Machine-oriented quote time. Observed as either a date (`2026-08-07`) or an offset timestamp (`2026-08-10T00:17:13.000-0400`), so no single OpenAPI string format is asserted.",
+            "example": "2026-08-07"
+          },
+          "changetype": {
+            "type": "string",
+            "enum": [
+              "UP",
+              "DOWN",
+              "UNCH"
+            ],
+            "example": "UP",
+            "description": "Changetype in the Formatted Quote structure.",
+            "x-enum-descriptions": [
+              "Value UP.",
+              "Value DOWN.",
+              "Value UNCH."
+            ]
+          },
+          "type": {
+            "type": "string",
+            "example": "STOCK",
+            "description": "Type in the Formatted Quote structure."
+          },
+          "subType": {
+            "type": "string",
+            "example": "Common Stock",
+            "description": "Sub Type in the Formatted Quote structure."
+          },
+          "exchange": {
+            "type": "string",
+            "example": "NASDAQ",
+            "description": "Exchange in the Formatted Quote structure."
+          },
+          "source": {
+            "type": "string",
+            "example": "Last NASDAQ LS, VOL From CTA",
+            "description": "Source in the Formatted Quote structure."
+          },
+          "open": {
+            "type": "string",
+            "example": "311.45",
+            "description": "Open in the Formatted Quote structure."
+          },
+          "high": {
+            "type": "string",
+            "example": "314.81",
+            "description": "High in the Formatted Quote structure."
+          },
+          "low": {
+            "type": "string",
+            "example": "310.74",
+            "description": "Low in the Formatted Quote structure."
+          },
+          "change": {
+            "type": "string",
+            "example": "+0.92",
+            "description": "Change in the Formatted Quote structure."
+          },
+          "change_pct": {
+            "type": "string",
+            "example": "+0.29%",
+            "description": "Change pct in the Formatted Quote structure."
+          },
+          "currencyCode": {
+            "type": "string",
+            "example": "USD",
+            "description": "Currency Code in the Formatted Quote structure."
+          },
+          "volume": {
+            "type": "string",
+            "example": "32,322,778",
+            "description": "Volume in the Formatted Quote structure."
+          },
+          "volume_alt": {
+            "type": "string",
+            "example": "32.3M",
+            "description": "Volume alt in the Formatted Quote structure."
+          },
+          "provider": {
+            "type": "string",
+            "example": "CNBC QUOTE CACHE",
+            "description": "Provider in the Formatted Quote structure."
+          },
+          "previous_day_closing": {
+            "type": "string",
+            "example": "312.41",
+            "description": "Previous day closing in the Formatted Quote structure."
+          },
+          "realTime": {
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "description": "Observed as a string, not a JSON boolean.",
+            "example": "true",
+            "x-enum-descriptions": [
+              "Value true.",
+              "Value false."
+            ]
+          },
+          "curmktstatus": {
+            "type": "string",
+            "enum": [
+              "PRE_MKT",
+              "REG_MKT",
+              "POST_MKT",
+              "CLOSED"
+            ],
+            "example": "POST_MKT",
+            "description": "Curmktstatus in the Formatted Quote structure.",
+            "x-enum-descriptions": [
+              "Value PRE_MKT.",
+              "Value REG_MKT.",
+              "Value POST_MKT.",
+              "Value CLOSED."
+            ]
+          },
+          "ExtendedMktQuote": {
+            "$ref": "#/components/schemas/ExtendedMarketQuote"
+          }
+        },
+        "additionalProperties": true
+      },
+      "ExtendedMarketQuote": {
+        "title": "ExtendedMarketQuote",
+        "description": "ExtendedMarketQuote data structure",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "PRE_MKT",
+              "POST_MKT"
+            ],
+            "description": "Type in the Extended Market Quote structure.",
+            "example": "PRE_MKT",
+            "x-enum-descriptions": [
+              "Value PRE_MKT.",
+              "Value POST_MKT."
+            ]
+          },
+          "source": {
+            "type": "string",
+            "description": "Source in the Extended Market Quote structure.",
+            "example": "example"
+          },
+          "last": {
+            "type": "string",
+            "example": "313.15",
+            "description": "Last in the Extended Market Quote structure."
+          },
+          "last_timedate": {
+            "type": "string",
+            "description": "Last timedate in the Extended Market Quote structure.",
+            "example": "2026-01-23"
+          },
+          "last_time": {
+            "type": "string",
+            "description": "Observed date/time string; kept format-free because CNBC formats vary by instrument and feed.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "change": {
+            "type": "string",
+            "example": "-0.18",
+            "description": "Change in the Extended Market Quote structure."
+          },
+          "change_pct": {
+            "type": "string",
+            "example": "-0.06%",
+            "description": "Change pct in the Extended Market Quote structure."
+          },
+          "volume": {
+            "type": "string",
+            "example": "1,630,014",
+            "description": "Volume in the Extended Market Quote structure."
+          },
+          "volume_alt": {
+            "type": "string",
+            "description": "Abbreviated display volume.",
+            "example": "1.6M"
+          },
+          "changetype": {
+            "type": "string",
+            "enum": [
+              "UP",
+              "DOWN",
+              "UNCH"
+            ],
+            "description": "Changetype in the Extended Market Quote structure.",
+            "example": "UP",
+            "x-enum-descriptions": [
+              "Value UP.",
+              "Value DOWN.",
+              "Value UNCH."
+            ]
+          },
+          "mktcapView": {
+            "type": "string",
+            "description": "Display-formatted market capitalization when supplied.",
+            "example": "4.57T"
+          }
+        },
+        "additionalProperties": true
+      },
+      "QuoteChartGraphQLResponse": {
+        "title": "QuoteChartGraphQLResponse",
+        "description": "QuoteChartGraphQLResponse data structure",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "chartData": {
+                "$ref": "#/components/schemas/QuoteChartData"
+              }
+            },
+            "additionalProperties": true,
+            "description": "Data in the Quote Chart Graph QLResponse structure."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Message in the errors item structure.",
+                  "example": "Example message"
+                }
+              },
+              "additionalProperties": true,
+              "description": "Errors item in the Quote Chart Graph QLResponse structure."
+            },
+            "description": "Errors in the Quote Chart Graph QLResponse structure."
+          }
+        },
+        "additionalProperties": true
+      },
+      "QuoteChartData": {
+        "title": "QuoteChartData",
+        "description": "QuoteChartData data structure",
+        "type": "object",
+        "nullable": true,
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "nullable": true,
+            "description": "Symbol in the Quote Chart Data structure.",
+            "example": "AAPL"
+          },
+          "timeRange": {
+            "type": "string",
+            "nullable": true,
+            "description": "Time Range in the Quote Chart Data structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "allSymbols": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string",
+              "description": "All Symbols item in the Quote Chart Data structure.",
+              "example": "AAPL"
+            },
+            "description": "All Symbols in the Quote Chart Data structure."
+          },
+          "priceBars": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "description": "Price Bars item in the Quote Chart Data structure."
+            },
+            "description": "Price Bars in the Quote Chart Data structure."
+          },
+          "__typename": {
+            "type": "string",
+            "example": "chartdata",
+            "description": "Typename in the Quote Chart Data structure."
+          }
+        },
+        "additionalProperties": true
+      }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
+    }
+  ]
 }

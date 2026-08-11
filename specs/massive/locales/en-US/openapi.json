@@ -28,7 +28,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Case-sensitive stock ticker, for example `AAPL`."
             }
           }
         ],
@@ -75,7 +76,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Case-sensitive stock ticker, for example `AAPL`."
             }
           },
           {
@@ -85,7 +87,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "Return split-adjusted results",
+              "example": true
             }
           }
         ],
@@ -132,7 +136,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "AAPL"
+              "example": "AAPL",
+              "description": "Case-sensitive stock ticker, for example `AAPL`."
             }
           },
           {
@@ -142,7 +147,9 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "minimum": 1
+              "minimum": 1,
+              "description": "Timespan multiplier",
+              "example": 1
             }
           },
           {
@@ -160,6 +167,17 @@
                 "month",
                 "quarter",
                 "year"
+              ],
+              "description": "Bar unit",
+              "example": "minute",
+              "x-enum-descriptions": [
+                "Value minute.",
+                "Value hour.",
+                "Value day.",
+                "Value week.",
+                "Value month.",
+                "Value quarter.",
+                "Value year."
               ]
             }
           },
@@ -170,7 +188,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "2025-01-02"
+              "example": "2025-01-02",
+              "description": "Start date in `YYYY-MM-DD` format or Unix timestamp in milliseconds."
             }
           },
           {
@@ -180,7 +199,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "End date in `YYYY-MM-DD` format or Unix timestamp in milliseconds."
             }
           },
           {
@@ -190,7 +210,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "Whether results are adjusted for stock splits.",
+              "example": true
             }
           },
           {
@@ -204,7 +226,13 @@
                 "asc",
                 "desc"
               ],
-              "default": "asc"
+              "default": "asc",
+              "description": "Order bars by their start timestamp.",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "Value asc.",
+                "Value desc."
+              ]
             }
           },
           {
@@ -216,7 +244,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 50000,
-              "default": 5000
+              "default": 5000,
+              "description": "Maximum number of base aggregates queried to construct results.",
+              "example": 5000
             }
           }
         ],
@@ -262,7 +292,9 @@
             "description": "Comma-separated tickers",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Comma-separated tickers",
+              "example": "AAPL"
             }
           },
           {
@@ -278,6 +310,15 @@
                 "indices",
                 "options",
                 "stocks"
+              ],
+              "description": "Filter by asset class.",
+              "example": "crypto",
+              "x-enum-descriptions": [
+                "Value crypto.",
+                "Value fx.",
+                "Value indices.",
+                "Value options.",
+                "Value stocks."
               ]
             }
           },
@@ -291,6 +332,12 @@
               "enum": [
                 "asc",
                 "desc"
+              ],
+              "description": "Order results using the selected sort field.",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "Value asc.",
+                "Value desc."
               ]
             }
           },
@@ -303,7 +350,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 250,
-              "default": 10
+              "default": 10,
+              "description": "Maximum results",
+              "example": 10
             }
           },
           {
@@ -315,6 +364,11 @@
               "type": "string",
               "enum": [
                 "ticker"
+              ],
+              "description": "Field used for result ordering.",
+              "example": "ticker",
+              "x-enum-descriptions": [
+                "Value ticker."
               ]
             }
           }
@@ -361,7 +415,9 @@
             "description": "Ticker filter",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Ticker filter",
+              "example": "AAPL"
             }
           },
           {
@@ -370,7 +426,9 @@
             "description": "Ticker type code from the Ticker Types endpoint.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Ticker type code from the Ticker Types endpoint.",
+              "example": "example"
             }
           },
           {
@@ -386,6 +444,15 @@
                 "fx",
                 "otc",
                 "indices"
+              ],
+              "description": "Market filter",
+              "example": "stocks",
+              "x-enum-descriptions": [
+                "Value stocks.",
+                "Value crypto.",
+                "Value fx.",
+                "Value otc.",
+                "Value indices."
               ]
             }
           },
@@ -396,7 +463,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "XNAS"
+              "example": "XNAS",
+              "description": "Primary exchange Market Identifier Code (MIC), for example `XNAS`."
             }
           },
           {
@@ -405,7 +473,9 @@
             "description": "CUSIP to query. CUSIPs may be used as filters but are not returned for legal reasons.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "CUSIP to query. CUSIPs may be used as filters but are not returned for legal reasons.",
+              "example": "example"
             }
           },
           {
@@ -414,7 +484,9 @@
             "description": "SEC Central Index Key.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "SEC Central Index Key.",
+              "example": "example"
             }
           },
           {
@@ -425,7 +497,8 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date."
             }
           },
           {
@@ -435,7 +508,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "Apple"
+              "example": "Apple",
+              "description": "Search text matched against ticker symbols and company names."
             }
           },
           {
@@ -445,7 +519,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": true,
+              "description": "Active-listing filter",
+              "example": true
             }
           },
           {
@@ -458,6 +534,12 @@
               "enum": [
                 "asc",
                 "desc"
+              ],
+              "description": "Order results using the selected sort field.",
+              "example": "asc",
+              "x-enum-descriptions": [
+                "Value asc.",
+                "Value desc."
               ]
             }
           },
@@ -470,7 +552,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 1000,
-              "default": 100
+              "default": 100,
+              "description": "Maximum number of results per page.",
+              "example": 100
             }
           },
           {
@@ -487,6 +571,16 @@
                 "locale",
                 "primary_exchange",
                 "currency_symbol"
+              ],
+              "description": "Field used for ordering.",
+              "example": "ticker",
+              "x-enum-descriptions": [
+                "Value ticker.",
+                "Value name.",
+                "Value market.",
+                "Value locale.",
+                "Value primary_exchange.",
+                "Value currency_symbol."
               ]
             }
           }
@@ -533,7 +627,9 @@
             "description": "Stock ticker",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Stock ticker",
+              "example": "AAPL"
             }
           },
           {
@@ -544,7 +640,8 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2025-01-31"
+              "example": "2025-01-31",
+              "description": "Point-in-time date in `YYYY-MM-DD` format; defaults to the latest available date."
             }
           }
         ],
@@ -598,11 +695,13 @@
           },
           "message": {
             "type": "string",
-            "description": "Additional human-readable error detail."
+            "description": "Additional human-readable error detail.",
+            "example": "Example message"
           },
           "request_id": {
             "type": "string",
-            "description": "Server-assigned request identifier for support and diagnostics."
+            "description": "Server-assigned request identifier for support and diagnostics.",
+            "example": "massive-example-id"
           }
         },
         "additionalProperties": true
@@ -652,7 +751,8 @@
           },
           "otc": {
             "type": "boolean",
-            "description": "True for an OTC aggregate; omitted when false."
+            "description": "True for an OTC aggregate; omitted when false.",
+            "example": true
           },
           "t": {
             "type": "integer",
@@ -701,7 +801,8 @@
           },
           "request_id": {
             "type": "string",
-            "description": "Server-assigned request identifier."
+            "description": "Server-assigned request identifier.",
+            "example": "massive-example-id"
           },
           "resultsCount": {
             "type": "integer",
@@ -717,12 +818,14 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AggregateBar"
-            }
+            },
+            "description": "Results in the Aggregate Response structure."
           },
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied."
+            "description": "Absolute URL for the next page, when present. Authentication may still need to be supplied.",
+            "example": "https://example.com/resource"
           }
         },
         "additionalProperties": true
@@ -751,7 +854,9 @@
             "type": "array",
             "description": "Trade condition codes.",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "description": "C item in the Last Trade structure.",
+              "example": 1
             },
             "example": [
               37
@@ -764,12 +869,14 @@
           },
           "e": {
             "type": "integer",
-            "description": "Trade correction indicator."
+            "description": "Trade correction indicator.",
+            "example": 1
           },
           "f": {
             "type": "integer",
             "format": "int64",
-            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds."
+            "description": "Trade Reporting Facility receipt time as a Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "i": {
             "type": "string",
@@ -800,7 +907,8 @@
           "t": {
             "type": "integer",
             "format": "int64",
-            "description": "SIP receipt time as a Unix timestamp in nanoseconds."
+            "description": "SIP receipt time as a Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "x": {
             "type": "integer",
@@ -810,7 +918,8 @@
           "y": {
             "type": "integer",
             "format": "int64",
-            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds."
+            "description": "Participant/exchange event time as a Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "z": {
             "type": "integer",
@@ -820,7 +929,12 @@
               3
             ],
             "description": "Listing tape: 1=A (NYSE), 2=B (NYSE Arca/NYSE American), 3=C (Nasdaq).",
-            "example": 3
+            "example": 3,
+            "x-enum-descriptions": [
+              "Value 1.",
+              "Value 2.",
+              "Value 3."
+            ]
           }
         },
         "additionalProperties": true
@@ -836,7 +950,8 @@
         "properties": {
           "request_id": {
             "type": "string",
-            "description": "Server-assigned request identifier."
+            "description": "Server-assigned request identifier.",
+            "example": "massive-example-id"
           },
           "results": {
             "$ref": "#/components/schemas/LastTrade"
@@ -856,58 +971,89 @@
         "properties": {
           "change": {
             "type": "number",
-            "description": "Absolute session price change."
+            "description": "Absolute session price change.",
+            "example": 1
           },
           "change_percent": {
             "type": "number",
-            "description": "Session percentage change."
+            "description": "Session percentage change.",
+            "example": 1
           },
           "early_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "Early trading change in the Snapshot Session structure.",
+            "example": 1
           },
           "early_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "Early trading change percent in the Snapshot Session structure.",
+            "example": 1
           },
           "regular_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "Regular trading change in the Snapshot Session structure.",
+            "example": 1
           },
           "regular_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "Regular trading change percent in the Snapshot Session structure.",
+            "example": 1
           },
           "late_trading_change": {
-            "type": "number"
+            "type": "number",
+            "description": "Late trading change in the Snapshot Session structure.",
+            "example": 1
           },
           "late_trading_change_percent": {
-            "type": "number"
+            "type": "number",
+            "description": "Late trading change percent in the Snapshot Session structure.",
+            "example": 1
           },
           "close": {
-            "type": "number"
+            "type": "number",
+            "description": "Close in the Snapshot Session structure.",
+            "example": 1
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "description": "High in the Snapshot Session structure.",
+            "example": 1
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "description": "Low in the Snapshot Session structure.",
+            "example": 1
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "description": "Open in the Snapshot Session structure.",
+            "example": 1
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "description": "Volume in the Snapshot Session structure.",
+            "example": 1
           },
           "previous_close": {
-            "type": "number"
+            "type": "number",
+            "description": "Previous close in the Snapshot Session structure.",
+            "example": 1
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "description": "Price in the Snapshot Session structure.",
+            "example": 1
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "description": "Vwap in the Snapshot Session structure.",
+            "example": 1
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "Last update as a Unix timestamp in nanoseconds."
+            "description": "Last update as a Unix timestamp in nanoseconds.",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -920,7 +1066,8 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "Unix timestamp in nanoseconds."
+            "description": "Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "timeframe": {
             "type": "string",
@@ -928,22 +1075,34 @@
             "example": "REAL-TIME"
           },
           "ask": {
-            "type": "number"
+            "type": "number",
+            "description": "Ask in the Snapshot Quote structure.",
+            "example": 1
           },
           "ask_size": {
-            "type": "number"
+            "type": "number",
+            "description": "Ask size in the Snapshot Quote structure.",
+            "example": 1
           },
           "ask_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Ask exchange in the Snapshot Quote structure.",
+            "example": 1
           },
           "bid": {
-            "type": "number"
+            "type": "number",
+            "description": "Bid in the Snapshot Quote structure.",
+            "example": 1
           },
           "bid_size": {
-            "type": "number"
+            "type": "number",
+            "description": "Bid size in the Snapshot Quote structure.",
+            "example": 1
           },
           "bid_exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Bid exchange in the Snapshot Quote structure.",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -956,29 +1115,42 @@
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "Unix timestamp in nanoseconds."
+            "description": "Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "timeframe": {
             "type": "string",
-            "example": "REAL-TIME"
+            "example": "REAL-TIME",
+            "description": "Timeframe in the Snapshot Trade structure."
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Id in the Snapshot Trade structure.",
+            "example": "massive-example-id"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "description": "Price in the Snapshot Trade structure.",
+            "example": 1
           },
           "size": {
-            "type": "number"
+            "type": "number",
+            "description": "Size in the Snapshot Trade structure.",
+            "example": 1
           },
           "exchange": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Exchange in the Snapshot Trade structure.",
+            "example": 1
           },
           "conditions": {
             "type": "array",
             "items": {
-              "type": "integer"
-            }
+              "type": "integer",
+              "description": "Conditions item in the Snapshot Trade structure.",
+              "example": 1
+            },
+            "description": "Conditions in the Snapshot Trade structure."
           }
         },
         "additionalProperties": true
@@ -989,30 +1161,45 @@
         "description": "SnapshotMinuteBar data structure",
         "properties": {
           "close": {
-            "type": "number"
+            "type": "number",
+            "description": "Close in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "high": {
-            "type": "number"
+            "type": "number",
+            "description": "High in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "low": {
-            "type": "number"
+            "type": "number",
+            "description": "Low in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "open": {
-            "type": "number"
+            "type": "number",
+            "description": "Open in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "transactions": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Transactions in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "volume": {
-            "type": "number"
+            "type": "number",
+            "description": "Volume in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "vwap": {
-            "type": "number"
+            "type": "number",
+            "description": "Vwap in the Snapshot Minute Bar structure.",
+            "example": 1
           },
           "last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "Unix timestamp in nanoseconds."
+            "description": "Unix timestamp in nanoseconds.",
+            "example": 1
           }
         },
         "additionalProperties": true
@@ -1026,10 +1213,14 @@
         ],
         "properties": {
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "Ticker in the Unified Snapshot structure.",
+            "example": "AAPL"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name in the Unified Snapshot structure.",
+            "example": "Example"
           },
           "type": {
             "type": "string",
@@ -1039,6 +1230,15 @@
               "indices",
               "options",
               "stocks"
+            ],
+            "description": "Type in the Unified Snapshot structure.",
+            "example": "crypto",
+            "x-enum-descriptions": [
+              "Value crypto.",
+              "Value fx.",
+              "Value indices.",
+              "Value options.",
+              "Value stocks."
             ]
           },
           "market_status": {
@@ -1049,24 +1249,37 @@
               "early_trading",
               "regular_trading",
               "late_trading"
+            ],
+            "description": "Market status in the Unified Snapshot structure.",
+            "example": "open",
+            "x-enum-descriptions": [
+              "Value open.",
+              "Value closed.",
+              "Value early_trading.",
+              "Value regular_trading.",
+              "Value late_trading."
             ]
           },
           "error": {
             "type": "string",
-            "description": "Error category for this ticker."
+            "description": "Error category for this ticker.",
+            "example": "Example message"
           },
           "message": {
             "type": "string",
-            "description": "Error detail for this ticker."
+            "description": "Error detail for this ticker.",
+            "example": "Example message"
           },
           "fmv": {
             "type": "number",
-            "description": "Massive Fair Market Value; limited to eligible Business plans."
+            "description": "Massive Fair Market Value; limited to eligible Business plans.",
+            "example": 1
           },
           "fmv_last_updated": {
             "type": "integer",
             "format": "int64",
-            "description": "FMV calculation time as a Unix timestamp in nanoseconds."
+            "description": "FMV calculation time as a Unix timestamp in nanoseconds.",
+            "example": 1
           },
           "session": {
             "$ref": "#/components/schemas/SnapshotSession"
@@ -1095,20 +1308,25 @@
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "Absolute URL for the next page, when present."
+            "description": "Absolute URL for the next page, when present.",
+            "example": "https://example.com/resource"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Request id in the Unified Snapshot Response structure.",
+            "example": "massive-example-id"
           },
           "results": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/UnifiedSnapshot"
-            }
+            },
+            "description": "Results in the Unified Snapshot Response structure."
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "Status in the Unified Snapshot Response structure."
           }
         },
         "additionalProperties": true
@@ -1124,41 +1342,62 @@
         "properties": {
           "active": {
             "type": "boolean",
-            "description": "Whether the asset was actively traded on the queried date."
+            "description": "Whether the asset was actively traded on the queried date.",
+            "example": true
           },
           "base_currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Base currency name in the Ticker structure.",
+            "example": "USD"
           },
           "base_currency_symbol": {
             "type": "string",
-            "description": "ISO 4217 code of the priced-against currency."
+            "description": "ISO 4217 code of the priced-against currency.",
+            "example": "USD"
           },
           "cik": {
-            "type": "string"
+            "type": "string",
+            "description": "Cik in the Ticker structure.",
+            "example": "example"
           },
           "composite_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "Composite figi in the Ticker structure.",
+            "example": "example"
           },
           "currency_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Currency name in the Ticker structure.",
+            "example": "USD"
           },
           "currency_symbol": {
             "type": "string",
-            "description": "ISO 4217 trading currency code."
+            "description": "ISO 4217 trading currency code.",
+            "example": "USD"
           },
           "delisted_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Delisted utc in the Ticker structure.",
+            "example": "2026-01-23T12:00:00Z"
           },
           "last_updated_utc": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Last updated utc in the Ticker structure.",
+            "example": "2026-01-23T12:00:00Z"
           },
           "locale": {
             "type": "string",
             "enum": [
               "global",
               "us"
+            ],
+            "description": "Locale in the Ticker structure.",
+            "example": "global",
+            "x-enum-descriptions": [
+              "Value global.",
+              "Value us."
             ]
           },
           "market": {
@@ -1169,24 +1408,41 @@
               "indices",
               "otc",
               "stocks"
+            ],
+            "description": "Market in the Ticker structure.",
+            "example": "crypto",
+            "x-enum-descriptions": [
+              "Value crypto.",
+              "Value fx.",
+              "Value indices.",
+              "Value otc.",
+              "Value stocks."
             ]
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name in the Ticker structure.",
+            "example": "Example"
           },
           "primary_exchange": {
             "type": "string",
-            "description": "ISO 10383 MIC of the primary exchange."
+            "description": "ISO 10383 MIC of the primary exchange.",
+            "example": "example"
           },
           "share_class_figi": {
-            "type": "string"
+            "type": "string",
+            "description": "Share class figi in the Ticker structure.",
+            "example": "example"
           },
           "ticker": {
-            "type": "string"
+            "type": "string",
+            "description": "Ticker in the Ticker structure.",
+            "example": "AAPL"
           },
           "type": {
             "type": "string",
-            "description": "Massive ticker-type code."
+            "description": "Massive ticker-type code.",
+            "example": "example"
           }
         },
         "additionalProperties": true
@@ -1197,25 +1453,32 @@
         "description": "TickerListResponse data structure",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Count in the Ticker List Response structure.",
+            "example": 1
           },
           "next_url": {
             "type": "string",
             "format": "uri",
-            "description": "Absolute URL for the next page, when present."
+            "description": "Absolute URL for the next page, when present.",
+            "example": "https://example.com/resource"
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Request id in the Ticker List Response structure.",
+            "example": "massive-example-id"
           },
           "results": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Ticker"
-            }
+            },
+            "description": "Results in the Ticker List Response structure."
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "Status in the Ticker List Response structure."
           }
         },
         "additionalProperties": true
@@ -1226,19 +1489,29 @@
         "description": "Address data structure",
         "properties": {
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "Address1 in the Address structure.",
+            "example": "example"
           },
           "address2": {
-            "type": "string"
+            "type": "string",
+            "description": "Address2 in the Address structure.",
+            "example": "example"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "description": "City in the Address structure.",
+            "example": "example"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "State in the Address structure.",
+            "example": "example"
           },
           "postal_code": {
-            "type": "string"
+            "type": "string",
+            "description": "Postal code in the Address structure.",
+            "example": "example-code"
           }
         },
         "additionalProperties": true
@@ -1250,11 +1523,15 @@
         "properties": {
           "icon_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "Icon url in the Branding structure.",
+            "example": "https://example.com/resource"
           },
           "logo_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "Logo url in the Branding structure.",
+            "example": "https://example.com/resource"
           }
         },
         "additionalProperties": false
@@ -1276,48 +1553,75 @@
                 "$ref": "#/components/schemas/Branding"
               },
               "description": {
-                "type": "string"
+                "type": "string",
+                "description": "Description in the Ticker Details all Of 2 structure.",
+                "example": "example"
               },
               "homepage_url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "description": "Homepage url in the Ticker Details all Of 2 structure.",
+                "example": "https://example.com/resource"
               },
               "list_date": {
                 "type": "string",
-                "format": "date"
+                "format": "date",
+                "description": "List date in the Ticker Details all Of 2 structure.",
+                "example": "2026-01-23"
               },
               "market_cap": {
-                "type": "number"
+                "type": "number",
+                "description": "Market cap in the Ticker Details all Of 2 structure.",
+                "example": 1
               },
               "phone_number": {
-                "type": "string"
+                "type": "string",
+                "description": "Phone number in the Ticker Details all Of 2 structure.",
+                "example": "example"
               },
               "round_lot": {
-                "type": "number"
+                "type": "number",
+                "description": "Round lot in the Ticker Details all Of 2 structure.",
+                "example": 1
               },
               "share_class_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "Share class shares outstanding in the Ticker Details all Of 2 structure.",
+                "example": 1
               },
               "sic_code": {
-                "type": "string"
+                "type": "string",
+                "description": "Sic code in the Ticker Details all Of 2 structure.",
+                "example": "example-code"
               },
               "sic_description": {
-                "type": "string"
+                "type": "string",
+                "description": "Sic description in the Ticker Details all Of 2 structure.",
+                "example": "example"
               },
               "ticker_root": {
-                "type": "string"
+                "type": "string",
+                "description": "Ticker root in the Ticker Details all Of 2 structure.",
+                "example": "AAPL"
               },
               "ticker_suffix": {
-                "type": "string"
+                "type": "string",
+                "description": "Ticker suffix in the Ticker Details all Of 2 structure.",
+                "example": "AAPL"
               },
               "total_employees": {
-                "type": "number"
+                "type": "number",
+                "description": "Total employees in the Ticker Details all Of 2 structure.",
+                "example": 1
               },
               "weighted_shares_outstanding": {
-                "type": "number"
+                "type": "number",
+                "description": "Weighted shares outstanding in the Ticker Details all Of 2 structure.",
+                "example": 1
               }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Ticker Details all Of 2 in the Ticker Details structure."
           }
         ]
       },
@@ -1327,17 +1631,22 @@
         "description": "TickerDetailsResponse data structure",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Count in the Ticker Details Response structure.",
+            "example": 1
           },
           "request_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Request id in the Ticker Details Response structure.",
+            "example": "massive-example-id"
           },
           "results": {
             "$ref": "#/components/schemas/TickerDetails"
           },
           "status": {
             "type": "string",
-            "example": "OK"
+            "example": "OK",
+            "description": "Status in the Ticker Details Response structure."
           }
         },
         "additionalProperties": true
@@ -1354,6 +1663,12 @@
   "security": [
     {
       "ApiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
     }
   ]
 }

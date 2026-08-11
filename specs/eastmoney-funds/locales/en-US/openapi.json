@@ -33,7 +33,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "pattern": "^[0-9]{6}$"
+              "pattern": "^[0-9]{6}$",
+              "description": "Six-digit mainland fund code.",
+              "example": "001072"
             },
             "example": "001072"
           },
@@ -44,7 +46,9 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": "Cache-busting Unix timestamp in milliseconds; it does not change the represented fund.",
+              "example": 1770000000000
             },
             "example": 1770000000000
           }
@@ -54,14 +58,21 @@
             "description": "Legacy JavaScript/JSONP on success; currently an HTTP-200 page-not-found HTML document.",
             "content": {
               "application/javascript": {
-                "schema": { "$ref": "#/components/schemas/LegacyFundEstimateJsonp" },
+                "schema": {
+                  "$ref": "#/components/schemas/LegacyFundEstimateJsonp"
+                },
                 "example": "jsonpgz({\"fundcode\":\"001072\",\"name\":\"...\",\"jzrq\":\"2025-09-02\",\"dwjz\":\"2.6170\",\"gsz\":\"2.6300\",\"gszzl\":\"0.50\",\"gztime\":\"2025-09-03 15:00\"});"
               },
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/EastmoneyNotFoundHtml" },
+                "schema": {
+                  "$ref": "#/components/schemas/EastmoneyNotFoundHtml"
+                },
                 "example": "<!doctype html><html><head><title>页面未找到 - 东方财富网</title>..."
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -96,7 +107,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "pattern": "^[0-9]{6}$"
+              "pattern": "^[0-9]{6}$",
+              "description": "Six-digit mainland fund code.",
+              "example": "001072"
             },
             "example": "001072"
           },
@@ -108,7 +121,9 @@
             "schema": {
               "type": "integer",
               "default": 1,
-              "minimum": 1
+              "minimum": 1,
+              "description": "One-based page",
+              "example": 1
             }
           },
           {
@@ -119,7 +134,9 @@
             "schema": {
               "type": "integer",
               "default": 20,
-              "minimum": 1
+              "minimum": 1,
+              "description": "Rows per page",
+              "example": 20
             }
           },
           {
@@ -129,7 +146,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means no lower bound.",
+              "example": "2026-01-23"
             }
           },
           {
@@ -139,7 +158,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means no upper bound.",
+              "example": "2026-01-23"
             }
           }
         ],
@@ -148,19 +169,69 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HistoricalNavResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricalNavResponse"
+                },
                 "examples": {
                   "populated": {
                     "summary": "Two historical NAV rows",
-                    "value": { "Data": { "LSJZList": [{ "FSRQ": "2026-08-07", "DWJZ": "4.6050", "LJJZ": "4.6580", "SDATE": null, "ACTUALSYI": "", "NAVTYPE": "1", "JZZZL": "3.58", "SGZT": "开放申购", "SHZT": "开放赎回", "FHFCZ": "", "FHFCZ10": "", "FHFCBZ": "", "DTYPE": null, "FHSP": "" }], "FundType": "001", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 2723, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
+                    "value": {
+                      "Data": {
+                        "LSJZList": [
+                          {
+                            "FSRQ": "2026-08-07",
+                            "DWJZ": "4.6050",
+                            "LJJZ": "4.6580",
+                            "SDATE": null,
+                            "ACTUALSYI": "",
+                            "NAVTYPE": "1",
+                            "JZZZL": "3.58",
+                            "SGZT": "开放申购",
+                            "SHZT": "开放赎回",
+                            "FHFCZ": "",
+                            "FHFCZ10": "",
+                            "FHFCBZ": "",
+                            "DTYPE": null,
+                            "FHSP": ""
+                          }
+                        ],
+                        "FundType": "001",
+                        "SYType": null,
+                        "isNewType": false,
+                        "Feature": null
+                      },
+                      "ErrCode": 0,
+                      "ErrMsg": null,
+                      "TotalCount": 2723,
+                      "Expansion": null,
+                      "PageSize": 2,
+                      "PageIndex": 1
+                    }
                   },
                   "unknownFund": {
                     "summary": "Unknown fund code is represented as a successful empty page, not an HTTP error",
-                    "value": { "Data": { "LSJZList": [], "FundType": "", "SYType": null, "isNewType": false, "Feature": null }, "ErrCode": 0, "ErrMsg": null, "TotalCount": 0, "Expansion": null, "PageSize": 2, "PageIndex": 1 }
+                    "value": {
+                      "Data": {
+                        "LSJZList": [],
+                        "FundType": "",
+                        "SYType": null,
+                        "isNewType": false,
+                        "Feature": null
+                      },
+                      "ErrCode": 0,
+                      "ErrMsg": null,
+                      "TotalCount": 0,
+                      "Expansion": null,
+                      "PageSize": 2,
+                      "PageIndex": 1
+                    }
                   }
                 }
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -193,7 +264,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "pattern": "^[0-9]{6}$"
+              "pattern": "^[0-9]{6}$",
+              "description": "Six-digit mainland fund code.",
+              "example": "001072"
             },
             "example": "001072"
           },
@@ -205,7 +278,14 @@
             "schema": {
               "type": "integer",
               "default": 0,
-              "enum": [0]
+              "enum": [
+                0
+              ],
+              "description": "Provider chart-series selector. Only value `0` was observed for unit NAV; other values are undocumented.",
+              "example": 0,
+              "x-enum-descriptions": [
+                "Value 0."
+              ]
             }
           },
           {
@@ -216,7 +296,9 @@
             "schema": {
               "type": "integer",
               "default": 1,
-              "minimum": 1
+              "minimum": 1,
+              "description": "One-based page",
+              "example": 1
             }
           },
           {
@@ -227,7 +309,9 @@
             "schema": {
               "type": "integer",
               "default": 400,
-              "minimum": 1
+              "minimum": 1,
+              "description": "Requested maximum points. The provider may ignore this value and return/report an effective page size of 400.",
+              "example": 400
             }
           },
           {
@@ -237,7 +321,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "description": "Inclusive lower date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
+              "example": "2026-01-23"
             }
           },
           {
@@ -247,7 +333,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "description": "Inclusive upper date bound in `YYYY-MM-DD`; an empty value means the provider default range.",
+              "example": "2026-01-23"
             }
           }
         ],
@@ -256,10 +344,32 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HistoricalNavChartResponse" },
-                "example": { "Data": [[1754870400000, 2.59], [1754956800000, 2.617]], "ErrCode": 0, "ErrMsg": null, "TotalCount": 241, "Expansion": null, "PageSize": 400, "PageIndex": 1 }
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricalNavChartResponse"
+                },
+                "example": {
+                  "Data": [
+                    [
+                      1754870400000,
+                      2.59
+                    ],
+                    [
+                      1754956800000,
+                      2.617
+                    ]
+                  ],
+                  "ErrCode": 0,
+                  "ErrMsg": null,
+                  "TotalCount": 241,
+                  "Expansion": null,
+                  "PageSize": 400,
+                  "PageIndex": 1
+                }
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -291,7 +401,9 @@
             "description": "Comma-separated Eastmoney security IDs in `market.code` form; observed market IDs include `1` for Shanghai and `0` for Shenzhen.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Comma-separated Eastmoney security IDs in `market.code` form; observed market IDs include `1` for Shanghai and `0` for Shenzhen.",
+              "example": "1.000001,0.399001"
             },
             "example": "1.000001,0.399001"
           },
@@ -302,7 +414,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "default": "f2,f3,f12,f14"
+              "default": "f2,f3,f12,f14",
+              "description": "Comma-separated provider field IDs. Curated mapping: `f2` latest price, `f3` percentage change, `f12` code, `f14` name.",
+              "example": "f2,f3,f12,f14"
             },
             "example": "f2,f3,f12,f14"
           },
@@ -314,7 +428,14 @@
             "schema": {
               "type": "integer",
               "default": 2,
-              "enum": [2]
+              "enum": [
+                2
+              ],
+              "description": "Provider number-formatting mode. Observed value `2` returns scaled decimal numbers.",
+              "example": 2,
+              "x-enum-descriptions": [
+                "Value 2."
+              ]
             }
           },
           {
@@ -325,7 +446,14 @@
             "schema": {
               "type": "integer",
               "default": 2,
-              "enum": [2]
+              "enum": [
+                2
+              ],
+              "description": "Provider request mode; only observed value `2` is documented.",
+              "example": 2,
+              "x-enum-descriptions": [
+                "Value 2."
+              ]
             }
           },
           {
@@ -335,7 +463,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "default": "267f9ad526dbe6b0262ab19316f5a25b"
+              "default": "267f9ad526dbe6b0262ab19316f5a25b",
+              "description": "Public page request token",
+              "example": "267f9ad526dbe6b0262ab19316f5a25b"
             }
           }
         ],
@@ -344,9 +474,14 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/MarketIndexListResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/MarketIndexListResponse"
+                }
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -380,27 +515,87 @@
       "EastmoneyNotFoundHtml": {
         "type": "string",
         "title": "EastmoneyNotFoundHtml",
-        "description": "Eastmoney UTF-8 page-not-found document returned with HTTP 200; consumers must not parse it as JSONP."
+        "description": "Eastmoney UTF-8 page-not-found document returned with HTTP 200; consumers must not parse it as JSONP.",
+        "example": "example"
       },
       "HistoricalNavRow": {
         "type": "object",
         "title": "HistoricalNavRow",
         "description": "One published fund NAV row. Provider abbreviations and decimal-as-string encoding are preserved.",
         "properties": {
-          "FSRQ": { "type": "string", "format": "date", "description": "NAV publication date.", "example": "2026-08-07" },
-          "DWJZ": { "type": "string", "description": "Unit NAV decimal string.", "example": "4.6050" },
-          "LJJZ": { "type": "string", "description": "Cumulative NAV decimal string.", "example": "4.6580" },
-          "SDATE": { "type": "string", "nullable": true, "description": "Undocumented secondary date; observed as null." },
-          "ACTUALSYI": { "type": "string", "description": "Actual yield text for products where applicable; observed empty for this equity fund.", "example": "" },
-          "NAVTYPE": { "type": "string", "description": "Provider NAV type code; observed value `1` for the sample fund.", "example": "1" },
-          "JZZZL": { "type": "string", "description": "Daily NAV growth percentage without `%`.", "example": "3.58" },
-          "SGZT": { "type": "string", "description": "Chinese subscription-status text; provider values are not treated as a closed enum.", "example": "开放申购" },
-          "SHZT": { "type": "string", "description": "Chinese redemption-status text; provider values are not treated as a closed enum.", "example": "开放赎回" },
-          "FHFCZ": { "type": "string", "description": "Undocumented dividend field; often empty." },
-          "FHFCZ10": { "type": "string", "description": "Undocumented dividend field; often empty." },
-          "FHFCBZ": { "type": "string", "description": "Undocumented dividend note; often empty." },
-          "DTYPE": { "type": "string", "nullable": true, "description": "Undocumented provider type; observed as null." },
-          "FHSP": { "type": "string", "description": "Undocumented dividend field; often empty." }
+          "FSRQ": {
+            "type": "string",
+            "format": "date",
+            "description": "NAV publication date.",
+            "example": "2026-08-07"
+          },
+          "DWJZ": {
+            "type": "string",
+            "description": "Unit NAV decimal string.",
+            "example": "4.6050"
+          },
+          "LJJZ": {
+            "type": "string",
+            "description": "Cumulative NAV decimal string.",
+            "example": "4.6580"
+          },
+          "SDATE": {
+            "type": "string",
+            "nullable": true,
+            "description": "Undocumented secondary date; observed as null.",
+            "example": "2026-01-23"
+          },
+          "ACTUALSYI": {
+            "type": "string",
+            "description": "Actual yield text for products where applicable; observed empty for this equity fund.",
+            "example": ""
+          },
+          "NAVTYPE": {
+            "type": "string",
+            "description": "Provider NAV type code; observed value `1` for the sample fund.",
+            "example": "1"
+          },
+          "JZZZL": {
+            "type": "string",
+            "description": "Daily NAV growth percentage without `%`.",
+            "example": "3.58"
+          },
+          "SGZT": {
+            "type": "string",
+            "description": "Chinese subscription-status text; provider values are not treated as a closed enum.",
+            "example": "开放申购"
+          },
+          "SHZT": {
+            "type": "string",
+            "description": "Chinese redemption-status text; provider values are not treated as a closed enum.",
+            "example": "开放赎回"
+          },
+          "FHFCZ": {
+            "type": "string",
+            "description": "Undocumented dividend field; often empty.",
+            "example": "example"
+          },
+          "FHFCZ10": {
+            "type": "string",
+            "description": "Undocumented dividend field; often empty.",
+            "example": "example"
+          },
+          "FHFCBZ": {
+            "type": "string",
+            "description": "Undocumented dividend note; often empty.",
+            "example": "example"
+          },
+          "DTYPE": {
+            "type": "string",
+            "nullable": true,
+            "description": "Undocumented provider type; observed as null.",
+            "example": "example"
+          },
+          "FHSP": {
+            "type": "string",
+            "description": "Undocumented dividend field; often empty.",
+            "example": "example"
+          }
         },
         "additionalProperties": true
       },
@@ -409,11 +604,36 @@
         "title": "HistoricalNavData",
         "description": "HistoricalNavData data structure",
         "properties": {
-          "LSJZList": { "type": "array", "items": { "$ref": "#/components/schemas/HistoricalNavRow" } },
-          "FundType": { "type": "string", "nullable": true, "description": "Provider fund-type code; empty for unknown funds.", "example": "001" },
-          "SYType": { "type": "string", "nullable": true, "description": "Undocumented yield type; observed as null." },
-          "isNewType": { "type": "boolean", "example": false },
-          "Feature": { "type": "string", "nullable": true, "description": "Undocumented feature marker; observed as null." }
+          "LSJZList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricalNavRow"
+            },
+            "description": "LSJZList in the Historical Nav Data structure."
+          },
+          "FundType": {
+            "type": "string",
+            "nullable": true,
+            "description": "Provider fund-type code; empty for unknown funds.",
+            "example": "001"
+          },
+          "SYType": {
+            "type": "string",
+            "nullable": true,
+            "description": "Undocumented yield type; observed as null.",
+            "example": "example"
+          },
+          "isNewType": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is New Type in the Historical Nav Data structure."
+          },
+          "Feature": {
+            "type": "string",
+            "nullable": true,
+            "description": "Undocumented feature marker; observed as null.",
+            "example": "example"
+          }
         },
         "additionalProperties": true
       },
@@ -421,15 +641,51 @@
         "type": "object",
         "title": "HistoricalNavResponse",
         "description": "HistoricalNavResponse data structure",
-        "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
+        "required": [
+          "Data",
+          "ErrCode",
+          "TotalCount",
+          "PageSize",
+          "PageIndex"
+        ],
         "properties": {
-          "Data": { "$ref": "#/components/schemas/HistoricalNavData" },
-          "ErrCode": { "type": "integer", "description": "Provider business status; observed as 0 even for an unknown fund code.", "example": 0 },
-          "ErrMsg": { "type": "string", "nullable": true, "example": null },
-          "TotalCount": { "type": "integer", "minimum": 0, "example": 2723 },
-          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
-          "PageSize": { "type": "integer", "minimum": 1, "example": 2 },
-          "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
+          "Data": {
+            "$ref": "#/components/schemas/HistoricalNavData"
+          },
+          "ErrCode": {
+            "type": "integer",
+            "description": "Provider business status; observed as 0 even for an unknown fund code.",
+            "example": 0
+          },
+          "ErrMsg": {
+            "type": "string",
+            "nullable": true,
+            "example": null,
+            "description": "Err Msg in the Historical Nav Response structure."
+          },
+          "TotalCount": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 2723,
+            "description": "Total Count in the Historical Nav Response structure."
+          },
+          "Expansion": {
+            "type": "object",
+            "nullable": true,
+            "description": "Undocumented expansion payload; observed as null."
+          },
+          "PageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 2,
+            "description": "Page Size in the Historical Nav Response structure."
+          },
+          "PageIndex": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 1,
+            "description": "Page Index in the Historical Nav Response structure."
+          }
         },
         "additionalProperties": true
       },
@@ -439,22 +695,68 @@
         "description": "Positional tuple `[Unix epoch milliseconds, unit NAV]`.",
         "minItems": 2,
         "maxItems": 2,
-        "items": { "type": "number" },
-        "example": [1754870400000, 2.59]
+        "items": {
+          "type": "number",
+          "description": "Nav Chart Point item in the Nav Chart Point structure.",
+          "example": 1
+        },
+        "example": [
+          1754870400000,
+          2.59
+        ]
       },
       "HistoricalNavChartResponse": {
         "type": "object",
         "title": "HistoricalNavChartResponse",
         "description": "HistoricalNavChartResponse data structure",
-        "required": ["Data", "ErrCode", "TotalCount", "PageSize", "PageIndex"],
+        "required": [
+          "Data",
+          "ErrCode",
+          "TotalCount",
+          "PageSize",
+          "PageIndex"
+        ],
         "properties": {
-          "Data": { "type": "array", "items": { "$ref": "#/components/schemas/NavChartPoint" } },
-          "ErrCode": { "type": "integer", "description": "Provider business status; observed success value 0.", "example": 0 },
-          "ErrMsg": { "type": "string", "nullable": true, "example": null },
-          "TotalCount": { "type": "integer", "minimum": 0, "example": 241 },
-          "Expansion": { "type": "object", "nullable": true, "description": "Undocumented expansion payload; observed as null." },
-          "PageSize": { "type": "integer", "description": "Effective provider page size; observed as 400 even when 3 was requested.", "example": 400 },
-          "PageIndex": { "type": "integer", "minimum": 1, "example": 1 }
+          "Data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NavChartPoint"
+            },
+            "description": "Data in the Historical Nav Chart Response structure."
+          },
+          "ErrCode": {
+            "type": "integer",
+            "description": "Provider business status; observed success value 0.",
+            "example": 0
+          },
+          "ErrMsg": {
+            "type": "string",
+            "nullable": true,
+            "example": null,
+            "description": "Err Msg in the Historical Nav Chart Response structure."
+          },
+          "TotalCount": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 241,
+            "description": "Total Count in the Historical Nav Chart Response structure."
+          },
+          "Expansion": {
+            "type": "object",
+            "nullable": true,
+            "description": "Undocumented expansion payload; observed as null."
+          },
+          "PageSize": {
+            "type": "integer",
+            "description": "Effective provider page size; observed as 400 even when 3 was requested.",
+            "example": 400
+          },
+          "PageIndex": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 1,
+            "description": "Page Index in the Historical Nav Chart Response structure."
+          }
         },
         "additionalProperties": true
       },
@@ -463,10 +765,26 @@
         "title": "MarketIndexSnapshot",
         "description": "MarketIndexSnapshot data structure",
         "properties": {
-          "f2": { "type": "number", "description": "Latest price when `fltt=2`." },
-          "f3": { "type": "number", "description": "Percentage change when `fltt=2`." },
-          "f12": { "type": "string", "description": "Security code." },
-          "f14": { "type": "string", "description": "Display name." }
+          "f2": {
+            "type": "number",
+            "description": "Latest price when `fltt=2`.",
+            "example": 1
+          },
+          "f3": {
+            "type": "number",
+            "description": "Percentage change when `fltt=2`.",
+            "example": 1
+          },
+          "f12": {
+            "type": "string",
+            "description": "Security code.",
+            "example": "example"
+          },
+          "f14": {
+            "type": "string",
+            "description": "Display name.",
+            "example": "example"
+          }
         },
         "additionalProperties": true
       },
@@ -475,23 +793,61 @@
         "title": "MarketIndexListResponse",
         "description": "Historically observed Eastmoney push2 envelope. Current server-side access was not reproduced, so fields remain permissive.",
         "properties": {
-          "rc": { "type": "integer", "description": "Provider return code; historically 0 on success." },
-          "rt": { "type": "integer", "description": "Provider response type/version marker." },
-          "svr": { "type": "integer", "description": "Provider server identifier." },
-          "lt": { "type": "integer", "description": "Undocumented provider flag." },
-          "full": { "type": "integer", "description": "Undocumented completeness flag." },
+          "rc": {
+            "type": "integer",
+            "description": "Provider return code; historically 0 on success.",
+            "example": 1
+          },
+          "rt": {
+            "type": "integer",
+            "description": "Provider response type/version marker.",
+            "example": 1
+          },
+          "svr": {
+            "type": "integer",
+            "description": "Provider server identifier.",
+            "example": 1
+          },
+          "lt": {
+            "type": "integer",
+            "description": "Undocumented provider flag.",
+            "example": 1
+          },
+          "full": {
+            "type": "integer",
+            "description": "Undocumented completeness flag.",
+            "example": 1
+          },
           "data": {
             "type": "object",
             "nullable": true,
             "properties": {
-              "total": { "type": "integer", "minimum": 0 },
-              "diff": { "type": "array", "items": { "$ref": "#/components/schemas/MarketIndexSnapshot" } }
+              "total": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Total in the data structure.",
+                "example": 1
+              },
+              "diff": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/MarketIndexSnapshot"
+                },
+                "description": "Diff in the data structure."
+              }
             },
-            "additionalProperties": true
+            "additionalProperties": true,
+            "description": "Data in the Market Index List Response structure."
           }
         },
         "additionalProperties": true
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
+    }
+  ]
 }

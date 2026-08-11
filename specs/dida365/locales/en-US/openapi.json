@@ -22,11 +22,19 @@
   "paths": {
     "/open/v1/project/{projectId}/task/{taskId}": {
       "get": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Get Task By Project ID And Task ID",
         "description": "Retrieve a specific task by its project ID and task ID",
         "operationId": "getTaskByProjectIdAndTaskId",
-        "security": [{ "OAuth2": ["tasks:read"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -34,7 +42,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           },
           {
@@ -43,7 +53,9 @@
             "description": "Task identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Task identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -70,11 +82,19 @@
         }
       },
       "delete": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Delete Task",
         "description": "Delete a specific task by its project ID and task ID",
         "operationId": "deleteTask",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -82,7 +102,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           },
           {
@@ -91,7 +113,9 @@
             "description": "Task identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Task identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -116,11 +140,19 @@
     },
     "/open/v1/task": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Create Task",
         "description": "Create a new task",
         "operationId": "createTask",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -159,11 +191,19 @@
     },
     "/open/v1/task/{taskId}": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Update Task",
         "description": "Update an existing task",
         "operationId": "updateTask",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "taskId",
@@ -171,7 +211,9 @@
             "description": "Task identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Task identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -213,11 +255,19 @@
     },
     "/open/v1/project/{projectId}/task/{taskId}/complete": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Complete Task",
         "description": "Mark a task as completed",
         "operationId": "completeTask",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -225,7 +275,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           },
           {
@@ -234,7 +286,9 @@
             "description": "Task identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Task identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -259,66 +313,371 @@
     },
     "/open/v1/task/move": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Move Task",
         "description": "Move one or more tasks between projects. The request body is an array of move operations.",
         "operationId": "moveTask",
-        "security": [{"OAuth2": ["tasks:write"]}],
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveRequest"}}, "example": [{"fromProjectId": "69a850ef1c20d2030e148fdd", "toProjectId": "69a850f41c20d2030e148fdf", "taskId": "69a850f8b9061f374d54a046"}]}}},
-        "responses": {"200": {"description": "Move results", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveResult"}}, "example": [{"id": "69a850f8b9061f374d54a046", "etag": "43p2zso1"}]}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TaskMoveRequest"
+                },
+                "description": "Body in the move Task structure."
+              },
+              "example": [
+                {
+                  "fromProjectId": "69a850ef1c20d2030e148fdd",
+                  "toProjectId": "69a850f41c20d2030e148fdf",
+                  "taskId": "69a850f8b9061f374d54a046"
+                }
+              ]
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Move results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskMoveResult"
+                  },
+                  "description": "Move Task response in the move Task structure."
+                },
+                "example": [
+                  {
+                    "id": "69a850f8b9061f374d54a046",
+                    "etag": "43p2zso1"
+                  }
+                ]
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/task/completed": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "List Completed Tasks",
         "description": "List completed tasks, optionally limited to projects and an inclusive completed-time range.",
         "operationId": "listCompletedTasks",
-        "security": [{"OAuth2": ["tasks:read"]}],
-        "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompletedTaskFilter"}}}},
-        "responses": {"200": {"description": "Completed tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletedTaskFilter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Completed tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "description": "List Completed Tasks response in the list Completed Tasks structure."
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/task/filter": {
       "post": {
-        "tags": ["task"],
+        "tags": [
+          "task"
+        ],
         "summary": "Filter Tasks",
         "description": "Filter tasks by project, start-time range, priority, tags, and status.",
         "operationId": "filterTasks",
-        "security": [{"OAuth2": ["tasks:read"]}],
-        "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TaskFilter"}}}},
-        "responses": {"200": {"description": "Matching tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskFilter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Matching tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "description": "Filter Tasks response in the filter Tasks structure."
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comments": {
       "get": {
-        "tags": ["comment"], "summary": "Get Task Comments", "description": "Get Task Comments", "operationId": "getTaskComments", "security": [{"OAuth2": ["tasks:read"]}],
-        "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
-        "responses": {"200": {"description": "Task comments", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenComment"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "tags": [
+          "comment"
+        ],
+        "summary": "Get Task Comments",
+        "description": "Get Task Comments",
+        "operationId": "getTaskComments",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          },
+          {
+            "$ref": "#/components/parameters/TaskId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenComment"
+                  },
+                  "description": "Get Task Comments response in the get Task Comments structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment": {
       "post": {
-        "tags": ["comment"], "summary": "Add Task Comment", "description": "Add Task Comment", "operationId": "addTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
-        "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
-        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["title"], "properties": {"title": {"type": "string", "description": "Comment text", "example": "Looks good"}}}}}},
-        "responses": {"200": {"description": "Created comment", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenComment"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "tags": [
+          "comment"
+        ],
+        "summary": "Add Task Comment",
+        "description": "Add Task Comment",
+        "operationId": "addTaskComment",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          },
+          {
+            "$ref": "#/components/parameters/TaskId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Comment text",
+                    "example": "Looks good"
+                  }
+                },
+                "description": "Body in the add Task Comment structure."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenComment"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment/{id}": {
       "delete": {
-        "tags": ["comment"], "summary": "Delete Task Comment", "description": "Delete Task Comment", "operationId": "deleteTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
-        "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}, {"name": "id", "in": "path", "required": true, "description": "Comment identifier", "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Comment deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "tags": [
+          "comment"
+        ],
+        "summary": "Delete Task Comment",
+        "description": "Delete Task Comment",
+        "operationId": "deleteTaskComment",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          },
+          {
+            "$ref": "#/components/parameters/TaskId"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Comment identifier",
+            "schema": {
+              "type": "string",
+              "description": "Comment identifier",
+              "example": "dida365-example-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/open/v1/project": {
       "get": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Get User Project",
         "description": "Retrieve all projects for the authenticated user",
         "operationId": "getUserProjects",
-        "security": [{ "OAuth2": ["tasks:read"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -328,7 +687,8 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Project"
-                  }
+                  },
+                  "description": "Get User Projects response in the get User Projects structure."
                 }
               }
             }
@@ -345,11 +705,19 @@
         }
       },
       "post": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Create Project",
         "description": "Create a new project",
         "operationId": "createProject",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -388,11 +756,19 @@
     },
     "/open/v1/project/{projectId}": {
       "get": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Get Project By ID",
         "description": "Retrieve a specific project by its ID",
         "operationId": "getProjectById",
-        "security": [{ "OAuth2": ["tasks:read"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -400,7 +776,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -427,11 +805,19 @@
         }
       },
       "post": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Update Project",
         "description": "Update an existing project",
         "operationId": "updateProject",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -439,7 +825,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -479,11 +867,19 @@
         }
       },
       "delete": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Delete Project",
         "description": "Delete a specific project by its ID",
         "operationId": "deleteProject",
-        "security": [{ "OAuth2": ["tasks:write"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -491,7 +887,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -513,11 +911,19 @@
     },
     "/open/v1/project/{projectId}/data": {
       "get": {
-        "tags": ["project"],
+        "tags": [
+          "project"
+        ],
         "summary": "Get Project With Data",
         "description": "Retrieve a project with all its associated data including tasks and columns",
         "operationId": "getProjectWithData",
-        "security": [{ "OAuth2": ["tasks:read"] }],
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "projectId",
@@ -525,7 +931,9 @@
             "description": "Project identifier",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Project identifier",
+              "example": "dida365-example-id"
             }
           }
         ],
@@ -553,57 +961,1180 @@
       }
     },
     "/open/v1/project/group": {
-      "get": {"tags": ["project group"], "summary": "Get Project Groups", "description": "Get Project Groups", "operationId": "getProjectGroups", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Project groups", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["project group"], "summary": "Create Project Group", "description": "Create Project Group", "operationId": "createProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupCreate"}, "example": {"name": "Group Name"}}}}, "responses": {"200": {"description": "Created project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "project group"
+        ],
+        "summary": "Get Project Groups",
+        "description": "Get Project Groups",
+        "operationId": "getProjectGroups",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenProjectGroup"
+                  },
+                  "description": "Get Project Groups response in the get Project Groups structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project group"
+        ],
+        "summary": "Create Project Group",
+        "description": "Create Project Group",
+        "operationId": "createProjectGroup",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupCreate"
+              },
+              "example": {
+                "name": "Group Name"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created project group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenProjectGroup"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/project/group/{projectGroupId}": {
-      "post": {"tags": ["project group"], "summary": "Update Project Group", "description": "Update Project Group", "operationId": "updateProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupUpdate"}, "example": {"name": "New Group Name"}}}}, "responses": {"200": {"description": "Updated project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "delete": {"tags": ["project group"], "summary": "Delete Project Group", "description": "Delete Project Group", "operationId": "deleteProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "responses": {"200": {"description": "Project group deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {
+        "tags": [
+          "project group"
+        ],
+        "summary": "Update Project Group",
+        "description": "Update Project Group",
+        "operationId": "updateProjectGroup",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "projectGroupId",
+            "in": "path",
+            "required": true,
+            "description": "Project group identifier",
+            "schema": {
+              "type": "string",
+              "description": "Project group identifier",
+              "example": "dida365-example-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupUpdate"
+              },
+              "example": {
+                "name": "New Group Name"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated project group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenProjectGroup"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "project group"
+        ],
+        "summary": "Delete Project Group",
+        "description": "Delete Project Group",
+        "operationId": "deleteProjectGroup",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "projectGroupId",
+            "in": "path",
+            "required": true,
+            "description": "Project group identifier",
+            "schema": {
+              "type": "string",
+              "description": "Project group identifier",
+              "example": "dida365-example-id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project group deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/project/{projectId}/column": {
-      "get": {"tags": ["column"], "summary": "Get Columns", "description": "Get Columns", "operationId": "getColumns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "responses": {"200": {"description": "Project columns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Column"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["column"], "summary": "Create Column", "description": "Create Column", "operationId": "createColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnCreate"}, "example": {"name": "Column Name"}}}}, "responses": {"200": {"description": "Created column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "column"
+        ],
+        "summary": "Get Columns",
+        "description": "Get Columns",
+        "operationId": "getColumns",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project columns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Column"
+                  },
+                  "description": "Get Columns response in the get Columns structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "column"
+        ],
+        "summary": "Create Column",
+        "description": "Create Column",
+        "operationId": "createColumn",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnCreate"
+              },
+              "example": {
+                "name": "Column Name"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created column",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Column"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/project/{projectId}/column/{columnId}": {
-      "post": {"tags": ["column"], "summary": "Update Column", "description": "Update Column", "operationId": "updateColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"name": "columnId", "in": "path", "required": true, "description": "Column identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnUpdate"}, "example": {"name": "New Column Name"}}}}, "responses": {"200": {"description": "Updated column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {
+        "tags": [
+          "column"
+        ],
+        "summary": "Update Column",
+        "description": "Update Column",
+        "operationId": "updateColumn",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectId"
+          },
+          {
+            "name": "columnId",
+            "in": "path",
+            "required": true,
+            "description": "Column identifier",
+            "schema": {
+              "type": "string",
+              "description": "Column identifier",
+              "example": "dida365-example-id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnUpdate"
+              },
+              "example": {
+                "name": "New Column Name"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated column",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Column"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/tag": {
-      "get": {"tags": ["tag"], "summary": "Get Tags", "description": "Get Tags", "operationId": "getTags", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Tags", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenTag"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["tag"], "summary": "Create Tag", "description": "Create Tag", "operationId": "createTag", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagCreate"}, "example": {"name": "urgent", "label": "urgent"}}}}, "responses": {"200": {"description": "Created tag", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenTag"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Get Tags",
+        "description": "Get Tags",
+        "operationId": "getTags",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenTag"
+                  },
+                  "description": "Get Tags response in the get Tags structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Create Tag",
+        "description": "Create Tag",
+        "operationId": "createTag",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagCreate"
+              },
+              "example": {
+                "name": "urgent",
+                "label": "urgent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created tag",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenTag"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/focus/{focusId}": {
-      "get": {"tags": ["focus"], "summary": "Get Focus By Focus ID", "description": "Get Focus By Focus ID", "operationId": "getFocusById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0, "taskId": "task-1", "note": "Deep work", "status": 2, "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "delete": {"tags": ["focus"], "summary": "Delete Focus", "description": "Delete Focus", "operationId": "deleteFocus", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Deleted focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Get Focus By Focus ID",
+        "description": "Get Focus By Focus ID",
+        "operationId": "getFocusById",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FocusId"
+          },
+          {
+            "$ref": "#/components/parameters/FocusType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Focus record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenFocus"
+                },
+                "example": {
+                  "id": "focus-1",
+                  "type": 0,
+                  "taskId": "task-1",
+                  "note": "Deep work",
+                  "status": 2,
+                  "startTime": "2026-04-07T09:00:00+0800",
+                  "endTime": "2026-04-07T09:25:00+0800",
+                  "duration": 1500
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Delete Focus",
+        "description": "Delete Focus",
+        "operationId": "deleteFocus",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FocusId"
+          },
+          {
+            "$ref": "#/components/parameters/FocusType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted focus record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenFocus"
+                },
+                "example": {
+                  "id": "focus-1",
+                  "type": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/focus": {
-      "get": {"tags": ["focus"], "summary": "Get Focuses By Time Range", "description": "Returns focus records in the requested range. If the range exceeds 30 days, the server moves `from` to 30 days before `to`.", "operationId": "getFocusesByTimeRange", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "from", "in": "query", "required": true, "description": "Range start time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-01T00:00:00+0800"}, {"name": "to", "in": "query", "required": true, "description": "Range end time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-02T00:00:00+0800"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus records", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenFocus"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["focus"], "summary": "Create Focus", "description": "Create Focus", "operationId": "createFocus", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FocusCreate"}, "example": {"type": 0, "taskId": "task-1", "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "responses": {"200": {"description": "Created focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Get Focuses By Time Range",
+        "description": "Returns focus records in the requested range. If the range exceeds 30 days, the server moves `from` to 30 days before `to`.",
+        "operationId": "getFocusesByTimeRange",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "description": "Range start time",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Range start time",
+              "example": "2026-04-01T00:00:00+0800"
+            },
+            "example": "2026-04-01T00:00:00+0800"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "description": "Range end time",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Range end time",
+              "example": "2026-04-02T00:00:00+0800"
+            },
+            "example": "2026-04-02T00:00:00+0800"
+          },
+          {
+            "$ref": "#/components/parameters/FocusType"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Focus records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenFocus"
+                  },
+                  "description": "Get Focuses By Time Range response in the get Focuses By Time Range structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Create Focus",
+        "description": "Create Focus",
+        "operationId": "createFocus",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusCreate"
+              },
+              "example": {
+                "type": 0,
+                "taskId": "task-1",
+                "startTime": "2026-04-07T09:00:00+0800",
+                "endTime": "2026-04-07T09:25:00+0800",
+                "duration": 1500
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created focus record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenFocus"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/countdown": {
-      "get": {"tags": ["countdown"], "summary": "Get Countdowns", "description": "Get Countdowns", "operationId": "getCountdowns", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Countdowns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenCountdown"}}, "example": [{"id": "countdown-1", "type": 0, "name": "Birthday", "date": 20260407, "color": "#4D8CF5", "reminders": [], "sortOrder": 0}]}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "countdown"
+        ],
+        "summary": "Get Countdowns",
+        "description": "Get Countdowns",
+        "operationId": "getCountdowns",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Countdowns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountdown"
+                  },
+                  "description": "Get Countdowns response in the get Countdowns structure."
+                },
+                "example": [
+                  {
+                    "id": "countdown-1",
+                    "type": 0,
+                    "name": "Birthday",
+                    "date": 20260407,
+                    "color": "#4D8CF5",
+                    "reminders": [],
+                    "sortOrder": 0
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/habit/checkins": {
-      "get": {"tags": ["habit"], "summary": "Get Habit Check-Ins", "description": "Get Habit Check-Ins", "operationId": "getHabitCheckIns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "habitIds", "in": "query", "required": true, "description": "Comma-separated habit identifiers", "schema": {"type": "string", "pattern": "^[^,]+(,[^,]+)*$"}, "example": "habit-1,habit-2"}, {"name": "from", "in": "query", "required": true, "description": "Start date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260401}, {"name": "to", "in": "query", "required": true, "description": "End date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260407}], "responses": {"200": {"description": "Habit check-in documents", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Get Habit Check-Ins",
+        "description": "Get Habit Check-Ins",
+        "operationId": "getHabitCheckIns",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "habitIds",
+            "in": "query",
+            "required": true,
+            "description": "Comma-separated habit identifiers",
+            "schema": {
+              "type": "string",
+              "pattern": "^[^,]+(,[^,]+)*$",
+              "description": "Comma-separated habit identifiers",
+              "example": "habit-1,habit-2"
+            },
+            "example": "habit-1,habit-2"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "description": "Start date stamp in YYYYMMDD format",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Start date stamp in YYYYMMDD format",
+              "example": 20260401
+            },
+            "example": 20260401
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "description": "End date stamp in YYYYMMDD format",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "description": "End date stamp in YYYYMMDD format",
+              "example": 20260407
+            },
+            "example": 20260407
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Habit check-in documents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenHabitCheckin"
+                  },
+                  "description": "Get Habit Check Ins response in the get Habit Check Ins structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/habit": {
-      "get": {"tags": ["habit"], "summary": "Get All Habits", "description": "Get All Habits", "operationId": "getHabits", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Habits", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabit"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}}},
-      "post": {"tags": ["habit"], "summary": "Create Habit", "description": "Create Habit", "operationId": "createHabit", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCreate"}, "example": {"name": "Read", "iconRes": "habit_reading", "color": "#4D8CF5", "type": "Boolean", "goal": 1.0, "step": 1.0, "unit": "Count", "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1", "recordEnable": false}}}}, "responses": {"200": {"description": "Created habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Get All Habits",
+        "description": "Get All Habits",
+        "operationId": "getHabits",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Habits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenHabit"
+                  },
+                  "description": "Get Habits response in the get Habits structure."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Create Habit",
+        "description": "Create Habit",
+        "operationId": "createHabit",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCreate"
+              },
+              "example": {
+                "name": "Read",
+                "iconRes": "habit_reading",
+                "color": "#4D8CF5",
+                "type": "Boolean",
+                "goal": 1,
+                "step": 1,
+                "unit": "Count",
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+                "recordEnable": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created habit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenHabit"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/habit/{habitId}": {
-      "get": {"tags": ["habit"], "summary": "Get Habit By Habit ID", "description": "Get Habit By Habit ID", "operationId": "getHabitById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "responses": {"200": {"description": "Habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["habit"], "summary": "Update Habit", "description": "Update Habit", "operationId": "updateHabit", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitUpdate"}, "example": {"name": "Read more", "goal": 2.0, "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"}}}}, "responses": {"200": {"description": "Updated habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Get Habit By Habit ID",
+        "description": "Get Habit By Habit ID",
+        "operationId": "getHabitById",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HabitId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Habit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenHabit"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Update Habit",
+        "description": "Update Habit",
+        "operationId": "updateHabit",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HabitId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitUpdate"
+              },
+              "example": {
+                "name": "Read more",
+                "goal": 2,
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated habit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenHabit"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     },
     "/open/v1/habit/{habitId}/checkin": {
-      "post": {"tags": ["habit"], "summary": "Create Or Update Habit Check-In", "description": "Create Or Update Habit Check-In", "operationId": "upsertHabitCheckIn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCheckInUpsert"}, "example": {"stamp": 20260407, "value": 1.0, "goal": 1.0}}}}, "responses": {"200": {"description": "Updated check-in document", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {
+        "tags": [
+          "habit"
+        ],
+        "summary": "Create Or Update Habit Check-In",
+        "description": "Create Or Update Habit Check-In",
+        "operationId": "upsertHabitCheckIn",
+        "security": [
+          {
+            "OAuth2": [
+              "tasks:write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HabitId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCheckInUpsert"
+              },
+              "example": {
+                "stamp": 20260407,
+                "value": 1,
+                "goal": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated check-in document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenHabitCheckin"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created without response content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "parameters": {
-      "ProjectId": {"name": "projectId", "in": "path", "required": true, "description": "Project identifier", "schema": {"type": "string"}, "example": "6226ff9877acee87727f6bca"},
-      "TaskId": {"name": "taskId", "in": "path", "required": true, "description": "Task identifier", "schema": {"type": "string"}, "example": "63b7bebb91c0a5474805fcd4"},
-      "FocusId": {"name": "focusId", "in": "path", "required": true, "description": "Focus identifier", "schema": {"type": "string"}, "example": "focus-1"},
-      "FocusType": {"name": "type", "in": "query", "required": true, "description": "Focus type: 0 Pomodoro, 1 Timing", "schema": {"type": "integer", "format": "int32", "enum": [0, 1]}, "example": 0},
-      "HabitId": {"name": "habitId", "in": "path", "required": true, "description": "Habit identifier", "schema": {"type": "string"}, "example": "habit-1"}
+      "ProjectId": {
+        "name": "projectId",
+        "in": "path",
+        "required": true,
+        "description": "Project identifier",
+        "schema": {
+          "type": "string",
+          "description": "Project identifier",
+          "example": "dida365-example-id"
+        },
+        "example": "6226ff9877acee87727f6bca"
+      },
+      "TaskId": {
+        "name": "taskId",
+        "in": "path",
+        "required": true,
+        "description": "Task identifier",
+        "schema": {
+          "type": "string",
+          "description": "Task identifier",
+          "example": "dida365-example-id"
+        },
+        "example": "63b7bebb91c0a5474805fcd4"
+      },
+      "FocusId": {
+        "name": "focusId",
+        "in": "path",
+        "required": true,
+        "description": "Focus identifier",
+        "schema": {
+          "type": "string",
+          "description": "Focus identifier",
+          "example": "dida365-example-id"
+        },
+        "example": "focus-1"
+      },
+      "FocusType": {
+        "name": "type",
+        "in": "query",
+        "required": true,
+        "description": "Focus type: 0 Pomodoro, 1 Timing",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [
+            0,
+            1
+          ],
+          "description": "Focus type: 0 Pomodoro, 1 Timing",
+          "example": 0,
+          "x-enum-descriptions": [
+            "Value 0.",
+            "Value 1."
+          ]
+        },
+        "example": 0
+      },
+      "HabitId": {
+        "name": "habitId",
+        "in": "path",
+        "required": true,
+        "description": "Habit identifier",
+        "schema": {
+          "type": "string",
+          "description": "Habit identifier",
+          "example": "dida365-example-id"
+        },
+        "example": "habit-1"
+      }
     },
     "securitySchemes": {
       "OAuth2": {
@@ -622,29 +2153,1051 @@
       }
     },
     "schemas": {
-      "TaskMoveRequest": {"title": "TaskMoveRequest", "description": "TaskMoveRequest data structure", "type": "object", "required": ["fromProjectId", "toProjectId", "taskId"], "properties": {"fromProjectId": {"type": "string", "description": "Source project identifier"}, "toProjectId": {"type": "string", "description": "Destination project identifier"}, "taskId": {"type": "string", "description": "Task identifier"}}},
-      "TaskMoveResult": {"title": "TaskMoveResult", "description": "TaskMoveResult data structure", "type": "object", "properties": {"id": {"type": "string", "description": "Moved task identifier"}, "etag": {"type": "string", "description": "New entity tag after the move"}}},
-      "CompletedTaskFilter": {"title": "CompletedTaskFilter", "description": "CompletedTaskFilter data structure", "type": "object", "properties": {"projectIds": {"type": "array", "items": {"type": "string"}}, "startDate": {"type": "string", "format": "date-time", "description": "Inclusive completedTime lower bound", "example": "2026-04-01T00:00:00+0800"}, "endDate": {"type": "string", "format": "date-time", "description": "Inclusive completedTime upper bound", "example": "2026-04-30T23:59:59+0800"}}},
-      "TaskFilter": {"title": "TaskFilter", "description": "TaskFilter data structure", "type": "object", "properties": {"projectIds": {"type": "array", "items": {"type": "string"}}, "startDate": {"type": "string", "format": "date-time"}, "endDate": {"type": "string", "format": "date-time"}, "priority": {"type": "array", "description": "0 none, 1 low, 3 medium, 5 high", "items": {"type": "integer", "enum": [0, 1, 3, 5]}}, "tag": {"type": "array", "description": "Tasks must contain all specified tags", "items": {"type": "string"}}, "status": {"type": "array", "items": {"type": "integer", "enum": [0, 2]}}}},
-      "OpenComment": {"title": "OpenComment", "type": "object", "description": "Task comment", "properties": {"id": {"type": "string"}, "userId": {"type": "integer", "format": "int64"}, "title": {"type": "string"}, "createdTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:00:00+0000"}, "modifiedTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:00:00+0000"}, "replyCommentId": {"type": "string"}, "replyUserId": {"type": "integer", "format": "int64"}}},
-      "OpenProjectGroup": {"title": "OpenProjectGroup", "description": "OpenProjectGroup data structure", "type": "object", "properties": {"id": {"type": "string"}, "name": {"type": "string", "maxLength": 64}, "sortOrder": {"type": "integer", "format": "int64"}, "showAll": {"type": "boolean", "description": "Whether to show all projects in the group"}, "viewMode": {"type": "string", "description": "Project-group view mode", "enum": ["list", "kanban", "timeline"]}}},
-      "ProjectGroupCreate": {"title": "ProjectGroupCreate", "description": "ProjectGroupCreate data structure", "type": "object", "required": ["name"], "properties": {"name": {"type": "string", "maxLength": 64}}},
-      "ProjectGroupUpdate": {"title": "ProjectGroupUpdate", "description": "ProjectGroupUpdate data structure", "type": "object", "properties": {"name": {"type": "string", "maxLength": 64}}},
-      "ColumnCreate": {"title": "ColumnCreate", "description": "ColumnCreate data structure", "type": "object", "required": ["name"], "properties": {"name": {"type": "string", "maxLength": 1000}}},
-      "ColumnUpdate": {"title": "ColumnUpdate", "description": "ColumnUpdate data structure", "type": "object", "properties": {"name": {"type": "string", "maxLength": 1000}}},
-      "OpenTag": {"title": "OpenTag", "description": "OpenTag data structure", "type": "object", "properties": {"name": {"type": "string"}, "label": {"type": "string"}, "sortOrder": {"type": "integer", "format": "int64"}, "color": {"type": "string", "example": "#F18181"}, "parent": {"type": "string", "description": "Parent tag name"}, "type": {"type": "integer", "format": "int32", "description": "Tag ownership type: 1 Personal, 2 Team", "enum": [1, 2]} }},
-      "TagCreate": {"title": "TagCreate", "description": "TagCreate data structure", "type": "object", "required": ["name", "label"], "properties": {"name": {"type": "string", "maxLength": 64, "description": "Lowercase trimmed tag name"}, "label": {"type": "string", "maxLength": 64, "description": "Display label whose lowercase form matches name"}}},
-      "OpenPomodoroTaskBrief": {"title": "OpenPomodoroTaskBrief", "description": "OpenPomodoroTaskBrief data structure", "type": "object", "properties": {"taskId": {"type": "string"}, "title": {"type": "string"}, "habitId": {"type": "string"}, "timerId": {"type": "string"}, "timerName": {"type": "string"}, "startTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:00:00+0800"}, "endTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:25:00+0800"}}},
-      "OpenFocus": {"title": "OpenFocus", "type": "object", "description": "Pomodoro or timing focus record", "properties": {"id": {"type": "string"}, "userId": {"type": "integer", "format": "int64"}, "type": {"type": "integer", "format": "int32", "enum": [0, 1], "description": "0 Pomodoro, 1 Timing"}, "taskId": {"type": "string"}, "note": {"type": "string"}, "tasks": {"type": "array", "items": {"$ref": "#/components/schemas/OpenPomodoroTaskBrief"}}, "status": {"type": "integer", "format": "int32"}, "startTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:00:00+0800"}, "endTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:25:00+0800"}, "pauseDuration": {"type": "integer", "format": "int32", "description": "Pause duration in seconds"}, "adjustTime": {"type": "integer", "format": "int64", "description": "Adjusted time in seconds"}, "added": {"type": "boolean"}, "createdTime": {"type": "string", "format": "date-time"}, "modifiedTime": {"type": "string", "format": "date-time"}, "etimestamp": {"type": "integer", "format": "int64"}, "etag": {"type": "string"}, "duration": {"type": "integer", "format": "int64"}, "relationType": {"type": "array", "items": {"type": "integer"}}}},
-      "FocusCreate": {"title": "FocusCreate", "description": "FocusCreate data structure", "type": "object", "required": ["type"], "properties": {"type": {"type": "integer", "format": "int32", "enum": [0, 1], "description": "0 Pomodoro, 1 Timing"}, "taskId": {"type": "string"}, "note": {"type": "string", "maxLength": 5000}, "startTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:00:00+0800"}, "endTime": {"type": "string", "format": "date-time", "example": "2026-04-07T09:25:00+0800"}, "pauseDuration": {"type": "integer", "format": "int32"}, "duration": {"type": "integer", "format": "int64"}, "relationType": {"type": "array", "items": {"type": "integer"}}}},
-      "OpenCountdown": {"title": "OpenCountdown", "description": "OpenCountdown data structure", "type": "object", "properties": {"id": {"type": "string"}, "type": {"type": "integer", "format": "int32"}, "iconRes": {"type": "string"}, "color": {"type": "string", "example": "#4D8CF5"}, "name": {"type": "string"}, "date": {"type": "integer", "format": "int32", "description": "Date in YYYYMMDD format", "example": 20260407}, "ignoreYear": {"type": "boolean"}, "showCalendarType": {"type": "integer", "format": "int32"}, "reminders": {"type": "array", "items": {"type": "string"}}, "annoyingAlert": {"type": "integer", "format": "int32"}, "repeatFlag": {"type": "string", "example": "RRULE:FREQ=DAILY;INTERVAL=1"}, "remark": {"type": "string"}, "status": {"type": "integer", "format": "int32"}, "sortOrder": {"type": "integer", "format": "int64"}, "style": {"type": "string"}, "styleColor": {"type": "array", "items": {"type": "string"}}, "dateDisplayFormat": {"type": "string"}, "timerMode": {"type": "integer", "format": "int32"}, "showAge": {"type": "boolean"}, "daysOption": {"type": "integer", "format": "int32"}, "showRemark": {"type": "boolean"}, "createdTime": {"type": "string", "format": "date-time"}, "modifiedTime": {"type": "string", "format": "date-time"}}},
-      "HabitWritable": {"title": "HabitWritable", "description": "HabitWritable data structure", "type": "object", "properties": {"name": {"type": "string", "maxLength": 1000}, "iconRes": {"type": "string"}, "color": {"type": "string", "example": "#4D8CF5"}, "sortOrder": {"type": "integer", "format": "int64"}, "status": {"type": "integer", "format": "int32"}, "encouragement": {"type": "string"}, "type": {"type": "string", "example": "Boolean"}, "goal": {"type": "number", "format": "double"}, "step": {"type": "number", "format": "double"}, "unit": {"type": "string", "example": "Count"}, "repeatRule": {"type": "string", "example": "RRULE:FREQ=DAILY;INTERVAL=1"}, "reminders": {"type": "array", "items": {"type": "string"}}, "recordEnable": {"type": "boolean"}, "sectionId": {"type": "string"}, "targetDays": {"type": "integer", "format": "int32"}, "targetStartDate": {"type": "integer", "format": "int32", "description": "Date in YYYYMMDD format", "example": 20240101}, "completedCycles": {"type": "integer", "format": "int32"}, "exDates": {"type": "array", "items": {"type": "string"}}, "style": {"type": "integer", "format": "int32"}}},
-      "HabitCreate": {"title": "HabitCreate", "description": "HabitCreate data structure", "allOf": [{"$ref": "#/components/schemas/HabitWritable"}, {"type": "object", "required": ["name"]}]},
-      "HabitUpdate": {"title": "HabitUpdate", "description": "HabitUpdate data structure", "allOf": [{"$ref": "#/components/schemas/HabitWritable"}]},
-      "OpenHabit": {"title": "OpenHabit", "description": "OpenHabit data structure", "allOf": [{"$ref": "#/components/schemas/HabitWritable"}, {"type": "object", "properties": {"id": {"type": "string"}, "totalCheckIns": {"type": "integer", "format": "int32"}, "createdTime": {"type": "string", "format": "date-time"}, "modifiedTime": {"type": "string", "format": "date-time"}, "archivedTime": {"type": "string", "format": "date-time"}, "etag": {"type": "string"}}}]},
-      "OpenHabitCheckinData": {"title": "OpenHabitCheckinData", "description": "OpenHabitCheckinData data structure", "type": "object", "properties": {"id": {"type": "string"}, "stamp": {"type": "integer", "format": "int32", "description": "Date stamp in YYYYMMDD format", "example": 20260407}, "time": {"type": "string", "format": "date-time", "example": "2026-04-07T08:00:00+0000"}, "opTime": {"type": "string", "format": "date-time", "example": "2026-04-07T08:00:00+0000"}, "value": {"type": "number", "format": "double", "default": 1.0}, "goal": {"type": "number", "format": "double", "default": 1.0}, "status": {"type": "integer", "format": "int32"}}},
-      "HabitCheckInUpsert": {"title": "HabitCheckInUpsert", "description": "HabitCheckInUpsert data structure", "allOf": [{"$ref": "#/components/schemas/OpenHabitCheckinData"}, {"type": "object", "required": ["stamp"]}]},
-      "OpenHabitCheckin": {"title": "OpenHabitCheckin", "description": "OpenHabitCheckin data structure", "type": "object", "properties": {"id": {"type": "string"}, "habitId": {"type": "string"}, "createdTime": {"type": "string", "format": "date-time"}, "modifiedTime": {"type": "string", "format": "date-time"}, "etag": {"type": "string"}, "year": {"type": "integer", "format": "int32", "example": 2026}, "checkins": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckinData"}}}},
+      "TaskMoveRequest": {
+        "title": "TaskMoveRequest",
+        "description": "TaskMoveRequest data structure",
+        "type": "object",
+        "required": [
+          "fromProjectId",
+          "toProjectId",
+          "taskId"
+        ],
+        "properties": {
+          "fromProjectId": {
+            "type": "string",
+            "description": "Source project identifier",
+            "example": "dida365-example-id"
+          },
+          "toProjectId": {
+            "type": "string",
+            "description": "Destination project identifier",
+            "example": "dida365-example-id"
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task identifier",
+            "example": "dida365-example-id"
+          }
+        }
+      },
+      "TaskMoveResult": {
+        "title": "TaskMoveResult",
+        "description": "TaskMoveResult data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Moved task identifier",
+            "example": "dida365-example-id"
+          },
+          "etag": {
+            "type": "string",
+            "description": "New entity tag after the move",
+            "example": "example"
+          }
+        }
+      },
+      "CompletedTaskFilter": {
+        "title": "CompletedTaskFilter",
+        "description": "CompletedTaskFilter data structure",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Project Ids item in the Completed Task Filter structure.",
+              "example": "example"
+            },
+            "description": "Project Ids in the Completed Task Filter structure."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive completedTime lower bound",
+            "example": "2026-04-01T00:00:00+0800"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive completedTime upper bound",
+            "example": "2026-04-30T23:59:59+0800"
+          }
+        }
+      },
+      "TaskFilter": {
+        "title": "TaskFilter",
+        "description": "TaskFilter data structure",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Project Ids item in the Task Filter structure.",
+              "example": "example"
+            },
+            "description": "Project Ids in the Task Filter structure."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start Date in the Task Filter structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "End Date in the Task Filter structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "priority": {
+            "type": "array",
+            "description": "0 none, 1 low, 3 medium, 5 high",
+            "items": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                3,
+                5
+              ],
+              "description": "Priority item in the Task Filter structure.",
+              "example": 0,
+              "x-enum-descriptions": [
+                "Value 0.",
+                "Value 1.",
+                "Value 3.",
+                "Value 5."
+              ]
+            }
+          },
+          "tag": {
+            "type": "array",
+            "description": "Tasks must contain all specified tags",
+            "items": {
+              "type": "string",
+              "description": "Tag item in the Task Filter structure.",
+              "example": "example"
+            }
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                0,
+                2
+              ],
+              "description": "Status item in the Task Filter structure.",
+              "example": 0,
+              "x-enum-descriptions": [
+                "Value 0.",
+                "Value 2."
+              ]
+            },
+            "description": "Status in the Task Filter structure."
+          }
+        }
+      },
+      "OpenComment": {
+        "title": "OpenComment",
+        "type": "object",
+        "description": "Task comment",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Comment structure.",
+            "example": "dida365-example-id"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "User Id in the Open Comment structure.",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Title in the Open Comment structure.",
+            "example": "Example"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:00:00+0000",
+            "description": "Created Time in the Open Comment structure."
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:00:00+0000",
+            "description": "Modified Time in the Open Comment structure."
+          },
+          "replyCommentId": {
+            "type": "string",
+            "description": "Reply Comment Id in the Open Comment structure.",
+            "example": "dida365-example-id"
+          },
+          "replyUserId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Reply User Id in the Open Comment structure.",
+            "example": 1
+          }
+        }
+      },
+      "OpenProjectGroup": {
+        "title": "OpenProjectGroup",
+        "description": "OpenProjectGroup data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Project Group structure.",
+            "example": "dida365-example-id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Name in the Open Project Group structure.",
+            "example": "Example"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort Order in the Open Project Group structure.",
+            "example": 1
+          },
+          "showAll": {
+            "type": "boolean",
+            "description": "Whether to show all projects in the group",
+            "example": true
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "Project-group view mode",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "example": "list",
+            "x-enum-descriptions": [
+              "Value list.",
+              "Value kanban.",
+              "Value timeline."
+            ]
+          }
+        }
+      },
+      "ProjectGroupCreate": {
+        "title": "ProjectGroupCreate",
+        "description": "ProjectGroupCreate data structure",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Name in the Project Group Create structure.",
+            "example": "Example"
+          }
+        }
+      },
+      "ProjectGroupUpdate": {
+        "title": "ProjectGroupUpdate",
+        "description": "ProjectGroupUpdate data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Name in the Project Group Update structure.",
+            "example": "Example"
+          }
+        }
+      },
+      "ColumnCreate": {
+        "title": "ColumnCreate",
+        "description": "ColumnCreate data structure",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Name in the Column Create structure.",
+            "example": "Example"
+          }
+        }
+      },
+      "ColumnUpdate": {
+        "title": "ColumnUpdate",
+        "description": "ColumnUpdate data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Name in the Column Update structure.",
+            "example": "Example"
+          }
+        }
+      },
+      "OpenTag": {
+        "title": "OpenTag",
+        "description": "OpenTag data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name in the Open Tag structure.",
+            "example": "Example"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label in the Open Tag structure.",
+            "example": "example"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort Order in the Open Tag structure.",
+            "example": 1
+          },
+          "color": {
+            "type": "string",
+            "example": "#F18181",
+            "description": "Color in the Open Tag structure."
+          },
+          "parent": {
+            "type": "string",
+            "description": "Parent tag name",
+            "example": "example"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Tag ownership type: 1 Personal, 2 Team",
+            "enum": [
+              1,
+              2
+            ],
+            "example": 1,
+            "x-enum-descriptions": [
+              "Value 1.",
+              "Value 2."
+            ]
+          }
+        }
+      },
+      "TagCreate": {
+        "title": "TagCreate",
+        "description": "TagCreate data structure",
+        "type": "object",
+        "required": [
+          "name",
+          "label"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Lowercase trimmed tag name",
+            "example": "Example"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Display label whose lowercase form matches name",
+            "example": "example"
+          }
+        }
+      },
+      "OpenPomodoroTaskBrief": {
+        "title": "OpenPomodoroTaskBrief",
+        "description": "OpenPomodoroTaskBrief data structure",
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "Task Id in the Open Pomodoro Task Brief structure.",
+            "example": "dida365-example-id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title in the Open Pomodoro Task Brief structure.",
+            "example": "Example"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "Habit Id in the Open Pomodoro Task Brief structure.",
+            "example": "dida365-example-id"
+          },
+          "timerId": {
+            "type": "string",
+            "description": "Timer Id in the Open Pomodoro Task Brief structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "timerName": {
+            "type": "string",
+            "description": "Timer Name in the Open Pomodoro Task Brief structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:00:00+0800",
+            "description": "Start Time in the Open Pomodoro Task Brief structure."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:25:00+0800",
+            "description": "End Time in the Open Pomodoro Task Brief structure."
+          }
+        }
+      },
+      "OpenFocus": {
+        "title": "OpenFocus",
+        "type": "object",
+        "description": "Pomodoro or timing focus record",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Focus structure.",
+            "example": "dida365-example-id"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "User Id in the Open Focus structure.",
+            "example": 1
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 Pomodoro, 1 Timing",
+            "example": 0,
+            "x-enum-descriptions": [
+              "Value 0.",
+              "Value 1."
+            ]
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task Id in the Open Focus structure.",
+            "example": "dida365-example-id"
+          },
+          "note": {
+            "type": "string",
+            "description": "Note in the Open Focus structure.",
+            "example": "example"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenPomodoroTaskBrief"
+            },
+            "description": "Tasks in the Open Focus structure."
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Status in the Open Focus structure.",
+            "example": 1
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:00:00+0800",
+            "description": "Start Time in the Open Focus structure."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:25:00+0800",
+            "description": "End Time in the Open Focus structure."
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pause duration in seconds",
+            "example": 1
+          },
+          "adjustTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Adjusted time in seconds",
+            "example": 1
+          },
+          "added": {
+            "type": "boolean",
+            "description": "Added in the Open Focus structure.",
+            "example": true
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created Time in the Open Focus structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified Time in the Open Focus structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "etimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Etimestamp in the Open Focus structure.",
+            "example": 1
+          },
+          "etag": {
+            "type": "string",
+            "description": "Etag in the Open Focus structure.",
+            "example": "example"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Duration in the Open Focus structure.",
+            "example": 1
+          },
+          "relationType": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "description": "Relation Type item in the Open Focus structure.",
+              "example": 1
+            },
+            "description": "Relation Type in the Open Focus structure."
+          }
+        }
+      },
+      "FocusCreate": {
+        "title": "FocusCreate",
+        "description": "FocusCreate data structure",
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 Pomodoro, 1 Timing",
+            "example": 0,
+            "x-enum-descriptions": [
+              "Value 0.",
+              "Value 1."
+            ]
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task Id in the Focus Create structure.",
+            "example": "dida365-example-id"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Note in the Focus Create structure.",
+            "example": "example"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:00:00+0800",
+            "description": "Start Time in the Focus Create structure."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T09:25:00+0800",
+            "description": "End Time in the Focus Create structure."
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pause Duration in the Focus Create structure.",
+            "example": 1
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Duration in the Focus Create structure.",
+            "example": 1
+          },
+          "relationType": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "description": "Relation Type item in the Focus Create structure.",
+              "example": 1
+            },
+            "description": "Relation Type in the Focus Create structure."
+          }
+        }
+      },
+      "OpenCountdown": {
+        "title": "OpenCountdown",
+        "description": "OpenCountdown data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Countdown structure.",
+            "example": "dida365-example-id"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Type in the Open Countdown structure.",
+            "example": 1
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "Icon Res in the Open Countdown structure.",
+            "example": "example"
+          },
+          "color": {
+            "type": "string",
+            "example": "#4D8CF5",
+            "description": "Color in the Open Countdown structure."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name in the Open Countdown structure.",
+            "example": "Example"
+          },
+          "date": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Date in YYYYMMDD format",
+            "example": 20260407
+          },
+          "ignoreYear": {
+            "type": "boolean",
+            "description": "Ignore Year in the Open Countdown structure.",
+            "example": true
+          },
+          "showCalendarType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Show Calendar Type in the Open Countdown structure.",
+            "example": 1
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Reminders item in the Open Countdown structure.",
+              "example": "example"
+            },
+            "description": "Reminders in the Open Countdown structure."
+          },
+          "annoyingAlert": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Annoying Alert in the Open Countdown structure.",
+            "example": 1
+          },
+          "repeatFlag": {
+            "type": "string",
+            "example": "RRULE:FREQ=DAILY;INTERVAL=1",
+            "description": "Repeat Flag in the Open Countdown structure."
+          },
+          "remark": {
+            "type": "string",
+            "description": "Remark in the Open Countdown structure.",
+            "example": "example"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Status in the Open Countdown structure.",
+            "example": 1
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort Order in the Open Countdown structure.",
+            "example": 1
+          },
+          "style": {
+            "type": "string",
+            "description": "Style in the Open Countdown structure.",
+            "example": "example"
+          },
+          "styleColor": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Style Color item in the Open Countdown structure.",
+              "example": "example"
+            },
+            "description": "Style Color in the Open Countdown structure."
+          },
+          "dateDisplayFormat": {
+            "type": "string",
+            "description": "Date Display Format in the Open Countdown structure.",
+            "example": "2026-01-23"
+          },
+          "timerMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Timer Mode in the Open Countdown structure.",
+            "example": 1
+          },
+          "showAge": {
+            "type": "boolean",
+            "description": "Show Age in the Open Countdown structure.",
+            "example": true
+          },
+          "daysOption": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Days Option in the Open Countdown structure.",
+            "example": 1
+          },
+          "showRemark": {
+            "type": "boolean",
+            "description": "Show Remark in the Open Countdown structure.",
+            "example": true
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created Time in the Open Countdown structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified Time in the Open Countdown structure.",
+            "example": "2026-01-23T12:00:00Z"
+          }
+        }
+      },
+      "HabitWritable": {
+        "title": "HabitWritable",
+        "description": "HabitWritable data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Name in the Habit Writable structure.",
+            "example": "Example"
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "Icon Res in the Habit Writable structure.",
+            "example": "example"
+          },
+          "color": {
+            "type": "string",
+            "example": "#4D8CF5",
+            "description": "Color in the Habit Writable structure."
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort Order in the Habit Writable structure.",
+            "example": 1
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Status in the Habit Writable structure.",
+            "example": 1
+          },
+          "encouragement": {
+            "type": "string",
+            "description": "Encouragement in the Habit Writable structure.",
+            "example": "example"
+          },
+          "type": {
+            "type": "string",
+            "example": "Boolean",
+            "description": "Type in the Habit Writable structure."
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "description": "Goal in the Habit Writable structure.",
+            "example": 1
+          },
+          "step": {
+            "type": "number",
+            "format": "double",
+            "description": "Step in the Habit Writable structure.",
+            "example": 1
+          },
+          "unit": {
+            "type": "string",
+            "example": "Count",
+            "description": "Unit in the Habit Writable structure."
+          },
+          "repeatRule": {
+            "type": "string",
+            "example": "RRULE:FREQ=DAILY;INTERVAL=1",
+            "description": "Repeat Rule in the Habit Writable structure."
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Reminders item in the Habit Writable structure.",
+              "example": "example"
+            },
+            "description": "Reminders in the Habit Writable structure."
+          },
+          "recordEnable": {
+            "type": "boolean",
+            "description": "Record Enable in the Habit Writable structure.",
+            "example": true
+          },
+          "sectionId": {
+            "type": "string",
+            "description": "Section Id in the Habit Writable structure.",
+            "example": "dida365-example-id"
+          },
+          "targetDays": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Target Days in the Habit Writable structure.",
+            "example": 1
+          },
+          "targetStartDate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Date in YYYYMMDD format",
+            "example": 20240101
+          },
+          "completedCycles": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Completed Cycles in the Habit Writable structure.",
+            "example": 1
+          },
+          "exDates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Ex Dates item in the Habit Writable structure.",
+              "example": "2026-01-23"
+            },
+            "description": "Ex Dates in the Habit Writable structure."
+          },
+          "style": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Style in the Habit Writable structure.",
+            "example": 1
+          }
+        }
+      },
+      "HabitCreate": {
+        "title": "HabitCreate",
+        "description": "HabitCreate data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "description": "Habit Create all Of 2 in the Habit Create structure."
+          }
+        ]
+      },
+      "HabitUpdate": {
+        "title": "HabitUpdate",
+        "description": "HabitUpdate data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          }
+        ]
+      },
+      "OpenHabit": {
+        "title": "OpenHabit",
+        "description": "OpenHabit data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Id in the Open Habit all Of 2 structure.",
+                "example": "dida365-example-id"
+              },
+              "totalCheckIns": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Total Check Ins in the Open Habit all Of 2 structure.",
+                "example": 1
+              },
+              "createdTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Created Time in the Open Habit all Of 2 structure.",
+                "example": "2026-01-23T12:00:00Z"
+              },
+              "modifiedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Modified Time in the Open Habit all Of 2 structure.",
+                "example": "2026-01-23T12:00:00Z"
+              },
+              "archivedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Archived Time in the Open Habit all Of 2 structure.",
+                "example": "2026-01-23T12:00:00Z"
+              },
+              "etag": {
+                "type": "string",
+                "description": "Etag in the Open Habit all Of 2 structure.",
+                "example": "example"
+              }
+            },
+            "description": "Open Habit all Of 2 in the Open Habit structure."
+          }
+        ]
+      },
+      "OpenHabitCheckinData": {
+        "title": "OpenHabitCheckinData",
+        "description": "OpenHabitCheckinData data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Habit Checkin Data structure.",
+            "example": "dida365-example-id"
+          },
+          "stamp": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Date stamp in YYYYMMDD format",
+            "example": 20260407
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T08:00:00+0000",
+            "description": "Time in the Open Habit Checkin Data structure."
+          },
+          "opTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-07T08:00:00+0000",
+            "description": "Op Time in the Open Habit Checkin Data structure."
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "description": "Value in the Open Habit Checkin Data structure.",
+            "example": 1
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "description": "Goal in the Open Habit Checkin Data structure.",
+            "example": 1
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Status in the Open Habit Checkin Data structure.",
+            "example": 1
+          }
+        }
+      },
+      "HabitCheckInUpsert": {
+        "title": "HabitCheckInUpsert",
+        "description": "HabitCheckInUpsert data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OpenHabitCheckinData"
+          },
+          {
+            "type": "object",
+            "required": [
+              "stamp"
+            ],
+            "description": "Habit Check In Upsert all Of 2 in the Habit Check In Upsert structure."
+          }
+        ]
+      },
+      "OpenHabitCheckin": {
+        "title": "OpenHabitCheckin",
+        "description": "OpenHabitCheckin data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id in the Open Habit Checkin structure.",
+            "example": "dida365-example-id"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "Habit Id in the Open Habit Checkin structure.",
+            "example": "dida365-example-id"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created Time in the Open Habit Checkin structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified Time in the Open Habit Checkin structure.",
+            "example": "2026-01-23T12:00:00Z"
+          },
+          "etag": {
+            "type": "string",
+            "description": "Etag in the Open Habit Checkin structure.",
+            "example": "example"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2026,
+            "description": "Year in the Open Habit Checkin structure."
+          },
+          "checkins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabitCheckinData"
+            },
+            "description": "Checkins in the Open Habit Checkin structure."
+          }
+        }
+      },
       "ChecklistItem": {
         "title": "ChecklistItem",
         "type": "object",
@@ -652,21 +3205,27 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Subtask identifier"
+            "description": "Subtask identifier",
+            "example": "dida365-example-id"
           },
           "title": {
             "type": "string",
-            "description": "Subtask title"
+            "description": "Subtask title",
+            "example": "Example"
           },
           "status": {
             "type": "integer",
             "format": "int32",
             "description": "The completion status of subtask",
-            "enum": [0, 1],
-            "x-enum-descriptions": {
-              "0": "Normal",
-              "1": "Completed"
-            }
+            "enum": [
+              0,
+              1
+            ],
+            "x-enum-descriptions": [
+              "Value 0.",
+              "Value 1."
+            ],
+            "example": 0
           },
           "completedTime": {
             "type": "string",
@@ -676,7 +3235,8 @@
           },
           "isAllDay": {
             "type": "boolean",
-            "description": "All day"
+            "description": "All day",
+            "example": true
           },
           "sortOrder": {
             "type": "integer",
@@ -704,19 +3264,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Task identifier"
+            "description": "Task identifier",
+            "example": "dida365-example-id"
           },
           "projectId": {
             "type": "string",
-            "description": "Task project id"
+            "description": "Task project id",
+            "example": "dida365-example-id"
           },
           "title": {
             "type": "string",
-            "description": "Task title"
+            "description": "Task title",
+            "example": "Example"
           },
           "isAllDay": {
             "type": "boolean",
-            "description": "All day"
+            "description": "All day",
+            "example": true
           },
           "completedTime": {
             "type": "string",
@@ -726,11 +3290,13 @@
           },
           "content": {
             "type": "string",
-            "description": "Task content"
+            "description": "Task content",
+            "example": "example"
           },
           "desc": {
             "type": "string",
-            "description": "Task description of checklist"
+            "description": "Task description of checklist",
+            "example": "example"
           },
           "dueDate": {
             "type": "string",
@@ -749,23 +3315,46 @@
             "type": "integer",
             "format": "int32",
             "description": "Task priority",
-            "enum": [0, 1, 3, 5],
-            "x-enum-descriptions": {
-              "0": "None",
-              "1": "Low",
-              "3": "Medium",
-              "5": "High"
-            }
+            "enum": [
+              0,
+              1,
+              3,
+              5
+            ],
+            "x-enum-descriptions": [
+              "Value 0.",
+              "Value 1.",
+              "Value 3.",
+              "Value 5."
+            ],
+            "example": 0
           },
           "reminders": {
             "type": "array",
             "description": "List of reminder triggers",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "Reminders item in the Task structure.",
+              "example": "example"
             },
-            "example": ["TRIGGER:P0DT9H0M0S", "TRIGGER:PT0S"]
+            "example": [
+              "TRIGGER:P0DT9H0M0S",
+              "TRIGGER:PT0S"
+            ]
           },
-          "tags": {"type": "array", "description": "Tags assigned to the task", "items": {"type": "string"}, "example": ["work", "urgent"]},
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Tags item in the Task structure.",
+              "example": "example"
+            },
+            "example": [
+              "work",
+              "urgent"
+            ]
+          },
           "repeatFlag": {
             "type": "string",
             "description": "Recurring rules of task",
@@ -787,11 +3376,15 @@
             "type": "integer",
             "format": "int32",
             "description": "Task completion status",
-            "enum": [0, 2],
-            "x-enum-descriptions": {
-              "0": "Normal",
-              "2": "Completed"
-            }
+            "enum": [
+              0,
+              2
+            ],
+            "x-enum-descriptions": [
+              "Value 0.",
+              "Value 2."
+            ],
+            "example": 0
           },
           "timeZone": {
             "type": "string",
@@ -801,7 +3394,17 @@
           "kind": {
             "type": "string",
             "description": "Task kind",
-            "enum": ["TEXT", "NOTE", "CHECKLIST"]
+            "enum": [
+              "TEXT",
+              "NOTE",
+              "CHECKLIST"
+            ],
+            "example": "TEXT",
+            "x-enum-descriptions": [
+              "Value TEXT.",
+              "Value NOTE.",
+              "Value CHECKLIST."
+            ]
           }
         }
       },
@@ -809,27 +3412,35 @@
         "title": "TaskCreate",
         "type": "object",
         "description": "Request body for creating a new task",
-        "required": ["title", "projectId"],
+        "required": [
+          "title",
+          "projectId"
+        ],
         "properties": {
           "title": {
             "type": "string",
-            "description": "Task title"
+            "description": "Task title",
+            "example": "Example"
           },
           "projectId": {
             "type": "string",
-            "description": "Project id"
+            "description": "Project id",
+            "example": "dida365-example-id"
           },
           "content": {
             "type": "string",
-            "description": "Task content"
+            "description": "Task content",
+            "example": "example"
           },
           "desc": {
             "type": "string",
-            "description": "Description of checklist"
+            "description": "Description of checklist",
+            "example": "example"
           },
           "isAllDay": {
             "type": "boolean",
-            "description": "All day"
+            "description": "All day",
+            "example": true
           },
           "startDate": {
             "type": "string",
@@ -845,29 +3456,47 @@
           },
           "timeZone": {
             "type": "string",
-            "description": "The time zone in which the time is specified"
+            "description": "The time zone in which the time is specified",
+            "example": "2026-01-23T12:00:00Z"
           },
           "reminders": {
             "type": "array",
             "description": "Lists of reminders specific to the task",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "Reminders item in the Task Create structure.",
+              "example": "example"
             }
           },
-          "tags": {"type": "array", "description": "Tags assigned to the task", "items": {"type": "string"}, "example": ["work", "urgent"]},
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Tags item in the Task Create structure.",
+              "example": "example"
+            },
+            "example": [
+              "work",
+              "urgent"
+            ]
+          },
           "repeatFlag": {
             "type": "string",
-            "description": "Recurring rules of task"
+            "description": "Recurring rules of task",
+            "example": "example"
           },
           "priority": {
             "type": "integer",
             "format": "int32",
-            "description": "The priority of task, default is 0"
+            "description": "The priority of task, default is 0",
+            "example": 1
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "The order of task"
+            "description": "The order of task",
+            "example": 1
           },
           "items": {
             "type": "array",
@@ -882,31 +3511,40 @@
         "title": "TaskUpdate",
         "type": "object",
         "description": "Request body for updating an existing task",
-        "required": ["id", "projectId"],
+        "required": [
+          "id",
+          "projectId"
+        ],
         "properties": {
           "id": {
             "type": "string",
-            "description": "Task id"
+            "description": "Task id",
+            "example": "dida365-example-id"
           },
           "projectId": {
             "type": "string",
-            "description": "Project id"
+            "description": "Project id",
+            "example": "dida365-example-id"
           },
           "title": {
             "type": "string",
-            "description": "Task title"
+            "description": "Task title",
+            "example": "Example"
           },
           "content": {
             "type": "string",
-            "description": "Task content"
+            "description": "Task content",
+            "example": "example"
           },
           "desc": {
             "type": "string",
-            "description": "Description of checklist"
+            "description": "Description of checklist",
+            "example": "example"
           },
           "isAllDay": {
             "type": "boolean",
-            "description": "All day"
+            "description": "All day",
+            "example": true
           },
           "startDate": {
             "type": "string",
@@ -922,29 +3560,47 @@
           },
           "timeZone": {
             "type": "string",
-            "description": "The time zone in which the time is specified"
+            "description": "The time zone in which the time is specified",
+            "example": "2026-01-23T12:00:00Z"
           },
           "reminders": {
             "type": "array",
             "description": "Lists of reminders specific to the task",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "Reminders item in the Task Update structure.",
+              "example": "example"
             }
           },
-          "tags": {"type": "array", "description": "Tags assigned to the task", "items": {"type": "string"}, "example": ["work", "urgent"]},
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Tags item in the Task Update structure.",
+              "example": "example"
+            },
+            "example": [
+              "work",
+              "urgent"
+            ]
+          },
           "repeatFlag": {
             "type": "string",
-            "description": "Recurring rules of task"
+            "description": "Recurring rules of task",
+            "example": "example"
           },
           "priority": {
             "type": "integer",
             "format": "int32",
-            "description": "The priority of task, default is normal"
+            "description": "The priority of task, default is normal",
+            "example": 1
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "The order of task"
+            "description": "The order of task",
+            "example": 1
           },
           "items": {
             "type": "array",
@@ -962,30 +3618,36 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "Subtask title"
+            "description": "Subtask title",
+            "example": "Example"
           },
           "startDate": {
             "type": "string",
             "format": "date-time",
-            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format"
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "example": "2026-01-23T12:00:00Z"
           },
           "isAllDay": {
             "type": "boolean",
-            "description": "All day"
+            "description": "All day",
+            "example": true
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "The order of subtask"
+            "description": "The order of subtask",
+            "example": 1
           },
           "timeZone": {
             "type": "string",
-            "description": "The time zone in which the Start time is specified"
+            "description": "The time zone in which the Start time is specified",
+            "example": "2026-01-23T12:00:00Z"
           },
           "status": {
             "type": "integer",
             "format": "int32",
-            "description": "The completion status of subtask"
+            "description": "The completion status of subtask",
+            "example": 1
           },
           "completedTime": {
             "type": "string",
@@ -1002,43 +3664,77 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Project identifier"
+            "description": "Project identifier",
+            "example": "dida365-example-id"
           },
           "name": {
             "type": "string",
-            "description": "Project name"
+            "description": "Project name",
+            "example": "Example"
           },
           "color": {
             "type": "string",
-            "description": "Project color"
+            "description": "Project color",
+            "example": "example"
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "Order value"
+            "description": "Order value",
+            "example": 1
           },
           "closed": {
             "type": "boolean",
-            "description": "Project closed"
+            "description": "Project closed",
+            "example": true
           },
           "groupId": {
             "type": "string",
-            "description": "Project group identifier"
+            "description": "Project group identifier",
+            "example": "dida365-example-id"
           },
           "viewMode": {
             "type": "string",
             "description": "View mode",
-            "enum": ["list", "kanban", "timeline"]
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "example": "list",
+            "x-enum-descriptions": [
+              "Value list.",
+              "Value kanban.",
+              "Value timeline."
+            ]
           },
           "permission": {
             "type": "string",
             "description": "User permission level for the project",
-            "enum": ["read", "write", "comment"]
+            "enum": [
+              "read",
+              "write",
+              "comment"
+            ],
+            "example": "read",
+            "x-enum-descriptions": [
+              "Value read.",
+              "Value write.",
+              "Value comment."
+            ]
           },
           "kind": {
             "type": "string",
             "description": "Project kind",
-            "enum": ["TASK", "NOTE"]
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "example": "TASK",
+            "x-enum-descriptions": [
+              "Value TASK.",
+              "Value NOTE."
+            ]
           }
         }
       },
@@ -1046,11 +3742,14 @@
         "title": "ProjectCreate",
         "type": "object",
         "description": "Request body for creating a new project",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string",
-            "description": "Name of the project"
+            "description": "Name of the project",
+            "example": "Example"
           },
           "color": {
             "type": "string",
@@ -1060,17 +3759,36 @@
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "Sort order value of the project"
+            "description": "Sort order value of the project",
+            "example": 1
           },
           "viewMode": {
             "type": "string",
             "description": "View mode",
-            "enum": ["list", "kanban", "timeline"]
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "example": "list",
+            "x-enum-descriptions": [
+              "Value list.",
+              "Value kanban.",
+              "Value timeline."
+            ]
           },
           "kind": {
             "type": "string",
             "description": "Project kind",
-            "enum": ["TASK", "NOTE"]
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "example": "TASK",
+            "x-enum-descriptions": [
+              "Value TASK.",
+              "Value NOTE."
+            ]
           }
         }
       },
@@ -1081,26 +3799,47 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Name of the project"
+            "description": "Name of the project",
+            "example": "Example"
           },
           "color": {
             "type": "string",
-            "description": "Color of the project"
+            "description": "Color of the project",
+            "example": "example"
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "Sort order value, default 0"
+            "description": "Sort order value, default 0",
+            "example": 1
           },
           "viewMode": {
             "type": "string",
             "description": "View mode",
-            "enum": ["list", "kanban", "timeline"]
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "example": "list",
+            "x-enum-descriptions": [
+              "Value list.",
+              "Value kanban.",
+              "Value timeline."
+            ]
           },
           "kind": {
             "type": "string",
             "description": "Project kind",
-            "enum": ["TASK", "NOTE"]
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "example": "TASK",
+            "x-enum-descriptions": [
+              "Value TASK.",
+              "Value NOTE."
+            ]
           }
         }
       },
@@ -1111,20 +3850,24 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Column identifier"
+            "description": "Column identifier",
+            "example": "dida365-example-id"
           },
           "projectId": {
             "type": "string",
-            "description": "Project identifier"
+            "description": "Project identifier",
+            "example": "dida365-example-id"
           },
           "name": {
             "type": "string",
-            "description": "Column name"
+            "description": "Column name",
+            "example": "Example"
           },
           "sortOrder": {
             "type": "integer",
             "format": "int64",
-            "description": "Order value"
+            "description": "Order value",
+            "example": 1
           }
         }
       },

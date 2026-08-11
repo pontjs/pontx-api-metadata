@@ -51,7 +51,8 @@
               "default": 1,
               "minimum": 0,
               "exclusiveMinimum": true,
-              "example": 100
+              "example": 100,
+              "description": "要换算的金额（默认为 1）"
             }
           },
           {
@@ -95,6 +96,39 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "基准货币代码（三位 ISO 4217 代码）",
+              "x-enum-descriptions": [
+                "取值 AUD。",
+                "取值 BRL。",
+                "取值 CAD。",
+                "取值 CHF。",
+                "取值 CNY。",
+                "取值 CZK。",
+                "取值 DKK。",
+                "取值 EUR。",
+                "取值 GBP。",
+                "取值 HKD。",
+                "取值 HUF。",
+                "取值 IDR。",
+                "取值 ILS。",
+                "取值 INR。",
+                "取值 ISK。",
+                "取值 JPY。",
+                "取值 KRW。",
+                "取值 MXN。",
+                "取值 MYR。",
+                "取值 NOK。",
+                "取值 NZD。",
+                "取值 PHP。",
+                "取值 PLN。",
+                "取值 RON。",
+                "取值 SEK。",
+                "取值 SGD。",
+                "取值 THB。",
+                "取值 TRY。",
+                "取值 USD。",
+                "取值 ZAR。"
               ]
             }
           },
@@ -106,7 +140,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
-              "example": "USD,GBP,JPY"
+              "example": "USD,GBP",
+              "description": "以逗号分隔的货币代码列表，用于限制响应范围。\n如未指定，则返回所有可用货币。"
             },
             "style": "form",
             "explode": false
@@ -216,7 +251,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-15"
+              "example": "2024-01-15",
+              "description": "ISO 8601 格式的日期（YYYY-MM-DD）"
             }
           },
           {
@@ -229,7 +265,9 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "description": "要换算的金额（默认为 1）",
+              "example": 1
             }
           },
           {
@@ -272,6 +310,40 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "基准货币代码（三位 ISO 4217 代码）",
+              "example": "AUD",
+              "x-enum-descriptions": [
+                "取值 AUD。",
+                "取值 BRL。",
+                "取值 CAD。",
+                "取值 CHF。",
+                "取值 CNY。",
+                "取值 CZK。",
+                "取值 DKK。",
+                "取值 EUR。",
+                "取值 GBP。",
+                "取值 HKD。",
+                "取值 HUF。",
+                "取值 IDR。",
+                "取值 ILS。",
+                "取值 INR。",
+                "取值 ISK。",
+                "取值 JPY。",
+                "取值 KRW。",
+                "取值 MXN。",
+                "取值 MYR。",
+                "取值 NOK。",
+                "取值 NZD。",
+                "取值 PHP。",
+                "取值 PLN。",
+                "取值 RON。",
+                "取值 SEK。",
+                "取值 SGD。",
+                "取值 THB。",
+                "取值 TRY。",
+                "取值 USD。",
+                "取值 ZAR。"
               ]
             }
           },
@@ -282,7 +354,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+              "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+              "example": "USD,GBP"
             },
             "style": "form",
             "explode": false
@@ -368,7 +442,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2026-08-01"
+              "example": "2026-08-01",
+              "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）"
             }
           },
           {
@@ -451,7 +526,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-01"
+              "example": "2024-01-01",
+              "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）"
             }
           },
           {
@@ -463,7 +539,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-31"
+              "example": "2024-01-31",
+              "description": "ISO 8601 格式的结束日期（YYYY-MM-DD）。\n可使用 \"start_date..\" 格式省略结束日期，以获取从 start_date 起的所有汇率。"
             }
           },
           {
@@ -476,7 +553,9 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "description": "要换算的金额（默认为 1）",
+              "example": 1
             }
           },
           {
@@ -519,6 +598,40 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "基准货币代码（三位 ISO 4217 代码）",
+              "example": "AUD",
+              "x-enum-descriptions": [
+                "取值 AUD。",
+                "取值 BRL。",
+                "取值 CAD。",
+                "取值 CHF。",
+                "取值 CNY。",
+                "取值 CZK。",
+                "取值 DKK。",
+                "取值 EUR。",
+                "取值 GBP。",
+                "取值 HKD。",
+                "取值 HUF。",
+                "取值 IDR。",
+                "取值 ILS。",
+                "取值 INR。",
+                "取值 ISK。",
+                "取值 JPY。",
+                "取值 KRW。",
+                "取值 MXN。",
+                "取值 MYR。",
+                "取值 NOK。",
+                "取值 NZD。",
+                "取值 PHP。",
+                "取值 PLN。",
+                "取值 RON。",
+                "取值 SEK。",
+                "取值 SGD。",
+                "取值 THB。",
+                "取值 TRY。",
+                "取值 USD。",
+                "取值 ZAR。"
               ]
             }
           },
@@ -529,7 +642,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+              "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+              "example": "USD,GBP"
             },
             "style": "form",
             "explode": false
@@ -677,6 +792,9 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "请求失败。"
           }
         }
       }
@@ -721,7 +839,9 @@
             "description": "以键值对表示的汇率（货币代码对应汇率）",
             "additionalProperties": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "汇率响应 数据结构中的rates value 字段。",
+              "example": 1
             },
             "example": {
               "USD": 1.0445,
@@ -763,7 +883,7 @@
             "format": "date",
             "description": "时间序列的起始日期",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2023-12-29"
+            "example": "2023-12-29"
           },
           "end_date": {
             "type": "string",
@@ -780,7 +900,9 @@
               "description": "指定日期的汇率",
               "additionalProperties": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "汇率时间序列响应 数据结构中的rates value value 字段。",
+                "example": 1
               }
             },
             "example": {
@@ -801,7 +923,9 @@
         "type": "object",
         "description": "货币代码与货币名称的映射。",
         "additionalProperties": {
-          "type": "string"
+          "type": "string",
+          "description": "CurrenciesResponse 数据结构中的CurrenciesResponse value 字段。",
+          "example": "example"
         },
         "example": {
           "EUR": "Euro",
@@ -835,7 +959,9 @@
           "format": "double",
           "default": 1,
           "minimum": 0,
-          "exclusiveMinimum": true
+          "exclusiveMinimum": true,
+          "description": "要换算的金额（默认为 1）",
+          "example": 1
         }
       },
       "BaseParam": {
@@ -846,7 +972,9 @@
         "schema": {
           "type": "string",
           "pattern": "^[A-Z]{3}$",
-          "default": "EUR"
+          "default": "EUR",
+          "description": "基准货币代码（三位 ISO 4217 代码）",
+          "example": "EUR"
         }
       },
       "SymbolsParam": {
@@ -856,7 +984,9 @@
         "required": false,
         "schema": {
           "type": "string",
-          "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+          "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+          "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+          "example": "USD,GBP"
         },
         "style": "form",
         "explode": false

@@ -4,152 +4,480 @@
     "title": "腾讯财经网页行情 API",
     "version": "2026-08-10",
     "description": "在提供方自有行情页面上观察到的腾讯财经只读网页接口，未提供公开文档。快照响应为 GBK 编码的 JavaScript 赋值语句；图表响应为 JSON，其中证券标识和周期键是动态的。这是带有证据标记的网页接口，并非官方开发者 API。",
-    "license": { "name": "Proprietary / undocumented" }
+    "license": {
+      "name": "Proprietary / undocumented"
+    }
   },
   "servers": [
-    { "url": "https://qt.gtimg.cn", "description": "快照主机" },
-    { "url": "https://web.ifzq.gtimg.cn", "description": "图表主机" }
+    {
+      "url": "https://qt.gtimg.cn",
+      "description": "快照主机"
+    },
+    {
+      "url": "https://web.ifzq.gtimg.cn",
+      "description": "图表主机"
+    }
   ],
-  "tags": [{ "name": "Quotes" }, { "name": "Charts" }],
+  "tags": [
+    {
+      "name": "Quotes",
+      "description": "Quotes 相关接口。"
+    },
+    {
+      "name": "Charts",
+      "description": "Charts 相关接口。"
+    }
+  ],
   "paths": {
     "/q={symbols}": {
       "get": {
         "operationId": "getQuoteSnapshots",
-        "tags": ["Quotes"],
+        "tags": [
+          "Quotes"
+        ],
         "summary": "获取行情快照",
         "description": "返回一个或多个证券的文本行情。",
-        "parameters": [{
-          "name": "symbols",
-          "in": "path",
-          "description": "以逗号分隔、带腾讯前缀的证券标识。观察到的前缀包括 `sh`（上海）、`sz`（深圳）、`hk`（香港）和 `us`（美国）；例如 `sh600519`、`sz000001`、`hk00700`、`usAAPL`。",
-          "required": true,
-          "schema": { "type": "string", "pattern": "^[A-Za-z0-9_]+(?:,[A-Za-z0-9_]+)*$" },
-          "example": "hk00700,sz000001"
-        }],
+        "parameters": [
+          {
+            "name": "symbols",
+            "in": "path",
+            "description": "以逗号分隔、带腾讯前缀的证券标识。观察到的前缀包括 `sh`（上海）、`sz`（深圳）、`hk`（香港）和 `us`（美国）；例如 `sh600519`、`sz000001`、`hk00700`、`usAAPL`。",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+(?:,[A-Za-z0-9_]+)*$",
+              "description": "以逗号分隔、带腾讯前缀的证券标识。观察到的前缀包括 `sh`（上海）、`sz`（深圳）、`hk`（香港）和 `us`（美国）；例如 `sh600519`、`sz000001`、`hk00700`、`usAAPL`。",
+              "example": "hk00700,sz000001"
+            },
+            "example": "hk00700,sz000001"
+          }
+        ],
         "responses": {
           "200": {
             "description": "GBK 编码的 JavaScript 赋值文本；尽管响应头有时声明为 `text/html`，响应体并非 HTML。",
             "content": {
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/QuoteAssignmentWireText" },
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteAssignmentWireText"
+                },
                 "example": "v_hk00700=\"100~腾讯控股~00700~477.400~478.800~479.000~...\";"
               },
-              "text/plain": { "schema": { "$ref": "#/components/schemas/QuoteAssignmentWireText" } }
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteAssignmentWireText"
+                }
+              }
             }
+          },
+          "default": {
+            "description": "请求失败。"
           }
         },
         "x-pontx-documentation-status": "observed",
-        "x-pontx-evidence": ["https://gu.qq.com/hk00700", "https://qt.gtimg.cn/q=hk00700,sz000001"],
+        "x-pontx-evidence": [
+          "https://gu.qq.com/hk00700",
+          "https://qt.gtimg.cn/q=hk00700,sz000001"
+        ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 通过只读请求验证。响应声明为 `text/html; charset=GBK`，并包含以 `~` 分隔的 JavaScript 赋值语句。位置字段仍无公开文档，且因市场而异。",
-        "servers": [{ "url": "https://qt.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "servers": [
+          {
+            "url": "https://qt.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     },
     "/appstock/app/fqkline/get": {
       "get": {
         "operationId": "getForwardAdjustedKLine",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "获取复权 K 线",
         "description": "返回复权价格序列。",
-        "parameters": [{ "$ref": "#/components/parameters/KLineParamAdjusted" }],
-        "responses": { "200": { "$ref": "#/components/responses/KLineResponse" } },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/KLineParamAdjusted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/KLineResponse"
+          },
+          "default": {
+            "description": "请求失败。"
+          }
+        },
         "x-pontx-documentation-status": "observed",
-        "x-pontx-evidence": ["https://gu.qq.com/hk00700", "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk00700,day,,,3,qfq"],
+        "x-pontx-evidence": [
+          "https://gu.qq.com/hk00700",
+          "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk00700,day,,,3,qfq"
+        ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
-        "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "servers": [
+          {
+            "url": "https://web.ifzq.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     },
     "/appstock/app/kline/kline": {
       "get": {
         "operationId": "getKLine",
-        "tags": ["Charts"],
+        "tags": [
+          "Charts"
+        ],
         "summary": "获取非复权 K 线",
         "description": "返回非复权价格序列。",
-        "parameters": [{ "$ref": "#/components/parameters/KLineParam" }],
-        "responses": { "200": { "$ref": "#/components/responses/KLineResponse" } },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/KLineParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/KLineResponse"
+          },
+          "default": {
+            "description": "请求失败。"
+          }
+        },
         "x-pontx-documentation-status": "observed",
-        "x-pontx-evidence": ["https://gu.qq.com/sz000001", "https://web.ifzq.gtimg.cn/appstock/app/kline/kline?param=sz000001,week,,,2"],
+        "x-pontx-evidence": [
+          "https://gu.qq.com/sz000001",
+          "https://web.ifzq.gtimg.cn/appstock/app/kline/kline?param=sz000001,week,,,2"
+        ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
-        "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "servers": [
+          {
+            "url": "https://web.ifzq.gtimg.cn"
+          }
+        ],
+        "x-pontx-proxy-headers": {
+          "Referer": "https://gu.qq.com/"
+        }
       }
     }
   },
   "components": {
     "parameters": {
       "KLineParam": {
-        "name": "param", "in": "query", "required": true,
+        "name": "param",
+        "in": "query",
+        "required": true,
         "description": "以逗号分隔的元组 `symbol,interval,start,end,count`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`。除请求的历史数量外，提供方还可能追加当前未完结的 K 线。类似日内周期的值 `m1/m5/m15/m30/m60` 在 2026-08-10 的测试中返回 `bad params`。",
-        "schema": { "type": "string" }, "example": "sz000001,week,,,2"
+        "schema": {
+          "type": "string",
+          "description": "以逗号分隔的元组 `symbol,interval,start,end,count`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`。除请求的历史数量外，提供方还可能追加当前未完结的 K 线。类似日内周期的值 `m1/m5/m15/m30/m60` 在 2026-08-10 的测试中返回 `bad params`。",
+          "example": "example"
+        },
+        "example": "sz000001,week,,,2"
       },
       "KLineParamAdjusted": {
-        "name": "param", "in": "query", "required": true,
+        "name": "param",
+        "in": "query",
+        "required": true,
         "description": "以逗号分隔的元组 `symbol,interval,start,end,count,adjustment`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`；已确认的复权值为 `qfq`（前复权）、`hfq`（后复权）和 `none`（不复权）。复权模式返回的序列键带有前缀（`qfqday`/`hfqday`），`none` 的序列键不带前缀（`day`）。",
-        "schema": { "type": "string" }, "example": "hk00700,day,,,3,qfq"
+        "schema": {
+          "type": "string",
+          "description": "以逗号分隔的元组 `symbol,interval,start,end,count,adjustment`。起止段留空表示请求最近的 K 线。已确认的周期为 `day`、`week` 和 `month`；已确认的复权值为 `qfq`（前复权）、`hfq`（后复权）和 `none`（不复权）。复权模式返回的序列键带有前缀（`qfqday`/`hfqday`），`none` 的序列键不带前缀（`day`）。",
+          "example": "example"
+        },
+        "example": "hk00700,day,,,3,qfq"
       }
     },
     "responses": {
       "KLineResponse": {
         "description": "成功的 JSON 响应。K 线数组和原始行情值即使表示数值，也大多采用字符串形式。",
-        "content": { "text/html": { "schema": { "$ref": "#/components/schemas/KLineEnvelope" }, "example": { "code": 0, "msg": "", "data": { "hk00700": { "qfqday": [["2026-08-07", "479.000", "478.800", "483.200", "475.400", "16319939.000"]], "prec": "487.600", "version": "16" } } } } }
+        "content": {
+          "text/html": {
+            "schema": {
+              "$ref": "#/components/schemas/KLineEnvelope"
+            },
+            "example": {
+              "code": 0,
+              "msg": "",
+              "data": {
+                "hk00700": {
+                  "qfqday": [
+                    [
+                      "2026-08-07",
+                      "479.000",
+                      "478.800",
+                      "483.200",
+                      "475.400",
+                      "16319939.000"
+                    ]
+                  ],
+                  "prec": "487.600",
+                  "version": "16"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "schemas": {
       "KLineEnvelope": {
-        "type": "object", "title": "腾讯 K 线响应包络", "description": "腾讯 K 线接口返回的 JSON 包络，按证券代码组织数据并包含状态码和提示文本。", "required": ["code", "msg", "data"],
+        "type": "object",
+        "title": "腾讯 K 线响应包络",
+        "description": "腾讯 K 线接口返回的 JSON 包络，按证券代码组织数据并包含状态码和提示文本。",
+        "required": [
+          "code",
+          "msg",
+          "data"
+        ],
         "properties": {
-          "code": { "type": "integer", "description": "提供方状态码；观察到的成功值为 0。", "example": 0 },
-          "msg": { "type": "string", "description": "提供方状态消息；成功时为空。", "example": "" },
-          "data": { "type": "object", "description": "以请求的腾讯证券标识为键的映射。", "additionalProperties": { "$ref": "#/components/schemas/KLineSecurityData" } }
-        }, "additionalProperties": true
+          "code": {
+            "type": "integer",
+            "description": "提供方状态码；观察到的成功值为 0。",
+            "example": 0
+          },
+          "msg": {
+            "type": "string",
+            "description": "提供方状态消息；成功时为空。",
+            "example": ""
+          },
+          "data": {
+            "type": "object",
+            "description": "以请求的腾讯证券标识为键的映射。",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/KLineSecurityData"
+            }
+          }
+        },
+        "additionalProperties": true
       },
       "KLineSecurityData": {
         "type": "object",
         "title": "腾讯单证券 K 线解析模型",
         "description": "单个证券的逻辑 K 线数据；序列键为 day/week/month，复权路由会带 qfq 或 hfq 前缀。",
         "properties": {
-          "day": { "$ref": "#/components/schemas/CandleSeries" }, "week": { "$ref": "#/components/schemas/CandleSeries" }, "month": { "$ref": "#/components/schemas/CandleSeries" },
-          "qfqday": { "$ref": "#/components/schemas/CandleSeries" }, "qfqweek": { "$ref": "#/components/schemas/CandleSeries" }, "qfqmonth": { "$ref": "#/components/schemas/CandleSeries" },
-          "hfqday": { "$ref": "#/components/schemas/CandleSeries" }, "hfqweek": { "$ref": "#/components/schemas/CandleSeries" }, "hfqmonth": { "$ref": "#/components/schemas/CandleSeries" },
-          "qt": { "type": "object", "description": "以证券标识为键的原始行情数组及提供方市场状态数据；由于字段因市场而异，特意不对其建模。", "additionalProperties": true },
-          "prec": { "type": "string" }, "version": { "type": "string" }, "vcm": { "type": "string" }
+          "day": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "week": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "month": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "qfqday": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "qfqweek": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "qfqmonth": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "hfqday": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "hfqweek": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "hfqmonth": {
+            "$ref": "#/components/schemas/CandleSeries"
+          },
+          "qt": {
+            "type": "object",
+            "description": "以证券标识为键的原始行情数组及提供方市场状态数据；由于字段因市场而异，特意不对其建模。",
+            "additionalProperties": true
+          },
+          "prec": {
+            "type": "string",
+            "description": "腾讯单证券 K 线解析模型 数据结构中的prec 字段。",
+            "example": "example"
+          },
+          "version": {
+            "type": "string",
+            "description": "腾讯单证券 K 线解析模型 数据结构中的version 字段。",
+            "example": "example"
+          },
+          "vcm": {
+            "type": "string",
+            "description": "腾讯单证券 K 线解析模型 数据结构中的vcm 字段。",
+            "example": "example"
+          }
         },
         "additionalProperties": true
       },
       "CandleSeries": {
-        "type": "array", "title": "腾讯 K 线序列", "description": "按时间正序排列的蜡烛图元组列表；提供方可能在 count 指定数量之外附加当前未完成行情柱。", "items": { "$ref": "#/components/schemas/CandleTuple" }
+        "type": "array",
+        "title": "腾讯 K 线序列",
+        "description": "按时间正序排列的蜡烛图元组列表；提供方可能在 count 指定数量之外附加当前未完成行情柱。",
+        "items": {
+          "$ref": "#/components/schemas/CandleTuple"
+        }
       },
       "CandleTuple": {
-        "type": "array", "title": "腾讯 K 线元组", "description": "固定为日期、开盘、收盘、最高、最低、成交量的六项元组，数值在原始响应中保持字符串。",
-        "minItems": 6, "maxItems": 6, "items": { "type": "string" },
-        "example": ["2026-08-07", "479.000", "478.800", "483.200", "475.400", "16319939.000"],
+        "type": "array",
+        "title": "腾讯 K 线元组",
+        "description": "固定为日期、开盘、收盘、最高、最低、成交量的六项元组，数值在原始响应中保持字符串。",
+        "minItems": 6,
+        "maxItems": 6,
+        "items": {
+          "type": "string",
+          "description": "CandleTuple 数据结构中的CandleTuple item 字段。",
+          "example": "example"
+        },
+        "example": [
+          "2026-08-07",
+          "479.000",
+          "478.800",
+          "483.200",
+          "475.400",
+          "16319939.000"
+        ],
         "x-pontx-prefix-items": [
-          {"name":"date","type":"string","format":"date","position":0}, {"name":"open","type":"string","position":1}, {"name":"close","type":"string","position":2}, {"name":"high","type":"string","position":3}, {"name":"low","type":"string","position":4}, {"name":"volume","type":"string","position":5}
+          {
+            "name": "date",
+            "type": "string",
+            "format": "date",
+            "position": 0
+          },
+          {
+            "name": "open",
+            "type": "string",
+            "position": 1
+          },
+          {
+            "name": "close",
+            "type": "string",
+            "position": 2
+          },
+          {
+            "name": "high",
+            "type": "string",
+            "position": 3
+          },
+          {
+            "name": "low",
+            "type": "string",
+            "position": 4
+          },
+          {
+            "name": "volume",
+            "type": "string",
+            "position": 5
+          }
         ]
       },
       "QuoteAssignmentWireText": {
-        "type": "string", "title": "腾讯报价赋值文本原始响应", "description": "GBK 解码的 v_<symbol> JavaScript 赋值文本，不是 JSON 或 HTML；禁止执行，应仅提取引号内容并按波浪号切分，保留空字段。", "x-pontx-decoded-record-schema": "#/components/schemas/CommonQuotePositionalRecord"
+        "type": "string",
+        "title": "腾讯报价赋值文本原始响应",
+        "description": "GBK 解码的 v_<symbol> JavaScript 赋值文本，不是 JSON 或 HTML；禁止执行，应仅提取引号内容并按波浪号切分，保留空字段。",
+        "x-pontx-decoded-record-schema": "#/components/schemas/CommonQuotePositionalRecord",
+        "example": "example"
       },
       "CommonQuotePositionalRecord": {
-        "type": "object", "title": "腾讯跨市场报价解析模型", "description": "从赋值文本按位置解析的 A 股、港股和美股公共字段逻辑模型，不是原始响应；未确认的市场特有字段保留在 unmappedFields。",
-        "required": ["name","code","latest","previousClose","open","time","change","changePercent","high","low"],
+        "type": "object",
+        "title": "腾讯跨市场报价解析模型",
+        "description": "从赋值文本按位置解析的 A 股、港股和美股公共字段逻辑模型，不是原始响应；未确认的市场特有字段保留在 unmappedFields。",
+        "required": [
+          "name",
+          "code",
+          "latest",
+          "previousClose",
+          "open",
+          "time",
+          "change",
+          "changePercent",
+          "high",
+          "low"
+        ],
         "properties": {
-          "name": {"type":"string","example":"腾讯控股","x-pontx-position":1,"x-pontx-confidence":"high-inferred"},
-          "code": {"type":"string","example":"00700","x-pontx-position":2,"x-pontx-confidence":"high-inferred"},
-          "latest": {"type":"string","example":"478.400","x-pontx-position":3,"x-pontx-confidence":"high-inferred"},
-          "previousClose": {"type":"string","example":"478.800","x-pontx-position":4,"x-pontx-confidence":"high-inferred"},
-          "open": {"type":"string","example":"479.000","x-pontx-position":5,"x-pontx-confidence":"high-inferred"},
-          "time": {"type":"string","description":"因市场而异的时间戳表示方式（观察到 `YYYYMMDDhhmmss`、`YYYY/MM/DD HH:mm:ss` 或 `YYYY-MM-DD HH:mm:ss`）。","example":"2026/08/10 11:59:59","x-pontx-position":30,"x-pontx-confidence":"high-inferred"},
-          "change": {"type":"string","example":"-0.400","x-pontx-position":31,"x-pontx-confidence":"high-inferred"},
-          "changePercent": {"type":"string","description":"不含百分号的百分比数值。","example":"-0.08","x-pontx-position":32,"x-pontx-confidence":"high-inferred"},
-          "high": {"type":"string","example":"483.600","x-pontx-position":33,"x-pontx-confidence":"high-inferred"},
-          "low": {"type":"string","example":"476.400","x-pontx-position":34,"x-pontx-confidence":"high-inferred"},
-          "unmappedFields": {"type":"array","items":{"type":"string"},"description":"未在上方映射的所有原始位置；应原样保留其索引和值。"}
-        }, "additionalProperties": false
+          "name": {
+            "type": "string",
+            "example": "腾讯控股",
+            "x-pontx-position": 1,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的名称。"
+          },
+          "code": {
+            "type": "string",
+            "example": "00700",
+            "x-pontx-position": 2,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的代码。"
+          },
+          "latest": {
+            "type": "string",
+            "example": "478.400",
+            "x-pontx-position": 3,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的latest 字段。"
+          },
+          "previousClose": {
+            "type": "string",
+            "example": "478.800",
+            "x-pontx-position": 4,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的previousClose 字段。"
+          },
+          "open": {
+            "type": "string",
+            "example": "479.000",
+            "x-pontx-position": 5,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的open 字段。"
+          },
+          "time": {
+            "type": "string",
+            "description": "因市场而异的时间戳表示方式（观察到 `YYYYMMDDhhmmss`、`YYYY/MM/DD HH:mm:ss` 或 `YYYY-MM-DD HH:mm:ss`）。",
+            "example": "2026/08/10 11:59:59",
+            "x-pontx-position": 30,
+            "x-pontx-confidence": "high-inferred"
+          },
+          "change": {
+            "type": "string",
+            "example": "-0.400",
+            "x-pontx-position": 31,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的change 字段。"
+          },
+          "changePercent": {
+            "type": "string",
+            "description": "不含百分号的百分比数值。",
+            "example": "-0.08",
+            "x-pontx-position": 32,
+            "x-pontx-confidence": "high-inferred"
+          },
+          "high": {
+            "type": "string",
+            "example": "483.600",
+            "x-pontx-position": 33,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的high 字段。"
+          },
+          "low": {
+            "type": "string",
+            "example": "476.400",
+            "x-pontx-position": 34,
+            "x-pontx-confidence": "high-inferred",
+            "description": "腾讯跨市场报价解析模型 数据结构中的low 字段。"
+          },
+          "unmappedFields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "腾讯跨市场报价解析模型 数据结构中的unmappedFields item 字段。",
+              "example": "example"
+            },
+            "description": "未在上方映射的所有原始位置；应原样保留其索引和值。"
+          }
+        },
+        "additionalProperties": false
       }
     }
   }

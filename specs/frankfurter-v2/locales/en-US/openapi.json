@@ -24,14 +24,30 @@
         "summary": "Get exchange rates",
         "description": "Returns exchange rates blended across providers. Without date params, returns the latest rates. Each record is a single currency pair. The response includes an identity record for the base currency (base equals quote, rate 1), subject to the quotes filter like any other record. Daily date ranges of any length are served, including full history. Limit: requests using `providers` or `expand=providers` recompute the blend per date, so at daily granularity they return 422 for ranges longer than 5 years. With `providers` naming at most 5 providers, a `quotes` list of at most 5 currencies lifts the cap; without `providers`, `expand=providers` ranges compute every currency regardless of `quotes`, so aggregate with `group=week` or `group=month`, add `providers`, or split the range into shorter requests.",
         "parameters": [
-          { "$ref": "#/components/parameters/date" },
-          { "$ref": "#/components/parameters/from" },
-          { "$ref": "#/components/parameters/to" },
-          { "$ref": "#/components/parameters/base" },
-          { "$ref": "#/components/parameters/quotes" },
-          { "$ref": "#/components/parameters/providers" },
-          { "$ref": "#/components/parameters/group" },
-          { "$ref": "#/components/parameters/expand" }
+          {
+            "$ref": "#/components/parameters/date"
+          },
+          {
+            "$ref": "#/components/parameters/from"
+          },
+          {
+            "$ref": "#/components/parameters/to"
+          },
+          {
+            "$ref": "#/components/parameters/base"
+          },
+          {
+            "$ref": "#/components/parameters/quotes"
+          },
+          {
+            "$ref": "#/components/parameters/providers"
+          },
+          {
+            "$ref": "#/components/parameters/group"
+          },
+          {
+            "$ref": "#/components/parameters/expand"
+          }
         ],
         "responses": {
           "200": {
@@ -40,26 +56,51 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Rate" }
+                  "items": {
+                    "$ref": "#/components/schemas/Rate"
+                  },
+                  "description": "Get Rates response in the get Rates structure."
                 },
                 "example": [
-                  { "date": "2024-01-15", "base": "EUR", "quote": "EUR", "rate": 1.0 },
-                  { "date": "2024-01-15", "base": "EUR", "quote": "GBP", "rate": 0.8623 },
-                  { "date": "2024-01-15", "base": "EUR", "quote": "USD", "rate": 1.089 }
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "EUR",
+                    "rate": 1
+                  },
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "GBP",
+                    "rate": 0.8623
+                  },
+                  {
+                    "date": "2024-01-15",
+                    "base": "EUR",
+                    "quote": "USD",
+                    "rate": 1.089
+                  }
                 ]
               },
               "application/x-ndjson": {
                 "schema": {
                   "type": "string",
-                  "description": "NDJSON stream of Rate objects, one JSON object per line"
+                  "description": "NDJSON stream of Rate objects, one JSON object per line",
+                  "example": "example"
                 },
                 "example": "{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"USD\", \"rate\": 1.089 }\n{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"GBP\", \"rate\": 0.8623 }\n"
               }
             }
           },
-          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref": "#/components/responses/NotFound" },
-          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
         }
       }
     },
@@ -73,30 +114,55 @@
             "name": "base",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "EUR" }
+            "schema": {
+              "type": "string",
+              "example": "EUR",
+              "description": "Base in the get Rate structure."
+            }
           },
           {
             "name": "quote",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": {
+              "type": "string",
+              "example": "USD",
+              "description": "Quote in the get Rate structure."
+            }
           },
-          { "$ref": "#/components/parameters/date" },
-          { "$ref": "#/components/parameters/providers" }
+          {
+            "$ref": "#/components/parameters/date"
+          },
+          {
+            "$ref": "#/components/parameters/providers"
+          }
         ],
         "responses": {
           "200": {
             "description": "Exchange rate",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Rate" },
-                "example": { "date": "2026-03-25", "base": "EUR", "quote": "USD", "rate": 1.1568 }
+                "schema": {
+                  "$ref": "#/components/schemas/Rate"
+                },
+                "example": {
+                  "date": "2026-03-25",
+                  "base": "EUR",
+                  "quote": "USD",
+                  "rate": 1.1568
+                }
               }
             }
           },
-          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref": "#/components/responses/NotFound" },
-          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
         }
       }
     },
@@ -110,7 +176,11 @@
             "name": "code",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "example": "USD" }
+            "schema": {
+              "type": "string",
+              "example": "USD",
+              "description": "Code in the get Currency structure."
+            }
           }
         ],
         "responses": {
@@ -118,12 +188,26 @@
             "description": "Currency details",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CurrencyDetail" },
-                "example": { "iso_code": "USD", "iso_numeric": "840", "name": "United States Dollar", "symbol": "$", "providers": ["ECB", "BOC", "FED"] }
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDetail"
+                },
+                "example": {
+                  "iso_code": "USD",
+                  "iso_numeric": "840",
+                  "name": "United States Dollar",
+                  "symbol": "$",
+                  "providers": [
+                    "ECB",
+                    "BOC",
+                    "FED"
+                  ]
+                }
               }
             }
           },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
       }
     },
@@ -138,9 +222,21 @@
             "in": "query",
             "description": "Set to 'all' to include legacy currencies",
             "required": false,
-            "schema": { "type": "string", "enum": ["all"] }
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all"
+              ],
+              "description": "Set to 'all' to include legacy currencies",
+              "example": "all",
+              "x-enum-descriptions": [
+                "Value all."
+              ]
+            }
           },
-          { "$ref": "#/components/parameters/providers" }
+          {
+            "$ref": "#/components/parameters/providers"
+          }
         ],
         "responses": {
           "200": {
@@ -149,14 +245,34 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Currency" }
+                  "items": {
+                    "$ref": "#/components/schemas/Currency"
+                  },
+                  "description": "Get Currencies response in the get Currencies structure."
                 },
                 "example": [
-                  { "iso_code": "EUR", "iso_numeric": "978", "name": "Euro", "symbol": "\u20ac", "start_date": "1999-01-04", "end_date": "2026-03-17" },
-                  { "iso_code": "USD", "iso_numeric": "840", "name": "United States Dollar", "symbol": "$", "start_date": "1999-01-04", "end_date": "2026-03-17" }
+                  {
+                    "iso_code": "EUR",
+                    "iso_numeric": "978",
+                    "name": "Euro",
+                    "symbol": "€",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17"
+                  },
+                  {
+                    "iso_code": "USD",
+                    "iso_numeric": "840",
+                    "name": "United States Dollar",
+                    "symbol": "$",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17"
+                  }
                 ]
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         }
       }
@@ -173,13 +289,33 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Provider" }
+                  "items": {
+                    "$ref": "#/components/schemas/Provider"
+                  },
+                  "description": "Get Providers response in the get Providers structure."
                 },
                 "example": [
-                  { "key": "ECB", "name": "European Central Bank", "country_code": "EU", "rate_type": "reference", "pivot_currency": "EUR", "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html", "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html", "start_date": "1999-01-04", "end_date": "2026-03-17", "currencies": ["USD", "GBP"] }
+                  {
+                    "key": "ECB",
+                    "name": "European Central Bank",
+                    "country_code": "EU",
+                    "rate_type": "reference",
+                    "pivot_currency": "EUR",
+                    "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+                    "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+                    "start_date": "1999-01-04",
+                    "end_date": "2026-03-17",
+                    "currencies": [
+                      "USD",
+                      "GBP"
+                    ]
+                  }
                 ]
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         }
       }
@@ -195,7 +331,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-15"
+          "example": "2024-01-15",
+          "description": "Specific date (YYYY-MM-DD). Cannot be combined with from/to."
         }
       },
       "from": {
@@ -206,7 +343,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-01"
+          "example": "2024-01-01",
+          "description": "Start of date range (YYYY-MM-DD)"
         }
       },
       "to": {
@@ -217,7 +355,8 @@
         "schema": {
           "type": "string",
           "format": "date",
-          "example": "2024-01-31"
+          "example": "2024-01-31",
+          "description": "End of date range (YYYY-MM-DD). Defaults to today."
         }
       },
       "base": {
@@ -228,7 +367,8 @@
         "schema": {
           "type": "string",
           "default": "EUR",
-          "example": "USD"
+          "example": "USD",
+          "description": "Base currency (default: EUR)"
         }
       },
       "quotes": {
@@ -238,7 +378,8 @@
         "required": false,
         "schema": {
           "type": "string",
-          "example": "USD,GBP,JPY"
+          "example": "USD,GBP,JPY",
+          "description": "Comma-separated list of quote currencies to include"
         }
       },
       "providers": {
@@ -248,7 +389,8 @@
         "required": false,
         "schema": {
           "type": "string",
-          "example": "ECB,TCMB"
+          "example": "ECB,TCMB",
+          "description": "Comma-separated list of data providers to include"
         }
       },
       "group": {
@@ -258,8 +400,16 @@
         "required": false,
         "schema": {
           "type": "string",
-          "enum": ["week", "month"],
-          "example": "month"
+          "enum": [
+            "week",
+            "month"
+          ],
+          "example": "month",
+          "description": "Downsample rates by time period. Only applies to date ranges.",
+          "x-enum-descriptions": [
+            "Value week.",
+            "Value month."
+          ]
         }
       },
       "expand": {
@@ -269,8 +419,14 @@
         "required": false,
         "schema": {
           "type": "string",
-          "enum": ["providers"],
-          "example": "providers"
+          "enum": [
+            "providers"
+          ],
+          "example": "providers",
+          "description": "Comma-separated list of optional fields to include per record. Currently supports `providers`, which adds an array of `{ key, date, rate }` objects per record showing each provider's individual observation date and rate. Outliers excluded from the blend (and providers whose rate was overridden by a currency peg) are flagged with `excluded: true`. The field is omitted on synthesized peg rows where no provider published the quote. In CSV output, the `providers` column is encoded as `KEY:RATE` pairs joined by `|`, with a trailing `*` on excluded entries (e.g. `ECB:0.92|FED:1.50*`).",
+          "x-enum-descriptions": [
+            "Value providers."
+          ]
         }
       }
     },
@@ -281,20 +437,24 @@
           "date": {
             "type": "string",
             "format": "date",
-            "description": "The date of the rate"
+            "description": "The date of the rate",
+            "example": "2026-01-23"
           },
           "base": {
             "type": "string",
-            "description": "Base currency code"
+            "description": "Base currency code",
+            "example": "USD"
           },
           "quote": {
             "type": "string",
-            "description": "Quote currency code"
+            "description": "Quote currency code",
+            "example": "USD"
           },
           "rate": {
             "type": "number",
             "description": "Exchange rate value",
-            "exclusiveMinimum": 0
+            "exclusiveMinimum": 0,
+            "example": 0.1
           },
           "providers": {
             "type": "array",
@@ -302,83 +462,290 @@
             "items": {
               "type": "object",
               "properties": {
-                "key": { "type": "string", "description": "Provider key" },
-                "date": { "type": "string", "format": "date", "description": "Provider observation date used for this entry" },
-                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "Provider's rate, rebased to the row's base" },
-                "excluded": { "type": "boolean", "description": "Present and true when this entry did not contribute to the blended rate" }
+                "key": {
+                  "type": "string",
+                  "description": "Provider key",
+                  "example": "example"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Provider observation date used for this entry",
+                  "example": "2026-01-23"
+                },
+                "rate": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Provider's rate, rebased to the row's base",
+                  "example": 0.1
+                },
+                "excluded": {
+                  "type": "boolean",
+                  "description": "Present and true when this entry did not contribute to the blended rate",
+                  "example": true
+                }
               },
-              "required": ["key", "date", "rate"]
+              "required": [
+                "key",
+                "date",
+                "rate"
+              ],
+              "description": "Providers item in the Rate structure."
             }
           }
         },
-        "required": ["date", "base", "quote", "rate"]
+        "required": [
+          "date",
+          "base",
+          "quote",
+          "rate"
+        ],
+        "description": "Rate in the Rate structure."
       },
       "Currency": {
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code" },
-          "name": { "type": "string", "description": "Full currency name" },
-          "symbol": { "type": ["string", "null"], "description": "Currency symbol" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date" }
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 currency code",
+            "example": "example-code"
+          },
+          "iso_numeric": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 4217 numeric code",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full currency name",
+            "example": "Example"
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Currency symbol",
+            "example": "AAPL"
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Earliest available date",
+            "example": "2026-01-23"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Latest available date",
+            "example": "2026-01-23"
+          }
         },
-        "required": ["iso_code", "name"]
+        "required": [
+          "iso_code",
+          "name"
+        ],
+        "description": "Currency in the Currency structure."
       },
       "CurrencyDetail": {
         "type": "object",
         "properties": {
-          "iso_code": { "type": "string", "description": "ISO 4217 currency code" },
-          "iso_numeric": { "type": ["string", "null"], "description": "ISO 4217 numeric code" },
-          "name": { "type": "string", "description": "Full currency name" },
-          "symbol": { "type": ["string", "null"], "description": "Currency symbol" },
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 currency code",
+            "example": "example-code"
+          },
+          "iso_numeric": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 4217 numeric code",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full currency name",
+            "example": "Example"
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Currency symbol",
+            "example": "AAPL"
+          },
           "providers": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "description": "Providers item in the Currency Detail structure.",
+              "example": "example"
+            },
             "description": "Provider keys that publish this currency"
           },
           "peg": {
             "type": "object",
             "properties": {
-              "base": { "type": "string" },
-              "rate": { "type": "number" },
-              "authority": { "type": "string" },
-              "source": { "type": "string", "format": "uri" }
+              "base": {
+                "type": "string",
+                "description": "Base in the peg structure.",
+                "example": "USD"
+              },
+              "rate": {
+                "type": "number",
+                "description": "Rate in the peg structure.",
+                "example": 1
+              },
+              "authority": {
+                "type": "string",
+                "description": "Authority in the peg structure.",
+                "example": "example"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri",
+                "description": "Source in the peg structure.",
+                "example": "https://example.com/resource"
+              }
             },
             "description": "Peg metadata, present only for pegged currencies"
           }
         },
-        "required": ["iso_code", "name"]
+        "required": [
+          "iso_code",
+          "name"
+        ],
+        "description": "Currency Detail in the Currency Detail structure."
       },
       "Provider": {
         "type": "object",
         "properties": {
-          "key": { "type": "string", "description": "Provider identifier" },
-          "name": { "type": "string", "description": "Full provider name" },
-          "country_code": { "type": ["string", "null"], "description": "ISO 3166-1 alpha-2 country code" },
-          "rate_type": { "type": ["string", "null"], "description": "Official rate type as used by the source" },
-          "pivot_currency": { "type": ["string", "null"], "description": "Base currency for published rates" },
-          "data_url": { "type": ["string", "null"], "format": "uri", "description": "Link to the data source" },
-          "terms_url": { "type": ["string", "null"], "format": "uri", "description": "Link to terms of use" },
-          "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date" },
-          "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date" },
+          "key": {
+            "type": "string",
+            "description": "Provider identifier",
+            "example": "example"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full provider name",
+            "example": "Example"
+          },
+          "country_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 3166-1 alpha-2 country code",
+            "example": "example-code"
+          },
+          "rate_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Official rate type as used by the source",
+            "example": "example"
+          },
+          "pivot_currency": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Base currency for published rates",
+            "example": "USD"
+          },
+          "data_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "Link to the data source",
+            "example": "https://example.com/resource"
+          },
+          "terms_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "Link to terms of use",
+            "example": "https://example.com/resource"
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Earliest available date",
+            "example": "2026-01-23"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Latest available date",
+            "example": "2026-01-23"
+          },
           "publish_cadence": {
-            "type": ["string", "null"],
-            "enum": ["daily", "weekly", "monthly", null],
-            "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "daily",
+              "weekly",
+              "monthly",
+              null
+            ],
+            "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence.",
+            "example": "daily",
+            "x-enum-descriptions": [
+              "Value daily.",
+              "Value weekly.",
+              "Value monthly.",
+              "No value."
+            ]
           },
           "publishes_missed": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "minimum": 0,
-            "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data."
+            "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data.",
+            "example": 1
           },
           "currencies": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "description": "Currencies item in the Provider structure.",
+              "example": "example"
+            },
             "description": "Currency codes covered by this provider"
           }
         },
-        "required": ["key", "name", "currencies"]
+        "required": [
+          "key",
+          "name",
+          "currencies"
+        ],
+        "description": "Provider in the Provider structure."
       }
     },
     "responses": {
@@ -389,8 +756,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "Message in the Unprocessable Entity response structure.",
+                  "example": "Example message"
+                }
+              },
+              "description": "Unprocessable Entity response in the Unprocessable Entity structure."
             }
           }
         }
@@ -402,8 +774,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "Message in the Not Found response structure.",
+                  "example": "Example message"
+                }
+              },
+              "description": "Not Found response in the Not Found structure."
             }
           }
         }
@@ -415,12 +792,23 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": { "type": "string" }
-              }
+                "message": {
+                  "type": "string",
+                  "description": "Message in the Service Unavailable response structure.",
+                  "example": "Example message"
+                }
+              },
+              "description": "Service Unavailable response in the Service Unavailable structure."
             }
           }
         }
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
+    }
+  ]
 }

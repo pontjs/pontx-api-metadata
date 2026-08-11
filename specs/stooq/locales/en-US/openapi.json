@@ -27,7 +27,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "aapl.us"
+              "example": "aapl.us",
+              "description": "One or more Stooq ticker identifiers, historically separated by commas. Examples include `aapl.us` for Apple on the US market. Symbol suffixes are provider-specific and are not exhaustively documented here."
             }
           },
           {
@@ -37,7 +38,8 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "sd2t2ohlcvp"
+              "example": "sd2t2ohlcvp",
+              "description": "Compact ordered field-selection code used by the legacy CSV endpoint. The example `sd2t2ohlcvp` is observed in existing requests; individual letters are not asserted as a stable public enum because the provider has no current formal documentation."
             }
           },
           {
@@ -47,7 +49,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "default": false
+              "default": false,
+              "description": "Presence-style legacy flag requesting a CSV header. Historical URLs commonly contain bare `h` rather than `h=true`; generic OpenAPI clients may serialize this boolean differently.",
+              "example": false
             }
           },
           {
@@ -59,6 +63,11 @@
               "type": "string",
               "enum": [
                 "csv"
+              ],
+              "description": "Requested output format. Only CSV is evidenced for this URL.",
+              "example": "csv",
+              "x-enum-descriptions": [
+                "Value csv."
               ]
             }
           }
@@ -68,7 +77,9 @@
             "description": "Historically expected CSV response; not reproduced on 2026-08-10.",
             "content": {
               "text/csv": {
-                "schema": { "$ref": "#/components/schemas/LatestQuoteCsv" },
+                "schema": {
+                  "$ref": "#/components/schemas/LatestQuoteCsv"
+                },
                 "examples": {
                   "illustrativeLegacyShape": {
                     "summary": "Illustrative legacy column shape only; not a response captured in the current verification",
@@ -82,7 +93,9 @@
             "description": "Observed legacy endpoint unavailable response (2026-08-10).",
             "content": {
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/StooqNotFoundHtml" },
+                "schema": {
+                  "$ref": "#/components/schemas/StooqNotFoundHtml"
+                },
                 "example": "<meta charset=utf-8><title>Stooq</title>...The page you requested does not exist or has been moved..."
               }
             }
@@ -119,7 +132,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "aapl.us"
+              "example": "aapl.us",
+              "description": "Single provider-specific Stooq ticker identifier, for example `aapl.us`."
             }
           },
           {
@@ -130,7 +144,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[0-9]{8}$",
-              "example": "20260801"
+              "example": "20260801",
+              "description": "Inclusive start date encoded as `YYYYMMDD` (historically observed convention)."
             }
           },
           {
@@ -141,7 +156,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[0-9]{8}$",
-              "example": "20260810"
+              "example": "20260810",
+              "description": "Inclusive end date encoded as `YYYYMMDD` (historically observed convention)."
             }
           },
           {
@@ -155,6 +171,13 @@
                 "d",
                 "w",
                 "m"
+              ],
+              "description": "Historical bar interval: daily, weekly, or monthly.",
+              "example": "d",
+              "x-enum-descriptions": [
+                "Value d.",
+                "Value w.",
+                "Value m."
               ]
             }
           }
@@ -164,7 +187,9 @@
             "description": "Either the historically expected CSV or the currently observed HTTP-200 browser-verification HTML; inspect Content-Type before parsing.",
             "content": {
               "text/csv": {
-                "schema": { "$ref": "#/components/schemas/HistoricalQuoteCsv" },
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricalQuoteCsv"
+                },
                 "examples": {
                   "illustrativeLegacyShape": {
                     "summary": "Illustrative legacy column shape only; current verification returned HTML",
@@ -173,10 +198,15 @@
                 }
               },
               "text/html": {
-                "schema": { "$ref": "#/components/schemas/BrowserVerificationHtml" },
+                "schema": {
+                  "$ref": "#/components/schemas/BrowserVerificationHtml"
+                },
                 "example": "<!DOCTYPE html><html>...<noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript>..."
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         },
         "x-pontx-documentation-status": "observed",
@@ -204,12 +234,14 @@
       "LatestQuoteCsv": {
         "type": "string",
         "title": "LatestQuoteCsv",
-        "description": "Legacy CSV text. Column order is selected by `f`; the illustrated header corresponds to `sd2t2ohlcvp`. This wire format was not reproduced during the current verification."
+        "description": "Legacy CSV text. Column order is selected by `f`; the illustrated header corresponds to `sd2t2ohlcvp`. This wire format was not reproduced during the current verification.",
+        "example": "example"
       },
       "HistoricalQuoteCsv": {
         "type": "string",
         "title": "HistoricalQuoteCsv",
-        "description": "Historical OHLCV CSV text with header `Date,Open,High,Low,Close,Volume`. The current unauthenticated response is browser-verification HTML, not this representation."
+        "description": "Historical OHLCV CSV text with header `Date,Open,High,Low,Close,Volume`. The current unauthenticated response is browser-verification HTML, not this representation.",
+        "example": "example"
       },
       "StooqNotFoundHtml": {
         "type": "string",
@@ -224,5 +256,11 @@
         "example": "<!DOCTYPE html><html>...<noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript>..."
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "common",
+      "description": "Common endpoints."
+    }
+  ]
 }

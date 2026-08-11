@@ -51,7 +51,8 @@
               "default": 1,
               "minimum": 0,
               "exclusiveMinimum": true,
-              "example": 100
+              "example": 100,
+              "description": "The amount to be converted (default is 1)"
             }
           },
           {
@@ -95,6 +96,39 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "Base currency code (three-letter ISO 4217 code)",
+              "x-enum-descriptions": [
+                "Value AUD.",
+                "Value BRL.",
+                "Value CAD.",
+                "Value CHF.",
+                "Value CNY.",
+                "Value CZK.",
+                "Value DKK.",
+                "Value EUR.",
+                "Value GBP.",
+                "Value HKD.",
+                "Value HUF.",
+                "Value IDR.",
+                "Value ILS.",
+                "Value INR.",
+                "Value ISK.",
+                "Value JPY.",
+                "Value KRW.",
+                "Value MXN.",
+                "Value MYR.",
+                "Value NOK.",
+                "Value NZD.",
+                "Value PHP.",
+                "Value PLN.",
+                "Value RON.",
+                "Value SEK.",
+                "Value SGD.",
+                "Value THB.",
+                "Value TRY.",
+                "Value USD.",
+                "Value ZAR."
               ]
             }
           },
@@ -106,7 +140,8 @@
             "schema": {
               "type": "string",
               "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
-              "example": "USD,GBP,JPY"
+              "example": "USD,GBP",
+              "description": "Comma-separated list of currency codes to limit the response.\nIf not specified, all available currencies are returned."
             },
             "style": "form",
             "explode": false
@@ -216,7 +251,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-15"
+              "example": "2024-01-15",
+              "description": "Date in ISO 8601 format (YYYY-MM-DD)"
             }
           },
           {
@@ -229,7 +265,9 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "description": "The amount to be converted (default is 1)",
+              "example": 1
             }
           },
           {
@@ -272,6 +310,40 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "Base currency code (three-letter ISO 4217 code)",
+              "example": "AUD",
+              "x-enum-descriptions": [
+                "Value AUD.",
+                "Value BRL.",
+                "Value CAD.",
+                "Value CHF.",
+                "Value CNY.",
+                "Value CZK.",
+                "Value DKK.",
+                "Value EUR.",
+                "Value GBP.",
+                "Value HKD.",
+                "Value HUF.",
+                "Value IDR.",
+                "Value ILS.",
+                "Value INR.",
+                "Value ISK.",
+                "Value JPY.",
+                "Value KRW.",
+                "Value MXN.",
+                "Value MYR.",
+                "Value NOK.",
+                "Value NZD.",
+                "Value PHP.",
+                "Value PLN.",
+                "Value RON.",
+                "Value SEK.",
+                "Value SGD.",
+                "Value THB.",
+                "Value TRY.",
+                "Value USD.",
+                "Value ZAR."
               ]
             }
           },
@@ -282,7 +354,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+              "description": "Comma-separated list of currency codes to limit the response",
+              "example": "USD,GBP"
             },
             "style": "form",
             "explode": false
@@ -368,7 +442,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2026-08-01"
+              "example": "2026-08-01",
+              "description": "Start date in ISO 8601 format (YYYY-MM-DD)"
             }
           },
           {
@@ -451,7 +526,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-01"
+              "example": "2024-01-01",
+              "description": "Start date in ISO 8601 format (YYYY-MM-DD)"
             }
           },
           {
@@ -463,7 +539,8 @@
               "type": "string",
               "format": "date",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2024-01-31"
+              "example": "2024-01-31",
+              "description": "End date in ISO 8601 format (YYYY-MM-DD).\nCan be omitted by using format \"start_date..\" to get all rates from start_date onwards."
             }
           },
           {
@@ -476,7 +553,9 @@
               "format": "double",
               "default": 1,
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": true,
+              "description": "The amount to be converted (default is 1)",
+              "example": 1
             }
           },
           {
@@ -519,6 +598,40 @@
                 "TRY",
                 "USD",
                 "ZAR"
+              ],
+              "description": "Base currency code (three-letter ISO 4217 code)",
+              "example": "AUD",
+              "x-enum-descriptions": [
+                "Value AUD.",
+                "Value BRL.",
+                "Value CAD.",
+                "Value CHF.",
+                "Value CNY.",
+                "Value CZK.",
+                "Value DKK.",
+                "Value EUR.",
+                "Value GBP.",
+                "Value HKD.",
+                "Value HUF.",
+                "Value IDR.",
+                "Value ILS.",
+                "Value INR.",
+                "Value ISK.",
+                "Value JPY.",
+                "Value KRW.",
+                "Value MXN.",
+                "Value MYR.",
+                "Value NOK.",
+                "Value NZD.",
+                "Value PHP.",
+                "Value PLN.",
+                "Value RON.",
+                "Value SEK.",
+                "Value SGD.",
+                "Value THB.",
+                "Value TRY.",
+                "Value USD.",
+                "Value ZAR."
               ]
             }
           },
@@ -529,7 +642,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+              "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+              "description": "Comma-separated list of currency codes to limit the response",
+              "example": "USD,GBP"
             },
             "style": "form",
             "explode": false
@@ -677,6 +792,9 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "Request failed."
           }
         }
       }
@@ -721,7 +839,9 @@
             "description": "Exchange rates as key-value pairs (currency code to rate)",
             "additionalProperties": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "Rates value in the Exchange Rate Response structure.",
+              "example": 1
             },
             "example": {
               "USD": 1.0445,
@@ -763,7 +883,7 @@
             "format": "date",
             "description": "The start date of the time series",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-              "example": "2023-12-29"
+            "example": "2023-12-29"
           },
           "end_date": {
             "type": "string",
@@ -780,7 +900,9 @@
               "description": "Exchange rates for a specific date",
               "additionalProperties": {
                 "type": "number",
-                "format": "double"
+                "format": "double",
+                "description": "Rates value value in the Time Series Response structure.",
+                "example": 1
               }
             },
             "example": {
@@ -801,7 +923,9 @@
         "type": "object",
         "description": "Map of currency codes to their full names",
         "additionalProperties": {
-          "type": "string"
+          "type": "string",
+          "description": "Currencies Response value in the Currencies Response structure.",
+          "example": "example"
         },
         "example": {
           "EUR": "Euro",
@@ -835,7 +959,9 @@
           "format": "double",
           "default": 1,
           "minimum": 0,
-          "exclusiveMinimum": true
+          "exclusiveMinimum": true,
+          "description": "The amount to be converted (default is 1)",
+          "example": 1
         }
       },
       "BaseParam": {
@@ -846,7 +972,9 @@
         "schema": {
           "type": "string",
           "pattern": "^[A-Z]{3}$",
-          "default": "EUR"
+          "default": "EUR",
+          "description": "Base currency code (three-letter ISO 4217 code)",
+          "example": "EUR"
         }
       },
       "SymbolsParam": {
@@ -856,7 +984,9 @@
         "required": false,
         "schema": {
           "type": "string",
-          "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+          "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+          "description": "Comma-separated list of currency codes to limit the response",
+          "example": "USD,GBP"
         },
         "style": "form",
         "explode": false
