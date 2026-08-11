@@ -27,7 +27,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "The legacy page returned HTTP 200 and JSON-LD plus visible quote fields during verification. HTML selectors, Cloudflare behavior, cookies, and displayed data can change without versioning; JSON-LD currently covers price/currency but not change or volume.",
-        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"code":"d05"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/web/stock/overview/{code}": {
@@ -49,7 +50,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "The responsive page returned HTTP 200 with labelled quote fields during verification. Its markup is not versioned, differs from the legacy servlet template, and may be changed or protected by Cloudflare without notice.",
-        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"code":"D05"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

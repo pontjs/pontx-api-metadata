@@ -95,6 +95,192 @@ function exampleFor(document, schema) {
   return undefined;
 }
 
+const requestExampleIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const forbiddenExampleHeaders = new Set([
+  "authorization",
+  "cookie",
+  "host",
+  "proxy-authorization",
+  "x-api-key"
+]);
+
+function hasOwn(value, key) {
+  return value && typeof value === "object" && Object.hasOwn(value, key);
+}
+
+function isRequestScalar(value) {
+  return ["string", "number", "boolean"].includes(typeof value) &&
+    (typeof value !== "number" || Number.isFinite(value));
+}
+
+function requestLocation(request, location) {
+  if (location === "header") return request.headers ?? {};
+  return request[location] ?? {};
+}
+
+function declaredInput(parameters, requestSchema, location, name) {
+  if (location === "body") {
+    return Boolean(requestSchema) &&
+      (name === "body" || name === "/" || name.startsWith("/"));
+  }
+  return parameters.some((parameter) =>
+    parameter.in === location && parameter.name === name
+  );
+}
+
+function makeRequestExamples({
+  slug,
+  operation,
+  englishOperation,
+  parameters,
+  requestSchema,
+  serverIdByUrl,
+  auth
+}) {
+  const sourceExamples = operation["x-pontx-request-examples"];
+  const englishExamples = englishOperation["x-pontx-request-examples"];
+  if (!sourceExamples || typeof sourceExamples !== "object" || Array.isArray(sourceExamples)) {
+    throw new Error(`${slug}.${operation.operationId}: x-pontx-request-examples is required`);
+  }
+  const entries = Object.entries(sourceExamples);
+  if (!entries.length) {
+    throw new Error(`${slug}.${operation.operationId}: x-pontx-request-examples must not be empty`);
+  }
+
+  return entries.map(([id, example]) => {
+    if (!requestExampleIdPattern.test(id)) {
+      throw new Error(`${slug}.${operation.operationId}: invalid request example id ${id}`);
+    }
+    const englishExample = englishExamples?.[id];
+    if (!englishExample) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: localized request example is missing`);
+    }
+    if (!example || typeof example !== "object" || Array.isArray(example)) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: request example must be an object`);
+    }
+    const request = example.request ?? {};
+    if (!request || typeof request !== "object" || Array.isArray(request)) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: request must be an object`);
+    }
+    const unresolved = example.unresolved ?? [];
+    if (!Array.isArray(unresolved)) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: unresolved must be an array`);
+    }
+    const unresolvedKeys = new Set();
+    for (const input of unresolved) {
+      if (!input || typeof input !== "object" || Array.isArray(input)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: unresolved input must be an object`);
+      }
+      const key = `${input.in}:${input.name}`;
+      if (!["path", "query", "header", "body"].includes(input.in) ||
+        typeof input.name !== "string" || !input.name) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: invalid unresolved input ${key}`);
+      }
+      if (unresolvedKeys.has(key)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: duplicate unresolved input ${key}`);
+      }
+      unresolvedKeys.add(key);
+      if (!declaredInput(parameters, requestSchema, input.in, input.name)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: unresolved input is not declared: ${key}`);
+      }
+      if (input.source?.kind === "operation" && !input.source.operationId) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: ${key} needs source.operationId`);
+      }
+      if (input.source?.kind === "runtime" && !input.source.reason) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: ${key} needs source.reason`);
+      }
+      if (!input.source || !["operation", "runtime"].includes(input.source.kind)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: ${key} has an invalid source`);
+      }
+    }
+
+    for (const location of ["path", "query", "header"]) {
+      const values = requestLocation(request, location);
+      if (!values || typeof values !== "object" || Array.isArray(values)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: request ${location} values must be an object`);
+      }
+      for (const name of Object.keys(values)) {
+        if (!declaredInput(parameters, requestSchema, location, name)) {
+          throw new Error(`${slug}.${operation.operationId}.${id}: request value is not declared: ${location}:${name}`);
+        }
+        if (unresolvedKeys.has(`${location}:${name}`)) {
+          throw new Error(`${slug}.${operation.operationId}.${id}: ${location}:${name} cannot be both preset and unresolved`);
+        }
+        if (!isRequestScalar(values[name])) {
+          throw new Error(`${slug}.${operation.operationId}.${id}: ${location}:${name} must be a string, number, or boolean`);
+        }
+      }
+    }
+    for (const name of Object.keys(request.headers ?? {})) {
+      if (typeof request.headers[name] !== "string") {
+        throw new Error(`${slug}.${operation.operationId}.${id}: header:${name} must be a string`);
+      }
+      if (forbiddenExampleHeaders.has(name.toLowerCase())) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: credentials are forbidden in request example header ${name}`);
+      }
+    }
+    for (const scheme of auth ?? []) {
+      if (scheme.type !== "apiKey") continue;
+      const values = requestLocation(request, scheme.in === "header" ? "header" : "query");
+      if (Object.keys(values).some((name) => name.toLowerCase() === scheme.name.toLowerCase())) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: API credentials must not appear in request examples`);
+      }
+    }
+
+    for (const parameter of parameters.filter((item) => item.required && item.in !== "body")) {
+      const values = requestLocation(request, parameter.in);
+      if (!hasOwn(values, parameter.name) && !unresolvedKeys.has(`${parameter.in}:${parameter.name}`)) {
+        throw new Error(`${slug}.${operation.operationId}.${id}: missing required input ${parameter.in}:${parameter.name}`);
+      }
+    }
+    const requiredBody = Boolean(operation.requestBody?.required) ||
+      parameters.some((parameter) => parameter.in === "body" && parameter.required);
+    if (requiredBody && !hasOwn(request, "body") && !unresolvedKeys.has("body:body")) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: missing required request body`);
+    }
+    if (hasOwn(request, "body") && !requestSchema) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: request body is not declared`);
+    }
+
+    const expectedStatus = String(example.expectedStatus ?? "");
+    if (!/^2(?:\d\d|[xX]{2})$/.test(expectedStatus)) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: expectedStatus must be a 2xx response`);
+    }
+    if (!Object.keys(operation.responses ?? {}).some((status) => status === expectedStatus)) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: expectedStatus ${expectedStatus} is not declared`);
+    }
+    if (example.serverUrl !== undefined && typeof example.serverUrl !== "string") {
+      throw new Error(`${slug}.${operation.operationId}.${id}: serverUrl must be a string`);
+    }
+    const serverUrl = example.serverUrl?.replace(/\/$/, "");
+    const serverId = serverUrl ? serverIdByUrl.get(serverUrl) : undefined;
+    if (serverUrl && !serverId) {
+      throw new Error(`${slug}.${operation.operationId}.${id}: serverUrl is not approved for this endpoint`);
+    }
+
+    return {
+      id,
+      title: localized(
+        example.summary ?? operation.summary ?? operation.operationId,
+        englishExample.summary ?? englishOperation.summary ?? operation.operationId
+      ),
+      request: {
+        ...(serverId ? { serverId } : {}),
+        path: { ...(request.path ?? {}) },
+        query: { ...(request.query ?? {}) },
+        headers: { ...(request.headers ?? {}) },
+        ...(hasOwn(request, "body") ? { body: request.body } : {})
+      },
+      expectedStatus,
+      ...(example.verifiedAt ?? operation["x-pontx-verified-at"]
+        ? { verifiedAt: example.verifiedAt ?? operation["x-pontx-verified-at"] }
+        : {}),
+      completeness: unresolved.length ? "requires-input" : "ready",
+      unresolved
+    };
+  });
+}
+
 function slugify(value) {
   return value
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
@@ -180,7 +366,7 @@ function parameterSchemaMetadata(schema) {
   );
 }
 
-function makeOperation(document, englishDocument, path, method, operation, englishOperation, pathParameters, englishPathParameters, serverIdByUrl) {
+function makeOperation(document, englishDocument, path, method, operation, englishOperation, pathParameters, englishPathParameters, serverIdByUrl, catalogSlug, auth) {
   const operationId = operation.operationId || `${method}-${path}`;
   const zhTitle = operation.summary || operationId;
   const enTitle = englishOperation.summary || operationId;
@@ -274,6 +460,15 @@ function makeOperation(document, englishDocument, path, method, operation, engli
       )
     };
   });
+  const requestExamples = makeRequestExamples({
+    slug: catalogSlug,
+    operation,
+    englishOperation,
+    parameters: resolvedParameters,
+    requestSchema,
+    serverIdByUrl,
+    auth
+  });
   return {
     slug: slugify(operationId),
     operationId,
@@ -301,6 +496,7 @@ function makeOperation(document, englishDocument, path, method, operation, engli
       ? { stabilityNote: localized(operation["x-pontx-stability-note"], englishOperation["x-pontx-stability-note"]) }
       : {}),
     ...(security.length ? { security } : {}),
+    requestExamples,
     ...(responseMedia?.example !== undefined
       ? { responseExample: responseMedia.example }
       : exampleFor(document, responseMedia?.schema) !== undefined
@@ -419,9 +615,23 @@ for (const entry of source.apis) {
         englishDocument.paths[path][method],
         pathItem.parameters,
         englishDocument.paths[path].parameters,
-        serverIdByUrl
+        serverIdByUrl,
+        entry.slug,
+        entry.auth
       ))
   );
+  const operationIds = new Set(operations.map((operation) => operation.operationId));
+  for (const operation of operations) {
+    for (const example of operation.requestExamples) {
+      for (const input of example.unresolved) {
+        if (input.source.kind === "operation" && !operationIds.has(input.source.operationId)) {
+          throw new Error(
+            `${entry.slug}.${operation.operationId}.${example.id}: source operation does not exist: ${input.source.operationId}`
+          );
+        }
+      }
+    }
+  }
   const schemaEntries = document.components?.schemas ?? document.definitions ?? {};
   const schemas = Object.entries(schemaEntries).map(([name, schema]) =>
     makeSchema(
@@ -432,6 +642,22 @@ for (const entry of source.apis) {
       englishDocument.components?.schemas?.[name] ?? englishDocument.definitions?.[name]
     )
   );
+  const quickStartOperation = operations.find(
+    (operation) => operation.operationId === entry.quickStart?.operationId
+  );
+  if (!quickStartOperation) {
+    throw new Error(`${entry.slug}: quickStart.operationId does not match an operation`);
+  }
+  const quickStartExampleId = entry.quickStart?.requestExampleId ?? "default";
+  if (!quickStartOperation.requestExamples.some((example) => example.id === quickStartExampleId)) {
+    throw new Error(`${entry.slug}: quickStart request example not found: ${quickStartExampleId}`);
+  }
+  const quickStartExample = quickStartOperation.requestExamples.find(
+    (example) => example.id === quickStartExampleId
+  );
+  if (quickStartExample.completeness !== "ready") {
+    throw new Error(`${entry.slug}: quickStart request example must be ready to send`);
+  }
   apis.push({
     slug: entry.slug,
     name: entry.name,
@@ -462,6 +688,10 @@ for (const entry of source.apis) {
           )
         }
       : {}),
+    quickStart: {
+      operationSlug: quickStartOperation.slug,
+      requestExampleId: quickStartExampleId
+    },
     servers,
     auth: makeAuth(englishDocument, entry.auth, englishEntry.auth, entry.slug),
     operations,

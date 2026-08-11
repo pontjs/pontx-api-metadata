@@ -10,7 +10,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "b980d5fbdd216238d8457b33589587a615267e500da0906d62956610b90aabbf",
+      "approvedSha256": "616d302d1e78238a93c1df2c74d5cb2eacaadbbea8b96523826e65f954a94b31",
       "title": {
         "zh": "Frankfurter 汇率 API",
         "en": "Frankfurter exchange-rate API"
@@ -35,6 +35,10 @@
       "stabilityNote": {
         "zh": "无需鉴权的只读公共 API。v1 已由 v2 取代，但上游承诺继续长期提供；目录中的 v1 Endpoint 已标记为 deprecated。",
         "en": "Read-only public API without authentication. v1 is superseded by v2 but remains available long term; its catalog endpoints are marked deprecated."
+      },
+      "quickStart": {
+        "operationSlug": "get-latest-rates",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -190,6 +194,26 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取最新汇率",
+                "en": "Get latest exchange rates"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "amount": 100,
+                  "base": "USD"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -356,6 +380,28 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取历史汇率",
+                "en": "Get historical exchange rates"
+              },
+              "request": {
+                "path": {
+                  "date": "2024-01-15"
+                },
+                "query": {
+                  "amount": 1,
+                  "base": "EUR"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -491,6 +537,28 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取开放结束日期的汇率时间序列",
+                "en": "Get an open-ended time series of exchange rates"
+              },
+              "request": {
+                "path": {
+                  "start_date": "2026-08-01"
+                },
+                "query": {
+                  "amount": 1,
+                  "base": "EUR"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -676,6 +744,29 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取汇率时间序列",
+                "en": "Get time series of exchange rates"
+              },
+              "request": {
+                "path": {
+                  "start_date": "2024-01-01",
+                  "end_date": "2024-01-31"
+                },
+                "query": {
+                  "amount": 1,
+                  "base": "EUR"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "amount": 1,
             "base": "EUR",
@@ -730,6 +821,23 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取支持的货币",
+                "en": "Get list of supported currencies"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "EUR": "Euro",
             "USD": "United States Dollar",
@@ -1202,7 +1310,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "2da7836be49d7419005b51bed9edc40ab5a4fa65d3016cce9760110e3f27f187",
+      "approvedSha256": "6311a4b3221ec3d5e15c67c334f1d677cde50e0bd0b42aaa900007eb263f8924",
       "title": {
         "zh": "Frankfurter v2 汇率 API",
         "en": "Frankfurter v2 exchange-rate API"
@@ -1227,6 +1335,10 @@
       "stabilityNote": {
         "zh": "无需鉴权的只读公共 API。v2 聚合多个中央银行数据源；合规场景应使用 providers 参数固定到所需的官方提供方。",
         "en": "Read-only public API without authentication. v2 blends multiple central-bank sources; compliance use cases should pin the required official source with the providers parameter."
+      },
+      "quickStart": {
+        "operationSlug": "get-rates",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -1385,6 +1497,25 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取汇率",
+                "en": "Get exchange rates"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "base": "USD"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": [
             {
               "date": "2024-01-15",
@@ -1494,6 +1625,26 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取单一货币对汇率",
+                "en": "Get a single exchange rate pair"
+              },
+              "request": {
+                "path": {
+                  "base": "EUR",
+                  "quote": "USD"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "date": "2026-03-25",
             "base": "EUR",
@@ -1556,6 +1707,25 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取单一货币详情",
+                "en": "Get a single currency"
+              },
+              "request": {
+                "path": {
+                  "code": "USD"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "iso_code": "USD",
             "iso_numeric": "840",
@@ -1635,6 +1805,23 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取可用货币列表",
+                "en": "Get available currencies"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": [
             {
               "iso_code": "EUR",
@@ -1704,6 +1891,23 @@
           "proxyEnabled": true,
           "documentationStatus": "official",
           "evidenceUrls": [],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取可用数据提供方",
+                "en": "Get available data providers"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": [
             {
               "key": "ECB",
@@ -2596,7 +2800,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/dida365/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
-      "approvedSha256": "2cbb05aff23610809d669c07fb377a4b6be59524167d0aaf8741bb688666511f",
+      "approvedSha256": "b3d6694c66700a5385c1f339fe8c93729dd261ac79272e5807c04cdb13c31334",
       "title": {
         "zh": "滴答清单开放 API",
         "en": "Dida365 Open API"
@@ -2620,6 +2824,10 @@
       "stabilityNote": {
         "zh": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。",
         "en": "Official OAuth 2.0 API. Reads and writes require user authorization and are limited by the tasks:read and tasks:write scopes."
+      },
+      "quickStart": {
+        "operationSlug": "get-user-projects",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -2782,6 +2990,40 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取指定任务",
+                "en": "Get Task By Project ID And Task ID"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "isAllDay": false,
             "completedTime": "2019-11-13T03:00:00+0000",
@@ -2873,6 +3115,40 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "删除任务",
+                "en": "Delete Task"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
               ]
             }
           ]
@@ -3003,6 +3279,41 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建任务",
+                "en": "Create Task"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "title": "example",
+                  "startDate": "2019-11-13T03:00:00+0000",
+                  "dueDate": "2019-11-13T03:00:00+0000",
+                  "tags": [
+                    "work",
+                    "urgent"
+                  ]
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "body",
+                  "name": "/projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ],
@@ -3152,6 +3463,56 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "更新任务",
+                "en": "Update Task"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "startDate": "2019-11-13T03:00:00+0000",
+                  "dueDate": "2019-11-13T03:00:00+0000",
+                  "tags": [
+                    "work",
+                    "urgent"
+                  ]
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                },
+                {
+                  "in": "body",
+                  "name": "/id",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                },
+                {
+                  "in": "body",
+                  "name": "/projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "isAllDay": false,
             "completedTime": "2019-11-13T03:00:00+0000",
@@ -3243,6 +3604,40 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "完成任务",
+                "en": "Complete Task"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
               ]
             }
           ]
@@ -3348,6 +3743,51 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "移动任务到其他项目",
+                "en": "Move Task"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": [
+                  {}
+                ]
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "body",
+                  "name": "/0/fromProjectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "body",
+                  "name": "/0/toProjectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "body",
+                  "name": "/0/taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
               ]
             }
           ],
@@ -3475,6 +3915,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "查询已完成任务",
+                "en": "List Completed Tasks"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -3614,6 +4071,23 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "筛选任务",
+                "en": "Filter Tasks"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": [
             {
               "isAllDay": false,
@@ -3716,6 +4190,40 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取任务评论",
+                "en": "Get Task Comments"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
               ]
             }
           ],
@@ -3851,6 +4359,43 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "添加任务评论",
+                "en": "Add Task Comment"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "title": "Looks good"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "userId": 0,
             "createdTime": "2026-04-07T09:00:00+0000",
@@ -3950,6 +4495,48 @@
                 "tasks:write"
               ]
             }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "删除任务评论",
+                "en": "Delete Task Comment"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "taskId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectWithData"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "id",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getTaskComments"
+                  }
+                }
+              ]
+            }
           ]
         },
         {
@@ -4026,6 +4613,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取项目列表",
+                "en": "Get User Project"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -4149,6 +4753,29 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建项目",
+                "en": "Create Project"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "example",
+                  "color": "#F18181",
+                  "viewMode": "list",
+                  "kind": "TASK"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "sortOrder": 0,
             "closed": false,
@@ -4240,6 +4867,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取项目",
+                "en": "Get Project By ID"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ],
@@ -4371,6 +5024,36 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "更新项目",
+                "en": "Update Project"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "viewMode": "list",
+                  "kind": "TASK"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "sortOrder": 0,
             "closed": false,
@@ -4446,6 +5129,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "删除项目",
+                "en": "Delete Project"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ]
@@ -4528,6 +5237,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取项目及数据",
+                "en": "Get Project With Data"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ],
@@ -4622,6 +5357,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取项目分组",
+                "en": "Get Project Groups"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -4731,6 +5483,26 @@
               "scopes": [
                 "tasks:write"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建项目分组",
+                "en": "Create Project Group"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "Group Name"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -4850,6 +5622,35 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "更新项目分组",
+                "en": "Update Project Group"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "New Group Name"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectGroupId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectGroups"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "sortOrder": 0,
             "showAll": false,
@@ -4924,6 +5725,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "删除项目分组",
+                "en": "Delete Project Group"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectGroupId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getProjectGroups"
+                  }
+                }
               ]
             }
           ]
@@ -5008,6 +5835,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取项目看板列",
+                "en": "Get Columns"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ],
@@ -5125,6 +5978,35 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建项目看板列",
+                "en": "Create Column"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "Column Name"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                }
               ]
             }
           ],
@@ -5253,6 +6135,43 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "更新项目看板列",
+                "en": "Update Column"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "New Column Name"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "projectId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getUserProjects"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "columnId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getColumns"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "sortOrder": 0
           }
@@ -5328,6 +6247,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取任务标签",
+                "en": "Get Tags"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -5440,6 +6376,27 @@
               "scopes": [
                 "tasks:write"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "新建标签",
+                "en": "Create Tag"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "urgent",
+                  "label": "urgent"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -5558,6 +6515,34 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取专注记录",
+                "en": "Get Focus By Focus ID"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "type": 0
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "focusId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getFocusesByTimeRange"
+                  }
+                }
               ]
             }
           ],
@@ -5682,6 +6667,34 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "删除专注记录",
+                "en": "Delete Focus"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "type": 0
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "focusId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getFocusesByTimeRange"
+                  }
+                }
               ]
             }
           ],
@@ -5814,6 +6827,27 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "查询时间范围内的专注记录",
+                "en": "Get Focuses By Time Range"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "from": "2026-04-01T00:00:00+0800",
+                  "to": "2026-04-02T00:00:00+0800",
+                  "type": 0
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -5956,6 +6990,29 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建专注记录",
+                "en": "Create Focus"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "type": 0,
+                  "startTime": "2026-04-07T09:00:00+0800",
+                  "endTime": "2026-04-07T09:25:00+0800",
+                  "duration": 1500
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "userId": 0,
             "type": 0,
@@ -6057,6 +7114,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取倒数日列表",
+                "en": "Get Countdowns"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -6182,6 +7256,35 @@
               ]
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "查询习惯打卡记录",
+                "en": "Get Habit Check-Ins"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "from": 20260401,
+                  "to": 20260407
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "query",
+                  "name": "habitIds",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getHabits"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": [
             {
               "year": 2026,
@@ -6254,6 +7357,23 @@
               "scopes": [
                 "tasks:read"
               ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取习惯列表",
+                "en": "Get All Habits"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": [
@@ -6358,6 +7478,34 @@
                 "tasks:write"
               ]
             }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "创建习惯",
+                "en": "Create Habit"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "Read",
+                  "iconRes": "habit_reading",
+                  "color": "#4D8CF5",
+                  "type": "Boolean",
+                  "goal": 1,
+                  "step": 1,
+                  "unit": "Count",
+                  "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+                  "recordEnable": false
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "ready",
+              "unresolved": []
+            }
           ]
         },
         {
@@ -6434,6 +7582,32 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:read"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取指定习惯",
+                "en": "Get Habit By Habit ID"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "habitId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getHabits"
+                  }
+                }
               ]
             }
           ]
@@ -6539,6 +7713,37 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "更新习惯",
+                "en": "Update Habit"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "name": "Read more",
+                  "goal": 2,
+                  "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "habitId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getHabits"
+                  }
+                }
               ]
             }
           ]
@@ -6653,6 +7858,37 @@
               "schemeId": "OAuth2",
               "scopes": [
                 "tasks:write"
+              ]
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "写入习惯打卡",
+                "en": "Create Or Update Habit Check-In"
+              },
+              "request": {
+                "path": {},
+                "query": {},
+                "headers": {},
+                "body": {
+                  "stamp": 20260407,
+                  "value": 1,
+                  "goal": 1
+                }
+              },
+              "expectedStatus": "200",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "path",
+                  "name": "habitId",
+                  "source": {
+                    "kind": "operation",
+                    "operationId": "getHabits"
+                  }
+                }
               ]
             }
           ],
@@ -11412,7 +12648,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/massive/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
-      "approvedSha256": "9d003f70293c3a77c1a4c0906ed591a815d6591ce4043229c2a796ce5a4abe53",
+      "approvedSha256": "e12cd88515a7869a7113f7fc9d743478820d5fcfad50cfbb7f04c7ce3118bb85",
       "title": {
         "zh": "Massive 股票市场数据 API",
         "en": "Massive stock market data API"
@@ -11434,6 +12670,10 @@
       "stabilityNote": {
         "zh": "官方文档接口；可用数据取决于账户套餐与市场数据授权。",
         "en": "Officially documented; availability depends on the account plan and market-data entitlements."
+      },
+      "quickStart": {
+        "operationSlug": "get-previous-close",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -11541,6 +12781,26 @@
             {
               "schemeId": "ApiKey",
               "scopes": []
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取最新成交",
+                "en": "Get the last stock trade"
+              },
+              "request": {
+                "path": {
+                  "stocksTicker": "AAPL"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -11656,6 +12916,28 @@
             {
               "schemeId": "ApiKey",
               "scopes": []
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取前一交易日行情",
+                "en": "Get previous-day aggregate"
+              },
+              "request": {
+                "path": {
+                  "stocksTicker": "AAPL"
+                },
+                "query": {
+                  "adjusted": true
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -11855,6 +13137,34 @@
               "scopes": []
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取自定义周期 K 线",
+                "en": "Get custom aggregate bars"
+              },
+              "request": {
+                "path": {
+                  "stocksTicker": "AAPL",
+                  "multiplier": 1,
+                  "timespan": "minute",
+                  "from": "2025-01-02",
+                  "to": "2025-01-31"
+                },
+                "query": {
+                  "adjusted": true,
+                  "sort": "asc",
+                  "limit": 5000
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "ticker": "AAPL",
             "adjusted": true,
@@ -12009,6 +13319,26 @@
             {
               "schemeId": "ApiKey",
               "scopes": []
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取市场快照",
+                "en": "Get unified market snapshots"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "limit": 10
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -12233,6 +13563,27 @@
               "scopes": []
             }
           ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "搜索证券代码",
+                "en": "List and search supported tickers"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "active": true,
+                  "limit": 100
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "count": 0,
             "results": [
@@ -12336,6 +13687,26 @@
             {
               "schemeId": "ApiKey",
               "scopes": []
+            }
+          ],
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取证券资料",
+                "en": "Get ticker reference details"
+              },
+              "request": {
+                "path": {
+                  "ticker": "AAPL"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
             }
           ],
           "responseExample": {
@@ -14977,7 +16348,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/yahoo-finance/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://finance.yahoo.com/",
-      "approvedSha256": "d0011b132cfea782316681d8836849782b617e53893c633eff8c7de3b1d84e71",
+      "approvedSha256": "c1ef163321491cdc9d795a7e7be54f70def82069af9b68a6374cc45096bbdf01",
       "title": {
         "zh": "Yahoo Finance 网页市场数据 API",
         "en": "Yahoo Finance web market data API"
@@ -15000,6 +16371,10 @@
       "stabilityNote": {
         "zh": "来自 Yahoo Finance 官网网络请求，不是受支持的开发者 API，可能无预告变更。",
         "en": "Observed in Yahoo Finance web traffic; not a supported developer API and may change without notice."
+      },
+      "quickStart": {
+        "operationSlug": "get-chart",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -15203,6 +16578,30 @@
             "zh": "在 Yahoo Finance 行情页面的网络流量中观测到，FiApp 也在使用；不保证兼容性。",
             "en": "Observed in Yahoo Finance's quote-page network traffic and used by FiApp; compatibility is not guaranteed."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取行情与 K 线",
+                "en": "Get chart and historical price data"
+              },
+              "request": {
+                "path": {
+                  "symbol": "AAPL"
+                },
+                "query": {
+                  "range": "5d",
+                  "interval": "1d",
+                  "includePrePost": false
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "chart": {
               "result": [
@@ -15357,6 +16756,27 @@
             "zh": "在 Yahoo Finance 自有行情页面流量中观测到；目前匿名服务端请求会返回 Unauthorized。",
             "en": "Observed in Yahoo Finance's own quote-page traffic; anonymous server requests currently return Unauthorized."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取批量行情",
+                "en": "Get batch quote snapshots"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "symbols": "AAPL,MSFT",
+                  "formatted": false
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "quoteResponse": {
               "result": [
@@ -15505,6 +16925,28 @@
             "zh": "在 Yahoo Finance 自有市场组件中观测到。",
             "en": "Observed in Yahoo Finance's own market widgets."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取迷你图数据",
+                "en": "Get compact chart series"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "symbols": "AAPL,MSFT",
+                  "range": "5d",
+                  "interval": "1d"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "spark": {
               "result": [
@@ -15623,6 +17065,26 @@
             "zh": "在 Yahoo Finance 行情页面中观测到。",
             "en": "Observed on Yahoo Finance's quote page."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取证券类型",
+                "en": "Get security type and identity"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "symbol": "AAPL"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "quoteType": {
               "result": [
@@ -15749,6 +17211,28 @@
             "zh": "提供商自有的搜索接口系列；已验证为公开只读请求。",
             "en": "Provider-owned search endpoint family; validated as a public read-only request."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "搜索证券",
+                "en": "Search securities"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "q": "Apple",
+                  "quotesCount": 2,
+                  "newsCount": 0
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "count": 2,
             "quotes": [
@@ -15855,6 +17339,28 @@
             "zh": "模块可用性和 crumb 要求可能随时变化。",
             "en": "Module availability and crumb requirements can change without notice."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取证券模块资料",
+                "en": "Get modular security details"
+              },
+              "request": {
+                "path": {
+                  "symbol": "AAPL"
+                },
+                "query": {
+                  "modules": "price,summaryDetail"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "quoteSummary": {
               "result": [
@@ -15985,6 +17491,26 @@
             "zh": "在 Yahoo Finance 行情图表中观测到；受支持类型属于内部实现，可能变化。",
             "en": "Observed on Yahoo Finance's quote chart; supported types are internal and may change."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取基本面时间序列",
+                "en": "Get fundamental and event time series"
+              },
+              "request": {
+                "path": {
+                  "symbol": "AAPL"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "timeseries": {
               "result": [
@@ -16264,7 +17790,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/stooq/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
-      "approvedSha256": "1e4c0aef52f6f5342d457c75e0221ee7b81178c557973b29162b569fd432772f",
+      "approvedSha256": "70642fb2338df5b61b5fec39b8b9452d95653c3ae3f65a67264fe5f8fb1da800",
       "title": {
         "zh": "Stooq 公共行情下载",
         "en": "Stooq public quote downloads"
@@ -16287,6 +17813,10 @@
       "stabilityNote": {
         "zh": "非官方版本化 API。最新行情路由当前返回 404，历史下载路由当前返回 JavaScript 浏览器验证页，不能视为可自动集成。",
         "en": "Not a versioned developer API. The latest-quote route currently returns 404 and the historical route returns a JavaScript browser-verification page, so neither is currently automatable."
+      },
+      "quickStart": {
+        "operationSlug": "download-historical-quotes",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -16404,7 +17934,28 @@
           "stabilityNote": {
             "zh": "FiApp 历史上曾使用此接口；2026-08-10 的提供方验证返回 Stooq 404 页面。",
             "en": "Used by FiApp historically; provider verification on 2026-08-10 returned a Stooq 404 page."
-          }
+          },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "下载最新行情",
+                "en": "Download current or latest quotes"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "s": "aapl.us",
+                  "h": false
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ]
         },
         {
           "slug": "download-historical-quotes",
@@ -16504,7 +18055,27 @@
           "stabilityNote": {
             "zh": "提供方自有历史数据页面；自动化请求目前收到 Stooq 的 JavaScript 验证页面，而非 CSV。",
             "en": "Provider-owned historical page; automated requests currently receive Stooq's JavaScript verification page instead of CSV."
-          }
+          },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "下载历史行情",
+                "en": "Download historical price data"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "s": "aapl.us"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ]
         }
       ],
       "schemas": [
@@ -16627,7 +18198,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/sina-finance/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
-      "approvedSha256": "539d8793c45c79bd99432898f8ad4e7f60ade452d4cb67dd2264d74b22a49b43",
+      "approvedSha256": "1126212eeea1e4207124c667853e78d74a8849a5e2d1c5bb9e75f4846db54618",
       "title": {
         "zh": "新浪财经行情服务 API",
         "en": "Sina Finance web quote API"
@@ -16650,6 +18221,10 @@
       "stabilityNote": {
         "zh": "官网公开页面使用的内部文本/JSONP 接口，字段与编码可能变化。",
         "en": "Internal text/JSONP endpoints used by public pages; fields and encoding may change."
+      },
+      "quickStart": {
+        "operationSlug": "get-quote-snapshots",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -16730,6 +18305,26 @@
             "zh": "已于 2026-08-10 使用新浪财经 Referer 复现。未公开文档的位置字段和特定证券布局可能在不另行通知的情况下发生变化；响应字节声明使用 GB18030 编码。",
             "en": "Reproduced on 2026-08-10 with a Sina Finance Referer. Undocumented positional fields and instrument-specific layouts may change without notice; response bytes declare GB18030."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取行情快照",
+                "en": "Get single or batch quote snapshots"
+              },
+              "request": {
+                "path": {
+                  "symbols": "sh000001,sh600000"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "var hq_str_sh600000=\"浦发银行,9.200,9.210,9.340,9.380,9.160,9.330,9.340,44494391,413333674.000,136600,9.330,295500,9.320,223100,9.310,108500,9.300,71800,9.290,1300,9.340,142300,9.350,224600,9.360,450500,9.370,1289595,9.380,2026-08-10,11:30:00,00,\";"
         },
         {
@@ -16831,6 +18426,27 @@
             "zh": "已于 2026-08-10 复现周期 1/5/15/30/60/240。未公开文档的 JavaScript 包装、可选字段、数字字符串编码和周期语义可能在不另行通知的情况下发生变化。",
             "en": "Reproduced on 2026-08-10 for scales 1/5/15/30/60/240. The undocumented JavaScript wrapper, optional fields, numeric-string encoding, and scale semantics may change without notice."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取 K 线",
+                "en": "Get A-share K-line data"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "symbol": "sh600000",
+                  "scale": 5
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "/*<script>location.href='//sina.com';</script>*/\nvar _data=([{\"day\":\"2026-08-10 11:20:00\",\"open\":\"9.340\",\"high\":\"9.360\",\"low\":\"9.340\",\"close\":\"9.360\",\"volume\":\"505900\",\"amount\":\"4730174.1052\"}]);"
         }
       ],
@@ -17620,7 +19236,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/tencent-finance/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
-      "approvedSha256": "8ae1bbaaa89667a7577e31d8ed196611338b0be7e93b108c23448b1a5fd02b0d",
+      "approvedSha256": "b4ed601694e7c6a3b504bf4b524f901d905bb99a519f669e120befca6ef14edb",
       "title": {
         "zh": "腾讯财经网页行情 API",
         "en": "Tencent Finance web quote API"
@@ -17643,6 +19259,10 @@
       "stabilityNote": {
         "zh": "官网公开页面使用的内部文本/JSON 接口，未提供版本承诺。",
         "en": "Internal text/JSON endpoints used by public pages without a version guarantee."
+      },
+      "quickStart": {
+        "operationSlug": "get-quote-snapshots",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -17724,6 +19344,26 @@
             "zh": "已于 2026-08-10 通过只读请求验证。响应声明为 `text/html; charset=GBK`，并包含以 `~` 分隔的 JavaScript 赋值语句。位置字段仍无公开文档，且因市场而异。",
             "en": "Verified with a read-only request on 2026-08-10. The response declared `text/html; charset=GBK` and contained `~`-delimited JavaScript assignments. Positional fields remain undocumented and market-dependent."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取行情快照",
+                "en": "Get one or more quote snapshots"
+              },
+              "request": {
+                "path": {
+                  "symbols": "hk00700,sz000001"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "v_hk00700=\"100~腾讯控股~00700~477.400~478.800~479.000~...\";"
         },
         {
@@ -17774,7 +19414,27 @@
           "stabilityNote": {
             "zh": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
             "en": "Read-only request verified on 2026-08-10. Dynamic symbol/interval object keys and tuple positions are provider-internal and may change."
-          }
+          },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取复权 K 线",
+                "en": "Get K-line data with selectable adjustment"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "param": "hk00700,day,,,3,qfq"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ]
         },
         {
           "slug": "get-kline",
@@ -17824,7 +19484,27 @@
           "stabilityNote": {
             "zh": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
             "en": "Read-only request verified on 2026-08-10. Dynamic symbol/interval object keys and tuple positions are provider-internal and may change."
-          }
+          },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取非复权 K 线",
+                "en": "Get unadjusted K-line data"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "param": "sz000001,week,,,2"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ]
         }
       ],
       "schemas": [
@@ -18577,7 +20257,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/eastmoney-funds/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
-      "approvedSha256": "f5077c9d062988bc15701598996a3ffee23829f2945b7299b870312fb3588637",
+      "approvedSha256": "749af44a0bf1ced64587e38a022d81e9afecabc05f990ea5fd0c0f9a8d0f08f5",
       "title": {
         "zh": "东方财富基金网页数据 API",
         "en": "Eastmoney fund web data API"
@@ -18600,6 +20280,10 @@
       "stabilityNote": {
         "zh": "天天基金官网实际使用的 JSON/JSONP 接口，字段标识属于内部契约。",
         "en": "JSON/JSONP endpoints used by Tiantian Fund pages; field identifiers are internal."
+      },
+      "quickStart": {
+        "operationSlug": "list-historical-nav",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -18704,6 +20388,26 @@
             "zh": "FiApp 曾使用该接口；2026-08-10 的服务商验证返回东方财富页面未找到 HTML，而非 JSONP。",
             "en": "Used by FiApp historically; provider verification on 2026-08-10 returned Eastmoney's page-not-found HTML instead of JSONP."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取基金估值",
+                "en": "Get latest fund estimate"
+              },
+              "request": {
+                "path": {
+                  "fundCode": "001072"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "jsonpgz({\"fundcode\":\"001072\",\"name\":\"...\",\"jzrq\":\"2025-09-02\",\"dwjz\":\"2.6170\",\"gsz\":\"2.6300\",\"gszzl\":\"0.50\",\"gztime\":\"2025-09-03 15:00\"});"
         },
         {
@@ -18816,6 +20520,28 @@
             "zh": "只读 JSON 请求已于 2026-08-10 验证。服务商字段名为未公开的缩写；未知字段被有意保留。",
             "en": "Read-only JSON request verified on 2026-08-10. Provider field names are abbreviated and undocumented; unknown fields are intentionally preserved."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取历史净值",
+                "en": "List historical fund NAV"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "fundCode": "001072",
+                  "pageIndex": 1,
+                  "pageSize": 20
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "Data": {
               "LSJZList": [
@@ -18963,6 +20689,29 @@
             "zh": "只读 JSON 请求已于 2026-08-10 验证。实际传输格式为双数字元组，服务商的分页行为可能与请求值不同。",
             "en": "Read-only JSON request verified on 2026-08-10. The actual wire format is a two-number tuple, and provider pagination behavior may differ from requested values."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取净值图表",
+                "en": "Get historical NAV chart series"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "fundCode": "001072",
+                  "type": 0,
+                  "pageIndex": 1,
+                  "pageSize": 400
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "Data": [
               [
@@ -19100,6 +20849,30 @@
             "zh": "在服务商自有基金页面上观测到该接口。2026-08-10 的服务端只读请求以空响应结束；浏览器行为、字段 ID 和公开页面令牌仍属服务商内部实现，可能发生变化。",
             "en": "Observed on the provider-owned fund page. A server-side read-only request on 2026-08-10 ended with an empty reply; browser behavior, field IDs and the public-page token remain provider-internal and may change."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取关联指数",
+                "en": "Get related market-index snapshots"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "secids": "1.000001,0.399001",
+                  "fields": "f2,f3,f12,f14",
+                  "fltt": 2,
+                  "invt": 2,
+                  "ut": "267f9ad526dbe6b0262ab19316f5a25b"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "rc": 0,
             "rt": 0,
@@ -20206,7 +21979,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/cnbc-market-data/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
-      "approvedSha256": "17cff205de5ce73a8172bc2bb018bdebe6ab3cabda4c42c9ffe95b60d5566195",
+      "approvedSha256": "3a403b3979d13bc60c53a10bb576f5d5ea1d36e3bf3fd5f44baec5c6d4b4f804",
       "title": {
         "zh": "CNBC 网页行情 API",
         "en": "CNBC web quote API"
@@ -20228,6 +22001,10 @@
       "stabilityNote": {
         "zh": "CNBC 行情页实际使用的 REST 与持久化 GraphQL 查询，哈希和结构可能变化。",
         "en": "REST and persisted GraphQL requests used by CNBC quote pages; hashes and shapes may change."
+      },
+      "quickStart": {
+        "operationSlug": "get-rest-quotes",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -20396,6 +22173,31 @@
             "zh": "位于 Akamai 后方、未公开文档的展示数据接口。在验证环境中必须提供类似浏览器的 User-Agent 和 CNBC Referer；仍很可能发生限流、封禁、字段变更以及使用格式化字符串值的情况。",
             "en": "Undocumented display-data endpoint behind Akamai. Browser-like User-Agent and CNBC Referer were necessary in the verification environment; throttling, blocking, field changes, and formatted-string values remain likely."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取行情",
+                "en": "Get display-formatted quotes for one or more symbols"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "symbols": "AAPL|MSFT",
+                  "requestMethod": "quick",
+                  "partnerId": 2,
+                  "fund": 1,
+                  "exthrs": 1,
+                  "output": "json"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": {
             "FormattedQuoteResult": {
               "FormattedQuote": [
@@ -20512,6 +22314,36 @@
             "zh": "持久化哈希仍可被接受，但示例变量结构返回的图表字段均为 null。不要将成功的 HTTP 状态视为图表数据可用的证明。",
             "en": "Persisted hash remained accepted, but the sample variable shape returned null chart fields. Do not rely on successful HTTP status as proof of usable chart data."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取图表数据",
+                "en": "Get CNBC quote chart data with the persisted query"
+              },
+              "request": {
+                "path": {},
+                "query": {
+                  "operationName": "getQuoteChartData",
+                  "variables": "{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"
+                },
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "requires-input",
+              "unresolved": [
+                {
+                  "in": "query",
+                  "name": "extensions",
+                  "source": {
+                    "kind": "runtime",
+                    "reason": "provider-state"
+                  }
+                }
+              ]
+            }
+          ],
           "responseExample": {
             "data": {
               "chartData": {
@@ -21415,7 +23247,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/i3investor-sgx/openapi.json",
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
-      "approvedSha256": "75f8c2fbdfa8905b71e710d996eb49500b0398c379243fee4d9fc70b4e8f3b35",
+      "approvedSha256": "afe70fca99d032aacb1dc1669dd265c1ea9d7879ab0337499ea2ce798b009bfc",
       "title": {
         "zh": "i3Investor SGX 公共行情页",
         "en": "i3Investor SGX public market pages"
@@ -21437,6 +23269,10 @@
       "stabilityNote": {
         "zh": "这是 HTML 网页读取集合，不是 JSON API；页面结构可能变化。",
         "en": "This is an HTML page-reading collection, not a JSON API; markup may change."
+      },
+      "quickStart": {
+        "operationSlug": "get-sgx-stock-overview-page",
+        "requestExampleId": "default"
       },
       "servers": [
         {
@@ -21525,6 +23361,26 @@
             "zh": "验证期间，旧版页面返回 HTTP 200，并包含 JSON-LD 和页面可见的行情字段。HTML 选择器、Cloudflare 行为、Cookie 和展示数据可能在没有版本标识的情况下发生变化；当前 JSON-LD 涵盖价格/币种，但不包含涨跌或成交量。",
             "en": "The legacy page returned HTTP 200 and JSON-LD plus visible quote fields during verification. HTML selectors, Cloudflare behavior, cookies, and displayed data can change without versioning; JSON-LD currently covers price/currency but not change or volume."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取旧版 SGX 股票概览页",
+                "en": "Get the legacy SGX stock overview HTML page"
+              },
+              "request": {
+                "path": {
+                  "code": "d05"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "<!DOCTYPE html><html><head><script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"offers\":{\"@type\":\"Offer\",\"price\":\"76.09\",\"priceCurrency\":\"SGD\"},\"name\":\"DBS (D05): DBS GROUP HOLDINGS LTD\"}</script>..."
         },
         {
@@ -21602,6 +23458,26 @@
             "zh": "验证期间，响应式页面返回 HTTP 200，并包含带标签的行情字段。其标记结构没有版本标识，与旧版 servlet 模板不同，并且可能在不另行通知的情况下被更改或受 Cloudflare 保护。",
             "en": "The responsive page returned HTTP 200 with labelled quote fields during verification. Its markup is not versioned, differs from the legacy servlet template, and may be changed or protected by Cloudflare without notice."
           },
+          "requestExamples": [
+            {
+              "id": "default",
+              "title": {
+                "zh": "获取当前 SGX 股票概览页",
+                "en": "Get the current SGX stock overview HTML page"
+              },
+              "request": {
+                "path": {
+                  "code": "D05"
+                },
+                "query": {},
+                "headers": {}
+              },
+              "expectedStatus": "200",
+              "verifiedAt": "2026-08-10",
+              "completeness": "ready",
+              "unresolved": []
+            }
+          ],
           "responseExample": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"description\" content=\"Stock name: DBS, Stock Code: D05, Company: DBS Group Holdings Ltd, Sector: Financial and Insurance Activities\"></head><body>...Last Price...76.33...Today's Change...+1.25 (1.664%)...Trading Volume...6,786,400...</body></html>"
         }
       ],

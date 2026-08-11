@@ -67,7 +67,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       },
       "delete": {
         "tags": ["task"],
@@ -111,7 +112,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task": {
@@ -154,7 +156,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"title":"example","startDate":"2019-11-13T03:00:00+0000","dueDate":"2019-11-13T03:00:00+0000","tags":["work","urgent"]}},"expectedStatus":"200","unresolved":[{"in":"body","name":"/projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/task/{taskId}": {
@@ -208,7 +211,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"startDate":"2019-11-13T03:00:00+0000","dueDate":"2019-11-13T03:00:00+0000","tags":["work","urgent"]}},"expectedStatus":"200","unresolved":[{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"body","name":"/id","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"body","name":"/projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/complete": {
@@ -254,7 +258,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task/move": {
@@ -265,7 +270,8 @@
         "operationId": "moveTask",
         "security": [{"OAuth2": ["tasks:write"]}],
         "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveRequest"}}, "example": [{"fromProjectId": "69a850ef1c20d2030e148fdd", "toProjectId": "69a850f41c20d2030e148fdf", "taskId": "69a850f8b9061f374d54a046"}]}}},
-        "responses": {"200": {"description": "移动结果", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveResult"}}, "example": [{"id": "69a850f8b9061f374d54a046", "etag": "43p2zso1"}]}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "移动结果", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveResult"}}, "example": [{"id": "69a850f8b9061f374d54a046", "etag": "43p2zso1"}]}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":[{}]},"expectedStatus":"200","unresolved":[{"in":"body","name":"/0/fromProjectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"body","name":"/0/toProjectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"body","name":"/0/taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task/completed": {
@@ -276,7 +282,8 @@
         "operationId": "listCompletedTasks",
         "security": [{"OAuth2": ["tasks:read"]}],
         "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompletedTaskFilter"}}}},
-        "responses": {"200": {"description": "已完成任务", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "已完成任务", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/task/filter": {
@@ -287,14 +294,16 @@
         "operationId": "filterTasks",
         "security": [{"OAuth2": ["tasks:read"]}],
         "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TaskFilter"}}}},
-        "responses": {"200": {"description": "匹配的任务", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "匹配的任务", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comments": {
       "get": {
         "tags": ["comment"], "summary": "获取任务评论", "description": "读取指定项目任务下的评论列表。", "operationId": "getTaskComments", "security": [{"OAuth2": ["tasks:read"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
-        "responses": {"200": {"description": "任务评论", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenComment"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "任务评论", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenComment"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment": {
@@ -302,14 +311,16 @@
         "tags": ["comment"], "summary": "添加任务评论", "description": "在指定项目任务下发布一条评论，不创建或修改任务本身。", "operationId": "addTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
         "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["title"], "properties": {"title": {"type": "string", "description": "评论内容", "example": "Looks good"}}}}}},
-        "responses": {"200": {"description": "已创建的评论", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenComment"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "已创建的评论", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenComment"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"title":"Looks good"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment/{id}": {
       "delete": {
         "tags": ["comment"], "summary": "删除任务评论", "description": "删除指定任务下的一条评论。", "operationId": "deleteTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}, {"name": "id", "in": "path", "required": true, "description": "评论 ID", "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "评论已删除"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}
+        "responses": {"200": {"description": "评论已删除"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"path","name":"id","source":{"kind":"operation","operationId":"getTaskComments"}}]}}
       }
     },
     "/open/v1/project": {
@@ -342,7 +353,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       },
       "post": {
         "tags": ["project"],
@@ -383,7 +395,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"example","color":"#F18181","viewMode":"list","kind":"TASK"}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/project/{projectId}": {
@@ -424,7 +437,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       },
       "post": {
         "tags": ["project"],
@@ -476,7 +490,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"viewMode":"list","kind":"TASK"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       },
       "delete": {
         "tags": ["project"],
@@ -508,7 +523,8 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/{projectId}/data": {
@@ -549,52 +565,53 @@
           "404": {
             "description": "未找到"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/group": {
-      "get": {"tags": ["project group"], "summary": "获取项目分组", "description": "获取当前用户的项目分组列表。", "operationId": "getProjectGroups", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "项目分组", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "post": {"tags": ["project group"], "summary": "创建项目分组", "description": "创建用于组织项目的分组。", "operationId": "createProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupCreate"}, "example": {"name": "Group Name"}}}}, "responses": {"200": {"description": "已创建的项目分组", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["project group"], "summary": "获取项目分组", "description": "获取当前用户的项目分组列表。", "operationId": "getProjectGroups", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "项目分组", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["project group"], "summary": "创建项目分组", "description": "创建用于组织项目的分组。", "operationId": "createProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupCreate"}, "example": {"name": "Group Name"}}}}, "responses": {"200": {"description": "已创建的项目分组", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Group Name"}},"expectedStatus":"200"}}}
     },
     "/open/v1/project/group/{projectGroupId}": {
-      "post": {"tags": ["project group"], "summary": "更新项目分组", "description": "修改指定项目分组的名称。", "operationId": "updateProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "项目分组 ID", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupUpdate"}, "example": {"name": "New Group Name"}}}}, "responses": {"200": {"description": "已更新的项目分组", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "delete": {"tags": ["project group"], "summary": "删除项目分组", "description": "删除指定的项目分组。", "operationId": "deleteProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "项目分组 ID", "schema": {"type": "string"}}], "responses": {"200": {"description": "项目分组已删除"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "post": {"tags": ["project group"], "summary": "更新项目分组", "description": "修改指定项目分组的名称。", "operationId": "updateProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "项目分组 ID", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupUpdate"}, "example": {"name": "New Group Name"}}}}, "responses": {"200": {"description": "已更新的项目分组", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"New Group Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectGroupId","source":{"kind":"operation","operationId":"getProjectGroups"}}]}}},
+      "delete": {"tags": ["project group"], "summary": "删除项目分组", "description": "删除指定的项目分组。", "operationId": "deleteProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "项目分组 ID", "schema": {"type": "string"}}], "responses": {"200": {"description": "项目分组已删除"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectGroupId","source":{"kind":"operation","operationId":"getProjectGroups"}}]}}}
     },
     "/open/v1/project/{projectId}/column": {
-      "get": {"tags": ["column"], "summary": "获取项目看板列", "description": "获取指定项目中的看板列。", "operationId": "getColumns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "responses": {"200": {"description": "项目看板列", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Column"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "post": {"tags": ["column"], "summary": "创建项目看板列", "description": "在指定项目的看板中创建一列。", "operationId": "createColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnCreate"}, "example": {"name": "Column Name"}}}}, "responses": {"200": {"description": "已创建的看板列", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["column"], "summary": "获取项目看板列", "description": "获取指定项目中的看板列。", "operationId": "getColumns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "responses": {"200": {"description": "项目看板列", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Column"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}},
+      "post": {"tags": ["column"], "summary": "创建项目看板列", "description": "在指定项目的看板中创建一列。", "operationId": "createColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnCreate"}, "example": {"name": "Column Name"}}}}, "responses": {"200": {"description": "已创建的看板列", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Column Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}}
     },
     "/open/v1/project/{projectId}/column/{columnId}": {
-      "post": {"tags": ["column"], "summary": "更新项目看板列", "description": "修改指定项目看板列的名称。", "operationId": "updateColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"name": "columnId", "in": "path", "required": true, "description": "看板列 ID", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnUpdate"}, "example": {"name": "New Column Name"}}}}, "responses": {"200": {"description": "已更新的看板列", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "post": {"tags": ["column"], "summary": "更新项目看板列", "description": "修改指定项目看板列的名称。", "operationId": "updateColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"name": "columnId", "in": "path", "required": true, "description": "看板列 ID", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnUpdate"}, "example": {"name": "New Column Name"}}}}, "responses": {"200": {"description": "已更新的看板列", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"New Column Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"columnId","source":{"kind":"operation","operationId":"getColumns"}}]}}}
     },
     "/open/v1/tag": {
-      "get": {"tags": ["tag"], "summary": "获取任务标签", "description": "获取当前用户可用于任务分类的标签。", "operationId": "getTags", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "标签", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenTag"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "post": {"tags": ["tag"], "summary": "新建标签", "description": "添加一个用于分类和筛选的标签。", "operationId": "createTag", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagCreate"}, "example": {"name": "urgent", "label": "urgent"}}}}, "responses": {"200": {"description": "已创建的标签", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenTag"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["tag"], "summary": "获取任务标签", "description": "获取当前用户可用于任务分类的标签。", "operationId": "getTags", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "标签", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenTag"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["tag"], "summary": "新建标签", "description": "添加一个用于分类和筛选的标签。", "operationId": "createTag", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagCreate"}, "example": {"name": "urgent", "label": "urgent"}}}}, "responses": {"200": {"description": "已创建的标签", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenTag"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"urgent","label":"urgent"}},"expectedStatus":"200"}}}
     },
     "/open/v1/focus/{focusId}": {
-      "get": {"tags": ["focus"], "summary": "获取专注记录", "description": "按专注记录 ID 和类型读取一条番茄专注或正向计时记录。", "operationId": "getFocusById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0, "taskId": "task-1", "note": "Deep work", "status": 2, "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "delete": {"tags": ["focus"], "summary": "删除专注记录", "description": "删除指定的番茄专注或正向计时记录。", "operationId": "deleteFocus", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "已删除的专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["focus"], "summary": "获取专注记录", "description": "按专注记录 ID 和类型读取一条番茄专注或正向计时记录。", "operationId": "getFocusById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0, "taskId": "task-1", "note": "Deep work", "status": 2, "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"type":0},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"focusId","source":{"kind":"operation","operationId":"getFocusesByTimeRange"}}]}}},
+      "delete": {"tags": ["focus"], "summary": "删除专注记录", "description": "删除指定的番茄专注或正向计时记录。", "operationId": "deleteFocus", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "已删除的专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"type":0},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"focusId","source":{"kind":"operation","operationId":"getFocusesByTimeRange"}}]}}}
     },
     "/open/v1/focus": {
-      "get": {"tags": ["focus"], "summary": "查询时间范围内的专注记录", "description": "按起止时间和专注类型查询专注记录，查询区间最长三十天。", "operationId": "getFocusesByTimeRange", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "from", "in": "query", "required": true, "description": "范围开始时间", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-01T00:00:00+0800"}, {"name": "to", "in": "query", "required": true, "description": "范围结束时间", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-02T00:00:00+0800"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "专注记录", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenFocus"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "post": {"tags": ["focus"], "summary": "创建专注记录", "description": "记录一次番茄专注或正向计时，可关联已有任务。", "operationId": "createFocus", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FocusCreate"}, "example": {"type": 0, "taskId": "task-1", "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "responses": {"200": {"description": "已创建的专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["focus"], "summary": "查询时间范围内的专注记录", "description": "按起止时间和专注类型查询专注记录，查询区间最长三十天。", "operationId": "getFocusesByTimeRange", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "from", "in": "query", "required": true, "description": "范围开始时间", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-01T00:00:00+0800"}, {"name": "to", "in": "query", "required": true, "description": "范围结束时间", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-02T00:00:00+0800"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "专注记录", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenFocus"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"from":"2026-04-01T00:00:00+0800","to":"2026-04-02T00:00:00+0800","type":0},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["focus"], "summary": "创建专注记录", "description": "记录一次番茄专注或正向计时，可关联已有任务。", "operationId": "createFocus", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FocusCreate"}, "example": {"type": 0, "taskId": "task-1", "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "responses": {"200": {"description": "已创建的专注记录", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"type":0,"startTime":"2026-04-07T09:00:00+0800","endTime":"2026-04-07T09:25:00+0800","duration":1500}},"expectedStatus":"200"}}}
     },
     "/open/v1/countdown": {
-      "get": {"tags": ["countdown"], "summary": "获取倒数日列表", "description": "获取当前用户配置的倒数日及其日期、提醒和显示设置。", "operationId": "getCountdowns", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "倒数日", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenCountdown"}}, "example": [{"id": "countdown-1", "type": 0, "name": "Birthday", "date": 20260407, "color": "#4D8CF5", "reminders": [], "sortOrder": 0}]}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["countdown"], "summary": "获取倒数日列表", "description": "获取当前用户配置的倒数日及其日期、提醒和显示设置。", "operationId": "getCountdowns", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "倒数日", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenCountdown"}}, "example": [{"id": "countdown-1", "type": 0, "name": "Birthday", "date": 20260407, "color": "#4D8CF5", "reminders": [], "sortOrder": 0}]}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}}
     },
     "/open/v1/habit/checkins": {
-      "get": {"tags": ["habit"], "summary": "查询习惯打卡记录", "description": "按习惯 ID 列表和日期范围查询习惯打卡记录。", "operationId": "getHabitCheckIns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "habitIds", "in": "query", "required": true, "description": "以逗号分隔的习惯 ID", "schema": {"type": "string", "pattern": "^[^,]+(,[^,]+)*$"}, "example": "habit-1,habit-2"}, {"name": "from", "in": "query", "required": true, "description": "开始日期标记，格式为 YYYYMMDD", "schema": {"type": "integer", "format": "int32"}, "example": 20260401}, {"name": "to", "in": "query", "required": true, "description": "结束日期标记，格式为 YYYYMMDD", "schema": {"type": "integer", "format": "int32"}, "example": 20260407}], "responses": {"200": {"description": "习惯打卡文档", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["habit"], "summary": "查询习惯打卡记录", "description": "按习惯 ID 列表和日期范围查询习惯打卡记录。", "operationId": "getHabitCheckIns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "habitIds", "in": "query", "required": true, "description": "以逗号分隔的习惯 ID", "schema": {"type": "string", "pattern": "^[^,]+(,[^,]+)*$"}, "example": "habit-1,habit-2"}, {"name": "from", "in": "query", "required": true, "description": "开始日期标记，格式为 YYYYMMDD", "schema": {"type": "integer", "format": "int32"}, "example": 20260401}, {"name": "to", "in": "query", "required": true, "description": "结束日期标记，格式为 YYYYMMDD", "schema": {"type": "integer", "format": "int32"}, "example": 20260407}], "responses": {"200": {"description": "习惯打卡文档", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"from":20260401,"to":20260407},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"query","name":"habitIds","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     },
     "/open/v1/habit": {
-      "get": {"tags": ["habit"], "summary": "获取习惯列表", "description": "获取当前用户的全部习惯及其目标和重复规则。", "operationId": "getHabits", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "习惯", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabit"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}}},
-      "post": {"tags": ["habit"], "summary": "创建习惯", "description": "创建一项带目标、频率和提醒设置的习惯。", "operationId": "createHabit", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCreate"}, "example": {"name": "Read", "iconRes": "habit_reading", "color": "#4D8CF5", "type": "Boolean", "goal": 1.0, "step": 1.0, "unit": "Count", "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1", "recordEnable": false}}}}, "responses": {"200": {"description": "已创建的习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["habit"], "summary": "获取习惯列表", "description": "获取当前用户的全部习惯及其目标和重复规则。", "operationId": "getHabits", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "习惯", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabit"}}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["habit"], "summary": "创建习惯", "description": "创建一项带目标、频率和提醒设置的习惯。", "operationId": "createHabit", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCreate"}, "example": {"name": "Read", "iconRes": "habit_reading", "color": "#4D8CF5", "type": "Boolean", "goal": 1.0, "step": 1.0, "unit": "Count", "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1", "recordEnable": false}}}}, "responses": {"200": {"description": "已创建的习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Read","iconRes":"habit_reading","color":"#4D8CF5","type":"Boolean","goal":1,"step":1,"unit":"Count","repeatRule":"RRULE:FREQ=DAILY;INTERVAL=1","recordEnable":false}},"expectedStatus":"200"}}}
     },
     "/open/v1/habit/{habitId}": {
-      "get": {"tags": ["habit"], "summary": "获取指定习惯", "description": "根据习惯 ID 获取目标、重复规则和累计打卡信息。", "operationId": "getHabitById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "responses": {"200": {"description": "习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}},
-      "post": {"tags": ["habit"], "summary": "更新习惯", "description": "修改指定习惯的目标、频率、提醒或展示设置。", "operationId": "updateHabit", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitUpdate"}, "example": {"name": "Read more", "goal": 2.0, "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"}}}}, "responses": {"200": {"description": "已更新的习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "get": {"tags": ["habit"], "summary": "获取指定习惯", "description": "根据习惯 ID 获取目标、重复规则和累计打卡信息。", "operationId": "getHabitById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "responses": {"200": {"description": "习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}},
+      "post": {"tags": ["habit"], "summary": "更新习惯", "description": "修改指定习惯的目标、频率、提醒或展示设置。", "operationId": "updateHabit", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitUpdate"}, "example": {"name": "Read more", "goal": 2.0, "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"}}}}, "responses": {"200": {"description": "已更新的习惯", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Read more","goal":2,"repeatRule":"RRULE:FREQ=DAILY;INTERVAL=1"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     },
     "/open/v1/habit/{habitId}/checkin": {
-      "post": {"tags": ["habit"], "summary": "写入习惯打卡", "description": "为指定习惯创建或更新某个日期的打卡数值与状态。", "operationId": "upsertHabitCheckIn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCheckInUpsert"}, "example": {"stamp": 20260407, "value": 1.0, "goal": 1.0}}}}, "responses": {"200": {"description": "已更新的打卡文档", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}}}
+      "post": {"tags": ["habit"], "summary": "写入习惯打卡", "description": "为指定习惯创建或更新某个日期的打卡数值与状态。", "operationId": "upsertHabitCheckIn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCheckInUpsert"}, "example": {"stamp": 20260407, "value": 1.0, "goal": 1.0}}}}, "responses": {"200": {"description": "已更新的打卡文档", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}, "201": {"description": "已创建，无响应内容"}, "401": {"description": "未授权"}, "403": {"description": "禁止访问"}, "404": {"description": "未找到"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"stamp":20260407,"value":1,"goal":1}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     }
   },
   "components": {

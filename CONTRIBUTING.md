@@ -32,6 +32,13 @@ policy. Locale lint reports violations with an exact JSON Pointer.
 
 Every API must have a stable upstream source, an attribution URL, a reviewed license, HTTPS servers, and credentials represented only as environment-variable names. Never commit real API keys or access tokens.
 
+Every Endpoint must also define `x-pontx-request-examples`. Curate all stable
+path, query, header, and body values as one request and declare every omitted
+dynamic value in `unresolved`, regardless of whether the value is an ID, time,
+cursor, nonce, or provider-specific state. Point dependencies at a real
+`operationId`, or use a concise runtime reason. Select one complete, ready
+example per API through `quickStart` in `catalog/source.json`.
+
 For provider-owned but undocumented read-only web APIs, record `documentationStatus`, `evidenceUrls`, `verifiedAt`, and a bilingual `stabilityNote`. Each operation must also carry the matching `x-pontx-*` evidence extensions. Proxy execution may be enabled only for verified read-only endpoints with an endpoint-specific HTTPS server allowlist and curated fixed headers; login, account, trading, mutation, advertising, and user-data endpoints remain prohibited.
 
 ## Pull request checklist
@@ -42,6 +49,8 @@ For provider-owned but undocumented read-only web APIs, record `documentationSta
 - Chinese and English titles and summaries are useful and accurate.
 - Important data structures have useful bilingual entries in `schemaTranslations`.
 - Request parameters, request bodies, response descriptions, media types, and schema references are complete enough for semantic retrieval.
+- Every Endpoint has a successful request example; dynamic inputs are omitted, marked as unresolved, and have a valid source.
+- The API Quick Start points to a ready request example.
 - Operation slugs remain stable unless the upstream operation identity changed.
 - Mutating endpoints and authentication requirements are described correctly.
 - `catalog/catalog.json` has been regenerated and committed.

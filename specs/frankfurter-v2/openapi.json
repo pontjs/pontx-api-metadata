@@ -60,7 +60,8 @@
           "422": { "$ref": "#/components/responses/UnprocessableEntity" },
           "404": { "$ref": "#/components/responses/NotFound" },
           "503": { "$ref": "#/components/responses/ServiceUnavailable" }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"base":"USD"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/rate/{base}/{quote}": {
@@ -97,7 +98,8 @@
           "422": { "$ref": "#/components/responses/UnprocessableEntity" },
           "404": { "$ref": "#/components/responses/NotFound" },
           "503": { "$ref": "#/components/responses/ServiceUnavailable" }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"base":"EUR","quote":"USD"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/currency/{code}": {
@@ -124,7 +126,8 @@
             }
           },
           "404": { "$ref": "#/components/responses/NotFound" }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"code":"USD"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/currencies": {
@@ -158,7 +161,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/providers": {
@@ -181,7 +185,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

@@ -65,6 +65,49 @@ git config core.hooksPath .githooks
 
 `catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated bilingual catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable product metadata, HTTP operations, parameters, request-body schema relationships, every response/status schema relationship, and `components.schemas` data structures. Hub search can therefore follow an endpoint's complete input/output metadata graph instead of matching isolated names only.
 
+### Successful request examples
+
+Every Endpoint declares at least one coherent successful request through the
+operation-level `x-pontx-request-examples` extension. Unlike independent
+OpenAPI parameter examples, one entry represents the complete set of path,
+query, header, and body values that belong together:
+
+```json
+{
+  "x-pontx-request-examples": {
+    "default": {
+      "request": {
+        "path": {},
+        "query": { "base": "USD" },
+        "headers": {}
+      },
+      "expectedStatus": "200",
+      "unresolved": [
+        {
+          "in": "query",
+          "name": "cursor",
+          "source": { "kind": "runtime", "reason": "provider-state" }
+        }
+      ]
+    }
+  }
+}
+```
+
+Stable values belong in `request`. Values that cannot be curated safely are
+omitted and listed in `unresolved`; they may be IDs, timestamps, cursors,
+provider state, or any other dynamic input. An unresolved source is either a
+prerequisite Endpoint (`kind: "operation"` with `operationId`) or a documented
+runtime reason (`kind: "runtime"` with `reason`). Credentials are never example
+values.
+
+Each API also selects a ready-to-send landing-page example in
+`catalog/source.json` as `quickStart.operationId` and, when needed,
+`quickStart.requestExampleId`. The compiler validates every required input,
+successful response status, approved server, dependency reference, credential
+boundary, locale counterpart, and Quick Start target before emitting
+`requestExamples` and `quickStart` into the catalog.
+
 ## Branches and deployment
 
 - `develop` publishes metadata to the Hub preview environment.

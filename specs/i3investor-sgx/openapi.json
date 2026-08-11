@@ -27,7 +27,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "验证期间，旧版页面返回 HTTP 200，并包含 JSON-LD 和页面可见的行情字段。HTML 选择器、Cloudflare 行为、Cookie 和展示数据可能在没有版本标识的情况下发生变化；当前 JSON-LD 涵盖价格/币种，但不包含涨跌或成交量。",
-        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"code":"d05"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/web/stock/overview/{code}": {
@@ -49,7 +50,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "验证期间，响应式页面返回 HTTP 200，并包含带标签的行情字段。其标记结构没有版本标识，与旧版 servlet 模板不同，并且可能在不另行通知的情况下被更改或受 Cloudflare 保护。",
-        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"code":"D05"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

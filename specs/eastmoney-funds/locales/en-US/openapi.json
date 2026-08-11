@@ -80,7 +80,8 @@
           "Referer": "https://fund.eastmoney.com/"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This URL currently returns Eastmoney's page-not-found HTML, so proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"fundCode":"001072"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/f10/lsjz": {
@@ -177,7 +178,8 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://fundf10.eastmoney.com/"
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"fundCode":"001072","pageIndex":1,"pageSize":20},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/f10/LSJZChart": {
@@ -276,7 +278,8 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://fundf10.eastmoney.com/"
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"fundCode":"001072","type":0,"pageIndex":1,"pageSize":400},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/api/qt/ulist.np/get": {
@@ -365,7 +368,8 @@
           "Referer": "https://fundf10.eastmoney.com/"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This endpoint is used by the provider page, but server-side verification returned an empty reply on 2026-08-10; internal fields and the page token may also change, so proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This endpoint is used by the provider page, but server-side verification returned an empty reply on 2026-08-10; internal fields and the page token may also change, so proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"secids":"1.000001,0.399001","fields":"f2,f3,f12,f14","fltt":2,"invt":2,"ut":"267f9ad526dbe6b0262ab19316f5a25b"},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

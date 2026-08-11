@@ -12,9 +12,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter/openapi.json",
-      "approvedSha256": "b980d5fbdd216238d8457b33589587a615267e500da0906d62956610b90aabbf",
+      "approvedSha256": "616d302d1e78238a93c1df2c74d5cb2eacaadbbea8b96523826e65f954a94b31",
       "approvedLocaleSha256": {
-        "en-US": "f97e87910d2406c83ad5f6a7a0aff404a99e85907f32195a5a3410550938be5c"
+        "en-US": "9e2fee826100109b17736953e092e036c379fcdc165bd32e52940da7fd09e711"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -32,6 +32,7 @@
       "sdkStatus": "published",
       "cliName": "currency",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getLatestRates", "requestExampleId": "default" },
       "title": "Frankfurter 汇率 API",
       "summary": "无需 API Key，查询欧洲央行参考汇率、货币列表及历史时间序列；当前集合对应仍可用的 v1。",
       "server": {
@@ -48,9 +49,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "2da7836be49d7419005b51bed9edc40ab5a4fa65d3016cce9760110e3f27f187",
+      "approvedSha256": "6311a4b3221ec3d5e15c67c334f1d677cde50e0bd0b42aaa900007eb263f8924",
       "approvedLocaleSha256": {
-        "en-US": "30aa6112e44bf6a239cbd8758080633647426b5051a7937af416cfc7d40e0034"
+        "en-US": "f86b37c3b64afeee9940b97eab0852a0c93db9fdc5f7db33969542b6300b1a17"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -68,6 +69,7 @@
       "sdkStatus": "planned",
       "cliName": "currency-v2",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getRates", "requestExampleId": "default" },
       "title": "Frankfurter v2 汇率 API",
       "summary": "无需 API Key 查询 84 家中央银行、201 种货币及 1948 年以来的汇率，支持数据源过滤与归因、时间序列降采样和流式输出。",
       "server": {
@@ -84,9 +86,9 @@
       "category": "Productivity",
       "featured": true,
       "specFile": "specs/dida365/openapi.json",
-      "approvedSha256": "2cbb05aff23610809d669c07fb377a4b6be59524167d0aaf8741bb688666511f",
+      "approvedSha256": "b3d6694c66700a5385c1f339fe8c93729dd261ac79272e5807c04cdb13c31334",
       "approvedLocaleSha256": {
-        "en-US": "f8496ced7d083d83f99c5c4d7b85f32bc9e977ef4b4608fea778f1aef938b30a"
+        "en-US": "85d107bae39e0578747bc28ee6d5419ec7f5b327a037596facd5679cf5224c96"
       },
       "license": "Proprietary",
       "attributionUrl": "https://developer.dida365.com/docs#/openapi",
@@ -103,6 +105,7 @@
       "sdkStatus": "published",
       "cliName": "dida",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getUserProjects", "requestExampleId": "default" },
       "title": "滴答清单开放 API",
       "summary": "通过 OAuth 2.0 管理滴答清单的项目、任务、评论、标签、专注记录、倒数日、习惯与打卡。",
       "server": {
@@ -137,9 +140,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "9d003f70293c3a77c1a4c0906ed591a815d6591ce4043229c2a796ce5a4abe53",
+      "approvedSha256": "e12cd88515a7869a7113f7fc9d743478820d5fcfad50cfbb7f04c7ce3118bb85",
       "approvedLocaleSha256": {
-        "en-US": "7d65f42a1eae732ca27a265c16cc5b74f8dae9ef86d7b73e7c71b4d35e5e7ca0"
+        "en-US": "0512568f14a3d9ee3af0cd39bc797153780076296db19f85cb9fac0f8363c4bb"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
@@ -154,6 +157,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getPreviousClose", "requestExampleId": "default" },
       "title": "Massive 股票市场数据 API",
       "summary": "使用 Massive API Key 查询美股最新成交、OHLC 聚合、统一市场快照与证券参考资料；可用性取决于数据套餐。",
       "server": {
@@ -179,9 +183,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/yahoo-finance/openapi.json",
-      "approvedSha256": "d0011b132cfea782316681d8836849782b617e53893c633eff8c7de3b1d84e71",
+      "approvedSha256": "c1ef163321491cdc9d795a7e7be54f70def82069af9b68a6374cc45096bbdf01",
       "approvedLocaleSha256": {
-        "en-US": "a9709b17b8970933a0741033b8098ddb076a8b1448f07d67abcbbd98337cfa1a"
+        "en-US": "cec41bdf300d885200dc4a7ed49830a1431b33e0fdbe0feab4692c49b0a5245a"
       },
       "license": "Proprietary",
       "attributionUrl": "https://finance.yahoo.com/",
@@ -197,6 +201,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getChart", "requestExampleId": "default" },
       "title": "Yahoo Finance 网页市场数据 API",
       "summary": "观测自 Yahoo Finance 网页流量的非官方接口，可检索行情、K 线、证券与基本面数据；部分路由需要浏览器 crumb，全部仅用于预览。",
       "server": {
@@ -213,9 +218,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "1e4c0aef52f6f5342d457c75e0221ee7b81178c557973b29162b569fd432772f",
+      "approvedSha256": "70642fb2338df5b61b5fec39b8b9452d95653c3ae3f65a67264fe5f8fb1da800",
       "approvedLocaleSha256": {
-        "en-US": "3b6376625484111a297c3bf6ea4d0753c17356d4405fc66ad6368d9c1488366b"
+        "en-US": "89deea7e9e1de70ecdec2a5912428c36f0bade7bc660a62142b66882307ed78f"
       },
       "license": "Proprietary",
       "attributionUrl": "https://stooq.com/",
@@ -231,6 +236,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "downloadHistoricalQuotes", "requestExampleId": "default" },
       "title": "Stooq 公共行情下载",
       "summary": "记录 Stooq 历史公开 CSV 下载格式及当前 404/浏览器验证状态；仅供检索与请求预览。",
       "server": {
@@ -247,9 +253,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/sina-finance/openapi.json",
-      "approvedSha256": "539d8793c45c79bd99432898f8ad4e7f60ade452d4cb67dd2264d74b22a49b43",
+      "approvedSha256": "1126212eeea1e4207124c667853e78d74a8849a5e2d1c5bb9e75f4846db54618",
       "approvedLocaleSha256": {
-        "en-US": "a2a1a0b65c24de9282b5438c51c2eedfdb1cf729d7bec11eb760a1ac1a2c5071"
+        "en-US": "4d37fddb5d0a60b558ae3fc21b0793915433372138d01006d8605f601d5e0cad"
       },
       "license": "Proprietary",
       "attributionUrl": "https://finance.sina.com.cn/",
@@ -265,6 +271,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getQuoteSnapshots", "requestExampleId": "default" },
       "title": "新浪财经行情服务 API",
       "summary": "观测自新浪财经网页的内部行情接口，覆盖 GB18030 JavaScript 快照和 1–240 分钟 K 线；字段位置可能漂移。",
       "server": {
@@ -281,9 +288,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/tencent-finance/openapi.json",
-      "approvedSha256": "8ae1bbaaa89667a7577e31d8ed196611338b0be7e93b108c23448b1a5fd02b0d",
+      "approvedSha256": "b4ed601694e7c6a3b504bf4b524f901d905bb99a519f669e120befca6ef14edb",
       "approvedLocaleSha256": {
-        "en-US": "f86aa97afa2df0bff2e141b95219c3c6bc6dd6e941053e81c604a2fab9a94137"
+        "en-US": "ac7767d58eaab4f50073fdef7712177f97e0d9f8db0b42e7b2fb0c919a2ef690"
       },
       "license": "Proprietary",
       "attributionUrl": "https://gu.qq.com/",
@@ -299,6 +306,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getQuoteSnapshots", "requestExampleId": "default" },
       "title": "腾讯财经网页行情 API",
       "summary": "观测自腾讯财经网页的内部接口，覆盖 A 股、港股、美股快照及 day/week/month 复权或非复权 K 线。",
       "server": {
@@ -315,9 +323,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/eastmoney-funds/openapi.json",
-      "approvedSha256": "f5077c9d062988bc15701598996a3ffee23829f2945b7299b870312fb3588637",
+      "approvedSha256": "749af44a0bf1ced64587e38a022d81e9afecabc05f990ea5fd0c0f9a8d0f08f5",
       "approvedLocaleSha256": {
-        "en-US": "eed55dfdd3f5eaf9b7de2f72598236abbc5842dd436d9a78ecbcb096433d9293"
+        "en-US": "8e0b576d3db7100b15ebee5483049cac6925831e6afb979293e2db7e5fc9ab35"
       },
       "license": "Proprietary",
       "attributionUrl": "https://fund.eastmoney.com/",
@@ -333,6 +341,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "listHistoricalNav", "requestExampleId": "default" },
       "title": "东方财富基金网页数据 API",
       "summary": "观测自天天基金网页的数据接口；历史净值与图表仍可查询，实时估值已返回失效页，关联指数路由当前不稳定。",
       "server": {
@@ -349,9 +358,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/cnbc-market-data/openapi.json",
-      "approvedSha256": "17cff205de5ce73a8172bc2bb018bdebe6ab3cabda4c42c9ffe95b60d5566195",
+      "approvedSha256": "3a403b3979d13bc60c53a10bb576f5d5ea1d36e3bf3fd5f44baec5c6d4b4f804",
       "approvedLocaleSha256": {
-        "en-US": "2d8615d13440356be55d1871dcd0a6f87c45f80b48f7ae7ba3a1896baeb59281"
+        "en-US": "54a2e59222be2fd0d8e3e9be337a35aaff0bc97e390b45fe2a3a7e185795fa0f"
       },
       "license": "Proprietary",
       "attributionUrl": "https://www.cnbc.com/quotes/",
@@ -366,6 +375,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getRestQuotes", "requestExampleId": "default" },
       "title": "CNBC 网页行情 API",
       "summary": "观测自 CNBC 行情页的内部 REST 与持久化 GraphQL 接口；批量报价可只读调用，图表查询仍属实验性。",
       "server": {
@@ -382,9 +392,9 @@
       "category": "Finance",
       "featured": false,
       "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "75f8c2fbdfa8905b71e710d996eb49500b0398c379243fee4d9fc70b4e8f3b35",
+      "approvedSha256": "afe70fca99d032aacb1dc1669dd265c1ea9d7879ab0337499ea2ce798b009bfc",
       "approvedLocaleSha256": {
-        "en-US": "bbb743925f8da9cd2ae483ffd08b34948ecab0e0a7720553b29f1f5c75aedc7c"
+        "en-US": "97b20c9f4f14b3d33e03f892db8fc98c5b5312ee342d552bb8d414a631006950"
       },
       "license": "Proprietary",
       "attributionUrl": "https://sgx.i3investor.com/",
@@ -399,6 +409,7 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
+      "quickStart": { "operationId": "getSgxStockOverviewPage", "requestExampleId": "default" },
       "title": "i3Investor SGX 公共行情页",
       "summary": "读取 i3Investor SGX 股票 HTML 页面并提取报价、盘口与区间等语义字段；无效代码也会返回 HTTP 200 的回退页面。",
       "server": {

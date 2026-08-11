@@ -62,7 +62,8 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://finance.sina.com.cn/"
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbols":"sh000001,sh600000"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData": {
@@ -149,7 +150,8 @@
         ],
         "x-pontx-proxy-headers": {
           "Referer": "https://finance.sina.com.cn/"
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbol":"sh600000","scale":5},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

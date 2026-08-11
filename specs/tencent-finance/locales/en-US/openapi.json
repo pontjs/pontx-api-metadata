@@ -43,7 +43,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Verified with a read-only request on 2026-08-10. The response declared `text/html; charset=GBK` and contained `~`-delimited JavaScript assignments. Positional fields remain undocumented and market-dependent.",
         "servers": [{ "url": "https://qt.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbols":"hk00700,sz000001"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/appstock/app/fqkline/get": {
@@ -59,7 +60,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Read-only request verified on 2026-08-10. Dynamic symbol/interval object keys and tuple positions are provider-internal and may change.",
         "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"param":"hk00700,day,,,3,qfq"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/appstock/app/kline/kline": {
@@ -75,7 +77,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Read-only request verified on 2026-08-10. Dynamic symbol/interval object keys and tuple positions are provider-internal and may change.",
         "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"param":"sz000001,week,,,2"},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

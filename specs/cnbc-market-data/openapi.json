@@ -36,7 +36,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "位于 Akamai 后方、未公开文档的展示数据接口。在验证环境中必须提供类似浏览器的 User-Agent 和 CNBC Referer；仍很可能发生限流、封禁、字段变更以及使用格式化字符串值的情况。",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbols":"AAPL|MSFT","requestMethod":"quick","partnerId":2,"fund":1,"exthrs":1,"output":"json"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/graphql": {
@@ -61,7 +62,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "持久化哈希仍可被接受，但示例变量结构返回的图表字段均为 null。不要将成功的 HTTP 状态视为图表数据可用的证明。",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" }
+        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"operationName":"getQuoteChartData","variables":"{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"query","name":"extensions","source":{"kind":"runtime","reason":"provider-state"}}]}}
       }
     }
   },

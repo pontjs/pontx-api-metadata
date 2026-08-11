@@ -315,7 +315,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled to avoid presenting it as a stable public API."
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled to avoid presenting it as a stable public API.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbol":"AAPL"},"query":{"range":"5d","interval":"1d","includePrePost":false},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v7/finance/quote": {
@@ -424,7 +425,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Yahoo currently requires browser session state; anonymous server requests return Unauthorized."
+        "x-pontx-proxy-disabled-reason": "Yahoo currently requires browser session state; anonymous server requests return Unauthorized.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbols":"AAPL,MSFT","formatted":false},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v7/finance/spark": {
@@ -572,7 +574,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbols":"AAPL,MSFT","range":"5d","interval":"1d"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v1/finance/quoteType/": {
@@ -670,7 +673,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbol":"AAPL"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v1/finance/search": {
@@ -799,7 +803,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint; Hub proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"q":"Apple","quotesCount":2,"newsCount":0},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v10/finance/quoteSummary/{symbol}": {
@@ -897,7 +902,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Yahoo currently requires a valid crumb and cookie; Hub does not establish browser sessions."
+        "x-pontx-proxy-disabled-reason": "Yahoo currently requires a valid crumb and cookie; Hub does not establish browser sessions.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbol":"AAPL"},"query":{"modules":"price,summaryDetail"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}": {
@@ -1037,7 +1043,8 @@
           "User-Agent": "Mozilla/5.0 fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint with unstable type identifiers and fields; Hub proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This is an unsupported Yahoo web endpoint with unstable type identifiers and fields; Hub proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbol":"AAPL"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

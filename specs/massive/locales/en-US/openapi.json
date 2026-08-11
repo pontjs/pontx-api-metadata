@@ -59,7 +59,8 @@
           "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Officially documented endpoint; availability depends on the account's market-data plan."
+        "x-pontx-stability-note": "Officially documented endpoint; availability depends on the account's market-data plan.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"stocksTicker":"AAPL"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v2/aggs/ticker/{stocksTicker}/prev": {
@@ -116,7 +117,8 @@
           "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Officially documented aggregate endpoint."
+        "x-pontx-stability-note": "Officially documented aggregate endpoint.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"stocksTicker":"AAPL"},"query":{"adjusted":true},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}": {
@@ -247,7 +249,8 @@
           "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Officially documented aggregate endpoint."
+        "x-pontx-stability-note": "Officially documented aggregate endpoint.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"stocksTicker":"AAPL","multiplier":1,"timespan":"minute","from":"2025-01-02","to":"2025-01-31"},"query":{"adjusted":true,"sort":"asc","limit":5000},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v3/snapshot": {
@@ -346,7 +349,8 @@
           "https://massive.com/docs/rest/stocks/snapshots/unified-snapshot"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Official unified snapshot endpoint; returned fields and recency vary by asset-class subscription."
+        "x-pontx-stability-note": "Official unified snapshot endpoint; returned fields and recency vary by asset-class subscription.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"limit":10},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v3/reference/tickers": {
@@ -518,7 +522,8 @@
           "https://massive.com/docs/rest/stocks/tickers/all-tickers"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Official reference-data endpoint."
+        "x-pontx-stability-note": "Official reference-data endpoint.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"active":true,"limit":100},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/v3/reference/tickers/{ticker}": {
@@ -575,7 +580,8 @@
           "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
         ],
         "x-pontx-verified-at": "2026-08-10",
-        "x-pontx-stability-note": "Official reference-data endpoint."
+        "x-pontx-stability-note": "Official reference-data endpoint.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{"ticker":"AAPL"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

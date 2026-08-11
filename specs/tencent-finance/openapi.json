@@ -43,7 +43,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 通过只读请求验证。响应声明为 `text/html; charset=GBK`，并包含以 `~` 分隔的 JavaScript 赋值语句。位置字段仍无公开文档，且因市场而异。",
         "servers": [{ "url": "https://qt.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"symbols":"hk00700,sz000001"},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/appstock/app/fqkline/get": {
@@ -59,7 +60,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
         "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"param":"hk00700,day,,,3,qfq"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/appstock/app/kline/kline": {
@@ -75,7 +77,8 @@
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "已于 2026-08-10 验证只读请求。动态的证券标识/周期对象键和元组位置属于提供方内部实现，可能发生变化。",
         "servers": [{ "url": "https://web.ifzq.gtimg.cn" }],
-        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" }
+        "x-pontx-proxy-headers": { "Referer": "https://gu.qq.com/" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"param":"sz000001,week,,,2"},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

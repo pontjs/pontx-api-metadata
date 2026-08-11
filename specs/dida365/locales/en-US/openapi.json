@@ -67,7 +67,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       },
       "delete": {
         "tags": ["task"],
@@ -111,7 +112,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task": {
@@ -154,7 +156,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"title":"example","startDate":"2019-11-13T03:00:00+0000","dueDate":"2019-11-13T03:00:00+0000","tags":["work","urgent"]}},"expectedStatus":"200","unresolved":[{"in":"body","name":"/projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/task/{taskId}": {
@@ -208,7 +211,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"startDate":"2019-11-13T03:00:00+0000","dueDate":"2019-11-13T03:00:00+0000","tags":["work","urgent"]}},"expectedStatus":"200","unresolved":[{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"body","name":"/id","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"body","name":"/projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/complete": {
@@ -254,7 +258,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task/move": {
@@ -265,7 +270,8 @@
         "operationId": "moveTask",
         "security": [{"OAuth2": ["tasks:write"]}],
         "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveRequest"}}, "example": [{"fromProjectId": "69a850ef1c20d2030e148fdd", "toProjectId": "69a850f41c20d2030e148fdf", "taskId": "69a850f8b9061f374d54a046"}]}}},
-        "responses": {"200": {"description": "Move results", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveResult"}}, "example": [{"id": "69a850f8b9061f374d54a046", "etag": "43p2zso1"}]}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Move results", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/TaskMoveResult"}}, "example": [{"id": "69a850f8b9061f374d54a046", "etag": "43p2zso1"}]}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":[{}]},"expectedStatus":"200","unresolved":[{"in":"body","name":"/0/fromProjectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"body","name":"/0/toProjectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"body","name":"/0/taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/task/completed": {
@@ -276,7 +282,8 @@
         "operationId": "listCompletedTasks",
         "security": [{"OAuth2": ["tasks:read"]}],
         "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompletedTaskFilter"}}}},
-        "responses": {"200": {"description": "Completed tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Completed tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/task/filter": {
@@ -287,14 +294,16 @@
         "operationId": "filterTasks",
         "security": [{"OAuth2": ["tasks:read"]}],
         "requestBody": {"required": false, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TaskFilter"}}}},
-        "responses": {"200": {"description": "Matching tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Matching tasks", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comments": {
       "get": {
         "tags": ["comment"], "summary": "Get Task Comments", "description": "Get Task Comments", "operationId": "getTaskComments", "security": [{"OAuth2": ["tasks:read"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
-        "responses": {"200": {"description": "Task comments", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenComment"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Task comments", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenComment"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment": {
@@ -302,14 +311,16 @@
         "tags": ["comment"], "summary": "Add Task Comment", "description": "Add Task Comment", "operationId": "addTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}],
         "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["title"], "properties": {"title": {"type": "string", "description": "Comment text", "example": "Looks good"}}}}}},
-        "responses": {"200": {"description": "Created comment", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenComment"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Created comment", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenComment"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"title":"Looks good"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}}]}}
       }
     },
     "/open/v1/project/{projectId}/task/{taskId}/comment/{id}": {
       "delete": {
         "tags": ["comment"], "summary": "Delete Task Comment", "description": "Delete Task Comment", "operationId": "deleteTaskComment", "security": [{"OAuth2": ["tasks:write"]}],
         "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"$ref": "#/components/parameters/TaskId"}, {"name": "id", "in": "path", "required": true, "description": "Comment identifier", "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "Comment deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}
+        "responses": {"200": {"description": "Comment deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"taskId","source":{"kind":"operation","operationId":"getProjectWithData"}},{"in":"path","name":"id","source":{"kind":"operation","operationId":"getTaskComments"}}]}}
       }
     },
     "/open/v1/project": {
@@ -342,7 +353,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       },
       "post": {
         "tags": ["project"],
@@ -383,7 +395,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"example","color":"#F18181","viewMode":"list","kind":"TASK"}},"expectedStatus":"200"}}
       }
     },
     "/open/v1/project/{projectId}": {
@@ -424,7 +437,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       },
       "post": {
         "tags": ["project"],
@@ -476,7 +490,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{},"body":{"viewMode":"list","kind":"TASK"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       },
       "delete": {
         "tags": ["project"],
@@ -508,7 +523,8 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/{projectId}/data": {
@@ -549,52 +565,53 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}
       }
     },
     "/open/v1/project/group": {
-      "get": {"tags": ["project group"], "summary": "Get Project Groups", "description": "Get Project Groups", "operationId": "getProjectGroups", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Project groups", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["project group"], "summary": "Create Project Group", "description": "Create Project Group", "operationId": "createProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupCreate"}, "example": {"name": "Group Name"}}}}, "responses": {"200": {"description": "Created project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["project group"], "summary": "Get Project Groups", "description": "Get Project Groups", "operationId": "getProjectGroups", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Project groups", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["project group"], "summary": "Create Project Group", "description": "Create Project Group", "operationId": "createProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupCreate"}, "example": {"name": "Group Name"}}}}, "responses": {"200": {"description": "Created project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Group Name"}},"expectedStatus":"200"}}}
     },
     "/open/v1/project/group/{projectGroupId}": {
-      "post": {"tags": ["project group"], "summary": "Update Project Group", "description": "Update Project Group", "operationId": "updateProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupUpdate"}, "example": {"name": "New Group Name"}}}}, "responses": {"200": {"description": "Updated project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "delete": {"tags": ["project group"], "summary": "Delete Project Group", "description": "Delete Project Group", "operationId": "deleteProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "responses": {"200": {"description": "Project group deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {"tags": ["project group"], "summary": "Update Project Group", "description": "Update Project Group", "operationId": "updateProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ProjectGroupUpdate"}, "example": {"name": "New Group Name"}}}}, "responses": {"200": {"description": "Updated project group", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenProjectGroup"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"New Group Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectGroupId","source":{"kind":"operation","operationId":"getProjectGroups"}}]}}},
+      "delete": {"tags": ["project group"], "summary": "Delete Project Group", "description": "Delete Project Group", "operationId": "deleteProjectGroup", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"name": "projectGroupId", "in": "path", "required": true, "description": "Project group identifier", "schema": {"type": "string"}}], "responses": {"200": {"description": "Project group deleted"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectGroupId","source":{"kind":"operation","operationId":"getProjectGroups"}}]}}}
     },
     "/open/v1/project/{projectId}/column": {
-      "get": {"tags": ["column"], "summary": "Get Columns", "description": "Get Columns", "operationId": "getColumns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "responses": {"200": {"description": "Project columns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Column"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["column"], "summary": "Create Column", "description": "Create Column", "operationId": "createColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnCreate"}, "example": {"name": "Column Name"}}}}, "responses": {"200": {"description": "Created column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["column"], "summary": "Get Columns", "description": "Get Columns", "operationId": "getColumns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "responses": {"200": {"description": "Project columns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Column"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}},
+      "post": {"tags": ["column"], "summary": "Create Column", "description": "Create Column", "operationId": "createColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnCreate"}, "example": {"name": "Column Name"}}}}, "responses": {"200": {"description": "Created column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Column Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}}]}}}
     },
     "/open/v1/project/{projectId}/column/{columnId}": {
-      "post": {"tags": ["column"], "summary": "Update Column", "description": "Update Column", "operationId": "updateColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"name": "columnId", "in": "path", "required": true, "description": "Column identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnUpdate"}, "example": {"name": "New Column Name"}}}}, "responses": {"200": {"description": "Updated column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {"tags": ["column"], "summary": "Update Column", "description": "Update Column", "operationId": "updateColumn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/ProjectId"}, {"name": "columnId", "in": "path", "required": true, "description": "Column identifier", "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ColumnUpdate"}, "example": {"name": "New Column Name"}}}}, "responses": {"200": {"description": "Updated column", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Column"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"New Column Name"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"projectId","source":{"kind":"operation","operationId":"getUserProjects"}},{"in":"path","name":"columnId","source":{"kind":"operation","operationId":"getColumns"}}]}}}
     },
     "/open/v1/tag": {
-      "get": {"tags": ["tag"], "summary": "Get Tags", "description": "Get Tags", "operationId": "getTags", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Tags", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenTag"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["tag"], "summary": "Create Tag", "description": "Create Tag", "operationId": "createTag", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagCreate"}, "example": {"name": "urgent", "label": "urgent"}}}}, "responses": {"200": {"description": "Created tag", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenTag"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["tag"], "summary": "Get Tags", "description": "Get Tags", "operationId": "getTags", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Tags", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenTag"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["tag"], "summary": "Create Tag", "description": "Create Tag", "operationId": "createTag", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TagCreate"}, "example": {"name": "urgent", "label": "urgent"}}}}, "responses": {"200": {"description": "Created tag", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenTag"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"urgent","label":"urgent"}},"expectedStatus":"200"}}}
     },
     "/open/v1/focus/{focusId}": {
-      "get": {"tags": ["focus"], "summary": "Get Focus By Focus ID", "description": "Get Focus By Focus ID", "operationId": "getFocusById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0, "taskId": "task-1", "note": "Deep work", "status": 2, "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "delete": {"tags": ["focus"], "summary": "Delete Focus", "description": "Delete Focus", "operationId": "deleteFocus", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Deleted focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["focus"], "summary": "Get Focus By Focus ID", "description": "Get Focus By Focus ID", "operationId": "getFocusById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0, "taskId": "task-1", "note": "Deep work", "status": 2, "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"type":0},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"focusId","source":{"kind":"operation","operationId":"getFocusesByTimeRange"}}]}}},
+      "delete": {"tags": ["focus"], "summary": "Delete Focus", "description": "Delete Focus", "operationId": "deleteFocus", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/FocusId"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Deleted focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}, "example": {"id": "focus-1", "type": 0}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"type":0},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"focusId","source":{"kind":"operation","operationId":"getFocusesByTimeRange"}}]}}}
     },
     "/open/v1/focus": {
-      "get": {"tags": ["focus"], "summary": "Get Focuses By Time Range", "description": "Returns focus records in the requested range. If the range exceeds 30 days, the server moves `from` to 30 days before `to`.", "operationId": "getFocusesByTimeRange", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "from", "in": "query", "required": true, "description": "Range start time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-01T00:00:00+0800"}, {"name": "to", "in": "query", "required": true, "description": "Range end time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-02T00:00:00+0800"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus records", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenFocus"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["focus"], "summary": "Create Focus", "description": "Create Focus", "operationId": "createFocus", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FocusCreate"}, "example": {"type": 0, "taskId": "task-1", "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "responses": {"200": {"description": "Created focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["focus"], "summary": "Get Focuses By Time Range", "description": "Returns focus records in the requested range. If the range exceeds 30 days, the server moves `from` to 30 days before `to`.", "operationId": "getFocusesByTimeRange", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "from", "in": "query", "required": true, "description": "Range start time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-01T00:00:00+0800"}, {"name": "to", "in": "query", "required": true, "description": "Range end time", "schema": {"type": "string", "format": "date-time"}, "example": "2026-04-02T00:00:00+0800"}, {"$ref": "#/components/parameters/FocusType"}], "responses": {"200": {"description": "Focus records", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenFocus"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"from":"2026-04-01T00:00:00+0800","to":"2026-04-02T00:00:00+0800","type":0},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["focus"], "summary": "Create Focus", "description": "Create Focus", "operationId": "createFocus", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FocusCreate"}, "example": {"type": 0, "taskId": "task-1", "startTime": "2026-04-07T09:00:00+0800", "endTime": "2026-04-07T09:25:00+0800", "duration": 1500}}}}, "responses": {"200": {"description": "Created focus record", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenFocus"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"type":0,"startTime":"2026-04-07T09:00:00+0800","endTime":"2026-04-07T09:25:00+0800","duration":1500}},"expectedStatus":"200"}}}
     },
     "/open/v1/countdown": {
-      "get": {"tags": ["countdown"], "summary": "Get Countdowns", "description": "Get Countdowns", "operationId": "getCountdowns", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Countdowns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenCountdown"}}, "example": [{"id": "countdown-1", "type": 0, "name": "Birthday", "date": 20260407, "color": "#4D8CF5", "reminders": [], "sortOrder": 0}]}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["countdown"], "summary": "Get Countdowns", "description": "Get Countdowns", "operationId": "getCountdowns", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Countdowns", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenCountdown"}}, "example": [{"id": "countdown-1", "type": 0, "name": "Birthday", "date": 20260407, "color": "#4D8CF5", "reminders": [], "sortOrder": 0}]}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}}
     },
     "/open/v1/habit/checkins": {
-      "get": {"tags": ["habit"], "summary": "Get Habit Check-Ins", "description": "Get Habit Check-Ins", "operationId": "getHabitCheckIns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "habitIds", "in": "query", "required": true, "description": "Comma-separated habit identifiers", "schema": {"type": "string", "pattern": "^[^,]+(,[^,]+)*$"}, "example": "habit-1,habit-2"}, {"name": "from", "in": "query", "required": true, "description": "Start date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260401}, {"name": "to", "in": "query", "required": true, "description": "End date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260407}], "responses": {"200": {"description": "Habit check-in documents", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["habit"], "summary": "Get Habit Check-Ins", "description": "Get Habit Check-Ins", "operationId": "getHabitCheckIns", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"name": "habitIds", "in": "query", "required": true, "description": "Comma-separated habit identifiers", "schema": {"type": "string", "pattern": "^[^,]+(,[^,]+)*$"}, "example": "habit-1,habit-2"}, {"name": "from", "in": "query", "required": true, "description": "Start date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260401}, {"name": "to", "in": "query", "required": true, "description": "End date stamp in YYYYMMDD format", "schema": {"type": "integer", "format": "int32"}, "example": 20260407}], "responses": {"200": {"description": "Habit check-in documents", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{"from":20260401,"to":20260407},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"query","name":"habitIds","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     },
     "/open/v1/habit": {
-      "get": {"tags": ["habit"], "summary": "Get All Habits", "description": "Get All Habits", "operationId": "getHabits", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Habits", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabit"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}}},
-      "post": {"tags": ["habit"], "summary": "Create Habit", "description": "Create Habit", "operationId": "createHabit", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCreate"}, "example": {"name": "Read", "iconRes": "habit_reading", "color": "#4D8CF5", "type": "Boolean", "goal": 1.0, "step": 1.0, "unit": "Count", "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1", "recordEnable": false}}}}, "responses": {"200": {"description": "Created habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["habit"], "summary": "Get All Habits", "description": "Get All Habits", "operationId": "getHabits", "security": [{"OAuth2": ["tasks:read"]}], "responses": {"200": {"description": "Habits", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/OpenHabit"}}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}},
+      "post": {"tags": ["habit"], "summary": "Create Habit", "description": "Create Habit", "operationId": "createHabit", "security": [{"OAuth2": ["tasks:write"]}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCreate"}, "example": {"name": "Read", "iconRes": "habit_reading", "color": "#4D8CF5", "type": "Boolean", "goal": 1.0, "step": 1.0, "unit": "Count", "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1", "recordEnable": false}}}}, "responses": {"200": {"description": "Created habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Read","iconRes":"habit_reading","color":"#4D8CF5","type":"Boolean","goal":1,"step":1,"unit":"Count","repeatRule":"RRULE:FREQ=DAILY;INTERVAL=1","recordEnable":false}},"expectedStatus":"200"}}}
     },
     "/open/v1/habit/{habitId}": {
-      "get": {"tags": ["habit"], "summary": "Get Habit By Habit ID", "description": "Get Habit By Habit ID", "operationId": "getHabitById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "responses": {"200": {"description": "Habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}},
-      "post": {"tags": ["habit"], "summary": "Update Habit", "description": "Update Habit", "operationId": "updateHabit", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitUpdate"}, "example": {"name": "Read more", "goal": 2.0, "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"}}}}, "responses": {"200": {"description": "Updated habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "get": {"tags": ["habit"], "summary": "Get Habit By Habit ID", "description": "Get Habit By Habit ID", "operationId": "getHabitById", "security": [{"OAuth2": ["tasks:read"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "responses": {"200": {"description": "Habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}},
+      "post": {"tags": ["habit"], "summary": "Update Habit", "description": "Update Habit", "operationId": "updateHabit", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitUpdate"}, "example": {"name": "Read more", "goal": 2.0, "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"}}}}, "responses": {"200": {"description": "Updated habit", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabit"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"name":"Read more","goal":2,"repeatRule":"RRULE:FREQ=DAILY;INTERVAL=1"}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     },
     "/open/v1/habit/{habitId}/checkin": {
-      "post": {"tags": ["habit"], "summary": "Create Or Update Habit Check-In", "description": "Create Or Update Habit Check-In", "operationId": "upsertHabitCheckIn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCheckInUpsert"}, "example": {"stamp": 20260407, "value": 1.0, "goal": 1.0}}}}, "responses": {"200": {"description": "Updated check-in document", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}}}
+      "post": {"tags": ["habit"], "summary": "Create Or Update Habit Check-In", "description": "Create Or Update Habit Check-In", "operationId": "upsertHabitCheckIn", "security": [{"OAuth2": ["tasks:write"]}], "parameters": [{"$ref": "#/components/parameters/HabitId"}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HabitCheckInUpsert"}, "example": {"stamp": 20260407, "value": 1.0, "goal": 1.0}}}}, "responses": {"200": {"description": "Updated check-in document", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OpenHabitCheckin"}}}}, "201": {"description": "Created without response content"}, "401": {"description": "Unauthorized"}, "403": {"description": "Forbidden"}, "404": {"description": "Not Found"}},"x-pontx-request-examples":{"default":{"request":{"path":{},"query":{},"headers":{},"body":{"stamp":20260407,"value":1,"goal":1}},"expectedStatus":"200","unresolved":[{"in":"path","name":"habitId","source":{"kind":"operation","operationId":"getHabits"}}]}}}
     }
   },
   "components": {

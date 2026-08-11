@@ -36,7 +36,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Undocumented display-data endpoint behind Akamai. Browser-like User-Agent and CNBC Referer were necessary in the verification environment; throttling, blocking, field changes, and formatted-string values remain likely.",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" }
+        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"symbols":"AAPL|MSFT","requestMethod":"quick","partnerId":2,"fund":1,"exthrs":1,"output":"json"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/graphql": {
@@ -61,7 +62,8 @@
         ],
         "x-pontx-verified-at": "2026-08-10",
         "x-pontx-stability-note": "Persisted hash remained accepted, but the sample variable shape returned null chart fields. Do not rely on successful HTTP status as proof of usable chart data.",
-        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" }
+        "x-pontx-proxy-headers": { "Referer": "https://www.cnbc.com/", "User-Agent": "Mozilla/5.0", "partner": "cnbc01" },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"operationName":"getQuoteChartData","variables":"{\"symbol\":\"AAPL\",\"timeRange\":\"1D\"}"},"headers":{}},"expectedStatus":"200","unresolved":[{"in":"query","name":"extensions","source":{"kind":"runtime","reason":"provider-state"}}]}}
       }
     }
   },

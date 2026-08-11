@@ -103,7 +103,8 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "This URL currently returns Stooq's 404 page, so proxy execution is disabled."
+        "x-pontx-proxy-disabled-reason": "This URL currently returns Stooq's 404 page, so proxy execution is disabled.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"s":"aapl.us","h":false},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/q/d/l/": {
@@ -195,7 +196,8 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Stooq currently requires JavaScript browser verification, which Hub does not bypass."
+        "x-pontx-proxy-disabled-reason": "Stooq currently requires JavaScript browser verification, which Hub does not bypass.",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"s":"aapl.us"},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

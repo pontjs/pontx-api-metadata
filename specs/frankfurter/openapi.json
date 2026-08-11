@@ -194,7 +194,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"amount":100,"base":"USD"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/{date}": {
@@ -346,7 +347,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"date":"2024-01-15"},"query":{"amount":1,"base":"EUR"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/{start_date}..": {
@@ -429,7 +431,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"start_date":"2026-08-01"},"query":{"amount":1,"base":"EUR"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/{start_date}..{end_date}": {
@@ -618,7 +621,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{"start_date":"2024-01-01","end_date":"2024-01-31"},"query":{"amount":1,"base":"EUR"},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/currencies": {
@@ -678,7 +682,8 @@
               }
             }
           }
-        }
+        },
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },

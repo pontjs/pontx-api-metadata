@@ -103,7 +103,8 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "该地址当前返回 Stooq 404 页面，已停止代理执行。"
+        "x-pontx-proxy-disabled-reason": "该地址当前返回 Stooq 404 页面，已停止代理执行。",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"s":"aapl.us","h":false},"headers":{}},"expectedStatus":"200"}}
       }
     },
     "/q/d/l/": {
@@ -195,7 +196,8 @@
           "User-Agent": "fi-api/1.0"
         },
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。"
+        "x-pontx-proxy-disabled-reason": "Stooq 当前要求 JavaScript 浏览器验证，Hub 不绕过该验证。",
+        "x-pontx-request-examples": {"default":{"request":{"path":{},"query":{"s":"aapl.us"},"headers":{}},"expectedStatus":"200"}}
       }
     }
   },
