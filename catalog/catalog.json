@@ -1328,7 +1328,7 @@
       "sourceUrl": "https://raw.githubusercontent.com/pontjs/pontx-api-metadata/main/specs/frankfurter-v2/openapi.json",
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
-      "approvedSha256": "9d22bc0dcd4a27cb627660c6599338069a6c6dcfa2b413a3f0985d2f1e97eac5",
+      "approvedSha256": "fe01735617ad28b96cd7115e6e2c70783959b8e05726a513948afe991df0b550",
       "title": {
         "zh": "Frankfurter v2 汇率 API",
         "en": "Frankfurter v2 exchange-rate API"
@@ -2046,21 +2046,33 @@
                   "properties": {
                     "key": {
                       "type": "string",
-                      "description": "Provider key"
+                      "description": "Provider key",
+                      "examples": [
+                        "BAM"
+                      ]
                     },
                     "date": {
                       "type": "string",
                       "format": "date",
-                      "description": "Provider observation date used for this entry"
+                      "description": "Provider observation date used for this entry",
+                      "examples": [
+                        "2026-08-10"
+                      ]
                     },
                     "rate": {
                       "type": "number",
                       "exclusiveMinimum": 0,
-                      "description": "Provider's rate, rebased to the row's base"
+                      "description": "Provider's rate, rebased to the row's base",
+                      "examples": [
+                        3.6731
+                      ]
                     },
                     "excluded": {
                       "type": "boolean",
-                      "description": "Present and true when this entry did not contribute to the blended rate"
+                      "description": "Present and true when this entry did not contribute to the blended rate",
+                      "examples": [
+                        true
+                      ]
                     }
                   },
                   "required": [
@@ -2114,21 +2126,33 @@
                     "properties": {
                       "key": {
                         "type": "string",
-                        "description": "数据提供方代码"
+                        "description": "数据提供方代码",
+                        "examples": [
+                          "BAM"
+                        ]
                       },
                       "date": {
                         "type": "string",
                         "format": "date",
-                        "description": "此条目采用的提供方观测日期"
+                        "description": "此条目采用的提供方观测日期",
+                        "examples": [
+                          "2026-08-10"
+                        ]
                       },
                       "rate": {
                         "type": "number",
                         "exclusiveMinimum": 0,
-                        "description": "提供方汇率，已换算到当前记录的基准货币"
+                        "description": "提供方汇率，已换算到当前记录的基准货币",
+                        "examples": [
+                          3.6731
+                        ]
                       },
                       "excluded": {
                         "type": "boolean",
-                        "description": "此条目未参与混合汇率时出现且值为 true"
+                        "description": "此条目未参与混合汇率时出现且值为 true",
+                        "examples": [
+                          true
+                        ]
                       }
                     },
                     "required": [
@@ -2738,7 +2762,10 @@
                   "Monthly",
                   "Historical only; no scheduled cadence"
                 ],
-                "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
+                "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence.",
+                "examples": [
+                  "daily"
+                ]
               },
               "publishes_missed": {
                 "type": [
@@ -2746,7 +2773,10 @@
                   "null"
                 ],
                 "minimum": 0,
-                "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data."
+                "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data.",
+                "examples": [
+                  0
+                ]
               },
               "currencies": {
                 "type": "array",
@@ -2856,7 +2886,10 @@
                     "每月",
                     "仅历史数据，无计划发布频率"
                   ],
-                  "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。"
+                  "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。",
+                  "examples": [
+                    "daily"
+                  ]
                 },
                 "publishes_missed": {
                   "type": [
@@ -2864,7 +2897,10 @@
                     "null"
                   ],
                   "minimum": 0,
-                  "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。"
+                  "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。",
+                  "examples": [
+                    0
+                  ]
                 },
                 "currencies": {
                   "type": "array",

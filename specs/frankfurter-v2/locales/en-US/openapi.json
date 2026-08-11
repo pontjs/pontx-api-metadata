@@ -319,10 +319,10 @@
               "type": "object",
               "description": "Each entry has the provider's observation date and published rate (rebased to the row's base).",
               "properties": {
-                "key": { "type": "string", "description": "Provider key" },
-                "date": { "type": "string", "format": "date", "description": "Provider observation date used for this entry" },
-                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "Provider's rate, rebased to the row's base" },
-                "excluded": { "type": "boolean", "description": "Present and true when this entry did not contribute to the blended rate" }
+                "key": { "type": "string", "description": "Provider key", "examples": ["BAM"] },
+                "date": { "type": "string", "format": "date", "description": "Provider observation date used for this entry", "examples": ["2026-08-10"] },
+                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "Provider's rate, rebased to the row's base", "examples": [3.6731] },
+                "excluded": { "type": "boolean", "description": "Present and true when this entry did not contribute to the blended rate", "examples": [true] }
               },
               "required": ["key", "date", "rate"]
             }
@@ -386,12 +386,14 @@
             "type": ["string", "null"],
             "enum": ["daily", "weekly", "monthly", null],
             "x-enum-descriptions": ["Daily", "Weekly", "Monthly", "Historical only; no scheduled cadence"],
-            "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence."
+            "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence.",
+            "examples": ["daily"]
           },
           "publishes_missed": {
             "type": ["integer", "null"],
             "minimum": 0,
-            "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data."
+            "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data.",
+            "examples": [0]
           },
           "currencies": {
             "type": "array",

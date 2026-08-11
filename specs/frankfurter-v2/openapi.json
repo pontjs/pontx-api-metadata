@@ -319,10 +319,10 @@
               "type": "object",
               "description": "每项包含提供方的观测日期，以及换算到当前记录基准货币后的发布汇率。",
               "properties": {
-                "key": { "type": "string", "description": "数据提供方代码" },
-                "date": { "type": "string", "format": "date", "description": "此条目采用的提供方观测日期" },
-                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "提供方汇率，已换算到当前记录的基准货币" },
-                "excluded": { "type": "boolean", "description": "此条目未参与混合汇率时出现且值为 true" }
+                "key": { "type": "string", "description": "数据提供方代码", "examples": ["BAM"] },
+                "date": { "type": "string", "format": "date", "description": "此条目采用的提供方观测日期", "examples": ["2026-08-10"] },
+                "rate": { "type": "number", "exclusiveMinimum": 0, "description": "提供方汇率，已换算到当前记录的基准货币", "examples": [3.6731] },
+                "excluded": { "type": "boolean", "description": "此条目未参与混合汇率时出现且值为 true", "examples": [true] }
               },
               "required": ["key", "date", "rate"]
             }
@@ -386,12 +386,14 @@
             "type": ["string", "null"],
             "enum": ["daily", "weekly", "monthly", null],
             "x-enum-descriptions": ["每日", "每周", "每月", "仅历史数据，无计划发布频率"],
-            "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。"
+            "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。",
+            "examples": ["daily"]
           },
           "publishes_missed": {
             "type": ["integer", "null"],
             "minimum": 0,
-            "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。"
+            "description": "自 end_date 以来缺失的预期发布次数，单位由 publish_cadence 决定。日频提供方统计 end_date 与今天之间应发布的日期；周频和月频提供方统计最近导入周期与已开始发布窗口的周期之间相隔的 ISO 周或自然月。没有计划发布频率或尚无导入数据时为 null。",
+            "examples": [0]
           },
           "currencies": {
             "type": "array",
