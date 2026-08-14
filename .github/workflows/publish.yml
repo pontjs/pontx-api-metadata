@@ -33,6 +33,9 @@ jobs:
       - name: Test locale lint rules
         run: node scripts/test-locales.mjs
 
+      - name: Test SDK quality evidence rules
+        run: node scripts/test-sdk-quality.mjs
+
       - name: Lint localized specifications
         run: node scripts/lint-locales.mjs
 

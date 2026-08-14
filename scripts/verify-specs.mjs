@@ -22,7 +22,14 @@ for (const api of source.apis) {
       throw new Error(`${api.slug} ${locale}: SHA-256 mismatch`);
     }
   }
-  if (!compiled.apis.find((item) => item.slug === api.slug)) throw new Error(`${api.slug}: missing from compiled catalog`);
+  const compiledApi = compiled.apis.find((item) => item.slug === api.slug);
+  if (!compiledApi) throw new Error(`${api.slug}: missing from compiled catalog`);
+  if (api.sdkStatus === "published" && !api.sdkQuality) {
+    throw new Error(`${api.slug}: published SDK has no quality evidence`);
+  }
+  if (JSON.stringify(compiledApi.sdkQuality) !== JSON.stringify(api.sdkQuality)) {
+    throw new Error(`${api.slug}: compiled SDK quality evidence is stale`);
+  }
 
   const document = JSON.parse(spec.toString("utf8"));
   for (const server of document.servers ?? []) {
