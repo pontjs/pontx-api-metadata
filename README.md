@@ -34,6 +34,17 @@ Run the candidate gate whenever the roadmap or intake evidence changes:
 
 ```bash
 node scripts/verify-candidates.mjs
+node scripts/verify-dropbox-sign-candidate.mjs
+```
+
+The Dropbox Sign candidate is normalized without network access from an
+already-pinned upstream checkout. Reproduce or review the English source
+normalization with:
+
+```bash
+node scripts/import-dropbox-sign-candidate.mjs \
+  --upstream /path/to/hellosign-openapi \
+  --check
 ```
 
 A candidate moves into `catalog/source.json` only after every admission gate

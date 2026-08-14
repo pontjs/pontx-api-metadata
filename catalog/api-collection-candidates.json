@@ -292,6 +292,13 @@
         "revision": "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
         "observedAt": "2026-08-14",
         "license": "Apache-2.0",
+        "sourceSha256": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+        "repositoryLicense": "Apache-2.0",
+        "repositoryLicenseSha256": "9a2384fe250ebd5ca3854b11fa2d0c2855e95284f6326851ebe6e29cfa5e424a",
+        "repositoryReadmeSha256": "bc3a09ef9d7a66e1ef11320ef02e83a2406ffceeff5617f69d05e12430e7b3bd",
+        "oasDeclaredLicense": "MIT",
+        "officialGeneratedSdkLicense": "MIT",
+        "normalizationManifest": "specs/dropbox-sign/provenance.json",
         "openapiVersion": "3.0.3",
         "observedPaths": 67,
         "observedOperations": 73,
@@ -299,14 +306,21 @@
       },
       "evidence": [
         { "kind": "docs", "url": "https://developers.hellosign.com/api/api-quickstart" },
-        { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/main/openapi.yaml" },
-        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/main/LICENSE" }
+        { "kind": "docs", "url": "https://developers.hellosign.com/docs/sdks/overview/" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml" },
+        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi#license" },
+        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE" }
       ],
       "blockers": [
         {
           "gate": "risk",
-          "zh": "签署、邮件发送、文件上传、账户与 webhook 变更属于高影响操作，必须逐 Endpoint 定义 preview、确认与代理策略。",
-          "en": "Signing, email delivery, file upload, account, and webhook mutations are high-impact and require endpoint-level preview, confirmation, and proxy policy."
+          "zh": "预准入规范完整保留 application/json 与 multipart/form-data 请求，以及 PDF/ZIP 二进制响应和 27 个 EventCallback Schema；解析、代码生成、二进制处理与多 media type 路径尚需端到端验证，当前 73 个 Endpoint 全部禁用代理。",
+          "en": "The pre-admission specification preserves application/json and multipart/form-data requests, PDF/ZIP binary responses, and 27 EventCallback schemas; parsing, code generation, binary handling, and multi-media-type paths still require end-to-end validation, and proxying is disabled for all 73 endpoints."
+        },
+        {
+          "gate": "risk",
+          "zh": "签署、邮件发送、文件上传、账户、团队、OAuth、webhook 与传真变更属于高影响或敏感数据 mutation，必须逐 Endpoint 定义 preview、确认、日志脱敏、数据保留与代理策略。",
+          "en": "Signing, email delivery, file upload, account, team, OAuth, webhook, and fax mutations are high-impact or process sensitive data and require endpoint-level preview, confirmation, log redaction, retention, and proxy policy."
         },
         {
           "gate": "sdkCli",
@@ -315,8 +329,8 @@
         }
       ],
       "nextAction": {
-        "zh": "基于已固定的官方 OAS 提交生成结构一致的双语规范，并先发布带高风险保护的 SDK/CLI。",
-        "en": "Use the pinned official OAS revision to generate structurally identical bilingual specifications, then publish the SDK/CLI with high-risk safeguards first."
+        "zh": "审阅 provenance 中的确定性归一化和全部双语 prose，按 Apache-2.0 保留 LICENSE 与归因，验证 JSON、multipart、PDF/ZIP 与 callback 生成路径，再制定逐 Endpoint 风险策略并发布受保护的 SDK/CLI。",
+        "en": "Review the deterministic normalization and all bilingual prose recorded in provenance, retain LICENSE and attribution under Apache-2.0, validate JSON, multipart, PDF/ZIP, and callback generation paths, then define endpoint-level risk policy and publish the protected SDK/CLI."
       },
       "verifiedAt": "2026-08-14"
     },

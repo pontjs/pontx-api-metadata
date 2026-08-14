@@ -65,7 +65,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 3 | MongoDB Atlas Administration API v2 | 88 | 官方 Apache-2.0 OAS；335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type | 双语化、风险策略、SDK/CLI 发布 |
 | 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
 | 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；无 Server-Sent Events | 建立可复现 Smithy→OAS 转换并完成 SigV4/风险策略 |
-| 6 | Dropbox Sign API | 80 | 官方 Apache-2.0 OAS；67 paths / 73 operations / 217 Schemas，未发现 SSE media type | 双语化、高风险执行策略、SDK/CLI 发布 |
+| 6 | Dropbox Sign API | 80 | 固定官方 OAS：67 paths / 73 operations / 217 Schemas；仓库内容按 Apache-2.0 保留许可与归因，OAS/官方 SDK 的 MIT 声明分域记录 | 审阅预准入双语规范及归一化，验证多 media type/二进制路径并完成风险策略 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
@@ -106,7 +106,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 1. MongoDB Atlas Administration API v2
 2. Amazon SQS API
-3. Dropbox Sign API
+3. Dropbox Sign API（完整契约已预归一化且许可/归因已固定；多 media type、二进制生成和风险策略仍待验证）
 
 这三项仍不是 catalog-ready：需完成双语规范、全部风险策略、成功请求示例、SDK/CLI 构建测试与运营者
 发布。未完成前保持在候选注册表。
