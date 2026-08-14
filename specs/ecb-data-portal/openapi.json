@@ -254,7 +254,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -497,7 +497,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -689,7 +689,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -882,7 +882,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1079,7 +1079,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1280,7 +1280,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1475,7 +1475,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1669,7 +1669,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-proxy-disabled-reason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
         "x-pontx-request-examples": {
           "default": {
             "request": {

@@ -15,19 +15,28 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-function candidate(slug) {
+function product(slug) {
   const result = registry.products.find((product) => product.slug === slug);
   assert(result, `${slug}: candidate record is missing`);
+  return result;
+}
+
+function candidate(slug) {
+  const result = product(slug);
   assert(result.admissionDecision === "not-approved", `${slug}: candidate must remain pre-admission`);
   assert(!catalog.apis.some((api) => api.slug === slug), `${slug}: blocked candidate entered catalog`);
   return result;
 }
 
-const ecb = candidate("ecb-data-portal");
+const ecb = product("ecb-data-portal");
+assert(ecb.admissionDecision === "approved" && ecb.stage === "admitted",
+  "ECB must be formally admitted after SDK/CLI publication");
+assert(catalog.apis.some((api) => api.slug === "ecb-data-portal"),
+  "admitted ECB must enter catalog/source.json");
 assert(ecb.gateStatus.redistribution === "passed" && ecb.gateStatus.contract === "passed" &&
   ecb.gateStatus.transport === "passed" && ecb.gateStatus.risk === "passed" &&
-  ecb.gateStatus.sdkCli === "pending",
-"ECB should be blocked only on immutable SDK/CLI publication evidence");
+  ecb.gateStatus.sdkCli === "passed",
+"ECB must retain all passed admission gates");
 assert(ecb.contractSource.kind === "independent-official-docs-reconstruction" &&
   ecb.contractSource.observedOperations === 8 && ecb.contractSource.observedSchemas === 12,
 "ECB reconstructed-contract counts drifted");
@@ -36,8 +45,8 @@ assert(ecb.pontxProbe.generatedOperations === 8 && ecb.pontxProbe.generatedSchem
   ecb.pontxProbe.e2eTests === "passed-3-of-3" &&
   ecb.pontxProbe.sdkLiveChecks === "passed" &&
   ecb.pontxProbe.cliDryRunAndLiveCall === "passed" &&
-  ecb.pontxProbe.publicationReady === false,
-"ECB local SDK/CLI proof drifted");
+  ecb.pontxProbe.publicationReady === true,
+"ECB published SDK/CLI proof drifted");
 
 const oxr = candidate("open-exchange-rates");
 assert(oxr.gateStatus.redistribution === "pending" && oxr.gateStatus.contract === "pending" &&

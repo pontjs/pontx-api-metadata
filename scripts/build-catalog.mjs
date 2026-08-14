@@ -647,6 +647,9 @@ const reservedHubCliOptions = new Set([
   "version",
   "yes"
 ]);
+const escapedHubCliParameterNames = new Map([
+  ["version", "path-version"]
+]);
 
 function validateHubCliParameters(entry, operations) {
   for (const operation of operations) {
@@ -654,7 +657,10 @@ function validateHubCliParameters(entry, operations) {
     for (const parameter of operation.parameters.filter(
       (candidate) => candidate.in !== "body"
     )) {
-      if (reservedHubCliOptions.has(parameter.name)) {
+      if (
+        reservedHubCliOptions.has(parameter.name) &&
+        !escapedHubCliParameterNames.has(parameter.name)
+      ) {
         throw new Error(
           `${entry.slug}.${operation.operationId}: parameter --${parameter.name} conflicts with a Hub CLI option`
         );

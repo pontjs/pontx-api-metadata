@@ -254,7 +254,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -497,7 +497,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -689,7 +689,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -882,7 +882,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1079,7 +1079,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1280,7 +1280,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1475,7 +1475,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {
@@ -1669,7 +1669,7 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+        "x-pontx-proxy-disabled-reason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
         "x-pontx-request-examples": {
           "default": {
             "request": {

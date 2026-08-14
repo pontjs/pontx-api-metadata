@@ -48,7 +48,7 @@ const prose = {
     internalError: "ECB 服务内部错误。",
     notImplemented: "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
     unavailable: "ECB 服务暂时不可用。",
-    disabled: "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+    disabled: "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。",
     period: "ISO 8601 或 SDMX reporting period：年、半年、季度、月、周或日。",
     updatedAfter: "只返回该 ISO 8601 时间戳之后新增、修订或删除的最新值。",
     firstN: "每个匹配时间序列从第一条开始最多返回的 Observation 数量。",
@@ -113,7 +113,7 @@ const prose = {
     internalError: "An internal ECB service error occurred.",
     notImplemented: "The request uses SDMX REST functionality not implemented by the ECB service.",
     unavailable: "The ECB service is temporarily unavailable.",
-    disabled: "Hub proxying is disabled during candidate pre-admission; SDK and CLI validation is limited to caller-direct anonymous read-only requests.",
+    disabled: "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled.",
     period: "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
     updatedAfter: "Return the latest values added, revised, or deleted after this ISO 8601 timestamp.",
     firstN: "Maximum observations returned per matching time series, starting at the first observation.",
@@ -576,7 +576,7 @@ writeJson(enPath, build("en"));
 
 const provenance = {
   version: 1,
-  status: "candidate-pre-admission",
+  status: "approved",
   slug: "ecb-data-portal",
   verifiedAt,
   scope: {
@@ -633,11 +633,11 @@ const provenance = {
     structuralParity: "required"
   },
   sdkProbe: {
-    status: "local-ephemeral",
+    status: "operator-published",
     packageName: "@pontx/ecb-data-portal",
     cliName: "pontx-ecb-data-portal",
-    generator: "pontx@1.0.0-beta.3",
-    runtime: "@pontx/sdk@1.0.0-beta.0",
+    generator: "pontx@1.0.0-beta.11",
+    runtime: "@pontx/sdk@1.0.0-beta.4",
     generatedOperations: 8,
     generatedSchemas: 12,
     typeCheck: "passed",
@@ -648,8 +648,18 @@ const provenance = {
     npmPackDryRun: { status: "passed", files: 9 },
     sdkLiveChecks: ["bounded SDMX-JSON data request", "bounded structural-metadata XML request"],
     cliChecks: ["help", "catalog list", "endpoint show", "request dry-run", "bounded live data call"],
-    publicationReady: false,
-    limitation: "The generated RC exists only in an ephemeral validation directory; no SDK repository, immutable CI run, npm release, commit, or push was created."
+    publicationReady: true,
+    limitation: "The published package intentionally calls the ECB public anonymous read-only service directly; Hub proxying remains disabled."
+  },
+  publication: {
+    packageName: "@pontx/ecb-data-portal",
+    version: "0.1.0",
+    cliName: "pontx-ecb-data-portal",
+    sourceCommit: "533ef4716cca0b66b50bb7a810f84504a4008f46",
+    repositoryUrl: "https://github.com/pontjs/ecb-data-portal",
+    workflowRunUrl: "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+    registryTarball: "https://registry.npmjs.org/@pontx/ecb-data-portal/-/ecb-data-portal-0.1.0.tgz",
+    registryIntegrity: "sha512-/gMbs7GGkIPZzQinMYww3oW6i/iIqRCva6AzdUNZHfXYxUzwcg1B417WV6rQiFqLlu69k1ReRax4brfmZ/QDfA=="
   },
   outputs: {
     "zh-CN": { file: "specs/ecb-data-portal/openapi.json", sha256: sha256(zhPath) },

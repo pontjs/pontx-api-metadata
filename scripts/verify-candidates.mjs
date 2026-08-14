@@ -212,7 +212,8 @@ for (const product of candidates.products) {
         fail(`${location} independent reconstruction needs a checked-in normalization manifest`);
       }
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-      if (manifest.status !== "candidate-pre-admission" || manifest.slug !== product.slug) {
+      const expectedManifestStatus = admitted ? "approved" : "candidate-pre-admission";
+      if (manifest.status !== expectedManifestStatus || manifest.slug !== product.slug) {
         fail(`${location} independent reconstruction manifest identity is invalid`);
       }
       for (const [locale, field] of [["zh-CN", "zhCnSha256"], ["en-US", "enUsSha256"]]) {

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "candidate-pre-admission",
+  "status": "approved",
   "slug": "ecb-data-portal",
   "verifiedAt": "2026-08-14",
   "scope": {
@@ -82,11 +82,11 @@
     "structuralParity": "required"
   },
   "sdkProbe": {
-    "status": "local-ephemeral",
+    "status": "operator-published",
     "packageName": "@pontx/ecb-data-portal",
     "cliName": "pontx-ecb-data-portal",
-    "generator": "pontx@1.0.0-beta.3",
-    "runtime": "@pontx/sdk@1.0.0-beta.0",
+    "generator": "pontx@1.0.0-beta.11",
+    "runtime": "@pontx/sdk@1.0.0-beta.4",
     "generatedOperations": 8,
     "generatedSchemas": 12,
     "typeCheck": "passed",
@@ -119,17 +119,27 @@
       "request dry-run",
       "bounded live data call"
     ],
-    "publicationReady": false,
-    "limitation": "The generated RC exists only in an ephemeral validation directory; no SDK repository, immutable CI run, npm release, commit, or push was created."
+    "publicationReady": true,
+    "limitation": "The published package intentionally calls the ECB public anonymous read-only service directly; Hub proxying remains disabled."
+  },
+  "publication": {
+    "packageName": "@pontx/ecb-data-portal",
+    "version": "0.1.0",
+    "cliName": "pontx-ecb-data-portal",
+    "sourceCommit": "533ef4716cca0b66b50bb7a810f84504a4008f46",
+    "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
+    "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+    "registryTarball": "https://registry.npmjs.org/@pontx/ecb-data-portal/-/ecb-data-portal-0.1.0.tgz",
+    "registryIntegrity": "sha512-/gMbs7GGkIPZzQinMYww3oW6i/iIqRCva6AzdUNZHfXYxUzwcg1B417WV6rQiFqLlu69k1ReRax4brfmZ/QDfA=="
   },
   "outputs": {
     "zh-CN": {
       "file": "specs/ecb-data-portal/openapi.json",
-      "sha256": "b8ac1336424fe83b74ee07c82701e3e7a0f6eef461e085086017f760bf892614"
+      "sha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06"
     },
     "en-US": {
       "file": "specs/ecb-data-portal/locales/en-US/openapi.json",
-      "sha256": "f52af31b026159c51a648d20c088a9e35b3cc6034e94c2854585cd990539481e"
+      "sha256": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
     }
   }
 }
