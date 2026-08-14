@@ -87,6 +87,12 @@ git config core.hooksPath .githooks
 
 `catalog/catalog.json` is generated and committed intentionally: deployment consumers can fetch one immutable, validated bilingual catalog payload without needing a Node toolchain or package installation. The compiled payload includes searchable product metadata, HTTP operations, parameters, request-body schema relationships, every response/status schema relationship, and `components.schemas` data structures. Hub search can therefore follow an endpoint's complete input/output metadata graph instead of matching isolated names only.
 
+Published SDK entries also declare a structured `sdkContract`: the package
+export/factory shape, controller mapping, credential environment variables,
+and the exact Endpoint set present in the published package. Hub uses this
+contract to generate type-checkable snippets and to avoid advertising SDK code
+for Endpoints that are not included in the declared package version.
+
 ### Successful request examples
 
 Every Endpoint declares at least one coherent successful request through the
