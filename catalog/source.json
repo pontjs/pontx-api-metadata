@@ -32,7 +32,10 @@
       "sdkStatus": "published",
       "cliName": "pontx-frankfurter",
       "proxyEnabled": true,
-      "quickStart": { "operationId": "getLatestRates", "requestExampleId": "default" },
+      "quickStart": {
+        "operationId": "getLatestRates",
+        "requestExampleId": "default"
+      },
       "title": "Frankfurter 汇率 API",
       "summary": "无需 API Key，查询欧洲央行参考汇率、货币列表及历史时间序列；当前集合对应仍可用的 v1。",
       "server": {
@@ -49,9 +52,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "fe01735617ad28b96cd7115e6e2c70783959b8e05726a513948afe991df0b550",
+      "approvedSha256": "54160e0127410f3c8f785f02ca59af3fe83fc4d3e107013eb41ac794e1960c08",
       "approvedLocaleSha256": {
-        "en-US": "72f2d8853f7bc348b1a757da4ab1ee483d2ec24bca29ff317e078daf7b05b017"
+        "en-US": "28a0ffdca15c3df14b56fb40bd009a0ec99f754446814635e17e55796c950538"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -66,10 +69,13 @@
       "accent": "#16a085",
       "packageName": "@pontx/frankfurter-v2",
       "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
+      "sdkStatus": "published",
       "cliName": "pontx-frankfurter-v2",
       "proxyEnabled": true,
-      "quickStart": { "operationId": "getRates", "requestExampleId": "default" },
+      "quickStart": {
+        "operationId": "getRates",
+        "requestExampleId": "default"
+      },
       "title": "Frankfurter v2 汇率 API",
       "summary": "无需 API Key 查询 84 家中央银行、201 种货币及 1948 年以来的汇率，支持数据源过滤与归因、时间序列降采样和流式输出。",
       "server": {
@@ -105,7 +111,10 @@
       "sdkStatus": "published",
       "cliName": "pontx-dida365",
       "proxyEnabled": true,
-      "quickStart": { "operationId": "getUserProjects", "requestExampleId": "default" },
+      "quickStart": {
+        "operationId": "getUserProjects",
+        "requestExampleId": "default"
+      },
       "title": "滴答清单开放 API",
       "summary": "通过 OAuth 2.0 管理滴答清单的项目、任务、评论、标签、专注记录、倒数日、习惯与打卡。",
       "server": {
@@ -140,24 +149,30 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "2bf6c8c52ebe4826e9c85f7e7286b9a8fb41860a98ba62823af44f52a5053e86",
+      "approvedSha256": "18216b00e9d89248c825c56b52e0ddae2010f358706c0684f0f22160591976e6",
       "approvedLocaleSha256": {
-        "en-US": "5a1de613cf7798e4a61673672755de9961234d96195b665aaf151d5dd0786143"
+        "en-US": "fd5a7013fbd1bc56f3ff54b6157cd46f95c2f254418188d7590e50ee30960ada"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
       "documentationStatus": "official",
       "evidenceUrls": [
-        "https://massive.com/docs/rest/stocks/overview"
+        "https://massive.com/docs/rest/stocks/overview",
+        "https://github.com/massive-com/client-js",
+        "https://massive.com/legal/market-data-terms-of-service"
       ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "官方文档接口；可用数据取决于账户套餐与市场数据授权。",
+      "verifiedAt": "2026-08-14",
+      "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。",
       "accent": "#7c3aed",
       "packageName": "@pontx/massive",
       "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getPreviousClose", "requestExampleId": "default" },
+      "sdkStatus": "published",
+      "cliName": "pontx-massive",
+      "proxyEnabled": false,
+      "quickStart": {
+        "operationId": "getPreviousClose",
+        "requestExampleId": "default"
+      },
       "title": "Massive 股票市场数据 API",
       "summary": "使用 Massive API Key 查询美股最新成交、OHLC 聚合、统一市场快照与证券参考资料；可用性取决于数据套餐。",
       "server": {
@@ -167,257 +182,12 @@
       },
       "auth": [
         {
-          "id": "ApiKey",
-          "type": "apiKey",
-          "name": "apiKey",
-          "in": "query",
+          "id": "BearerAuth",
+          "type": "bearer",
           "envVar": "MASSIVE_API_KEY",
-          "description": "Massive API Key，仅在调用方会话中提供。"
+          "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。"
         }
       ]
-    },
-    {
-      "slug": "yahoo-finance",
-      "name": "Yahoo Finance Web Market Data API",
-      "provider": "Yahoo Finance",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/yahoo-finance/openapi.json",
-      "approvedSha256": "c1ef163321491cdc9d795a7e7be54f70def82069af9b68a6374cc45096bbdf01",
-      "approvedLocaleSha256": {
-        "en-US": "cec41bdf300d885200dc4a7ed49830a1431b33e0fdbe0feab4692c49b0a5245a"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://finance.yahoo.com/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://finance.yahoo.com/quote/AAPL/",
-        "https://legal.yahoo.com/us/en/yahoo/terms/product-atos/finance/index.html"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "来自 Yahoo Finance 官网网络请求，不是受支持的开发者 API，可能无预告变更。",
-      "accent": "#6001d2",
-      "packageName": "@pontx/yahoo-finance",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getChart", "requestExampleId": "default" },
-      "title": "Yahoo Finance 网页市场数据 API",
-      "summary": "观测自 Yahoo Finance 网页流量的非官方接口，可检索行情、K 线、证券与基本面数据；部分路由需要浏览器 crumb，全部仅用于预览。",
-      "server": {
-        "id": "query1",
-        "url": "https://query1.finance.yahoo.com",
-        "description": "Yahoo Finance 网页数据入口"
-      },
-      "auth": []
-    },
-    {
-      "slug": "stooq",
-      "name": "Stooq Public Quote Downloads",
-      "provider": "Stooq",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/stooq/openapi.json",
-      "approvedSha256": "23e535a4194ee3712512e1e82ecdf5c778a0c47e9ca71291d58ef4bc76d704b1",
-      "approvedLocaleSha256": {
-        "en-US": "f19fb1231b925552bd4127f184cf4527a9ebbac5eeab104c9cc8cf51fe12061c"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://stooq.com/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcvp&h&e=csv",
-        "https://stooq.com/q/d/?s=aapl.us"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "非官方版本化 API。最新行情路由当前返回 404，历史下载路由当前返回 JavaScript 浏览器验证页，不能视为可自动集成。",
-      "accent": "#2563eb",
-      "packageName": "@pontx/stooq",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "downloadHistoricalQuotes", "requestExampleId": "default" },
-      "title": "Stooq 公共行情下载",
-      "summary": "记录 Stooq 历史公开 CSV 下载格式及当前 404/浏览器验证状态；仅供检索与请求预览。",
-      "server": {
-        "id": "default",
-        "url": "https://stooq.com",
-        "description": "Stooq 公共网站"
-      },
-      "auth": []
-    },
-    {
-      "slug": "sina-finance",
-      "name": "Sina Finance Web Quote API",
-      "provider": "Sina Finance",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/sina-finance/openapi.json",
-      "approvedSha256": "97b179857a2a7cf5ab3a6141e265f759f1684b0660fef482ecee50133d7e15f5",
-      "approvedLocaleSha256": {
-        "en-US": "b2399e22aae7560cbf11eb49d38c3dc47e525715ca341a91da7491c45f8c57d6"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://finance.sina.com.cn/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://finance.sina.com.cn/",
-        "https://hq.sinajs.cn/list=sh000001"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "官网公开页面使用的内部文本/JSONP 接口，字段与编码可能变化。",
-      "accent": "#e11d48",
-      "packageName": "@pontx/sina-finance",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getQuoteSnapshots", "requestExampleId": "default" },
-      "title": "新浪财经行情服务 API",
-      "summary": "观测自新浪财经网页的内部行情接口，覆盖 GB18030 JavaScript 快照和 1–240 分钟 K 线；字段位置可能漂移。",
-      "server": {
-        "id": "hq",
-        "url": "https://hq.sinajs.cn",
-        "description": "新浪行情文本入口"
-      },
-      "auth": []
-    },
-    {
-      "slug": "tencent-finance",
-      "name": "Tencent Finance Web Quote API",
-      "provider": "Tencent Finance",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/tencent-finance/openapi.json",
-      "approvedSha256": "09773828c91ad73691f431217ab45ab40bcb039ff63c5c0a702ac5db3bf7b2e8",
-      "approvedLocaleSha256": {
-        "en-US": "b6646e66591470b882831219031be2d348477d3d181f876a341331adfc178983"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://gu.qq.com/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://gu.qq.com/",
-        "https://qt.gtimg.cn/q=hk00700"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "官网公开页面使用的内部文本/JSON 接口，未提供版本承诺。",
-      "accent": "#0284c7",
-      "packageName": "@pontx/tencent-finance",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getQuoteSnapshots", "requestExampleId": "default" },
-      "title": "腾讯财经网页行情 API",
-      "summary": "观测自腾讯财经网页的内部接口，覆盖 A 股、港股、美股快照及 day/week/month 复权或非复权 K 线。",
-      "server": {
-        "id": "quote",
-        "url": "https://qt.gtimg.cn",
-        "description": "腾讯 HTTPS 行情入口"
-      },
-      "auth": []
-    },
-    {
-      "slug": "eastmoney-funds",
-      "name": "Eastmoney Fund Web Data API",
-      "provider": "Eastmoney / Tiantian Fund",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/eastmoney-funds/openapi.json",
-      "approvedSha256": "53bdbdcfa4bd49a1c2b3cb6cd3eaff9c37c73abc0a20b90c0d7936d0874c1303",
-      "approvedLocaleSha256": {
-        "en-US": "d00adde30e29c9d3a107096be85d828b6f086add1759bb9279f70d07e15f2c81"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://fund.eastmoney.com/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://fundf10.eastmoney.com/jjjz_001072.html",
-        "https://fundgz.1234567.com.cn/js/001072.js"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "天天基金官网实际使用的 JSON/JSONP 接口，字段标识属于内部契约。",
-      "accent": "#dc2626",
-      "packageName": "@pontx/eastmoney-funds",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "listHistoricalNav", "requestExampleId": "default" },
-      "title": "东方财富基金网页数据 API",
-      "summary": "观测自天天基金网页的数据接口；历史净值与图表仍可查询，实时估值已返回失效页，关联指数路由当前不稳定。",
-      "server": {
-        "id": "fund-api",
-        "url": "https://api.fund.eastmoney.com",
-        "description": "东方财富基金数据入口"
-      },
-      "auth": []
-    },
-    {
-      "slug": "cnbc-market-data",
-      "name": "CNBC Web Quote API",
-      "provider": "CNBC",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/cnbc-market-data/openapi.json",
-      "approvedSha256": "d1a3b72bbb88c05da32f971771b93379db3e26679b9739306b86997923ca15d2",
-      "approvedLocaleSha256": {
-        "en-US": "e06cba917614631f6c884f1a5e7675e2e7f103323a717ba9bd767860c2167787"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://www.cnbc.com/quotes/",
-      "documentationStatus": "observed",
-      "evidenceUrls": [
-        "https://www.cnbc.com/quotes/AAPL"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "CNBC 行情页实际使用的 REST 与持久化 GraphQL 查询，哈希和结构可能变化。",
-      "accent": "#005594",
-      "packageName": "@pontx/cnbc-market-data",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getRestQuotes", "requestExampleId": "default" },
-      "title": "CNBC 网页行情 API",
-      "summary": "观测自 CNBC 行情页的内部 REST 与持久化 GraphQL 接口；批量报价可只读调用，图表查询仍属实验性。",
-      "server": {
-        "id": "quote",
-        "url": "https://quote.cnbc.com",
-        "description": "CNBC 行情 REST 入口"
-      },
-      "auth": []
-    },
-    {
-      "slug": "i3investor-sgx",
-      "name": "i3Investor SGX Public Pages",
-      "provider": "i3Investor",
-      "category": "Finance",
-      "featured": false,
-      "specFile": "specs/i3investor-sgx/openapi.json",
-      "approvedSha256": "499ba2bb4c5af3ce4c30c1cacfba9e1e19d2019dd60ff5f6e58dc94ef1583321",
-      "approvedLocaleSha256": {
-        "en-US": "d090c0970cb24b01d518dbbcef04b29c33355066ed1522d8bb3b0c73e6905a1b"
-      },
-      "license": "Proprietary",
-      "attributionUrl": "https://sgx.i3investor.com/",
-      "documentationStatus": "inferred",
-      "evidenceUrls": [
-        "https://sgx.i3investor.com/"
-      ],
-      "verifiedAt": "2026-08-10",
-      "stabilityNote": "这是 HTML 网页读取集合，不是 JSON API；页面结构可能变化。",
-      "accent": "#0f766e",
-      "packageName": "@pontx/i3investor-sgx",
-      "sdkVersion": "0.1.0",
-      "sdkStatus": "planned",
-      "proxyEnabled": true,
-      "quickStart": { "operationId": "getSgxStockOverviewPage", "requestExampleId": "default" },
-      "title": "i3Investor SGX 公共行情页",
-      "summary": "读取 i3Investor SGX 股票 HTML 页面并提取报价、盘口与区间等语义字段；无效代码也会返回 HTTP 200 的回退页面。",
-      "server": {
-        "id": "sgx",
-        "url": "https://sgx.i3investor.com",
-        "description": "i3Investor 新加坡站点"
-      },
-      "auth": []
     }
   ]
 }
