@@ -36,6 +36,9 @@ jobs:
       - name: Test SDK quality evidence rules
         run: node scripts/test-sdk-quality.mjs
 
+      - name: Verify candidate API metadata
+        run: node scripts/verify-candidates.mjs
+
       - name: Lint localized specifications
         run: node scripts/lint-locales.mjs
 

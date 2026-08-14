@@ -19,6 +19,28 @@ re-entry rule. Massive remains an official API collection, but Hub proxying and
 market-data redistribution are disabled; callers use their own account and API
 key directly from the SDK or CLI.
 
+## Candidate API products
+
+The ranked growth roadmap lives in
+[`catalog/api-collection-growth-priority.md`](./catalog/api-collection-growth-priority.md),
+and its 20 supplier-level products have structured intake records in
+[`catalog/api-collection-candidates.json`](./catalog/api-collection-candidates.json).
+Candidate records are deliberately separate from the generated Hub catalog:
+they record authoritative evidence, exact product boundaries, protocol and
+compliance holds, redistribution status, and the next admission action without
+presenting an incomplete collection as published metadata.
+
+Run the candidate gate whenever the roadmap or intake evidence changes:
+
+```bash
+node scripts/verify-candidates.mjs
+```
+
+A candidate moves into `catalog/source.json` only after every admission gate
+passes and the operator-published SDK/CLI evidence is available. Collections
+that contain SSE or another unsupported realtime protocol remain whole and
+deferred; they are never admitted by deleting those endpoints.
+
 ## Updating the catalog
 
 Chinese (`zh-CN`) is the canonical editing language. Each API keeps the same
@@ -50,6 +72,7 @@ Product-level Chinese copy and non-prose configuration live in
 
 ```bash
 node scripts/test-locales.mjs
+node scripts/verify-candidates.mjs
 node scripts/lint-locales.mjs
 node scripts/build-catalog.mjs
 node scripts/verify-specs.mjs
