@@ -31,10 +31,51 @@
       "packageName": "@pontx/frankfurter",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.1",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "6dfb19aa960fb320cceafdb896ccdec25d77266f",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/currency-exchange",
+        "workflowRunUrl": "https://github.com/pontjs/currency-exchange/actions/runs/31776799667"
+      },
       "cliName": "pontx-frankfurter",
       "sdkExamples": {
-        "typescript": "import currencyExchangeClient from \"@pontx/frankfurter\";\n\nconst result = await currencyExchangeClient.exchangeRates.getLatestRates({\n  base: \"USD\",\n  symbols: \"JPY,CNY\"\n});",
+        "typescript": "import { currencyExchangeClient } from \"@pontx/frankfurter\";\n\nconst result = await currencyExchangeClient.exchangeRates.getLatestRates({\n  base: \"USD\",\n  symbols: \"JPY,CNY\"\n});",
         "cli": "pnpm add --global @pontx/frankfurter\n\npontx-frankfurter call exchangeRates.getLatestRates --base USD --symbols JPY,CNY --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "named",
+          "identifier": "currencyExchangeClient"
+        },
+        "controllers": {
+          "Exchange Rates": "exchangeRates",
+          "Currencies": "Currencies"
+        },
+        "operations": [
+          "getLatestRates",
+          "getHistoricalRates",
+          "getTimeSeriesRates",
+          "getCurrencies"
+        ]
+      },
+      "pricing": {
+        "status": "free",
+        "summary": "公共 API 免费用于商业用途，无月度或每日调用配额；上游会为防止滥用实施速率限制。",
+        "officialUrl": "https://frankfurter.dev/",
+        "verifiedAt": "2026-08-14",
+        "freeTier": "无需 API Key，不收取 API 调用费。"
       },
       "proxyEnabled": true,
       "quickStart": {
@@ -76,10 +117,51 @@
       "packageName": "@pontx/frankfurter-v2",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "30ea842a5347fb47eb1d769bd7b516c4349624ed",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/frankfurter-v2",
+        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31776800115"
+      },
       "cliName": "pontx-frankfurter-v2",
       "sdkExamples": {
-        "typescript": "import frankfurterV2Client from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.common.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
+        "typescript": "import { frankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.common.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
         "cli": "pnpm add --global @pontx/frankfurter-v2\n\npontx-frankfurter-v2 call common.getRate --base EUR --quote USD --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "named",
+          "identifier": "frankfurterV2Client"
+        },
+        "controllers": {
+          "default": "common"
+        },
+        "operations": [
+          "getRates",
+          "getRate",
+          "getCurrency",
+          "getCurrencies",
+          "getProviders"
+        ]
+      },
+      "pricing": {
+        "status": "free",
+        "summary": "公共 API 免费用于商业用途，无月度或每日调用配额；上游会为防止滥用实施速率限制。",
+        "officialUrl": "https://frankfurter.dev/",
+        "verifiedAt": "2026-08-14",
+        "freeTier": "无需 API Key，不收取 API 调用费。"
       },
       "proxyEnabled": true,
       "quickStart": {
@@ -120,10 +202,61 @@
       "packageName": "@pontx/dida365",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.1",
+        "unitTests": {
+          "passed": 4,
+          "total": 4,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "ea509a0caf36322a31362787ca5790dc4fa63808",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/dida365",
+        "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/31776800890"
+      },
       "cliName": "pontx-dida365",
       "sdkExamples": {
-        "typescript": "import { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst client = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait client.authenticate();\nconst accessToken = await client.getAccessToken();",
+        "typescript": "import Dida365Client, { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst oauth = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait oauth.authenticate();\nconst accessToken = await oauth.getAccessToken();\nconst projects = await Dida365Client.project.getUserProjects({\n  headers: { Authorization: `Bearer ${accessToken}` }\n});",
         "cli": "pnpm add --global @pontx/dida365\n\npontx-dida365 call project.getUserProjects --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "default",
+          "identifier": "Dida365Client"
+        },
+        "auth": {
+          "kind": "bearer-request-init",
+          "envVar": "DIDA365_ACCESS_TOKEN"
+        },
+        "controllers": {
+          "task": "task",
+          "project": "project"
+        },
+        "operations": [
+          "getTaskByProjectIdAndTaskId",
+          "deleteTask",
+          "createTask",
+          "updateTask",
+          "completeTask",
+          "getUserProjects",
+          "createProject",
+          "getProjectById",
+          "deleteProject",
+          "updateProject",
+          "getProjectWithData"
+        ]
+      },
+      "pricing": {
+        "status": "unknown",
+        "summary": "官方开发者站未公开单独的 Open API 价目；使用资格及相关订阅权益以 Dida365 账号页面和官方条款为准。",
+        "officialUrl": "https://developer.dida365.com/",
+        "verifiedAt": "2026-08-14"
       },
       "proxyEnabled": true,
       "quickStart": {
@@ -183,10 +316,63 @@
       "packageName": "@pontx/massive",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "8fb7b84e36cce1d75468df3fd64ea27b7178ec66",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/massive",
+        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31776799929"
+      },
       "cliName": "pontx-massive",
       "sdkExamples": {
         "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.common.getPreviousClose(\"AAPL\", {});",
         "cli": "pnpm add --global @pontx/massive\n\npontx-massive call common.getPreviousClose --stocksTicker AAPL --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "factory",
+          "factory": "createMassiveClient",
+          "identifier": "client",
+          "options": {
+            "apiKey": "MASSIVE_API_KEY"
+          }
+        },
+        "controllers": {
+          "default": "common"
+        },
+        "operations": [
+          "getLastTrade",
+          "getPreviousClose",
+          "getAggregateBars",
+          "getMarketSnapshot",
+          "listTickers",
+          "getTickerDetails"
+        ]
+      },
+      "pricing": {
+        "status": "freemium",
+        "summary": "个人股票数据方案含 $0/月 Basic，以及 $29、$79、$199/月的付费档；商业使用另有商业方案。",
+        "officialUrl": "https://massive.com/pricing?product=stocks",
+        "verifiedAt": "2026-08-14",
+        "currency": "USD",
+        "startingPrice": {
+          "amount": 0,
+          "currency": "USD",
+          "unit": "每月"
+        },
+        "freeTier": "Stocks Basic 为 $0/月，5 次 API 调用/分钟，含 2 年历史数据和日终数据。",
+        "billingUnit": "每月"
       },
       "proxyEnabled": false,
       "quickStart": {

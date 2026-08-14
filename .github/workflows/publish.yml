@@ -33,6 +33,15 @@ jobs:
       - name: Test locale lint rules
         run: node scripts/test-locales.mjs
 
+      - name: Test SDK quality evidence rules
+        run: node scripts/test-sdk-quality.mjs
+
+      - name: Verify candidate API metadata
+        run: node scripts/verify-candidates.mjs
+
+      - name: Verify Dropbox Sign pre-admission contract
+        run: node scripts/verify-dropbox-sign-candidate.mjs
+
       - name: Lint localized specifications
         run: node scripts/lint-locales.mjs
 

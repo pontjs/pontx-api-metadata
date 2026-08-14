@@ -8,6 +8,7 @@ import {
   localizedSpecPath,
   mergeLocalizedText
 } from "./lib/localization.mjs";
+import { validateSdkQuality } from "./lib/sdk-quality.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const source = JSON.parse(
@@ -555,8 +556,110 @@ function makeAuth(englishDocument, entryAuth, englishAuth, slug) {
   });
 }
 
+function validateSdkContract(entry, operations) {
+  const contract = entry.sdkContract;
+  if (entry.sdkStatus === "published" && !contract) {
+    throw new Error(`${entry.slug}: published SDK requires sdkContract`);
+  }
+  if (!contract) return;
+
+  const identifier = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
+  if (!identifier.test(contract.client?.identifier ?? "")) {
+    throw new Error(`${entry.slug}: sdkContract client identifier is invalid`);
+  }
+  const authEnvVars = new Set(
+    (entry.auth ?? []).flatMap((auth) => [
+      auth.envVar,
+      auth.usernameEnvVar,
+      auth.passwordEnvVar
+    ].filter(Boolean))
+  );
+  if (contract.client.kind === "factory") {
+    if (!identifier.test(contract.client.factory ?? "")) {
+      throw new Error(`${entry.slug}: sdkContract factory identifier is invalid`);
+    }
+    for (const [option, envVar] of Object.entries(contract.client.options ?? {})) {
+      if (!identifier.test(option) || !/^[A-Z][A-Z0-9_]*$/.test(envVar)) {
+        throw new Error(`${entry.slug}: invalid sdkContract factory option ${option}`);
+      }
+      if (!authEnvVars.has(envVar)) {
+        throw new Error(`${entry.slug}: sdkContract factory env var is not declared by auth: ${envVar}`);
+      }
+    }
+  } else if (!["default", "named"].includes(contract.client.kind)) {
+    throw new Error(`${entry.slug}: unsupported sdkContract client kind`);
+  }
+
+  if (contract.auth) {
+    if (contract.auth.kind !== "bearer-request-init") {
+      throw new Error(`${entry.slug}: unsupported sdkContract auth kind`);
+    }
+    if (!authEnvVars.has(contract.auth.envVar)) {
+      throw new Error(`${entry.slug}: sdkContract auth env var is not declared by auth`);
+    }
+  }
+
+  const operationById = new Map(
+    operations.map((operation) => [operation.operationId, operation])
+  );
+  const supported = new Set();
+  for (const operationId of contract.operations ?? []) {
+    if (supported.has(operationId)) {
+      throw new Error(`${entry.slug}: duplicate sdkContract operation: ${operationId}`);
+    }
+    supported.add(operationId);
+    const operation = operationById.get(operationId);
+    if (!operation) {
+      throw new Error(`${entry.slug}: sdkContract operation does not exist: ${operationId}`);
+    }
+    const controller = contract.controllers?.[operation.tag];
+    if (!identifier.test(controller ?? "")) {
+      throw new Error(
+        `${entry.slug}: sdkContract controller is missing or invalid for tag ${operation.tag}`
+      );
+    }
+  }
+  if (!supported.size) {
+    throw new Error(`${entry.slug}: sdkContract must support at least one operation`);
+  }
+  if (!supported.has(entry.quickStart?.operationId)) {
+    throw new Error(`${entry.slug}: sdkContract must support the quick-start operation`);
+  }
+}
+
+const reservedHubCliOptions = new Set([
+  "body",
+  "header",
+  "help",
+  "url",
+  "version",
+  "yes"
+]);
+
+function validateHubCliParameters(entry, operations) {
+  for (const operation of operations) {
+    const names = new Set();
+    for (const parameter of operation.parameters.filter(
+      (candidate) => candidate.in !== "body"
+    )) {
+      if (reservedHubCliOptions.has(parameter.name)) {
+        throw new Error(
+          `${entry.slug}.${operation.operationId}: parameter --${parameter.name} conflicts with a Hub CLI option`
+        );
+      }
+      if (names.has(parameter.name)) {
+        throw new Error(
+          `${entry.slug}.${operation.operationId}: duplicate Hub CLI parameter name ${parameter.name}`
+        );
+      }
+      names.add(parameter.name);
+    }
+  }
+}
+
 const apis = [];
 for (const entry of source.apis) {
+  validateSdkQuality(entry);
   const englishEntry = englishCatalog?.apis?.[entry.slug];
   if (!englishEntry) throw new Error(`${entry.slug}: missing catalog/locales/en-US.json entry`);
   const specPath = resolve(repositoryRoot, entry.specFile);
@@ -658,6 +761,8 @@ for (const entry of source.apis) {
   if (quickStartExample.completeness !== "ready") {
     throw new Error(`${entry.slug}: quickStart request example must be ready to send`);
   }
+  validateHubCliParameters(entry, operations);
+  validateSdkContract(entry, operations);
   apis.push({
     slug: entry.slug,
     name: entry.name,
@@ -674,9 +779,53 @@ for (const entry of source.apis) {
     packageName: entry.packageName,
     sdkVersion: entry.sdkVersion,
     sdkStatus: entry.sdkStatus,
+    ...(entry.sdkQuality ? { sdkQuality: entry.sdkQuality } : {}),
     ...(entry.contentUpdatedAt ? { contentUpdatedAt: entry.contentUpdatedAt } : {}),
     ...(entry.cliName ? { cliName: entry.cliName } : {}),
     ...(entry.sdkExamples ? { sdkExamples: entry.sdkExamples } : {}),
+    ...(entry.sdkContract ? { sdkContract: entry.sdkContract } : {}),
+    ...(entry.pricing
+      ? {
+          pricing: {
+            ...entry.pricing,
+            summary: localizedCatalogText(
+              entry.pricing.summary,
+              englishEntry.pricing?.summary,
+              `${entry.slug}.pricing.summary`
+            ),
+            ...(entry.pricing.freeTier
+              ? {
+                  freeTier: localizedCatalogText(
+                    entry.pricing.freeTier,
+                    englishEntry.pricing?.freeTier,
+                    `${entry.slug}.pricing.freeTier`
+                  )
+                }
+              : {}),
+            ...(entry.pricing.billingUnit
+              ? {
+                  billingUnit: localizedCatalogText(
+                    entry.pricing.billingUnit,
+                    englishEntry.pricing?.billingUnit,
+                    `${entry.slug}.pricing.billingUnit`
+                  )
+                }
+              : {}),
+            ...(entry.pricing.startingPrice
+              ? {
+                  startingPrice: {
+                    ...entry.pricing.startingPrice,
+                    unit: localizedCatalogText(
+                      entry.pricing.startingPrice.unit,
+                      englishEntry.pricing?.startingPriceUnit,
+                      `${entry.slug}.pricing.startingPrice.unit`
+                    )
+                  }
+                }
+              : {})
+          }
+        }
+      : {}),
     proxyEnabled: entry.proxyEnabled,
     documentationStatus: entry.documentationStatus ?? "official",
     evidenceUrls: entry.evidenceUrls ?? [],

@@ -14,6 +14,9 @@ if [ -n "$untracked" ]; then
 fi
 
 node scripts/test-locales.mjs
+node scripts/test-sdk-quality.mjs
+node scripts/verify-candidates.mjs
+node scripts/verify-dropbox-sign-candidate.mjs
 node scripts/lint-locales.mjs
 node scripts/build-catalog.mjs
 node scripts/verify-specs.mjs
