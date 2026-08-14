@@ -379,15 +379,15 @@
         "zh": "欧洲中央银行 Data Portal 当前公开的 SDMX 2.1 REST 数据与结构元数据查询服务；EXR 汇率数据流属于该完整服务面，不单独伪装成供应商级 API。",
         "en": "The current ECB Data Portal SDMX 2.1 REST service for data and structural-metadata queries; the EXR exchange-rate dataflow remains part of this complete service instead of being presented as a separate supplier-level API."
       },
-      "stage": "audit-required",
-      "admissionDecision": "not-approved",
+      "stage": "admitted",
+      "admissionDecision": "approved",
       "gateStatus": {
         "authority": "passed",
         "redistribution": "passed",
         "contract": "passed",
         "transport": "passed",
         "risk": "passed",
-        "sdkCli": "pending"
+        "sdkCli": "passed"
       },
       "contractSource": {
         "kind": "independent-official-docs-reconstruction",
@@ -401,12 +401,12 @@
         "observedOperationIds": 8,
         "observedSchemas": 12,
         "normalizationManifest": "specs/ecb-data-portal/provenance.json",
-        "zhCnSha256": "b8ac1336424fe83b74ee07c82701e3e7a0f6eef461e085086017f760bf892614",
-        "enUsSha256": "f52af31b026159c51a648d20c088a9e35b3cc6034e94c2854585cd990539481e"
+        "zhCnSha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06",
+        "enUsSha256": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
       },
       "pontxProbe": {
-        "toolVersion": "pontx@1.0.0-beta.3",
-        "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
+        "toolVersion": "pontx@1.0.0-beta.11",
+        "runtimeVersion": "@pontx/sdk@1.0.0-beta.4",
         "generatedOperations": 8,
         "generatedSchemas": 12,
         "typescriptCheck": "passed",
@@ -417,7 +417,7 @@
         "sdkLiveChecks": "passed",
         "cliDryRunAndLiveCall": "passed",
         "npmPackDryRun": "passed",
-        "publicationReady": false,
+        "publicationReady": true,
         "observedAt": "2026-08-14"
       },
       "evidence": [
@@ -429,16 +429,10 @@
         { "kind": "docs", "url": "https://data.ecb.europa.eu/help/api/status-codes" },
         { "kind": "license", "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html" }
       ],
-      "blockers": [
-        {
-          "gate": "sdkCli",
-          "zh": "已在隔离目录生成并测试 @pontx/ecb-data-portal 与 pontx-ecb-data-portal RC：8 个 Endpoint、12 个 Schema、TypeScript、ESM/CJS/declarations、CLI build、SDK 实际数据/XML 调用、CLI dry-run/实际调用及 npm pack dry-run 均通过。但尚未建立独立 SDK 仓库、不可变 CI 证据或 npm 发布版本，因此不能进入正式 catalog。",
-          "en": "An isolated @pontx/ecb-data-portal and pontx-ecb-data-portal RC now passes generation for 8 endpoints and 12 schemas, TypeScript, ESM/CJS/declaration and CLI builds, live SDK data/XML calls, CLI dry-run/live calls, and npm pack dry-run. It still lacks an independent SDK repository, immutable CI evidence, and a published npm version, so it cannot enter the formal catalog."
-        }
-      ],
+      "blockers": [],
       "nextAction": {
-        "zh": "在获得单独发布授权后，将已验证 RC 固化到独立 SDK 仓库，运行版本绑定的 CI 并由 operator 发布 npm；随后把精确版本与 CI 证据写入 catalog/source.json。",
-        "en": "After separate publication authorization, persist the verified RC in an independent SDK repository, run version-bound CI, and have the operator publish it to npm; then add the exact version and CI evidence to catalog/source.json."
+        "zh": "持续复核 ECB 文档、状态码、内容协商、网站信息复用条款与已发布 SDK 的 Node.js 兼容性；发生上游契约变化时先更新双语规范和质量证据。",
+        "en": "Continuously review ECB documentation, status codes, content negotiation, website information reuse terms, and the published SDK's Node.js compatibility; update bilingual contracts and quality evidence before adopting upstream changes."
       },
       "verifiedAt": "2026-08-14"
     },

@@ -50,7 +50,7 @@ function walk(value, visit, pointer = "") {
   }
 }
 
-assert(provenance.status === "candidate-pre-admission", "ECB provenance must remain pre-admission");
+assert(provenance.status === "approved", "ECB provenance must record formal approval");
 assert(provenance.slug === "ecb-data-portal", "ECB provenance slug drifted");
 assert(provenance.license.status === "reviewed", "ECB website reuse terms must remain reviewed");
 assert(provenance.derivation.method.includes("Independent reconstruction"),
@@ -58,7 +58,7 @@ assert(provenance.derivation.method.includes("Independent reconstruction"),
 assert(provenance.derivation.liveChecks.length === 3 &&
   provenance.derivation.liveChecks.every((check) => check.status === 200),
 "all three ECB route families need bounded live evidence");
-assert(provenance.sdkProbe.status === "local-ephemeral" &&
+assert(provenance.sdkProbe.status === "operator-published" &&
   provenance.sdkProbe.generatedOperations === 8 && provenance.sdkProbe.generatedSchemas === 12 &&
   provenance.sdkProbe.typeCheck === "passed" &&
   provenance.sdkProbe.esmCjsDeclarationsBuild === "passed" &&
@@ -70,8 +70,14 @@ assert(provenance.sdkProbe.status === "local-ephemeral" &&
   provenance.sdkProbe.e2eTests.passed === 3 && provenance.sdkProbe.e2eTests.total === 3 &&
   provenance.sdkProbe.e2eTests.skipped === 0 &&
   provenance.sdkProbe.npmPackDryRun.status === "passed" &&
-  provenance.sdkProbe.publicationReady === false,
-"ECB local SDK/CLI proof must remain complete without claiming publication");
+  provenance.sdkProbe.publicationReady === true,
+"ECB published SDK/CLI proof must remain complete");
+assert(provenance.publication?.packageName === "@pontx/ecb-data-portal" &&
+  provenance.publication?.version === "0.1.0" &&
+  provenance.publication?.sourceCommit === "533ef4716cca0b66b50bb7a810f84504a4008f46" &&
+  provenance.publication?.workflowRunUrl ===
+    "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+"ECB publication provenance drifted");
 assert(sha256(zhPath) === provenance.outputs["zh-CN"].sha256, "ECB zh-CN hash drifted");
 assert(sha256(enPath) === provenance.outputs["en-US"].sha256, "ECB en-US hash drifted");
 assert(compareLocalizedDocuments(zh, en).length === 0, "ECB locale structure drifted");
@@ -143,15 +149,36 @@ walk(zh, (value, pointer) => {
 
 const candidate = candidates.products.find(({ slug }) => slug === "ecb-data-portal");
 assert(candidate, "ECB candidate record is missing");
-assert(candidate.admissionDecision === "not-approved", "ECB must remain outside formal admission");
+assert(candidate.admissionDecision === "approved" && candidate.stage === "admitted",
+  "ECB must record formal admission");
 assert(candidate.gateStatus.authority === "passed" && candidate.gateStatus.redistribution === "passed" &&
   candidate.gateStatus.contract === "passed" && candidate.gateStatus.transport === "passed",
 "ECB evidence, reuse, contract, and transport gates must remain passed");
 assert(candidate.gateStatus.risk === "passed", "ECB read-only risk gate should be passed");
-assert(candidate.gateStatus.sdkCli === "pending", "unpublished ECB SDK/CLI gate must remain pending");
+assert(candidate.gateStatus.sdkCli === "passed", "published ECB SDK/CLI gate must remain passed");
 assert(candidate.contractSource.normalizationManifest === "specs/ecb-data-portal/provenance.json",
   "ECB candidate must point to its provenance manifest");
-assert(!catalog.apis.some(({ slug }) => slug === "ecb-data-portal"),
-  "ECB must stay out of catalog/source.json until SDK/CLI publication evidence exists");
+assert(candidate.blockers.length === 0, "admitted ECB must not retain blockers");
+const catalogEntry = catalog.apis.find(({ slug }) => slug === "ecb-data-portal");
+assert(catalogEntry, "admitted ECB must enter catalog/source.json");
+assert(catalogEntry.approvedSha256 === provenance.outputs["zh-CN"].sha256 &&
+  catalogEntry.approvedLocaleSha256?.["en-US"] === provenance.outputs["en-US"].sha256,
+"ECB catalog approval hashes drifted");
+assert(catalogEntry.packageName === "@pontx/ecb-data-portal" &&
+  catalogEntry.sdkVersion === "0.1.0" && catalogEntry.sdkStatus === "published",
+"ECB published package metadata drifted");
+assert(catalogEntry.sdkQuality?.sourceCommit === provenance.publication.sourceCommit &&
+  catalogEntry.sdkQuality?.workflowRunUrl === provenance.publication.workflowRunUrl &&
+  catalogEntry.sdkQuality?.unitTests?.passed === 3 &&
+  catalogEntry.sdkQuality?.unitTests?.total === 3 &&
+  catalogEntry.sdkQuality?.unitTests?.skipped === 0 &&
+  catalogEntry.sdkQuality?.e2eStatus === "passed" &&
+  JSON.stringify(catalogEntry.sdkQuality?.nodeVersions) === JSON.stringify(["18", "20", "22"]),
+"ECB SDK quality evidence drifted");
+assert(catalogEntry.proxyEnabled === false, "ECB Hub proxy must remain disabled");
+assert(catalogEntry.sdkContract?.client?.kind === "named" &&
+  catalogEntry.sdkContract?.client?.identifier === "ecbDataPortalClient" &&
+  catalogEntry.sdkContract?.operations?.length === 8,
+"ECB SDK contract drifted");
 
-console.log("Verified ECB Data Portal candidate: 8 operations, 12 schemas, bilingual parity, pre-admission");
+console.log("Verified admitted ECB Data Portal: 8 operations, 12 schemas, bilingual parity, published SDK evidence");
