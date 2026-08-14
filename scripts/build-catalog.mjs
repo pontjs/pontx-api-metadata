@@ -674,6 +674,7 @@ for (const entry of source.apis) {
     packageName: entry.packageName,
     sdkVersion: entry.sdkVersion,
     sdkStatus: entry.sdkStatus,
+    ...(entry.contentUpdatedAt ? { contentUpdatedAt: entry.contentUpdatedAt } : {}),
     ...(entry.cliName ? { cliName: entry.cliName } : {}),
     ...(entry.sdkExamples ? { sdkExamples: entry.sdkExamples } : {}),
     proxyEnabled: entry.proxyEnabled,

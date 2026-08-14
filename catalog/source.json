@@ -25,11 +25,12 @@
         "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
       ],
       "verifiedAt": "2026-08-10",
+      "contentUpdatedAt": "2026-08-10",
       "stabilityNote": "无需鉴权的只读公共 API。v1 已由 v2 取代，但上游承诺继续长期提供；目录中的 v1 Endpoint 已标记为 deprecated。",
       "accent": "#2d6cdf",
       "packageName": "@pontx/frankfurter",
       "sdkVersion": "0.1.1",
-      "sdkStatus": "published",
+      "sdkStatus": "planned",
       "cliName": "pontx-frankfurter",
       "proxyEnabled": true,
       "quickStart": {
@@ -65,6 +66,7 @@
         "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
       ],
       "verifiedAt": "2026-08-10",
+      "contentUpdatedAt": "2026-08-10",
       "stabilityNote": "无需鉴权的只读公共 API。v2 聚合多个中央银行数据源；合规场景应使用 providers 参数固定到所需的官方提供方。",
       "accent": "#16a085",
       "packageName": "@pontx/frankfurter-v2",
@@ -108,11 +110,12 @@
         "https://developer.dida365.com/docs/openapi.md"
       ],
       "verifiedAt": "2026-08-10",
+      "contentUpdatedAt": "2026-08-10",
       "stabilityNote": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。",
       "accent": "#1dbf73",
       "packageName": "@pontx/dida365",
       "sdkVersion": "0.1.1",
-      "sdkStatus": "published",
+      "sdkStatus": "planned",
       "cliName": "pontx-dida365",
       "proxyEnabled": true,
       "quickStart": {
@@ -166,6 +169,7 @@
         "https://massive.com/legal/market-data-terms-of-service"
       ],
       "verifiedAt": "2026-08-14",
+      "contentUpdatedAt": "2026-08-14",
       "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。",
       "accent": "#7c3aed",
       "packageName": "@pontx/massive",
