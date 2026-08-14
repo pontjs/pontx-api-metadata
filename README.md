@@ -103,6 +103,10 @@ export/factory shape, controller mapping, credential environment variables,
 and the exact Endpoint set present in the published package. Hub uses this
 contract to generate type-checkable snippets and to avoid advertising SDK code
 for Endpoints that are not included in the declared package version.
+Controller mappings use a JavaScript identifier for explicitly tagged
+Endpoints and `null` for untagged Endpoints whose methods live directly on the
+client. Never synthesize `common`, `default`, or another public Controller for
+an Endpoint without an explicit OAS `tags` value.
 
 ### Successful request examples
 

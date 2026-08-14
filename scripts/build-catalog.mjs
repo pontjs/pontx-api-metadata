@@ -612,10 +612,22 @@ function validateSdkContract(entry, operations) {
     if (!operation) {
       throw new Error(`${entry.slug}: sdkContract operation does not exist: ${operationId}`);
     }
-    const controller = contract.controllers?.[operation.tag];
-    if (!identifier.test(controller ?? "")) {
+    const controllers = contract.controllers ?? {};
+    if (!Object.prototype.hasOwnProperty.call(controllers, operation.tag)) {
       throw new Error(
-        `${entry.slug}: sdkContract controller is missing or invalid for tag ${operation.tag}`
+        `${entry.slug}: sdkContract controller is missing for tag ${operation.tag}`
+      );
+    }
+    const controller = controllers[operation.tag];
+    if (controller === null) {
+      if (operation.tag !== "default") {
+        throw new Error(
+          `${entry.slug}: root-level SDK methods are allowed only for untagged Endpoints`
+        );
+      }
+    } else if (!identifier.test(controller ?? "")) {
+      throw new Error(
+        `${entry.slug}: sdkContract controller is invalid for tag ${operation.tag}`
       );
     }
   }
