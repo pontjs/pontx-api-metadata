@@ -99,6 +99,7 @@ for (const locale of source.locales ?? []) {
       const expectedKeys = ["title", "summary", "server"];
       if (api.stabilityNote !== undefined) expectedKeys.push("stabilityNote");
       if (api.auth?.length) expectedKeys.push("auth");
+      if (api.pricing) expectedKeys.push("pricing");
       checkExactKeys(localizedApi, expectedKeys, `${locale}.${api.slug}`);
       checkText(localizedApi.title, `${locale}.${api.slug}.title`);
       checkText(localizedApi.summary, `${locale}.${api.slug}.summary`);
@@ -107,6 +108,23 @@ for (const locale of source.locales ?? []) {
       }
       checkExactKeys(localizedApi.server, ["description"], `${locale}.${api.slug}.server`);
       checkText(localizedApi.server?.description, `${locale}.${api.slug}.server.description`);
+      if (api.pricing) {
+        const expectedPricingKeys = ["summary"];
+        if (api.pricing.freeTier) expectedPricingKeys.push("freeTier");
+        if (api.pricing.billingUnit) expectedPricingKeys.push("billingUnit");
+        if (api.pricing.startingPrice) expectedPricingKeys.push("startingPriceUnit");
+        checkExactKeys(localizedApi.pricing, expectedPricingKeys, `${locale}.${api.slug}.pricing`);
+        checkText(localizedApi.pricing?.summary, `${locale}.${api.slug}.pricing.summary`);
+        if (api.pricing.freeTier) {
+          checkText(localizedApi.pricing?.freeTier, `${locale}.${api.slug}.pricing.freeTier`);
+        }
+        if (api.pricing.billingUnit) {
+          checkText(localizedApi.pricing?.billingUnit, `${locale}.${api.slug}.pricing.billingUnit`);
+        }
+        if (api.pricing.startingPrice) {
+          checkText(localizedApi.pricing?.startingPriceUnit, `${locale}.${api.slug}.pricing.startingPriceUnit`);
+        }
+      }
       if (api.auth?.length) {
         const expectedAuthIds = api.auth.map((auth) => auth.id);
         checkExactKeys(localizedApi.auth, expectedAuthIds, `${locale}.${api.slug}.auth`);

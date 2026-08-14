@@ -63,6 +63,19 @@
           "getCurrencies"
         ]
       },
+      "pricing": {
+        "status": "free",
+        "summary": {
+          "zh": "公共 API 免费用于商业用途，无月度或每日调用配额；上游会为防止滥用实施速率限制。",
+          "en": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse."
+        },
+        "officialUrl": "https://frankfurter.dev/",
+        "verifiedAt": "2026-08-14",
+        "freeTier": {
+          "zh": "无需 API Key，不收取 API 调用费。",
+          "en": "No API key and no API-call fee."
+        }
+      },
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -1419,6 +1432,19 @@
           "getCurrencies",
           "getProviders"
         ]
+      },
+      "pricing": {
+        "status": "free",
+        "summary": {
+          "zh": "公共 API 免费用于商业用途，无月度或每日调用配额；上游会为防止滥用实施速率限制。",
+          "en": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse."
+        },
+        "officialUrl": "https://frankfurter.dev/",
+        "verifiedAt": "2026-08-14",
+        "freeTier": {
+          "zh": "无需 API Key，不收取 API 调用费。",
+          "en": "No API key and no API-call fee."
+        }
       },
       "proxyEnabled": true,
       "documentationStatus": "official",
@@ -3078,6 +3104,15 @@
           "updateProject",
           "getProjectWithData"
         ]
+      },
+      "pricing": {
+        "status": "unknown",
+        "summary": {
+          "zh": "官方开发者站未公开单独的 Open API 价目；使用资格及相关订阅权益以 Dida365 账号页面和官方条款为准。",
+          "en": "The official developer site does not publish separate Open API pricing; eligibility and subscription benefits remain subject to the Dida365 account page and official terms."
+        },
+        "officialUrl": "https://developer.dida365.com/",
+        "verifiedAt": "2026-08-14"
       },
       "proxyEnabled": true,
       "documentationStatus": "official",
@@ -14180,6 +14215,32 @@
           "listTickers",
           "getTickerDetails"
         ]
+      },
+      "pricing": {
+        "status": "freemium",
+        "summary": {
+          "zh": "个人股票数据方案含 $0/月 Basic，以及 $29、$79、$199/月的付费档；商业使用另有商业方案。",
+          "en": "Individual stock-data plans include Basic at $0/month and paid tiers at $29, $79, and $199/month; business use has separate plans."
+        },
+        "officialUrl": "https://massive.com/pricing?product=stocks",
+        "verifiedAt": "2026-08-14",
+        "currency": "USD",
+        "startingPrice": {
+          "amount": 0,
+          "currency": "USD",
+          "unit": {
+            "zh": "每月",
+            "en": "month"
+          }
+        },
+        "freeTier": {
+          "zh": "Stocks Basic 为 $0/月，5 次 API 调用/分钟，含 2 年历史数据和日终数据。",
+          "en": "Stocks Basic is $0/month with 5 API calls per minute, two years of history, and end-of-day data."
+        },
+        "billingUnit": {
+          "zh": "每月",
+          "en": "month"
+        }
       },
       "proxyEnabled": false,
       "documentationStatus": "official",

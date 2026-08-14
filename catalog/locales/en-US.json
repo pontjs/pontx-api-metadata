@@ -6,6 +6,10 @@
       "title": "Frankfurter exchange-rate API",
       "summary": "Query ECB reference rates, currencies, and historical time series without an API key; this collection covers the still-available v1.",
       "stabilityNote": "Read-only public API without authentication. v1 is superseded by v2 but remains available long term; its catalog endpoints are marked deprecated.",
+      "pricing": {
+        "summary": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse.",
+        "freeTier": "No API key and no API-call fee."
+      },
       "server": {
         "description": "Frankfurter v1 public API"
       }
@@ -14,6 +18,10 @@
       "title": "Frankfurter v2 exchange-rate API",
       "summary": "Query rates from 84 central banks across 201 currencies back to 1948 without an API key, with provider filtering and attribution, time-series downsampling, and streaming output.",
       "stabilityNote": "Read-only public API without authentication. v2 blends multiple central-bank sources; compliance use cases should pin the required official source with the providers parameter.",
+      "pricing": {
+        "summary": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse.",
+        "freeTier": "No API key and no API-call fee."
+      },
       "server": {
         "description": "Frankfurter v2 public API"
       }
@@ -22,6 +30,9 @@
       "title": "Dida365 Open API",
       "summary": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins.",
       "stabilityNote": "Official OAuth 2.0 API. Reads and writes require user authorization and are limited by the tasks:read and tasks:write scopes.",
+      "pricing": {
+        "summary": "The official developer site does not publish separate Open API pricing; eligibility and subscription benefits remain subject to the Dida365 account page and official terms."
+      },
       "server": {
         "description": "Dida365 Open API"
       },
@@ -43,6 +54,12 @@
       "title": "Massive stock market data API",
       "summary": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan.",
       "stabilityNote": "Officially documented. Callers must use their own Massive account, API key, and market-data entitlements. Hub does not proxy, cache, or redistribute responses.",
+      "pricing": {
+        "summary": "Individual stock-data plans include Basic at $0/month and paid tiers at $29, $79, and $199/month; business use has separate plans.",
+        "freeTier": "Stocks Basic is $0/month with 5 API calls per minute, two years of history, and end-of-day data.",
+        "billingUnit": "month",
+        "startingPriceUnit": "month"
+      },
       "server": {
         "description": "Official Massive REST API endpoint"
       },
