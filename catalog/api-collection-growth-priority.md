@@ -29,7 +29,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 - Open Exchange Rates 候选按官方 v0.7 的七个 JSON REST Endpoint 定界。
 - Twelve Data Forex 候选保留 REST 与 WebSocket 的完整供应商产品面，不裁剪实时协议后发布。
 - Stripe Identity 只在供应商明确的 Identity 子产品边界内单独合规审查，不扩展成完整支付集合。
-- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive 和 Dropbox Sign；Dropbox Sign 在账本中保留已准入状态用于持续治理，其余四项不进入本轮候选。
+- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive、ECB Data Portal 和 Dropbox Sign；Dropbox Sign 与 ECB 在账本中保留已准入状态用于持续治理，其余候选不进入正式目录。
 
 ## 不可绕过的准入门槛
 
@@ -71,7 +71,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；无 Server-Sent Events | 建立可复现 Smithy→OAS 转换并完成 SigV4/风险策略 |
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
-| 8 | ECB Data Portal SDMX API | 76 | 已按 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas 的完整双语候选契约；SDK/CLI 本地生成、构建、打包预演和限定只读实调通过 | 建立不可变 SDK 仓库与 Node CI，获运营者发布授权后发布、fresh-install 并准入 |
+| 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
 | 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema，并且 metadata/生成 SDK 再分发权未确认 | 获取可固定的完整 OAS 与书面发布许可 |
 | 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，但只完整给出两个成功响应；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS 与 metadata/SDK 书面许可 |
 | 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas，但完整 Forex 产品还含 WebSocket；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 先实现 WebSocket/AsyncAPI，修复 CLI 安全方案注入，并取得完整契约和发布许可 |
@@ -114,10 +114,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 1. MongoDB Atlas Administration API v2
 2. Amazon SQS API
-3. ECB Data Portal SDMX API（完整双语候选契约及本地 SDK/CLI RC 已通过；正式准入仅待不可变 SDK 仓库、CI、运营者发布与 registry fresh-install 证据）
+3. ECB Data Portal SDMX API（已正式准入，进入持续维护；不再占用准入工程队列）
 
-这三项仍不是 catalog-ready：MongoDB 与 SQS 需完成双语规范、全部风险策略、成功请求示例和 SDK/CLI；
-ECB 需补齐不可变仓库、CI、运营者发布与 registry fresh-install 证据。未完成前保持在候选注册表。
+MongoDB 与 SQS 仍不是 catalog-ready：二者需完成双语规范、全部风险策略、成功请求示例和 SDK/CLI。ECB 已完成准入并保留在候选注册表中用于持续治理。
 
 ### 先解决证据或边界缺口
 

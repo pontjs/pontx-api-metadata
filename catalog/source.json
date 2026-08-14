@@ -396,6 +396,103 @@
       ]
     },
     {
+      "slug": "ecb-data-portal",
+      "name": "ECB Data Portal SDMX API",
+      "provider": "European Central Bank",
+      "category": "Finance",
+      "featured": true,
+      "specFile": "specs/ecb-data-portal/openapi.json",
+      "approvedSha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06",
+      "approvedLocaleSha256": {
+        "en-US": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
+      },
+      "license": "ECB website information reuse terms",
+      "attributionUrl": "https://data.ecb.europa.eu/help/api/overview",
+      "documentationStatus": "official",
+      "evidenceUrls": [
+        "https://data.ecb.europa.eu/help/api/overview",
+        "https://data.ecb.europa.eu/help/api/data",
+        "https://data.ecb.europa.eu/help/api/metadata",
+        "https://data.ecb.europa.eu/help/api/schemas",
+        "https://data.ecb.europa.eu/help/api/content-negotiation",
+        "https://data.ecb.europa.eu/help/api/status-codes",
+        "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+        "https://github.com/pontjs/ecb-data-portal",
+        "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+        "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.0"
+      ],
+      "verifiedAt": "2026-08-14",
+      "contentUpdatedAt": "2026-08-14",
+      "stabilityNote": "基于 ECB 当前官方帮助页独立重建的完整匿名只读 SDMX 2.1 REST 契约；Hub 不代理请求或响应，SDK 与 CLI 直接访问 ECB 公共 HTTPS 服务。",
+      "accent": "#003399",
+      "packageName": "@pontx/ecb-data-portal",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 3,
+          "total": 3,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "533ef4716cca0b66b50bb7a810f84504a4008f46",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
+        "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599"
+      },
+      "cliName": "pontx-ecb-data-portal",
+      "sdkExamples": {
+        "typescript": "import ecbDataPortalClient from \"@pontx/ecb-data-portal\";\n\nconst result = await ecbDataPortalClient.data.getDataBySeriesKey(\n  \"EXR\",\n  \"M.USD.EUR.SP00.A\",\n  { lastNObservations: 1, format: \"jsondata\" }\n);",
+        "cli": "pnpm add --global @pontx/ecb-data-portal\n\npontx-ecb-data-portal call data getDataBySeriesKey --flowRef EXR --key M.USD.EUR.SP00.A --lastNObservations 1 --format jsondata --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "named",
+          "identifier": "ecbDataPortalClient"
+        },
+        "controllers": {
+          "Data": "data",
+          "Metadata": "metadata",
+          "Validation": "validation"
+        },
+        "operations": [
+          "getDataByFlow",
+          "getDataBySeriesKey",
+          "listMetadata",
+          "listMetadataByAgency",
+          "getMetadataArtefact",
+          "getVersionedMetadataArtefact",
+          "getStructureSpecificSchema",
+          "getVersionedStructureSpecificSchema"
+        ]
+      },
+      "pricing": {
+        "status": "unknown",
+        "summary": "ECB API 帮助页未发布单独的调用价格；当前收录的匿名只读服务无需 API Key，使用与复用仍受 ECB 网站信息复用条款约束。",
+        "officialUrl": "https://data.ecb.europa.eu/help/api/overview",
+        "verifiedAt": "2026-08-14"
+      },
+      "proxyEnabled": false,
+      "quickStart": {
+        "operationId": "getDataBySeriesKey",
+        "requestExampleId": "default"
+      },
+      "title": "欧洲央行 Data Portal SDMX API",
+      "summary": "查询欧洲央行公开的 SDMX 2.1 统计数据、结构元数据与结构特定 XML Schema；覆盖完整路径变体、内容协商与 12 个可检索 Schema。",
+      "server": {
+        "id": "ecb-data-portal",
+        "url": "https://data-api.ecb.europa.eu/service",
+        "description": "欧洲央行 Data Portal 公共 SDMX REST 服务"
+      },
+      "auth": []
+    },
+    {
       "slug": "dropbox-sign",
       "name": "Dropbox Sign API",
       "provider": "Dropbox Sign",

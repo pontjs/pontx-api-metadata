@@ -28,8 +28,9 @@ and its 24 supplier-level products have structured intake records in
 [`catalog/api-collection-candidates.json`](./catalog/api-collection-candidates.json).
 Candidate records are deliberately separate from the generated Hub catalog:
 they record authoritative evidence, exact product boundaries, protocol and
-compliance holds, redistribution status, and the next admission action without
-presenting an incomplete collection as published metadata.
+compliance holds, redistribution status, and the next admission action. Records
+that have passed every gate remain there as an admission and maintenance ledger;
+only their matching entries in `catalog/source.json` are published metadata.
 
 Run the candidate gate whenever the roadmap or intake evidence changes:
 
@@ -40,11 +41,13 @@ node scripts/verify-ecb-data-portal-candidate.mjs
 node scripts/verify-fx-candidates.mjs
 ```
 
-The ECB candidate is independently reconstructed from current ECB pages and
-can be reproduced offline with `node scripts/build-ecb-data-portal-candidate.mjs`.
-The FX verifier also seals the source hashes, quality findings, and local
-SDK/CLI probe outcomes for Open Exchange Rates, CurrencyBeacon, and Twelve
-Data without copying provider-owned mutable contracts into the repository.
+The admitted ECB collection is independently reconstructed from current ECB
+pages and can be reproduced offline with
+`node scripts/build-ecb-data-portal-candidate.mjs`. Its published package,
+immutable CI evidence, and registry release are sealed in provenance. The FX
+verifier also seals quality findings for Open Exchange Rates, CurrencyBeacon,
+and Twelve Data without copying provider-owned mutable contracts into the
+repository.
 
 The admitted Dropbox Sign contract is normalized without network access from
 already-pinned upstream checkout. Reproduce or review the English source
