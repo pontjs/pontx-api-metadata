@@ -6,6 +6,7 @@ import {
   compareLocalizedDocuments,
   isTranslatableText
 } from "./lib/localization.mjs";
+import { isConstraintValidExample } from "./lib/dropbox-sign-enrichment.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const specRoot = path.join(root, "specs/dropbox-sign");
@@ -23,7 +24,7 @@ const catalogSource = JSON.parse(fs.readFileSync(path.join(root, "catalog/source
 const methods = new Set(["get", "put", "post", "delete", "patch", "head", "options", "trace"]);
 const pinnedRevision = "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf";
 const pinnedSourceUrl =
-  `https://raw.githubusercontent.com/hellosign/hellosign-openapi/${pinnedRevision}/openapi.yaml`;
+  `https://raw.githubusercontent.com/hellosign/hellosign-openapi/${pinnedRevision}/openapi-fern.yaml`;
 
 function fail(message) {
   throw new Error(message);
@@ -104,11 +105,54 @@ function sortedMatches(value, expression) {
   return [...value.matchAll(expression)].map((match) => match[0]).sort();
 }
 
+const compositionKeywords = ["allOf", "oneOf", "anyOf"];
+const sensitiveLeafNames = new Set([
+  "client_secret", "refresh_token", "access_token", "password", "authorization", "secret", "pin",
+  "code", "state"
+]);
+
+function visitSchema(schema, segments, visit) {
+  if (!schema || typeof schema !== "object" || Array.isArray(schema) || schema.$ref) return;
+  visit(schema, segments);
+  for (const [name, child] of Object.entries(schema.properties ?? {})) {
+    visitSchema(child, [...segments, "properties", name], visit);
+  }
+  if (schema.items) visitSchema(schema.items, [...segments, "items"], visit);
+  for (const keyword of compositionKeywords) {
+    schema[keyword]?.forEach((child, index) =>
+      visitSchema(child, [...segments, keyword, index], visit));
+  }
+  if (schema.additionalProperties && typeof schema.additionalProperties === "object") {
+    visitSchema(schema.additionalProperties, [...segments, "additionalProperties"], visit);
+  }
+}
+
+function visitDocumentSchemas(document, visit) {
+  for (const [name, schema] of Object.entries(document.components.schemas)) {
+    visitSchema(schema, ["components", "schemas", name], visit);
+  }
+  function discover(value, segments) {
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => discover(item, [...segments, index]));
+      return;
+    }
+    if (!value || typeof value !== "object") return;
+    for (const [key, item] of Object.entries(value)) {
+      if (key === "schema") {
+        visitSchema(item, [...segments, key], visit);
+      } else {
+        discover(item, [...segments, key]);
+      }
+    }
+  }
+  discover(document.paths, ["paths"]);
+}
+
 assert(provenance.status === "candidate-pre-admission", "provenance must remain pre-admission");
 assert(provenance.source.revision === pinnedRevision, "provenance revision drifted");
 assert(provenance.source.url === pinnedSourceUrl, "provenance source URL must pin the revision");
 assert(
-  provenance.source.sha256 === "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+  provenance.source.sha256 === "39dfd012ff95f198b56e953d647daeeba030c0ecc188e9afbd5d3f6417518312",
   "pinned upstream OAS hash drifted"
 );
 assert(
@@ -139,6 +183,10 @@ assert(provenance.normalization.networkRequiredAtBuildTime === false,
   "candidate normalization must remain offline at build time");
 assert(provenance.normalization.importer === "scripts/import-dropbox-sign-candidate.mjs" &&
   fs.existsSync(path.join(root, provenance.normalization.importer)), "deterministic importer is missing");
+assert(provenance.normalization.contractEquivalence.result === "equivalent" &&
+  provenance.normalization.contractEquivalence.sha256 ===
+    "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+"legacy external-source contract equivalence record drifted");
 assert(sha256(zhPath) === provenance.outputs["zh-CN"].sha256, "zh-CN output hash drifted");
 assert(sha256(enPath) === provenance.outputs["en-US"].sha256, "en-US output hash drifted");
 
@@ -204,20 +252,107 @@ walk(en, (value, segments) => {
 });
 assert(Object.keys(en.components.schemas).filter((name) => name.startsWith("EventCallback")).length === 27,
   "expected 27 EventCallback-prefixed schemas");
-assert(en.tags.length === 12 && en.tags.every((tag) => typeof tag.description === "string"),
-  "all 12 tag Markdown descriptions must be inlined");
-assert(Object.keys(en["x-webhooks"] ?? {}).length === 2 &&
-  Object.values(en["x-webhooks"]).every((item) => typeof item.post?.description === "string"),
-  "both webhook Markdown descriptions must be inlined");
+assert(en.tags.length === 13 && en.tags.every((tag) => typeof tag.description === "string"),
+  "12 upstream tags plus the derived Fax directory registration are required");
+assert(en.tags.filter((tag) => tag.name === "Fax").length === 1,
+  "the upstream-used Fax tag needs one derived directory registration");
+assert(Object.keys(en.webhooks ?? {}).length === 2 &&
+  Object.values(en.webhooks).every((item) => typeof item.post?.description === "string"),
+  "both self-contained Fern webhooks must be preserved");
 assert(countExternalReferences(en) === 0, "normalized spec must not retain external references");
 assert(countKey(en, "x-codeSamples") === 0, "x-codeSamples must be removed");
 assert(provenance.normalization.removed[0].occurrences === 73, "removed x-codeSamples count drifted");
-assert(provenance.normalization.removed[0].externalReferences === 511,
+assert(provenance.normalization.removed[0].externalReferences === 0,
   "removed code-sample reference count drifted");
-assert(provenance.normalization.inlined.jsonExamples === 152, "inlined JSON example count drifted");
-assert(provenance.normalization.inlined.tagMarkdown === 12, "inlined tag Markdown count drifted");
-assert(provenance.normalization.inlined.webhookDescriptionMarkdown === 2,
-  "inlined webhook Markdown count drifted");
+assert(provenance.normalization.selfContainedUpstreamContent.componentExamples === 152 &&
+  Object.keys(en.components.examples ?? {}).length === 152,
+"self-contained component example count drifted");
+assert(provenance.normalization.selfContainedUpstreamContent.tagDescriptions === 12,
+  "upstream tag description count drifted");
+assert(provenance.normalization.selfContainedUpstreamContent.webhooks === 2,
+  "upstream webhook count drifted");
+
+const derived = provenance.normalization.derivedEnrichment;
+assert(derived.componentTitles === 191 && derived.nestedAndInlineSchemaTitles === 311,
+  "derived schema title counts drifted");
+assert(derived.enumDescriptions.schemas === 60 && derived.enumDescriptions.values === 385,
+  "derived enum label counts drifted");
+assert(derived.leafExamples.added === 780 && derived.leafExamples.fromDefault === 191 &&
+  derived.leafExamples.fromEnum === 56 && derived.leafExamples.constraintValidPlaceholders === 533,
+"derived leaf example counts drifted");
+assert(derived.leafExamples.omitted.binary === 24 &&
+  derived.leafExamples.omitted.credentialOrSecret === 12 &&
+  derived.leafExamples.omitted.unsupportedSchema === 20,
+"safe example omission counts drifted");
+assert(derived.typeCorrections.length === 2 && derived.constraintCorrections.length === 1,
+  "schema correction provenance drifted");
+
+assert(en.components.schemas.BulkSendJobGetResponseSignatureRequests.allOf[1].type === "object",
+  "properties-bearing BulkSendJob variant must declare object type");
+assert(en.components.schemas.ReportResponse.properties.report_type.items.type === "string",
+  "ReportResponse report_type enum items must declare string type");
+const textVariant = en.components.schemas.SubFormFieldsPerDocumentText.allOf[1];
+assert(!textVariant.required.includes("options") && !textVariant.properties.options,
+  "stale required options member must remain removed rather than fabricating a property");
+
+let schemaNodes = 0;
+let enumSchemas = 0;
+let enumValues = 0;
+let safeLeafExamples = 0;
+let omittedBinary = 0;
+let omittedSensitive = 0;
+let omittedUnsupported = 0;
+visitDocumentSchemas(en, (schema, segments) => {
+  schemaNodes += 1;
+  const pointer = `/${segments.join("/")}`;
+  assert(typeof schema.title === "string" || typeof schema.description === "string",
+    `${pointer}: schema needs upstream prose or a derived structural title`);
+  if (segments.length === 3 && segments[0] === "components" && segments[1] === "schemas") {
+    assert(typeof schema.title === "string" && schema.title.trim(),
+      `${pointer}: component schema needs a directory title`);
+  }
+  if (Array.isArray(schema.enum) && schema.enum.length) {
+    enumSchemas += 1;
+    enumValues += schema.enum.length;
+    assert(Array.isArray(schema["x-enum-descriptions"]) &&
+      schema["x-enum-descriptions"].length === schema.enum.length &&
+      schema["x-enum-descriptions"].every((description) =>
+        typeof description === "string" && description.trim()),
+    `${pointer}: enum literals need complete labels`);
+  }
+  const hasChildren = Boolean(schema.properties || schema.items || schema.additionalProperties ||
+    compositionKeywords.some((keyword) => schema[keyword]));
+  if (hasChildren) return;
+  const name = String(segments.at(-1)).toLowerCase();
+  const hasExample = Object.hasOwn(schema, "example") ||
+    (Array.isArray(schema.examples) && schema.examples.length > 0);
+  if (schema.format === "binary") {
+    omittedBinary += Number(!hasExample);
+    assert(!hasExample, `${pointer}: binary payload must not receive a fabricated scalar example`);
+    return;
+  }
+  if (sensitiveLeafNames.has(name)) {
+    omittedSensitive += Number(!hasExample);
+    assert(!hasExample, `${pointer}: credential or secret must not receive a fabricated example`);
+    return;
+  }
+  const inferable = ["string", "boolean", "integer", "number"].includes(schema.type) ||
+    Object.hasOwn(schema, "default") || Object.hasOwn(schema, "const") ||
+    (Array.isArray(schema.enum) && schema.enum.length > 0);
+  if (!inferable) {
+    omittedUnsupported += Number(!hasExample);
+    return;
+  }
+  assert(hasExample, `${pointer}: safe scalar leaf example is missing`);
+  const examples = Object.hasOwn(schema, "example") ? [schema.example] : schema.examples;
+  assert(examples.every((example) => isConstraintValidExample(schema, example)),
+    `${pointer}: leaf example violates a declared type or constraint`);
+  safeLeafExamples += examples.length;
+});
+assert(schemaNodes > 1200 && enumSchemas >= 60 && enumValues >= 385 && safeLeafExamples > 780,
+  "schema enrichment coverage unexpectedly shrank");
+assert(omittedBinary === 24 && omittedSensitive === 12 && omittedUnsupported === 20,
+  `safe omission inventory drifted: ${JSON.stringify({ omittedBinary, omittedSensitive, omittedUnsupported })}`);
 
 assert(JSON.stringify(mediaCounts(en)) === JSON.stringify(provenance.mediaCoverage),
   `media coverage drifted: ${JSON.stringify(mediaCounts(en))}`);
@@ -303,5 +438,6 @@ assert(JSON.stringify(sensitiveDownloadGets.sort()) ===
 console.log(
   "Verified Dropbox Sign candidate pre-admission: " +
   "67 paths, 73 operations, 217 schemas, 27 EventCallback schemas, " +
-  "1,738 bilingual prose nodes, 73 proxy-disabled request examples, and 0 external refs."
+  "2,626 bilingual prose nodes, 780 derived safe leaf examples, " +
+  "73 proxy-disabled request examples, and 0 external refs."
 );

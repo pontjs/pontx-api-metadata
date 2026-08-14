@@ -3,14 +3,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { enrichDropboxSignDocument } from "./lib/dropbox-sign-enrichment.mjs";
+import { isTranslatableText } from "./lib/localization.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = path.join(root, "specs/dropbox-sign/locales/en-US/openapi.json");
+const zhOutputPath = path.join(root, "specs/dropbox-sign/openapi.json");
 const revision = "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf";
 const pinnedUrl =
-  `https://raw.githubusercontent.com/hellosign/hellosign-openapi/${revision}/openapi.yaml`;
+  `https://raw.githubusercontent.com/hellosign/hellosign-openapi/${revision}/openapi-fern.yaml`;
 const expectedHashes = {
   "openapi.yaml": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+  "openapi-fern.yaml": "39dfd012ff95f198b56e953d647daeeba030c0ecc188e9afbd5d3f6417518312",
   LICENSE: "9a2384fe250ebd5ca3854b11fa2d0c2855e95284f6326851ebe6e29cfa5e424a",
   "README.md": "bc3a09ef9d7a66e1ef11320ef02e83a2406ffceeff5617f69d05e12430e7b3bd"
 };
@@ -57,7 +61,7 @@ const ruby = spawnSync(
     "-rjson",
     "-e",
     "print JSON.generate(YAML.load(File.read(ARGV.fetch(0))))",
-    path.resolve(upstreamRoot, "openapi.yaml")
+    path.resolve(upstreamRoot, "openapi-fern.yaml")
   ],
   { encoding: "utf8", maxBuffer: 4 * 1024 * 1024 }
 );
@@ -83,14 +87,14 @@ function countExternalReferences(value) {
     countExternalReferences(item), 0);
 }
 
-function parseExternalJson(file) {
+function parseExternalJson(file, recordRepair = true) {
   const source = fs.readFileSync(file, "utf8");
   try {
     return JSON.parse(source);
   } catch {
     const repaired = source.replace(/,\s*([}\]])/g, "$1");
     const value = JSON.parse(repaired);
-    counts.repairedJsonExamples += 1;
+    if (recordRepair) counts.repairedJsonExamples += 1;
     return value;
   }
 }
@@ -131,6 +135,68 @@ function normalizeExternalContent(value, segments = []) {
 }
 
 document = normalizeExternalContent(document);
+
+function parseYaml(file) {
+  const result = spawnSync(
+    "ruby",
+    ["-ryaml", "-rjson", "-e", "print JSON.generate(YAML.load(File.read(ARGV.fetch(0))))", file],
+    { encoding: "utf8", maxBuffer: 4 * 1024 * 1024 }
+  );
+  if (result.status !== 0) fail(`cannot parse pinned YAML with Ruby Psych: ${result.stderr}`);
+  return JSON.parse(result.stdout);
+}
+
+function inlineLegacyExternalContent(value) {
+  if (Array.isArray(value)) return value.map(inlineLegacyExternalContent);
+  if (!value || typeof value !== "object") return value;
+  if (Object.keys(value).length === 1 &&
+    typeof value.$ref === "string" && !value.$ref.startsWith("#/")) {
+    const relative = value.$ref.replace(/^\.\//, "");
+    const file = path.resolve(upstreamRoot, relative);
+    if (!file.startsWith(`${path.resolve(upstreamRoot)}${path.sep}`)) {
+      fail(`unsafe legacy external reference ${value.$ref}`);
+    }
+    if (relative.endsWith(".md")) return fs.readFileSync(file, "utf8").trim();
+    if (relative.endsWith(".json")) return parseExternalJson(file, false);
+    fail(`unexpected legacy external reference ${value.$ref}`);
+  }
+  return Object.fromEntries(Object.entries(value)
+    .filter(([key]) => key !== "x-codeSamples")
+    .map(([key, item]) => [key, inlineLegacyExternalContent(item)]));
+}
+
+const displayKeys = new Set([
+  "description", "summary", "title", "x-meta", "x-fern-audiences", "externalDocs"
+]);
+function contractProjection(value) {
+  if (Array.isArray(value)) return value.map(contractProjection);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value)
+    .filter(([key]) => !displayKeys.has(key) && key !== "x-codeSamples")
+    .map(([key, item]) => [key, contractProjection(item)]));
+}
+
+function webhookProjection(value) {
+  return Object.values(value ?? {})
+    .map((item) => item.post)
+    .sort((left, right) => left.operationId.localeCompare(right.operationId));
+}
+
+const legacy = inlineLegacyExternalContent(parseYaml(path.resolve(upstreamRoot, "openapi.yaml")));
+const contractPairs = [
+  [legacy.paths, document.paths, "paths"],
+  [legacy.components, document.components, "components"],
+  [legacy.security, document.security, "root security"],
+  [legacy.servers, document.servers, "servers"],
+  [legacy.tags.map((tag) => tag.name), document.tags.map((tag) => tag.name), "tag identifiers"],
+  [webhookProjection(legacy["x-webhooks"]), webhookProjection(document.webhooks), "webhooks"]
+];
+for (const [legacyValue, fernValue, label] of contractPairs) {
+  if (JSON.stringify(contractProjection(legacyValue)) !==
+    JSON.stringify(contractProjection(fernValue))) {
+    fail(`openapi-fern.yaml is not contract-equivalent to openapi.yaml for ${label}`);
+  }
+}
 
 function resolveLocal(ref) {
   if (!ref?.startsWith("#/")) fail(`expected local reference, got ${ref}`);
@@ -226,13 +292,15 @@ for (const [schema, operationId] of Object.entries(descriptions)) {
   document.components.schemas[schema].description = findOperation(operationId).description;
 }
 
+const enrichment = enrichDropboxSignDocument(document, "en-US");
+
 const expectedCounts = {
   removedCodeSampleGroups: 73,
-  removedCodeSampleReferences: 511,
-  inlinedJsonExamples: 152,
-  repairedJsonExamples: 4,
-  inlinedTagMarkdown: 12,
-  inlinedWebhookMarkdown: 2
+  removedCodeSampleReferences: 0,
+  inlinedJsonExamples: 0,
+  repairedJsonExamples: 0,
+  inlinedTagMarkdown: 0,
+  inlinedWebhookMarkdown: 0
 };
 if (JSON.stringify(counts) !== JSON.stringify(expectedCounts)) {
   fail(`normalization counts drifted: ${JSON.stringify(counts)}`);
@@ -244,14 +312,77 @@ if (operations !== 73 || Object.keys(document.paths).length !== 67 ||
 }
 
 const normalized = `${JSON.stringify(document, null, 2)}\n`;
+
+function at(value, segments) {
+  return segments.reduce((current, segment) => current?.[segment], value);
+}
+
+const legacyWebhookKeys = {
+  accountUpdateEventCallback: "accountCallback",
+  apiAppCreateEventCallback: "appCallback"
+};
+function legacyLocaleSegments(segments) {
+  if (segments[0] !== "webhooks") return segments;
+  return ["x-webhooks", legacyWebhookKeys[segments[1]], ...segments.slice(2)];
+}
+
+function localizedClone(enValue, oldEn, oldZh, segments = []) {
+  if (isTranslatableText(segments, enValue)) {
+    const oldSegments = typeof at(oldEn, segments) === "string"
+      ? segments
+      : legacyLocaleSegments(segments);
+    const previousEnglish = at(oldEn, oldSegments);
+    let previousChinese = at(oldZh, oldSegments);
+    if (previousEnglish === enValue && typeof previousChinese === "string") return previousChinese;
+    const oldHost = "https://www.hellosign.com";
+    const newHost = "https://sign.dropbox.com";
+    if (typeof previousEnglish === "string" && typeof previousChinese === "string" &&
+      previousEnglish.replaceAll(oldHost, newHost) === enValue) {
+      return previousChinese.replaceAll(oldHost, newHost);
+    }
+    const deliveryFormatEnglish =
+      "\n\n> **Delivery format:** This payload is delivered to your callback URL as an HTTP `POST` " +
+      "with `Content-Type: multipart/form-data`. The JSON structure documented below is sent as " +
+      "the value of a single form field named `json`. The schema below describes that JSON value.";
+    const deliveryFormatChinese =
+      "\n\n> **传输格式：** 此载荷通过 HTTP `POST` 发送到回调 URL，" +
+      "`Content-Type: multipart/form-data`。下方记录的 JSON 结构作为名为 `json` 的单个表单字段值发送；" +
+      "下方 Schema 描述的正是该 JSON 值。";
+    if (typeof previousEnglish === "string" && typeof previousChinese === "string" &&
+      enValue === `${previousEnglish}${deliveryFormatEnglish}`) {
+      return `${previousChinese}${deliveryFormatChinese}`;
+    }
+    fail(`cannot deterministically migrate zh-CN prose at /${segments.join("/")}`);
+  }
+  if (Array.isArray(enValue)) {
+    return enValue.map((item, index) => localizedClone(item, oldEn, oldZh, [...segments, index]));
+  }
+  if (enValue && typeof enValue === "object") {
+    return Object.fromEntries(Object.entries(enValue).map(([key, item]) => [
+      key,
+      localizedClone(item, oldEn, oldZh, [...segments, key])
+    ]));
+  }
+  return enValue;
+}
+
 if (write) {
+  const previousEnglish = JSON.parse(fs.readFileSync(outputPath, "utf8"));
+  const previousChinese = JSON.parse(fs.readFileSync(zhOutputPath, "utf8"));
+  const zhDocument = localizedClone(document, previousEnglish, previousChinese);
   fs.writeFileSync(outputPath, normalized);
-  console.log(`Wrote ${path.relative(root, outputPath)} from pinned upstream checkout.`);
+  fs.writeFileSync(zhOutputPath, `${JSON.stringify(zhDocument, null, 2)}\n`);
+  console.log(
+    `Wrote ${path.relative(root, outputPath)} and applied deterministic bilingual enrichment ` +
+    `to ${path.relative(root, zhOutputPath)} from the pinned upstream checkout.`
+  );
 } else {
   const committed = fs.readFileSync(outputPath, "utf8");
   if (committed !== normalized) fail("committed en-US candidate spec differs from deterministic import");
   console.log(
     "Verified deterministic Dropbox Sign import: 67 paths, 73 operations, 217 schemas, " +
-    "152 inlined JSON examples, 14 inlined Markdown files, and 0 external refs."
+    "152 upstream component examples, 12 tag descriptions, 2 webhooks, 0 external refs, " +
+    "contract equivalence to openapi.yaml, and enrichment " +
+    `${JSON.stringify(enrichment)}.`
   );
 }

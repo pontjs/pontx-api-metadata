@@ -288,11 +288,11 @@
       },
       "contractSource": {
         "kind": "openapi",
-        "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml",
+        "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml",
         "revision": "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
         "observedAt": "2026-08-14",
         "license": "Apache-2.0",
-        "sourceSha256": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+        "sourceSha256": "39dfd012ff95f198b56e953d647daeeba030c0ecc188e9afbd5d3f6417518312",
         "repositoryLicense": "Apache-2.0",
         "repositoryLicenseSha256": "9a2384fe250ebd5ca3854b11fa2d0c2855e95284f6326851ebe6e29cfa5e424a",
         "repositoryReadmeSha256": "bc3a09ef9d7a66e1ef11320ef02e83a2406ffceeff5617f69d05e12430e7b3bd",
@@ -307,7 +307,7 @@
       "evidence": [
         { "kind": "docs", "url": "https://developers.hellosign.com/api/api-quickstart" },
         { "kind": "docs", "url": "https://developers.hellosign.com/docs/sdks/overview/" },
-        { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml" },
         { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi#license" },
         { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE" }
       ],
@@ -329,8 +329,8 @@
         }
       ],
       "nextAction": {
-        "zh": "审阅 provenance 中的确定性归一化和全部双语 prose，按 Apache-2.0 保留 LICENSE 与归因，验证 JSON、multipart、PDF/ZIP 与 callback 生成路径，再制定逐 Endpoint 风险策略并发布受保护的 SDK/CLI。",
-        "en": "Review the deterministic normalization and all bilingual prose recorded in provenance, retain LICENSE and attribution under Apache-2.0, validate JSON, multipart, PDF/ZIP, and callback generation paths, then define endpoint-level risk policy and publish the protected SDK/CLI."
+        "zh": "审阅 provenance 中基于自包含 Fern 规范的确定性归一化、合同等价校验、派生补全和全部双语 prose，按 Apache-2.0 保留 LICENSE 与归因，验证 JSON、multipart、PDF/ZIP 与 callback 生成路径，再制定逐 Endpoint 风险策略并发布受保护的 SDK/CLI。",
+        "en": "Review the self-contained Fern normalization, contract-equivalence check, derived enrichment, and all bilingual prose recorded in provenance; retain LICENSE and attribution under Apache-2.0; validate JSON, multipart, PDF/ZIP, and callback generation paths; then define endpoint-level risk policy and publish the protected SDK/CLI."
       },
       "verifiedAt": "2026-08-14"
     },

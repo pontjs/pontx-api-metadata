@@ -6,9 +6,9 @@
   "source": {
     "repository": "https://github.com/hellosign/hellosign-openapi",
     "revision": "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
-    "file": "openapi.yaml",
-    "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml",
-    "sha256": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+    "file": "openapi-fern.yaml",
+    "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml",
+    "sha256": "39dfd012ff95f198b56e953d647daeeba030c0ecc188e9afbd5d3f6417518312",
     "openapiVersion": "3.0.3",
     "declaredLicense": "MIT"
   },
@@ -51,7 +51,9 @@
     "schemas": 217,
     "eventCallbackSchemas": 27,
     "tags": 12,
-    "externalReferences": 677
+    "externalReferences": 0,
+    "componentExamples": 152,
+    "webhooks": 2
   },
   "excludedVariant": {
     "file": "openapi-sdk.yaml",
@@ -65,24 +67,22 @@
       {
         "field": "x-codeSamples",
         "occurrences": 73,
-        "externalReferences": 511,
-        "reason": "Language-specific SDK snippets are documentation-generator inputs and are not part of the HTTP contract."
+        "externalReferences": 0,
+        "reason": "The self-contained Fern source embeds language-specific SDK snippets containing authentication placeholders; they are documentation-generator display inputs, not part of the HTTP contract."
       }
     ],
-    "inlined": {
-      "tagMarkdown": 12,
-      "webhookDescriptionMarkdown": 2,
-      "jsonExamples": 152,
-      "remainingExternalReferences": 0
+    "selfContainedUpstreamContent": {
+      "tagDescriptions": 12,
+      "webhooks": 2,
+      "componentExamples": 152,
+      "externalReferences": 0
     },
-    "repairs": {
-      "kind": "remove-trailing-comma-from-external-json-example",
-      "files": [
-        "examples/json/Error400Response.json",
-        "examples/json/Error4XXResponse.json",
-        "examples/json/FaxGetResponse.json",
-        "examples/json/FaxListResponse.json"
-      ]
+    "contractEquivalence": {
+      "comparedSource": "openapi.yaml",
+      "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml",
+      "sha256": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+      "method": "The importer resolves the legacy source's external Markdown and JSON references, removes x-codeSamples and display-only prose metadata from both sources, canonicalizes legacy x-webhooks and Fern webhooks by operationId, then requires exact equality for paths, components, security, servers, tag identifiers, and webhook contracts.",
+      "result": "equivalent"
     },
     "filledEmptySchemaDescriptions": {
       "count": 4,
@@ -94,6 +94,41 @@
         "UnclaimedDraftCreateEmbeddedRequest"
       ]
     },
+    "derivedEnrichment": {
+      "scope": "Pontx-owned display labels, enum literal labels, safe examples, and unambiguous schema corrections; none of these additions are represented as upstream prose or provider-authored examples.",
+      "componentTitles": 191,
+      "nestedAndInlineSchemaTitles": 311,
+      "enumDescriptions": {
+        "schemas": 60,
+        "values": 385,
+        "method": "Literal-preserving labels only; no provider semantics are inferred."
+      },
+      "leafExamples": {
+        "added": 780,
+        "fromConst": 0,
+        "fromDefault": 191,
+        "fromEnum": 56,
+        "constraintValidPlaceholders": 533,
+        "method": "Prefer declared const/default/enum evidence, otherwise generate deterministic type- and constraint-valid values using reserved example.com resources and fixed non-personal values.",
+        "omitted": {
+          "binary": 24,
+          "credentialOrSecret": 12,
+          "unsupportedSchema": 20
+        },
+        "omissionReason": "Binary bodies, credentials, secrets, and schemas without a safely inferable scalar type do not receive fabricated examples."
+      },
+      "typeCorrections": [
+        "components.schemas.BulkSendJobGetResponseSignatureRequests.allOf[1] -> object (properties are declared)",
+        "components.schemas.ReportResponse.properties.report_type.items -> string (all enum members are strings)"
+      ],
+      "constraintCorrections": [
+        "Removed stale required member options from components.schemas.SubFormFieldsPerDocumentText.allOf[1] because neither the variant nor its base declares an options property."
+      ],
+      "directoryRegistration": {
+        "tag": "Fax",
+        "reason": "The pinned source has 12 declared top-level tags but five operations use the otherwise undeclared Fax tag; the derived registration makes that upstream grouping discoverable without changing any operation tag."
+      }
+    },
     "pontxExtensions": {
       "operations": 73,
       "requestExamples": "Derived only from declared parameter examples/defaults; required provider state, sensitive values, and request bodies remain unresolved.",
@@ -103,9 +138,9 @@
     "localization": {
       "structuralSource": "zh-CN",
       "officialProseLocale": "en-US",
-      "translatedNodes": 1738,
-      "uniqueSourceStrings": 1013,
-      "method": "Machine-assisted translation with protected code spans, link targets, URLs, and provider names, followed by deterministic terminology normalization.",
+      "translatedNodes": 2626,
+      "uniqueSourceStrings": 1480,
+      "method": "Official prose uses the existing machine-assisted translation with protected code spans, link targets, URLs, and provider names; Pontx-derived titles and literal enum labels use the deterministic bilingual rules in the importer.",
       "reviewStatus": "candidate-pre-admission"
     }
   },
@@ -123,11 +158,11 @@
   "outputs": {
     "zh-CN": {
       "file": "specs/dropbox-sign/openapi.json",
-      "sha256": "b447d298774280fa346d007d165454aeb8cdba2b4558d3aba26d7d57dfc8d1c3"
+      "sha256": "e56efa9fc09612e9969b253cf856e7b4496a8b500ad5f18255132cbf5eedf22d"
     },
     "en-US": {
       "file": "specs/dropbox-sign/locales/en-US/openapi.json",
-      "sha256": "2d8dc3fe64a7536e201eff723a67aa5b5145384c335ee16eda1b1512d398e93e"
+      "sha256": "7ecd68d2d9a76835d7afab4c3be6dc4d30e0af1c7d50f3672b5512fa4957bfe6"
     }
   }
 }
