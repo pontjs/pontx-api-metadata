@@ -148,7 +148,7 @@ function visitDocumentSchemas(document, visit) {
   discover(document.paths, ["paths"]);
 }
 
-assert(provenance.status === "candidate-pre-admission", "provenance must remain pre-admission");
+assert(provenance.status === "approved", "provenance must record formal approval");
 assert(provenance.source.revision === pinnedRevision, "provenance revision drifted");
 assert(provenance.source.url === pinnedSourceUrl, "provenance source URL must pin the revision");
 assert(
@@ -192,11 +192,12 @@ assert(sha256(enPath) === provenance.outputs["en-US"].sha256, "en-US output hash
 
 const candidate = candidates.products.find((product) => product.slug === "dropbox-sign");
 assert(candidate, "Dropbox Sign candidate record is missing");
-assert(candidate.admissionDecision === "not-approved", "candidate must not claim admission");
+assert(candidate.admissionDecision === "approved", "Dropbox Sign must record formal admission");
+assert(candidate.stage === "admitted", "Dropbox Sign must use the admitted stage");
 assert(candidate.gateStatus.redistribution === "passed", "reviewed redistribution gate must remain passed");
 assert(candidate.gateStatus.contract === "passed", "the pinned complete contract should remain passed");
-assert(candidate.gateStatus.risk === "pending", "risk review must remain pending");
-assert(candidate.gateStatus.sdkCli === "pending", "SDK/CLI publication must remain pending");
+assert(candidate.gateStatus.risk === "passed", "risk review must remain passed");
+assert(candidate.gateStatus.sdkCli === "passed", "SDK/CLI publication must remain passed");
 assert(candidate.contractSource.url === pinnedSourceUrl, "candidate source URL drifted");
 assert(candidate.contractSource.sourceSha256 === provenance.source.sha256, "candidate source hash drifted");
 assert(candidate.contractSource.license === "Apache-2.0", "candidate OAS content license drifted");
@@ -205,12 +206,26 @@ assert(candidate.contractSource.oasDeclaredLicense === "MIT", "candidate OAS lic
 assert(candidate.contractSource.officialGeneratedSdkLicense === "MIT", "candidate SDK license record drifted");
 assert(candidate.contractSource.normalizationManifest === "specs/dropbox-sign/provenance.json",
   "candidate must point to the normalization manifest");
-assert(!candidate.blockers.some((blocker) => blocker.gate === "redistribution"),
-  "reviewed repository redistribution must not retain a conflict blocker");
-assert(candidate.blockers.filter((blocker) => blocker.gate === "risk").length >= 2,
-  "candidate needs protocol/media and mutation risk blockers");
-assert(!catalogSource.apis.some((api) => api.slug === "dropbox-sign"),
-  "pre-admission Dropbox Sign must not enter catalog/source.json");
+assert(candidate.blockers.length === 0, "admitted Dropbox Sign must not retain blockers");
+const catalogEntry = catalogSource.apis.find((api) => api.slug === "dropbox-sign");
+assert(catalogEntry, "admitted Dropbox Sign must enter catalog/source.json");
+assert(catalogEntry.approvedSha256 === provenance.outputs["zh-CN"].sha256,
+  "catalog zh-CN approval hash drifted");
+assert(catalogEntry.approvedLocaleSha256?.["en-US"] === provenance.outputs["en-US"].sha256,
+  "catalog en-US approval hash drifted");
+assert(catalogEntry.packageName === "@pontx/dropbox-sign" && catalogEntry.sdkVersion === "0.1.0" &&
+  catalogEntry.sdkStatus === "published", "published SDK catalog evidence drifted");
+assert(catalogEntry.sdkQuality?.sourceCommit === "343d58e277d24337b39290b9c14282579b1adeb7" &&
+  catalogEntry.sdkQuality?.workflowRunUrl ===
+    "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061",
+"SDK source/CI evidence drifted");
+assert(catalogEntry.sdkQuality?.unitTests?.passed === 5 &&
+  catalogEntry.sdkQuality?.unitTests?.total === 5 &&
+  JSON.stringify(catalogEntry.sdkQuality?.nodeVersions) === JSON.stringify(["18", "20", "22"]),
+"SDK test matrix evidence drifted");
+assert(catalogEntry.proxyEnabled === false, "Hub proxy must remain disabled");
+assert(catalogEntry.sdkContract?.operations?.length === 73,
+  "published SDK contract must cover all 73 operations");
 
 const localeErrors = compareLocalizedDocuments(zh, en);
 if (localeErrors.length) {
@@ -446,7 +461,7 @@ assert(JSON.stringify(sensitiveDownloadGets.sort()) ===
 "sensitive download GET set drifted");
 
 console.log(
-  "Verified Dropbox Sign candidate pre-admission: " +
+  "Verified Dropbox Sign formal admission: " +
   "67 paths, 73 operations, 217 schemas, 27 EventCallback schemas, " +
   "2,626 bilingual prose nodes, 675 derived safe leaf examples, " +
   "73 proxy-disabled request examples, and 0 external refs."

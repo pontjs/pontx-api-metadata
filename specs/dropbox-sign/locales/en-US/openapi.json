@@ -202,10 +202,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -339,10 +339,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -457,10 +457,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -587,10 +587,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -722,10 +722,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -851,10 +851,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -998,10 +998,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -1121,10 +1121,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -1257,10 +1257,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -1399,10 +1399,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -1539,10 +1539,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -1676,10 +1676,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -1816,10 +1816,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -1940,10 +1940,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -2050,10 +2050,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -2174,10 +2174,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -2299,10 +2299,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -2594,10 +2594,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -2711,10 +2711,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -2834,10 +2834,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -2940,10 +2940,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3091,10 +3091,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -3209,10 +3209,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3345,10 +3345,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -3468,10 +3468,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3592,10 +3592,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3716,10 +3716,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3838,10 +3838,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -3971,10 +3971,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4107,10 +4107,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4234,10 +4234,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4372,10 +4372,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4507,10 +4507,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4663,10 +4663,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4826,10 +4826,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -4986,10 +4986,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -5147,10 +5147,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -5314,10 +5314,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -5450,10 +5450,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -5597,10 +5597,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -5732,10 +5732,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -5891,10 +5891,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -6013,10 +6013,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6164,10 +6164,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6293,10 +6293,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6432,10 +6432,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6565,10 +6565,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6712,10 +6712,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6867,10 +6867,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -6994,10 +6994,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7094,10 +7094,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7199,10 +7199,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7314,10 +7314,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7443,10 +7443,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7559,10 +7559,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7702,10 +7702,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -7838,10 +7838,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -7991,10 +7991,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -8138,10 +8138,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -8293,10 +8293,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -8440,10 +8440,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -8563,10 +8563,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -8720,10 +8720,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -8855,10 +8855,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -9001,10 +9001,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -9132,10 +9132,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -9292,10 +9292,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {
@@ -9429,10 +9429,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -9589,10 +9589,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -9738,10 +9738,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -9886,10 +9886,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -10024,10 +10024,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},
@@ -10175,10 +10175,10 @@
         ],
         "x-pontx-verified-at": "2026-08-14",
         "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.",
+        "x-pontx-proxy-disabled-reason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
         "x-pontx-request-examples": {
           "default": {
-            "summary": "Official OAS-backed pre-admission request",
+            "summary": "Reviewed local SDK/CLI request",
             "request": {
               "path": {},
               "query": {},

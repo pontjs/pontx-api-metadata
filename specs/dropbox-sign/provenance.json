@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "candidate-pre-admission",
+  "status": "approved",
   "slug": "dropbox-sign",
   "verifiedAt": "2026-08-14",
   "source": {
@@ -134,7 +134,7 @@
       "operations": 73,
       "requestExamples": "Derived only from declared parameter examples/defaults; required provider state, sensitive values, and request bodies remain unresolved.",
       "proxyEnabled": false,
-      "proxyPolicy": "All endpoints remain disabled during pre-admission review."
+      "proxyPolicy": "All endpoints are permanently disabled in the Hub proxy. Direct SDK/CLI calls use caller-owned credentials; the CLI requires a request-bound, five-minute confirmation token for all mutations."
     },
     "localization": {
       "structuralSource": "zh-CN",
@@ -142,7 +142,7 @@
       "translatedNodes": 2626,
       "uniqueSourceStrings": 1480,
       "method": "Official prose uses the existing machine-assisted translation with protected code spans, link targets, URLs, and provider names; Pontx-derived titles and literal enum labels use the deterministic bilingual rules in the importer.",
-      "reviewStatus": "candidate-pre-admission"
+      "reviewStatus": "approved"
     }
   },
   "mediaCoverage": {
@@ -159,11 +159,11 @@
   "outputs": {
     "zh-CN": {
       "file": "specs/dropbox-sign/openapi.json",
-      "sha256": "52527c3fa9e70593aa3a0c0c6e93e79ae172639d4b42405d841e61acefbeebbf"
+      "sha256": "0f5c78da0e785eb2ae5f5348ab3c6b0fec8007cb44e737a6c50cd28bc2321699"
     },
     "en-US": {
       "file": "specs/dropbox-sign/locales/en-US/openapi.json",
-      "sha256": "95a0f2de3ba688ae252e4c53226c6dc78fd873fab40c0d4c7a76b05247ea5b80"
+      "sha256": "e8b22fdc515bd1f103df13fb47c5adcf73ebc254688a1524cdc8c1dbb5a34c7d"
     }
   }
 }
