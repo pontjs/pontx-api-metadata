@@ -42,70 +42,14 @@
     "massive": {
       "title": "Massive stock market data API",
       "summary": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan.",
-      "stabilityNote": "Officially documented; availability depends on the account plan and market-data entitlements.",
+      "stabilityNote": "Officially documented. Callers must use their own Massive account, API key, and market-data entitlements. Hub does not proxy, cache, or redistribute responses.",
       "server": {
         "description": "Official Massive REST API endpoint"
       },
       "auth": {
-        "ApiKey": {
-          "description": "Massive API key, supplied only in the caller session."
+        "BearerAuth": {
+          "description": "Massive API key supplied through a Bearer header and retained only in the caller session."
         }
-      }
-    },
-    "yahoo-finance": {
-      "title": "Yahoo Finance web market data API",
-      "summary": "Observed, unsupported Yahoo Finance web endpoints for quotes, charts, symbols, and fundamentals; some routes require a browser crumb and all are preview-only.",
-      "stabilityNote": "Observed in Yahoo Finance web traffic; not a supported developer API and may change without notice.",
-      "server": {
-        "description": "Yahoo Finance web-data endpoint"
-      }
-    },
-    "stooq": {
-      "title": "Stooq public quote downloads",
-      "summary": "Documents Stooq's legacy public CSV downloads and their current 404/browser-verification behavior; available for discovery and preview only.",
-      "stabilityNote": "Not a versioned developer API. The latest-quote route currently returns 404 and the historical route returns a JavaScript browser-verification page, so neither is currently automatable.",
-      "server": {
-        "description": "Stooq public website"
-      }
-    },
-    "sina-finance": {
-      "title": "Sina Finance web quote API",
-      "summary": "Observed Sina Finance web endpoints for GB18030 JavaScript quote snapshots and 1–240 minute K-lines; positional fields may drift.",
-      "stabilityNote": "Internal text/JSONP endpoints used by public pages; fields and encoding may change.",
-      "server": {
-        "description": "Sina quote text endpoint"
-      }
-    },
-    "tencent-finance": {
-      "title": "Tencent Finance web quote API",
-      "summary": "Observed Tencent Finance web endpoints for mainland, Hong Kong, and U.S. quote snapshots plus adjusted or unadjusted day/week/month K-lines.",
-      "stabilityNote": "Internal text/JSON endpoints used by public pages without a version guarantee.",
-      "server": {
-        "description": "Tencent HTTPS quote endpoint"
-      }
-    },
-    "eastmoney-funds": {
-      "title": "Eastmoney fund web data API",
-      "summary": "Observed Tiantian Fund web endpoints: historical NAV and charts remain queryable, while the estimate route now returns a missing page and the related-index route is unstable.",
-      "stabilityNote": "JSON/JSONP endpoints used by Tiantian Fund pages; field identifiers are internal.",
-      "server": {
-        "description": "Eastmoney fund-data endpoint"
-      }
-    },
-    "cnbc-market-data": {
-      "title": "CNBC web quote API",
-      "summary": "Observed CNBC quote-page REST and persisted GraphQL endpoints; batch quotes are callable read-only, while chart retrieval remains experimental.",
-      "stabilityNote": "REST and persisted GraphQL requests used by CNBC quote pages; hashes and shapes may change.",
-      "server": {
-        "description": "CNBC quote REST endpoint"
-      }
-    },
-    "i3investor-sgx": {
-      "title": "i3Investor SGX public market pages",
-      "summary": "Reads i3Investor SGX HTML pages for quote, bid/ask, and range semantics; invalid symbols also return HTTP 200 fallback pages.",
-      "stabilityNote": "This is an HTML page-reading collection, not a JSON API; markup may change.",
-      "server": {
-        "description": "i3Investor Singapore site"
       }
     }
   }
