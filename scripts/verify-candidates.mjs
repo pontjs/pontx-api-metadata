@@ -43,7 +43,7 @@ const gateNames = [
   "sdkCli"
 ];
 const gateStatuses = new Set(["passed", "pending", "blocked"]);
-const stages = new Set(["audit-required", "protocol-blocked", "compliance-blocked"]);
+const stages = new Set(["audit-required", "protocol-blocked", "compliance-blocked", "admitted"]);
 const evidenceKinds = new Set(["docs", "spec", "source", "license", "protocol", "terms"]);
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -87,10 +87,11 @@ for (const product of candidates.products) {
     fail(`${location}.slug must be a stable kebab-case identifier`);
   }
   if (seenSlugs.has(product.slug)) fail(`${location}.slug is duplicated`);
-  if (approvedSlugs.has(product.slug)) {
-    fail(`${location} duplicates an admitted catalog collection`);
-  }
   seenSlugs.add(product.slug);
+  const admitted = product.admissionDecision === "approved";
+  if (admitted !== approvedSlugs.has(product.slug)) {
+    fail(`${location} admissionDecision must match catalog/source.json`);
+  }
 
   requireLocalized(product.name, `${location}.name`);
   requireLocalized(product.boundary, `${location}.boundary`);
@@ -117,8 +118,8 @@ for (const product of candidates.products) {
   }
 
   if (!stages.has(product.stage)) fail(`${location}.stage is not recognized`);
-  if (product.admissionDecision !== "not-approved") {
-    fail(`${location} is a candidate and cannot claim catalog approval`);
+  if (!["not-approved", "approved"].includes(product.admissionDecision)) {
+    fail(`${location}.admissionDecision is not recognized`);
   }
   const actualGateNames = Object.keys(product.gateStatus ?? {}).sort();
   if (actualGateNames.join("\n") !== [...gateNames].sort().join("\n")) {
@@ -132,23 +133,35 @@ for (const product of candidates.products) {
   if (product.gateStatus.authority !== "passed") {
     fail(`${location} requires at least one authoritative supplier source`);
   }
-  if (product.gateStatus.sdkCli === "passed") {
+  if (!admitted && product.gateStatus.sdkCli === "passed") {
     fail(`${location} cannot pass SDK/CLI without immutable package evidence in catalog/source.json`);
   }
-  if (product.gateStatus.transport === "blocked" && product.stage !== "protocol-blocked") {
-    fail(`${location} must use protocol-blocked when transport is blocked`);
-  }
-  if (product.gateStatus.risk === "blocked" && product.stage !== "compliance-blocked") {
-    fail(`${location} must use compliance-blocked when risk is blocked`);
-  }
-  if (!Object.values(product.gateStatus).includes("blocked") && product.stage !== "audit-required") {
-    fail(`${location} has no blocked gate and must remain audit-required`);
+  if (admitted) {
+    if (product.stage !== "admitted") fail(`${location} approved products must use admitted stage`);
+    if (!gateNames.every((gate) => product.gateStatus[gate] === "passed")) {
+      fail(`${location} approved products require every admission gate to pass`);
+    }
+    const sourceEntry = source.apis.find((api) => api.slug === product.slug);
+    if (sourceEntry?.sdkStatus !== "published" || !sourceEntry.sdkQuality) {
+      fail(`${location} approved product requires immutable published SDK evidence`);
+    }
+  } else {
+    if (product.gateStatus.transport === "blocked" && product.stage !== "protocol-blocked") {
+      fail(`${location} must use protocol-blocked when transport is blocked`);
+    }
+    if (product.gateStatus.risk === "blocked" && product.stage !== "compliance-blocked") {
+      fail(`${location} must use compliance-blocked when risk is blocked`);
+    }
+    if (!Object.values(product.gateStatus).includes("blocked") && product.stage !== "audit-required") {
+      fail(`${location} has no blocked gate and must remain audit-required`);
+    }
   }
 
   if (!Array.isArray(product.evidence) || product.evidence.length < 2) {
     fail(`${location}.evidence must contain at least two authoritative sources`);
   }
   const seenEvidence = new Set();
+  const seenEvidenceKinds = new Set();
   for (const [index, evidence] of product.evidence.entries()) {
     const evidenceLocation = `${location}.evidence.${index}`;
     if (!evidenceKinds.has(evidence.kind)) fail(`${evidenceLocation}.kind is invalid`);
@@ -160,6 +173,10 @@ for (const product of candidates.products) {
     }
     if (seenEvidence.has(evidence.url)) fail(`${evidenceLocation}.url is duplicated`);
     seenEvidence.add(evidence.url);
+    seenEvidenceKinds.add(evidence.kind);
+  }
+  if (seenEvidenceKinds.size < 2) {
+    fail(`${location}.evidence must contain at least two distinct evidence kinds`);
   }
   if (!product.evidence.some((item) => ["docs", "spec", "source"].includes(item.kind))) {
     fail(`${location} needs authoritative documentation, specification, or source evidence`);
@@ -172,8 +189,20 @@ for (const product of candidates.products) {
     !product.evidence.some((item) => item.kind === "license")) {
     fail(`${location} needs license evidence for a passed redistribution gate`);
   }
-  if (product.gateStatus.contract === "passed" && !product.contractSource) {
-    fail(`${location} needs contractSource for a passed contract gate`);
+  if (product.gateStatus.contract === "passed") {
+    if (!product.contractSource) {
+      fail(`${location} needs contractSource for a passed contract gate`);
+    }
+    if (product.contractSource.mutableSource === true) {
+      fail(`${location} cannot pass the contract gate with a mutable source`);
+    }
+    const revision = product.contractSource.revision ?? "";
+    const sourceUrl = typeof product.contractSource.url === "string"
+      ? product.contractSource.url
+      : "";
+    if (!/^[0-9a-f]{40}$/.test(revision) || !sourceUrl.includes(`/${revision}/`)) {
+      fail(`${location} must pin a passed contract source to a 40-character Git revision in its URL`);
+    }
   }
   if (product.contractSource) {
     if (typeof product.contractSource.url !== "string" ||
@@ -204,8 +233,11 @@ for (const product of candidates.products) {
     }
   }
 
-  if (!Array.isArray(product.blockers) || !product.blockers.length) {
+  if (!Array.isArray(product.blockers) || (!admitted && !product.blockers.length)) {
     fail(`${location}.blockers must explain why admission is not approved`);
+  }
+  if (admitted && product.blockers.length) {
+    fail(`${location}.blockers must be empty after admission`);
   }
   const blockedGates = gateNames.filter((gate) => product.gateStatus[gate] === "blocked");
   for (const gate of blockedGates) {

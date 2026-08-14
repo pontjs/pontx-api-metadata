@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "status": "approved",
+  "slug": "dropbox-sign",
+  "verifiedAt": "2026-08-14",
+  "source": {
+    "repository": "https://github.com/hellosign/hellosign-openapi",
+    "revision": "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
+    "file": "openapi-fern.yaml",
+    "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml",
+    "sha256": "39dfd012ff95f198b56e953d647daeeba030c0ecc188e9afbd5d3f6417518312",
+    "openapiVersion": "3.0.3",
+    "declaredLicense": "MIT"
+  },
+  "repositoryLicense": {
+    "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE",
+    "sha256": "9a2384fe250ebd5ca3854b11fa2d0c2855e95284f6326851ebe6e29cfa5e424a",
+    "spdx": "Apache-2.0",
+    "scopeStatus": "reviewed",
+    "appliesTo": "Repository-derived OpenAPI, Markdown prose, and examples retained by this candidate normalization.",
+    "requirements": [
+      "Retain the upstream LICENSE file.",
+      "Retain source attribution and modification provenance."
+    ],
+    "noticeFileAtPinnedRevision": "not-present"
+  },
+  "licenseEvidence": {
+    "readme": {
+      "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/README.md",
+      "sha256": "bc3a09ef9d7a66e1ef11320ef02e83a2406ffceeff5617f69d05e12430e7b3bd",
+      "line": 188,
+      "statement": "This repo is published under the Apache 2.0 license."
+    },
+    "oasInfoLicense": {
+      "name": "MIT",
+      "scope": "Preserved as the upstream OAS info.license declaration."
+    },
+    "officialGeneratedSdks": {
+      "url": "https://developers.hellosign.com/docs/sdks/overview/",
+      "license": "MIT",
+      "scope": "Official generated SDK distributions; recorded separately from repository-derived OAS content."
+    },
+    "retainedFiles": [
+      "specs/dropbox-sign/LICENSE",
+      "specs/dropbox-sign/ATTRIBUTION.md"
+    ]
+  },
+  "sourceCounts": {
+    "paths": 67,
+    "operations": 73,
+    "schemas": 217,
+    "eventCallbackSchemas": 27,
+    "tags": 12,
+    "externalReferences": 0,
+    "componentExamples": 152,
+    "webhooks": 2
+  },
+  "excludedVariant": {
+    "file": "openapi-sdk.yaml",
+    "sha256": "6f52f347befb7dc332dcd1ebb7c4c7ca7f30282f1128ad90d3f1f514ac5e8a4e",
+    "reason": "The SDK-oriented variant has 192 schemas rather than 217 and only 3 EventCallback-prefixed schemas rather than 27, so it is not the complete product contract."
+  },
+  "normalization": {
+    "networkRequiredAtBuildTime": false,
+    "importer": "scripts/import-dropbox-sign-candidate.mjs",
+    "removed": [
+      {
+        "field": "x-codeSamples",
+        "occurrences": 73,
+        "externalReferences": 0,
+        "reason": "The self-contained Fern source embeds language-specific SDK snippets containing authentication placeholders; they are documentation-generator display inputs, not part of the HTTP contract."
+      }
+    ],
+    "selfContainedUpstreamContent": {
+      "tagDescriptions": 12,
+      "webhooks": 2,
+      "componentExamples": 152,
+      "externalReferences": 0
+    },
+    "contractEquivalence": {
+      "comparedSource": "openapi.yaml",
+      "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml",
+      "sha256": "7535b8f1a18865de14f6e31e2e648fe31f6340d6ae120215425d6a6021ada25c",
+      "method": "The importer resolves the legacy source's external Markdown and JSON references, removes x-codeSamples and display-only prose metadata from both sources, canonicalizes legacy x-webhooks and Fern webhooks by operationId, then requires exact equality for paths, components, security, servers, tag identifiers, and webhook contracts.",
+      "result": "equivalent"
+    },
+    "filledEmptySchemaDescriptions": {
+      "count": 4,
+      "method": "Copy the exact official description from the sole operation that uses each request Schema.",
+      "schemas": [
+        "SignatureRequestEditWithTemplateRequest",
+        "SignatureRequestSendWithTemplateRequest",
+        "UnclaimedDraftCreateRequest",
+        "UnclaimedDraftCreateEmbeddedRequest"
+      ]
+    },
+    "derivedEnrichment": {
+      "scope": "Pontx-owned display labels, enum literal labels, safe examples, and unambiguous schema corrections; none of these additions are represented as upstream prose or provider-authored examples.",
+      "componentTitles": 191,
+      "nestedAndInlineSchemaTitles": 311,
+      "enumDescriptions": {
+        "schemas": 60,
+        "values": 385,
+        "method": "Literal-preserving labels only; no provider semantics are inferred."
+      },
+      "leafExamples": {
+        "added": 675,
+        "fromConst": 0,
+        "fromDefault": 191,
+        "fromEnum": 56,
+        "constraintValidPlaceholders": 428,
+        "method": "Prefer declared const/default/enum evidence, otherwise generate deterministic type- and constraint-valid values only when the field name or format provides a meaningful safe mapping; generic unconstrained strings are omitted rather than assigned a placeholder.",
+        "omitted": {
+          "binary": 24,
+          "credentialOrSecret": 12,
+          "unmappedGenericString": 105,
+          "unsupportedSchema": 20
+        },
+        "omissionReason": "Binary bodies, credentials, secrets, generic strings without a meaningful field/format mapping, and schemas without a safely inferable scalar type do not receive fabricated examples."
+      },
+      "typeCorrections": [
+        "components.schemas.BulkSendJobGetResponseSignatureRequests.allOf[1] -> object (properties are declared)",
+        "components.schemas.ReportResponse.properties.report_type.items -> string (all enum members are strings)"
+      ],
+      "constraintCorrections": [
+        "Removed stale required member options from components.schemas.SubFormFieldsPerDocumentText.allOf[1] because neither the variant nor its base declares an options property."
+      ],
+      "directoryRegistration": {
+        "tag": "Fax",
+        "reason": "The pinned source has 12 declared top-level tags but five operations use the otherwise undeclared Fax tag; the derived registration makes that upstream grouping discoverable without changing any operation tag."
+      }
+    },
+    "pontxExtensions": {
+      "operations": 73,
+      "requestExamples": "Derived only from declared parameter examples/defaults; required provider state, sensitive values, and request bodies remain unresolved.",
+      "proxyEnabled": false,
+      "proxyPolicy": "All endpoints are permanently disabled in the Hub proxy. Direct SDK/CLI calls use caller-owned credentials; the CLI requires a request-bound, five-minute confirmation token for all mutations."
+    },
+    "localization": {
+      "structuralSource": "zh-CN",
+      "officialProseLocale": "en-US",
+      "translatedNodes": 2626,
+      "uniqueSourceStrings": 1480,
+      "method": "Official prose uses the existing machine-assisted translation with protected code spans, link targets, URLs, and provider names; Pontx-derived titles and literal enum labels use the deterministic bilingual rules in the importer.",
+      "reviewStatus": "approved"
+    }
+  },
+  "mediaCoverage": {
+    "request": {
+      "application/json": 39,
+      "multipart/form-data": 19
+    },
+    "response": {
+      "application/json": 73,
+      "application/pdf": 3,
+      "application/zip": 2
+    }
+  },
+  "outputs": {
+    "zh-CN": {
+      "file": "specs/dropbox-sign/openapi.json",
+      "sha256": "0f5c78da0e785eb2ae5f5348ab3c6b0fec8007cb44e737a6c50cd28bc2321699"
+    },
+    "en-US": {
+      "file": "specs/dropbox-sign/locales/en-US/openapi.json",
+      "sha256": "e8b22fdc515bd1f103df13fb47c5adcf73ebc254688a1524cdc8c1dbb5a34c7d"
+    }
+  }
+}

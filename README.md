@@ -10,6 +10,7 @@ The source-of-truth catalog for [Pontx Hub](https://pontx.dev). It stores approv
 - Frankfurter API v2 — multi-provider exchange rates, currencies, and provider attribution
 - Dida365 Open API — task and project management
 - Massive Stock Market Data API — official stock trades, aggregates, snapshots, and reference data
+- Dropbox Sign v3 API — signatures, templates, teams, files, fax, and event callbacks
 
 Only collections that pass the SDK publication and redistribution gate remain
 in the catalog. See
@@ -34,6 +35,17 @@ Run the candidate gate whenever the roadmap or intake evidence changes:
 
 ```bash
 node scripts/verify-candidates.mjs
+node scripts/verify-dropbox-sign-candidate.mjs
+```
+
+The admitted Dropbox Sign contract is normalized without network access from
+an already-pinned upstream checkout. Reproduce or review the English source
+normalization with:
+
+```bash
+node scripts/import-dropbox-sign-candidate.mjs \
+  --upstream /path/to/hellosign-openapi \
+  --check
 ```
 
 A candidate moves into `catalog/source.json` only after every admission gate
@@ -92,6 +104,10 @@ export/factory shape, controller mapping, credential environment variables,
 and the exact Endpoint set present in the published package. Hub uses this
 contract to generate type-checkable snippets and to avoid advertising SDK code
 for Endpoints that are not included in the declared package version.
+Controller mappings use a JavaScript identifier for explicitly tagged
+Endpoints and `null` for untagged Endpoints whose methods live directly on the
+client. Never synthesize `common`, `default`, or another public Controller for
+an Endpoint without an explicit OAS `tags` value.
 
 ### Successful request examples
 

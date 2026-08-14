@@ -39,6 +39,9 @@ jobs:
       - name: Verify candidate API metadata
         run: node scripts/verify-candidates.mjs
 
+      - name: Verify Dropbox Sign admitted contract
+        run: node scripts/verify-dropbox-sign-candidate.mjs
+
       - name: Lint localized specifications
         run: node scripts/lint-locales.mjs
 
