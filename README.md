@@ -10,15 +10,14 @@ The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It st
 - Frankfurter API v2 — multi-provider exchange rates, currencies, and provider attribution
 - Dida365 Open API — task and project management
 - Massive Stock Market Data API — official stock trades, aggregates, snapshots, and reference data
-- Yahoo Finance Web Market Data API — observed web quotes, charts, search, and fundamentals
-- Stooq Public Quote Downloads — observed latest and historical CSV downloads
-- Sina Finance Web Quote API — observed/inferred A-share snapshots and K-lines
-- Tencent Finance Web Quote API — observed/inferred HK/A-share snapshots and K-lines
-- Eastmoney Fund Web Data API — observed fund estimates and historical NAV
-- CNBC Web Quote API — observed quote and chart requests
-- i3Investor SGX Public Pages — observed/inferred HTML market pages
 
-The web-derived market-data collections are evidence-labelled rather than presented as official developer APIs. See [`catalog/market-data-discovery.md`](./catalog/market-data-discovery.md) for provenance, confidence, wire formats, and known gaps. All eight collections disable Hub proxy execution.
+Only collections that pass the SDK publication and redistribution gate remain
+in the catalog. See
+[`catalog/sdk-publication-review.md`](./catalog/sdk-publication-review.md) for
+the current decisions, provider evidence, package-only restrictions, and
+re-entry rule. Massive remains an official API collection, but Hub proxying and
+market-data redistribution are disabled; callers use their own account and API
+key directly from the SDK or CLI.
 
 ## Updating the catalog
 

@@ -383,8 +383,10 @@
           "start_date": { "type": ["string", "null"], "format": "date", "description": "Earliest available date", "example": "1999-01-04" },
           "end_date": { "type": ["string", "null"], "format": "date", "description": "Latest available date", "example": "2026-03-17" },
           "publish_cadence": {
-            "type": ["string", "null"],
-            "enum": ["daily", "weekly", "monthly", null],
+            "anyOf": [
+              { "type": "string", "enum": ["daily", "weekly", "monthly"] },
+              { "type": "null" }
+            ],
             "x-enum-descriptions": ["Daily", "Weekly", "Monthly", "Historical only; no scheduled cadence"],
             "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence.",
             "examples": ["daily"]

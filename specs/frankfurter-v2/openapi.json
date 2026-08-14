@@ -383,8 +383,10 @@
           "start_date": { "type": ["string", "null"], "format": "date", "description": "最早可用日期", "example": "1999-01-04" },
           "end_date": { "type": ["string", "null"], "format": "date", "description": "最新可用日期", "example": "2026-03-17" },
           "publish_cadence": {
-            "type": ["string", "null"],
-            "enum": ["daily", "weekly", "monthly", null],
+            "anyOf": [
+              { "type": "string", "enum": ["daily", "weekly", "monthly"] },
+              { "type": "null" }
+            ],
             "x-enum-descriptions": ["每日", "每周", "每月", "仅历史数据，无计划发布频率"],
             "description": "提供方发布汇率的频率，同时决定 publishes_missed 的计量单位：天、ISO 周或自然月。仅提供历史数据且无计划发布频率时为 null。",
             "examples": ["daily"]
