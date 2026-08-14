@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,7 +17,11 @@ const expectedGroups = new Map([
     "posthog",
     "amazon-sqs",
     "dropbox-sign",
-    "sendbird-chat-platform"
+    "sendbird-chat-platform",
+    "ecb-data-portal",
+    "open-exchange-rates",
+    "currencybeacon-rest",
+    "twelve-data-forex"
   ]],
   ["llm-protocol-hold", [
     "openai",
@@ -63,6 +68,10 @@ function requireLocalized(value, location) {
   }
 }
 
+function sha256(file) {
+  return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+}
+
 if (candidates.version !== 1) fail("candidate registry version must be 1");
 if (!datePattern.test(candidates.snapshotDate)) {
   fail("candidate registry snapshotDate must use YYYY-MM-DD");
@@ -74,8 +83,8 @@ if (!fs.existsSync(path.join(root, candidates.sourceRoadmap))) {
   fail("candidate registry sourceRoadmap does not exist");
 }
 requireLocalized(candidates.admissionPolicy, "admissionPolicy");
-if (!Array.isArray(candidates.products) || candidates.products.length !== 20) {
-  fail("candidate registry must contain exactly the roadmap's 20 products");
+if (!Array.isArray(candidates.products) || candidates.products.length !== 24) {
+  fail("candidate registry must contain exactly the roadmap's 24 products");
 }
 
 const approvedSlugs = new Set(source.apis.map((api) => api.slug));
@@ -196,12 +205,33 @@ for (const product of candidates.products) {
     if (product.contractSource.mutableSource === true) {
       fail(`${location} cannot pass the contract gate with a mutable source`);
     }
-    const revision = product.contractSource.revision ?? "";
-    const sourceUrl = typeof product.contractSource.url === "string"
-      ? product.contractSource.url
-      : "";
-    if (!/^[0-9a-f]{40}$/.test(revision) || !sourceUrl.includes(`/${revision}/`)) {
-      fail(`${location} must pin a passed contract source to a 40-character Git revision in its URL`);
+    if (product.contractSource.kind === "independent-official-docs-reconstruction") {
+      const manifestRelative = product.contractSource.normalizationManifest ?? "";
+      const manifestPath = path.join(root, manifestRelative);
+      if (!manifestRelative.startsWith("specs/") || !fs.existsSync(manifestPath)) {
+        fail(`${location} independent reconstruction needs a checked-in normalization manifest`);
+      }
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      if (manifest.status !== "candidate-pre-admission" || manifest.slug !== product.slug) {
+        fail(`${location} independent reconstruction manifest identity is invalid`);
+      }
+      for (const [locale, field] of [["zh-CN", "zhCnSha256"], ["en-US", "enUsSha256"]]) {
+        const output = manifest.outputs?.[locale];
+        const outputPath = output?.file ? path.join(root, output.file) : "";
+        if (!outputPath || !fs.existsSync(outputPath) ||
+          !/^[0-9a-f]{64}$/.test(product.contractSource[field] ?? "") ||
+          product.contractSource[field] !== output.sha256 || sha256(outputPath) !== output.sha256) {
+          fail(`${location} independent reconstruction ${locale} hash evidence is invalid`);
+        }
+      }
+    } else {
+      const revision = product.contractSource.revision ?? "";
+      const sourceUrl = typeof product.contractSource.url === "string"
+        ? product.contractSource.url
+        : "";
+      if (!/^[0-9a-f]{40}$/.test(revision) || !sourceUrl.includes(`/${revision}/`)) {
+        fail(`${location} must pin a passed contract source to a 40-character Git revision in its URL`);
+      }
     }
   }
   if (product.contractSource) {

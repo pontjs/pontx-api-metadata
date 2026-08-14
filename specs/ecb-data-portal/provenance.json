@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "status": "candidate-pre-admission",
+  "slug": "ecb-data-portal",
+  "verifiedAt": "2026-08-14",
+  "scope": {
+    "product": "ECB Data Portal SDMX 2.1 REST service",
+    "routeFamilies": [
+      "data",
+      "structural metadata",
+      "structure-specific XML schemas"
+    ],
+    "openapiPaths": 8,
+    "operations": 8,
+    "schemas": 12,
+    "authentication": "none",
+    "transport": "HTTPS read-only"
+  },
+  "evidence": [
+    {
+      "status": "official",
+      "url": "https://data.ecb.europa.eu/help/api/data"
+    },
+    {
+      "status": "official",
+      "url": "https://data.ecb.europa.eu/help/api/metadata"
+    },
+    {
+      "status": "official",
+      "url": "https://data.ecb.europa.eu/help/api/schemas"
+    },
+    {
+      "status": "official",
+      "url": "https://data.ecb.europa.eu/help/api/content-negotiation"
+    },
+    {
+      "status": "official",
+      "url": "https://data.ecb.europa.eu/help/api/status-codes"
+    }
+  ],
+  "license": {
+    "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+    "status": "reviewed",
+    "requirements": [
+      "Reproduced information must be accurate and cite the ECB as source.",
+      "Pontx modifications must be stated explicitly."
+    ]
+  },
+  "derivation": {
+    "method": "Independent reconstruction from current ECB Data Portal help pages; the unlicensed sdmx-twg OpenAPI baseline is not copied.",
+    "liveChecks": [
+      {
+        "method": "GET",
+        "target": "/data/EXR/M.USD.EUR.SP00.A",
+        "boundedQuery": "startPeriod=2024-01&endPeriod=2024-01&format=jsondata",
+        "status": 200,
+        "contentType": "application/vnd.sdmx.data+json;version=1.0.0-wd"
+      },
+      {
+        "method": "GET",
+        "target": "/dataflow/ECB/EXR/latest",
+        "boundedQuery": "detail=allstubs&references=none",
+        "status": 200,
+        "contentType": "application/vnd.sdmx.structure+xml;version=2.1"
+      },
+      {
+        "method": "GET",
+        "target": "/schema/datastructure/ECB/ECB_EXR1/1.0",
+        "boundedQuery": "none; response limited to 2 MiB during verification",
+        "status": 200,
+        "contentType": "application/vnd.sdmx.schema+xml;version=2.1"
+      }
+    ],
+    "limitations": [
+      "The ECB pages do not declare a stable error-body schema, so error bodies remain strings.",
+      "XML payloads remain typed strings because OpenAPI JSON Schema does not encode the externally generated SDMX XML vocabulary."
+    ]
+  },
+  "localization": {
+    "structuralSource": "zh-CN",
+    "locale": "en-US",
+    "structuralParity": "required"
+  },
+  "sdkProbe": {
+    "status": "local-ephemeral",
+    "packageName": "@pontx/ecb-data-portal",
+    "cliName": "pontx-ecb-data-portal",
+    "generator": "pontx@1.0.0-beta.3",
+    "runtime": "@pontx/sdk@1.0.0-beta.0",
+    "generatedOperations": 8,
+    "generatedSchemas": 12,
+    "typeCheck": "passed",
+    "esmCjsDeclarationsBuild": "passed",
+    "cliBuild": "passed",
+    "unitTests": {
+      "status": "passed",
+      "passed": 3,
+      "total": 3,
+      "skipped": 0
+    },
+    "e2eTests": {
+      "status": "passed",
+      "passed": 3,
+      "total": 3,
+      "skipped": 0
+    },
+    "npmPackDryRun": {
+      "status": "passed",
+      "files": 9
+    },
+    "sdkLiveChecks": [
+      "bounded SDMX-JSON data request",
+      "bounded structural-metadata XML request"
+    ],
+    "cliChecks": [
+      "help",
+      "catalog list",
+      "endpoint show",
+      "request dry-run",
+      "bounded live data call"
+    ],
+    "publicationReady": false,
+    "limitation": "The generated RC exists only in an ephemeral validation directory; no SDK repository, immutable CI run, npm release, commit, or push was created."
+  },
+  "outputs": {
+    "zh-CN": {
+      "file": "specs/ecb-data-portal/openapi.json",
+      "sha256": "b8ac1336424fe83b74ee07c82701e3e7a0f6eef461e085086017f760bf892614"
+    },
+    "en-US": {
+      "file": "specs/ecb-data-portal/locales/en-US/openapi.json",
+      "sha256": "f52af31b026159c51a648d20c088a9e35b3cc6034e94c2854585cd990539481e"
+    }
+  }
+}
