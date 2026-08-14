@@ -114,6 +114,22 @@ boundary, locale counterpart, and Quick Start target before emitting
 
 GitHub Actions validates the approved hashes and generated catalog before deploying Pontx Hub with the Vercel CLI. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the review workflow and required repository secrets.
 
+## SDK quality evidence
+
+Every published SDK entry includes version-bound CI evidence for its source
+commit. Catalog compilation requires every unit test to pass, rejects skipped
+or todo tests, and requires the built-package E2E suite to pass. The Hub renders
+that evidence as the public badge used by SDK pages and package READMEs:
+
+```text
+https://pontx.dev/badges/sdk/<api-slug>.svg
+```
+
+Update `sdkQuality` only from a completed successful SDK workflow run. The
+record must keep the exact package version, full source commit, unit totals,
+tested Node.js versions, verification date, repository URL, and immutable
+workflow-run URL.
+
 ## Agent skills
 
 - [`pontx-api-collection-builder`](./skills/pontx-api-collection-builder/SKILL.md) turns authoritative API evidence into a production-ready bilingual OpenAPI collection, catalog entry, execution policy, approved hashes, and verified Hub integration.

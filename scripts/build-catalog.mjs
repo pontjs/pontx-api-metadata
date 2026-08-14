@@ -8,6 +8,7 @@ import {
   localizedSpecPath,
   mergeLocalizedText
 } from "./lib/localization.mjs";
+import { validateSdkQuality } from "./lib/sdk-quality.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const source = JSON.parse(
@@ -557,6 +558,7 @@ function makeAuth(englishDocument, entryAuth, englishAuth, slug) {
 
 const apis = [];
 for (const entry of source.apis) {
+  validateSdkQuality(entry);
   const englishEntry = englishCatalog?.apis?.[entry.slug];
   if (!englishEntry) throw new Error(`${entry.slug}: missing catalog/locales/en-US.json entry`);
   const specPath = resolve(repositoryRoot, entry.specFile);
@@ -674,6 +676,7 @@ for (const entry of source.apis) {
     packageName: entry.packageName,
     sdkVersion: entry.sdkVersion,
     sdkStatus: entry.sdkStatus,
+    ...(entry.sdkQuality ? { sdkQuality: entry.sdkQuality } : {}),
     ...(entry.contentUpdatedAt ? { contentUpdatedAt: entry.contentUpdatedAt } : {}),
     ...(entry.cliName ? { cliName: entry.cliName } : {}),
     ...(entry.sdkExamples ? { sdkExamples: entry.sdkExamples } : {}),

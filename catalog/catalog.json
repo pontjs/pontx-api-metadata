@@ -23,6 +23,24 @@
       "packageName": "@pontx/frankfurter",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.1",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "6dfb19aa960fb320cceafdb896ccdec25d77266f",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/currency-exchange",
+        "workflowRunUrl": "https://github.com/pontjs/currency-exchange/actions/runs/31776799667"
+      },
       "contentUpdatedAt": "2026-08-10",
       "cliName": "pontx-frankfurter",
       "sdkExamples": {
@@ -1346,6 +1364,24 @@
       "packageName": "@pontx/frankfurter-v2",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "30ea842a5347fb47eb1d769bd7b516c4349624ed",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/frankfurter-v2",
+        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31776800115"
+      },
       "contentUpdatedAt": "2026-08-10",
       "cliName": "pontx-frankfurter-v2",
       "sdkExamples": {
@@ -2960,6 +2996,24 @@
       "packageName": "@pontx/dida365",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.1",
+        "unitTests": {
+          "passed": 4,
+          "total": 4,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "ea509a0caf36322a31362787ca5790dc4fa63808",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/dida365",
+        "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/31776800890"
+      },
       "contentUpdatedAt": "2026-08-10",
       "cliName": "pontx-dida365",
       "sdkExamples": {
@@ -14023,6 +14077,24 @@
       "packageName": "@pontx/massive",
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 2,
+          "total": 2,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "8fb7b84e36cce1d75468df3fd64ea27b7178ec66",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/massive",
+        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31776799929"
+      },
       "contentUpdatedAt": "2026-08-14",
       "cliName": "pontx-massive",
       "sdkExamples": {
