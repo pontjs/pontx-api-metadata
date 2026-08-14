@@ -276,15 +276,15 @@
         "zh": "Dropbox Sign 官方 v3 API 的完整 73 个 Endpoint，包括账户、签名请求、模板、团队、批量发送、文件与 webhook。",
         "en": "The complete official Dropbox Sign v3 API with 73 endpoints across accounts, signature requests, templates, teams, bulk send, files, and webhooks."
       },
-      "stage": "audit-required",
-      "admissionDecision": "not-approved",
+      "stage": "admitted",
+      "admissionDecision": "approved",
       "gateStatus": {
         "authority": "passed",
         "redistribution": "passed",
         "contract": "passed",
         "transport": "passed",
-        "risk": "pending",
-        "sdkCli": "pending"
+        "risk": "passed",
+        "sdkCli": "passed"
       },
       "contractSource": {
         "kind": "openapi",
@@ -309,28 +309,14 @@
         { "kind": "docs", "url": "https://developers.hellosign.com/docs/sdks/overview/" },
         { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml" },
         { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi#license" },
-        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE" }
+        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE" },
+        { "kind": "source", "url": "https://github.com/pontjs/dropbox-sign/tree/343d58e277d24337b39290b9c14282579b1adeb7" },
+        { "kind": "protocol", "url": "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061" }
       ],
-      "blockers": [
-        {
-          "gate": "risk",
-          "zh": "预准入规范完整保留 application/json 与 multipart/form-data 请求，以及 PDF/ZIP 二进制响应和 27 个 EventCallback Schema；解析、代码生成、二进制处理与多 media type 路径尚需端到端验证，当前 73 个 Endpoint 全部禁用代理。",
-          "en": "The pre-admission specification preserves application/json and multipart/form-data requests, PDF/ZIP binary responses, and 27 EventCallback schemas; parsing, code generation, binary handling, and multi-media-type paths still require end-to-end validation, and proxying is disabled for all 73 endpoints."
-        },
-        {
-          "gate": "risk",
-          "zh": "签署、邮件发送、文件上传、账户、团队、OAuth、webhook 与传真变更属于高影响或敏感数据 mutation，必须逐 Endpoint 定义 preview、确认、日志脱敏、数据保留与代理策略。",
-          "en": "Signing, email delivery, file upload, account, team, OAuth, webhook, and fax mutations are high-impact or process sensitive data and require endpoint-level preview, confirmation, log redaction, retention, and proxy policy."
-        },
-        {
-          "gate": "sdkCli",
-          "zh": "@pontx/dropbox-sign 与 pontx-dropbox-sign 尚未构建、测试和发布。",
-          "en": "@pontx/dropbox-sign and pontx-dropbox-sign have not been built, tested, and published."
-        }
-      ],
+      "blockers": [],
       "nextAction": {
-        "zh": "审阅 provenance 中基于自包含 Fern 规范的确定性归一化、合同等价校验、派生补全和全部双语 prose，按 Apache-2.0 保留 LICENSE 与归因，验证 JSON、multipart、PDF/ZIP 与 callback 生成路径，再制定逐 Endpoint 风险策略并发布受保护的 SDK/CLI。",
-        "en": "Review the self-contained Fern normalization, contract-equivalence check, derived enrichment, and all bilingual prose recorded in provenance; retain LICENSE and attribution under Apache-2.0; validate JSON, multipart, PDF/ZIP, and callback generation paths; then define endpoint-level risk policy and publish the protected SDK/CLI."
+        "zh": "持续监控固定上游 revision 之后的 OAS 漂移、Dropbox Sign 安全公告、npm SDK 新鲜安装结果与 Node.js 兼容矩阵；任何结构更新均重新执行完整合同、双语、风险和 SDK 门禁。",
+        "en": "Monitor OAS drift after the pinned upstream revision, Dropbox Sign security notices, fresh npm SDK installation, and the Node.js compatibility matrix; rerun the complete contract, localization, risk, and SDK gates before accepting structural updates."
       },
       "verifiedAt": "2026-08-14"
     },

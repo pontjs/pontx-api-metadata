@@ -394,6 +394,185 @@
           "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。"
         }
       ]
+    },
+    {
+      "slug": "dropbox-sign",
+      "name": "Dropbox Sign API",
+      "provider": "Dropbox Sign",
+      "category": "Productivity",
+      "featured": true,
+      "specFile": "specs/dropbox-sign/openapi.json",
+      "approvedSha256": "0f5c78da0e785eb2ae5f5348ab3c6b0fec8007cb44e737a6c50cd28bc2321699",
+      "approvedLocaleSha256": {
+        "en-US": "e8b22fdc515bd1f103df13fb47c5adcf73ebc254688a1524cdc8c1dbb5a34c7d"
+      },
+      "license": "Apache-2.0",
+      "attributionUrl": "https://github.com/hellosign/hellosign-openapi/tree/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
+      "documentationStatus": "official",
+      "evidenceUrls": [
+        "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml",
+        "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE",
+        "https://developers.hellosign.com/api/api-reference-authentication",
+        "https://developers.hellosign.com/docs/sdks/open-api/interacting-with-files",
+        "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+      ],
+      "verifiedAt": "2026-08-14",
+      "contentUpdatedAt": "2026-08-14",
+      "stabilityNote": "基于 Dropbox Sign 官方仓库固定 revision 的完整 v3 契约。Hub 不代理、缓存或保存请求与响应；调用者须使用自己的凭据并负责签署、文件、账户、团队、OAuth、webhook 与传真数据的审批和保留。",
+      "accent": "#0061ff",
+      "packageName": "@pontx/dropbox-sign",
+      "sdkVersion": "0.1.0",
+      "sdkStatus": "published",
+      "sdkQuality": {
+        "testedVersion": "0.1.0",
+        "unitTests": {
+          "passed": 5,
+          "total": 5,
+          "skipped": 0
+        },
+        "e2eStatus": "passed",
+        "nodeVersions": [
+          "18",
+          "20",
+          "22"
+        ],
+        "sourceCommit": "343d58e277d24337b39290b9c14282579b1adeb7",
+        "testedAt": "2026-08-14",
+        "repositoryUrl": "https://github.com/pontjs/dropbox-sign",
+        "workflowRunUrl": "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+      },
+      "cliName": "pontx-dropbox-sign",
+      "sdkExamples": {
+        "typescript": "import { createDropboxSignClient } from \"@pontx/dropbox-sign\";\n\nconst client = createDropboxSignClient({\n  apiKey: process.env.DROPBOX_SIGN_API_KEY!\n});\nconst result = await client.signatureRequest.signatureRequestList({\n  page: 1,\n  page_size: 20\n});",
+        "cli": "pnpm add --global @pontx/dropbox-sign\n\npontx-dropbox-sign call signatureRequest.signatureRequestList --page 1 --page_size 20 --dry-run"
+      },
+      "sdkContract": {
+        "client": {
+          "kind": "factory",
+          "factory": "createDropboxSignClient",
+          "identifier": "client",
+          "options": {
+            "apiKey": "DROPBOX_SIGN_API_KEY",
+            "accessToken": "DROPBOX_SIGN_ACCESS_TOKEN"
+          }
+        },
+        "controllers": {
+          "Account": "account",
+          "Signature Request": "signatureRequest",
+          "Template": "template",
+          "Bulk Send Job": "bulkSendJob",
+          "Report": "report",
+          "Team": "team",
+          "Unclaimed Draft": "unclaimedDraft",
+          "Embedded": "embedded",
+          "Api App": "apiApp",
+          "OAuth": "oAuth",
+          "Fax Line": "faxLine",
+          "Fax": "fax"
+        },
+        "operations": [
+          "accountCreate",
+          "accountGet",
+          "accountUpdate",
+          "accountVerify",
+          "apiAppCreate",
+          "apiAppGet",
+          "apiAppUpdate",
+          "apiAppDelete",
+          "apiAppList",
+          "bulkSendJobGet",
+          "bulkSendJobList",
+          "embeddedEditUrl",
+          "embeddedSignUrl",
+          "faxGet",
+          "faxDelete",
+          "faxFiles",
+          "faxLineAddUser",
+          "faxLineAreaCodeGet",
+          "faxLineCreate",
+          "faxLineGet",
+          "faxLineDelete",
+          "faxLineList",
+          "faxLineRemoveUser",
+          "faxList",
+          "faxSend",
+          "oauthTokenGenerate",
+          "oauthTokenRefresh",
+          "reportCreate",
+          "signatureRequestBulkCreateEmbeddedWithTemplate",
+          "signatureRequestBulkSendWithTemplate",
+          "signatureRequestCancel",
+          "signatureRequestCreateEmbedded",
+          "signatureRequestCreateEmbeddedWithTemplate",
+          "signatureRequestEdit",
+          "signatureRequestEditEmbedded",
+          "signatureRequestEditEmbeddedWithTemplate",
+          "signatureRequestEditWithTemplate",
+          "signatureRequestFiles",
+          "signatureRequestFilesAsDataUri",
+          "signatureRequestFilesAsFileUrl",
+          "signatureRequestGet",
+          "signatureRequestList",
+          "signatureRequestReleaseHold",
+          "signatureRequestRemind",
+          "signatureRequestRemove",
+          "signatureRequestSend",
+          "signatureRequestSendWithTemplate",
+          "signatureRequestUpdate",
+          "teamAddMember",
+          "teamCreate",
+          "teamDelete",
+          "teamGet",
+          "teamUpdate",
+          "teamInfo",
+          "teamInvites",
+          "teamMembers",
+          "teamRemoveMember",
+          "teamSubTeams",
+          "templateAddUser",
+          "templateCreate",
+          "templateCreateEmbeddedDraft",
+          "templateDelete",
+          "templateFiles",
+          "templateFilesAsDataUri",
+          "templateFilesAsFileUrl",
+          "templateGet",
+          "templateList",
+          "templateRemoveUser",
+          "templateUpdateFiles",
+          "unclaimedDraftCreate",
+          "unclaimedDraftCreateEmbedded",
+          "unclaimedDraftCreateEmbeddedWithTemplate",
+          "unclaimedDraftEditAndResend"
+        ]
+      },
+      "proxyEnabled": false,
+      "quickStart": {
+        "operationId": "signatureRequestList",
+        "requestExampleId": "default"
+      },
+      "title": "Dropbox Sign 电子签名 API",
+      "summary": "通过完整的 Dropbox Sign v3 API 管理账户、签名请求、模板、团队、批量发送、文件下载、传真和事件回调；Hub 仅提供文档与本地 SDK/CLI。",
+      "server": {
+        "id": "dropbox-sign",
+        "url": "https://api.hellosign.com/v3",
+        "description": "Dropbox Sign 官方 v3 API 入口"
+      },
+      "auth": [
+        {
+          "id": "api_key",
+          "type": "basic",
+          "usernameEnvVar": "DROPBOX_SIGN_API_KEY",
+          "passwordEnvVar": "DROPBOX_SIGN_API_PASSWORD",
+          "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者本地环境中。"
+        },
+        {
+          "id": "oauth2",
+          "type": "bearer",
+          "envVar": "DROPBOX_SIGN_ACCESS_TOKEN",
+          "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者本地环境中。"
+        }
+      ]
     }
   ]
 }

@@ -10,6 +10,7 @@ The source-of-truth catalog for [Pontx Hub](https://pontx.dev). It stores approv
 - Frankfurter API v2 — multi-provider exchange rates, currencies, and provider attribution
 - Dida365 Open API — task and project management
 - Massive Stock Market Data API — official stock trades, aggregates, snapshots, and reference data
+- Dropbox Sign v3 API — signatures, templates, teams, files, fax, and event callbacks
 
 Only collections that pass the SDK publication and redistribution gate remain
 in the catalog. See
@@ -37,8 +38,8 @@ node scripts/verify-candidates.mjs
 node scripts/verify-dropbox-sign-candidate.mjs
 ```
 
-The Dropbox Sign candidate is normalized without network access from an
-already-pinned upstream checkout. Reproduce or review the English source
+The admitted Dropbox Sign contract is normalized without network access from
+an already-pinned upstream checkout. Reproduce or review the English source
 normalization with:
 
 ```bash

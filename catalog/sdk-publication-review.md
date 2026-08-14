@@ -31,6 +31,7 @@ working unauthenticated GET request are not affirmative publication rights.
 | Frankfurter v2 | Keep / published | The provider documents the public v2 API in its open-source repository and invites third-party libraries and tools. `@pontx/frankfurter-v2` contains generated code and types and preserves provider/source attribution. |
 | Dida365 | Keep / published | Dida365 publishes and supports its developer API. Callers must create their own app, use OAuth scopes, and keep credentials session-local. |
 | Massive | Keep / published with restrictions | Massive publishes official REST documentation, an official MIT JavaScript client, and generated OpenAPI-based clients. `@pontx/massive` contains client code only; callers must use their own API key and data entitlement. Hub proxying, response storage, and data redistribution remain disabled. |
+| Dropbox Sign | Keep / published with restrictions | The complete 73-Endpoint v3 contract is normalized from Dropbox Sign's official OpenAPI repository at pinned revision `f0c7887f2f56fb7a082b5db78a09856df2cb6ccf`. Repository-derived content retains the Apache-2.0 license and attribution; the upstream OAS MIT declaration and official generated SDK MIT scope remain separately recorded. `@pontx/dropbox-sign` contains generated client code and types only. Hub proxying is disabled for every Endpoint, and mutating CLI calls require a short-lived request-bound confirmation token. |
 | Yahoo Finance web endpoints | Remove | The collection was derived from unsupported website traffic. Yahoo's API terms prohibit automated collection outside Yahoo APIs and restrict reverse engineering of API specifications. No authorization was found for these web endpoints or for publishing a client for them. |
 | Stooq downloads | Remove | No provider-maintained developer contract or redistribution license was found. The recorded routes now require provider-controlled browser verification or an API key flow and are not a stable, licensed public API surface. |
 | Sina Finance web endpoints | Remove | The collection was derived from internal page requests. Sina's service/copyright terms require authorization for reuse and derivative use of protected content, and the Finance agreement restricts disclosure and third-party use of collected data without written consent. |
@@ -46,6 +47,8 @@ working unauthenticated GET request are not affirmative publication rights.
 - Massive REST quickstart: https://massive.com/docs/rest/quickstart
 - Massive official MIT JavaScript client: https://github.com/massive-com/client-js
 - Massive market-data terms: https://massive.com/legal/market-data-terms-of-service
+- Dropbox Sign official OpenAPI repository and license: https://github.com/hellosign/hellosign-openapi/tree/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf
+- Dropbox Sign official SDK overview: https://developers.hellosign.com/docs/sdks/overview/
 - Yahoo API terms: https://legal.yahoo.com/us/en/yahoo/terms/product-atos/apitnc/index.html
 - Sina service and copyright terms: https://corp.sina.com.cn/chn/sina_item.html and https://corp.sina.com.cn/chn/copyright.html
 - Sina Finance software agreement: https://finance.sina.cn/app/SFAuser.shtml

@@ -262,10 +262,10 @@ for (const pathItem of Object.values(document.paths)) {
     operation["x-pontx-verified-at"] = "2026-08-14";
     operation["x-pontx-proxy-enabled"] = false;
     operation["x-pontx-proxy-disabled-reason"] =
-      "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.";
+      "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.";
     operation["x-pontx-request-examples"] = {
       default: {
-        summary: "Official OAS-backed pre-admission request",
+        summary: "Reviewed local SDK/CLI request",
         request,
         expectedStatus,
         ...(unresolved.length ? { unresolved } : {})
@@ -334,6 +334,19 @@ function localizedClone(enValue, oldEn, oldZh, segments = []) {
     const previousEnglish = at(oldEn, oldSegments);
     let previousChinese = at(oldZh, oldSegments);
     if (previousEnglish === enValue && typeof previousChinese === "string") return previousChinese;
+    const admissionTranslations = new Map([
+      [
+        "Official OAS-backed pre-admission request\nReviewed local SDK/CLI request",
+        "经审查的本地 SDK/CLI 请求"
+      ],
+      [
+        "Candidate pre-admission only; signing, delivery, file, account, team, OAuth, callback, and fax operations require endpoint-level safety and data-handling review.\n" +
+          "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention.",
+        "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。"
+      ]
+    ]);
+    const admissionTranslation = admissionTranslations.get(`${previousEnglish}\n${enValue}`);
+    if (admissionTranslation) return admissionTranslation;
     const oldHost = "https://www.hellosign.com";
     const newHost = "https://sign.dropbox.com";
     if (typeof previousEnglish === "string" && typeof previousChinese === "string" &&
