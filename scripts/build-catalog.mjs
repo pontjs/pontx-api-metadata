@@ -675,6 +675,7 @@ for (const entry of source.apis) {
     sdkVersion: entry.sdkVersion,
     sdkStatus: entry.sdkStatus,
     ...(entry.cliName ? { cliName: entry.cliName } : {}),
+    ...(entry.sdkExamples ? { sdkExamples: entry.sdkExamples } : {}),
     proxyEnabled: entry.proxyEnabled,
     documentationStatus: entry.documentationStatus ?? "official",
     evidenceUrls: entry.evidenceUrls ?? [],

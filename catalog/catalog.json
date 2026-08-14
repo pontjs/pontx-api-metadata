@@ -1342,6 +1342,10 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
       "cliName": "pontx-frankfurter-v2",
+      "sdkExamples": {
+        "typescript": "import frankfurterV2Client from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.common.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
+        "cli": "pnpm add --global @pontx/frankfurter-v2\n\npontx-frankfurter-v2 call common.getRate --base EUR --quote USD --dry-run"
+      },
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -14009,6 +14013,10 @@
       "sdkVersion": "0.1.0",
       "sdkStatus": "published",
       "cliName": "pontx-massive",
+      "sdkExamples": {
+        "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.common.getPreviousClose(\"AAPL\", {});",
+        "cli": "pnpm add --global @pontx/massive\n\npontx-massive call common.getPreviousClose --stocksTicker AAPL --dry-run"
+      },
       "proxyEnabled": false,
       "documentationStatus": "official",
       "evidenceUrls": [
