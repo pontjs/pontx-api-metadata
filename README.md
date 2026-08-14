@@ -2,7 +2,7 @@
 
 [![Validate and publish metadata](https://github.com/pontjs/pontx-api-metadata/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/pontjs/pontx-api-metadata/actions/workflows/publish.yml)
 
-The source-of-truth catalog for [Pontx Hub](https://pontx-hub.vercel.app). It stores approved OpenAPI documents and compiles them into the catalog consumed by the Hub.
+The source-of-truth catalog for [Pontx Hub](https://pontx.dev). It stores approved OpenAPI documents and compiles them into the catalog consumed by the Hub.
 
 ## APIs
 
