@@ -119,6 +119,6 @@ GitHub Actions validates the approved hashes and generated catalog before deploy
 
 - [`pontx-api-collection-builder`](./skills/pontx-api-collection-builder/SKILL.md) turns authoritative API evidence into a production-ready bilingual OpenAPI collection, catalog entry, execution policy, approved hashes, and verified Hub integration.
 - [`pontx-api-collection-governance`](./skills/pontx-api-collection-governance/SKILL.md) audits and remediates existing collections for freshness, drift, compatibility, deprecation, localization, execution safety, SDK truth, and consumer readiness.
-- [`pontx-metadata-quality-loop`](./skills/pontx-metadata-quality-loop/SKILL.md) orchestrates isolated scorer, improver, and evaluator-auditor agents, merging only reproducible score improvements and stopping after three comparable rejections.
+- The internal [`pontx-metadata-quality-loop`](https://github.com/pontjs/pontx-beta/tree/main/.agents/skills/pontx-metadata-quality-loop) workflow lives in `pontx-beta`; it owns the scorer, dynamic benchmark, state machine, and evaluator-auditor protocol while this repository remains the Metadata source of truth.
 
 These skills treat review, publishing, and execution as separate authorization boundaries. They do not commit, push, deploy, or call mutating APIs merely because a user asked to inspect or govern metadata.
