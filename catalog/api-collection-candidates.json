@@ -1,0 +1,662 @@
+{
+  "version": 1,
+  "snapshotDate": "2026-08-14",
+  "sourceRoadmap": "catalog/api-collection-growth-priority.md",
+  "admissionPolicy": {
+    "zh": "候选记录不是正式收录。只有权威来源、许可与再分发、完整契约、传输协议、安全审查以及 SDK/CLI 发布六个门槛全部通过后，产品才可进入 catalog/source.json。完整产品边界包含 SSE 或其他当前不支持的实时协议时，整集暂缓，不得裁剪发布。",
+    "en": "Candidate records are not catalog admission. A product may enter catalog/source.json only after authoritative sourcing, redistribution, complete-contract, transport, safety, and SDK/CLI publication gates all pass. If the complete product boundary contains SSE or another currently unsupported realtime protocol, the whole collection is deferred rather than published as a subset."
+  },
+  "products": [
+    {
+      "slug": "notion",
+      "name": { "zh": "Notion API", "en": "Notion API" },
+      "provider": "Notion",
+      "category": "Productivity",
+      "priority": { "group": "eligible-review", "rank": 1, "score": 92 },
+      "boundary": {
+        "zh": "Notion 当前版本化公共 API，覆盖页面、区块、数据源、数据库、评论、文件上传、视图、用户、搜索、OAuth 与 webhook 管理。",
+        "en": "The current versioned Notion public API covering pages, blocks, data sources, databases, comments, file uploads, views, users, search, OAuth, and webhook management."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "pending",
+        "contract": "pending",
+        "transport": "pending",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://developers.notion.com/reference/intro" },
+        { "kind": "docs", "url": "https://developers.notion.com/reference/versioning" },
+        { "kind": "source", "url": "https://github.com/makenotion/notion-sdk-js/tree/main/src/api-endpoints" },
+        { "kind": "license", "url": "https://github.com/makenotion/notion-sdk-js/blob/main/LICENSE" }
+      ],
+      "blockers": [
+        {
+          "gate": "contract",
+          "zh": "尚未找到由 Notion 发布的单一完整 OpenAPI 快照；需把当前版本官方参考与官方 SDK 类型逐接口对账。",
+          "en": "No single complete OpenAPI snapshot published by Notion has been identified; the current reference and official SDK types still need endpoint-by-endpoint reconciliation."
+        },
+        {
+          "gate": "redistribution",
+          "zh": "官方 SDK 为 MIT，但文档 prose 与重建规范的再分发边界仍需单独确认。",
+          "en": "The official SDK is MIT-licensed, but redistribution of documentation prose and a reconstructed specification still requires a separate determination."
+        }
+      ],
+      "nextAction": {
+        "zh": "固定 Notion-Version 2026-03-11，导出官方 CLI/SDK 的完整 Endpoint 清单，并完成协议与再分发审查。",
+        "en": "Pin Notion-Version 2026-03-11, export the complete official CLI/SDK endpoint inventory, and complete transport and redistribution review."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "wps-365",
+      "name": { "zh": "WPS 365 OpenAPI", "en": "WPS 365 OpenAPI" },
+      "provider": "Kingsoft Office",
+      "category": "Productivity",
+      "priority": { "group": "eligible-review", "rank": 2, "score": 90 },
+      "boundary": {
+        "zh": "WPS 365 统一 OpenAPI 产品面，包含通讯录、云文档、消息、会议、日历、智能文档及其他由供应商定义的开放能力。",
+        "en": "The supplier-defined WPS 365 unified OpenAPI surface, including contacts, cloud documents, messaging, meetings, calendars, smart documents, and the remaining officially exposed capabilities."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "pending",
+        "contract": "pending",
+        "transport": "pending",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://open.wps.cn/documents/app-integration-dev/guide/overview" },
+        { "kind": "docs", "url": "https://open.wps.cn/documents/app-integration-dev/guide/dev-tool-and-source/api-explorer" },
+        { "kind": "docs", "url": "https://open.wps.cn/documents/app-integration-dev/wps365/server/app/app-management/list-installed-apps" }
+      ],
+      "blockers": [
+        {
+          "gate": "contract",
+          "zh": "官方说明产品面超过 1,000 个接口，但未发现可公开下载、可复现的完整规范快照。",
+          "en": "The official overview says the product surface exceeds 1,000 endpoints, but no publicly downloadable and reproducible complete specification snapshot has been identified."
+        },
+        {
+          "gate": "redistribution",
+          "zh": "需确认 OpenAPI metadata 与生成客户端的发布、再分发和署名条件。",
+          "en": "Publication, redistribution, and attribution terms for OpenAPI metadata and generated clients still require confirmation."
+        }
+      ],
+      "nextAction": {
+        "zh": "向 WPS 获取官方完整规范或书面授权，并盘点全部版本、区域、认证、权限和协议面。",
+        "en": "Obtain the complete official specification or written authorization from WPS, then inventory all versions, regions, authentication, permissions, and transports."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "mongodb-atlas-admin",
+      "name": { "zh": "MongoDB Atlas Administration API", "en": "MongoDB Atlas Administration API" },
+      "provider": "MongoDB",
+      "category": "Cloud",
+      "priority": { "group": "eligible-review", "rank": 3, "score": 88 },
+      "boundary": {
+        "zh": "MongoDB Atlas Administration API v2；不包含 MongoDB wire protocol、Atlas Data API 或其他独立产品。",
+        "en": "MongoDB Atlas Administration API v2 only; it excludes the MongoDB wire protocol, Atlas Data API, and other separately defined products."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "passed",
+        "contract": "passed",
+        "transport": "passed",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "contractSource": {
+        "kind": "openapi",
+        "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+        "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+        "observedAt": "2026-08-14",
+        "license": "Apache-2.0",
+        "openapiVersion": "3.0.1",
+        "observedPaths": 335,
+        "observedOperations": 540,
+        "observedSchemas": 1145
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://www.mongodb.com/docs/atlas/api/atlas-admin-api-ref/" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json" },
+        { "kind": "license", "url": "https://github.com/mongodb/openapi/blob/main/LICENSE" }
+      ],
+      "blockers": [
+        {
+          "gate": "risk",
+          "zh": "管理面包含删除集群、网络与访问配置等高影响写接口，需完成 Endpoint 级 preview/confirmation 与代理禁用策略。",
+          "en": "The administration surface contains high-impact mutations for clusters, networking, and access configuration; endpoint-level preview/confirmation and proxy-disable policy are still required."
+        },
+        {
+          "gate": "sdkCli",
+          "zh": "规范可生成，但 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin 尚未构建、测试和发布。",
+          "en": "The contract is generation-ready, but @pontx/mongodb-atlas-admin and pontx-mongodb-atlas-admin have not been built, tested, and published."
+        }
+      ],
+      "nextAction": {
+        "zh": "基于已固定的官方 v2 规范提交，完成双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
+        "en": "Use the pinned official v2 specification revision to complete bilingual prose and sensitive-endpoint execution policy, then publish the SDK/CLI release chain."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "posthog",
+      "name": { "zh": "PostHog Public API", "en": "PostHog Public API" },
+      "provider": "PostHog",
+      "category": "Analytics",
+      "priority": { "group": "eligible-review", "rank": 4, "score": 86 },
+      "boundary": {
+        "zh": "PostHog 官方托管实例公开的完整 Public API schema；不按 Explinks 的数据仓库子集裁剪。",
+        "en": "The complete Public API schema exposed by an official PostHog hosted instance, not the narrower data-warehouse subset shown by Explinks."
+      },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "pending",
+        "contract": "passed",
+        "transport": "blocked",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "contractSource": {
+        "kind": "openapi",
+        "url": "https://eu.posthog.com/api/schema/?format=json",
+        "observedAt": "2026-08-14",
+        "mutableSource": true,
+        "license": "review-required",
+        "openapiVersion": "3.1.0",
+        "observedPaths": 1314,
+        "observedOperations": 1863,
+        "observedSchemas": 3403
+      },
+      "evidence": [
+        { "kind": "spec", "url": "https://eu.posthog.com/api/schema/?format=json" },
+        { "kind": "docs", "url": "https://posthog.com/docs/api" },
+        { "kind": "protocol", "url": "https://eu.posthog.com/api/schema/swagger-ui/" },
+        { "kind": "license", "url": "https://github.com/PostHog/posthog/blob/master/LICENSE" }
+      ],
+      "blockers": [
+        {
+          "gate": "transport",
+          "zh": "官方完整 schema 含多个 text/event-stream / SSE Endpoint；按原子暂缓规则整集阻断。",
+          "en": "The complete official schema contains multiple text/event-stream/SSE endpoints, so the whole collection is blocked by the atomic transport hold."
+        },
+        {
+          "gate": "redistribution",
+          "zh": "完整 schema 混合核心与企业能力，需确认各路径适用的 MIT/企业许可及规范再分发条件。",
+          "en": "The complete schema mixes core and enterprise capabilities; applicable MIT/enterprise licensing and specification redistribution terms require review."
+        }
+      ],
+      "nextAction": {
+        "zh": "先实现并验证 SSE 契约支持，再重新审查完整 schema 与混合许可边界。",
+        "en": "Implement and validate SSE contract support first, then re-review the complete schema and its mixed-license boundary."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "amazon-sqs",
+      "name": { "zh": "Amazon SQS API", "en": "Amazon SQS API" },
+      "provider": "Amazon Web Services",
+      "category": "Cloud",
+      "priority": { "group": "eligible-review", "rank": 5, "score": 84 },
+      "boundary": {
+        "zh": "Amazon Simple Queue Service 当前官方 API 的 23 个 action、数据类型、错误、区域 Endpoint 与 SigV4 认证。",
+        "en": "The current Amazon Simple Queue Service API with all 23 official actions, data types, errors, regional endpoints, and SigV4 authentication."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "passed",
+        "contract": "passed",
+        "transport": "passed",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "contractSource": {
+        "kind": "smithy",
+        "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+        "revision": "4efe5bc67b71dc5ec652fe77130f3bae9efe0173",
+        "observedAt": "2026-08-14",
+        "license": "Apache-2.0",
+        "observedOperations": 23,
+        "observedSchemas": 138
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/main/codegen/sdk-codegen/aws-models/sqs.json" },
+        { "kind": "license", "url": "https://github.com/aws/aws-sdk-js-v3/blob/main/LICENSE" }
+      ],
+      "blockers": [
+        {
+          "gate": "risk",
+          "zh": "DeleteQueue、PurgeQueue、DeleteMessage 与权限变更等接口需高影响 mutation 策略；文档中的 SSE 缩写是 server-side encryption，不是 Server-Sent Events。",
+          "en": "DeleteQueue, PurgeQueue, DeleteMessage, and permission mutations require a high-impact execution policy; the SSE acronym in SQS documentation means server-side encryption, not Server-Sent Events."
+        },
+        {
+          "gate": "sdkCli",
+          "zh": "需先从 Smithy 模型生成并发布 @pontx/amazon-sqs 与 pontx-amazon-sqs。",
+          "en": "@pontx/amazon-sqs and pontx-amazon-sqs must be generated from the Smithy model, tested, and published first."
+        }
+      ],
+      "nextAction": {
+        "zh": "建立 Smithy→OpenAPI 的可复现转换，补齐双语说明、SigV4、区域服务器和 mutation 安全策略。",
+        "en": "Create a reproducible Smithy-to-OpenAPI conversion and complete bilingual prose, SigV4, regional servers, and mutation safety policy."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "dropbox-sign",
+      "name": { "zh": "Dropbox Sign API", "en": "Dropbox Sign API" },
+      "provider": "Dropbox Sign",
+      "category": "Productivity",
+      "priority": { "group": "eligible-review", "rank": 6, "score": 80 },
+      "boundary": {
+        "zh": "Dropbox Sign 官方 v3 API 的完整 73 个 Endpoint，包括账户、签名请求、模板、团队、批量发送、文件与 webhook。",
+        "en": "The complete official Dropbox Sign v3 API with 73 endpoints across accounts, signature requests, templates, teams, bulk send, files, and webhooks."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "passed",
+        "contract": "passed",
+        "transport": "passed",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "contractSource": {
+        "kind": "openapi",
+        "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi.yaml",
+        "revision": "f0c7887f2f56fb7a082b5db78a09856df2cb6ccf",
+        "observedAt": "2026-08-14",
+        "license": "Apache-2.0",
+        "openapiVersion": "3.0.3",
+        "observedPaths": 67,
+        "observedOperations": 73,
+        "observedSchemas": 217
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://developers.hellosign.com/api/api-quickstart" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/hellosign/hellosign-openapi/main/openapi.yaml" },
+        { "kind": "license", "url": "https://github.com/hellosign/hellosign-openapi/blob/main/LICENSE" }
+      ],
+      "blockers": [
+        {
+          "gate": "risk",
+          "zh": "签署、邮件发送、文件上传、账户与 webhook 变更属于高影响操作，必须逐 Endpoint 定义 preview、确认与代理策略。",
+          "en": "Signing, email delivery, file upload, account, and webhook mutations are high-impact and require endpoint-level preview, confirmation, and proxy policy."
+        },
+        {
+          "gate": "sdkCli",
+          "zh": "@pontx/dropbox-sign 与 pontx-dropbox-sign 尚未构建、测试和发布。",
+          "en": "@pontx/dropbox-sign and pontx-dropbox-sign have not been built, tested, and published."
+        }
+      ],
+      "nextAction": {
+        "zh": "基于已固定的官方 OAS 提交生成结构一致的双语规范，并先发布带高风险保护的 SDK/CLI。",
+        "en": "Use the pinned official OAS revision to generate structurally identical bilingual specifications, then publish the SDK/CLI with high-risk safeguards first."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "sendbird-chat-platform",
+      "name": { "zh": "Sendbird Chat Platform API v3", "en": "Sendbird Chat Platform API v3" },
+      "provider": "Sendbird",
+      "category": "Communication",
+      "priority": { "group": "eligible-review", "rank": 7, "score": 77 },
+      "boundary": {
+        "zh": "Sendbird Chat 服务端 Platform API v3；不包含客户端实时协议、Chat SDK 或 Explinks 连接器抽象。",
+        "en": "Sendbird Chat server-side Platform API v3 only; it excludes client realtime protocols, Chat SDKs, and the Explinks connector abstraction."
+      },
+      "stage": "audit-required",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "pending",
+        "contract": "pending",
+        "transport": "pending",
+        "risk": "pending",
+        "sdkCli": "pending"
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://sendbird.com/docs/chat/platform-api/v3/overview" },
+        { "kind": "docs", "url": "https://sendbird.com/docs/chat/platform-api/v3/prepare-to-use-api" },
+        { "kind": "source", "url": "https://github.com/sendbird/sendbird-platform-sdk-typescript" },
+        { "kind": "license", "url": "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/main/package.json" }
+      ],
+      "blockers": [
+        {
+          "gate": "contract",
+          "zh": "官方生成 SDK 的 package.json 标注 Unlicense，但未找到其完整上游 OpenAPI 源；需将生成代码与官方参考逐 Endpoint 对账。",
+          "en": "The official generated SDK package declares Unlicense, but its complete upstream OpenAPI source has not been identified; generated code must be reconciled endpoint by endpoint with the official reference."
+        },
+        {
+          "gate": "redistribution",
+          "zh": "SDK 代码许可明确，但官方文档 prose 与重建规范的再分发条件仍需单独确认。",
+          "en": "The SDK code license is explicit, but redistribution of official documentation prose and a reconstructed specification still requires a separate determination."
+        },
+        {
+          "gate": "transport",
+          "zh": "官方概览说明 Platform API 使用 REST/JSON，但仍需对完整服务端边界做非 SSE/实时协议证明。",
+          "en": "The official overview describes the Platform API as REST/JSON, but the complete server-side boundary still needs an explicit no-SSE/realtime-protocol audit."
+        }
+      ],
+      "nextAction": {
+        "zh": "获取官方生成源或供应商确认的规范快照，完成完整 Endpoint/Schema 与传输协议盘点。",
+        "en": "Obtain the official generation source or a supplier-confirmed specification snapshot, then complete the endpoint/schema and transport inventory."
+      },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "openai",
+      "name": { "zh": "OpenAI API", "en": "OpenAI API" },
+      "provider": "OpenAI",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 1, "score": 96 },
+      "boundary": {
+        "zh": "OpenAI Platform 当前公开 REST、流式与实时 API 的完整供应商产品面。",
+        "en": "The complete current OpenAI Platform product surface across public REST, streaming, and realtime APIs."
+      },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://platform.openai.com/docs/api-reference" },
+        { "kind": "protocol", "url": "https://platform.openai.com/docs/api-reference/responses-streaming" },
+        { "kind": "terms", "url": "https://openai.com/policies/services-agreement/" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "Responses、图像、音频等产品面包含 Server-Sent Events，另有 Realtime 协议；整集暂缓。", "en": "The Responses, image, audio, and other surfaces include Server-Sent Events, with an additional Realtime protocol; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "等待 Pontx 完整支持并验证 SSE/Realtime 契约后重审。", "en": "Re-review after Pontx fully supports and validates SSE and Realtime contracts." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "qwen",
+      "name": { "zh": "Qwen API", "en": "Qwen API" },
+      "provider": "Alibaba Cloud Model Studio",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 2, "score": 94 },
+      "boundary": { "zh": "阿里云百炼提供的 Qwen 供应商级 API 产品面，模型版本不拆分为独立集合。", "en": "The supplier-level Qwen API surface provided by Alibaba Cloud Model Studio; model versions are not split into separate collections." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions" },
+        { "kind": "protocol", "url": "https://help.aliyun.com/zh/model-studio/stream" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "官方流式输出基于 SSE，且部分 Qwen 模型只支持流式调用；整集暂缓。", "en": "Official streaming uses SSE, and some Qwen models are streaming-only; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "实现 SSE 后重新盘点百炼原生协议、OpenAI 兼容协议、区域与模型边界。", "en": "After SSE support lands, re-inventory native Model Studio, OpenAI-compatible, regional, and model boundaries." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "deepseek",
+      "name": { "zh": "DeepSeek API", "en": "DeepSeek API" },
+      "provider": "DeepSeek",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 3, "score": 93 },
+      "boundary": { "zh": "DeepSeek 官方 OpenAI/Anthropic 兼容 API 的完整产品面，模型别名与版本不拆分。", "en": "The complete official DeepSeek API surface across its OpenAI- and Anthropic-compatible formats; model aliases and versions are not split." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://api-docs.deepseek.com/zh-cn/api/deepseek-api" },
+        { "kind": "protocol", "url": "https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/" },
+        { "kind": "terms", "url": "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "官方 Chat 与 FIM 接口以 text/event-stream 返回增量消息；整集暂缓。", "en": "The official Chat and FIM endpoints return incremental messages as text/event-stream; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "等待 SSE 契约支持，再固定官方 API 版本与兼容协议范围。", "en": "Wait for SSE contract support, then pin the official API version and compatible-format boundary." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "gemini",
+      "name": { "zh": "Gemini API", "en": "Gemini API" },
+      "provider": "Google",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 4, "score": 91 },
+      "boundary": { "zh": "Google AI for Developers 的完整 Gemini API，包括 Interactions、内容生成、Live、批处理、Embedding、文件与生成式媒体能力。", "en": "The complete Gemini API from Google AI for Developers, including Interactions, content generation, Live, batch, embeddings, files, and generative media." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://ai.google.dev/api" },
+        { "kind": "protocol", "url": "https://ai.google.dev/gemini-api/docs/streaming" },
+        { "kind": "terms", "url": "https://ai.google.dev/gemini-api/terms" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "streamGenerateContent 与 Interactions 使用 SSE，Live API 使用双向实时协议；整集暂缓。", "en": "streamGenerateContent and Interactions use SSE, while the Live API uses a bidirectional realtime protocol; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 与双向实时协议均有完整契约支持后重审。", "en": "Re-review only after complete contract support exists for both SSE and bidirectional realtime transports." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "anthropic",
+      "name": { "zh": "Anthropic API", "en": "Anthropic API" },
+      "provider": "Anthropic",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 5, "score": 91 },
+      "boundary": { "zh": "Claude Platform 当前公开的完整 API 产品面，包括 Messages、Files、Batch、工具与管理能力。", "en": "The complete current Claude Platform API surface, including Messages, Files, Batch, tools, and administration capabilities." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://platform.claude.com/docs/en/api/messages" },
+        { "kind": "protocol", "url": "https://platform.claude.com/docs/en/build-with-claude/streaming" },
+        { "kind": "terms", "url": "https://www.anthropic.com/legal/commercial-terms" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "Messages API 官方流式响应是带事件类型的 SSE；整集暂缓。", "en": "Official Messages API streaming is typed SSE; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "实现 SSE 事件联合类型、错误与未知事件兼容后重审。", "en": "Re-review after SSE event unions, stream errors, and forward-compatible unknown-event handling are supported." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "kimi",
+      "name": { "zh": "Kimi API", "en": "Kimi API" },
+      "provider": "Moonshot AI",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 6, "score": 86 },
+      "boundary": { "zh": "Kimi 开放平台当前供应商级 API 产品面，Kimi K3、K2.x 与 moonshot-v1 等模型不拆分为集合。", "en": "The current supplier-level Kimi Open Platform API surface; Kimi K3, K2.x, moonshot-v1, and other models are not split into separate collections." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://platform.kimi.com/docs/api/chat" },
+        { "kind": "protocol", "url": "https://platform.kimi.com/docs/api/chat#流式输出-streaming" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "官方 Chat API 的 stream=true 以 SSE 和 data: [DONE] 返回；整集暂缓。", "en": "The official Chat API returns stream=true responses as SSE terminated by data: [DONE]; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 支持后重新固定模型、思考模式与工具调用契约。", "en": "After SSE support lands, re-pin model, thinking-mode, and tool-call contracts." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "zhipu-bigmodel",
+      "name": { "zh": "智谱 BigModel / GLM API", "en": "Zhipu BigModel / GLM API" },
+      "provider": "Zhipu AI",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 7, "score": 85 },
+      "boundary": { "zh": "智谱开放平台供应商级 API 产品面；GLM 型号、模态与单个能力页不拆分为集合。", "en": "The supplier-level Zhipu Open Platform API surface; GLM model variants, modalities, and individual capability pages are not split into collections." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://docs.bigmodel.cn/cn/api/introduction" },
+        { "kind": "protocol", "url": "https://docs.bigmodel.cn/cn/guide/capabilities/streaming" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "官方流式消息采用 SSE，知识库 Agent 等能力还定义专用 SSE 事件；整集暂缓。", "en": "Official streaming messages use SSE, and knowledge-base agent capabilities define additional SSE events; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 支持后盘点模型、知识库、文件、异步任务和区域边界。", "en": "After SSE support lands, inventory model, knowledge-base, file, asynchronous-task, and regional boundaries." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "xai-grok",
+      "name": { "zh": "xAI Grok API", "en": "xAI Grok API" },
+      "provider": "xAI",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 8, "score": 84 },
+      "boundary": { "zh": "xAI 当前公开的完整 API 产品面，Grok 模型版本不拆分为集合。", "en": "The complete current public xAI API surface; Grok model versions are not split into collections." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://docs.x.ai/developers" },
+        { "kind": "protocol", "url": "https://docs.x.ai/developers/model-capabilities/text/streaming" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "官方说明所有支持文本输出的模型使用 SSE 流式返回；整集暂缓。", "en": "Official documentation states that all text-output-capable models stream using SSE; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 支持后重审完整 Endpoint、许可与版本策略。", "en": "Re-review the complete endpoint, licensing, and versioning surface after SSE support lands." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "tencent-hunyuan",
+      "name": { "zh": "腾讯混元 API", "en": "Tencent Hunyuan API" },
+      "provider": "Tencent Cloud",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 9, "score": 82 },
+      "boundary": { "zh": "腾讯云混元供应商级 API 产品面，包括生文、生图、Embedding、Token 计数及控制台相关接口。", "en": "The supplier-level Tencent Cloud Hunyuan API surface, including text, image, embeddings, token counting, and console APIs." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://cloud.tencent.com/document/product/1729/" },
+        { "kind": "protocol", "url": "https://cloud.tencent.com/document/product/1729/105701" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "OpenAI 兼容接口及原生混元接口包含流式输出，完整协议面尚未通过 SSE/实时筛查；整集暂缓。", "en": "The OpenAI-compatible and native Hunyuan surfaces include streaming output and have not passed the complete SSE/realtime audit; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "先确认 TokenHub 迁移后的最终产品边界与全部流式协议，再重审。", "en": "First confirm the post-TokenHub-migration product boundary and every streaming protocol, then re-review." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "iflytek-spark",
+      "name": { "zh": "讯飞星火 API", "en": "iFLYTEK Spark API" },
+      "provider": "iFLYTEK",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 10, "score": 80 },
+      "boundary": { "zh": "讯飞开放平台星火供应商级 API 产品面，包括通用模型、知识库、工作流、批处理与微调能力。", "en": "The supplier-level iFLYTEK Spark API surface across general models, knowledge bases, workflows, batch processing, and fine-tuning." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "protocol", "url": "https://www.xfyun.cn/doc/spark/Web.html" },
+        { "kind": "protocol", "url": "https://www.xfyun.cn/doc/spark/ChatDoc-API.html" },
+        { "kind": "docs", "url": "https://www.xfyun.cn/doc/spark/BatchAPI.html" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "通用模型使用 WebSocket，知识库问答使用 HTTP/SSE，工作流也有流式 HTTP；整集暂缓。", "en": "General models use WebSocket, knowledge-base chat uses HTTP/SSE, and workflows also use streaming HTTP; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 WebSocket 与 SSE 契约均支持后重做完整产品盘点。", "en": "Redo the complete product inventory after both WebSocket and SSE contracts are supported." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "baidu-qianfan",
+      "name": { "zh": "百度千帆 API", "en": "Baidu Qianfan API" },
+      "provider": "Baidu AI Cloud",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 11, "score": 79 },
+      "boundary": { "zh": "百度智能云千帆供应商级 API 产品面，覆盖模型服务、Agent、应用开发与平台能力。", "en": "The supplier-level Baidu AI Cloud Qianfan API surface across model services, agents, application development, and platform capabilities." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://cloud.baidu.com/doc/WENXINWORKSHOP/s/xlxuhovgi" },
+        { "kind": "protocol", "url": "https://cloud.baidu.com/doc/AI-APAAS/s/3loy2w42i" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "千帆模型与应用调用包含 SSE 流式响应；整集暂缓。", "en": "Qianfan model and application invocation surfaces include SSE streaming responses; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 支持后，先澄清新旧千帆产品、模型、Agent 与应用 API 的边界。", "en": "After SSE support lands, first reconcile legacy/current Qianfan, model, agent, and application API boundaries." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "mistral-ai",
+      "name": { "zh": "Mistral AI API", "en": "Mistral AI API" },
+      "provider": "Mistral AI",
+      "category": "AI",
+      "priority": { "group": "llm-protocol-hold", "rank": 12, "score": 78 },
+      "boundary": { "zh": "Mistral AI Platform 当前公开的完整 API 产品面，包括 Chat、Agents、OCR、音频、Batch、Files、Models 与 Workflows。", "en": "The complete current Mistral AI Platform API surface, including Chat, Agents, OCR, audio, Batch, Files, Models, and Workflows." },
+      "stage": "protocol-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": { "authority": "passed", "redistribution": "pending", "contract": "pending", "transport": "blocked", "risk": "pending", "sdkCli": "pending" },
+      "evidence": [
+        { "kind": "docs", "url": "https://docs.mistral.ai/api" },
+        { "kind": "protocol", "url": "https://docs.mistral.ai/api/endpoint/audio/transcriptions" },
+        { "kind": "source", "url": "https://github.com/mistralai/client-ts" },
+        { "kind": "license", "url": "https://github.com/mistralai/client-ts/blob/main/LICENSE" }
+      ],
+      "blockers": [
+        { "gate": "transport", "zh": "Chat/Agent 流式方法、音频转录和 Workflow 事件包含 SSE；整集暂缓。", "en": "Chat/Agent streaming methods, audio transcription, and Workflow events include SSE; the whole collection is deferred." }
+      ],
+      "nextAction": { "zh": "待 SSE 支持后获取或固定官方 SDK 生成所用 OpenAPI，并复核 Beta/GA 边界。", "en": "After SSE support lands, obtain or pin the OpenAPI used to generate the official SDK and re-check beta/GA boundaries." },
+      "verifiedAt": "2026-08-14"
+    },
+    {
+      "slug": "stripe-identity",
+      "name": { "zh": "Stripe Identity API", "en": "Stripe Identity API" },
+      "provider": "Stripe",
+      "category": "Identity",
+      "priority": { "group": "separate-compliance-review", "rank": 1 },
+      "boundary": { "zh": "Stripe v1 API 中由供应商明确定义的 Identity VerificationSession 与 VerificationReport 资源；不扩展为完整 Stripe 支付集合。", "en": "The supplier-defined Identity VerificationSession and VerificationReport resources in Stripe API v1; it does not expand into the complete Stripe payments collection." },
+      "stage": "compliance-blocked",
+      "admissionDecision": "not-approved",
+      "gateStatus": {
+        "authority": "passed",
+        "redistribution": "passed",
+        "contract": "passed",
+        "transport": "passed",
+        "risk": "blocked",
+        "sdkCli": "pending"
+      },
+      "contractSource": {
+        "kind": "openapi-subproduct",
+        "url": "https://raw.githubusercontent.com/stripe/openapi/1486705d8625fee2c315739263f593ba4805dd6c/latest/openapi.spec3.json",
+        "revision": "1486705d8625fee2c315739263f593ba4805dd6c",
+        "observedAt": "2026-08-14",
+        "license": "MIT",
+        "openapiVersion": "3.0.0",
+        "observedOperations": 8
+      },
+      "evidence": [
+        { "kind": "docs", "url": "https://docs.stripe.com/identity" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/stripe/openapi/master/latest/openapi.spec3.json" },
+        { "kind": "license", "url": "https://github.com/stripe/openapi/blob/master/LICENSE" },
+        { "kind": "terms", "url": "https://stripe.com/legal/ssa" }
+      ],
+      "blockers": [
+        {
+          "gate": "risk",
+          "zh": "政府证件、自拍、生物特征与身份号码属于高度敏感个人数据；隐私、合规、数据流与执行策略审查未完成。",
+          "en": "Government documents, selfies, biometrics, and identity numbers are highly sensitive personal data; privacy, compliance, data-flow, and execution-policy review is incomplete."
+        },
+        {
+          "gate": "sdkCli",
+          "zh": "即使合规通过，也需先构建、测试并发布独立 SDK/CLI，且 Hub 代理默认禁用。",
+          "en": "Even after compliance approval, a dedicated SDK/CLI must be built, tested, and published first, with Hub proxying disabled by default."
+        }
+      ],
+      "nextAction": {
+        "zh": "由隐私/合规负责人审查数据角色、地域、保留、用户同意和日志边界；未书面通过前不制作正式集合。",
+        "en": "Require privacy/compliance owner review of data roles, regions, retention, user consent, and logging boundaries; do not build a formal collection without written approval."
+      },
+      "verifiedAt": "2026-08-14"
+    }
+  ]
+}

@@ -41,6 +41,29 @@ example per API through `quickStart` in `catalog/source.json`.
 
 For provider-owned but undocumented read-only web APIs, record `documentationStatus`, `evidenceUrls`, `verifiedAt`, and a bilingual `stabilityNote`. Each operation must also carry the matching `x-pontx-*` evidence extensions. Proxy execution may be enabled only for verified read-only endpoints with an endpoint-specific HTTPS server allowlist and curated fixed headers; login, account, trading, mutation, advertising, and user-data endpoints remain prohibited.
 
+## Add or update a candidate
+
+Candidate products that have not passed catalog admission live in
+`catalog/api-collection-candidates.json`. Keep them out of `catalog/source.json`
+until every authority, redistribution, complete-contract, transport, risk, and
+SDK/CLI gate passes.
+
+1. Add the supplier-level product to
+   `catalog/api-collection-growth-priority.md` before changing its structured
+   intake record.
+2. Use only supplier-owned documentation, specifications, source repositories,
+   licenses, or terms as evidence. Discovery platforms may explain priority but
+   cannot approve contract facts.
+3. Preserve the complete supplier product boundary. If any part uses SSE,
+   WebSocket, or another unsupported realtime protocol, mark the entire
+   collection `protocol-blocked`; do not remove those endpoints to make it pass.
+4. Record unresolved licensing, privacy, compliance, and SDK/CLI publication
+   work as pending or blocked gates rather than claiming catalog readiness.
+5. Run `node scripts/verify-candidates.mjs` and the normal repository gates.
+
+Candidate metadata is an evidence-backed intake ledger, not a documentation
+page or a promise that the API will be published.
+
 ## Pull request checklist
 
 - The OpenAPI document parses successfully.
