@@ -20,10 +20,10 @@
         "en": "Query ECB reference rates, currencies, and historical time series without an API key; this collection covers the still-available v1."
       },
       "accent": "#2d6cdf",
-      "packageName": "@pontx/api-frankfurter",
+      "packageName": "@pontx/frankfurter",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
-      "cliName": "currency",
+      "cliName": "pontx-frankfurter",
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -1338,10 +1338,10 @@
         "en": "Query rates from 84 central banks across 201 currencies back to 1948 without an API key, with provider filtering and attribution, time-series downsampling, and streaming output."
       },
       "accent": "#16a085",
-      "packageName": "@pontx/api-frankfurter-v2",
+      "packageName": "@pontx/frankfurter-v2",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
-      "cliName": "currency-v2",
+      "cliName": "pontx-frankfurter-v2",
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -2941,10 +2941,10 @@
         "en": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins."
       },
       "accent": "#1dbf73",
-      "packageName": "@pontx/api-dida365",
+      "packageName": "@pontx/dida365",
       "sdkVersion": "0.1.1",
       "sdkStatus": "published",
-      "cliName": "dida",
+      "cliName": "pontx-dida365",
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -13999,7 +13999,7 @@
         "en": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan."
       },
       "accent": "#7c3aed",
-      "packageName": "@pontx/api-massive",
+      "packageName": "@pontx/massive",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -18113,7 +18113,7 @@
         "en": "Observed, unsupported Yahoo Finance web endpoints for quotes, charts, symbols, and fundamentals; some routes require a browser crumb and all are preview-only."
       },
       "accent": "#6001d2",
-      "packageName": "@pontx/api-yahoo-finance",
+      "packageName": "@pontx/yahoo-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -19555,7 +19555,7 @@
         "en": "Documents Stooq's legacy public CSV downloads and their current 404/browser-verification behavior; available for discovery and preview only."
       },
       "accent": "#2563eb",
-      "packageName": "@pontx/api-stooq",
+      "packageName": "@pontx/stooq",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -19965,7 +19965,7 @@
         "en": "Observed Sina Finance web endpoints for GB18030 JavaScript quote snapshots and 1–240 minute K-lines; positional fields may drift."
       },
       "accent": "#e11d48",
-      "packageName": "@pontx/api-sina-finance",
+      "packageName": "@pontx/sina-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -21003,7 +21003,7 @@
         "en": "Observed Tencent Finance web endpoints for mainland, Hong Kong, and U.S. quote snapshots plus adjusted or unadjusted day/week/month K-lines."
       },
       "accent": "#0284c7",
-      "packageName": "@pontx/api-tencent-finance",
+      "packageName": "@pontx/tencent-finance",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -22024,7 +22024,7 @@
         "en": "Observed Tiantian Fund web endpoints: historical NAV and charts remain queryable, while the estimate route now returns a missing page and the related-index route is unstable."
       },
       "accent": "#dc2626",
-      "packageName": "@pontx/api-eastmoney-funds",
+      "packageName": "@pontx/eastmoney-funds",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -23753,7 +23753,7 @@
         "en": "Observed CNBC quote-page REST and persisted GraphQL endpoints; batch quotes are callable read-only, while chart retrieval remains experimental."
       },
       "accent": "#005594",
-      "packageName": "@pontx/api-cnbc-market-data",
+      "packageName": "@pontx/cnbc-market-data",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
@@ -25021,7 +25021,7 @@
         "en": "Reads i3Investor SGX HTML pages for quote, bid/ask, and range semantics; invalid symbols also return HTTP 200 fallback pages."
       },
       "accent": "#0f766e",
-      "packageName": "@pontx/api-i3investor-sgx",
+      "packageName": "@pontx/i3investor-sgx",
       "sdkVersion": "0.1.0",
       "sdkStatus": "planned",
       "proxyEnabled": true,
