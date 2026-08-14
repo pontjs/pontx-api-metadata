@@ -28,9 +28,10 @@ Pontx-derived enrichment is clearly separate from upstream content. It consists
 of identifier-based Schema titles, literal-preserving enum labels,
 constraint-valid examples generated from declared defaults/enums or fixed safe
 values, one directory registration for the upstream-used but undeclared `Fax`
-tag, and three unambiguous schema corrections. Binary bodies, credentials,
-secrets, and schemas without a safely inferable scalar type remain without
-fabricated examples. The 73 embedded `x-codeSamples` groups are removed because
+tag, and three unambiguous schema corrections. Generic unconstrained strings
+without a meaningful field/format mapping, binary bodies, credentials, secrets,
+and schemas without a safely inferable scalar type remain without fabricated
+examples. The 73 embedded `x-codeSamples` groups are removed because
 they are SDK documentation display inputs, not HTTP contract data.
 
 ## 归因说明
@@ -45,5 +46,6 @@ importer 会解析 `openapi.yaml` 的外部内容，剥离展示 prose 与 `x-co
 `operationId` 归一两种 webhook 容器，确定性验证两份来源的 HTTP 合同等价。
 Pontx 派生补全与上游内容明确分开：仅增加基于标识符的 Schema 标题、保留枚举字面量的标签、
 基于已声明 default/enum 或固定安全值的约束有效示例、上游 Endpoint 已使用但顶层未声明的
-`Fax` 目录注册，以及三项无歧义 Schema 修正。二进制正文、凭据、秘密和无法安全判断标量类型的
-Schema 不会获得编造示例；73 组 `x-codeSamples` 作为 SDK 文档展示输入予以剥离。
+`Fax` 目录注册，以及三项无歧义 Schema 修正。没有可靠字段/格式映射的通用无约束字符串、
+二进制正文、凭据、秘密和无法安全判断标量类型的 Schema 不会获得编造示例；73 组
+`x-codeSamples` 作为 SDK 文档展示输入予以剥离。

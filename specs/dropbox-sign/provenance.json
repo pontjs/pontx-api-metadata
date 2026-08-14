@@ -104,18 +104,19 @@
         "method": "Literal-preserving labels only; no provider semantics are inferred."
       },
       "leafExamples": {
-        "added": 780,
+        "added": 675,
         "fromConst": 0,
         "fromDefault": 191,
         "fromEnum": 56,
-        "constraintValidPlaceholders": 533,
-        "method": "Prefer declared const/default/enum evidence, otherwise generate deterministic type- and constraint-valid values using reserved example.com resources and fixed non-personal values.",
+        "constraintValidPlaceholders": 428,
+        "method": "Prefer declared const/default/enum evidence, otherwise generate deterministic type- and constraint-valid values only when the field name or format provides a meaningful safe mapping; generic unconstrained strings are omitted rather than assigned a placeholder.",
         "omitted": {
           "binary": 24,
           "credentialOrSecret": 12,
+          "unmappedGenericString": 105,
           "unsupportedSchema": 20
         },
-        "omissionReason": "Binary bodies, credentials, secrets, and schemas without a safely inferable scalar type do not receive fabricated examples."
+        "omissionReason": "Binary bodies, credentials, secrets, generic strings without a meaningful field/format mapping, and schemas without a safely inferable scalar type do not receive fabricated examples."
       },
       "typeCorrections": [
         "components.schemas.BulkSendJobGetResponseSignatureRequests.allOf[1] -> object (properties are declared)",
@@ -158,11 +159,11 @@
   "outputs": {
     "zh-CN": {
       "file": "specs/dropbox-sign/openapi.json",
-      "sha256": "e56efa9fc09612e9969b253cf856e7b4496a8b500ad5f18255132cbf5eedf22d"
+      "sha256": "52527c3fa9e70593aa3a0c0c6e93e79ae172639d4b42405d841e61acefbeebbf"
     },
     "en-US": {
       "file": "specs/dropbox-sign/locales/en-US/openapi.json",
-      "sha256": "7ecd68d2d9a76835d7afab4c3be6dc4d30e0af1c7d50f3672b5512fa4957bfe6"
+      "sha256": "95a0f2de3ba688ae252e4c53226c6dc78fd873fab40c0d4c7a76b05247ea5b80"
     }
   }
 }

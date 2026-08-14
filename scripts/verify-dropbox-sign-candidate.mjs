@@ -277,11 +277,12 @@ assert(derived.componentTitles === 191 && derived.nestedAndInlineSchemaTitles ==
   "derived schema title counts drifted");
 assert(derived.enumDescriptions.schemas === 60 && derived.enumDescriptions.values === 385,
   "derived enum label counts drifted");
-assert(derived.leafExamples.added === 780 && derived.leafExamples.fromDefault === 191 &&
-  derived.leafExamples.fromEnum === 56 && derived.leafExamples.constraintValidPlaceholders === 533,
+assert(derived.leafExamples.added === 675 && derived.leafExamples.fromDefault === 191 &&
+  derived.leafExamples.fromEnum === 56 && derived.leafExamples.constraintValidPlaceholders === 428,
 "derived leaf example counts drifted");
 assert(derived.leafExamples.omitted.binary === 24 &&
   derived.leafExamples.omitted.credentialOrSecret === 12 &&
+  derived.leafExamples.omitted.unmappedGenericString === 105 &&
   derived.leafExamples.omitted.unsupportedSchema === 20,
 "safe example omission counts drifted");
 assert(derived.typeCorrections.length === 2 && derived.constraintCorrections.length === 1,
@@ -301,6 +302,7 @@ let enumValues = 0;
 let safeLeafExamples = 0;
 let omittedBinary = 0;
 let omittedSensitive = 0;
+let omittedUnmappedString = 0;
 let omittedUnsupported = 0;
 visitDocumentSchemas(en, (schema, segments) => {
   schemaNodes += 1;
@@ -343,16 +345,24 @@ visitDocumentSchemas(en, (schema, segments) => {
     omittedUnsupported += Number(!hasExample);
     return;
   }
+  if (!hasExample && schema.type === "string" && !Object.hasOwn(schema, "default") &&
+    !Object.hasOwn(schema, "const") && !(Array.isArray(schema.enum) && schema.enum.length)) {
+    omittedUnmappedString += 1;
+    return;
+  }
   assert(hasExample, `${pointer}: safe scalar leaf example is missing`);
   const examples = Object.hasOwn(schema, "example") ? [schema.example] : schema.examples;
   assert(examples.every((example) => isConstraintValidExample(schema, example)),
     `${pointer}: leaf example violates a declared type or constraint`);
   safeLeafExamples += examples.length;
 });
-assert(schemaNodes > 1200 && enumSchemas >= 60 && enumValues >= 385 && safeLeafExamples > 780,
+assert(schemaNodes > 1200 && enumSchemas >= 60 && enumValues >= 385 && safeLeafExamples > 670,
   "schema enrichment coverage unexpectedly shrank");
-assert(omittedBinary === 24 && omittedSensitive === 12 && omittedUnsupported === 20,
-  `safe omission inventory drifted: ${JSON.stringify({ omittedBinary, omittedSensitive, omittedUnsupported })}`);
+assert(omittedBinary === 24 && omittedSensitive === 12 && omittedUnmappedString === 105 &&
+  omittedUnsupported === 20,
+`safe omission inventory drifted: ${JSON.stringify({
+  omittedBinary, omittedSensitive, omittedUnmappedString, omittedUnsupported
+})}`);
 
 assert(JSON.stringify(mediaCounts(en)) === JSON.stringify(provenance.mediaCoverage),
   `media coverage drifted: ${JSON.stringify(mediaCounts(en))}`);
@@ -438,6 +448,6 @@ assert(JSON.stringify(sensitiveDownloadGets.sort()) ===
 console.log(
   "Verified Dropbox Sign candidate pre-admission: " +
   "67 paths, 73 operations, 217 schemas, 27 EventCallback schemas, " +
-  "2,626 bilingual prose nodes, 780 derived safe leaf examples, " +
+  "2,626 bilingual prose nodes, 675 derived safe leaf examples, " +
   "73 proxy-disabled request examples, and 0 external refs."
 );

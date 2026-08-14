@@ -2515,8 +2515,7 @@
             "description": "Filter area codes by city",
             "schema": {
               "type": "string",
-              "title": "City",
-              "example": "example"
+              "title": "City"
             }
           }
         ],
@@ -5804,8 +5803,7 @@
             "description": "String that includes search terms and/or fields to be used to filter the SignatureRequest objects.",
             "schema": {
               "type": "string",
-              "title": "Query",
-              "example": "example"
+              "title": "Query"
             }
           }
         ],
@@ -9207,8 +9205,7 @@
             "description": "String that includes search terms and/or fields to be used to filter the Template objects.",
             "schema": {
               "type": "string",
-              "title": "Query",
-              "example": "example"
+              "title": "Query"
             }
           }
         ],
@@ -10235,8 +10232,7 @@
           },
           "locale": {
             "description": "The locale used in this Account. Check out the list of [supported locales](/api/reference/constants/#supported-locales) to learn more about the possible values.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -10257,8 +10253,7 @@
           },
           "locale": {
             "description": "The locale used in this Account. Check out the list of [supported locales](/api/reference/constants/#supported-locales) to learn more about the possible values.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -10300,8 +10295,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Domains item",
-              "example": "example"
+              "title": "Domains item"
             },
             "maxItems": 10,
             "minItems": 1
@@ -10341,8 +10335,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Domains item",
-              "example": "example"
+              "title": "Domains item"
             },
             "maxItems": 10
           },
@@ -10377,8 +10370,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Cc Roles item",
-              "example": "example"
+              "title": "Cc Roles item"
             }
           },
           "editor_options": {
@@ -10438,8 +10430,7 @@
         "properties": {
           "number": {
             "description": "The Fax Line number",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "account_id": {
             "description": "Account ID",
@@ -10645,8 +10636,7 @@
           },
           "city": {
             "description": "City of the area code",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "account_id": {
             "description": "Account ID of the account that will be assigned this new Fax Line",
@@ -10664,8 +10654,7 @@
         "properties": {
           "number": {
             "description": "The Fax Line number",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -10678,8 +10667,7 @@
         "properties": {
           "number": {
             "description": "The Fax Line number",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "account_id": {
             "description": "Account ID of the user to remove access",
@@ -10879,8 +10867,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "signer_file": {
@@ -10971,8 +10958,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "signer_file": {
@@ -11236,8 +11222,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "allow_decline": {
@@ -11679,8 +11664,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "allow_decline": {
@@ -11790,8 +11774,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "allow_decline": {
@@ -12093,8 +12076,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "allow_decline": {
@@ -12236,8 +12218,7 @@
         "properties": {
           "instructions": {
             "description": "The instructions for uploading the attachment.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "name": {
             "description": "The name of attachment.",
@@ -12292,8 +12273,7 @@
           },
           "value": {
             "description": "The value of the custom field.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -12307,8 +12287,7 @@
         "properties": {
           "role": {
             "description": "Must match an existing CC role in chosen Template(s). Multiple CC recipients cannot share the same CC role.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "email_address": {
             "description": "The email address of the CC recipient.",
@@ -12328,8 +12307,7 @@
         "properties": {
           "editor": {
             "description": "Used to create editable merge fields. When the value matches a role passed in with `signers`, that role can edit the data that was pre-filled to that field. This field is optional, but required when this custom field object is set to `required = true`.\n\n**NOTE:** Editable merge fields are only supported for single signer requests (or the first signer in ordered signature requests). If used when there are multiple signers in an unordered signature request, the editor value is ignored and the field won't be editable.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "name": {
             "description": "The name of a custom field. When working with pre-filled data, the custom field's name must have a matching merge field name or the field will remain empty on the document during signing.",
@@ -12344,8 +12322,7 @@
           },
           "value": {
             "description": "The string that resolves (aka \"pre-fills\") to the merge field on the final document(s) used for signing.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -12423,13 +12400,11 @@
           },
           "group_label": {
             "description": "Name of the group",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "requirement": {
             "description": "Examples: `require_0-1` `require_1` `require_1-ormore`\n\n- Check out the list of [acceptable `requirement` checkbox type values](/api/reference/constants/#checkbox-field-grouping).\n- Check out the list of [acceptable `requirement` radio type fields](/api/reference/constants/#radio-field-grouping).\n- Radio groups require **at least** two fields per group.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -12545,16 +12520,14 @@
           },
           "value": {
             "description": "**value** or **values** is required, but not both.\n\nThe value to match against **operator**.\n\n- When **operator** is one of the following, **value** must be `String`:\n  - `is`\n  - `not`\n  - `match`\n\nOtherwise,\n- **checkbox**: When **type** of trigger is **checkbox**, **value** must be `0` or `1`\n- **radio**: When **type** of trigger is **radio**, **value** must be `1`",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "values": {
             "description": "**values** or **value** is required, but not both.\n\nThe values to match against **operator** when it is one of the following:\n\n- `any`\n- `none`",
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Values item",
-              "example": "example"
+              "title": "Values item"
             }
           }
         },
@@ -12581,8 +12554,7 @@
               },
               "group": {
                 "description": "String referencing group defined in `form_field_groups` parameter.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "is_checked": {
                 "description": "`true` for checking the checkbox field by default, otherwise `false`.",
@@ -12714,15 +12686,13 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "title": "Options item",
-                  "example": "example"
+                  "title": "Options item"
                 },
                 "minItems": 1
               },
               "content": {
                 "description": "Selected value in `options` array. Value must exist in array.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "font_family": {
                 "description": "Font family for the field.",
@@ -12799,8 +12769,7 @@
               },
               "content": {
                 "description": "Link Text.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "content_url": {
                 "description": "Link URL.",
@@ -12906,8 +12875,7 @@
               },
               "group": {
                 "description": "String referencing group defined in `form_field_groups` parameter.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "is_checked": {
                 "description": "`true` for checking the radio field by default, otherwise `false`. Only one radio field per group can be `true`.",
@@ -12964,13 +12932,11 @@
               },
               "placeholder": {
                 "description": "Placeholder value for text field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "auto_fill_type": {
                 "description": "Auto fill type for populating fields automatically. Check out the list of [auto fill types](/api/reference/constants/#auto-fill-types) to learn more about the possible values.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "link_id": {
                 "description": "Link two or more text fields. Enter data into one linked text field, which automatically fill all other linked text fields.",
@@ -13013,18 +12979,15 @@
               },
               "validation_custom_regex": {
                 "type": "string",
-                "title": "Validation Custom Regex",
-                "example": "example"
+                "title": "Validation Custom Regex"
               },
               "validation_custom_regex_format_label": {
                 "type": "string",
-                "title": "Validation Custom Regex Format Label",
-                "example": "example"
+                "title": "Validation Custom Regex Format Label"
               },
               "content": {
                 "description": "Content of a `me_now` text field",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "font_family": {
                 "description": "Font family for the field.",
@@ -13269,13 +13232,11 @@
           "signer": {
             "description": "Signer index identified by the offset in the signers parameter (0-based indexing), indicating which signer should fill out the field.\n\n**NOTE:** To set the value of the field as the preparer you must set this to `me_now`\n\n**NOTE:** If type is `text-merge` or `checkbox-merge`, you must set this to sender in order to use pre-filled data.",
             "type": "string",
-            "x-int-or-string": true,
-            "example": "example"
+            "x-int-or-string": true
           },
           "type": {
             "type": "string",
-            "title": "Type",
-            "example": "example"
+            "title": "Type"
           },
           "width": {
             "description": "Size of the field in pixels.",
@@ -13321,8 +13282,7 @@
         "properties": {
           "group": {
             "description": "The name of the group.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "order": {
             "description": "The order the group is required to sign in. Use this instead of Signer-level `order`.",
@@ -13487,8 +13447,7 @@
         "properties": {
           "role": {
             "description": "Must match an existing role in chosen Template(s). It's case-sensitive.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "name": {
             "description": "The name of the signer.",
@@ -13565,8 +13524,7 @@
         "properties": {
           "role": {
             "description": "Must match an existing role in chosen Template(s).",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "name": {
             "description": "The name of the signer filling the role of `role`.",
@@ -13928,8 +13886,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Cc Roles item",
-              "example": "example"
+              "title": "Cc Roles item"
             }
           },
           "client_id": {
@@ -14063,8 +14020,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Cc Roles item",
-              "example": "example"
+              "title": "Cc Roles item"
             }
           },
           "client_id": {
@@ -14820,8 +14776,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             }
           },
           "test_mode": {
@@ -15385,8 +15340,7 @@
           "role_code": {
             "description": "The membership role for the team.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "team_id": {
             "description": "The id of the team account belongs to.",
@@ -15397,8 +15351,7 @@
           "locale": {
             "description": "The locale used in this Account. Check out the list of [supported locales](/api/reference/constants/#supported-locales) to learn more about the possible values.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "usage": {
             "$ref": "#/components/schemas/AccountResponseUsage"
@@ -15419,8 +15372,7 @@
           },
           "token_type": {
             "type": "string",
-            "title": "Token Type",
-            "example": "example"
+            "title": "Token Type"
           },
           "refresh_token": {
             "type": "string",
@@ -15558,8 +15510,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Domains item",
-              "example": "example"
+              "title": "Domains item"
             }
           },
           "name": {
@@ -15607,8 +15558,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Scopes item",
-              "example": "example"
+              "title": "Scopes item"
             }
           },
           "charges_users": {
@@ -15664,8 +15614,7 @@
           },
           "legal_version": {
             "type": "string",
-            "title": "Legal Version",
-            "example": "example"
+            "title": "Legal Version"
           },
           "link_color": {
             "type": "string",
@@ -15835,13 +15784,11 @@
         "properties": {
           "error_msg": {
             "description": "Message describing an error.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "error_path": {
             "description": "Path at which an error occurred.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "error_name": {
             "description": "Name of the error. See the `x-error-codes` catalog in openapi file for a complete list of possible error codes with detailed information including HTTP status codes, causes, remediation steps, and retry guidance.",
@@ -15905,8 +15852,7 @@
           },
           "sender": {
             "description": "Fax Sender Email",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "files_url": {
             "description": "Fax Files URL",
@@ -15935,8 +15881,7 @@
         "properties": {
           "number": {
             "description": "Number",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "created_at": {
             "description": "Created at",
@@ -15968,8 +15913,7 @@
         "properties": {
           "recipient": {
             "description": "Fax Transmission Recipient",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "status_code": {
             "description": "Fax Transmission Status Code",
@@ -16040,8 +15984,7 @@
         "properties": {
           "success": {
             "description": "A message indicating the requested operation's success",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "start_date": {
             "description": "The (inclusive) start date for the report data in MM/DD/YYYY format.",
@@ -16196,8 +16139,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "Template Ids item",
-              "example": "example"
+              "title": "Template Ids item"
             },
             "nullable": true
           },
@@ -16260,8 +16202,7 @@
           "signer": {
             "description": "The Signer this attachment is assigned to.",
             "type": "string",
-            "x-int-or-string": true,
-            "example": "example"
+            "x-int-or-string": true
           },
           "name": {
             "description": "The name of this attachment.",
@@ -16276,8 +16217,7 @@
           "instructions": {
             "description": "Instructions for Signer.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "uploaded_at": {
             "description": "Timestamp when attachment was uploaded by Signer.",
@@ -16299,8 +16239,7 @@
         "properties": {
           "type": {
             "description": "The type of this Custom Field. Only 'text' and 'checkbox' are currently supported.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "name": {
             "description": "The name of the Custom Field.",
@@ -16320,8 +16259,7 @@
           "editor": {
             "description": "The name of the Role that is able to edit this field.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           }
         },
         "type": "object",
@@ -16384,8 +16322,7 @@
               },
               "value": {
                 "description": "A text string for text fields",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16432,8 +16369,7 @@
           },
           "type": {
             "type": "string",
-            "title": "Type",
-            "example": "example"
+            "title": "Type"
           }
         },
         "type": "object",
@@ -16522,8 +16458,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16547,8 +16482,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16572,8 +16506,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16597,8 +16530,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "is_signed": {
                 "description": "This field contains the boolean true if the field is signed.",
@@ -16653,8 +16585,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "is_signed": {
                 "description": "This field contains the boolean true if the field is signed.",
@@ -16684,8 +16615,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16709,8 +16639,7 @@
               },
               "value": {
                 "description": "The value of the form field.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -16747,8 +16676,7 @@
           "signer_role": {
             "description": "The role of the signer.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "order": {
             "description": "If signer order is assigned this is the 0-based index for this signer.",
@@ -16758,14 +16686,12 @@
           },
           "status_code": {
             "description": "The current status of the signature. eg: awaiting_signature, signed, declined.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "decline_reason": {
             "description": "The reason provided by the signer for declining the request.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "signed_at": {
             "description": "Time that the document was signed or null.",
@@ -16811,26 +16737,22 @@
           "reassigned_by": {
             "description": "Email address of original signer who reassigned to this signer.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "reassignment_reason": {
             "description": "Reason provided by original signer who reassigned to this signer.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "reassigned_from": {
             "description": "Previous signature identifier.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           },
           "error": {
             "description": "Error message pertaining to this signer, or null.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           }
         },
         "type": "object",
@@ -16926,8 +16848,7 @@
           },
           "role": {
             "description": "Role of the user invited to this team.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "sent_at": {
             "description": "Timestamp when the invitation was sent.",
@@ -16963,8 +16884,7 @@
           },
           "role": {
             "description": "The specific role a member has on the team.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -17298,15 +17218,13 @@
           },
           "type": {
             "type": "string",
-            "title": "Type",
-            "example": "example"
+            "title": "Type"
           },
           "signer": {
             "description": "The signer of the Custom Field. Can be `null` if field is a merge field (assigned to Sender).",
             "type": "string",
             "nullable": true,
-            "x-int-or-string": true,
-            "example": "example"
+            "x-int-or-string": true
           },
           "x": {
             "description": "The horizontal offset in pixels for this form field.",
@@ -17336,8 +17254,7 @@
           "group": {
             "description": "The name of the group this field is in. If this field is not a group, this defaults to `null`.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           }
         },
         "type": "object",
@@ -17408,8 +17325,7 @@
               },
               "fontFamily": {
                 "description": "Font family used in this form field's text.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -17438,13 +17354,11 @@
         "properties": {
           "requirement": {
             "description": "Examples: `require_0-1` `require_1` `require_1-ormore`\n\n- Check out the list of [acceptable `requirement` checkbox type values](/api/reference/constants/#checkbox-field-grouping).\n- Check out the list of [acceptable `requirement` radio type fields](/api/reference/constants/#radio-field-grouping).\n- Radio groups require **at least** two fields per group.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "groupLabel": {
             "description": "Name of the group",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           }
         },
         "type": "object",
@@ -17469,14 +17383,12 @@
           },
           "type": {
             "type": "string",
-            "title": "Type",
-            "example": "example"
+            "title": "Type"
           },
           "signer": {
             "description": "The signer of the Form Field.",
             "type": "string",
-            "x-int-or-string": true,
-            "example": "example"
+            "x-int-or-string": true
           },
           "x": {
             "description": "The horizontal offset in pixels for this form field.",
@@ -17542,8 +17454,7 @@
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17572,8 +17483,7 @@
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17602,8 +17512,7 @@
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17644,14 +17553,12 @@
               },
               "fontFamily": {
                 "description": "Font family used in this form field's text.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17680,8 +17587,7 @@
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17710,8 +17616,7 @@
               },
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               }
             },
             "type": "object",
@@ -17740,8 +17645,7 @@
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17782,8 +17686,7 @@
               },
               "fontFamily": {
                 "description": "Font family used in this form field's text.",
-                "type": "string",
-                "example": "example"
+                "type": "string"
               },
               "validation_type": {
                 "description": "Each text field may contain a `validation_type` parameter. Check out the list of [validation types](https://faq.hellosign.com/hc/en-us/articles/217115577) to learn more about the possible values.",
@@ -17818,20 +17721,17 @@
               "validation_custom_regex": {
                 "description": "When `validation_type` is set to `custom_regex`, this specifies the custom regular expression pattern that will be used to validate the text field.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               },
               "validation_custom_regex_format_label": {
                 "description": "When `validation_type` is set to `custom_regex`, this specifies the error message displayed to the signer when the text does not match the provided regex pattern.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               },
               "group": {
                 "description": "The name of the group this field is in. If this field is not a group, this defaults to `null` except for Radio fields.",
                 "type": "string",
-                "nullable": true,
-                "example": "example"
+                "nullable": true
               }
             },
             "type": "object",
@@ -17858,8 +17758,7 @@
           },
           "type": {
             "type": "string",
-            "title": "Type",
-            "example": "example"
+            "title": "Type"
           },
           "signer": {
             "description": "The signer of the Static Field.",
@@ -17895,8 +17794,7 @@
           "group": {
             "description": "The name of the group this field is in. If this field is not a group, this defaults to `null`.",
             "type": "string",
-            "nullable": true,
-            "example": "example"
+            "nullable": true
           }
         },
         "type": "object",
@@ -18216,8 +18114,7 @@
         "properties": {
           "warning_msg": {
             "description": "Warning message",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "warning_name": {
             "description": "Warning name",
@@ -18503,8 +18400,7 @@
         "properties": {
           "event_time": {
             "description": "Time the event was created (using Unix time).",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "event_type": {
             "description": "Type of callback event that was triggered.",
@@ -18563,8 +18459,7 @@
           },
           "event_hash": {
             "description": "Generated hash used to verify source of event data.",
-            "type": "string",
-            "example": "example"
+            "type": "string"
           },
           "event_metadata": {
             "$ref": "#/components/schemas/EventCallbackRequestEventMetadata"

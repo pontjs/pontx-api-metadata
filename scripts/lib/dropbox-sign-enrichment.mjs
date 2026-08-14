@@ -55,7 +55,7 @@ function boundedNumber(schema) {
 
 function stringExample(schema, label) {
   const lower = String(label).toLowerCase();
-  let value = "example";
+  let value;
   if (schema.format === "email" || lower.includes("email")) value = "developer@example.com";
   else if (lower.includes("url") || lower.includes("uri")) value = "https://example.com/resource";
   else if (lower.includes("phone") || lower.includes("fax_number")) value = "+12025550123";
@@ -69,6 +69,8 @@ function stringExample(schema, label) {
   else if (lower.includes("message")) value = "Example message";
   else if (lower.includes("subject") || lower.includes("title")) value = "Example document";
   else if (lower.endsWith("id") || lower.endsWith("_id")) value = `example-${lower.replace(/[^a-z0-9]+/g, "-")}`;
+
+  if (value === undefined) return undefined;
 
   const minimum = schema.minLength ?? 0;
   if (value.length < minimum) value = value.padEnd(minimum, "x");
@@ -89,7 +91,10 @@ function exampleFor(schema, label) {
     return { value: boundedNumber(schema), source: "constraint-placeholder" };
   }
   if (schema.type === "string") {
-    return { value: stringExample(schema, label), source: "constraint-placeholder" };
+    const value = stringExample(schema, label);
+    return value === undefined
+      ? undefined
+      : { value, source: "constraint-placeholder" };
   }
   return undefined;
 }
@@ -136,7 +141,10 @@ function visitSchema(schema, context, locale, stats) {
         schema.example = derived.value;
         stats.leafExamples[derived.source] += 1;
       } else {
-        stats.omittedExamples.unsupportedSchema += 1;
+        const category = schema.type === "string"
+          ? "unmappedGenericString"
+          : "unsupportedSchema";
+        stats.omittedExamples[category] += 1;
       }
     }
   }
@@ -195,7 +203,12 @@ export function enrichDropboxSignDocument(document, locale) {
     enumSchemas: 0,
     enumValues: 0,
     leafExamples: { const: 0, default: 0, enum: 0, "constraint-placeholder": 0 },
-    omittedExamples: { binary: 0, "credential-or-secret": 0, unsupportedSchema: 0 },
+    omittedExamples: {
+      binary: 0,
+      "credential-or-secret": 0,
+      unmappedGenericString: 0,
+      unsupportedSchema: 0
+    },
     addedTags: 0,
     typeCorrections: 0,
     constraintCorrections: 0
