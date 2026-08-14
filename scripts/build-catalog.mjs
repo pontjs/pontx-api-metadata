@@ -784,6 +784,48 @@ for (const entry of source.apis) {
     ...(entry.cliName ? { cliName: entry.cliName } : {}),
     ...(entry.sdkExamples ? { sdkExamples: entry.sdkExamples } : {}),
     ...(entry.sdkContract ? { sdkContract: entry.sdkContract } : {}),
+    ...(entry.pricing
+      ? {
+          pricing: {
+            ...entry.pricing,
+            summary: localizedCatalogText(
+              entry.pricing.summary,
+              englishEntry.pricing?.summary,
+              `${entry.slug}.pricing.summary`
+            ),
+            ...(entry.pricing.freeTier
+              ? {
+                  freeTier: localizedCatalogText(
+                    entry.pricing.freeTier,
+                    englishEntry.pricing?.freeTier,
+                    `${entry.slug}.pricing.freeTier`
+                  )
+                }
+              : {}),
+            ...(entry.pricing.billingUnit
+              ? {
+                  billingUnit: localizedCatalogText(
+                    entry.pricing.billingUnit,
+                    englishEntry.pricing?.billingUnit,
+                    `${entry.slug}.pricing.billingUnit`
+                  )
+                }
+              : {}),
+            ...(entry.pricing.startingPrice
+              ? {
+                  startingPrice: {
+                    ...entry.pricing.startingPrice,
+                    unit: localizedCatalogText(
+                      entry.pricing.startingPrice.unit,
+                      englishEntry.pricing?.startingPriceUnit,
+                      `${entry.slug}.pricing.startingPrice.unit`
+                    )
+                  }
+                }
+              : {})
+          }
+        }
+      : {}),
     proxyEnabled: entry.proxyEnabled,
     documentationStatus: entry.documentationStatus ?? "official",
     evidenceUrls: entry.evidenceUrls ?? [],
