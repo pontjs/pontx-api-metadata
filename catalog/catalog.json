@@ -22,9 +22,13 @@
       "accent": "#2d6cdf",
       "packageName": "@pontx/frankfurter",
       "sdkVersion": "0.1.1",
-      "sdkStatus": "planned",
+      "sdkStatus": "published",
       "contentUpdatedAt": "2026-08-10",
       "cliName": "pontx-frankfurter",
+      "sdkExamples": {
+        "typescript": "import currencyExchangeClient from \"@pontx/frankfurter\";\n\nconst result = await currencyExchangeClient.exchangeRates.getLatestRates({\n  base: \"USD\",\n  symbols: \"JPY,CNY\"\n});",
+        "cli": "pnpm add --global @pontx/frankfurter\n\npontx-frankfurter call exchangeRates.getLatestRates --base USD --symbols JPY,CNY --dry-run"
+      },
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
@@ -2955,9 +2959,13 @@
       "accent": "#1dbf73",
       "packageName": "@pontx/dida365",
       "sdkVersion": "0.1.1",
-      "sdkStatus": "planned",
+      "sdkStatus": "published",
       "contentUpdatedAt": "2026-08-10",
       "cliName": "pontx-dida365",
+      "sdkExamples": {
+        "typescript": "import { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst client = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait client.authenticate();\nconst accessToken = await client.getAccessToken();",
+        "cli": "pnpm add --global @pontx/dida365\n\npontx-dida365 call project.getUserProjects --dry-run"
+      },
       "proxyEnabled": true,
       "documentationStatus": "official",
       "evidenceUrls": [
