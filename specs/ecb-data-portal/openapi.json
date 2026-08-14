@@ -1,0 +1,2271 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "title": "ECB Data Portal SDMX API",
+    "description": "欧洲中央银行 Data Portal 的匿名只读 SDMX 2.1 REST 服务。契约覆盖统计数据、结构元数据和结构特定 XML Schema 三类官方资源，并展开官方允许省略版本或标识符的路径变体。数据响应支持 SDMX-JSON、CSV、ECB 透视表 CSV，以及 SDMX-ML 2.1 Generic Data 和 Structure Specific Data。",
+    "version": "2026-08-14",
+    "termsOfService": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+    "license": {
+      "name": "ECB website information reuse terms",
+      "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
+    },
+    "contact": {
+      "url": "https://data.ecb.europa.eu/help/contact-us"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://data-api.ecb.europa.eu/service"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Data",
+      "description": "统计数据查询接口"
+    },
+    {
+      "name": "Metadata",
+      "description": "SDMX 结构元数据查询接口"
+    },
+    {
+      "name": "Validation",
+      "description": "结构特定数据 XML Schema 查询接口"
+    }
+  ],
+  "paths": {
+    "/data/{flowRef}": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "operationId": "getDataByFlow",
+        "summary": "按数据流获取数据",
+        "description": "返回数据流中的数据。该变体省略 Series key，因此可能匹配大量时间序列；调用方应使用日期、detail 或 Observation 数量参数限制响应。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/flowRef"
+          },
+          {
+            "$ref": "#/components/parameters/startPeriod"
+          },
+          {
+            "$ref": "#/components/parameters/endPeriod"
+          },
+          {
+            "$ref": "#/components/parameters/updatedAfter"
+          },
+          {
+            "$ref": "#/components/parameters/firstNObservations"
+          },
+          {
+            "$ref": "#/components/parameters/lastNObservations"
+          },
+          {
+            "$ref": "#/components/parameters/dataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/includeHistory"
+          },
+          {
+            "$ref": "#/components/parameters/format"
+          },
+          {
+            "$ref": "#/components/parameters/ifModifiedSince"
+          },
+          {
+            "$ref": "#/components/parameters/dataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "请求成功；响应表示由 format 查询参数或 Accept header 选择。",
+            "content": {
+              "application/vnd.sdmx.data+json;version=1.0.0-wd": {
+                "schema": {
+                  "$ref": "#/components/schemas/SdmxDataMessage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SdmxDataMessage"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.ecb.data+csv;version=1.0.0": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.sdmx.genericdata+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.sdmx.structurespecificdata+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "自 If-Modified-Since 指定时间起没有变化；响应没有 body。"
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "flowRef": "EXR"
+              },
+              "query": {
+                "lastNObservations": 1,
+                "detail": "serieskeysonly",
+                "format": "jsondata"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/data/{flowRef}/{key}": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "operationId": "getDataBySeriesKey",
+        "summary": "按数据流和 Series key 获取数据",
+        "description": "返回指定数据流中与 Series key 匹配的时间序列。key 按 DSD 维度顺序以点号连接；空段表示通配，`+` 表示 OR。请使用日期或 Observation 数量参数限制响应规模。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/flowRef"
+          },
+          {
+            "$ref": "#/components/parameters/key"
+          },
+          {
+            "$ref": "#/components/parameters/startPeriod"
+          },
+          {
+            "$ref": "#/components/parameters/endPeriod"
+          },
+          {
+            "$ref": "#/components/parameters/updatedAfter"
+          },
+          {
+            "$ref": "#/components/parameters/firstNObservations"
+          },
+          {
+            "$ref": "#/components/parameters/lastNObservations"
+          },
+          {
+            "$ref": "#/components/parameters/dataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/includeHistory"
+          },
+          {
+            "$ref": "#/components/parameters/format"
+          },
+          {
+            "$ref": "#/components/parameters/ifModifiedSince"
+          },
+          {
+            "$ref": "#/components/parameters/dataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "请求成功；响应表示由 format 查询参数或 Accept header 选择。",
+            "content": {
+              "application/vnd.sdmx.data+json;version=1.0.0-wd": {
+                "schema": {
+                  "$ref": "#/components/schemas/SdmxDataMessage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SdmxDataMessage"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.ecb.data+csv;version=1.0.0": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.sdmx.genericdata+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/vnd.sdmx.structurespecificdata+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "自 If-Modified-Since 指定时间起没有变化；响应没有 body。"
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "flowRef": "EXR",
+                "key": "M.USD.EUR.SP00.A"
+              },
+              "query": {
+                "startPeriod": "2024-01",
+                "endPeriod": "2024-01",
+                "format": "jsondata"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/{resource}": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "listMetadata",
+        "summary": "列出一类结构元数据",
+        "description": "返回指定 SDMX artefact 类型的所有可用结构元数据。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resource"
+          },
+          {
+            "$ref": "#/components/parameters/metadataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/references"
+          },
+          {
+            "$ref": "#/components/parameters/metadataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "结构元数据 XML。",
+            "content": {
+              "application/vnd.sdmx.structure+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "resource": "dataflow"
+              },
+              "query": {
+                "detail": "allstubs",
+                "references": "none"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/{resource}/{agencyID}": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "listMetadataByAgency",
+        "summary": "按维护机构列出结构元数据",
+        "description": "返回由指定 SDMX agency 维护的某类结构元数据。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resource"
+          },
+          {
+            "$ref": "#/components/parameters/agencyID"
+          },
+          {
+            "$ref": "#/components/parameters/metadataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/references"
+          },
+          {
+            "$ref": "#/components/parameters/metadataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "结构元数据 XML。",
+            "content": {
+              "application/vnd.sdmx.structure+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "resource": "dataflow",
+                "agencyID": "ECB"
+              },
+              "query": {
+                "detail": "allstubs",
+                "references": "none"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/{resource}/{agencyID}/{resourceID}": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "getMetadataArtefact",
+        "summary": "获取结构元数据 artefact",
+        "description": "返回指定维护机构和资源标识符对应的最新结构元数据版本。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resource"
+          },
+          {
+            "$ref": "#/components/parameters/agencyID"
+          },
+          {
+            "$ref": "#/components/parameters/resourceID"
+          },
+          {
+            "$ref": "#/components/parameters/metadataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/references"
+          },
+          {
+            "$ref": "#/components/parameters/metadataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "结构元数据 XML。",
+            "content": {
+              "application/vnd.sdmx.structure+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "resource": "dataflow",
+                "agencyID": "ECB",
+                "resourceID": "EXR"
+              },
+              "query": {
+                "detail": "allstubs",
+                "references": "none"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/{resource}/{agencyID}/{resourceID}/{version}": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "getVersionedMetadataArtefact",
+        "summary": "获取指定版本的结构元数据 artefact",
+        "description": "返回指定维护机构、资源标识符和版本对应的结构元数据。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resource"
+          },
+          {
+            "$ref": "#/components/parameters/agencyID"
+          },
+          {
+            "$ref": "#/components/parameters/resourceID"
+          },
+          {
+            "$ref": "#/components/parameters/version"
+          },
+          {
+            "$ref": "#/components/parameters/metadataDetail"
+          },
+          {
+            "$ref": "#/components/parameters/references"
+          },
+          {
+            "$ref": "#/components/parameters/metadataAccept"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "结构元数据 XML。",
+            "content": {
+              "application/vnd.sdmx.structure+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "resource": "dataflow",
+                "agencyID": "ECB",
+                "resourceID": "EXR",
+                "version": "1.0"
+              },
+              "query": {
+                "detail": "allstubs",
+                "references": "none"
+              },
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/schema/{context}/{agencyID}/{resourceID}": {
+      "get": {
+        "tags": [
+          "Validation"
+        ],
+        "operationId": "getStructureSpecificSchema",
+        "summary": "获取最新结构特定数据 XML Schema",
+        "description": "按 context、维护机构和资源标识符生成最新版本的 Structure Specific Data XML Schema。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/context"
+          },
+          {
+            "$ref": "#/components/parameters/agencyID"
+          },
+          {
+            "$ref": "#/components/parameters/resourceID"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "用于验证 Structure Specific Data 消息的 XML Schema。",
+            "content": {
+              "application/vnd.sdmx.schema+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "context": "datastructure",
+                "agencyID": "ECB",
+                "resourceID": "ECB_EXR1"
+              },
+              "query": {},
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    },
+    "/schema/{context}/{agencyID}/{resourceID}/{version}": {
+      "get": {
+        "tags": [
+          "Validation"
+        ],
+        "operationId": "getVersionedStructureSpecificSchema",
+        "summary": "获取指定版本的结构特定数据 XML Schema",
+        "description": "按 context、维护机构、资源标识符和版本生成 Structure Specific Data XML Schema。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/context"
+          },
+          {
+            "$ref": "#/components/parameters/agencyID"
+          },
+          {
+            "$ref": "#/components/parameters/resourceID"
+          },
+          {
+            "$ref": "#/components/parameters/version"
+          },
+          {
+            "$ref": "#/components/parameters/acceptEncoding"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "用于验证 Structure Specific Data 消息的 XML Schema。",
+            "content": {
+              "application/vnd.sdmx.schema+xml;version=2.1": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "查询参数存在语法或语义错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "没有匹配结果。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "请求的响应表示不受支持。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ECB 服务内部错误。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "请求使用了 ECB 尚未实现的 SDMX REST 功能。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ECB 服务暂时不可用。",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        },
+        "x-pontx-documentation-status": "official",
+        "x-pontx-evidence": [
+          "https://data.ecb.europa.eu/help/api/data",
+          "https://data.ecb.europa.eu/help/api/metadata",
+          "https://data.ecb.europa.eu/help/api/schemas",
+          "https://data.ecb.europa.eu/help/api/content-negotiation",
+          "https://data.ecb.europa.eu/help/api/status-codes"
+        ],
+        "x-pontx-verified-at": "2026-08-14",
+        "x-pontx-proxy-enabled": false,
+        "x-pontx-proxy-disabled-reason": "候选预准入期间禁用 Hub 代理；SDK/CLI 仅允许调用方直接执行匿名只读请求。",
+        "x-pontx-request-examples": {
+          "default": {
+            "request": {
+              "path": {
+                "context": "datastructure",
+                "agencyID": "ECB",
+                "resourceID": "ECB_EXR1",
+                "version": "1.0"
+              },
+              "query": {},
+              "headers": {}
+            },
+            "expectedStatus": "200"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "flowRef": {
+        "name": "flowRef",
+        "in": "path",
+        "required": true,
+        "description": "数据流引用：flow ID，或以逗号分隔的 agency ID、flow ID 和 version。",
+        "schema": {
+          "type": "string",
+          "pattern": "^[^/,]+(?:,[^/,]+(?:,[^/,]+)?)?$",
+          "example": "EXR"
+        }
+      },
+      "key": {
+        "name": "key",
+        "in": "path",
+        "required": true,
+        "description": "按 DSD 维度顺序排列的 Series key；点号分隔，空段通配，`+` 表示 OR。",
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_+-]*(?:\\.[A-Za-z0-9_+-]*)*$",
+          "example": "M.USD.EUR.SP00.A"
+        }
+      },
+      "startPeriod": {
+        "name": "startPeriod",
+        "in": "query",
+        "required": false,
+        "description": "ISO 8601 或 SDMX reporting period：年、半年、季度、月、周或日。",
+        "schema": {
+          "type": "string",
+          "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+          "example": "2024-01"
+        }
+      },
+      "endPeriod": {
+        "name": "endPeriod",
+        "in": "query",
+        "required": false,
+        "description": "ISO 8601 或 SDMX reporting period：年、半年、季度、月、周或日。",
+        "schema": {
+          "type": "string",
+          "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+          "example": "2024-01"
+        }
+      },
+      "updatedAfter": {
+        "name": "updatedAfter",
+        "in": "query",
+        "required": false,
+        "description": "只返回该 ISO 8601 时间戳之后新增、修订或删除的最新值。",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-01-01T00:00:00Z"
+        }
+      },
+      "firstNObservations": {
+        "name": "firstNObservations",
+        "in": "query",
+        "required": false,
+        "description": "每个匹配时间序列从第一条开始最多返回的 Observation 数量。",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "lastNObservations": {
+        "name": "lastNObservations",
+        "in": "query",
+        "required": false,
+        "description": "每个匹配时间序列从最近一条向前最多返回的 Observation 数量。",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "dataDetail": {
+        "name": "detail",
+        "in": "query",
+        "required": false,
+        "description": "返回的数据细节级别。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "full",
+            "dataonly",
+            "serieskeysonly",
+            "nodata"
+          ],
+          "default": "full",
+          "example": "full"
+        }
+      },
+      "includeHistory": {
+        "name": "includeHistory",
+        "in": "query",
+        "required": false,
+        "description": "是否包含匹配数据的历史版本。",
+        "schema": {
+          "type": "boolean",
+          "default": false,
+          "example": false
+        }
+      },
+      "format": {
+        "name": "format",
+        "in": "query",
+        "required": false,
+        "description": "响应格式；也可通过 Accept header 选择。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "csvdata",
+            "jsondata",
+            "structurespecificdata",
+            "genericdata"
+          ],
+          "default": "genericdata",
+          "example": "jsondata"
+        }
+      },
+      "ifModifiedSince": {
+        "name": "If-Modified-Since",
+        "in": "header",
+        "required": false,
+        "description": "HTTP 条件请求时间。若数据没有变化，服务返回 304。",
+        "schema": {
+          "type": "string",
+          "format": "http-date",
+          "example": "Mon, 01 Jan 2024 00:00:00 GMT"
+        }
+      },
+      "dataAccept": {
+        "name": "Accept",
+        "in": "header",
+        "required": false,
+        "description": "选择响应表示。ECB 建议使用带版本的专用 media type。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/vnd.sdmx.genericdata+xml;version=2.1",
+            "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+            "application/vnd.sdmx.data+json;version=1.0.0-wd",
+            "text/csv",
+            "application/vnd.ecb.data+csv;version=1.0.0",
+            "application/json",
+            "application/xml"
+          ],
+          "example": "application/vnd.sdmx.data+json;version=1.0.0-wd"
+        }
+      },
+      "metadataAccept": {
+        "name": "Accept",
+        "in": "header",
+        "required": false,
+        "description": "选择响应表示。ECB 建议使用带版本的专用 media type。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/vnd.sdmx.structure+xml;version=2.1",
+            "application/xml"
+          ],
+          "example": "application/vnd.sdmx.structure+xml;version=2.1"
+        }
+      },
+      "acceptEncoding": {
+        "name": "Accept-Encoding",
+        "in": "header",
+        "required": false,
+        "description": "请求压缩响应，例如 gzip。",
+        "schema": {
+          "type": "string",
+          "example": "gzip"
+        }
+      },
+      "resource": {
+        "name": "resource",
+        "in": "path",
+        "required": true,
+        "description": "SDMX 结构元数据 artefact 类型。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "datastructure",
+            "metadatastructure",
+            "categoryscheme",
+            "Conceptscheme",
+            "codelist",
+            "hierarchicalcodelist",
+            "organisationscheme",
+            "agencyscheme",
+            "dataproviderscheme",
+            "dataconsumerscheme",
+            "organisationunitscheme",
+            "dataflow",
+            "metadataflow",
+            "reportingtaxonomy",
+            "provisionagreement",
+            "structureset",
+            "process",
+            "categorisation",
+            "contentconstraint",
+            "attachmentconstraint",
+            "structure"
+          ],
+          "example": "dataflow"
+        }
+      },
+      "agencyID": {
+        "name": "agencyID",
+        "in": "path",
+        "required": true,
+        "description": "维护该 artefact 的 SDMX agency 标识符。",
+        "schema": {
+          "type": "string",
+          "example": "ECB"
+        }
+      },
+      "resourceID": {
+        "name": "resourceID",
+        "in": "path",
+        "required": true,
+        "description": "SDMX artefact 标识符。",
+        "schema": {
+          "type": "string",
+          "example": "EXR"
+        }
+      },
+      "version": {
+        "name": "version",
+        "in": "path",
+        "required": true,
+        "description": "SDMX artefact 版本。",
+        "schema": {
+          "type": "string",
+          "example": "1.0"
+        }
+      },
+      "metadataDetail": {
+        "name": "detail",
+        "in": "query",
+        "required": false,
+        "description": "结构元数据细节级别。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "full",
+            "allstubs",
+            "referencestubs"
+          ],
+          "default": "full",
+          "example": "allstubs"
+        }
+      },
+      "references": {
+        "name": "references",
+        "in": "query",
+        "required": false,
+        "description": "返回或排除关联 artefact；也可传具体资源类型。",
+        "schema": {
+          "type": "string",
+          "default": "none",
+          "example": "none"
+        }
+      },
+      "context": {
+        "name": "context",
+        "in": "path",
+        "required": true,
+        "description": "生成 XML Schema 时使用的 SDMX 约束上下文。",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "datastructure",
+            "dataflow",
+            "provisionagreement"
+          ],
+          "example": "datastructure"
+        }
+      }
+    },
+    "schemas": {
+      "SdmxDataMessage": {
+        "type": "object",
+        "title": "SDMX 数据消息",
+        "description": "SDMX-JSON 1.0.0-wd 数据消息。Schema 建模 ECB 实测且由官方内容协商声明的顶层、结构、维度、属性、Series 和 Observation 关系；动态 Series key 和 Observation 索引使用 map 表达。",
+        "required": [
+          "header",
+          "dataSets",
+          "structure"
+        ],
+        "properties": {
+          "header": {
+            "$ref": "#/components/schemas/SdmxHeader"
+          },
+          "dataSets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxDataSet"
+            }
+          },
+          "structure": {
+            "$ref": "#/components/schemas/SdmxStructure"
+          }
+        }
+      },
+      "SdmxHeader": {
+        "type": "object",
+        "title": "SDMX 消息头",
+        "description": "SDMX 消息头。",
+        "required": [
+          "id",
+          "test",
+          "prepared",
+          "sender"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "b8cdb8e9-3de8-41f7-a83e-c6e475a6e7ab"
+          },
+          "test": {
+            "type": "boolean",
+            "example": false
+          },
+          "prepared": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-08-14T16:23:35.250+02:00"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/SdmxSender"
+          }
+        }
+      },
+      "SdmxSender": {
+        "type": "object",
+        "title": "SDMX 发送方",
+        "description": "消息发送方。",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ECB"
+          }
+        }
+      },
+      "SdmxLink": {
+        "type": "object",
+        "title": "SDMX 资源链接",
+        "description": "相关 SDMX 资源链接。",
+        "required": [
+          "rel",
+          "href"
+        ],
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Exchange Rates"
+          },
+          "rel": {
+            "type": "string",
+            "example": "dataflow"
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://data-api.ecb.europa.eu/service/dataflow/ECB/EXR/1.0"
+          }
+        }
+      },
+      "SdmxStructure": {
+        "type": "object",
+        "title": "SDMX 数据结构",
+        "description": "描述维度、属性及其值字典的 SDMX 数据结构。",
+        "required": [
+          "dimensions",
+          "attributes"
+        ],
+        "properties": {
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxLink"
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "Exchange Rates"
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/SdmxComponentGroups"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/SdmxComponentGroups"
+          }
+        }
+      },
+      "SdmxComponentGroups": {
+        "type": "object",
+        "title": "SDMX 组件分组",
+        "required": [
+          "series",
+          "observation"
+        ],
+        "properties": {
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponent"
+            }
+          },
+          "observation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponent"
+            }
+          }
+        }
+      },
+      "SdmxComponent": {
+        "type": "object",
+        "title": "SDMX 维度或属性",
+        "description": "SDMX 维度或属性定义。",
+        "required": [
+          "id",
+          "name",
+          "values"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "FREQ"
+          },
+          "name": {
+            "type": "string",
+            "example": "Frequency"
+          },
+          "role": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "time"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponentValue"
+            }
+          }
+        }
+      },
+      "SdmxComponentValue": {
+        "type": "object",
+        "title": "SDMX 组件值",
+        "description": "SDMX 维度或属性的值字典项。",
+        "properties": {
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "M"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Monthly"
+          },
+          "start": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2024-01-01T00:00:00.000+01:00"
+          },
+          "end": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2024-01-31T23:59:59.999+01:00"
+          }
+        }
+      },
+      "SdmxDataSet": {
+        "type": "object",
+        "title": "SDMX 数据集",
+        "description": "SDMX 数据集；Series key 是动态 map key。",
+        "required": [
+          "action",
+          "series"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "example": "Replace"
+          },
+          "validFrom": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2026-08-14T16:23:35.250+02:00"
+          },
+          "series": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SdmxSeries"
+            }
+          }
+        }
+      },
+      "SdmxSeries": {
+        "type": "object",
+        "title": "SDMX 时间序列",
+        "description": "一个匹配的时间序列及其 Observation。",
+        "properties": {
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "observations": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SdmxObservationTuple"
+            }
+          }
+        }
+      },
+      "SdmxObservationTuple": {
+        "type": "array",
+        "title": "SDMX Observation tuple",
+        "description": "Observation 值及其属性索引组成的 tuple。",
+        "minItems": 1,
+        "items": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "example": [
+          1.0905136363636,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "ErrorBody": {
+        "type": "string",
+        "title": "ECB 错误响应",
+        "description": "ECB 未声明稳定的错误 body Schema；SDK 将错误 body 保留为字符串。"
+      }
+    }
+  }
+}

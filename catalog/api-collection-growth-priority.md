@@ -2,7 +2,7 @@
 
 > 状态：候选路线图，不代表已批准收录。证据快照：2026-08-14（Asia/Shanghai）。
 
-本文件决定调查和制作顺序；20 个产品的结构化 intake、权威证据、门槛状态与下一步维护在
+本文件决定调查和制作顺序；24 个产品的结构化 intake、权威证据、门槛状态与下一步维护在
 [`api-collection-candidates.json`](./api-collection-candidates.json)。正式 Hub catalog 仍只包含
 `catalog/source.json` 中通过全部准入门槛的集合。
 
@@ -24,8 +24,12 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
   归入各自供应商级 API 集合，不按型号拆分。
 - MongoDB 候选仅指 Atlas Administration API v2，不包含数据库 wire protocol 或其他 Atlas 产品。
 - Sendbird 候选仅指服务端 Chat Platform API v3，不包含客户端实时协议。
+- ECB 候选保留完整 Data Portal SDMX 2.1 REST 服务边界；EXR 汇率数据流不冒充独立供应商 API。
+- CurrencyBeacon 候选仅指官方 v1 REST API；供应商另行提供的 MCP server 不并入 REST 集合。
+- Open Exchange Rates 候选按官方 v0.7 的七个 JSON REST Endpoint 定界。
+- Twelve Data Forex 候选保留 REST 与 WebSocket 的完整供应商产品面，不裁剪实时协议后发布。
 - Stripe Identity 只在供应商明确的 Identity 子产品边界内单独合规审查，不扩展成完整支付集合。
-- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365 和 Massive，不进入本轮候选。
+- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive 和 Dropbox Sign；Dropbox Sign 在账本中保留已准入状态用于持续治理，其余四项不进入本轮候选。
 
 ## 不可绕过的准入门槛
 
@@ -65,15 +69,19 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 3 | MongoDB Atlas Administration API v2 | 88 | 官方 Apache-2.0 OAS；335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type | 双语化、风险策略、SDK/CLI 发布 |
 | 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
 | 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；无 Server-Sent Events | 建立可复现 Smithy→OAS 转换并完成 SigV4/风险策略 |
-| 6 | Dropbox Sign API | 80 | 固定官方 OAS：67 paths / 73 operations / 217 Schemas；仓库内容按 Apache-2.0 保留许可与归因，OAS/官方 SDK 的 MIT 声明分域记录 | 审阅预准入双语规范及归一化，验证多 media type/二进制路径并完成风险策略 |
+| 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
+| 8 | ECB Data Portal SDMX API | 76 | 已按 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas 的完整双语候选契约；SDK/CLI 本地生成、构建、打包预演和限定只读实调通过 | 建立不可变 SDK 仓库与 Node CI，获运营者发布授权后发布、fresh-install 并准入 |
+| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema，并且 metadata/生成 SDK 再分发权未确认 | 获取可固定的完整 OAS 与书面发布许可 |
+| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，但只完整给出两个成功响应；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS 与 metadata/SDK 书面许可 |
+| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas，但完整 Forex 产品还含 WebSocket；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 先实现 WebSocket/AsyncAPI，修复 CLI 安全方案注入，并取得完整契约和发布许可 |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
 
 ## AI/LLM 候选：整集协议暂缓
 
-官方协议证据已确认以下 12 个完整产品面包含 SSE、WebSocket 或其他实时协议。它们的编辑分仅表示
+官方协议证据已确认以下 12 个 AI/LLM 完整产品面包含 SSE、WebSocket 或其他实时协议。它们的编辑分仅表示
 未来解除协议限制后的潜在顺序，不能与当前可执行队列混排。
 
 | 序位 | API 集合 | 编辑分 | 阻断证据摘要 |
@@ -106,20 +114,23 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 1. MongoDB Atlas Administration API v2
 2. Amazon SQS API
-3. Dropbox Sign API（完整契约已预归一化且许可/归因已固定；多 media type、二进制生成和风险策略仍待验证）
+3. ECB Data Portal SDMX API（完整双语候选契约及本地 SDK/CLI RC 已通过；正式准入仅待不可变 SDK 仓库、CI、运营者发布与 registry fresh-install 证据）
 
-这三项仍不是 catalog-ready：需完成双语规范、全部风险策略、成功请求示例、SDK/CLI 构建测试与运营者
-发布。未完成前保持在候选注册表。
+这三项仍不是 catalog-ready：MongoDB 与 SQS 需完成双语规范、全部风险策略、成功请求示例和 SDK/CLI；
+ECB 需补齐不可变仓库、CI、运营者发布与 registry fresh-install 证据。未完成前保持在候选注册表。
 
 ### 先解决证据或边界缺口
 
 1. Notion API
 2. Sendbird Chat Platform API v3
 3. WPS 365 OpenAPI
+4. Open Exchange Rates API
+5. CurrencyBeacon REST API v1
 
 ### 暂缓
 
 - PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
+- Twelve Data Forex：完整产品面包含 WebSocket，且 metadata/SDK 发布与外部展示许可待确认。
 - 12 个 AI/LLM 集合：协议门阻断。
 - Stripe Identity：隐私与合规门阻断。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。

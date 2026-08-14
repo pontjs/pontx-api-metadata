@@ -24,7 +24,7 @@ key directly from the SDK or CLI.
 
 The ranked growth roadmap lives in
 [`catalog/api-collection-growth-priority.md`](./catalog/api-collection-growth-priority.md),
-and its 20 supplier-level products have structured intake records in
+and its 24 supplier-level products have structured intake records in
 [`catalog/api-collection-candidates.json`](./catalog/api-collection-candidates.json).
 Candidate records are deliberately separate from the generated Hub catalog:
 they record authoritative evidence, exact product boundaries, protocol and
@@ -36,10 +36,18 @@ Run the candidate gate whenever the roadmap or intake evidence changes:
 ```bash
 node scripts/verify-candidates.mjs
 node scripts/verify-dropbox-sign-candidate.mjs
+node scripts/verify-ecb-data-portal-candidate.mjs
+node scripts/verify-fx-candidates.mjs
 ```
 
+The ECB candidate is independently reconstructed from current ECB pages and
+can be reproduced offline with `node scripts/build-ecb-data-portal-candidate.mjs`.
+The FX verifier also seals the source hashes, quality findings, and local
+SDK/CLI probe outcomes for Open Exchange Rates, CurrencyBeacon, and Twelve
+Data without copying provider-owned mutable contracts into the repository.
+
 The admitted Dropbox Sign contract is normalized without network access from
-an already-pinned upstream checkout. Reproduce or review the English source
+already-pinned upstream checkout. Reproduce or review the English source
 normalization with:
 
 ```bash
