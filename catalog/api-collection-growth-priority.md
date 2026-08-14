@@ -61,15 +61,15 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 排名 | API 集合 | 分数 | 2026-08-14 审计结果 | 当前下一步 |
 | ---: | --- | ---: | --- | --- |
 | 1 | Notion API | 92 | 官方文档与 MIT SDK 可用；完整 OAS、协议与 prose 再分发待确认 | 固定 `Notion-Version: 2026-03-11` 并逐接口对账 |
-| 2 | WPS 365 OpenAPI | 90 | 官方称超过 1,000 个接口；无公开完整规范快照，许可与全协议面待确认 | 获取官方规范或书面授权后做全产品盘点 |
+| 2 | WPS 365 OpenAPI | 90 | 官方称超过 1,000 个接口；事件订阅使用加密 HTTP callback，但无公开完整规范快照，许可与其余协议面待确认 | 获取官方规范或书面授权后做全产品盘点 |
 | 3 | MongoDB Atlas Administration API v2 | 88 | 官方 Apache-2.0 OAS；335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type | 双语化、风险策略、SDK/CLI 发布 |
-| 4 | PostHog Public API | 86 | 官方 OAS 3.1；1,314 paths / 1,863 operations / 3,403 Schemas；含多个 SSE Endpoint | 整集协议暂缓，复核混合许可 |
+| 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
 | 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；无 Server-Sent Events | 建立可复现 Smithy→OAS 转换并完成 SigV4/风险策略 |
 | 6 | Dropbox Sign API | 80 | 官方 Apache-2.0 OAS；67 paths / 73 operations / 217 Schemas，未发现 SSE media type | 双语化、高风险执行策略、SDK/CLI 发布 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
-虽然有完整机器规范，但协议门已经阻断。
+虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
 
 ## AI/LLM 候选：整集协议暂缓
 
@@ -119,7 +119,8 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 ### 暂缓
 
-- PostHog 与 12 个 AI/LLM 集合：协议门阻断。
+- PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
+- 12 个 AI/LLM 集合：协议门阻断。
 - Stripe Identity：隐私与合规门阻断。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。
 

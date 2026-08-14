@@ -149,6 +149,7 @@ for (const product of candidates.products) {
     fail(`${location}.evidence must contain at least two authoritative sources`);
   }
   const seenEvidence = new Set();
+  const seenEvidenceKinds = new Set();
   for (const [index, evidence] of product.evidence.entries()) {
     const evidenceLocation = `${location}.evidence.${index}`;
     if (!evidenceKinds.has(evidence.kind)) fail(`${evidenceLocation}.kind is invalid`);
@@ -160,6 +161,10 @@ for (const product of candidates.products) {
     }
     if (seenEvidence.has(evidence.url)) fail(`${evidenceLocation}.url is duplicated`);
     seenEvidence.add(evidence.url);
+    seenEvidenceKinds.add(evidence.kind);
+  }
+  if (seenEvidenceKinds.size < 2) {
+    fail(`${location}.evidence must contain at least two distinct evidence kinds`);
   }
   if (!product.evidence.some((item) => ["docs", "spec", "source"].includes(item.kind))) {
     fail(`${location} needs authoritative documentation, specification, or source evidence`);
@@ -172,8 +177,20 @@ for (const product of candidates.products) {
     !product.evidence.some((item) => item.kind === "license")) {
     fail(`${location} needs license evidence for a passed redistribution gate`);
   }
-  if (product.gateStatus.contract === "passed" && !product.contractSource) {
-    fail(`${location} needs contractSource for a passed contract gate`);
+  if (product.gateStatus.contract === "passed") {
+    if (!product.contractSource) {
+      fail(`${location} needs contractSource for a passed contract gate`);
+    }
+    if (product.contractSource.mutableSource === true) {
+      fail(`${location} cannot pass the contract gate with a mutable source`);
+    }
+    const revision = product.contractSource.revision ?? "";
+    const sourceUrl = typeof product.contractSource.url === "string"
+      ? product.contractSource.url
+      : "";
+    if (!/^[0-9a-f]{40}$/.test(revision) || !sourceUrl.includes(`/${revision}/`)) {
+      fail(`${location} must pin a passed contract source to a 40-character Git revision in its URL`);
+    }
   }
   if (product.contractSource) {
     if (typeof product.contractSource.url !== "string" ||
