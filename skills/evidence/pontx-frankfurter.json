@@ -11,10 +11,10 @@
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "migration-contract",
-      "claim": "V1 returns a nested `rates` object, while v2 returns flat arrays.",
-      "summary": "The provider's official LLM documentation explicitly distinguishes the nested v1 response from v2 flat arrays.",
-      "sourceUrl": "https://frankfurter.dev/llms.txt",
+      "id": "v2-capability-routing",
+      "claim": "Prefer `pontx-frankfurter-v2` for new work that needs provider selection, attribution, broader history, grouping, or streaming.",
+      "summary": "The official v2 guide documents provider selection and attribution, broader history, time grouping, and streaming representations.",
+      "sourceUrl": "https://frankfurter.dev/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
@@ -27,9 +27,9 @@
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "response-date",
-      "claim": "Treat the response `date` as authoritative.",
-      "summary": "The official v1 examples return the observation date, and the guide warns that a request for today can change when new rates are published.",
+      "id": "reproducible-date",
+      "claim": "Use an explicit completed date rather than `today` for a reproducible report.",
+      "summary": "The official v1 guide explains that a request for today can change when new reference rates are published, while completed dates are stable for reproducible retrieval.",
       "sourceUrl": "https://frankfurter.dev/v1/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
@@ -47,6 +47,14 @@
       "claim": "Describe the values as reference exchange rates, not guaranteed execution or settlement prices.",
       "summary": "Frankfurter documents daily exchange-rate data from central banks; the Skill preserves the distinction between reference data and executable market quotes.",
       "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "local-conversion",
+      "claim": "Perform amount conversion in application code.",
+      "summary": "The official v1 guide demonstrates retrieving a rate and applying it to an amount in the caller's application.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     }

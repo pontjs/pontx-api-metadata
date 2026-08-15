@@ -14,8 +14,8 @@ current Endpoint, request, Schema, credential, SDK, and CLI facts.
   page. Embedded signing keeps the signing experience inside your app.
 - Use a template for a repeatable document with stable signer roles, fields,
   and formatting; otherwise inspect the current direct-request workflow.
-- Use a server account's API credential for server-owned work. Use OAuth when
-  independent users authorize the app, with only the scopes it needs.
+- Inspect the live auth contract and choose the least-privileged credential
+  path for the integration's account-ownership model.
 - Distinguish a test, a production design, and an explicitly approved send. An
   integration example never authorizes sending a document.
 
@@ -54,16 +54,15 @@ to requester and signer accounts. Use controlled addresses and non-sensitive
 documents, and keep test mode until production use is explicitly approved.
 
 For templates, supplied custom-field names must match the template's merge-field
-names. Wait for documented success or error callbacks before using a newly
-created or updated template. For embedded signing, authenticate the application
-user, verify ownership of the signer email, and generate an expiring signer URL
-only when that signer is ready.
+names. Handle documented success or error callbacks when creating or updating a
+template. For embedded signing, generate the expiring signer URL only when the
+signer is ready to open the embedded page.
 
 ## Verify callbacks before trust
 
 Dropbox Sign callbacks normally arrive over HTTPS as `multipart/form-data` with
 the event payload in the `json` field. Verify the event HMAC with the account's
-primary API key before trusting any field, using an official helper when
+API key before trusting any field, using an official helper when
 available or a constant-time comparison.
 
 Callbacks can be duplicated or arrive out of order, and signed completion is
@@ -75,10 +74,8 @@ final files. After durably accepting a verified event, return HTTP 200 with
 ## Protect documents and signers
 
 Inspect the live contract before choosing an upload or download representation.
-OpenAPI-based SDK uploads require binary input rather than a local pathname.
-Binary, expiring URL, and data-URI downloads all contain sensitive content; do
-not print or forward them. Treat a 409 file response as preparation in progress,
-then wait for the readiness event or retry with bounded backoff.
+Treat returned files and signing URLs as sensitive; do not print or forward
+them.
 
 Minimize retention of documents, signer emails, callback bodies, and signing
 URLs. Apply the application's approved access and deletion policy.
@@ -89,23 +86,22 @@ URLs. Apply the application's approved access and deletion policy.
 
 **User:** "Show a safe Node example for an NDA, but do not send it."
 
-**Approach:** Inspect the non-embedded request and SDK, use a non-sensitive
-fixture and controlled signers, keep test mode on, produce a product-CLI dry
-run, and stop for approval. Explain callback-driven status and file readiness.
+**Approach:** Follow the non-embedded test workflow above, inspect the live SDK
+contract, use controlled non-sensitive inputs, produce a product-CLI dry run,
+and stop for approval.
 
 ### Scenario 2: Repeatable onboarding agreement
 
 **User:** "Send the same agreement weekly with different names and teams."
 
-**Approach:** Choose a template, validate signer roles and merge-field names,
-wait for readiness, then preview a test-mode send. Require plan, approval,
-signer, document, and retention checks before production.
+**Approach:** Follow the template workflow above, inspect its current contract,
+preview a controlled test send, and require plan, approval, signer, document,
+and retention checks before production.
 
 ### Scenario 3: Callback review
 
 **User:** "Our handler parses JSON, trusts event_type, and downloads at
 all-signed."
 
-**Approach:** Require HTTPS multipart parsing, HMAC verification before trust,
-constant-time comparison, idempotency, the exact acknowledgement, redacted
-logging, and download only after final-file readiness.
+**Approach:** Apply the callback verification, acknowledgement, idempotency, and
+final-file workflow above; keep logs redacted and perform no live download.

@@ -51,6 +51,22 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "template-readiness",
+      "claim": "Handle documented success or error callbacks when creating or updating a template.",
+      "summary": "The official callback glossary documents template creation/update success and error events.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "embedded-signer-readiness",
+      "claim": "For embedded signing, generate the expiring signer URL only when the signer is ready to open the embedded page.",
+      "summary": "The official embedded-signing walkthrough documents short-lived sign URLs and recommends requesting one only when the signer is ready to open the page.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/embedded-signing",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "callback-transport",
       "claim": "Dropbox Sign callbacks normally arrive over HTTPS as `multipart/form-data` with the event payload in the `json` field.",
       "summary": "The official callback walkthrough defines HTTPS transport and multipart event JSON delivery.",
@@ -60,7 +76,7 @@
     },
     {
       "id": "callback-hmac",
-      "claim": "Verify the event HMAC with the account's primary API key before trusting any field, using an official helper when available or a constant-time comparison.",
+      "claim": "Verify the event HMAC with the account's API key before trusting any field, using an official helper when available or a constant-time comparison.",
       "summary": "The official callback walkthrough requires recomputing the event HMAC with the account API key and documents verification helpers in official SDKs.",
       "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
       "sourceType": "official-documentation",
@@ -75,10 +91,18 @@
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "file-input",
-      "claim": "OpenAPI-based SDK uploads require binary input rather than a local pathname.",
-      "summary": "The official OpenAPI SDK file guide describes binary upload values and dedicated download representations.",
-      "sourceUrl": "https://developers.hellosign.com/docs/sdks/open-api/interacting-with-files",
+      "id": "callback-processing",
+      "claim": "Deduplicate and process idempotently, derive state from verified events, and wait for the downloadable event before fetching final files.",
+      "summary": "The official callback glossary documents duplicate and out-of-order delivery and a distinct downloadable event after signing completes; idempotent state handling follows those semantics.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-acknowledgement",
+      "claim": "After durably accepting a verified event, return HTTP 200 with `Hello API Event Received`.",
+      "summary": "The official callback walkthrough requires this exact response body and a successful HTTP status to acknowledge receipt.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     }

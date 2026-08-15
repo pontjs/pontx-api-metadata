@@ -3,17 +3,17 @@
   "apiSlug": "ecb-data-portal",
   "claims": [
     {
-      "id": "series-key-construction",
-      "claim": "The API series key follows DSD dimension order, uses dots between dimensions, empty segments for wildcards, and plus signs for alternative values.",
-      "summary": "The official data API guide defines DSD-ordered series keys, wildcard segments, and alternatives within a dimension.",
-      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "id": "structure-discovery",
+      "claim": "When the series is unfamiliar, identify the dataflow, inspect its DSD, and load the required codelists.",
+      "summary": "The official metadata guide defines dataflows, DSD structure, and codelists as the discovery inputs needed to construct statistical queries.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/metadata",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "portal-series-code",
-      "claim": "A portal code such as `EXR.M.USD.EUR.SP00.A` includes the dataflow prefix.",
-      "summary": "The official data API guide separates the dataflow reference from the DSD-ordered series key used in the request path.",
+      "id": "series-key-construction",
+      "claim": "The API series key follows DSD dimension order, uses dots between dimensions, empty segments for wildcards, and plus signs for alternative values.",
+      "summary": "The official data API guide defines DSD-ordered series keys, wildcard segments, and alternatives within a dimension.",
       "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
@@ -36,7 +36,7 @@
     },
     {
       "id": "availability",
-      "claim": "`serieskeysonly` can enumerate matching series without returning observations.",
+      "claim": "The portal can enumerate matching series without returning observations.",
       "summary": "The official detail option returns matching time-series identities while excluding observations and attributes.",
       "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
       "sourceType": "official-documentation",

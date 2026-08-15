@@ -43,8 +43,16 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "adjustment-policy",
+      "claim": "Make adjusted versus unadjusted history an explicit decision.",
+      "summary": "The official custom-bars contract exposes adjusted and unadjusted results, making the selection part of the integration contract.",
+      "sourceUrl": "https://massive.com/docs/rest/stocks/aggregates/custom-bars.md",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "pagination",
-      "claim": "Follow `next_url` until it is absent, but accept a continuation only on the approved Massive API host.",
+      "claim": "Follow the returned continuation until it is absent, but accept it only on the approved Massive API host.",
       "summary": "Official Endpoint documentation uses next_url continuation; host validation is the credential-safe integration boundary for following it.",
       "sourceUrl": "https://massive.com/docs/rest/stocks/trades-quotes/quotes.md",
       "sourceType": "official-documentation",
@@ -54,6 +62,14 @@
       "id": "market-data-rights",
       "claim": "Personal or non-professional access does not grant commercial redistribution, public-display, non-display, or derived-work rights.",
       "summary": "Official market-data terms separate subscriber classification and prohibit unlicensed commercial, redistribution, display, and derived uses.",
+      "sourceUrl": "https://massive.com/legal/market-data-terms-of-service",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "market-data-limitations",
+      "claim": "Market data can be delayed, incomplete, corrected, or unavailable.",
+      "summary": "The official market-data terms disclaim timeliness, completeness, accuracy, and uninterrupted availability and permit corrections.",
       "sourceUrl": "https://massive.com/legal/market-data-terms-of-service",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"

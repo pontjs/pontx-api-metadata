@@ -53,14 +53,14 @@ and exclusion information; a peg-derived row may not have provider attribution.
 - Fetch the rate only and keep the monetary amount in application code. Use
   decimal-safe arithmetic for accounting, round at the declared business
   boundary, and format the target currency for the user's locale.
-- Cache dated historical responses aggressively and latest results briefly.
-  For an audit, retain the normalized query, provider, observation date,
+- For an audit, retain the normalized query, provider, observation date,
   retrieval time, and raw response used by the calculation.
 - For long ranges, narrow quotes and providers and choose weekly or monthly
-  grouping when daily resolution is unnecessary. Prefer a supported streaming
-  representation instead of buffering a large export.
-- If a provider-aware range is rejected or times out, narrow the query, group
-  it, or split the date range without dropping the required provider semantics.
+  grouping when daily resolution is unnecessary. For large responses, choose a
+  streaming representation from the live contract instead of buffering the
+  full export.
+- If live retrieval fails, re-inspect the current contract and preserve the
+  required provider semantics while choosing a smaller request.
 - Handle every non-success response explicitly. Validate identifiers through
   the current contract instead of inventing a currency or provider key.
 
@@ -73,24 +73,23 @@ conflict. Do not bypass the catalog with a guessed request.
 
 **User:** "Show an approximate EUR value for a USD cart total."
 
-**Approach:** Confirm that a reference-rate estimate and the default blend are
-acceptable, inspect the live single-pair contract, preview and retrieve only
-after explicit approval, multiply locally, format EUR, and show the returned
-observation date.
+**Approach:** Apply the rate-semantics and local-conversion workflow above,
+inspect the live single-pair contract, preview it, and retrieve only after
+explicit approval. Preserve the returned observation context.
 
 ### Scenario 2: Auditable official rate
 
 **User:** "Convert an invoice using the authority required by our jurisdiction."
 
-**Approach:** Ask for the authority if absent, inspect the provider-aware
-contract, preview the exact pair, date, and provider, then retrieve it. Do not
-fall back to the blend; preserve the query, raw response, and decimal result.
+**Approach:** Apply the provider-selection and audit workflow above, ask for the
+controlling authority if absent, preview the exact live contract, and do not
+silently change its semantics.
 
 ### Scenario 3: Large attributed history
 
 **User:** "Analyze a decade of monthly rates with attribution under a memory
 limit."
 
-**Approach:** Inspect grouping, attribution, provider, and media-type support;
-narrow the dimensions, group monthly, and stream when supported. Split a
-rejected range without changing rate semantics, then verify dates and ordering.
+**Approach:** Apply the large-range workflow above after inspecting current
+grouping, attribution, provider, and representation support. Preserve rate
+semantics while verifying dates and ordering.

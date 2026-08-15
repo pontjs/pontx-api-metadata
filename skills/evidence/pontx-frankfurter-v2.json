@@ -27,6 +27,14 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "attribution-and-pegs",
+      "claim": "When attribution is requested, retain contributor and exclusion information; a peg-derived row may not have provider attribution.",
+      "summary": "The official v2 guide documents contributor and excluded-provider fields and explains that currency-peg rows can be derived without provider attribution.",
+      "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "observation-semantics",
       "claim": "Report the returned observation date and do not relabel it as today's rate.",
       "summary": "The official integration guide shows the returned date as part of each flat rate result, so consumers should preserve and report that value.",
@@ -38,6 +46,22 @@
       "id": "large-ranges",
       "claim": "For long ranges, narrow quotes and providers and choose weekly or monthly grouping when daily resolution is unnecessary.",
       "summary": "The official guide recommends limiting dimensions and grouping large series to control response cost.",
+      "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "local-conversion",
+      "claim": "Fetch the rate only and keep the monetary amount in application code.",
+      "summary": "The official integration guide retrieves rates and performs amount conversion locally in application code.",
+      "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "stream-large-responses",
+      "claim": "For large responses, choose a streaming representation from the live contract instead of buffering the full export.",
+      "summary": "The official guide recommends streaming supported line-oriented responses rather than buffering large datasets.",
       "sourceUrl": "https://frankfurter.dev/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"

@@ -11,42 +11,10 @@
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "oauth-scopes-state",
-      "claim": "Dida365 OAuth currently offers the `tasks:read` and `tasks:write` scopes, and the callback returns the original `state` value alongside the authorization code.",
-      "summary": "The official authorization flow documents the available task scopes and returns both code and state.",
-      "sourceUrl": "https://developer.dida365.com/docs/openapi.md#first-step",
-      "sourceType": "official-documentation",
-      "verifiedAt": "2026-08-15"
-    },
-    {
-      "id": "oauth-client-auth",
-      "claim": "The current Dida365 authorization-code exchange uses HTTP Basic client authentication and a form-encoded token request; do not send the client secret with `client_secret_post`.",
-      "summary": "The official token exchange places client ID and secret in HTTP Basic and sends authorization-code fields as form data.",
-      "sourceUrl": "https://developer.dida365.com/docs/openapi.md#third-step",
-      "sourceType": "official-documentation",
-      "verifiedAt": "2026-08-15"
-    },
-    {
-      "id": "sdk-interactive-oauth",
-      "claim": "The published `Dida365OAuthClient` is designed for local interactive authorization with an in-memory token and local callback.",
-      "summary": "The published SDK opens a browser, listens on localhost, verifies state, and stores tokens in memory.",
-      "sourceUrl": "https://unpkg.com/@pontx/dida365@0.1.1/README.md",
-      "sourceType": "official-sdk",
-      "verifiedAt": "2026-08-15"
-    },
-    {
       "id": "token-revocation",
       "claim": "Dida365 exposes token revocation; if a token is exposed, stop and revoke or replace it before continuing.",
       "summary": "The provider documents token revocation and advises replacing an exposed personal token.",
       "sourceUrl": "https://developer.dida365.com/docs/openapi.md#revoke-token",
-      "sourceType": "official-documentation",
-      "verifiedAt": "2026-08-15"
-    },
-    {
-      "id": "task-time-zone",
-      "claim": "Task dates use an explicit timestamp plus an IANA time zone, so resolve relative dates and all-day intent before previewing a write.",
-      "summary": "Official task requests pair timestamp fields with a timeZone value; the current documentation uses IANA time-zone identifiers.",
-      "sourceUrl": "https://developer.dida365.com/docs/openapi.md#create-task",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     }

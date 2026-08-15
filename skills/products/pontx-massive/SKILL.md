@@ -39,10 +39,10 @@ streams. Do not design a high-frequency REST polling loop for streaming work.
 
 ## Paginate and throttle deliberately
 
-Inspect current limit, sort, and continuation fields with `pontx-hub show`.
-Choose an explicit order for reproducible ingestion. Follow `next_url` until it
-is absent, but accept a continuation only on the approved Massive API host.
-Keep the credential in the authorization header, never in stored URLs or logs.
+Inspect the current pagination contract with `pontx-hub show`. Choose an
+explicit order for reproducible ingestion. Follow the returned continuation
+until it is absent, but accept it only on the approved Massive API host.
+Keep credentials out of continuation URLs and logs.
 
 Checkpoint and deduplicate a partially retried import. Bound concurrency to the
 current plan. On throttling, honor `Retry-After` when present or use exponential
@@ -82,17 +82,17 @@ it guaranteed and do not turn an API result into personalized investment advice.
 **User:** "Build an adjusted five-minute backtest across a U.S. daylight-saving
 transition."
 
-**Approach:** Inspect the aggregate contract and plan coverage, define sessions
-in `America/New_York`, preserve UTC timestamps, choose adjustment and sort,
-preview, traverse all continuations, and document intentionally missing bars.
+**Approach:** Apply the market-time, adjustment, missing-interval, and
+pagination workflow above after inspecting the live contract and plan coverage.
+Preview before retrieval and preserve the audit context.
 
 ### Scenario 2: Live dashboard
 
 **User:** "Refresh hundreds of stock prices every second on a free plan."
 
-**Approach:** Do not promise unsupported freshness or REST polling. Check live
-entitlements and intended display rights, then evaluate the streaming product
-while using REST only for a bounded bootstrap or reference query.
+**Approach:** Apply the entitlement, transport, and display-rights decisions
+above. Inspect the live plan before proposing a bounded bootstrap or a separate
+streaming integration.
 
 ### Scenario 3: Paid public export
 

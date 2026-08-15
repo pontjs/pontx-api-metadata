@@ -21,9 +21,9 @@ Use `@pontx/stripe-identity` for application code and
 version or reconstruct parameters from this skill. Hub proxying is disabled;
 requests originate in the caller-owned SDK or CLI process.
 
-Keep the Stripe secret key server-side in the process environment. Never send
-it to a browser, put it in arguments, or print a complete session, report,
-webhook, or PII-bearing error.
+Keep credentials server-side in the process environment. Never send them to a
+browser, put them in arguments, or print a complete session, report, webhook,
+or PII-bearing error.
 
 ## Design one session lifecycle
 
@@ -33,8 +33,7 @@ with the appropriate legal or policy owner.
 
 Reuse one VerificationSession for the same verification flow and provide an
 idempotency key when creating it. Authenticate the application user, create the
-session server-side, associate only an opaque internal reference, and store its
-ID rather than its client secret.
+session server-side, and store its ID rather than its client secret.
 
 Return only the client secret to the same authenticated user over TLS. Never
 store it, log it, embed it in a URL, or disclose it to another user. Treat a
@@ -63,13 +62,12 @@ access when programmatic retrieval is unnecessary.
 
 Avoid copying document or face images. If access is justified, use a
 short-lived FileLink and remove downstream copies under the declared retention
-policy. Do not expose VerificationReports, expanded PII, client secrets, or raw
-events through logs, analytics, error trackers, or Hub.
+policy. Do not expose sensitive results, secrets, or raw events through logs,
+analytics, error trackers, or Hub.
 
 ## Execute mutations safely
 
-Creating, updating, canceling, and redacting sessions change provider state.
-Resolve the live API name, then preview locally:
+Resolve every mutation through the live contract, then preview locally:
 
 ```bash
 pontx-stripe-identity list apis
@@ -91,23 +89,21 @@ and plan deletion of application-owned copies before execution.
 
 **User:** "Add document verification to our Next.js onboarding flow."
 
-**Approach:** Discover current create/retrieve shapes, authenticate the backend,
-create one idempotent session, return only its client secret, launch Stripe's
-client flow, and finish onboarding only from a signature-verified event. Include
-`requires_input` and failure-path tests.
+**Approach:** Apply the session, client-secret, and webhook boundaries above
+after discovering the current contract. Include retry and failure-path tests
+without exposing sensitive values.
 
 ### Scenario 2: Retry a failed verification
 
 **User:** "The customer failed once and wants to retry."
 
-**Approach:** Retrieve the existing session, present a safe failure reason, and
-return a fresh client secret only to the same authenticated user. Preserve the
-session ID for auditability.
+**Approach:** Apply the same-session retry workflow above, present only safe
+corrective guidance, and preserve the audit reference.
 
 ### Scenario 3: Fulfil deletion
 
 **User:** "Permanently delete this customer's Identity data."
 
-**Approach:** Inventory the session and downstream copies, explain irreversible
-asynchronous redaction, preview the exact call, require explicit confirmation,
-wait for redacted state, then remove authorized application copies.
+**Approach:** Apply the redaction and downstream-retention workflow above,
+preview the exact live call, require explicit confirmation, and verify the
+result before removing authorized application copies.
