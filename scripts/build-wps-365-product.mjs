@@ -52,7 +52,13 @@ function buildDerivation(imported, curated) {
     const moduleName = segs[1] || "misc";
     let id;
     if (anchor) {
-      id = anchor.split(".").map((p, i) => (i === 0 ? p : p.charAt(0).toUpperCase() + p.slice(1))).join("");
+      id = anchor.split(".").map((p, i) => {
+        const clean = p.split(/[-_]+/).filter(Boolean);
+        if (i === 0) {
+          return clean.map((w, j) => (j === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1))).join("");
+        }
+        return clean.map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
+      }).join("");
     } else {
       const verb = { GET: "List", POST: "Create", DELETE: "Delete" }[method] || "Call";
       const noun = camelParts([moduleName]);
