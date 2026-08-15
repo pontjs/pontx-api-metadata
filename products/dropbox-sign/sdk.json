@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/dropbox-sign",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "status": "published",
     "repository": "https://github.com/pontjs/dropbox-sign"
   },
@@ -42,7 +42,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.0",
+    "testedVersion": "0.1.1",
     "unitTests": {
       "passed": 5,
       "total": 5,
@@ -54,14 +54,14 @@
       "20",
       "22"
     ],
-    "sourceCommit": "343d58e277d24337b39290b9c14282579b1adeb7",
-    "testedAt": "2026-08-14",
+    "sourceCommit": "c63d386529b65fa5f6a0aed7b9475ab3520dc275",
+    "testedAt": "2026-08-15",
     "repositoryUrl": "https://github.com/pontjs/dropbox-sign",
-    "workflowRunUrl": "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+    "workflowRunUrl": "https://github.com/pontjs/dropbox-sign/actions/runs/31886381204"
   },
   "spec": {
     "path": "products/dropbox-sign/spec.pontx.json",
-    "sha256": "7ea116bf486a763ae44c1954cebd2509f425c7a23833da713e72346e0d8b3683",
-    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
+    "sha256": "73598863d6dfe208c544b1d9488f6acc2e1e28d509a9e9d5c20a60943dd9790c",
+    "metadataCommit": "6bb03db8f5483a098275cb2c8c3611134e2dfe4d"
   }
 }
