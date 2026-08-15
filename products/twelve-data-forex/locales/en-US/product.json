@@ -12,7 +12,15 @@
   "credentials": [
     {
       "schemeId": "apiKey",
-      "description": "Twelve Data API key supplied through a query parameter and used only in the caller session for direct requests."
+      "description": "Twelve Data API key supplied through a query parameter and used only in the caller session for direct requests.",
+      "guide": {
+        "title": "Get a Twelve Data API key",
+        "steps": [
+          "Create a Twelve Data account and verify your email, or sign in to an existing account.",
+          "Open the API Keys page in your account and locate your personal API key.",
+          "Copy the key, return here, and paste it into the apikey field below."
+        ]
+      }
     }
   ]
 }
