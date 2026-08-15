@@ -1,0 +1,50 @@
+{
+  "formatVersion": 1,
+  "slug": "amazon-sqs",
+  "name": "Amazon SQS API",
+  "provider": "Amazon Web Services",
+  "category": "Cloud",
+  "featured": true,
+  "display": {
+    "title": "Amazon SQS 消息队列 API",
+    "summary": "Amazon Simple Queue Service 的完整 23 个官方 action；保留 AWS JSON 1.0、AWS Query 兼容性、SigV4 与区域 Endpoint 规则。Hub 提供文档和本地 SDK/CLI，不代理队列调用。",
+    "accent": "#FF9900"
+  },
+  "legal": {
+    "license": "Apache-2.0",
+    "attributionUrl": "https://github.com/aws/aws-sdk-js-v3/tree/4efe5bc67b71dc5ec652fe77130f3bae9efe0173"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+      "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "契约来自 AWS SDK for JavaScript v3 固定 revision 中的 Smithy 2.0 服务模型。SQS 是有状态消息系统；接收消息会改变可见性，写入、删除、清空、权限、标签和移动任务都可能影响生产队列。Hub 不执行或代理这些请求。"
+  },
+  "pricing": {
+    "status": "pay-as-you-go",
+    "summary": "Amazon SQS 按请求和数据传输等 AWS 计费维度收费；免费套餐、区域价格、FIFO/高吞吐和相关 AWS 服务费用以官方定价页与账户账单为准。",
+    "officialUrl": "https://aws.amazon.com/sqs/pricing/",
+    "verifiedAt": "2026-08-15",
+    "billingUnit": "request"
+  },
+  "credentials": [
+    {
+      "schemeId": "awsSigV4",
+      "envVar": "AWS_ACCESS_KEY_ID",
+      "description": "使用 AWS 默认凭证链；常用环境变量包括 AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY、可选 AWS_SESSION_TOKEN 和 AWS_REGION。凭证仅保留在调用者环境，不能写入示例、日志或 Hub。"
+    }
+  ],
+  "execution": {
+    "hubProxyEnabled": false
+  },
+  "quickStart": {
+    "operationId": "ListQueues",
+    "requestExampleId": "default"
+  }
+}

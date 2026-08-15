@@ -13,6 +13,7 @@
     "twelve-data-forex",
     "currencybeacon-rest",
     "dropbox-sign",
-    "stripe-identity"
+    "stripe-identity",
+    "amazon-sqs"
   ]
 }

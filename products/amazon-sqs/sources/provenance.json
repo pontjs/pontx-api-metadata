@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "status": "staging-sdk-release",
+  "canonicalSpec": "products/amazon-sqs/spec.pontx.json",
+  "import": {
+    "format": "Smithy 2.0 JSON AST",
+    "importer": "@pontx/spec importSmithy",
+    "importerVersion": "1.0.0-beta.6",
+    "sourcePath": "products/amazon-sqs/sources/smithy.json",
+    "sourceSha256": "c331594defdf5dfa77ced780ee8f90561896a822923062c0cfd21cbcd2cfc288",
+    "upstream": {
+      "repository": "https://github.com/aws/aws-sdk-js-v3",
+      "revision": "4efe5bc67b71dc5ec652fe77130f3bae9efe0173",
+      "file": "codegen/sdk-codegen/aws-models/sqs.json",
+      "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+      "sha256": "c331594defdf5dfa77ced780ee8f90561896a822923062c0cfd21cbcd2cfc288",
+      "bytes": 272249,
+      "smithyVersion": "2.0",
+      "service": "com.amazonaws.sqs#AmazonSQS",
+      "apiVersion": "2012-11-05"
+    }
+  },
+  "license": {
+    "status": "reviewed",
+    "spdx": "Apache-2.0",
+    "url": "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
+    "sha256": "edea91454b811f127fbdea3d86f378f6719bd372ed440abf82b232f6fca06c3d",
+    "localCopy": "products/amazon-sqs/sources/LICENSE.aws-sdk-js-v3",
+    "notice": "products/amazon-sqs/sources/ATTRIBUTION.md"
+  },
+  "derivation": {
+    "boundary": "Every one of the 23 operations declared by com.amazonaws.sqs#AmazonSQS, plus the imported transitive service shapes; no operation is omitted.",
+    "operations": 23,
+    "sourceShapes": 138,
+    "outputSchemas": 114,
+    "primaryProtocol": "aws-json-1.0",
+    "compatibleProtocols": [
+      "aws-query"
+    ],
+    "signing": "aws-sigv4/sqs",
+    "endpointRules": "Retained from smithy.rules#endpointRuleSet, including AWS partitions, regional endpoints, FIPS, DualStack, and custom-endpoint incompatibilities.",
+    "normalizations": [
+      "Selected aws-json-1.0 explicitly because the service declares more than one protocol; aws-query compatibility remains in rpc.compatibleProtocols.",
+      "Retained the actual RPC action and transport method under each Endpoint rpc object without adding RESTFul method/path fields.",
+      "Normalized the declared success response to HTTP 200 and retained the service-declared error union without inventing error status mappings absent from the Smithy model.",
+      "Added reviewed safe request examples, per-Endpoint official evidence, and proxy-disabled reasons; examples are never provider calls.",
+      "Removed importer-created synthetic tag group so the generated SDK exposes every source action directly on the client rather than fabricating a Controller."
+    ],
+    "method": "one-time @pontx/spec importSmithy conversion; PontxSpec is canonical after import"
+  },
+  "riskReview": {
+    "classification": "stateful-message-queue",
+    "hubProxyEnabled": false,
+    "proxyDisabledOperations": 23,
+    "readLikeOperations": [
+      "GetQueueAttributes",
+      "GetQueueUrl",
+      "ListDeadLetterSourceQueues",
+      "ListMessageMoveTasks",
+      "ListQueueTags",
+      "ListQueues"
+    ],
+    "stateChangingRead": [
+      "ReceiveMessage"
+    ],
+    "mutations": [
+      "AddPermission",
+      "CancelMessageMoveTask",
+      "ChangeMessageVisibility",
+      "ChangeMessageVisibilityBatch",
+      "CreateQueue",
+      "DeleteMessage",
+      "DeleteMessageBatch",
+      "DeleteQueue",
+      "PurgeQueue",
+      "RemovePermission",
+      "SendMessage",
+      "SendMessageBatch",
+      "SetQueueAttributes",
+      "StartMessageMoveTask",
+      "TagQueue",
+      "UntagQueue"
+    ],
+    "credentialPolicy": "AWS SigV4 credentials remain in the caller-owned AWS default provider chain; Hub does not receive, store, log, proxy, or execute them.",
+    "executionPolicy": "The local CLI requires an exact request-bound confirmation token for every call. Production Hub renders a disabled Playground and cannot make any SQS request."
+  },
+  "evidence": {
+    "urls": [
+      "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+      "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
+    ],
+    "verifiedAt": "2026-08-15"
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/amazon-sqs/spec.pontx.json",
+      "sha256": "47fe17acd3e47cf6ef7af669e9ec0e4b8bd308aaccff31ee5e15ee1c5b50687f",
+      "endpoints": 23,
+      "schemas": 114
+    },
+    "en-US": {
+      "path": "products/amazon-sqs/locales/en-US/spec.pontx.json",
+      "sha256": "be3887d9e3b138a6145cb31996c3c27a6801501d2d976f62a4cdedc106415361",
+      "endpoints": 23,
+      "schemas": 114
+    }
+  }
+}

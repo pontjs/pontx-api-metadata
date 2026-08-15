@@ -1,0 +1,31 @@
+{
+  "display": {
+    "title": "Amazon SQS message-queue API",
+    "summary": "The complete 23-action Amazon Simple Queue Service API, preserving AWS JSON 1.0, AWS Query compatibility, SigV4, and regional endpoint rules. Hub provides documentation and a local SDK/CLI; it does not proxy queue calls."
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+      "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
+      "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "The contract is from the fixed Smithy 2.0 service model in AWS SDK for JavaScript v3. SQS is a stateful messaging system: receiving changes message visibility, and write, delete, purge, permission, tagging, and message-move actions can affect production queues. Hub neither executes nor proxies these requests."
+  },
+  "pricing": {
+    "status": "pay-as-you-go",
+    "summary": "Amazon SQS pricing is based on AWS dimensions such as requests and data transfer. Free-tier eligibility, regional prices, FIFO/high-throughput costs, and related AWS service charges are determined by the official pricing page and the caller account.",
+    "officialUrl": "https://aws.amazon.com/sqs/pricing/",
+    "verifiedAt": "2026-08-15",
+    "billingUnit": "request"
+  },
+  "credentials": [
+    {
+      "schemeId": "awsSigV4",
+      "description": "Use the AWS default credential provider chain. Common environment variables are AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, optional AWS_SESSION_TOKEN, and AWS_REGION. Credentials remain in the caller environment and must never appear in examples, logs, or Hub."
+    }
+  ]
+}

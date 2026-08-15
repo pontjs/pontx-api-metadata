@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/amazon-sqs",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/amazon-sqs"
+  },
+  "cli": {
+    "name": "pontx-amazon-sqs"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createAmazonSqsClient",
+      "identifier": "client",
+      "options": {
+        "region": "AWS_REGION"
+      }
+    },
+    "controllers": {}
+  },
+  "examples": {
+    "typescript": "import { createAmazonSqsClient } from \"@pontx/amazon-sqs\";\n\nconst client = createAmazonSqsClient({ region: process.env.AWS_REGION });\nconst queues = await client.listQueues({});",
+    "cli": "pnpm add --global @pontx/amazon-sqs\n\npontx-amazon-sqs preview ListQueues --input '{}'"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/amazon-sqs/spec.pontx.json",
+    "sha256": "47fe17acd3e47cf6ef7af669e9ec0e4b8bd308aaccff31ee5e15ee1c5b50687f"
+  }
+}
