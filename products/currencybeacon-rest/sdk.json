@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/currencybeacon-rest",
+    "version": "0.1.1",
+    "status": "published",
+    "repository": "https://github.com/pontjs/currencybeacon-rest"
+  },
+  "cli": {
+    "name": "pontx-currencybeacon-rest"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createCurrencyBeaconClient",
+      "identifier": "client",
+      "options": {
+        "apiKey": "PONTX_CURRENCYBEACON_API_KEY"
+      }
+    },
+    "controllers": {}
+  },
+  "examples": {
+    "typescript": "import { createCurrencyBeaconClient } from \"@pontx/currencybeacon-rest\";\n\nconst client = createCurrencyBeaconClient({\n  apiKey: process.env.PONTX_CURRENCYBEACON_API_KEY!\n});\nconst result = await client.latest({ base: \"USD\", symbols: \"EUR,GBP\" });",
+    "cli": "pnpm add --global @pontx/currencybeacon-rest\n\npontx-currencybeacon-rest call latest --base USD --symbols EUR,GBP --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "3038697cff341ccfe0c8af5e548a95fccf784c44",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/currencybeacon-rest",
+    "workflowRunUrl": "https://github.com/pontjs/currencybeacon-rest/actions/runs/31867826366"
+  },
+  "spec": {
+    "path": "products/currencybeacon-rest/spec.pontx.json",
+    "sha256": "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f",
+    "metadataCommit": "4dde24119458a7ab59a73bcd7279dc3bef887d73"
+  }
+}

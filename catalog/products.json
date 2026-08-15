@@ -11,6 +11,7 @@
     "massive",
     "ecb-data-portal",
     "twelve-data-forex",
+    "currencybeacon-rest",
     "dropbox-sign",
     "stripe-identity"
   ]

@@ -7,7 +7,7 @@ import { evaluatePontxQuality, validatePontxSpecLocale } from "@pontx/spec";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registry = JSON.parse(fs.readFileSync(path.join(root, "candidates/products.json"), "utf8"));
 const catalog = JSON.parse(fs.readFileSync(path.join(root, "catalog/products.json"), "utf8"));
-const expectedCandidates = new Set(["open-exchange-rates", "currencybeacon-rest"]);
+const expectedCandidates = new Set(["open-exchange-rates"]);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -52,34 +52,11 @@ assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchem
   && oxr.pontxProbe.publicationReady === false,
 "OXR derived generation probe drifted");
 
-const currencyBeacon = candidate("currencybeacon-rest");
-assert(currencyBeacon.stage === "external-service-blocked"
-  && currencyBeacon.gateStatus.redistribution === "passed"
-  && currencyBeacon.gateStatus.contract === "pending"
-  && currencyBeacon.gateStatus.risk === "passed"
-  && currencyBeacon.gateStatus.sdkCli === "pending", "CurrencyBeacon independent-policy and contract gates drifted");
-assert(currencyBeacon.contractSource.observedOperations === 5
-  && currencyBeacon.contractSource.documentedCompleteSuccessExamples === 2
-  && currencyBeacon.contractSource.observedAnonymousError.httpStatus === 401,
-"CurrencyBeacon evidence counts drifted");
-assert(currencyBeacon.contractSource.humanDocumentationAudit?.reverifiedAt === "2026-08-15"
-  && currencyBeacon.contractSource.humanDocumentationAudit.responseFieldPathEvidence?.historical?.[0] === "response.rates"
-  && currencyBeacon.contractSource.humanDocumentationAudit.responseFieldPathEvidence?.timeseries?.[0] === "response.rates"
-  && currencyBeacon.contractSource.humanDocumentationAudit.missingCompleteSuccessSchemas?.join(",") === "historical,timeseries,currencies",
-"CurrencyBeacon page-level remediation evidence drifted");
-assert(currencyBeacon.contractSource.humanDocumentationAudit.authorisedFreeRegistrationProbe?.initialFreeDashboard === "created-without-payment"
-  && currencyBeacon.contractSource.humanDocumentationAudit.authorisedFreeRegistrationProbe?.currentRecoveryFailures?.join(",")
-    === "Google OAuth callback returned HTTP 500,password reset submission returned HTTP 500"
-  && currencyBeacon.independentImplementationPolicy?.reviewedAt === "2026-08-15",
-"CurrencyBeacon authorised-registration failure evidence drifted");
-assert(currencyBeacon.pontxProbe.status === "not-run-contract-blocked"
-  && currencyBeacon.pontxProbe.completeSuccessSchemasDocumented === 2
-  && currencyBeacon.pontxProbe.publicationReady === false,
-"CurrencyBeacon must stop before speculative SDK generation");
-
 assert(catalog.products.includes("ecb-data-portal"), "admitted ECB must remain in products.json");
 assert(catalog.products.includes("twelve-data-forex"), "Twelve Data Forex must be admitted to the catalog");
+assert(catalog.products.includes("currencybeacon-rest"), "CurrencyBeacon must be admitted to the catalog");
 assert(!registry.products.includes("twelve-data-forex"), "Twelve Data Forex must leave the candidate registry");
+assert(!registry.products.includes("currencybeacon-rest"), "CurrencyBeacon must leave the candidate registry");
 const twelveRoot = path.join(root, "products/twelve-data-forex");
 const twelveContractBytes = fs.readFileSync(path.join(twelveRoot, "spec.pontx.json"));
 const twelveContract = JSON.parse(twelveContractBytes.toString("utf8"));
@@ -117,7 +94,43 @@ assert(twelveProvenance.source.sha256 === "d0a219a5c19518cff59a3ab7275e8308ad808
   && twelveProvenance.streamEvidence.observedInbound.join(",") === "subscribe-status,price,heartbeat",
 "Twelve Data source and observed stream evidence drifted");
 
+const currencyBeaconRoot = path.join(root, "products/currencybeacon-rest");
+const currencyBeaconContractBytes = fs.readFileSync(path.join(currencyBeaconRoot, "spec.pontx.json"));
+const currencyBeaconContract = JSON.parse(currencyBeaconContractBytes.toString("utf8"));
+const currencyBeaconEnglishContract = JSON.parse(fs.readFileSync(
+  path.join(currencyBeaconRoot, "locales/en-US/spec.pontx.json"),
+));
+const currencyBeaconProduct = JSON.parse(fs.readFileSync(path.join(currencyBeaconRoot, "product.json"), "utf8"));
+const currencyBeaconSdk = JSON.parse(fs.readFileSync(path.join(currencyBeaconRoot, "sdk.json"), "utf8"));
+const currencyBeaconProvenance = JSON.parse(fs.readFileSync(path.join(currencyBeaconRoot, "sources/provenance.json"), "utf8"));
+const currencyBeaconQuality = evaluatePontxQuality({
+  spec: currencyBeaconContract,
+  locales: { "en-US": currencyBeaconEnglishContract },
+});
+assert(createHash("sha256").update(currencyBeaconContractBytes).digest("hex")
+  === "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f"
+  && Object.keys(currencyBeaconContract.apis).length === 5
+  && Object.keys(currencyBeaconContract.components.schemas).length === 11
+  && Object.values(currencyBeaconContract.apis).every((api) => api.tags.length === 0),
+"CurrencyBeacon product scope or untagged Endpoint contract drifted");
+assert(currencyBeaconQuality.score === 100 && currencyBeaconQuality.grade === "A"
+  && currencyBeaconQuality.findings.length === 0
+  && validatePontxSpecLocale(currencyBeaconContract, currencyBeaconEnglishContract).valid,
+"CurrencyBeacon product must remain bilingual and static-quality A");
+assert(currencyBeaconProduct.execution.hubProxyEnabled === false
+  && currencyBeaconProduct.credentials?.[0]?.envVar === "PONTX_CURRENCYBEACON_API_KEY"
+  && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
+  && currencyBeaconSdk.package.version === "0.1.1"
+  && currencyBeaconSdk.coverage.mode === "full"
+  && currencyBeaconSdk.spec.sha256 === "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f",
+"CurrencyBeacon product safety and SDK contract drifted");
+assert(currencyBeaconProvenance.scope.endpointCount === 5
+  && currencyBeaconProvenance.authenticatedReadEvidence.plan === "free"
+  && currencyBeaconProvenance.authenticatedReadEvidence.retainedData === false
+  && currencyBeaconProvenance.authenticatedReadEvidence.successShapes.currencies?.[0] === "numeric-string dynamic keys",
+"CurrencyBeacon authenticated read evidence drifted");
+
 const actualCandidates = new Set(registry.products.filter((slug) => expectedCandidates.has(slug)));
 assert(actualCandidates.size === expectedCandidates.size, "FX candidate set is incomplete");
 
-console.log("Verified blocked FX candidates and the admitted Twelve Data Forex product.");
+console.log("Verified the blocked OXR candidate and admitted Twelve Data Forex and CurrencyBeacon products.");
