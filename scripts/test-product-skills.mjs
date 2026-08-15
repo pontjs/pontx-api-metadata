@@ -244,6 +244,7 @@ assert.match(publishWorkflow, /--version \"\$SKILL_VERSION\" --json > \"\$remote
 assert.match(publishWorkflow, /\.owner\.handle/);
 assert.match(publishWorkflow, /\.version\.files\[\]/);
 assert.match(publishWorkflow, /\.sha256/);
+assert.match(publishWorkflow, /select\(\. != \"skill-card\.md\"\)/);
 assert.match(publishWorkflow, /wait_for_remote/);
 assert.doesNotMatch(publishWorkflow, /--file \"\$relative_path\" > \"\$remote_file\"/);
 
