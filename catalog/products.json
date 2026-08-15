@@ -19,10 +19,7 @@
     "nager-date",
     "mongodb-atlas-admin",
     "openai",
-<<<<<<< HEAD
-    "notion"
-=======
+    "notion",
     "mistral-ai"
->>>>>>> 0eb8cb4 (feat: stage Mistral AI API product from fixed Apache-2.0 official revision)
   ]
 }

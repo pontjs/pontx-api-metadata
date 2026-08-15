@@ -14,6 +14,8 @@ const production = await validateHierarchy({
 });
 assert.deepEqual(production.errors, []);
 assert.equal(production.productCount, 16);
+assert.equal(production.endpointCount, 1436);
+assert.equal(production.schemaCount, 4779);
 
 const rpc = await validateHierarchy({ root: fixtureRoot, requireMetadataCommit: false });
 assert.deepEqual(rpc.errors, []);
