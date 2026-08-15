@@ -16,14 +16,14 @@
     "zh": "Open Exchange Rates 官方 v0.7 JSON REST API，覆盖 latest、historical、currencies、time-series、convert、OHLC 与 usage 七个只读 Endpoint 及官方附加查询参数。",
     "en": "The official Open Exchange Rates v0.7 JSON REST API covering the seven read-only latest, historical, currencies, time-series, convert, OHLC, and usage endpoints plus officially documented query parameters."
   },
-  "stage": "audit-required",
+  "stage": "contract-in-progress",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
-    "redistribution": "pending",
+    "redistribution": "passed",
     "contract": "pending",
     "transport": "passed",
-    "risk": "pending",
+    "risk": "passed",
     "sdkCli": "pending"
   },
   "contractSource": {
@@ -55,17 +55,60 @@
         "commonError"
       ],
       "remainingSuccessBodiesRequiringAuthorisedFixture": [
-        "convert",
-        "usage"
+        "convert"
       ],
       "knownPlanGatedEndpoints": [
-        "historical",
         "time-series",
         "convert",
         "ohlc",
         "usage"
-      ]
+      ],
+      "authorisedFreePlanProbe": {
+        "observedAt": "2026-08-15",
+        "successEndpoints": [
+          "latest",
+          "historical",
+          "currencies",
+          "usage"
+        ],
+        "planDeniedEndpoints": [
+          "time-series",
+          "convert",
+          "ohlc"
+        ],
+        "usageSuccessBodyFields": [
+          "status",
+          "data.app_id",
+          "data.status",
+          "data.plan.name",
+          "data.plan.quota",
+          "data.plan.update_frequency",
+          "data.plan.features.base",
+          "data.plan.features.symbols",
+          "data.plan.features.experimental",
+          "data.plan.features.time-series",
+          "data.plan.features.convert",
+          "data.plan.features.bid-ask",
+          "data.plan.features.ohlc",
+          "data.plan.features.spot",
+          "data.usage.requests",
+          "data.usage.requests_quota",
+          "data.usage.requests_remaining",
+          "data.usage.days_elapsed",
+          "data.usage.days_remaining",
+          "data.usage.daily_average"
+        ]
+      }
     }
+  },
+  "independentImplementationPolicy": {
+    "reviewedAt": "2026-08-15",
+    "scope": "Independent metadata, generated SDK, and CLI code only",
+    "requirements": [
+      "Do not copy supplier documentation prose, OpenAPI source, SDK source, marks, credentials, or market data into published artifacts.",
+      "Hub must not proxy, cache, persist, or display supplier responses.",
+      "SDK and CLI callers provide their own App ID directly to the supplier service."
+    ]
   },
   "pontxProbe": {
     "toolVersion": "pontx@1.0.0-beta.3",
@@ -139,29 +182,19 @@
   ],
   "blockers": [
     {
-      "gate": "redistribution",
-      "zh": "网站条款保留站点与文档知识产权，只授予不可转让、可撤销的有限使用权；官方 Node wrapper 仓库也没有可识别 LICENSE。尚无证据允许 Pontx 再分发规范 prose 或发布独立生成 SDK。",
-      "en": "The website terms reserve site and documentation intellectual property and grant only a non-transferable, revocable, limited right of use; the official Node wrapper repository also has no identifiable LICENSE. No evidence yet authorizes Pontx to redistribute specification prose or publish an independently generated SDK."
-    },
-    {
       "gate": "contract",
-      "zh": "已从官方 ReadMe 页面内嵌的 document.api.schema 机械提取 7-Endpoint OpenAPI 3.1.0 快照并固定 SHA-256，但源 URL 可变且机器契约质量未达门槛：0 个 component Schema、4 个成功响应无 Schema、2 个 Endpoint 无 4xx/default、1 个 path template 不合法、6 个 operationId 含连字符而无法直接生成 TypeScript，并且 7 个 Endpoint 均无 Pontx 成功请求示例。2026-08-15 的逐页官方文档审计已足以独立重建 standard-rates、currencies、time-series、OHLC 与 common-error 的 Schema；但 convert 与 usage 仍只描述字段角色而没有可审核的完整成功 payload，且其权限受套餐限制，必须以经授权的 App ID 成功响应或供应商批准 fixture 补齐。",
-      "en": "A seven-endpoint OpenAPI 3.1.0 snapshot was mechanically extracted from document.api.schema on the official ReadMe page and pinned by SHA-256, but the mutable machine contract fails quality gates: zero component schemas, four successful responses without schemas, two endpoints without 4xx/default responses, one invalid path template, six hyphenated operationIds that cannot directly generate TypeScript, and no Pontx successful request example on any endpoint. A 2026-08-15 page-by-page audit of official documentation is sufficient to independently reconstruct standard-rates, currencies, time-series, OHLC, and common-error Schemas; convert and usage still describe field roles without an auditable complete success payload, and their plan entitlements require an authorised App ID response or supplier-approved fixture."
-    },
-    {
-      "gate": "risk",
-      "zh": "数据套餐限制基准货币、更新频率、历史/高级能力与再分发权；Hub 代理默认应关闭，调用方必须直接使用自己的 App ID 与数据许可。",
-      "en": "Plan entitlements govern base currencies, refresh frequency, historical/advanced features, and redistribution rights; Hub proxying should stay disabled and callers must use their own App ID and data license directly."
+      "zh": "2026-08-15 的授权免费套餐探针已取得 latest、historical、currencies 与 usage 的成功响应，并补齐 usage 的完整字段层次；逐页官方文档足以重建 standard-rates、currencies、time-series、OHLC 与 common-error。convert 仍为 Unlimited 套餐能力，免费 App ID 返回 403，官方页面只描述字段角色而未给出可审核的完整成功 payload。因此在不购买或升级套餐的边界内，convert 的成功 Schema、约束和成功请求示例仍不能准确收录。Hub 代理、缓存、持久化与响应展示保持关闭，调用方直接使用自己的 App ID。",
+      "en": "An authorised free-plan probe on 2026-08-15 obtained successful latest, historical, currencies, and usage responses, including the complete usage field hierarchy; official page evidence is sufficient to reconstruct standard-rates, currencies, time-series, OHLC, and common-error. Convert remains an Unlimited-plan capability: the free App ID returns 403 and the official page describes roles rather than an auditable full success payload. Without purchasing or upgrading, its success schema, constraints, and coherent success request cannot be recorded accurately. Hub proxying, caching, persistence, and response display remain disabled; callers use their own App ID directly."
     },
     {
       "gate": "sdkCli",
-      "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。逐页证据可消除其中五类 Schema 的来源缺口，但 convert、usage、套餐约束和七个成功请求示例仍未完成；在此之前不得建立独立 SDK 仓库、CI 或 npm 版本。",
-      "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. Page-level evidence can close the source gap for five Schema families, but convert, usage, plan constraints, and seven coherent successful request examples remain unfinished; an independent SDK repository, CI, or npm version must not be created first."
+      "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。usage 的来源缺口已由授权探针消除，但 convert 成功契约仍不可验证；在该 Endpoint 完整之前不得建立独立 SDK 仓库、CI 或 npm 版本。",
+      "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. The usage-source gap is now closed by the authorised probe, but the convert success contract remains unverifiable; an independent SDK repository, CI, or npm version must not be created until that Endpoint is complete."
     }
   ],
   "nextAction": {
-    "zh": "继续以官方逐页证据重建七个 Endpoint；同时获取 metadata/独立生成客户端书面发布许可，以及涵盖 convert 和 usage 的经授权 App ID 成功响应或供应商批准 fixture。随后补齐套餐条件、错误与七个成功请求示例，并以代理关闭模式发布 SDK/CLI。",
-    "en": "Continue reconstructing all seven endpoints from official page-level evidence while obtaining written permission to publish metadata and an independently generated client, plus authorised App ID success responses or supplier-approved fixtures for convert and usage. Then complete plan conditions, errors, and seven successful request examples before publishing an SDK/CLI with proxying disabled."
+    "zh": "在不升级套餐的限制下，等待可合法使用的 Unlimited App ID 或供应商公开/批准的 convert 成功 fixture；随后补齐 convert 的 Schema、约束和成功示例，复核全部七个 Endpoint，并以调用方直连、Hub 代理关闭模式生成、测试、发布 SDK/CLI。无需供应商 SDK 或 metadata 发布许可。",
+    "en": "Without upgrading a plan, wait for a lawfully usable Unlimited App ID or a public/supplier-approved convert success fixture; then complete convert's schema, constraints, and success example, re-audit all seven endpoints, and generate, test, and publish the caller-direct SDK/CLI with Hub proxying disabled. No supplier SDK or metadata publication permission is required."
   },
-  "verifiedAt": "2026-08-14"
+  "verifiedAt": "2026-08-15"
 }

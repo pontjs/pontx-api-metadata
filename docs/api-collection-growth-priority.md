@@ -1,6 +1,6 @@
 # API 集合增长优先级
 
-> 状态：候选路线图，不代表已批准收录。证据快照：2026-08-14（Asia/Shanghai）。
+> 状态：候选路线图，不代表已批准收录。证据快照：2026-08-15（Asia/Shanghai）。
 
 本文件决定调查和制作顺序；24 个产品的结构化 intake、权威证据、门槛状态与下一步维护在
 [`api-collection-candidates.json`](./api-collection-candidates.json)。正式 Hub catalog 仍只包含
@@ -27,9 +27,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 - ECB 候选保留完整 Data Portal SDMX 2.1 REST 服务边界；EXR 汇率数据流不冒充独立供应商 API。
 - CurrencyBeacon 候选仅指官方 v1 REST API；供应商另行提供的 MCP server 不并入 REST 集合。
 - Open Exchange Rates 候选按官方 v0.7 的七个 JSON REST Endpoint 定界。
-- Twelve Data Forex 候选保留 REST 与 WebSocket 的完整供应商产品面，不裁剪实时协议后发布。
+- Twelve Data Forex 已正式收录完整的 Forex REST 与 WebSocket 产品面；实时入站字段明确为免费账户观测契约，不伪称为供应商发布的 Schema。
 - Stripe Identity 只在供应商明确的 Identity 子产品边界内单独合规审查，不扩展成完整支付集合。
-- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive、ECB Data Portal 和 Dropbox Sign；Dropbox Sign 与 ECB 在账本中保留已准入状态用于持续治理，其余候选不进入正式目录。
+- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive、ECB Data Portal、Twelve Data Forex、Dropbox Sign 和 Stripe Identity；已准入产品在账本中保留持续治理状态，其余候选不进入正式目录。
 
 ## 不可绕过的准入门槛
 
@@ -72,9 +72,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
-| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 仍未确认。Pontx 仅以独立表述发布 metadata/客户端，不转发文档、数据或标识 | 继续重建七个 Endpoint，并获取 convert/usage 的可审核成功 fixture |
-| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS。Pontx 仅以独立表述发布 metadata/客户端，不代理、缓存或再分发数据 | 获取完整 OAS、三项成功 fixture 或授权测试密钥 |
-| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schema；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；市场数据仍由调用方按自己的套餐直连，Hub 不代理或再分发 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture |
+| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的免费账户已实测 latest/historical/currencies/usage，time-series/convert/ohlc 被套餐拒绝。官方逐页文档可重建五类 Schema，仍缺 Unlimited 套餐才可取得的 convert 成功 payload。Pontx 仅以独立表述发布 metadata/客户端，不转发文档、数据或标识 | 取得可审核的 Unlimited convert 成功 fixture；不以推测值完成契约 |
+| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS。已获免费注册授权但 Google OAuth 回调和密码重置提交均复现 HTTP 500，无法建立可复用的无密钥会话来取得 fixture。Pontx 仅以独立表述发布 metadata/客户端，不代理、缓存或再分发数据 | 等待供应商修复账户恢复链路，或取得可用的免费测试 API Key 后补齐三项成功 fixture |
+| 11 | Twelve Data Forex API | 70 | 已正式准入：固定的官方 REST OAS 为 187 个 Endpoint / 797 个 Schema；独立收敛为 111 个 Forex Endpoint / 443 个 Schema（2 currencies、4 market data、3 reference data、102 technical indicators），逐 Endpoint request example 与中英文同构静态质量为 A。免费账户已实测 REST 与 WebSocket 的 price/subscribe-status/heartbeat；实时入站结构明确为观测契约。`@pontx/twelve-data-forex@0.1.0` 与 CLI 已完成本地生成、类型、4 单测、4 REST/CLI/WebSocket E2E、npm pack、直接服务验证及 Node 18/20/22 CI；市场数据始终由调用方按自己的套餐直连，Hub 不代理或再分发 | 持续复核供应商文档、套餐边界、OAS 指纹、观测流契约、npm fresh-install 和 Node.js 兼容性 |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
@@ -130,7 +130,6 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 ### 暂缓
 
 - PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
-- Twelve Data Forex：已完成 WebSocket runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，但完整入站 Schema、Hub 文档、凭证安全验证及 metadata/SDK 发布与外部展示许可仍待确认。
 - 12 个 AI/LLM 集合：协议门阻断。
 - Stripe Identity：隐私与合规门阻断。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。

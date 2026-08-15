@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "slug": "twelve-data-forex",
+  "name": "Twelve Data Forex API",
+  "provider": "Twelve Data",
+  "category": "Finance",
+  "featured": true,
+  "display": {
+    "title": "Twelve Data 外汇 API",
+    "summary": "查询外汇实时与历史市场数据、货币换算、参考信息和技术指标；调用方以自己的 Twelve Data 凭据直连服务。",
+    "accent": "#2563eb"
+  },
+  "legal": {
+    "license": "Twelve Data Terms of Use",
+    "attributionUrl": "https://twelvedata.com/terms"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://twelvedata.com/docs",
+      "https://twelvedata.com/forex",
+      "https://api.twelvedata.com/doc/swagger/openapi.json",
+      "https://twelvedata.com/terms",
+      "https://github.com/pontjs/twelve-data-forex",
+      "https://github.com/pontjs/twelve-data-forex/actions/runs/31864905456",
+      "https://www.npmjs.com/package/@pontx/twelve-data-forex/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "基于 Twelve Data 当前官方资料独立整理的 Forex REST 与实时报价流契约；SDK 和 CLI 以调用方自己的凭据直连供应商，Hub 不代理、缓存、持久化或展示响应。"
+  },
+  "pricing": {
+    "status": "freemium",
+    "summary": "Twelve Data 提供免费和付费账户；可用 Endpoint、数据覆盖与调用额度取决于调用方当前套餐。",
+    "officialUrl": "https://twelvedata.com/pricing",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "apiKey",
+      "envVar": "PONTX_TWELVE_DATA_API_KEY",
+      "description": "Twelve Data API Key 通过查询参数仅在调用方会话中用于直接请求。"
+    }
+  ],
+  "execution": {
+    "hubProxyEnabled": false
+  },
+  "quickStart": {
+    "operationId": "GetExchangeRate",
+    "requestExampleId": "default"
+  }
+}
