@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/pinhere",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/pinhere"
+  },
+  "cli": {
+    "name": "pontx-pinhere"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createPinhereClient",
+      "identifier": "client",
+      "options": {
+        "accessToken": "PINHERE_ACCESS_TOKEN",
+        "sessionCookie": "PINHERE_SESSION_COOKIE"
+      }
+    },
+    "controllers": {
+      "projects": "projects",
+      "issues": "issues",
+      "attachments": "attachments",
+      "webhooks": "webhooks",
+      "tokens": "tokens",
+      "oauth": "oauth"
+    }
+  },
+  "examples": {
+    "typescript": "import { createPinhereClient } from \"@pontx/pinhere\";\n\nconst client = createPinhereClient({\n  accessToken: process.env.PINHERE_ACCESS_TOKEN\n});\nconst issues = await client.issues.listIssues({\n  projectId: \"prj_example\",\n  status: \"open\"\n});",
+    "cli": "pnpm add --global @pontx/pinhere\n\npontx-pinhere call issues getIssue --issueId iss_example --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 10,
+      "total": 10,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "024321a7559918cff2eb766b6387af6d59885ad2",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/pinhere",
+    "workflowRunUrl": "https://github.com/pontjs/pinhere/actions/runs/31886414810"
+  },
+  "spec": {
+    "path": "products/pinhere/spec.pontx.json",
+    "sha256": "132d1988e36f4ecc186822b3c8a567ad30e270322d8772208675ab466a5ebe26",
+    "metadataCommit": "b102549ecbbbd18383d1a53e891eefae5ceae944"
+  }
+}

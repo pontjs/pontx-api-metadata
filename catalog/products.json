@@ -14,6 +14,7 @@
     "currencybeacon-rest",
     "dropbox-sign",
     "stripe-identity",
-    "amazon-sqs"
+    "amazon-sqs",
+    "pinhere"
   ]
 }

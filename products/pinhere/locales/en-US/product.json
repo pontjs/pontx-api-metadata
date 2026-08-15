@@ -1,0 +1,26 @@
+{
+  "display": {
+    "title": "Pinhere issue collaboration API",
+    "summary": "Pinhere APIs for projects, origins, issues, private screenshots, webhooks, PATs, and Chrome-extension OAuth. The fixed PontxSpec covers all 34 Endpoints. Hub provides documentation and a local SDK/CLI only; it proxies no request."
+  },
+  "documentation": {
+    "stabilityNote": "The contract is Pinhere's product-owned PontxSpec at a fixed revision. Every Endpoint either reads private project or issue data or makes a persistent change. Attachments, session cookies, PATs, Webhook secrets, OAuth values, and screenshots must never be sent to, stored by, or logged by Hub. Requests originate only in the caller's locally controlled SDK or CLI process with caller-owned credentials."
+  },
+  "pricing": {
+    "summary": "No public pricing commitment has been verified from an immutable official source. Confirm the current Pinhere product page or account agreement before integrating."
+  },
+  "credentials": [
+    {
+      "schemeId": "pinherePat",
+      "description": "A caller-owned Pinhere PAT is sent through a Bearer header and retained only in a locally controlled environment. Never place it in Hub, logs, examples, or chat."
+    },
+    {
+      "schemeId": "websiteSession",
+      "description": "A website Session Cookie is limited to the caller's authenticated same-origin context. Never copy it into Hub, CLI history, logs, or examples."
+    },
+    {
+      "schemeId": "extensionOAuth",
+      "description": "The Chrome extension uses OAuth 2.0 Authorization Code + PKCE. Its short-lived Bearer access token may be supplied locally as PINHERE_ACCESS_TOKEN; authorization codes, refresh tokens, and code verifiers stay within the caller's extension and server."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "slug": "pinhere",
+  "name": "Pinhere API",
+  "provider": "Pinhere",
+  "category": "Developer Tools",
+  "featured": true,
+  "display": {
+    "title": "Pinhere 缺陷协作 API",
+    "summary": "Pinhere 项目、Origin、缺陷、私有截图、Webhook、PAT 与 Chrome 扩展 OAuth API；覆盖固定 PontxSpec 中全部 34 个 Endpoint。Hub 提供文档和本地 SDK/CLI，不代理任何请求。",
+    "accent": "#2563EB"
+  },
+  "legal": {
+    "license": "MIT",
+    "attributionUrl": "https://github.com/jasonHzq/pinhere/tree/4df51d12e3a707454ffdcef310de5d1e41bbbdfe"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
+      "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/locales/en-US/spec.pontx.json",
+      "https://github.com/jasonHzq/pinhere/blob/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/LICENSE",
+      "https://pinhere-jasonhzqs-projects.vercel.app/.well-known/pontx.json",
+      "https://github.com/jasonHzq/pinhere/actions/runs/31885917089",
+      "https://github.com/pontjs/pinhere/actions/runs/31886414810",
+      "https://www.npmjs.com/package/@pontx/pinhere/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "契约来自 Pinhere 产品自有的固定 PontxSpec revision。所有 Endpoint 都读取私有项目或缺陷数据，或产生持久化变更；附件、会话 Cookie、PAT、Webhook 机密、OAuth 值和截图均不得发送给、存储于或记录在 Hub。请求只可由调用方的本地 SDK 或 CLI 使用自有凭证发起。"
+  },
+  "pricing": {
+    "status": "unknown",
+    "summary": "尚无经固定官方来源验证的公开定价承诺；接入前请以 Pinhere 当前产品页面或账户协议为准。",
+    "officialUrl": "https://pinhere-jasonhzqs-projects.vercel.app",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "pinherePat",
+      "envVar": "PINHERE_ACCESS_TOKEN",
+      "description": "调用方自有的 Pinhere PAT 通过 Bearer Header 使用；仅保留在本地受控环境中，不能写入 Hub、日志、示例或聊天。"
+    },
+    {
+      "schemeId": "websiteSession",
+      "envVar": "PINHERE_SESSION_COOKIE",
+      "description": "网站 Session Cookie 仅适用于调用方已登录的同源场景；不要复制到 Hub、CLI 历史、日志或示例中。"
+    },
+    {
+      "schemeId": "extensionOAuth",
+      "envVar": "PINHERE_ACCESS_TOKEN",
+      "description": "Chrome 扩展使用 OAuth 2.0 Authorization Code + PKCE；获得的短期 Bearer access token 可在调用方本地作为 PINHERE_ACCESS_TOKEN 使用，授权码、刷新令牌和 code verifier 仅由调用方扩展与服务端处理。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "listIssues",
+    "requestExampleId": "default"
+  }
+}

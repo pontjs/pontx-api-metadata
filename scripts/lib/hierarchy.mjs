@@ -7,6 +7,7 @@ import { validateSdkQuality } from "./sdk-quality.mjs";
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const COMMIT_PATTERN = /^[a-f0-9]{40}$/;
+const ENV_VAR_PATTERN = /^[A-Z][A-Z0-9_]*$/;
 const PRODUCT_KEYS = new Set([
   "formatVersion",
   "slug",
@@ -80,25 +81,34 @@ function validateProduct(slug, product, errors) {
     errors.push(`${slug}: quickStart must identify an Endpoint and request example`);
   }
   for (const credential of product.credentials ?? []) {
+    const context = `${slug}: credential ${credential.schemeId}`;
+    if (credential.usernameEnvVar || credential.passwordEnvVar) {
+      if (!ENV_VAR_PATTERN.test(credential.usernameEnvVar ?? "")
+        || !ENV_VAR_PATTERN.test(credential.passwordEnvVar ?? "")) {
+        errors.push(`${context} basic authentication requires uppercase usernameEnvVar and passwordEnvVar`);
+      }
+    } else if (!ENV_VAR_PATTERN.test(credential.envVar ?? "")) {
+      errors.push(`${context} requires an uppercase envVar for the Hub and local SDK/CLI boundary`);
+    }
     if (!credential.guide) continue;
-    const context = `${slug}: credential ${credential.schemeId} guide`;
+    const guideContext = `${context} guide`;
     checkExactKeys(
       credential.guide,
       new Set(["url", "title", "steps"]),
-      context,
+      guideContext,
       errors,
     );
     if (!String(credential.guide.url ?? "").startsWith("https://")) {
-      errors.push(`${context} URL must use HTTPS`);
+      errors.push(`${guideContext} URL must use HTTPS`);
     }
     if (!hasText(credential.guide.title)) {
-      errors.push(`${context} title must be non-empty`);
+      errors.push(`${guideContext} title must be non-empty`);
     }
     if (!Array.isArray(credential.guide.steps)
       || credential.guide.steps.length < 1
       || credential.guide.steps.length > 8
       || credential.guide.steps.some((step) => !hasText(step))) {
-      errors.push(`${context} must contain 1 to 8 non-empty steps`);
+      errors.push(`${guideContext} must contain 1 to 8 non-empty steps`);
     }
   }
 }

@@ -1,0 +1,6017 @@
+{
+  "pontx": "2.1",
+  "name": "pinhere",
+  "style": "RESTFul",
+  "info": {
+    "title": "Pinhere API",
+    "version": "1.0.0",
+    "description": "Pinhere 的项目、Origin、缺陷、截图、Webhook、PAT 与浏览器扩展 OAuth API。全部 Endpoint 都处理私有数据或持久化变更，因此 Pontx Hub 公开代理默认禁用。"
+  },
+  "servers": [
+    {
+      "id": "production",
+      "url": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1",
+      "description": "Pinhere 生产 API（Vercel）。"
+    }
+  ],
+  "tags": [
+    {
+      "name": "projects",
+      "description": "项目与 Origin 归属。"
+    },
+    {
+      "name": "issues",
+      "description": "缺陷内容与 AI 处理状态机。"
+    },
+    {
+      "name": "attachments",
+      "description": "私有截图上传与下载。"
+    },
+    {
+      "name": "webhooks",
+      "description": "issue.created Webhook 与投递诊断。"
+    },
+    {
+      "name": "tokens",
+      "description": "网站 Session 管理的自动化 PAT。"
+    },
+    {
+      "name": "oauth",
+      "description": "Chrome 扩展 OAuth 2.0 PKCE 授权与令牌轮换。"
+    }
+  ],
+  "apis": {
+    "projects/listProjects": {
+      "operationId": "listProjects",
+      "summary": "列出项目",
+      "description": "列出当前账号的全部项目。",
+      "method": "GET",
+      "path": "/projects",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "项目列表。",
+          "schema": {
+            "type": "object",
+            "description": "项目列表。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Project"
+                },
+                "description": "项目列表。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "项目列表。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "description": "项目列表。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "projects/createProject": {
+      "operationId": "createProject",
+      "summary": "创建项目",
+      "description": "创建个人项目并可同时设置最多 50 个 Origin。",
+      "method": "POST",
+      "path": "/projects",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "项目已创建。",
+          "schema": {
+            "type": "object",
+            "description": "已创建项目。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Project",
+                "description": "已创建项目。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已创建项目。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Project",
+                    "description": "已创建项目。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Origin 已归属于其他项目。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-project-create"
+            },
+            "body": {
+              "name": "Checkout",
+              "description": "Checkout experience issues",
+              "origins": [
+                "https://shop.example.com"
+              ]
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "projects/getProject": {
+      "operationId": "getProject",
+      "summary": "获取项目",
+      "description": "获取项目、Origin 和并发控制版本。",
+      "method": "GET",
+      "path": "/projects/{projectId}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "项目详情。",
+          "schema": {
+            "type": "object",
+            "description": "项目详情。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProjectWithOrigins",
+                "description": "项目详情。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "项目详情。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProjectWithOrigins",
+                    "description": "项目详情。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "项目不存在。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "projects/updateProject": {
+      "operationId": "updateProject",
+      "summary": "更新项目",
+      "description": "使用 If-Match 更新项目名称或说明。",
+      "method": "PATCH",
+      "path": "/projects/{projectId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "项目已更新。",
+          "schema": {
+            "type": "object",
+            "description": "已更新项目。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Project",
+                "description": "已更新项目。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已更新项目。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Project",
+                    "description": "已更新项目。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "缺少 If-Match 或版本冲突。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-project-update"
+            },
+            "body": {
+              "name": "Checkout v2"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "projects/deleteProject": {
+      "operationId": "deleteProject",
+      "summary": "删除项目",
+      "description": "删除项目及其缺陷、历史和截图。",
+      "method": "DELETE",
+      "path": "/projects/{projectId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "项目已删除。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会删除、撤销或改变持久化资源及其关联数据；Pontx Hub 不代理执行。CLI 必须先预览，并要求显式确认。"
+        }
+      }
+    },
+    "projects/addProjectOrigin": {
+      "operationId": "addProjectOrigin",
+      "summary": "添加 Origin",
+      "description": "为项目添加标准化 Origin 并增加项目版本。",
+      "method": "POST",
+      "path": "/projects/{projectId}/origins",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OriginInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OriginInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Origin 已添加。",
+          "schema": {
+            "type": "object",
+            "description": "Origin 添加结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OriginResult",
+                "description": "Origin 添加结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Origin 添加结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OriginResult",
+                    "description": "Origin 添加结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Origin 已分配。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-origin-add"
+            },
+            "body": {
+              "origin": "https://shop.example.com/checkout"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "projects/deleteProjectOrigin": {
+      "operationId": "deleteProjectOrigin",
+      "summary": "删除 Origin",
+      "description": "从项目删除 URL 编码后的 Origin。",
+      "method": "DELETE",
+      "path": "/projects/{projectId}/origins/{encodedOrigin}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "encodedOrigin",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "URL 编码后的标准化 Origin。",
+            "examples": [
+              "https%3A%2F%2Fshop.example.com"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Origin 已删除或原本不存在。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example",
+              "encodedOrigin": "https%3A%2F%2Fshop.example.com"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会删除、撤销或改变持久化资源及其关联数据；Pontx Hub 不代理执行。CLI 必须先预览，并要求显式确认。"
+        }
+      }
+    },
+    "projects/resolveProject": {
+      "operationId": "resolveProject",
+      "summary": "按 URL 解析项目",
+      "description": "只比较页面 URL 的协议、域名和端口。",
+      "method": "GET",
+      "path": "/projects/resolve",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uri",
+            "description": "当前页面 URL。",
+            "examples": [
+              "https://shop.example.com/checkout?step=payment"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "匹配项目或 null。",
+          "schema": {
+            "type": "object",
+            "description": "项目解析结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ResolveProjectResult",
+                "description": "项目解析结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "项目解析结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ResolveProjectResult",
+                    "description": "项目解析结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "url": "https://shop.example.com/checkout?step=payment"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "issues/listIssues": {
+      "operationId": "listIssues",
+      "summary": "列出缺陷",
+      "description": "游标分页并支持项目、状态和更新时间过滤，最多返回 100 条。",
+      "method": "GET",
+      "path": "/issues",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "cursor",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "上一页返回的 Base64url 时间游标。",
+            "examples": [
+              "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "每页条数，缺省为 50。",
+            "examples": [
+              50
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "projectId",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "按项目过滤。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "status",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/IssueStatus"
+          }
+        },
+        {
+          "in": "query",
+          "name": "updatedAfter",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "date-time",
+            "description": "仅返回此时间之后更新的缺陷。",
+            "examples": [
+              "2026-08-15T00:00:00.000Z"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-None-Match",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "列表缓存 ETag；匹配时返回 304。",
+            "examples": [
+              "example-etag"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷分页结果。",
+          "schema": {
+            "type": "object",
+            "description": "缺陷分页响应。",
+            "required": [
+              "data",
+              "meta"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Issue"
+                },
+                "description": "资源列表。"
+              },
+              "meta": {
+                "type": "object",
+                "description": "分页元数据。",
+                "required": [
+                  "nextCursor"
+                ],
+                "properties": {
+                  "nextCursor": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "下一页游标；无下一页时为 null。",
+                    "examples": [
+                      "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "缺陷分页响应。",
+                "required": [
+                  "data",
+                  "meta"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Issue"
+                    },
+                    "description": "资源列表。"
+                  },
+                  "meta": {
+                    "type": "object",
+                    "description": "分页元数据。",
+                    "required": [
+                      "nextCursor"
+                    ],
+                    "properties": {
+                      "nextCursor": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "下一页游标；无下一页时为 null。",
+                        "examples": [
+                          "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "304": {
+          "description": "ETag 匹配，内容未变化。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "projectId": "prj_example",
+              "status": "open",
+              "limit": 50
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "issues/createIssue": {
+      "operationId": "createIssue",
+      "summary": "创建缺陷",
+      "description": "创建缺陷并在同一事务写入 issue.created Outbox。",
+      "method": "POST",
+      "path": "/issues",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/IssueInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "缺陷已创建。",
+          "schema": {
+            "type": "object",
+            "description": "已创建缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已创建缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已创建缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已创建缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "页面 Origin 与项目不匹配，或截图已被使用。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "extensionOAuth": [
+            "issues:create"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-create"
+            },
+            "body": {
+              "projectId": "prj_example",
+              "title": "Checkout button does not submit",
+              "description": "Clicking the button leaves the page unchanged.",
+              "pageUrl": "https://shop.example.com/checkout",
+              "dom": {
+                "cssSelector": "#checkout-button",
+                "xpath": "//*[@id='checkout-button']",
+                "tagName": "BUTTON",
+                "attributes": {
+                  "id": "checkout-button",
+                  "type": "submit"
+                },
+                "text": "Submit order",
+                "outerHTML": "<button id=\"checkout-button\" type=\"submit\">Submit order</button>",
+                "viewport": {
+                  "width": 1440,
+                  "height": 900,
+                  "devicePixelRatio": 2
+                },
+                "boundingRect": {
+                  "x": 1040,
+                  "y": 720,
+                  "width": 180,
+                  "height": 44
+                }
+              },
+              "attachmentId": "att_example",
+              "source": "extension"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/getIssue": {
+      "operationId": "getIssue",
+      "summary": "获取缺陷",
+      "description": "获取 DOM、截图路径、目标与状态上下文。",
+      "method": "GET",
+      "path": "/issues/{issueId}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷完整上下文。",
+          "schema": {
+            "type": "object",
+            "description": "缺陷详情。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IssueDetail",
+                "description": "缺陷详情。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "缺陷详情。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/IssueDetail",
+                    "description": "缺陷详情。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "缺陷不存在。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "issues/updateIssue": {
+      "operationId": "updateIssue",
+      "summary": "更新缺陷",
+      "description": "使用 If-Match 更新缺陷标题或正文。",
+      "method": "PATCH",
+      "path": "/issues/{issueId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/IssueUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷已更新。",
+          "schema": {
+            "type": "object",
+            "description": "已更新缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已更新缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已更新缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已更新缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "缺少 If-Match 或版本冲突。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-issue-update"
+            },
+            "body": {
+              "title": "Checkout submit is unresponsive"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/deleteIssue": {
+      "operationId": "deleteIssue",
+      "summary": "删除缺陷",
+      "description": "删除缺陷、历史与关联截图。",
+      "method": "DELETE",
+      "path": "/issues/{issueId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "缺陷已删除。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会删除、撤销或改变持久化资源及其关联数据；Pontx Hub 不代理执行。CLI 必须先预览，并要求显式确认。"
+        }
+      }
+    },
+    "issues/listIssueEvents": {
+      "operationId": "listIssueEvents",
+      "summary": "列出状态历史",
+      "description": "按时间顺序返回缺陷审计事件。",
+      "method": "GET",
+      "path": "/issues/{issueId}/events",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "状态事件列表。",
+          "schema": {
+            "type": "object",
+            "description": "状态事件列表。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IssueEvent"
+                },
+                "description": "状态事件列表。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "状态事件列表。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/IssueEvent"
+                    },
+                    "description": "状态事件列表。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "issues/claimIssue": {
+      "operationId": "claimIssue",
+      "summary": "原子认领缺陷",
+      "description": "仅 open 缺陷能被一个调用方原子认领。",
+      "method": "POST",
+      "path": "/issues/{issueId}/claim",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "认领成功。",
+          "schema": {
+            "type": "object",
+            "description": "已认领缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已认领缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已认领缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已认领缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "缺陷已被认领。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-claim"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/claimNextIssue": {
+      "operationId": "claimNextIssue",
+      "summary": "领取最早缺陷",
+      "description": "原子领取项目中最早的 open 缺陷；没有任务时 issue 为 null。",
+      "method": "POST",
+      "path": "/issues/claim-next",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClaimNextInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimNextInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "已领取缺陷或 null。",
+          "schema": {
+            "type": "object",
+            "description": "领取结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ClaimNextResult",
+                "description": "领取结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "领取结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ClaimNextResult",
+                    "description": "领取结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-claim-next"
+            },
+            "body": {
+              "projectId": "prj_example"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/releaseIssue": {
+      "operationId": "releaseIssue",
+      "summary": "释放缺陷",
+      "description": "领取凭证或网站账号将 in_progress 缺陷恢复为 open。",
+      "method": "POST",
+      "path": "/issues/{issueId}/release",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ReleaseInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷已释放。",
+          "schema": {
+            "type": "object",
+            "description": "已释放缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已释放缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已释放缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已释放缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用方不是领取方。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "缺陷状态无效。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-release"
+            },
+            "body": {
+              "reason": "Blocked by an unavailable dependency."
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/completeIssue": {
+      "operationId": "completeIssue",
+      "summary": "完成缺陷",
+      "description": "领取凭证或网站账号写入完成状态与摘要。",
+      "method": "POST",
+      "path": "/issues/{issueId}/complete",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CompleteInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷已完成。",
+          "schema": {
+            "type": "object",
+            "description": "已完成缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已完成缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已完成缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已完成缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用方不是领取方。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "缺陷状态无效。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-complete"
+            },
+            "body": {
+              "summary": "Added a submit handler and regression test."
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "issues/reopenIssue": {
+      "operationId": "reopenIssue",
+      "summary": "重新打开缺陷",
+      "description": "将 done 缺陷恢复为 open。",
+      "method": "POST",
+      "path": "/issues/{issueId}/reopen",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "缺陷已重新打开。",
+          "schema": {
+            "type": "object",
+            "description": "已重新打开缺陷。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "已重新打开缺陷。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已重新打开缺陷。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "已重新打开缺陷。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "仅已完成缺陷可重新打开。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-reopen"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "attachments/createAttachment": {
+      "operationId": "createAttachment",
+      "summary": "上传截图",
+      "description": "上传不超过 2 MiB 的 PNG、JPEG 或 WebP 到私有存储。",
+      "method": "POST",
+      "path": "/attachments",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/AttachmentInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachmentInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "截图已私有保存。",
+          "schema": {
+            "type": "object",
+            "description": "截图元数据。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Attachment",
+                "description": "截图元数据。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "截图元数据。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Attachment",
+                    "description": "截图元数据。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "413": {
+          "description": "截图超过 2 MiB。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "attachments"
+      ],
+      "security": [
+        {
+          "extensionOAuth": [
+            "attachments:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-attachment"
+            },
+            "body": {
+              "fileName": "checkout.webp",
+              "contentType": "image/webp",
+              "base64": "UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAUAmJaQAA3AA/v89WAAAAA=="
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "attachments/downloadAttachment": {
+      "operationId": "downloadAttachment",
+      "summary": "读取截图",
+      "description": "鉴权后流式读取私有截图。",
+      "method": "GET",
+      "path": "/attachments/{attachmentId}",
+      "consumes": [],
+      "produces": [
+        "image/png",
+        "image/jpeg",
+        "image/webp"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "attachmentId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "截图 ID。",
+            "examples": [
+              "att_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "PNG、JPEG 或 WebP 截图字节。",
+          "schema": {
+            "type": "string",
+            "format": "binary",
+            "description": "私有截图字节。",
+            "examples": [
+              "UklGRiQAAABXRUJQ"
+            ]
+          },
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "PNG 截图字节。"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "JPEG 截图字节。"
+              }
+            },
+            "image/webp": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "WebP 截图字节。"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "截图不存在。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "截图存储不可用。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "attachments"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "attachmentId": "att_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "webhooks/listWebhooks": {
+      "operationId": "listWebhooks",
+      "summary": "列出 Webhook",
+      "description": "列出当前账号的 Webhook，不返回签名 Secret。",
+      "method": "GET",
+      "path": "/webhooks",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Webhook 列表。",
+          "schema": {
+            "type": "object",
+            "description": "Webhook 列表。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "description": "Webhook 列表。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Webhook 列表。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Webhook"
+                    },
+                    "description": "Webhook 列表。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "webhooks/createWebhook": {
+      "operationId": "createWebhook",
+      "summary": "创建 Webhook",
+      "description": "创建只接收 issue.created 的公网 HTTPS Webhook。",
+      "method": "POST",
+      "path": "/webhooks",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/WebhookInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Webhook 与只显示一次的 Secret。",
+          "schema": {
+            "type": "object",
+            "description": "Webhook 创建结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/WebhookWithSecret",
+                "description": "Webhook 创建结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Webhook 创建结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/WebhookWithSecret",
+                    "description": "Webhook 创建结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "URL 未通过公网 HTTPS/SSRF 校验。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Issue automation",
+              "url": "https://hooks.example.com/pinhere",
+              "projectId": "prj_example"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会创建、轮换或返回只显示一次的凭证；Pontx Hub 不代理执行，也不得记录返回值。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "webhooks/updateWebhook": {
+      "operationId": "updateWebhook",
+      "summary": "更新 Webhook",
+      "description": "使用 If-Match 更新名称、URL 或启用状态。",
+      "method": "PATCH",
+      "path": "/webhooks/{webhookId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/WebhookUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Webhook 已更新。",
+          "schema": {
+            "type": "object",
+            "description": "已更新 Webhook。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Webhook",
+                "description": "已更新 Webhook。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "已更新 Webhook。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Webhook",
+                    "description": "已更新 Webhook。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "缺少 If-Match 或版本冲突。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "URL 未通过公网 HTTPS/SSRF 校验。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-webhook-update"
+            },
+            "body": {
+              "enabled": false
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会产生持久化状态变更；Pontx Hub 不代理执行。CLI 必须先预览，并在显式确认后才可使用调用方自己的凭证执行。"
+        }
+      }
+    },
+    "webhooks/deleteWebhook": {
+      "operationId": "deleteWebhook",
+      "summary": "删除 Webhook",
+      "description": "删除 Webhook 及其投递记录。",
+      "method": "DELETE",
+      "path": "/webhooks/{webhookId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "必须等于资源 version 对应的 ETag。",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Webhook 已删除。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会删除、撤销或改变持久化资源及其关联数据；Pontx Hub 不代理执行。CLI 必须先预览，并要求显式确认。"
+        }
+      }
+    },
+    "webhooks/rotateWebhookSecret": {
+      "operationId": "rotateWebhookSecret",
+      "summary": "轮换 Secret",
+      "description": "立即轮换 Webhook 签名 Secret 并增加资源版本。",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/rotate-secret",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "返回只显示一次的新 Secret。",
+          "schema": {
+            "type": "object",
+            "description": "新 Webhook Secret。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SecretResult",
+                "description": "新 Webhook Secret。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "新 Webhook Secret。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/SecretResult",
+                    "description": "新 Webhook Secret。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会创建、轮换或返回只显示一次的凭证；Pontx Hub 不代理执行，也不得记录返回值。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "webhooks/testWebhook": {
+      "operationId": "testWebhook",
+      "summary": "测试 Webhook",
+      "description": "创建测试投递并立即尝试向外部 URL 发送。",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/test",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "202": {
+          "description": "测试投递已创建并尝试。",
+          "schema": {
+            "type": "object",
+            "description": "测试投递引用。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/DeliveryReference",
+                "description": "测试投递引用。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "测试投递引用。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/DeliveryReference",
+                    "description": "测试投递引用。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "202"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会向外部 Webhook 发起或重试网络投递；Pontx Hub 不代理执行。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "webhooks/listWebhookDeliveries": {
+      "operationId": "listWebhookDeliveries",
+      "summary": "列出投递记录",
+      "description": "返回最近 100 条 Webhook 投递与受限错误诊断。",
+      "method": "GET",
+      "path": "/webhooks/{webhookId}/deliveries",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "投递记录列表。",
+          "schema": {
+            "type": "object",
+            "description": "投递记录列表。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WebhookDelivery"
+                },
+                "description": "投递记录列表。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "投递记录列表。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WebhookDelivery"
+                    },
+                    "description": "投递记录列表。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "webhooks/retryWebhookDelivery": {
+      "operationId": "retryWebhookDelivery",
+      "summary": "重试投递",
+      "description": "将指定投递恢复为 pending 并在后台重试。",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/deliveries/{deliveryId}/retry",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "deliveryId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "投递 ID。",
+            "examples": [
+              "whd_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "202": {
+          "description": "投递已排队。",
+          "schema": {
+            "type": "object",
+            "description": "重试投递引用。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/DeliveryReference",
+                "description": "重试投递引用。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "重试投递引用。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/DeliveryReference",
+                    "description": "重试投递引用。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "投递不存在。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example",
+              "deliveryId": "whd_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "202"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会向外部 Webhook 发起或重试网络投递；Pontx Hub 不代理执行。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "tokens/listApiTokens": {
+      "operationId": "listApiTokens",
+      "summary": "列出 API Token",
+      "description": "列出不含明文 PAT 的当前 Token 元数据。",
+      "method": "GET",
+      "path": "/tokens",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Token 元数据列表。",
+          "schema": {
+            "type": "object",
+            "description": "Token 元数据列表。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ApiToken"
+                },
+                "description": "Token 元数据列表。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Token 元数据列表。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ApiToken"
+                    },
+                    "description": "Token 元数据列表。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "响应包含账号私有资源、缺陷正文、DOM、截图、Token 元数据或投递诊断；Pontx Hub 不代理执行，请仅在受控本地环境中使用调用方自己的凭证。"
+        }
+      }
+    },
+    "tokens/createApiToken": {
+      "operationId": "createApiToken",
+      "summary": "创建 API Token",
+      "description": "创建 ph_pat_ PAT；明文只返回一次，固定权限为 projects:read、issues:read、issues:write。",
+      "method": "POST",
+      "path": "/tokens",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ApiTokenInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiTokenInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Token 元数据与只显示一次的 PAT。",
+          "schema": {
+            "type": "object",
+            "description": "API Token 创建结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ApiTokenWithSecret",
+                "description": "API Token 创建结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "API Token 创建结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ApiTokenWithSecret",
+                    "description": "API Token 创建结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Checkout repair agent",
+              "expiresAt": "2026-09-15T08:00:00.000Z"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会创建、轮换或返回只显示一次的凭证；Pontx Hub 不代理执行，也不得记录返回值。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "tokens/revokeApiToken": {
+      "operationId": "revokeApiToken",
+      "summary": "撤销 API Token",
+      "description": "立即撤销指定 PAT。",
+      "method": "DELETE",
+      "path": "/tokens/{tokenId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "tokenId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Token ID。",
+            "examples": [
+              "pat_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Token 已撤销或原本不存在。"
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "tokenId": "pat_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会删除、撤销或改变持久化资源及其关联数据；Pontx Hub 不代理执行。CLI 必须先预览，并要求显式确认。"
+        }
+      }
+    },
+    "oauth/authorizeExtension": {
+      "operationId": "authorizeExtension",
+      "summary": "授权浏览器扩展",
+      "description": "网站 Session 为允许的 chromiumapp.org 回调签发五分钟有效的一次性 PKCE 授权码。",
+      "method": "POST",
+      "path": "/oauth/extension/authorize",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OAuthAuthorizeInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthAuthorizeInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "包含一次性授权码的回调 URL。",
+          "schema": {
+            "type": "object",
+            "description": "扩展授权结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OAuthAuthorizeResult",
+                "description": "扩展授权结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "扩展授权结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OAuthAuthorizeResult",
+                    "description": "扩展授权结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "回调 URL 不允许。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "oauth"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "redirectUri": "https://example.chromiumapp.org/callback",
+              "codeChallenge": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口会创建、轮换或返回只显示一次的凭证；Pontx Hub 不代理执行，也不得记录返回值。CLI 必须先预览并要求显式确认。"
+        }
+      }
+    },
+    "oauth/exchangeOAuthToken": {
+      "operationId": "exchangeOAuthToken",
+      "summary": "交换 OAuth Token",
+      "description": "使用授权码与 PKCE verifier，或轮换刷新令牌；访问令牌有效 15 分钟，刷新令牌有效 30 天。",
+      "method": "POST",
+      "path": "/oauth/token",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OAuthTokenInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthTokenInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "访问与刷新令牌。",
+          "schema": {
+            "type": "object",
+            "description": "OAuth Token 结果。",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OAuthTokenResult",
+                "description": "OAuth Token 结果。"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "OAuth Token 结果。",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OAuthTokenResult",
+                    "description": "OAuth Token 结果。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "授权码、verifier 或刷新令牌无效。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "标准错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "oauth"
+      ],
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "grantType": "authorization_code",
+              "code": "redacted-example-code",
+              "redirectUri": "https://example.chromiumapp.org/callback",
+              "codeVerifier": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "该接口交换并返回 OAuth 访问令牌与刷新令牌；Pontx Hub 不代理执行，凭证只能由调用方环境持有且不得写入日志。"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "websiteSession": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Cookie",
+        "description": "Pinhere 网站 Session Cookie；仅浏览器同源请求使用，不应复制到 CLI、Hub 或日志。"
+      },
+      "pinherePat": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "ph_pat_*",
+        "description": "调用方环境持有的 Pinhere PAT。固定权限为 projects:read、issues:read 和 issues:write。"
+      },
+      "extensionOAuth": {
+        "type": "oauth2",
+        "description": "Chrome 扩展 OAuth 2.0 Authorization Code + PKCE。",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://pinhere-jasonhzqs-projects.vercel.app/extension-authorize",
+            "tokenUrl": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1/oauth/token",
+            "scopes": {
+              "projects:read": "读取项目并按页面 URL 解析项目。",
+              "issues:create": "创建缺陷。",
+              "attachments:write": "上传截图。"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "ProjectId": {
+        "in": "path",
+        "name": "projectId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "项目 ID。",
+          "examples": [
+            "prj_example"
+          ]
+        }
+      },
+      "IssueId": {
+        "in": "path",
+        "name": "issueId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "缺陷 ID。",
+          "examples": [
+            "iss_example"
+          ]
+        }
+      },
+      "AttachmentId": {
+        "in": "path",
+        "name": "attachmentId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "截图 ID。",
+          "examples": [
+            "att_example"
+          ]
+        }
+      },
+      "WebhookId": {
+        "in": "path",
+        "name": "webhookId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Webhook ID.",
+          "examples": [
+            "whk_example"
+          ]
+        }
+      },
+      "DeliveryId": {
+        "in": "path",
+        "name": "deliveryId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "投递 ID。",
+          "examples": [
+            "whd_example"
+          ]
+        }
+      },
+      "TokenId": {
+        "in": "path",
+        "name": "tokenId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Token ID。",
+          "examples": [
+            "pat_example"
+          ]
+        }
+      },
+      "IfMatch": {
+        "in": "header",
+        "name": "If-Match",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "必须等于资源 version 对应的 ETag。",
+          "examples": [
+            "1"
+          ]
+        }
+      },
+      "IfNoneMatch": {
+        "in": "header",
+        "name": "If-None-Match",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "description": "列表缓存 ETag；匹配时返回 304。",
+          "examples": [
+            "example-etag"
+          ]
+        }
+      },
+      "IdempotencyKey": {
+        "in": "header",
+        "name": "Idempotency-Key",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 200,
+          "description": "同一账号与 Endpoint 下保留 24 小时；不同请求复用会返回 409。",
+          "examples": [
+            "example-idempotency-key"
+          ]
+        }
+      },
+      "Cursor": {
+        "in": "query",
+        "name": "cursor",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "description": "上一页返回的 Base64url 时间游标。",
+          "examples": [
+            "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+          ]
+        }
+      },
+      "Limit": {
+        "in": "query",
+        "name": "limit",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "description": "每页条数，缺省为 50。",
+          "examples": [
+            50
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "title": "错误响应",
+        "description": "所有失败响应使用的稳定错误封装。",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "description": "错误详情。",
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "机器可读错误码。",
+                "examples": [
+                  "validation_error"
+                ]
+              },
+              "message": {
+                "type": "string",
+                "description": "面向调用方的错误说明。",
+                "examples": [
+                  "The request is invalid"
+                ]
+              },
+              "requestId": {
+                "type": "string",
+                "description": "用于排障的请求标识。",
+                "examples": [
+                  "req_example"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Project": {
+        "title": "项目",
+        "description": "属于当前账号的 Pinhere 项目。",
+        "type": "object",
+        "required": [
+          "id",
+          "userId",
+          "name",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "项目所有者 ID。",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "项目名称。",
+            "examples": [
+              "Checkout"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "项目说明。",
+            "examples": [
+              "Checkout experience issues"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "最后更新时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "用于 ETag 与 If-Match 的资源版本。",
+            "examples": [
+              1
+            ]
+          }
+        }
+      },
+      "ProjectWithOrigins": {
+        "title": "项目详情",
+        "description": "项目及其标准化 Origin。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Project"
+          },
+          {
+            "type": "object",
+            "description": "项目 Origin 扩展字段。",
+            "required": [
+              "origins"
+            ],
+            "properties": {
+              "origins": {
+                "type": "array",
+                "maxItems": 50,
+                "description": "归属于项目的标准化 Origin。",
+                "items": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "标准化 Origin。",
+                  "examples": [
+                    "https://shop.example.com"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ProjectInput": {
+        "title": "创建项目输入",
+        "description": "创建项目并可同时设置 Origin。",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "去除首尾空白后的项目名称。",
+            "examples": [
+              "Checkout"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "项目说明，缺省为空字符串。",
+            "examples": [
+              "Checkout experience issues"
+            ]
+          },
+          "origins": {
+            "type": "array",
+            "maxItems": 50,
+            "description": "要归属于项目的页面 Origin。",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "description": "包含协议、域名和可选端口的 URL。",
+              "examples": [
+                "https://shop.example.com"
+              ]
+            }
+          }
+        }
+      },
+      "ProjectUpdateInput": {
+        "title": "更新项目输入",
+        "description": "可选更新项目名称或说明。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "新的项目名称。",
+            "examples": [
+              "Checkout v2"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "新的项目说明。",
+            "examples": [
+              "Updated checkout issues"
+            ]
+          }
+        }
+      },
+      "OriginInput": {
+        "title": "Origin 输入",
+        "description": "要添加到项目的 Origin。",
+        "type": "object",
+        "required": [
+          "origin"
+        ],
+        "properties": {
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "将按协议、域名和端口进行标准化的 URL。",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          }
+        }
+      },
+      "OriginResult": {
+        "title": "Origin 结果",
+        "description": "已添加 Origin 与新的项目版本。",
+        "type": "object",
+        "required": [
+          "origin",
+          "projectVersion"
+        ],
+        "properties": {
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "标准化后的 Origin。",
+            "examples": [
+              "https://shop.example.com"
+            ]
+          },
+          "projectVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "添加后的项目版本。",
+            "examples": [
+              2
+            ]
+          }
+        }
+      },
+      "ResolveProjectResult": {
+        "title": "项目解析结果",
+        "description": "匹配项目及标准化 Origin。",
+        "type": "object",
+        "required": [
+          "project",
+          "origin"
+        ],
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "nullable": true,
+            "description": "匹配项目；未匹配时为 null。"
+          },
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "从页面 URL 提取的标准化 Origin。",
+            "examples": [
+              "https://shop.example.com"
+            ]
+          }
+        }
+      },
+      "DomContext": {
+        "title": "DOM 上下文",
+        "description": "浏览器扩展采集并清洗的目标元素上下文。",
+        "type": "object",
+        "required": [
+          "cssSelector",
+          "xpath",
+          "tagName",
+          "attributes",
+          "text",
+          "outerHTML",
+          "viewport",
+          "boundingRect"
+        ],
+        "properties": {
+          "cssSelector": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "目标元素 CSS 选择器。",
+            "examples": [
+              "#checkout-button"
+            ]
+          },
+          "xpath": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "目标元素 XPath。",
+            "examples": [
+              "//*[@id='checkout-button']"
+            ]
+          },
+          "tagName": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "大写 HTML 标签名。",
+            "examples": [
+              "BUTTON"
+            ]
+          },
+          "attributes": {
+            "type": "object",
+            "description": "清洗后的元素属性；每个值最多 2000 字符。",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 2000,
+              "description": "属性值。",
+              "examples": [
+                "checkout-button"
+              ]
+            }
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "目标元素文本。",
+            "examples": [
+              "Submit order"
+            ]
+          },
+          "outerHTML": {
+            "type": "string",
+            "maxLength": 30000,
+            "description": "清洗后的目标元素 HTML。",
+            "examples": [
+              "<button id=\"checkout-button\">Submit order</button>"
+            ]
+          },
+          "viewport": {
+            "type": "object",
+            "description": "采集时的视口。",
+            "required": [
+              "width",
+              "height",
+              "devicePixelRatio"
+            ],
+            "properties": {
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "CSS 像素宽度。",
+                "examples": [
+                  1440
+                ]
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "CSS 像素高度。",
+                "examples": [
+                  900
+                ]
+              },
+              "devicePixelRatio": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 8,
+                "description": "设备像素比。",
+                "examples": [
+                  2
+                ]
+              }
+            }
+          },
+          "boundingRect": {
+            "type": "object",
+            "description": "元素相对视口的矩形。",
+            "required": [
+              "x",
+              "y",
+              "width",
+              "height"
+            ],
+            "properties": {
+              "x": {
+                "type": "number",
+                "description": "左侧坐标。",
+                "examples": [
+                  1040
+                ]
+              },
+              "y": {
+                "type": "number",
+                "description": "顶部坐标。",
+                "examples": [
+                  720
+                ]
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0,
+                "description": "矩形宽度。",
+                "examples": [
+                  180
+                ]
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0,
+                "description": "矩形高度。",
+                "examples": [
+                  44
+                ]
+              }
+            }
+          }
+        }
+      },
+      "IssueStatus": {
+        "title": "缺陷状态",
+        "description": "缺陷状态机的固定状态。",
+        "type": "string",
+        "enum": [
+          "open",
+          "in_progress",
+          "done"
+        ],
+        "enumValueTitles": {
+          "open": "待处理",
+          "in_progress": "处理中",
+          "done": "已完成"
+        },
+        "examples": [
+          "open"
+        ]
+      },
+      "IssueSource": {
+        "title": "缺陷来源",
+        "description": "创建缺陷的调用来源。",
+        "type": "string",
+        "enum": [
+          "extension",
+          "web",
+          "api"
+        ],
+        "enumValueTitles": {
+          "extension": "浏览器扩展",
+          "web": "网站",
+          "api": "API"
+        },
+        "examples": [
+          "extension"
+        ]
+      },
+      "Issue": {
+        "title": "缺陷",
+        "description": "包含页面上下文与处理状态的私有缺陷。",
+        "type": "object",
+        "required": [
+          "id",
+          "userId",
+          "projectId",
+          "title",
+          "description",
+          "pageUrl",
+          "dom",
+          "status",
+          "source",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "缺陷所有者 ID。",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "所属项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "缺陷标题。",
+            "examples": [
+              "Checkout button does not submit"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "缺陷正文。",
+            "examples": [
+              "Clicking the button leaves the page unchanged."
+            ]
+          },
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "去除敏感查询参数后的页面 URL。",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          },
+          "dom": {
+            "$ref": "#/components/schemas/DomContext"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IssueStatus"
+          },
+          "source": {
+            "$ref": "#/components/schemas/IssueSource"
+          },
+          "attachmentId": {
+            "type": "string",
+            "nullable": true,
+            "description": "关联截图 ID。",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "claimedByTokenId": {
+            "type": "string",
+            "nullable": true,
+            "description": "当前领取方的凭证或账号标识。",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "claimedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "领取时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "完成时间。",
+            "examples": [
+              "2026-08-15T09:00:00.000Z"
+            ]
+          },
+          "completionSummary": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 10000,
+            "description": "完成摘要。",
+            "examples": [
+              "Added a submit handler and regression test."
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "最后更新时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "用于并发控制的资源版本。",
+            "examples": [
+              2
+            ]
+          }
+        }
+      },
+      "IssueDetail": {
+        "title": "缺陷详情",
+        "description": "缺陷及鉴权截图下载路径。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Issue"
+          },
+          {
+            "type": "object",
+            "description": "缺陷详情扩展字段。",
+            "required": [
+              "screenshotUrl"
+            ],
+            "properties": {
+              "screenshotUrl": {
+                "type": "string",
+                "nullable": true,
+                "description": "关联截图的相对下载路径；无截图时为 null。",
+                "examples": [
+                  "/api/v1/attachments/att_example"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "IssueInput": {
+        "title": "创建缺陷输入",
+        "description": "浏览器、网站或 API 提交的完整缺陷上下文。",
+        "type": "object",
+        "required": [
+          "projectId",
+          "title",
+          "description",
+          "pageUrl",
+          "dom"
+        ],
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "页面 Origin 已归属的项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "缺陷标题。",
+            "examples": [
+              "Checkout button does not submit"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "缺陷正文。",
+            "examples": [
+              "Clicking the button leaves the page unchanged."
+            ]
+          },
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "产生缺陷的页面 URL。",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          },
+          "dom": {
+            "$ref": "#/components/schemas/DomContext"
+          },
+          "attachmentId": {
+            "type": "string",
+            "description": "尚未绑定的私有截图 ID。",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/IssueSource"
+          }
+        }
+      },
+      "IssueUpdateInput": {
+        "title": "更新缺陷输入",
+        "description": "可选更新缺陷标题或正文。",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "新的缺陷标题。",
+            "examples": [
+              "Checkout submit is unresponsive"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "新的缺陷正文。",
+            "examples": [
+              "The button remains enabled but no request is sent."
+            ]
+          }
+        }
+      },
+      "IssueEvent": {
+        "title": "缺陷事件",
+        "description": "缺陷状态与内容变化的审计事件。",
+        "type": "object",
+        "required": [
+          "id",
+          "issueId",
+          "userId",
+          "actorType",
+          "type",
+          "data",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "事件 ID。",
+            "examples": [
+              "evt_example"
+            ]
+          },
+          "issueId": {
+            "type": "string",
+            "description": "缺陷 ID。",
+            "examples": [
+              "iss_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "账号 ID。",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "actorType": {
+            "type": "string",
+            "description": "执行方类型。",
+            "enum": [
+              "user",
+              "api_token",
+              "extension"
+            ],
+            "enumValueTitles": {
+              "user": "网站用户",
+              "api_token": "API token",
+              "extension": "浏览器扩展"
+            },
+            "examples": [
+              "api_token"
+            ]
+          },
+          "actorId": {
+            "type": "string",
+            "nullable": true,
+            "description": "执行方标识。",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "事件类型。",
+            "examples": [
+              "issue.claimed"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "description": "事件特定的非敏感结构化数据。",
+            "additionalProperties": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "事件时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          }
+        }
+      },
+      "ClaimNextInput": {
+        "title": "领取下一条缺陷输入",
+        "description": "限定待领取缺陷所属项目。",
+        "type": "object",
+        "required": [
+          "projectId"
+        ],
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "项目 ID。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      },
+      "ClaimNextResult": {
+        "title": "领取下一条缺陷结果",
+        "description": "原子领取的缺陷；无待处理缺陷时为 null。",
+        "type": "object",
+        "required": [
+          "issue"
+        ],
+        "properties": {
+          "issue": {
+            "$ref": "#/components/schemas/Issue",
+            "nullable": true,
+            "description": "已领取缺陷或 null。"
+          }
+        }
+      },
+      "ReleaseInput": {
+        "title": "释放缺陷输入",
+        "description": "可选记录释放原因。",
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "释放原因。",
+            "examples": [
+              "Blocked by an unavailable dependency."
+            ]
+          }
+        }
+      },
+      "CompleteInput": {
+        "title": "完成缺陷输入",
+        "description": "记录完成处理的摘要。",
+        "type": "object",
+        "required": [
+          "summary"
+        ],
+        "properties": {
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000,
+            "description": "完成摘要。",
+            "examples": [
+              "Added a submit handler and regression test."
+            ]
+          }
+        }
+      },
+      "AttachmentInput": {
+        "title": "截图上传输入",
+        "description": "最多 2 MiB 的 Base64 PNG、JPEG 或 WebP。",
+        "type": "object",
+        "required": [
+          "fileName",
+          "contentType",
+          "base64"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "安全显示的文件名。",
+            "examples": [
+              "checkout.webp"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "description": "允许的图片媒体类型。",
+            "enum": [
+              "image/png",
+              "image/jpeg",
+              "image/webp"
+            ],
+            "enumValueTitles": {
+              "image/png": "PNG",
+              "image/jpeg": "JPEG",
+              "image/webp": "WebP"
+            },
+            "examples": [
+              "image/webp"
+            ]
+          },
+          "base64": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "description": "原始 Base64 或 data URL 形式的图片字节；不得在日志中记录。",
+            "examples": [
+              "UklGRiQAAABXRUJQ"
+            ]
+          }
+        }
+      },
+      "Attachment": {
+        "title": "截图元数据",
+        "description": "已私有保存的截图元数据。",
+        "type": "object",
+        "required": [
+          "id",
+          "fileName",
+          "contentType",
+          "byteSize"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "截图 ID。",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "fileName": {
+            "type": "string",
+            "description": "文件名。",
+            "examples": [
+              "checkout.webp"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "description": "图片媒体类型。",
+            "examples": [
+              "image/webp"
+            ]
+          },
+          "byteSize": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2097152,
+            "description": "解码后的字节数。",
+            "examples": [
+              128000
+            ]
+          }
+        }
+      },
+      "Webhook": {
+        "title": "Webhook",
+        "description": "接收 issue.created 事件的 HTTPS Webhook。",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url",
+          "enabled",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "nullable": true,
+            "description": "可选项目过滤器。",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "显示名称。",
+            "examples": [
+              "Issue automation"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "通过 SSRF 校验的公网 HTTPS URL。",
+            "examples": [
+              "https://hooks.example.com/pinhere"
+            ]
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "是否接收新投递。",
+            "examples": [
+              true
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "最后更新时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "用于 If-Match 的资源版本。",
+            "examples": [
+              1
+            ]
+          }
+        }
+      },
+      "WebhookInput": {
+        "title": "创建 Webhook 输入",
+        "description": "创建账号级或项目级 Webhook。",
+        "type": "object",
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "显示名称。",
+            "examples": [
+              "Issue automation"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "公网 HTTPS 投递 URL。",
+            "examples": [
+              "https://hooks.example.com/pinhere"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "可选项目过滤器。",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      },
+      "WebhookUpdateInput": {
+        "title": "更新 Webhook 输入",
+        "description": "可选更新名称、URL 或启用状态。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "新的显示名称。",
+            "examples": [
+              "Issue automation v2"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "新的公网 HTTPS URL。",
+            "examples": [
+              "https://hooks.example.com/pinhere-v2"
+            ]
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "新的启用状态。",
+            "examples": [
+              false
+            ]
+          }
+        }
+      },
+      "WebhookWithSecret": {
+        "title": "Webhook 创建结果",
+        "description": "新 Webhook 与只显示一次的签名 Secret。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          {
+            "type": "object",
+            "description": "一次性 Secret 扩展字段。",
+            "required": [
+              "secret"
+            ],
+            "properties": {
+              "secret": {
+                "type": "string",
+                "description": "只显示一次的签名 Secret；不得记录。",
+                "examples": [
+                  "redacted-not-a-secret"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "SecretResult": {
+        "title": "Secret 结果",
+        "description": "只显示一次的新 Webhook Secret。",
+        "type": "object",
+        "required": [
+          "secret"
+        ],
+        "properties": {
+          "secret": {
+            "type": "string",
+            "description": "只显示一次且不得记录的签名 Secret。",
+            "examples": [
+              "redacted-not-a-secret"
+            ]
+          }
+        }
+      },
+      "DeliveryReference": {
+        "title": "投递引用",
+        "description": "已创建或排队的 Webhook 投递。",
+        "type": "object",
+        "required": [
+          "deliveryId"
+        ],
+        "properties": {
+          "deliveryId": {
+            "type": "string",
+            "description": "投递 ID。",
+            "examples": [
+              "whd_example"
+            ]
+          }
+        }
+      },
+      "WebhookDelivery": {
+        "title": "Webhook 投递",
+        "description": "Webhook 投递状态与受限诊断信息。",
+        "type": "object",
+        "required": [
+          "id",
+          "webhookId",
+          "eventId",
+          "eventType",
+          "payload",
+          "status",
+          "attempt",
+          "nextAttemptAt",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "投递 ID。",
+            "examples": [
+              "whd_example"
+            ]
+          },
+          "webhookId": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          },
+          "eventId": {
+            "type": "string",
+            "description": "事件 ID。",
+            "examples": [
+              "whe_example"
+            ]
+          },
+          "eventType": {
+            "type": "string",
+            "description": "当前固定为 issue.created。",
+            "enum": [
+              "issue.created"
+            ],
+            "enumValueTitles": {
+              "issue.created": "缺陷已创建"
+            },
+            "examples": [
+              "issue.created"
+            ]
+          },
+          "payload": {
+            "type": "object",
+            "description": "投递负载；可能包含私有缺陷标识。",
+            "additionalProperties": true
+          },
+          "status": {
+            "type": "string",
+            "description": "投递状态。",
+            "enum": [
+              "pending",
+              "delivered",
+              "failed"
+            ],
+            "enumValueTitles": {
+              "pending": "待投递",
+              "delivered": "已投递",
+              "failed": "失败"
+            },
+            "examples": [
+              "pending"
+            ]
+          },
+          "attempt": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "已尝试次数。",
+            "examples": [
+              0
+            ]
+          },
+          "nextAttemptAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "下次尝试时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "responseStatus": {
+            "type": "integer",
+            "nullable": true,
+            "description": "目标服务器状态码。",
+            "examples": [
+              202
+            ]
+          },
+          "responseBody": {
+            "type": "string",
+            "nullable": true,
+            "description": "受限响应摘要。",
+            "examples": [
+              "accepted"
+            ]
+          },
+          "lastError": {
+            "type": "string",
+            "nullable": true,
+            "description": "最后一次错误摘要。",
+            "examples": [
+              "connection timeout"
+            ]
+          },
+          "deliveredAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "成功投递时间。",
+            "examples": [
+              "2026-08-15T08:05:03.000Z"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "最后更新时间。",
+            "examples": [
+              "2026-08-15T08:05:03.000Z"
+            ]
+          }
+        }
+      },
+      "ApiToken": {
+        "title": "API Token 元数据",
+        "description": "不含明文 PAT 的自动化凭证元数据。",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "prefix",
+          "scopes",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Token ID。",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Token 名称。",
+            "examples": [
+              "Checkout repair agent"
+            ]
+          },
+          "prefix": {
+            "type": "string",
+            "description": "用于识别而非认证的安全前缀。",
+            "examples": [
+              "ph_pat_redacted"
+            ]
+          },
+          "scopes": {
+            "type": "array",
+            "description": "固定自动化权限。",
+            "items": {
+              "type": "string",
+              "description": "权限名。",
+              "enum": [
+                "projects:read",
+                "issues:read",
+                "issues:write"
+              ],
+              "enumValueTitles": {
+                "projects:read": "读取项目",
+                "issues:read": "读取缺陷",
+                "issues:write": "处理缺陷"
+              },
+              "examples": [
+                "issues:write"
+              ]
+            }
+          },
+          "lastUsedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "最后使用时间。",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "过期时间；null 表示不过期。",
+            "examples": [
+              "2026-09-15T08:00:00.000Z"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间。",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          }
+        }
+      },
+      "ApiTokenInput": {
+        "title": "创建 API Token 输入",
+        "description": "创建具有固定自动化权限的 PAT。",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Token 名称。",
+            "examples": [
+              "Checkout repair agent"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "可选过期时间。",
+            "examples": [
+              "2026-09-15T08:00:00.000Z"
+            ]
+          }
+        }
+      },
+      "ApiTokenWithSecret": {
+        "title": "API Token 创建结果",
+        "description": "Token 元数据与只显示一次的 PAT。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiToken"
+          },
+          {
+            "type": "object",
+            "description": "一次性 PAT 扩展字段。",
+            "required": [
+              "token"
+            ],
+            "properties": {
+              "token": {
+                "type": "string",
+                "pattern": "^ph_pat_",
+                "description": "只显示一次的 PAT；不得记录。",
+                "examples": [
+                  "ph_pat_<redacted>"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OAuthAuthorizeInput": {
+        "title": "扩展授权输入",
+        "description": "网站 Session 为 Chrome 扩展签发一次性 PKCE 授权码。",
+        "type": "object",
+        "required": [
+          "redirectUri",
+          "codeChallenge"
+        ],
+        "properties": {
+          "redirectUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS chromiumapp.org 扩展回调 URL。",
+            "examples": [
+              "https://example.chromiumapp.org/callback"
+            ]
+          },
+          "codeChallenge": {
+            "type": "string",
+            "minLength": 43,
+            "maxLength": 128,
+            "description": "Base64url SHA-256 PKCE challenge。",
+            "examples": [
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        }
+      },
+      "OAuthAuthorizeResult": {
+        "title": "扩展授权结果",
+        "description": "包含一次性授权码的扩展回调 URL。",
+        "type": "object",
+        "required": [
+          "redirectUrl"
+        ],
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "调用方应立即打开且不得记录的回调 URL。",
+            "examples": [
+              "https://example.chromiumapp.org/callback?code=redacted"
+            ]
+          }
+        }
+      },
+      "OAuthTokenInput": {
+        "title": "OAuth Token 交换输入",
+        "description": "使用授权码与 PKCE verifier，或轮换刷新令牌。",
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "授权码交换。",
+            "required": [
+              "grantType",
+              "code",
+              "redirectUri",
+              "codeVerifier"
+            ],
+            "properties": {
+              "grantType": {
+                "type": "string",
+                "const": "authorization_code",
+                "description": "授权码 grant。",
+                "examples": [
+                  "authorization_code"
+                ]
+              },
+              "code": {
+                "type": "string",
+                "description": "五分钟内有效且只能使用一次的授权码。",
+                "examples": [
+                  "redacted-example-code"
+                ]
+              },
+              "redirectUri": {
+                "type": "string",
+                "format": "uri",
+                "description": "必须与授权请求完全一致的回调 URL。",
+                "examples": [
+                  "https://example.chromiumapp.org/callback"
+                ]
+              },
+              "codeVerifier": {
+                "type": "string",
+                "minLength": 43,
+                "maxLength": 128,
+                "description": "与 challenge 匹配的 PKCE verifier。",
+                "examples": [
+                  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "刷新令牌轮换。",
+            "required": [
+              "grantType",
+              "refreshToken"
+            ],
+            "properties": {
+              "grantType": {
+                "type": "string",
+                "const": "refresh_token",
+                "description": "刷新令牌 grant。",
+                "examples": [
+                  "refresh_token"
+                ]
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "有效且未轮换的刷新令牌；不得记录。",
+                "examples": [
+                  "redacted-refresh-token"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OAuthTokenResult": {
+        "title": "OAuth Token 结果",
+        "description": "扩展访问与刷新凭证。",
+        "type": "object",
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "expiresIn",
+          "tokenType",
+          "scopes"
+        ],
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "15 分钟有效的 Bearer Token；不得记录。",
+            "examples": [
+              "redacted-access-token"
+            ]
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "轮换式刷新令牌；不得记录。",
+            "examples": [
+              "redacted-refresh-token"
+            ]
+          },
+          "expiresIn": {
+            "type": "integer",
+            "const": 900,
+            "description": "访问令牌有效秒数。",
+            "examples": [
+              900
+            ]
+          },
+          "tokenType": {
+            "type": "string",
+            "const": "Bearer",
+            "description": "认证方案。",
+            "examples": [
+              "Bearer"
+            ]
+          },
+          "scopes": {
+            "type": "array",
+            "description": "扩展固定权限。",
+            "items": {
+              "type": "string",
+              "description": "权限名。",
+              "enum": [
+                "projects:read",
+                "issues:create",
+                "attachments:write"
+              ],
+              "enumValueTitles": {
+                "projects:read": "读取项目",
+                "issues:create": "创建缺陷",
+                "attachments:write": "上传截图"
+              },
+              "examples": [
+                "issues:create"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
