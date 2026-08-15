@@ -1,0 +1,18 @@
+{
+  "display": {
+    "title": "Twelve Data Forex API",
+    "summary": "Query realtime and historical Forex market data, currency conversion, reference data, and technical indicators; callers connect directly with their own Twelve Data credential."
+  },
+  "documentation": {
+    "stabilityNote": "An independently curated Forex REST and realtime-quote contract based on current Twelve Data official material. The SDK and CLI connect directly with the caller's own credential; Hub does not proxy, cache, persist, or display responses."
+  },
+  "pricing": {
+    "summary": "Twelve Data offers free and paid accounts; available Endpoints, data coverage, and request allowance depend on the caller's current plan."
+  },
+  "credentials": [
+    {
+      "schemeId": "apiKey",
+      "description": "Twelve Data API key supplied through a query parameter and used only in the caller session for direct requests."
+    }
+  ]
+}
