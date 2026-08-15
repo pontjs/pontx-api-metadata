@@ -1036,48 +1036,42 @@
       "category": "Identity",
       "priority": { "group": "separate-compliance-review", "rank": 1 },
       "boundary": { "zh": "Stripe v1 API 中由供应商明确定义的 Identity VerificationSession 与 VerificationReport 资源；不扩展为完整 Stripe 支付集合。", "en": "The supplier-defined Identity VerificationSession and VerificationReport resources in Stripe API v1; it does not expand into the complete Stripe payments collection." },
-      "stage": "compliance-blocked",
-      "admissionDecision": "not-approved",
+      "stage": "admitted",
+      "admissionDecision": "approved",
       "gateStatus": {
         "authority": "passed",
         "redistribution": "passed",
         "contract": "passed",
         "transport": "passed",
-        "risk": "blocked",
-        "sdkCli": "pending"
+        "risk": "passed",
+        "sdkCli": "passed"
       },
       "contractSource": {
         "kind": "openapi-subproduct",
-        "url": "https://raw.githubusercontent.com/stripe/openapi/1486705d8625fee2c315739263f593ba4805dd6c/latest/openapi.spec3.json",
-        "revision": "1486705d8625fee2c315739263f593ba4805dd6c",
-        "observedAt": "2026-08-14",
+        "url": "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+        "revision": "325f3b157f7250f2a5d228b870d77bb63fc7e54c",
+        "observedAt": "2026-08-15",
         "license": "MIT",
         "openapiVersion": "3.0.0",
-        "observedOperations": 8
+        "apiVersion": "2026-07-29.dahlia",
+        "observedOperations": 8,
+        "sourceSha256": "3653ad45bbec54fcbe461c541c908355b715018bdf455a0e11b27bedb2cbdee5",
+        "normalizationManifest": "specs/stripe-identity/provenance.json",
+        "zhCnSha256": "b1aed14660a95361dfddc7250ba08331d2b16419dea4e0d0eb8645e83fcb9b1c",
+        "enUsSha256": "2795c829cd0b411850a0828474fc6240b5fe1fec088b0cae816aaf267a3b8c52"
       },
       "evidence": [
         { "kind": "docs", "url": "https://docs.stripe.com/identity" },
-        { "kind": "spec", "url": "https://raw.githubusercontent.com/stripe/openapi/master/latest/openapi.spec3.json" },
-        { "kind": "license", "url": "https://github.com/stripe/openapi/blob/master/LICENSE" },
+        { "kind": "spec", "url": "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json" },
+        { "kind": "license", "url": "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE" },
         { "kind": "terms", "url": "https://stripe.com/legal/ssa" }
       ],
-      "blockers": [
-        {
-          "gate": "risk",
-          "zh": "政府证件、自拍、生物特征与身份号码属于高度敏感个人数据；隐私、合规、数据流与执行策略审查未完成。",
-          "en": "Government documents, selfies, biometrics, and identity numbers are highly sensitive personal data; privacy, compliance, data-flow, and execution-policy review is incomplete."
-        },
-        {
-          "gate": "sdkCli",
-          "zh": "即使合规通过，也需先构建、测试并发布独立 SDK/CLI，且 Hub 代理默认禁用。",
-          "en": "Even after compliance approval, a dedicated SDK/CLI must be built, tested, and published first, with Hub proxying disabled by default."
-        }
-      ],
+      "blockers": [],
       "nextAction": {
-        "zh": "由隐私/合规负责人审查数据角色、地域、保留、用户同意和日志边界；未书面通过前不制作正式集合。",
-        "en": "Require privacy/compliance owner review of data roles, regions, retention, user consent, and logging boundaries; do not build a formal collection without written approval."
+        "zh": "持续跟踪固定上游版本与 Stripe Identity 的地区、用途、同意和保留要求；Hub 保持仅文档、零代理，所有调用仅由本地 SDK/CLI 发出。",
+        "en": "Continue tracking the pinned upstream contract and Stripe Identity region, use-case, consent, and retention requirements; keep the Hub documentation-only with zero proxying and execute calls only from the local SDK/CLI."
       },
-      "verifiedAt": "2026-08-14"
+      "verifiedAt": "2026-08-15"
     }
   ]
 }
