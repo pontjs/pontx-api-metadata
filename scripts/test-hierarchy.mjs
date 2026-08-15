@@ -13,9 +13,9 @@ const production = await validateHierarchy({
   requireMetadataCommit: process.env.PONTX_ALLOW_UNPINNED_COMMIT !== "1",
 });
 assert.deepEqual(production.errors, []);
-assert.equal(production.productCount, 9);
-assert.equal(production.endpointCount, 258);
-assert.equal(production.schemaCount, 776);
+assert.equal(production.productCount, 10);
+assert.equal(production.endpointCount, 281);
+assert.equal(production.schemaCount, 890);
 
 const rpc = await validateHierarchy({ root: fixtureRoot, requireMetadataCommit: false });
 assert.deepEqual(rpc.errors, []);
