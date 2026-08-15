@@ -120,7 +120,7 @@ tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 
 - `develop` 的 Preview Ready 且完成中英文浏览器审查后，才提升 `main`；Production workflow/deployment 必须实际 Ready。
 - SDK、必要消费者、metadata、Preview 和 Production 的 commit/run/deployment 证据写入同一 launch ledger。
 - 为产品建立 `pontx-<slug>` Skill：安装目录不得混入 manifest/evidence/evals；正文保持英文、紧凑且不复制 Endpoint/Schema/参数/auth 元数据。每个提供商事实逐字关联一年内复核的一手 HTTPS 证据，并与当前 product/PontxSpec/SDK 一致。
-- 新 Skill 从 `1.0.0` 起，installed bytes 改动必须升 SemVer；只有 `published` 进入确定性 `skills/registry.json`。静态校验、全新只读 Codex claim 审核、skills.sh 干净安装与 ClawHub dry-run/publish 均通过；无审核/市场密钥是明确外部 blocker，不能旁路。
+- 新 Skill 从 `1.0.0` 起，installed bytes 改动必须升 SemVer；只有 `published` 进入确定性 `skills/registry.json`。静态校验、通过 OpenAI-compatible Chat Completions 直接执行的全新无状态 DeepSeek claim 审核、skills.sh 干净安装与 ClawHub dry-run/publish 均通过；无审核/市场密钥是明确外部 blocker，不能旁路。
 
 先标 published、生产 metadata 指向不存在/不匹配的包、Preview 未审直接提升、消费者未兼容或 Production 未 Ready 均为 `BLOCKER`。PR、merge、source fix 或 Preview 本身不是完成状态。
 
