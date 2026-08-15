@@ -41,7 +41,7 @@
   "spec": {
     "path": "products/sendbird-chat-platform/spec.pontx.json",
     "sha256": "6202d1a425a767912f313057940b8ff033b335d66819bfcb4fa8aceab78b31a9",
-    "metadataCommit": "922e3a97661d9bede809409c1c9ceaacd08a7123"
+    "metadataCommit": "67e86df51180cba36b64724233b2b0e8007c1be0"
   },
   "quality": {
     "testedVersion": "0.1.0",
