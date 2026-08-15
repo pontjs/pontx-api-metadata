@@ -45,7 +45,8 @@
     },
     {
       "schemeId": "extensionOAuth",
-      "description": "Chrome 扩展使用 OAuth 2.0 Authorization Code + PKCE；授权码、访问令牌、刷新令牌和 code verifier 仅由调用方扩展与服务端处理。"
+      "envVar": "PINHERE_ACCESS_TOKEN",
+      "description": "Chrome 扩展使用 OAuth 2.0 Authorization Code + PKCE；获得的短期 Bearer access token 可在调用方本地作为 PINHERE_ACCESS_TOKEN 使用，授权码、刷新令牌和 code verifier 仅由调用方扩展与服务端处理。"
     }
   ],
   "quickStart": {

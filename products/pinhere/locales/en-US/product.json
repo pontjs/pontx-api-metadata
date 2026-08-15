@@ -20,7 +20,7 @@
     },
     {
       "schemeId": "extensionOAuth",
-      "description": "The Chrome extension uses OAuth 2.0 Authorization Code + PKCE. Authorization codes, access tokens, refresh tokens, and code verifiers stay within the caller's extension and server."
+      "description": "The Chrome extension uses OAuth 2.0 Authorization Code + PKCE. Its short-lived Bearer access token may be supplied locally as PINHERE_ACCESS_TOKEN; authorization codes, refresh tokens, and code verifiers stay within the caller's extension and server."
     }
   ]
 }
