@@ -38,7 +38,7 @@ const verifiedAt = "2026-08-16";
 // The metadata commit whose products/mistral-ai/spec.pontx.json carries the
 // canonical bytes (sha256 eed79986633f227be1e8f4940592309665e6a58e4df53030b2544edeb0e6dbc6).
 // Re-pinned by the admission flow after this commit lands.
-let sdkMetadataCommit = "091eb9ebfa027584afcbc0a3eb54e0f5e417f6a4";
+let sdkMetadataCommit = "959a4f4c6dc825fd114c22281371b03474b52ab5";
 
 const ADMIN_SCHEMES = new Set(["AdminApiKey", "DashboardUserContextAuth"]);
 
