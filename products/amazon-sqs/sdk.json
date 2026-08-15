@@ -14,9 +14,7 @@
       "kind": "factory",
       "factory": "createAmazonSqsClient",
       "identifier": "client",
-      "options": {
-        "region": "AWS_REGION"
-      }
+      "options": {}
     },
     "controllers": {}
   },
