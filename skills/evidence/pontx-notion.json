@@ -4,7 +4,7 @@
   "claims": [
     {
       "id": "versioned-api",
-      "claim": "Requests need a bearer token (internal connection token or personal access token) and the required `Notion-Version` header; the SDK sends version `2026-03-11` automatically.",
+      "claim": "Requests need a bearer token (internal connection token or personal access token) and the required `Notion-Version` header (use `2026-03-11`).",
       "summary": "The official versioning reference states the Notion-Version header is required and names 2026-03-11 as the latest version; the authentication reference requires a bearer token.",
       "sourceUrl": "https://developers.notion.com/reference/versioning",
       "sourceType": "official-documentation",
@@ -28,8 +28,8 @@
     },
     {
       "id": "oauth-public-connections",
-      "claim": "Public connections complete OAuth and use the client id/secret only to exchange tokens on the `/v1/oauth` endpoints.",
-      "summary": "The official OAuth token exchange endpoint (create-a-token) uses HTTP Basic client credentials; the authorization guide describes the public-connection OAuth flow.",
+      "claim": "Public connections complete OAuth and use the client id/secret via HTTP Basic on the `/v1/oauth` endpoints (create, introspect, and revoke token).",
+      "summary": "The official OAuth token endpoint reference (create-a-token) shows Authorization: Basic with the client id/secret for POST /v1/oauth/token, and Pontx metadata applies the same basicAuth scheme to the create, introspect, and revoke token endpoints.",
       "sourceUrl": "https://developers.notion.com/reference/create-a-token",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"

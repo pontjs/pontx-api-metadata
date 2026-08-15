@@ -24,10 +24,10 @@ credentials.
 ## Credentials and versioning
 
 Requests need a bearer token (internal connection token or personal access
-token) and the required `Notion-Version` header; the SDK sends version
-`2026-03-11` automatically. Inject the token from `NOTION_ACCESS_TOKEN` or the
-`auth` option; never log it. Public connections complete OAuth and use the
-client id/secret only to exchange tokens on the `/v1/oauth` endpoints.
+token) and the required `Notion-Version` header (use `2026-03-11`). Inject
+the token from `NOTION_ACCESS_TOKEN` or the `auth` option; never log it.
+Public connections complete OAuth and use the client id/secret via HTTP Basic
+on the `/v1/oauth` endpoints (create, introspect, and revoke token).
 
 ## Respect limits and retries
 
