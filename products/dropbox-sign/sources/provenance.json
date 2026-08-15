@@ -156,8 +156,7 @@
       "pontxExtensions": {
         "operations": 73,
         "requestExamples": "Derived only from declared parameter examples/defaults; required provider state, sensitive values, and request bodies remain unresolved.",
-        "proxyEnabled": false,
-        "proxyPolicy": "All endpoints are permanently disabled in the Hub proxy. Direct SDK/CLI calls use caller-owned credentials; the CLI requires a request-bound, five-minute confirmation token for all mutations."
+        "proxyPolicy": "REST endpoints may be relayed only after an explicit caller action with session-only caller credentials. Hub does not cache, log, or persist requests or responses; all mutations require a request-bound confirmation."
       },
       "localization": {
         "structuralSource": "zh-CN",

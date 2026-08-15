@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Stripe Identity 身份验证 API",
-    "description": "创建、查询、更新、取消和编辑 Stripe Identity 验证会话，并查询验证报告。所有请求均由本地 SDK/CLI 直接发送到 Stripe；Pontx Hub 不代理或保存身份数据。",
+    "description": "创建、查询、更新、取消和编辑 Stripe Identity 验证会话，并查询验证报告。网页调试仅在调用者明确执行后转发单次请求；Pontx Hub 不缓存、记录或持久化身份数据。",
     "version": "2026-07-29.dahlia",
     "termsOfService": "https://stripe.com/us/terms/",
     "contact": {
@@ -224,8 +224,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -304,8 +302,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -531,8 +527,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -724,8 +718,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -805,8 +797,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -987,8 +977,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1090,8 +1078,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1191,8 +1177,6 @@
           "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
         ],
         "x-pontx-verified-at": "2026-08-15",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",

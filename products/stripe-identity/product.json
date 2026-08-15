@@ -7,7 +7,7 @@
   "featured": true,
   "display": {
     "title": "Stripe Identity 身份验证 API",
-    "summary": "创建、查询、更新、取消和编辑 Stripe Identity 验证会话，并查询验证报告；覆盖官方 Identity 路径下全部 8 个 Endpoint，Hub 仅提供文档与本地 SDK/CLI。",
+    "summary": "创建、查询、更新、取消和编辑 Stripe Identity 验证会话，并查询验证报告；覆盖官方 Identity 路径下全部 8 个 Endpoint，可在网页调试面板中使用当前会话凭据发起单次请求。",
     "accent": "#635BFF"
   },
   "legal": {
@@ -25,7 +25,7 @@
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
-    "stabilityNote": "基于 Stripe 官方 OpenAPI 固定 revision 的完整 Identity 子产品契约。该 API 涉及身份证件、自拍、身份号码和一次性客户端密钥等高敏感数据；Hub 不代理、缓存、记录或保存请求与响应，调用者须核验地区、用途、用户同意和数据保留要求。"
+    "stabilityNote": "基于 Stripe 官方 OpenAPI 固定 revision 的完整 Identity 子产品契约。该 API 涉及身份证件、自拍、身份号码和一次性客户端密钥等高敏感数据；Hub 仅在调用者明确执行后转发单次请求，不缓存、记录或持久化请求与响应，写操作仍须先预览并确认。调用者须核验地区、用途、用户同意和数据保留要求。"
   },
   "pricing": {
     "status": "freemium",
@@ -39,7 +39,7 @@
     {
       "schemeId": "bearerAuth",
       "envVar": "STRIPE_SECRET_KEY",
-      "description": "Stripe Secret Key 通过 Bearer Header 提供，仅保留在调用者本地环境中；不要在浏览器、日志或示例中持久化。"
+      "description": "Stripe Secret Key 通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中；不要在日志或示例中持久化。"
     }
   ],
   "quickStart": {

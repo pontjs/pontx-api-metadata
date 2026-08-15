@@ -201,8 +201,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -338,8 +336,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -456,8 +452,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -586,8 +580,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -721,8 +713,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -850,8 +840,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -997,8 +985,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1120,8 +1106,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1256,8 +1240,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1398,8 +1380,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1538,8 +1518,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1675,8 +1653,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1815,8 +1791,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -1939,8 +1913,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2049,8 +2021,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2173,8 +2143,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2298,8 +2266,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2593,8 +2559,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2710,8 +2674,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2833,8 +2795,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -2939,8 +2899,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3090,8 +3048,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3208,8 +3164,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3344,8 +3298,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3467,8 +3419,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3591,8 +3541,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3715,8 +3663,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3837,8 +3783,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -3970,8 +3914,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4106,8 +4048,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4233,8 +4173,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4371,8 +4309,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4506,8 +4442,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4662,8 +4596,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4825,8 +4757,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -4985,8 +4915,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5146,8 +5074,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5313,8 +5239,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5449,8 +5373,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5596,8 +5518,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5731,8 +5651,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -5890,8 +5808,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6012,8 +5928,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6163,8 +6077,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6292,8 +6204,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6431,8 +6341,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6564,8 +6472,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6711,8 +6617,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6866,8 +6770,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -6993,8 +6895,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7093,8 +6993,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7198,8 +7096,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7313,8 +7209,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7442,8 +7336,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7558,8 +7450,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7701,8 +7591,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7837,8 +7725,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -7990,8 +7876,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8137,8 +8021,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8292,8 +8174,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8439,8 +8319,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8562,8 +8440,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8719,8 +8595,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -8854,8 +8728,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9000,8 +8872,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9131,8 +9001,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9291,8 +9159,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9428,8 +9294,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9588,8 +9452,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9737,8 +9599,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -9885,8 +9745,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -10023,8 +9881,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",
@@ -10174,8 +10030,6 @@
           "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
         ],
         "x-pontx-verified-at": "2026-08-14",
-        "x-pontx-proxy-enabled": false,
-        "x-pontx-proxy-disabled-reason": "Hub 不代理 Dropbox Sign 请求。请在本地 SDK 或 CLI 中使用调用者自己的凭据；CLI 对每个 mutation 强制使用与请求绑定且五分钟有效的确认令牌，调用者仍需自行负责审批与数据保留。",
         "x-pontx-request-examples": {
           "default": {
             "summary": "Reviewed local SDK/CLI request",

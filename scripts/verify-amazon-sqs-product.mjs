@@ -1,4 +1,4 @@
-/** Verify Amazon SQS contract completeness, protocol fidelity, safety policy, and provenance. */
+/** Verify Amazon SQS contract completeness, protocol fidelity, adapter boundary, and provenance. */
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
@@ -140,8 +140,7 @@ for (const [key, importedApi] of Object.entries(imported.apis)) {
   assert.equal(api.rpc.action, importedApi.operationId);
   assert.equal(api.rpc.method, "POST");
   assert.equal(api.rpc.contentType, "application/x-amz-json-1.0");
-  assert.equal(api.metadata.execution.enabled, false);
-  assert.ok(api.metadata.execution.disabledReason.trim());
+  assert.equal(Object.hasOwn(api.metadata, "execution"), false, `${api.operationId} must not carry an endpoint execution disablement policy`);
   assert.deepEqual(api.metadata.documentation.evidence, [
     sourceUrl,
     `${apiReference}API_${api.operationId}.html`,
@@ -168,4 +167,4 @@ for (const value of outputStrings) {
 }
 for (const value of safeExampleValues) assert.ok(outputStrings.includes(value));
 
-console.log("Amazon SQS product verification passed: 23/23 actions, 114/114 schemas, RPC protocol fidelity, bilingual parity, safe examples, disabled Hub execution, and immutable provenance.");
+console.log("Amazon SQS product verification passed: 23/23 actions, 114/114 schemas, RPC protocol fidelity, bilingual parity, safe examples, no endpoint disablement policy, and immutable provenance.");

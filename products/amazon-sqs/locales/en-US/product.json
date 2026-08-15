@@ -1,7 +1,7 @@
 {
   "display": {
     "title": "Amazon SQS message-queue API",
-    "summary": "The complete 23-action Amazon Simple Queue Service API, preserving AWS JSON 1.0, AWS Query compatibility, SigV4, and regional endpoint rules. Hub provides documentation and a local SDK/CLI; it does not proxy queue calls."
+    "summary": "The complete 23-action Amazon Simple Queue Service API, preserving AWS JSON 1.0, AWS Query compatibility, SigV4, and regional endpoint rules. The web Playground does not yet have an AWS SigV4 and region-selection execution adapter; use the local SDK/CLI to call SQS."
   },
   "documentation": {
     "status": "official",
@@ -15,7 +15,7 @@
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
-    "stabilityNote": "The contract is from the fixed Smithy 2.0 service model in AWS SDK for JavaScript v3. SQS is a stateful messaging system: receiving changes message visibility, and write, delete, purge, permission, tagging, and message-move actions can affect production queues. Hub neither executes nor proxies these requests."
+    "stabilityNote": "The contract is from the fixed Smithy 2.0 service model in AWS SDK for JavaScript v3. SQS is a stateful messaging system: receiving changes message visibility, and write, delete, purge, permission, tagging, and message-move actions can affect production queues. The web Playground lacks an AWS SigV4, region, and endpoint-rules adapter, so it cannot send SQS requests. This is an adapter limitation, not an Endpoint disablement policy."
   },
   "pricing": {
     "status": "pay-as-you-go",

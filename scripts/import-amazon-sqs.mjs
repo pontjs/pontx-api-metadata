@@ -72,9 +72,6 @@ const safeExamples = {
   UntagQueue: { QueueUrl: safeQueueUrl, TagKeys: ["environment"] },
 };
 
-const englishDisabledReason = "Amazon SQS requires caller-owned AWS credentials, SigV4 signing, and region-aware endpoint selection. Hub does not proxy, store, or execute queue requests; use the local SDK or CLI after reviewing the generated preview.";
-const chineseDisabledReason = "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。";
-
 function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
@@ -147,10 +144,6 @@ function buildLocale(locale) {
         status: "official",
         evidence: [sourceUrl, operationDocs(action), "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"],
         verifiedAt: "2026-08-15",
-      },
-      execution: {
-        enabled: false,
-        disabledReason: chinese ? chineseDisabledReason : englishDisabledReason,
       },
     };
     api.ext = {

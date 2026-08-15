@@ -43,15 +43,13 @@
       "Selected aws-json-1.0 explicitly because the service declares more than one protocol; aws-query compatibility remains in rpc.compatibleProtocols.",
       "Retained the actual RPC action and transport method under each Endpoint rpc object without adding RESTFul method/path fields.",
       "Normalized the declared success response to HTTP 200 and retained the service-declared error union without inventing error status mappings absent from the Smithy model.",
-      "Added reviewed safe request examples, per-Endpoint official evidence, and proxy-disabled reasons; examples are never provider calls.",
+      "Added reviewed safe request examples and per-Endpoint official evidence; examples are never provider calls and no Endpoint carries a policy-based execution disablement.",
       "Removed importer-created synthetic tag group so the generated SDK exposes every source action directly on the client rather than fabricating a Controller."
     ],
     "method": "one-time @pontx/spec importSmithy conversion; PontxSpec is canonical after import"
   },
   "riskReview": {
     "classification": "stateful-message-queue",
-    "hubProxyEnabled": false,
-    "proxyDisabledOperations": 23,
     "readLikeOperations": [
       "GetQueueAttributes",
       "GetQueueUrl",
@@ -81,8 +79,8 @@
       "TagQueue",
       "UntagQueue"
     ],
-    "credentialPolicy": "AWS SigV4 credentials remain in the caller-owned AWS default provider chain; Hub does not receive, store, log, proxy, or execute them.",
-    "executionPolicy": "The local CLI requires an exact request-bound confirmation token for every call. Production Hub renders a disabled Playground and cannot make any SQS request."
+    "credentialPolicy": "AWS SigV4 credentials remain in the caller-owned AWS default provider chain. The current Hub has no AWS execution adapter and therefore does not receive, store, or log them.",
+    "executionPolicy": "The local CLI requires an exact request-bound confirmation token for every call. The web Playground currently has no AWS SigV4, region-selection, and endpoint-rules execution adapter; this is an adapter limitation rather than an Endpoint disablement policy."
   },
   "evidence": {
     "urls": [

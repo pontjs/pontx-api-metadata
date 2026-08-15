@@ -7,7 +7,7 @@
   "featured": true,
   "display": {
     "title": "Dropbox Sign 电子签名 API",
-    "summary": "通过完整的 Dropbox Sign v3 API 管理账户、签名请求、模板、团队、批量发送、文件下载、传真和事件回调；Hub 仅提供文档与本地 SDK/CLI。",
+    "summary": "通过完整的 Dropbox Sign v3 API 管理账户、签名请求、模板、团队、批量发送、文件下载、传真和事件回调；可在网页调试面板中使用当前会话凭据发起单次请求。",
     "accent": "#0061ff"
   },
   "legal": {
@@ -25,19 +25,19 @@
     ],
     "verifiedAt": "2026-08-14",
     "contentUpdatedAt": "2026-08-14",
-    "stabilityNote": "基于 Dropbox Sign 官方仓库固定 revision 的完整 v3 契约。Hub 不代理、缓存或保存请求与响应；调用者须使用自己的凭据并负责签署、文件、账户、团队、OAuth、webhook 与传真数据的审批和保留。"
+    "stabilityNote": "基于 Dropbox Sign 官方仓库固定 revision 的完整 v3 契约。Hub 仅在调用者明确执行后转发单次请求，不缓存、记录或持久化请求与响应；写操作仍须先预览并确认。调用者须使用自己的凭据，并负责签署、文件、账户、团队、OAuth、webhook 与传真数据的审批和保留。"
   },
   "credentials": [
     {
       "schemeId": "api_key",
       "usernameEnvVar": "DROPBOX_SIGN_API_KEY",
       "passwordEnvVar": "DROPBOX_SIGN_API_PASSWORD",
-      "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者本地环境中。"
+      "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者当前浏览器会话中。"
     },
     {
       "schemeId": "oauth2",
       "envVar": "DROPBOX_SIGN_ACCESS_TOKEN",
-      "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者本地环境中。"
+      "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中。"
     }
   ],
   "quickStart": {

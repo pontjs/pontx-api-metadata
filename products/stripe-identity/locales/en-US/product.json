@@ -1,10 +1,10 @@
 {
   "display": {
     "title": "Stripe Identity verification API",
-    "summary": "Create, retrieve, update, cancel, and redact Stripe Identity verification sessions, and retrieve verification reports. The collection covers all 8 Endpoints under the official Identity path boundary; the Hub provides documentation and a local SDK/CLI only."
+    "summary": "Create, retrieve, update, cancel, and redact Stripe Identity verification sessions, and retrieve verification reports. The collection covers all 8 Endpoints under the official Identity path boundary, including one-off debugging requests from the web Playground with the current session's credentials."
   },
   "documentation": {
-    "stabilityNote": "Complete Identity subproduct contract pinned to an immutable revision of Stripe's official OpenAPI repository. This API handles highly sensitive data including identity documents, selfies, identity numbers, and single-use client secrets. The Hub does not proxy, cache, log, or store requests or responses; callers must confirm regional availability, supported use cases, user consent, and retention requirements."
+    "stabilityNote": "Complete Identity subproduct contract pinned to an immutable revision of Stripe's official OpenAPI repository. This API handles highly sensitive data including identity documents, selfies, identity numbers, and single-use client secrets. Hub relays one request only after an explicit caller action and does not cache, log, or persist requests or responses; mutations still require preview and confirmation. Callers must confirm regional availability, supported use cases, user consent, and retention requirements."
   },
   "pricing": {
     "summary": "Stripe's official page currently lists usage pricing of US$1.50 per ID document and selfie verification and US$0.50 per ID number lookup. The first 50 verifications are free, with custom pricing available for volume or unique business models. Actual pricing and regional availability remain subject to the Stripe account and official page.",
@@ -14,7 +14,7 @@
   "credentials": [
     {
       "schemeId": "bearerAuth",
-      "description": "Stripe Secret Key supplied through a Bearer header and retained only in the caller's local environment. Never persist it in a browser, log, or example."
+      "description": "Stripe Secret Key supplied through a Bearer header and retained only in the caller's current browser session. Never persist it in a log or example."
     }
   ]
 }

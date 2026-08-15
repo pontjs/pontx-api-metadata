@@ -50,7 +50,7 @@
       "Removed the four upstream GET requestBody declarations after asserting that each was an empty closed object; all meaningful GET inputs remain query/path parameters and no request field was removed.",
       "Promoted the optional inline related_person request object to a local component reference so TypeScript keeps the property optional while still requiring account and person whenever the object is supplied.",
       "Converted relative Stripe documentation links to absolute docs.stripe.com links.",
-      "Added safe request examples, immutable evidence, and a proxy-disabled reason to all eight Endpoints.",
+      "Added safe request examples and immutable evidence to all eight Endpoints; no Endpoint carries a policy-based execution disablement.",
       "Translated 131 unique official summaries and descriptions while preserving every wire identifier, constraint, enum, example, media type, security declaration, and array order."
     ],
     "method": "one-time @pontx/spec importOpenAPI conversion; PontxSpec is canonical after migration"
@@ -75,7 +75,7 @@
       "cliPolicy": "preview-first with exact request-bound confirmation"
     },
     "credentialPolicy": "STRIPE_SECRET_KEY remains in the caller environment and is never persisted or included in examples.",
-    "dataPolicy": "Hub serves documentation only and does not proxy, cache, log, or persist Stripe Identity requests or responses."
+    "dataPolicy": "Hub may relay one request only after an explicit caller action with a session-only caller credential. It does not cache, log, or persist Stripe Identity requests or responses; mutations require preview and a request-bound confirmation."
   },
   "evidence": {
     "urls": [
