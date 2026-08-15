@@ -11,8 +11,7 @@
   },
   "contract": {
     "client": { "kind": "named", "identifier": "rpcMinimalClient" },
-    "controllers": { "inventory": "inventory" },
-    "operations": ["getItem"]
+    "controllers": { "inventory": "inventory" }
   },
   "examples": {},
   "coverage": {

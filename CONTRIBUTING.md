@@ -48,7 +48,7 @@ pnpm validate
 git diff --check
 ```
 
-The hierarchy test fixes the current production baseline at 6 products, 134 Endpoints, and 287 Schemas and also validates a non-HTTP RPC fixture. If a deliberate product change alters those counts, update the fixture expectation in the same reviewed change.
+The hierarchy test fixes the current production baseline at 7 products, 142 Endpoints, and 322 Schemas and also validates a non-HTTP RPC fixture. The earlier 5-product baseline was 126 Endpoints and 275 Schemas; ECB Data Portal and Stripe Identity were admitted before this migration, and the hierarchy preserves every currently published resource. If a deliberate product change alters those counts, update the fixture expectation in the same reviewed change.
 
 ## Pull request checklist
 

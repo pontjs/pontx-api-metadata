@@ -21,20 +21,7 @@
     "controllers": {
       "task": "task",
       "project": "project"
-    },
-    "operations": [
-      "getTaskByProjectIdAndTaskId",
-      "deleteTask",
-      "createTask",
-      "updateTask",
-      "completeTask",
-      "getUserProjects",
-      "createProject",
-      "getProjectById",
-      "deleteProject",
-      "updateProject",
-      "getProjectWithData"
-    ]
+    }
   },
   "examples": {
     "typescript": "import Dida365Client, { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst oauth = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait oauth.authenticate();\nconst accessToken = await oauth.getAccessToken();\nconst projects = await Dida365Client.project.getUserProjects({\n  headers: { Authorization: `Bearer ${accessToken}` }\n});",

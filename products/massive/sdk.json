@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/massive",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/massive"
   },
@@ -28,28 +28,20 @@
         "listTickers",
         "getTickerDetails"
       ]
-    },
-    "operations": [
-      "getLastTrade",
-      "getPreviousClose",
-      "getAggregateBars",
-      "getMarketSnapshot",
-      "listTickers",
-      "getTickerDetails"
-    ]
+    }
   },
   "examples": {
-    "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.common.getPreviousClose(\"AAPL\", {});",
-    "cli": "pnpm add --global @pontx/massive\n\npontx-massive call common.getPreviousClose --stocksTicker AAPL --dry-run"
+    "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.getPreviousClose(\"AAPL\", {});",
+    "cli": "pnpm add --global @pontx/massive\n\npontx-massive call getPreviousClose --stocksTicker AAPL --dry-run"
   },
   "coverage": {
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.0",
+    "testedVersion": "0.1.2",
     "unitTests": {
-      "passed": 2,
-      "total": 2,
+      "passed": 3,
+      "total": 3,
       "skipped": 0
     },
     "e2eStatus": "passed",
@@ -58,10 +50,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "8fb7b84e36cce1d75468df3fd64ea27b7178ec66",
-    "testedAt": "2026-08-14",
+    "sourceCommit": "ec001566d0e69563170da0f7f0a7c96852115fc5",
+    "testedAt": "2026-08-15",
     "repositoryUrl": "https://github.com/pontjs/massive",
-    "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31776799929"
+    "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31858743353"
   },
   "spec": {
     "path": "products/massive/spec.pontx.json",

@@ -7,7 +7,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "validate": "node scripts/validate-products.mjs && node scripts/verify-candidates.mjs",
+    "validate": "node scripts/validate-products.mjs && node scripts/verify-candidates.mjs && node scripts/verify-fx-candidates.mjs",
     "test": "node scripts/test-sdk-quality.mjs && node scripts/test-hierarchy.mjs"
   },
   "dependencies": {

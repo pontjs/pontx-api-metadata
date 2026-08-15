@@ -174,7 +174,12 @@ function validateSdk(slug, sdk, spec, specBytes, requireMetadataCommit, errors) 
   const apiById = new Map(
     Object.values(spec.apis).map((api) => [api.operationId, api]),
   );
-  const contractIds = new Set(sdk.contract?.operations ?? []);
+  if (Object.hasOwn(sdk.contract ?? {}, "operations")) {
+    errors.push(`${slug}: SDK contract must derive Endpoint IDs from coverage, not duplicate operations`);
+  }
+  const contractIds = sdk.coverage?.mode === "partial"
+    ? new Set(sdk.coverage.endpointIds ?? [])
+    : new Set(ids);
   for (const id of contractIds) {
     const api = apiById.get(id);
     if (!api) {

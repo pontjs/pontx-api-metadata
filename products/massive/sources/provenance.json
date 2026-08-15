@@ -6,9 +6,9 @@
     "format": "OpenAPI 3.0.3",
     "importer": "@pontx/spec importOpenAPI",
     "sourcePath": "products/massive/sources/openapi.json",
-    "sourceSha256": "18216b00e9d89248c825c56b52e0ddae2010f358706c0684f0f22160591976e6",
+    "sourceSha256": "9841b003b5e4a7aa81f6e704ed06b643d78bc1b67a57437297139505bb9d21b2",
     "localeInputSha256": {
-      "en-US": "fd5a7013fbd1bc56f3ff54b6157cd46f95c2f254418188d7590e50ee30960ada"
+      "en-US": "ebcb721c8749ac1cd6bdf9d267ad8b4c988bee64476a66b4b21f6c8d6a476149"
     }
   },
   "evidence": {

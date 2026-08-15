@@ -6,9 +6,9 @@
     "format": "OpenAPI 3.1.2",
     "importer": "@pontx/spec importOpenAPI",
     "sourcePath": "products/frankfurter-v2/sources/openapi.json",
-    "sourceSha256": "54160e0127410f3c8f785f02ca59af3fe83fc4d3e107013eb41ac794e1960c08",
+    "sourceSha256": "e460ccd7559b44409605dda5cf3c63453532d2ad15c4b77e1e2fb0c9484423df",
     "localeInputSha256": {
-      "en-US": "28a0ffdca15c3df14b56fb40bd009a0ec99f754446814635e17e55796c950538"
+      "en-US": "920bef2b64e49e73255837ddba3406bf59408d77bb5ec7deb59d4d1de6b706f8"
     }
   },
   "evidence": {

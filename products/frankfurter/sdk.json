@@ -17,13 +17,7 @@
     "controllers": {
       "Exchange Rates": "exchangeRates",
       "Currencies": "Currencies"
-    },
-    "operations": [
-      "getLatestRates",
-      "getHistoricalRates",
-      "getTimeSeriesRates",
-      "getCurrencies"
-    ]
+    }
   },
   "examples": {
     "typescript": "import { currencyExchangeClient } from \"@pontx/frankfurter\";\n\nconst result = await currencyExchangeClient.exchangeRates.getLatestRates({\n  base: \"USD\",\n  symbols: \"JPY,CNY\"\n});",

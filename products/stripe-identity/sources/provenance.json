@@ -1,28 +1,35 @@
 {
-  "version": 1,
-  "slug": "stripe-identity",
+  "formatVersion": 1,
   "status": "approved",
-  "verifiedAt": "2026-08-15",
-  "source": {
-    "repository": "https://github.com/stripe/openapi",
-    "revision": "325f3b157f7250f2a5d228b870d77bb63fc7e54c",
-    "file": "openapi/spec3.json",
-    "url": "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
-    "sha256": "3653ad45bbec54fcbe461c541c908355b715018bdf455a0e11b27bedb2cbdee5",
-    "bytes": 7967776,
-    "openapiVersion": "3.0.0",
-    "apiVersion": "2026-07-29.dahlia"
+  "canonicalSpec": "products/stripe-identity/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.0.0",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourcePath": "products/stripe-identity/sources/openapi.json",
+    "sourceSha256": "b1aed14660a95361dfddc7250ba08331d2b16419dea4e0d0eb8645e83fcb9b1c",
+    "localeInputSha256": {
+      "en-US": "2795c829cd0b411850a0828474fc6240b5fe1fec088b0cae816aaf267a3b8c52"
+    },
+    "upstream": {
+      "repository": "https://github.com/stripe/openapi",
+      "revision": "325f3b157f7250f2a5d228b870d77bb63fc7e54c",
+      "file": "openapi/spec3.json",
+      "url": "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+      "sha256": "3653ad45bbec54fcbe461c541c908355b715018bdf455a0e11b27bedb2cbdee5",
+      "bytes": 7967776,
+      "openapiVersion": "3.0.0",
+      "apiVersion": "2026-07-29.dahlia"
+    }
   },
   "license": {
     "status": "reviewed",
     "spdx": "MIT",
     "url": "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE",
     "sha256": "8c1ce883f4eee7b531e0b7872dbfc72d410ced87dfff9501305de05ca8d203e5",
-    "localCopy": "specs/stripe-identity/LICENSE.stripe-openapi",
-    "notice": "specs/stripe-identity/ATTRIBUTION.md"
+    "localCopy": "products/stripe-identity/sources/LICENSE.stripe-openapi",
+    "notice": "products/stripe-identity/sources/ATTRIBUTION.md"
   },
   "derivation": {
-    "script": "scripts/import-stripe-identity.mjs",
     "boundary": "Every official path beginning with /v1/identity/; no Stripe Identity path is omitted.",
     "paths": 6,
     "operations": 8,
@@ -45,7 +52,8 @@
       "Converted relative Stripe documentation links to absolute docs.stripe.com links.",
       "Added safe request examples, immutable evidence, and a proxy-disabled reason to all eight Endpoints.",
       "Translated 131 unique official summaries and descriptions while preserving every wire identifier, constraint, enum, example, media type, security declaration, and array order."
-    ]
+    ],
+    "method": "one-time @pontx/spec importOpenAPI conversion; PontxSpec is canonical after migration"
   },
   "riskReview": {
     "classification": "high-sensitivity-identity",
@@ -71,14 +79,28 @@
     "credentialPolicy": "STRIPE_SECRET_KEY remains in the caller environment and is never persisted or included in examples.",
     "dataPolicy": "Hub serves documentation only and does not proxy, cache, log, or persist Stripe Identity requests or responses."
   },
+  "evidence": {
+    "urls": [
+      "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+      "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE",
+      "https://docs.stripe.com/identity",
+      "https://stripe.com/identity",
+      "https://github.com/pontjs/stripe-identity/actions/runs/31858572852"
+    ],
+    "verifiedAt": "2026-08-15"
+  },
   "outputs": {
     "zh-CN": {
-      "file": "specs/stripe-identity/openapi.json",
-      "sha256": "b1aed14660a95361dfddc7250ba08331d2b16419dea4e0d0eb8645e83fcb9b1c"
+      "path": "products/stripe-identity/spec.pontx.json",
+      "sha256": "7cf618fb52cf2b8fc9bfb7b53ace1a2959f1a2bcd1f17a6f96885fdad4f7c031",
+      "endpoints": 8,
+      "schemas": 35
     },
     "en-US": {
-      "file": "specs/stripe-identity/locales/en-US/openapi.json",
-      "sha256": "2795c829cd0b411850a0828474fc6240b5fe1fec088b0cae816aaf267a3b8c52"
+      "path": "products/stripe-identity/locales/en-US/spec.pontx.json",
+      "sha256": "e6e2d01088980c7f8f61d0c87ae5122f200501a6a12103ba8bf3f3152f09b239",
+      "endpoints": 8,
+      "schemas": 35
     }
   },
   "sdk": {

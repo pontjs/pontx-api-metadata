@@ -53,6 +53,38 @@
         "meta.error_detail",
         "response"
       ]
+    },
+    "humanDocumentationAudit": {
+      "reverifiedAt": "2026-08-15",
+      "documentedAuthentication": [
+        "api_key-query",
+        "bearer-header"
+      ],
+      "responseFieldPathEvidence": {
+        "historical": [
+          "response.rates"
+        ],
+        "timeseries": [
+          "response.rates"
+        ],
+        "currencies": [
+          "response"
+        ]
+      },
+      "requestParameterEvidence": {
+        "timeseries": [
+          "api_key",
+          "base",
+          "symbols",
+          "start_date",
+          "end_date"
+        ]
+      },
+      "missingCompleteSuccessSchemas": [
+        "historical",
+        "timeseries",
+        "currencies"
+      ]
     }
   },
   "pontxProbe": {
@@ -90,8 +122,8 @@
     },
     {
       "gate": "contract",
-      "zh": "官方页面确认 v1 的五个 Endpoint、两种鉴权和 401/403/404/429/500，但只给 latest 与 convert 两个完整成功示例；historical、timeseries、currencies 缺少完整响应字段、required/nullable、约束和套餐差异。匿名 currencies 实测确认 401 error envelope，但不能证明成功 Schema。第三方 APIs.io 链接已经失效，当前 API Evangelist 拆分规范没有 LICENSE 且不是供应商证据，因此不能据此声称完整契约。",
-      "en": "The official pages confirm five v1 endpoints, two authentication methods, and 401/403/404/429/500 statuses, but provide complete success examples only for latest and convert. Historical, timeseries, and currencies still lack complete response fields, required/nullable semantics, constraints, and plan differences. An anonymous currencies check confirms the 401 error envelope but not its success schema. The third-party APIs.io link is stale, while the current split API Evangelist specs have no LICENSE and are not supplier evidence, so they cannot establish a complete contract."
+      "zh": "官方页面确认 v1 的五个 Endpoint、两种鉴权和 401/403/404/429/500，但只给 latest 与 convert 两个完整成功示例。2026-08-15 的官方代码样例额外确认 historical 与 timeseries 的 `response.rates` 路径、currencies 的 `response` 路径，以及 timeseries 的 symbols/start_date/end_date 请求形状；这些不是完整成功 Schema，仍缺少完整字段、required/nullable、约束和套餐差异。匿名 currencies 实测确认 401 error envelope，但不能证明成功 Schema。第三方 APIs.io 链接已经失效，当前 API Evangelist 拆分规范没有 LICENSE 且不是供应商证据，因此不能据此声称完整契约。",
+      "en": "The official pages confirm five v1 endpoints, two authentication methods, and 401/403/404/429/500 statuses, but provide complete success examples only for latest and convert. Official code samples re-audited on 2026-08-15 additionally confirm the `response.rates` paths for historical and timeseries, the `response` path for currencies, and the timeseries symbols/start_date/end_date request shape; these are not complete success Schemas and still omit the full fields, required/nullable semantics, constraints, and plan differences. An anonymous currencies check confirms the 401 error envelope but not its success schema. The third-party APIs.io link is stale, while the current split API Evangelist specs have no LICENSE and are not supplier evidence, so they cannot establish a complete contract."
     },
     {
       "gate": "risk",
@@ -105,8 +137,8 @@
     }
   ],
   "nextAction": {
-    "zh": "向 CurrencyBeacon 获取完整官方 OAS、版本/变更策略和 metadata/SDK 发布许可；若获批，完整建模五个 Endpoint、Bearer/API Key 鉴权、套餐约束、错误和八小时缓存边界。",
-    "en": "Obtain the complete official OAS, version/change policy, and metadata/SDK publication permission from CurrencyBeacon; if approved, fully model the five endpoints, Bearer/API-key authentication, plan constraints, errors, and the eight-hour caching boundary."
+    "zh": "继续以官方文档和代码样例核对五个 Endpoint；同时获取完整官方 OAS、版本/变更策略、metadata/SDK 书面发布许可，以及 historical、timeseries、currencies 的供应商批准成功 fixture 或经授权测试密钥。获得后完整建模五个 Endpoint、Bearer/API Key 鉴权、套餐约束、错误和八小时缓存边界。",
+    "en": "Continue reconciling all five endpoints against official documentation and code samples while obtaining a complete official OAS, version/change policy, written metadata/SDK publication permission, and supplier-approved success fixtures or an authorised test key for historical, timeseries, and currencies. Then fully model the five endpoints, Bearer/API-key authentication, plan constraints, errors, and the eight-hour caching boundary."
   },
   "verifiedAt": "2026-08-14"
 }

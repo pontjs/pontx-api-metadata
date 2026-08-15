@@ -10,6 +10,7 @@
     "dida365",
     "massive",
     "ecb-data-portal",
-    "dropbox-sign"
+    "dropbox-sign",
+    "stripe-identity"
   ]
 }

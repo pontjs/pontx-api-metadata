@@ -18,17 +18,7 @@
       "Data": "data",
       "Metadata": "metadata",
       "Validation": "validation"
-    },
-    "operations": [
-      "getDataByFlow",
-      "getDataBySeriesKey",
-      "listMetadata",
-      "listMetadataByAgency",
-      "getMetadataArtefact",
-      "getVersionedMetadataArtefact",
-      "getStructureSpecificSchema",
-      "getVersionedStructureSpecificSchema"
-    ]
+    }
   },
   "examples": {
     "typescript": "import ecbDataPortalClient from \"@pontx/ecb-data-portal\";\n\nconst result = await ecbDataPortalClient.data.getDataBySeriesKey(\n  \"EXR\",\n  \"M.USD.EUR.SP00.A\",\n  { lastNObservations: 1, format: \"jsondata\" }\n);",

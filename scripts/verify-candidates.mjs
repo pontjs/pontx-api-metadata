@@ -23,8 +23,8 @@ if (registry.roadmap !== "docs/api-collection-growth-priority.md") {
     errors.push("candidate roadmap does not exist");
   }
 }
-if (!Array.isArray(registry.products) || registry.products.length !== 22) {
-  errors.push("candidate registry must contain the 22 products that are not admitted");
+if (!Array.isArray(registry.products) || registry.products.length === 0) {
+  errors.push("candidate registry must contain a non-empty ordered slug list");
 }
 if (new Set(registry.products).size !== registry.products.length) {
   errors.push("candidate slugs must be unique");

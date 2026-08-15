@@ -1,12 +1,12 @@
 ---
 name: pontx-api-collection-builder
 description: >-
-  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual API contract, iterative metadata quality improvement, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, npm publication, catalog admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at an OpenAPI file, local SDK release candidate, npm publish, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
+  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual PontxSpec, isolated product/SDK metadata, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, npm publication, catalog admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at imported OAS evidence, a PontxSpec file, local SDK release candidate, npm publish, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
 ---
 
 # Pontx API Collection Builder
 
-把一个 API 产品从候选证据推进到生产可发现、可集成、可安全调用的完整 Pontx 产品。OpenAPI、metadata、SDK、产品 CLI、Hub、统一 CLI、语义搜索和助手是同一条交付链；任何中间产物都不是默认终点。
+把一个 API 产品从候选证据推进到生产可发现、可集成、可安全调用的完整 Pontx 产品。PontxSpec 是 metadata、SDK、产品 CLI、Hub、统一 CLI、语义搜索和助手的唯一规范；OAS 只允许作为一次性导入格式或上游证据。
 
 ## 完成定义
 
@@ -56,21 +56,15 @@ description: >-
 
 对 `observed`/`inferred` 内容保留精确证据和日期，不冒充官方 API；登录、账户、交易、用户隐私、内部主机或无授权再分发的接口不得进入正式产品。
 
-## 阶段 2：构建双语 metadata
+## 阶段 2：构建双语分级 metadata
 
-`specs/<slug>/openapi.json` 是 `zh-CN` 结构源。完整表达：
+为产品创建 `products/<slug>/`，其中 `product.json` 保存产品概要，`spec.pontx.json` 是 `zh-CN` 结构源，`sdk.json` 保存包与质量证据，`locales/<locale>/` 保存产品译文和同构 PontxSpec，`sources/` 只保存 provenance 与可选上游证据。只有 slug 列表进入 `catalog/products.json`，禁止重新生成聚合 Catalog。
 
-- `info`、真实 HTTPS servers、稳定唯一 `operationId`、显式 OAS `tags`；
-- 参数位置/序列化/类型/格式/约束/枚举/默认值/单位/有效示例；
-- 所有真实 request media、成功和错误 status、response headers、分页/异步/重试语义；
-- 完整 Schema 图、required/nullable/readOnly/writeOnly/composition/discriminator/binary；
-- auth/security scheme、OAuth flow/URL/scope、套餐/速率限制和弃用迁移；
-- 与 Schema 和业务语义一致、无凭证和个人数据的示例；
-- Endpoint 级证据、执行、代理、mutation 和服务器 allowlist 策略。
+PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operationId`、显式 tags、参数和约束、所有请求/响应媒体、完整 Schema 图、HTTPS server、安全方案、请求示例及 Endpoint 证据/执行元数据。只有 `RESTFul` Endpoint 强制 `method/path`；RPC 等其他 style 不伪造 HTTP 字段。
 
-`specs/<slug>/locales/<locale>/openapi.json` 只能翻译批准的 prose；路径、方法、tag、标识、顺序、约束、示例、安全和执行策略必须与中文源一致。产品级中文事实写入 `catalog/source.json`，翻译写入 locale 文件，不在 Hub 应用中复制 API 文案。
+若权威输入是 OAS2/OAS3，使用正式 `@pontx/spec importOpenAPI` 一次性导入，逐 Endpoint/Schema 对比 operationId、显式 tags、约束、全部响应、媒体类型、安全和 `x-pontx-*`，之后构建与维护不得读取 OAS。locale PontxSpec 只能翻译批准的 prose；标识、顺序、约束、示例、安全和执行策略必须与中文源一致。
 
-先审最终字节，再更新 `approvedSha256` 与每个 `approvedLocaleSha256`。运行当前 metadata 仓库声明的 locale、build、verify、候选/质量和 diff 检查；连续构建两次确认确定性。检查生成 catalog 中产品、Endpoint、请求、每个响应和 Schema 图数量与身份。
+先审最终 PontxSpec 字节，再把其原始字节 SHA-256、规范路径和包含该字节的 metadata commit 写入 `sdk.json`。运行 `pnpm test`、`pnpm validate` 和 diff 检查；检查分级源中产品、Endpoint、请求、每个响应与 Schema 图数量和身份。
 
 ## 阶段 3：从契约构建 SDK 与产品 CLI
 
@@ -82,11 +76,11 @@ description: >-
 - 使用已发布的精确 Pontx runtime/generator 版本和冻结 lockfile；
 - 输出 Node 支持矩阵要求的 ESM、CommonJS、声明和 CLI；
 - 只从环境/调用方配置读取凭证并始终脱敏；
-- 保留 server path、auth、serialization、multipart/binary、错误和真实 Controller 映射；Controller 只来自显式 OAS tags，未 tagged Endpoint 保持 client 根调用；
+- 保留 server path、auth、serialization、multipart/binary、错误和真实 Controller 映射；Controller 只来自 PontxSpec 显式 tags，未 tagged Endpoint 保持 client 根调用；
 - 对 mutation 实施 preview-first、绑定未变请求且短期有效的确认；不得把上线测试变成真实 mutation；
 - 只打包运行所需代码、types、license/notices 和 CLI 产物，不携带凭证、缓存、测试数据或无权再分发的上游内容。
 
-执行 `release-and-launch.md` 的标准验证。若生成、类型检查、SDK/CLI E2E 或真实只读 probe 暴露契约问题，优先修 metadata/OAS 并重生成，不手改生成代码掩盖问题；metadata、SDK/CLI 和测试必须再次整轮通过。
+执行 `release-and-launch.md` 的标准验证。若生成、类型检查、SDK/CLI E2E 或真实只读 probe 暴露契约问题，优先修 canonical PontxSpec 或通用 generator 并重生成，不手改生成代码掩盖问题；metadata、SDK/CLI 和测试必须再次整轮通过。
 
 ## 阶段 4：安全发包与 registry 复验
 
@@ -94,7 +88,7 @@ description: >-
 
 确认 npm 身份/scope、包名和目标版本，检查版本尚未占用，再按独立 SDK 仓库的 operator release 流程发布 public 包。发布后不要只看 `npm publish` 退出码：从 registry 查询精确版本，在全新临时目录安装，验证 ESM/CJS/types、产品 CLI `--help`、代表性 preview、凭证脱敏、mutation guard，并在许可和授权允许时完成一条安全只读调用。记录 package/version、完整源 commit、CI run、pack 摘要和 registry 复验。
 
-只有 registry 复验全部通过，metadata 才能设置 `sdkStatus=published`；发包失败或版本事实不一致时继续修复，不能先标 published。
+只有 registry 复验全部通过，metadata 才能在该产品的 `sdk.json` 设置 `package.status: "published"`；发包失败或版本事实不一致时继续修复，不能先标 published。
 
 ## 阶段 5：回写 metadata 并分阶段上线
 
