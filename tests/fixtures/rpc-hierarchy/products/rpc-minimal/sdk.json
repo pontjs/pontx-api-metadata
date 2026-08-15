@@ -19,7 +19,7 @@
   },
   "spec": {
     "path": "products/rpc-minimal/spec.pontx.json",
-    "sha256": "b98282ce840bedb84bfc6b804a470197f6177565c3834d3f07a054dbc460372c",
+    "sha256": "3ba8d069412155256b0f8e335b0467fbc44754b2d274f260f81749b1984b5af5",
     "metadataCommit": null
   }
 }

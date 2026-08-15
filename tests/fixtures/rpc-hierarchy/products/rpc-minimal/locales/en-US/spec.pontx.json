@@ -2,6 +2,9 @@
   "pontx": "2.1",
   "style": "RPC",
   "name": "rpc-minimal",
+  "rpc": {
+    "protocol": "fixture-rpc"
+  },
   "info": {
     "title": "Minimal RPC contract",
     "version": "1.0.0"
@@ -9,6 +12,9 @@
   "apis": {
     "inventory/getItem": {
       "operationId": "getItem",
+      "rpc": {
+        "action": "getItem"
+      },
       "summary": "Get an inventory item",
       "tags": ["inventory"],
       "parameters": [
