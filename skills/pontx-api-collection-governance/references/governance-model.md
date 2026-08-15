@@ -66,6 +66,7 @@
 ## 5. 标准与安全基线
 
 - PontxSpec 2.1：metadata、Hub、CLI 与 SDK 的唯一规范；OAS 只作为一次性导入格式或 `sources/` 证据。`catalog/products.json` 只索引 slug，产品文件分级隔离，任何集中 Catalog/OAS 构建链都是治理缺陷。
+- Product Skill：核验每个正式 API 是否有简洁 `pontx-<slug>` Skill、独立 manifest/evidence/evals、未过期的一手 claim、正确 SemVer 与确定性 registry hash；内容不得复制 PontxSpec。独立 Agent、skills.sh、ClawHub 或 Hub same-commit 分发漂移属于发布/发现缺陷。
 - [OpenAPI Specification 3.1.2](https://spec.openapis.org/oas/v3.1.2.html)：审核 REST 上游证据时使用的对象语义基线。
 - [RFC 9110 HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html#name-methods)：safe、idempotent、method 和 status 语义。
 - [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457.html)：仅在上游采用时核验标准错误结构，并防止错误详情泄露内部信息。

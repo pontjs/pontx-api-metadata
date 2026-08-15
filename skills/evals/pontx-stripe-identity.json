@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-stripe-identity",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add Stripe document verification to Next.js onboarding and activate the account from a webhook.",
+      "expected_output": "Uses live Pontx facts, a server-created idempotent session, server-side key safety, client-secret minimization, raw-body signature verification, and idempotent outcomes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "A customer failed verification and also needs a safe permanent-deletion workflow. Do not execute anything.",
+      "expected_output": "Reuses the session for retry, restricts the fresh secret to the same user, inventories copies, previews irreversible redaction, and waits for completion.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Review a design that gives STRIPE_SECRET_KEY to the browser, logs sessions, trusts a return URL, parses webhooks before verification, and copies document images.",
+      "expected_output": "Rejects each unsafe choice and replaces it with authenticated server creation, no PII logging, verified webhooks, minimal result access, and controlled retention.",
+      "files": []
+    }
+  ]
+}

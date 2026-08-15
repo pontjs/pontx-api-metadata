@@ -1,0 +1,22 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "dida365",
+  "claims": [
+    {
+      "id": "credential-choice",
+      "claim": "For a user's own account or testing, use a personal API token only when that account exposes the official API Token setting; use the OAuth authorization-code flow when an application authorizes other users.",
+      "summary": "The provider distinguishes a personal/testing account token from OAuth for applications authorizing other users and does not publish plan eligibility.",
+      "sourceUrl": "https://developer.dida365.com/docs/openapi.md#quick-option-create-a-personal-api-token",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "token-revocation",
+      "claim": "Dida365 exposes token revocation; if a token is exposed, stop and revoke or replace it before continuing.",
+      "summary": "The provider documents token revocation and advises replacing an exposed personal token.",
+      "sourceUrl": "https://developer.dida365.com/docs/openapi.md#revoke-token",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 name: pontx-api-collection-builder
 description: >-
-  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual PontxSpec, isolated product/SDK metadata, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, product-index admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at imported OAS evidence, a PontxSpec file, local SDK release candidate, a release request, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
+  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual PontxSpec, isolated product/SDK metadata, generated @pontx/{slug} SDK plus pontx-{slug} CLI, concise evidence-backed pontx-{slug} product Skill, safety and package validation, product-index admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at imported OAS evidence, a PontxSpec file, local SDK release candidate, a release request, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
 ---
 
 # Pontx API Collection Builder
@@ -14,9 +14,10 @@ description: >-
 
 1. 产品完整边界内的 API 契约有权威证据、许可/再分发依据、双语内容和明确安全策略；
 2. `@pontx/<slug>` SDK 与同包 `pontx-<slug>` CLI 从该契约生成并通过标准质量门；若要求发布，必须经 operator 的独立 npm 发布流程与 registry 复验，不能由 metadata CI 或普通贡献者代发；
-3. metadata 绑定真实 registry 版本、SDK 源 commit 和 CI 证据，经 Preview 审查后进入 Production；
-4. 生产网站、公共 Hub API、统一 `pontx-hub` CLI、非品牌中英文语义查询和 AI 助手都能发现该产品；
-5. 助手能把自然语言任务变成 catalog-approved 请求，经既有 preview/credential/confirmation 边界完成至少一条获准的安全读取调用。若许可或代理策略不允许任何受控调用，产品可交付文档和本地 SDK/CLI，但不能把本 skill 的“完整助手调用闭环”标为通过。
+3. `pontx-<slug>` 产品 Skill 只表达提供商特有流程、最佳实践、风险和 few-shot，事实由官方证据支持且不复制 PontxSpec；其独立 Agent 审核、registry、skills.sh 安装和 ClawHub 发布门通过；
+4. metadata 绑定真实 registry 版本、SDK 源 commit 和 CI 证据，经 Preview 审查后进入 Production；
+5. 生产网站、公共 Hub API、统一 `pontx-hub` CLI、产品 Skill、非品牌中英文语义查询和 AI 助手都能发现该产品；
+6. 助手能把自然语言任务变成 catalog-approved 请求，经既有 preview/credential/confirmation 边界完成至少一条获准的安全读取调用。若许可或代理策略不允许任何受控调用，产品可交付文档和本地 SDK/CLI，但不能把本 skill 的“完整助手调用闭环”标为通过。
 
 读取并执行 [references/quality-gates.md](references/quality-gates.md) 的 G0–G10；进入 SDK、发包或上线阶段前，再完整读取 [references/release-and-launch.md](references/release-and-launch.md)。早期门失败时继续修复或明确阻断，不用后续页面、包或部署掩盖问题。
 
@@ -76,6 +77,12 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 若权威输入是 OAS2/OAS3，使用正式 `@pontx/spec importOpenAPI` 一次性导入，逐 Endpoint/Schema 对比 operationId、显式 tags、约束、全部响应、媒体类型、安全和 `x-pontx-*`，之后构建与维护不得读取 OAS。locale PontxSpec 只能翻译批准的 prose；标识、顺序、约束、示例、安全和执行策略必须与中文源一致。
 
 先审最终 PontxSpec 字节，再把其原始字节 SHA-256、规范路径和包含该字节的 metadata commit 写入 `sdk.json`。运行 `pnpm test`、`pnpm validate` 和 diff 检查；检查分级源中产品、Endpoint、请求、每个响应与 Schema 图数量和身份。不要以“生成 Catalog”作为验证步骤：层级验证器必须直接验证清单、文件、hash、同构和隔离性。
+
+### 产品 Skill：只写 metadata 之外的有用增量
+
+使用 `skills/products/AUTHORING_PROMPT.md`，为正式 slug 创建 `pontx-<slug>`。安装目录只放英文 `SKILL.md` 和确有必要的单个 reference；manifest、官方 claim 证据和 2–3 个冒烟任务分别进入 `skills/manifests/`、`skills/evidence/`、`skills/evals/`。Skill 必须通过 `pontx-hub search/show/sdk` 获取当前 Endpoint、Schema、auth 和包事实，突出 `@pontx/<slug>`、产品 CLI 与统一 Hub Skill 的分工，不复制清单或固定版本。
+
+先保持 `draft`；官方来源与当前 product/PontxSpec/SDK 任何冲突都回流修复事实源，不能让 Skill 自选一个版本。生成确定性 `skills/registry.json`，完成静态预算/claim/版本/hash 门和全新只读 Codex 审核后，才转为 `published` 并验证 skills.sh 干净安装、ClawHub exact SemVer 发布与 Hub same-commit 消费。
 
 ## 阶段 3：从契约构建 SDK 与产品 CLI
 

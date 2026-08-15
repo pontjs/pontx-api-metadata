@@ -36,7 +36,7 @@
   },
   "examples": {
     "typescript": "import { createDropboxSignClient } from \"@pontx/dropbox-sign\";\n\nconst client = createDropboxSignClient({\n  apiKey: process.env.DROPBOX_SIGN_API_KEY!\n});\nconst result = await client.signatureRequest.signatureRequestList({\n  page: 1,\n  page_size: 20\n});",
-    "cli": "pnpm add --global @pontx/dropbox-sign\n\npontx-dropbox-sign call signatureRequest.signatureRequestList --page 1 --page_size 20 --dry-run"
+    "cli": "pnpm add --global @pontx/dropbox-sign\n\npontx-dropbox-sign call signatureRequest signatureRequestList --page 1 --page_size 20 --dry-run"
   },
   "coverage": {
     "mode": "full"

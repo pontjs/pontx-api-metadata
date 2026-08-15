@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-dropbox-sign",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Show a safe Node integration for a one-off Dropbox Sign NDA in development, but do not send anything.",
+      "expected_output": "Uses live search/show/sdk, a non-embedded test-mode flow, controlled data, local dry-run, credential safety, callbacks, and explicit production approval.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Design a weekly template-based onboarding agreement and explain when the signed PDF is ready.",
+      "expected_output": "Validates roles and merge fields, handles template readiness, previews in test mode, verifies callbacks, and waits for the downloadable event.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Review a webhook that parses JSON, trusts event_type, downloads on all-signed, and returns {ok:true}.",
+      "expected_output": "Requires HTTPS multipart parsing, HMAC-before-trust, idempotent duplicate/order handling, the exact acknowledgement, and delayed download.",
+      "files": []
+    }
+  ]
+}

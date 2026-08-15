@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-frankfurter",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Node service already imports @pontx/frankfurter and parses the nested rates object. Add CAD and JPY without migrating or executing a request.",
+      "expected_output": "Keeps v1, uses current pontx-hub sdk/search/show facts, preserves the nested adapter, previews without execution, and avoids v2 parameters or fixed versions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We are starting an EU report in which every rate must identify its official provider. Which Frankfurter product should we use?",
+      "expected_output": "Routes the task to pontx-frankfurter-v2, asks for the controlling provider, and does not claim legacy v1 supports provider attribution.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Prepare but do not run a reproducible Frankfurter v1 USD-to-GBP series for 2024-01-01 through 2024-01-15 from Asia/Shanghai.",
+      "expected_output": "Uses live discovery, explicit UTC boundaries, target filtering, a preview-only flow, and treats returned working-day dates as authoritative.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-dida365",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a read-only hosted TypeScript integration showing each signed-in user's Dida365 projects.",
+      "expected_output": "Uses server-side authorization code with Basic token exchange, read scope, state and redirect checks, per-user token isolation, current Hub coverage, and @pontx/dida365.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Create a Dida365 task called Review metrics tomorrow at 9 AM every weekday, and go ahead and send it.",
+      "expected_output": "Discovers the current create resource, asks for project/time zone/recurrence, shows an exact preview, and stops for explicit approval before execution.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Move the task named Launch checklist into Operations; I do not know any IDs.",
+      "expected_output": "Resolves exact task and projects, refuses to guess duplicate titles, previews the move, redacts credentials, and requires explicit approval.",
+      "files": []
+    }
+  ]
+}

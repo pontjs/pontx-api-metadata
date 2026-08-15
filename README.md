@@ -20,6 +20,10 @@ products/<slug>/
 └── sources/{provenance.json,openapi.json?}
 
 candidates/<slug>/candidate.json
+
+skills/products/pontx-<slug>/{SKILL.md,references/<name>.md?}
+skills/{manifests,evidence,evals}/pontx-<slug>.json
+skills/registry.json
 ```
 
 `catalog/products.json` is a small ordered admission list only. It contains no
@@ -40,6 +44,26 @@ There is deliberately no `catalog/source.json`, `catalog/catalog.json`, or
 centralized catalog locale file. Hub derives its compatibility data and search
 indexes from the isolated product sources at one exact metadata commit.
 
+## Product Skills
+
+Every admitted API can publish a concise `pontx-<slug>` Agent Skill. Product
+Skills contain provider-specific integration workflows, best practices,
+caveats, and two or three realistic task flows. They deliberately defer live
+Endpoint, parameter, Schema, auth, and package details to `pontx-hub` and the
+same-commit product hierarchy instead of copying API metadata.
+
+Only `SKILL.md` and an optional declared reference live in the discoverable
+`skills/products/<name>/` folder. Version/status manifests, primary-source
+evidence ledgers, and smoke evals live in separate control directories so they
+are reviewed in this repository but are not installed by skills.sh or ClawHub.
+See [`skills/products/README.md`](./skills/products/README.md) and the
+[authoring prompt](./skills/products/AUTHORING_PROMPT.md).
+
+`skills/registry.json` is deterministic and embeds only `published` bundles.
+Hub consumes it together with the product hierarchy from one immutable metadata
+commit; a missing or invalid registry hides product Skills without affecting
+the separately maintained universal Hub Skill.
+
 ## Editing and verification
 
 1. Update only `products/<slug>/` for a product-specific change.
@@ -51,6 +75,7 @@ indexes from the isolated product sources at one exact metadata commit.
 
 ```bash
 pnpm install
+pnpm skills:build
 pnpm test
 pnpm validate
 git diff --check
@@ -66,4 +91,11 @@ SDK status are admitted in `catalog/products.json`.
 - `main` validates and deploys Hub Production.
 
 Hub builds use an exact metadata commit. npm publication remains an operator
-action and is never triggered by metadata validation.
+action and is never triggered by metadata validation. Published product Skill
+changes are install-tested through the open skills CLI and released to ClawHub
+with immutable SemVer after the independent review gate. ClawHub credentials
+remain protected GitHub secrets and are never stored in repository files.
+
+Repository-authored software and product Skills are licensed under MIT-0 unless
+a file carries a separate notice. Upstream evidence under `products/*/sources/`
+retains its provider-specific license or terms; see [`LICENSE`](./LICENSE).

@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateHierarchy } from "./lib/hierarchy.mjs";
@@ -21,4 +23,22 @@ assert.equal(rpc.productCount, 1);
 assert.equal(rpc.endpointCount, 1);
 assert.equal(rpc.schemaCount, 1);
 
-console.log("Hierarchy contract tests passed, including the non-HTTP RPC fixture.");
+const forbiddenAliasRoot = await mkdtemp(resolve(tmpdir(), "pontx-forbidden-alias-"));
+try {
+  await cp(fixtureRoot, forbiddenAliasRoot, { recursive: true });
+  const sdkPath = resolve(forbiddenAliasRoot, "products/rpc-minimal/sdk.json");
+  const sdk = JSON.parse(await readFile(sdkPath, "utf8"));
+  sdk.contract.compatibilityAliases = { common: ["getItem"] };
+  await writeFile(sdkPath, `${JSON.stringify(sdk, null, 2)}\n`);
+  const forbiddenAlias = await validateHierarchy({
+    root: forbiddenAliasRoot,
+    requireMetadataCommit: false,
+  });
+  assert(forbiddenAlias.errors.some(
+    (error) => error.includes("cannot retain common/default compatibility aliases"),
+  ));
+} finally {
+  await rm(forbiddenAliasRoot, { recursive: true, force: true });
+}
+
+console.log("Hierarchy contract tests passed, including RPC and forbidden common/default alias coverage.");

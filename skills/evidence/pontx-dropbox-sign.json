@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "dropbox-sign",
+  "claims": [
+    {
+      "id": "non-embedded-hosting",
+      "claim": "A non-embedded request emails signers a link to a Dropbox Sign-hosted signing page.",
+      "summary": "The official non-embedded walkthrough shows signers receiving email links that open the hosted signing page.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/non-embedded-signing.md",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "embedded-experience",
+      "claim": "Embedded signing keeps the signing experience inside your app.",
+      "summary": "The official embedded-signing walkthrough describes using an iframe to keep the signing flow inside an application.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/embedded-signing",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "template-choice",
+      "claim": "Use a template for a repeatable document with stable signer roles, fields, and formatting; otherwise inspect the current direct-request workflow.",
+      "summary": "The official object glossary defines templates as reusable document blueprints with fixed fields and signer roles for documents sent repeatedly.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/core-objects",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "app-approval",
+      "claim": "Embedded and OAuth integrations require app approval before production, while non-embedded integrations do not require app approval.",
+      "summary": "The official app-approval guide defines which integration types need approval before production.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/app-approval/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "test-mode",
+      "claim": "Test-mode signature requests are non-binding and watermarked but remain visible to requester and signer accounts.",
+      "summary": "Official testing guidance documents non-binding, watermarked requests and their visibility to account participants.",
+      "sourceUrl": "https://developers.hellosign.com/docs/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "template-fields",
+      "claim": "For templates, supplied custom-field names must match the template's merge-field names.",
+      "summary": "The official template guide documents merge fields and errors caused by mismatched custom-field names.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/pre-filled-document-data/templates",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "template-readiness",
+      "claim": "Handle documented success or error callbacks when creating or updating a template.",
+      "summary": "The official callback glossary documents template creation/update success and error events.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "embedded-signer-readiness",
+      "claim": "For embedded signing, generate the expiring signer URL only when the signer is ready to open the embedded page.",
+      "summary": "The official embedded-signing walkthrough documents short-lived sign URLs and recommends requesting one only when the signer is ready to open the page.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/embedded-signing",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-transport",
+      "claim": "Dropbox Sign callbacks normally arrive over HTTPS as `multipart/form-data` with the event payload in the `json` field.",
+      "summary": "The official callback walkthrough defines HTTPS transport and multipart event JSON delivery.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-hmac",
+      "claim": "Verify the event HMAC with the account's API key before trusting any field, using an official helper when available or a constant-time comparison.",
+      "summary": "The official callback walkthrough requires recomputing the event HMAC with the account API key and documents verification helpers in official SDKs.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-ordering",
+      "claim": "Callbacks can be duplicated or arrive out of order, and signed completion is separate from final-file readiness.",
+      "summary": "The official callback glossary documents duplicates, non-sequential delivery, and the downloadable event after all-signed.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-processing",
+      "claim": "Deduplicate and process idempotently, derive state from verified events, and wait for the downloadable event before fetching final files.",
+      "summary": "The official callback glossary documents duplicate and out-of-order delivery and a distinct downloadable event after signing completes; idempotent state handling follows those semantics.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-acknowledgement",
+      "claim": "After durably accepting a verified event, return HTTP 200 with `Hello API Event Received`.",
+      "summary": "The official callback walkthrough requires this exact response body and a successful HTTP status to acknowledge receipt.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

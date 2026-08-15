@@ -1,0 +1,241 @@
+name: Publish product Skills
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - "skills/products/**"
+      - "skills/manifests/**"
+      - "skills/registry.json"
+  push:
+    branches:
+      - main
+    paths:
+      - "skills/products/**"
+      - "skills/manifests/**"
+      - "skills/registry.json"
+  workflow_dispatch:
+    inputs:
+      skill:
+        description: Optional published Skill name or API slug; empty retries every published Skill idempotently.
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: product-skill-publish-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CLAWHUB_CLI_VERSION: 0.23.1
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.changes.outputs.matrix }}
+      count: ${{ steps.changes.outputs.count }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate distributable product Skills
+        run: |
+          pnpm skills:validate
+          pnpm skills:test
+
+      - name: Select changed or explicitly retried published Skills
+        id: changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BASE_SHA: ${{ github.event.before }}
+          REQUESTED_SKILL: ${{ inputs.skill }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            base="$PR_BASE_SHA"
+            args=()
+          elif [ "$EVENT_NAME" = "push" ]; then
+            base="$PUSH_BASE_SHA"
+            args=()
+          else
+            base=$(git rev-parse HEAD^)
+            if [ -n "$REQUESTED_SKILL" ]; then
+              args=(--skill "$REQUESTED_SKILL")
+            else
+              args=(--all)
+            fi
+          fi
+          node scripts/list-changed-published-skills.mjs \
+            --base "$base" \
+            --github-output "$GITHUB_OUTPUT" \
+            "${args[@]}"
+
+  skills-sh-install:
+    if: needs.prepare.outputs.count != '0'
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify a clean skills.sh-compatible install
+        env:
+          SKILL_NAME: ${{ matrix.name }}
+          EVENT_NAME: ${{ github.event_name }}
+          DISABLE_TELEMETRY: "1"
+        run: |
+          install_root=$(mktemp -d)
+          source="$GITHUB_WORKSPACE"
+          if [ "$EVENT_NAME" != "pull_request" ]; then
+            source="pontjs/pontx-api-metadata"
+          fi
+          cd "$install_root"
+          npx --yes skills@latest add "$source" \
+            --skill "$SKILL_NAME" \
+            --agent codex \
+            --copy \
+            --yes
+          installed="$install_root/.agents/skills/$SKILL_NAME/SKILL.md"
+          test -f "$installed"
+          cmp "$GITHUB_WORKSPACE/skills/products/$SKILL_NAME/SKILL.md" "$installed"
+
+  clawhub-dry-run:
+    if: github.event_name == 'pull_request' && needs.prepare.outputs.count != '0'
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Resolve the exact SemVer publish without mutation
+        env:
+          SKILL_NAME: ${{ matrix.name }}
+          SKILL_PATH: ${{ github.workspace }}/${{ matrix.path }}
+          SKILL_VERSION: ${{ matrix.version }}
+          CLAWHUB_DISABLE_TELEMETRY: "1"
+          CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config-${{ matrix.name }}.json
+        run: |
+          remote_file="${{ runner.temp }}/remote-${SKILL_NAME}-SKILL.md"
+          manifest="skills/manifests/$SKILL_NAME.json"
+          verify_remote() {
+            while IFS= read -r relative_path; do
+              npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
+                "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" \
+                --file "$relative_path" > "$remote_file"
+              cmp "$SKILL_PATH/$relative_path" "$remote_file"
+            done < <(jq -r '.files[]' "$manifest")
+          }
+          if npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
+            "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --file SKILL.md > "$remote_file" 2>/dev/null; then
+            verify_remote
+            echo "ClawHub already has the identical immutable version."
+          else
+            npx --yes "clawhub@$CLAWHUB_CLI_VERSION" skill publish "$SKILL_PATH" \
+              --owner pontjs \
+              --version "$SKILL_VERSION" \
+              --dry-run \
+              --json
+          fi
+
+  clawhub-publish:
+    if: github.event_name != 'pull_request' && needs.prepare.outputs.count != '0'
+    needs: [prepare, skills-sh-install]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Authenticate without persisting credentials outside this runner
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+          CLAWHUB_DISABLE_TELEMETRY: "1"
+          CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config-${{ matrix.name }}.json
+        run: |
+          if [ -z "$CLAWHUB_TOKEN" ]; then
+            echo "CLAWHUB_TOKEN is not configured."
+            exit 1
+          fi
+          npx --yes "clawhub@$CLAWHUB_CLI_VERSION" login --token "$CLAWHUB_TOKEN"
+          npx --yes "clawhub@$CLAWHUB_CLI_VERSION" whoami
+
+      - name: Publish or verify the exact immutable version
+        env:
+          SKILL_NAME: ${{ matrix.name }}
+          SKILL_PATH: ${{ github.workspace }}/${{ matrix.path }}
+          SKILL_VERSION: ${{ matrix.version }}
+          CLAWHUB_DISABLE_TELEMETRY: "1"
+          CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config-${{ matrix.name }}.json
+        run: |
+          remote_file="${{ runner.temp }}/remote-${SKILL_NAME}-SKILL.md"
+          manifest="skills/manifests/$SKILL_NAME.json"
+          verify_remote() {
+            while IFS= read -r relative_path; do
+              npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
+                "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" \
+                --file "$relative_path" > "$remote_file"
+              cmp "$SKILL_PATH/$relative_path" "$remote_file"
+            done < <(jq -r '.files[]' "$manifest")
+          }
+          if npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
+            "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --file SKILL.md > "$remote_file" 2>/dev/null; then
+            verify_remote
+            echo "ClawHub already has the identical immutable version."
+          else
+            npx --yes "clawhub@$CLAWHUB_CLI_VERSION" skill publish "$SKILL_PATH" \
+              --owner pontjs \
+              --version "$SKILL_VERSION" \
+              --json
+            verify_remote
+          fi
