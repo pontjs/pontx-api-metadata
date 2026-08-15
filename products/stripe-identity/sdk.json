@@ -48,6 +48,6 @@
   "spec": {
     "path": "products/stripe-identity/spec.pontx.json",
     "sha256": "2a984e3672fd2e4e38018726ad71874bf68319c9fe69be11f8fb0bcc0c5a5d94",
-    "metadataCommit": "451ee048d2df96a1796be5e814813d19056624e4"
+    "metadataCommit": "5a02be84730346bfbe03b2afda33ee1f5054c421"
   }
 }
