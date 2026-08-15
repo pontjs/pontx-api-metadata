@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "slug": "sendbird-chat-platform",
+  "name": "Sendbird Chat Platform API v3",
+  "provider": "Sendbird",
+  "category": "Communication",
+  "display": {
+    "title": "Sendbird 聊天平台服务端 API v3",
+    "summary": "通过官方 Sendbird Chat Platform API v3 管理用户、群组频道、开放频道、消息、元数据、审核、机器人与公告。完整边界为固定官方生成 SDK revision 重建的 83 个 REST Endpoint；客户端实时协议与 Chat SDK 不在本集合内。应用数据为调用方私有内容，Pontx 不代理、缓存或聚合，调用方使用本地 SDK/CLI 直连。",
+    "accent": "#FF4E4E"
+  },
+  "legal": {
+    "license": "Sendbird Terms of Service; official generated SDK declared Unlicense (TypeScript) / MIT (Java)",
+    "attributionUrl": "https://github.com/sendbird/sendbird-platform-sdk-typescript"
+  },
+  "documentation": {
+    "status": "observed",
+    "evidence": [
+      "https://github.com/sendbird/sendbird-platform-sdk-typescript/tree/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8",
+      "https://sendbird.com/docs/chat/platform-api/v3/overview",
+      "https://sendbird.com/docs/chat/platform-api/v3/prepare-to-use-api",
+      "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json",
+      "https://github.com/sendbird/sendbird-platform-sdk-java/blob/main/LICENSE.md",
+      "https://sendbird.com/terms-of-service/"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "Sendbird 不发布 OpenAPI 文档；本契约由固定 revision fccf6fa11117e15bd4dcdd89127407f0b46e7ce8（v2.1.8）的官方生成 SDK（openapi-generator 产物）确定性重建，覆盖全部 83 个 REST/JSON 请求方法（11 个 API 类）与 124 个 model，经 reconstruct-sendbird-oas.mjs 可复现。文档状态为 observed（来自官方源码观测），逐 Endpoint 证据见 spec.pontx.json 的 metadata.documentation。TS SDK package.json 声明 Unlicense、Java SDK 为 MIT；所有 Hub 文案为独立撰写，不复制官方文档 prose。客户端实时协议（WebSocket/SSE 事件）、Chat SDK 与 Explinks 连接器抽象明确不在本集合内。"
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "Sendbird Chat Platform API 随 Sendbird 应用套餐提供；具体配额与限流取决于所选套餐（通常按 MAU/DAU 计费）。请以 Sendbird 官网价格页为准。",
+    "officialUrl": "https://sendbird.com/pricing",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "apiTokenAuth",
+      "envVar": "SENDBIRD_API_TOKEN",
+      "description": "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；凭据仅保留在调用者当前浏览器会话或本地环境变量中。"
+    }
+  ],
+  "serverVariables": [
+    {
+      "name": "app_id",
+      "envVar": "SENDBIRD_APP_ID",
+      "description": "Sendbird 应用 ID，用于拼接基址 https://api-{app_id}.sendbird.com。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "viewAUser",
+    "requestExampleId": "default"
+  }
+}

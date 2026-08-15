@@ -1,0 +1,1464 @@
+{
+  "formatVersion": 1,
+  "sdk": {
+    "repository": "https://github.com/sendbird/sendbird-platform-sdk-typescript",
+    "revision": "fccf6fa11117e15bd4dcdd89127407f0b46e7ce8",
+    "version": "2.1.8",
+    "generator": "openapi-generator"
+  },
+  "endpoints": [
+    {
+      "operationId": "scheduleAnAnnouncement",
+      "className": "AnnouncementApi",
+      "tag": "announcements",
+      "method": "POST",
+      "path": "/v3/announcements",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyType": "ScheduleAnAnnouncementRequest",
+      "responseType": "ScheduleAnAnnouncementResponse",
+      "summary": "Schedule an announcement",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/announcements/create-an-announcement#1-create-an-announcement](https://sendbird.com/docs/chat/platform-api/v3/message/announcements/create-an-announcement#1-create-an-announcement)"
+    },
+    {
+      "operationId": "createABot",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "POST",
+      "path": "/v3/bots",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyType": "CreateABotRequest",
+      "responseType": "CreateABotResponse",
+      "summary": "Create a bot",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/join-channels)"
+    },
+    {
+      "operationId": "listBots",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "GET",
+      "path": "/v3/bots",
+      "pathParams": [],
+      "queryParams": [
+        "token",
+        "limit"
+      ],
+      "bodyType": null,
+      "responseType": "ListBotsResponse",
+      "summary": "List bots",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/listing-bots/list-bots#1-list-bots"
+    },
+    {
+      "operationId": "joinChannels",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "POST",
+      "path": "/v3/bots/{bot_userid}/channels",
+      "pathParams": [
+        "bot_userid"
+      ],
+      "queryParams": [],
+      "bodyType": "JoinChannelsRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Join channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/join-channels#1-join-channels](https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/join-channels#1-join-channels)"
+    },
+    {
+      "operationId": "leaveGroupChannels",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "DELETE",
+      "path": "/v3/bots/{bot_userid}/channels",
+      "pathParams": [
+        "bot_userid"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Leave channels - When leaving all channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/leave-channels#1-leave-channels](https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/leave-channels#1-leave-channels)"
+    },
+    {
+      "operationId": "leaveAGroupChannel",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "DELETE",
+      "path": "/v3/bots/{bot_userid}/channels/{channel_url}",
+      "pathParams": [
+        "bot_userid",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Leave channels - When leaving a specific channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/leave-channels#1-leave-channels](https://sendbird.com/docs/chat/platform-api/v3/bot/managing-a-bot/leave-channels#1-leave-channels)"
+    },
+    {
+      "operationId": "sendABotMessage",
+      "className": "BotApi",
+      "tag": "bots",
+      "method": "POST",
+      "path": "/v3/bots/{bot_userid}/send",
+      "pathParams": [
+        "bot_userid"
+      ],
+      "queryParams": [],
+      "bodyType": "SendABotMessageRequest",
+      "responseType": "SendABotMessageResponse",
+      "summary": "Send a bot's message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/bot/sending-a-bot-message/send-a-bot-message#1-send-a-bot-message](https://sendbird.com/docs/chat/platform-api/v3/bot/sending-a-bot-message/send-a-bot-message#1-send-a-bot-message)"
+    },
+    {
+      "operationId": "createAGroupChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "POST",
+      "path": "/v3/group_channels",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyType": "CreateAGroupChannelRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Create a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/creating-a-channel/create-a-group-channel#1-create-a-group-channel"
+    },
+    {
+      "operationId": "listChannels",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "GET",
+      "path": "/v3/group_channels",
+      "pathParams": [],
+      "queryParams": [
+        "token",
+        "limit",
+        "distinct_mode",
+        "public_mode",
+        "super_mode",
+        "created_after",
+        "created_before",
+        "show_empty",
+        "show_member",
+        "show_delivery_receipt",
+        "show_read_receipt",
+        "show_metadata",
+        "show_frozen",
+        "order",
+        "metadata_order_key",
+        "custom_types",
+        "custom_type_startswith",
+        "channel_urls",
+        "name",
+        "name_contains",
+        "name_startswith",
+        "members_exactly_in",
+        "members_include_in",
+        "query_type",
+        "members_nickname",
+        "members_nickname_contains",
+        "metadata_key",
+        "metadata_values",
+        "metadata_value_startswith",
+        "metacounter_key",
+        "metacounter_values",
+        "metacounter_value_gt",
+        "metacounter_value_gte",
+        "metacounter_value_lt",
+        "metacounter_value_lte",
+        "include_sorted_metaarray_in_last_message"
+      ],
+      "bodyType": null,
+      "responseType": "GroupChatListChannelsResponse",
+      "summary": "List channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)."
+    },
+    {
+      "operationId": "deleteAGroupChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "DELETE",
+      "path": "/v3/group_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Delete a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "getAGroupChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "GET",
+      "path": "/v3/group_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "show_delivery_receipt",
+        "show_read_receipt",
+        "show_member",
+        "member_active_mode",
+        "user_id"
+      ],
+      "bodyType": null,
+      "responseType": "GetAGroupChannelResponse",
+      "summary": "Get a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)."
+    },
+    {
+      "operationId": "updateAGroupChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateAGroupChannelRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Update a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/inviting-a-user/invite-as-members-channel)"
+    },
+    {
+      "operationId": "acceptAnInvitation",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/accept",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "AcceptAnInvitationRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Accept an invitation",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "hideAChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/hide",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "HideAChannelRequest",
+      "responseType": "any",
+      "summary": "Hide a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)"
+    },
+    {
+      "operationId": "unhideAChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "DELETE",
+      "path": "/v3/group_channels/{channel_url}/hide",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "user_id",
+        "should_unhide_all"
+      ],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Unhide a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)"
+    },
+    {
+      "operationId": "inviteAsMembers",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "POST",
+      "path": "/v3/group_channels/{channel_url}/invite",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "InviteAsMembersRequest",
+      "responseType": "InviteAsMembersResponse",
+      "summary": "Invite as members",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/setting-up-channels/update-default-invitation-preference)"
+    },
+    {
+      "operationId": "joinAChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/join",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "JoinAChannelRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Join a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#4-group-channel-types)"
+    },
+    {
+      "operationId": "leaveAChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/leave",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "LeaveAChannelRequest",
+      "responseType": "any",
+      "summary": "Leave a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/v3/platform-api/guides/group-channel#2-leave-a-channel"
+    },
+    {
+      "operationId": "listMembers",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "GET",
+      "path": "/v3/group_channels/{channel_url}/members",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "token",
+        "limit",
+        "user_id",
+        "show_delivery_receipt",
+        "show_read_receipt",
+        "show_member_is_muted",
+        "order",
+        "operator_filter",
+        "member_state_filter",
+        "muted_member_filter",
+        "member_active_mode_filter",
+        "nickname_startswith",
+        "include_push_preference"
+      ],
+      "bodyType": null,
+      "responseType": "GroupChannelListMembersResponse",
+      "summary": "List members",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "checkIfMember",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "GET",
+      "path": "/v3/group_channels/{channel_url}/members/{user_id}",
+      "pathParams": [
+        "channel_url",
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "CheckIfMemberResponse",
+      "summary": "Check if member",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "cancelTheRegistrationOfOperators",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "DELETE",
+      "path": "/v3/group_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "operator_ids",
+        "delete_all"
+      ],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Cancel the registration of operators",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/unregister-operators-from-a-group-channel#1-unregister-operators-from-a-group-channel"
+    },
+    {
+      "operationId": "listOperators",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "GET",
+      "path": "/v3/group_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "token",
+        "limit"
+      ],
+      "bodyType": null,
+      "responseType": "ListOperatorsResponse",
+      "summary": "List operators",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/list-operators-of-a-group-channel#1-list-operators-of-a-group-channel"
+    },
+    {
+      "operationId": "registerOperatorsToAGroupChannel",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "POST",
+      "path": "/v3/group_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "RegisterOperatorsToAGroupChannelRequest",
+      "responseType": "any",
+      "summary": "Register operators to a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/register-operators-to-a-group-channel#1-register-operators-to-a-group-channel"
+    },
+    {
+      "operationId": "resetChatHistory",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/reset_user_history",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "ResetChatHistoryRequest",
+      "responseType": "ResetChatHistoryResponse",
+      "summary": "Reset chat history",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel),"
+    },
+    {
+      "operationId": "startTypingIndicators",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "POST",
+      "path": "/v3/group_channels/{channel_url}/typing",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "StartTypingIndicatorsRequest",
+      "responseType": "any",
+      "summary": "Start typing indicators",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-typing-indicators/start-typing-indicators#1-start-typing-indicators"
+    },
+    {
+      "operationId": "stopTypingIndicators",
+      "className": "GroupChannelApi",
+      "tag": "groupChannels",
+      "method": "DELETE",
+      "path": "/v3/group_channels/{channel_url}/typing",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "StartTypingIndicatorsRequest",
+      "responseType": "any",
+      "summary": "Stop typing indicators",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-typing-indicators/stop-typing-indicators#1-stop-typing-indicators"
+    },
+    {
+      "operationId": "listMessages",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "GET",
+      "path": "/v3/{channel_type}/{channel_url}/messages",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [
+        "message_ts",
+        "message_id",
+        "prev_limit",
+        "next_limit",
+        "include",
+        "reverse",
+        "sender_id",
+        "sender_ids",
+        "operator_filter",
+        "custom_types",
+        "message_type",
+        "including_removed",
+        "include_reactions",
+        "include_reply_type",
+        "include_parent_message_info",
+        "include_thread_info",
+        "include_poll_details",
+        "with_sorted_meta_array",
+        "show_subchannel_messages_only",
+        "user_id"
+      ],
+      "bodyType": null,
+      "responseType": "ListMessagesResponse",
+      "summary": "List messages",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/list-messages#1-list-messages"
+    },
+    {
+      "operationId": "sendAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "POST",
+      "path": "/v3/{channel_type}/{channel_url}/messages",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "SendAMessageRequest",
+      "responseType": "SendbirdMessageResponse",
+      "summary": "Send a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/message-overview)"
+    },
+    {
+      "operationId": "deleteAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "DELETE",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Delete a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/delete-a-message#1-delete-a-message"
+    },
+    {
+      "operationId": "getAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "GET",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [
+        "include_reactions",
+        "include_thread_info",
+        "include_parent_message_info",
+        "include_poll_details",
+        "with_sorted_meta_array"
+      ],
+      "bodyType": null,
+      "responseType": "SendbirdMessageResponse",
+      "summary": "Get a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/get-a-message#1-get-a-message"
+    },
+    {
+      "operationId": "updateAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "PUT",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateAMessageRequest",
+      "responseType": "SendbirdMessageResponse",
+      "summary": "Update a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/update-a-message#1-update-a-message"
+    },
+    {
+      "operationId": "addExtraDataToAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "POST",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}/sorted_metaarray",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [],
+      "bodyType": "AddExtraDataToAMessageRequest",
+      "responseType": "AddExtraDataToAMessageResponse",
+      "summary": "Add extra data to a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/message-add-metadata#1-add-metadata"
+    },
+    {
+      "operationId": "removeExtraDataFromAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "DELETE",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}/sorted_metaarray",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [
+        "keys"
+      ],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Remove extra data from a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/message-remove-metadata#1-remove-metadata"
+    },
+    {
+      "operationId": "updateExtraDataInAMessage",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "PUT",
+      "path": "/v3/{channel_type}/{channel_url}/messages/{message_id}/sorted_metaarray",
+      "pathParams": [
+        "channel_type",
+        "channel_url",
+        "message_id"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateExtraDataInAMessageRequest",
+      "responseType": "UpdateExtraDataInAMessageResponse",
+      "summary": "Update extra data in a message",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/message-update-metadata#1-update-metadata"
+    },
+    {
+      "operationId": "getTotalNumberOfMessagesInAChannel",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "GET",
+      "path": "/v3/{channel_type}/{channel_url}/messages/total_count",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "GetTotalNumberOfMessagesInAChannelResponse",
+      "summary": "Get total number of messages in a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/get-total-number-of-messages-in-a-channel#1-get-total-number-of-messages-in-a-channel"
+    },
+    {
+      "operationId": "markChannelMessagesAsRead",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/messages/mark_as_read",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "MarkChannelMessagesAsReadRequest",
+      "responseType": "any",
+      "summary": "Mark all messages as read",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/read-receipts/mark-all-messages-as-read-message#1-mark-all-messages-as-read"
+    },
+    {
+      "operationId": "migrateMessages",
+      "className": "MessageApi",
+      "tag": "messages",
+      "method": "POST",
+      "path": "/v3/migration/{target_channel_url}",
+      "pathParams": [
+        "target_channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "MigrateMessagesRequest",
+      "responseType": "any",
+      "summary": "Migrate messages",
+      "docsUrl": "https://sendbird.com/docs/chat/v3/platform-api/guides/channel-types)"
+    },
+    {
+      "operationId": "createAChannelMetadata",
+      "className": "MetadataApi",
+      "tag": "metadata",
+      "method": "POST",
+      "path": "/v3/{channel_type}/{channel_url}/metadata",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "CreateAChannelMetadataRequest",
+      "responseType": "CreateAChannelMetadataResponse",
+      "summary": "Create a channel metadata",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-metadata/channel-create-metadata#1-create-metadata"
+    },
+    {
+      "operationId": "deleteAChannelMetadataWhenDeletingAllItemsOfAChannelMetadata",
+      "className": "MetadataApi",
+      "tag": "metadata",
+      "method": "DELETE",
+      "path": "/v3/{channel_type}/{channel_url}/metadata",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Delete a channel metadata - When deleting all items of a channel metadata",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-metadata/channel-delete-metadata#1-delete-metadata"
+    },
+    {
+      "operationId": "updateAChannelMetadata",
+      "className": "MetadataApi",
+      "tag": "metadata",
+      "method": "PUT",
+      "path": "/v3/{channel_type}/{channel_url}/metadata",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateAChannelMetadataRequest",
+      "responseType": "any",
+      "summary": "Update a channel metadata - When updating existing items of a channel metadata by their keys or adding new items to the metadata",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-metadata/channel-update-metadata#1-update-metadata"
+    },
+    {
+      "operationId": "viewAChannelMetadataWhenRetrievingAllItemsOfAChannelMetadata",
+      "className": "MetadataApi",
+      "tag": "metadata",
+      "method": "GET",
+      "path": "/v3/{channel_type}/{channel_url}/metadata",
+      "pathParams": [
+        "channel_type",
+        "channel_url"
+      ],
+      "queryParams": [
+        "key",
+        "keys"
+      ],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "View a channel metadata - When retrieving all items of a channel metadata",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-metadata/channel-get-metadata#1-get-metadata"
+    },
+    {
+      "operationId": "freezeAGroupChannel",
+      "className": "ModerationApi",
+      "tag": "moderation",
+      "method": "PUT",
+      "path": "/v3/group_channels/{channel_url}/freeze",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "FreezeAGroupChannelRequest",
+      "responseType": "SendbirdGroupChannelDetail",
+      "summary": "Freeze a group channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/moderation/moderation-overview#2-actions)."
+    },
+    {
+      "operationId": "freezeAnOpenChannel",
+      "className": "ModerationApi",
+      "tag": "moderation",
+      "method": "PUT",
+      "path": "/v3/open_channels/{channel_url}/freeze",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "FreezeAnOpenChannelRequest",
+      "responseType": "SendbirdOpenChannel",
+      "summary": "Freeze an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/moderation/moderation-overview#2-actions)."
+    },
+    {
+      "operationId": "blockAUser",
+      "className": "ModerationApi",
+      "tag": "moderation",
+      "method": "POST",
+      "path": "/v3/users/{user_id}/block",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "BlockAUserRequest",
+      "responseType": "BlockAUserResponse",
+      "summary": "Block a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/moderation/listing-blocked-and-blocking-users/list-blocked-and-blocking-users)"
+    },
+    {
+      "operationId": "listBlockedUsers",
+      "className": "ModerationApi",
+      "tag": "moderation",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/block",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [
+        "list",
+        "token",
+        "limit",
+        "user_ids",
+        "metadatakey",
+        "metadatavalues_in"
+      ],
+      "bodyType": null,
+      "responseType": "ListBlockedUsersResponse",
+      "summary": "List blocked users",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/moderation/listing-blocked-and-blocking-users/list-blocked-and-blocking-users#1-list-blocked-by-and-blocking-users](https://sendbird.com/docs/chat/platform-api/v3/moderation/listing-blocked-and-blocking-users/list-blocked-and-blocking-users#1-list-blocked-by-and-blocking-users)"
+    },
+    {
+      "operationId": "unblockAUser",
+      "className": "ModerationApi",
+      "tag": "moderation",
+      "method": "DELETE",
+      "path": "/v3/users/{user_id}/block/{target_id}",
+      "pathParams": [
+        "user_id",
+        "target_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Unblock a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/moderation/blocking-users/unblock-a-user#1-unblock-a-user"
+    },
+    {
+      "operationId": "createAnOpenChannel",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "POST",
+      "path": "/v3/open_channels",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyType": "CreateAnOpenChannelRequest",
+      "responseType": "SendbirdOpenChannel",
+      "summary": "Create an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel)"
+    },
+    {
+      "operationId": "listOpenChannels",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "GET",
+      "path": "/v3/open_channels",
+      "pathParams": [],
+      "queryParams": [
+        "token",
+        "channel_urls",
+        "limit",
+        "custom_types",
+        "name_contains",
+        "url_contains",
+        "show_frozen",
+        "show_metadata"
+      ],
+      "bodyType": null,
+      "responseType": "ListOpenChannelsResponse",
+      "summary": "List open channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel)."
+    },
+    {
+      "operationId": "deleteAnOpenChannel",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "DELETE",
+      "path": "/v3/open_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Delete an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "getAnOpenChannel",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "GET",
+      "path": "/v3/open_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "include_operators"
+      ],
+      "bodyType": null,
+      "responseType": "SendbirdOpenChannel",
+      "summary": "Get an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel)."
+    },
+    {
+      "operationId": "updateAnOpenChannel",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "PUT",
+      "path": "/v3/open_channels/{channel_url}",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateAnOpenChannelRequest",
+      "responseType": "SendbirdOpenChannel",
+      "summary": "Update an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-open-channel-vs-group-channel-vs-supergroup-channel)"
+    },
+    {
+      "operationId": "listChannelOperators",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "GET",
+      "path": "/v3/open_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "token",
+        "limit"
+      ],
+      "bodyType": null,
+      "responseType": "ListOperatorsResponse",
+      "summary": "List operators of an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/list-operators-of-an-open-channel#1-list-operators-of-an-open-channel"
+    },
+    {
+      "operationId": "registerOperators",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "POST",
+      "path": "/v3/open_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "RegisterOperatorsToAGroupChannelRequest",
+      "responseType": "any",
+      "summary": "Register operators to an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/register-operators-to-an-open-channel#1-register-operators-to-an-open-channel"
+    },
+    {
+      "operationId": "unregisterOperators",
+      "className": "OpenChannelApi",
+      "tag": "openChannels",
+      "method": "DELETE",
+      "path": "/v3/open_channels/{channel_url}/operators",
+      "pathParams": [
+        "channel_url"
+      ],
+      "queryParams": [
+        "operator_ids",
+        "delete_all"
+      ],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Unregister operators from an open channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/assigning-a-user-role/unregister-operators-from-an-open-channel#1-unregister-operators-from-an-open-channel"
+    },
+    {
+      "operationId": "viewNumberOfDailyActiveUsers",
+      "className": "StatisticsApi",
+      "tag": "statistics",
+      "method": "GET",
+      "path": "/v3/applications/dau",
+      "pathParams": [],
+      "queryParams": [
+        "date"
+      ],
+      "bodyType": null,
+      "responseType": "ViewNumberOfDailyActiveUsersResponse",
+      "summary": "View number of daily active users",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/statistics/daus-and-maus/get-number-of-daily-active-users#1-get-number-of-daily-active-users](https://sendbird.com/docs/chat/platform-api/v3/statistics/daus-and-maus/get-number-of-daily-active-users#1-get-number-of-daily-active-users)"
+    },
+    {
+      "operationId": "viewNumberOfMonthlyActiveUsers",
+      "className": "StatisticsApi",
+      "tag": "statistics",
+      "method": "GET",
+      "path": "/v3/applications/mau",
+      "pathParams": [],
+      "queryParams": [
+        "date"
+      ],
+      "bodyType": null,
+      "responseType": "ViewNumberOfMonthlyActiveUsersResponse",
+      "summary": "View number of monthly active users",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/statistics/daus-and-maus/get-number-of-monthly-active-users#1-get-number-of-monthly-active-users](https://sendbird.com/docs/chat/platform-api/v3/statistics/daus-and-maus/get-number-of-monthly-active-users#1-get-number-of-monthly-active-users)"
+    },
+    {
+      "operationId": "removeARegistrationOrDeviceTokenFromAnOwner",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "DELETE",
+      "path": "/v3/push/device_tokens/{token_type}/{token}",
+      "pathParams": [
+        "token_type",
+        "token"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "Array<MarkChannelMessagesAsReadRequest",
+      "summary": "Remove a registration or device token from an owner",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-device-tokens/remove-a-registration-or-device-token-from-an-owner#1-remove-a-registration-or-device-token-from-an-owner"
+    },
+    {
+      "operationId": "viewWhoOwnsARegistrationOrDeviceToken",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/push/device_tokens/{token_type}/{token}",
+      "pathParams": [
+        "token_type",
+        "token"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "Array<MarkChannelMessagesAsReadRequest",
+      "summary": "View who owns a registration or device token",
+      "docsUrl": "https://sendbird.com/docs/chat/v3/platform-api/guides/user#2-view-who-owns-a-registration-or-device-token"
+    },
+    {
+      "operationId": "createAUser",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "POST",
+      "path": "/v3/users",
+      "pathParams": [],
+      "queryParams": [],
+      "bodyType": "CreateAUserRequest",
+      "responseType": "SendbirdUser",
+      "summary": "Create a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/user-overview#2-resource-representation)."
+    },
+    {
+      "operationId": "listUsers",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users",
+      "pathParams": [],
+      "queryParams": [
+        "token",
+        "limit",
+        "active_mode",
+        "show_bot",
+        "user_ids",
+        "nickname",
+        "nickname_startswith",
+        "metadatakey",
+        "metadatavalues_in"
+      ],
+      "bodyType": null,
+      "responseType": "ListUsersResponse",
+      "summary": "List users",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/listing-users/list-users#1-list-users"
+    },
+    {
+      "operationId": "deleteAUser",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "DELETE",
+      "path": "/v3/users/{user_id}",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Delete a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/privacy/privacy-overview)."
+    },
+    {
+      "operationId": "updateAUser",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateAUserRequest",
+      "responseType": "SendbirdUser",
+      "summary": "Update a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-session-tokens/issue-a-session-token)"
+    },
+    {
+      "operationId": "viewAUser",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [
+        "include_unread_count",
+        "custom_types",
+        "super_mode"
+      ],
+      "bodyType": null,
+      "responseType": "SendbirdUser",
+      "summary": "View a user",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/listing-users/get-a-user#1-get-a-user"
+    },
+    {
+      "operationId": "getChannelInvitationPreference",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/channel_invitation_preference",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "GetChannelInvitationPreferenceResponse",
+      "summary": "Get channel invitation preference",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)"
+    },
+    {
+      "operationId": "updateChannelInvitationPreference",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/channel_invitation_preference",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateChannelInvitationPreferenceRequest",
+      "responseType": "UpdateChannelInvitationPreferenceResponse",
+      "summary": "Update channel invitation preference",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)"
+    },
+    {
+      "operationId": "updateCountPreferenceOfAChannel",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/count_preference/{channel_url}",
+      "pathParams": [
+        "user_id",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdateCountPreferenceOfAChannelRequest",
+      "responseType": "UpdateCountPreferenceOfChannelByUrlResponse",
+      "summary": "Update count preference of a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-count-preference-of-a-channel)"
+    },
+    {
+      "operationId": "viewCountPreferenceOfAChannel",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/count_preference/{channel_url}",
+      "pathParams": [
+        "user_id",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "ViewCountPreferenceOfAChannelResponse",
+      "summary": "View count preference of a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/update-count-preference-of-a-channel)."
+    },
+    {
+      "operationId": "markAllMessagesAsRead",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/mark_as_read_all",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "MarkAllMessagesAsReadRequest",
+      "responseType": "any",
+      "summary": "Mark all messages as read",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/marking-messages-as-read/mark-all-of-a-users-messages-as-read#1-mark-all-of-a-user-s-messages-as-read"
+    },
+    {
+      "operationId": "listMyGroupChannels",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/my_group_channels",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [
+        "token",
+        "limit",
+        "distinct_mode",
+        "public_mode",
+        "super_mode",
+        "created_after",
+        "created_before",
+        "show_empty",
+        "show_member",
+        "show_delivery_receipt",
+        "show_read_receipt",
+        "show_metadata",
+        "show_frozen",
+        "order",
+        "metadata_order_key",
+        "custom_types",
+        "custom_type_startswith",
+        "channel_urls",
+        "name",
+        "name_contains",
+        "name_startswith",
+        "members_exactly_in",
+        "members_include_in",
+        "query_type",
+        "members_nickname",
+        "members_nickname_contains",
+        "members_nickname_startswith",
+        "search_query",
+        "search_fields",
+        "metadata_key",
+        "metadata_values",
+        "metadata_value_startswith",
+        "metacounter_key",
+        "metacounter_values",
+        "metacounter_value_gt",
+        "metacounter_value_gte",
+        "metacounter_value_lt",
+        "metacounter_value_lte",
+        "include_sorted_metaarray_in_last_message",
+        "hidden_mode",
+        "unread_filter",
+        "member_state_filter"
+      ],
+      "bodyType": null,
+      "responseType": "ListMyGroupChannelsResponse",
+      "summary": "List my group channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/channel-overview#2-channel-types-3-group-channel)"
+    },
+    {
+      "operationId": "leaveMyGroupChannels",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/my_group_channels/leave",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "LeaveMyGroupChannelsRequest",
+      "responseType": "any",
+      "summary": "Leave my group channels",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/channel/managing-a-channel/leave-a-channel)"
+    },
+    {
+      "operationId": "removeAllRegistrationOrDeviceToken",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "DELETE",
+      "path": "/v3/users/{user_id}/push",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "RemoveAllRegistrationOrDeviceTokenResponse",
+      "summary": "Remove a registration or device token - When unregistering all device tokens",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-device-tokens/remove-a-registration-or-device-token#1-remove-a-registration-or-device-token"
+    },
+    {
+      "operationId": "resetPushPreferences",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "DELETE",
+      "path": "/v3/users/{user_id}/push_preference",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "any",
+      "summary": "Reset push preferences",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/reset-push-notification-preferences#1-reset-push-notification-preferences](https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/reset-push-notification-preferences#1-reset-push-notification-preferences)"
+    },
+    {
+      "operationId": "updatePushPreferences",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/push_preference",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdatePushPreferencesRequest",
+      "responseType": "UpdatePushPreferencesResponse",
+      "summary": "Update push preferences",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/update-push-notification-preferences#1-update-push-notification-preferences](https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/update-push-notification-preferences#1-update-push-notification-preferences)"
+    },
+    {
+      "operationId": "viewPushPreferences",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/push_preference",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "ViewPushPreferencesResponse",
+      "summary": "View push preferences",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/get-push-notification-preferences#1-get-push-notification-preferences](https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/get-push-notification-preferences#1-get-push-notification-preferences)"
+    },
+    {
+      "operationId": "updatePushPreferencesForAChannel",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/push_preference/{channel_url}",
+      "pathParams": [
+        "user_id",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": "UpdatePushPreferencesForAChannelRequest",
+      "responseType": "UpdatePushPreferencesForAChannelResponse",
+      "summary": "Update push preferences for a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/update-push-notification-preferences-for-a-channel#1-update-push-notification-preferences-for-a-channel](https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/update-push-notification-preferences-for-a-channel#1-update-push-notification-preferences-for-a-channel)"
+    },
+    {
+      "operationId": "viewPushPreferencesForAChannel",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/push_preference/{channel_url}",
+      "pathParams": [
+        "user_id",
+        "channel_url"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "ViewPushPreferencesForAChannelResponse",
+      "summary": "View push preferences for a channel",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/get-push-notification-preferences-for-a-channel#1-get-push-notification-preferences-for-a-channel](https://sendbird.com/docs/chat/platform-api/v3/user/configuring-notification-preferences/get-push-notification-preferences-for-a-channel#1-get-push-notification-preferences-for-a-channel)"
+    },
+    {
+      "operationId": "addARegistrationOrDeviceToken",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "POST",
+      "path": "/v3/users/{user_id}/push/{token_type}",
+      "pathParams": [
+        "user_id",
+        "token_type"
+      ],
+      "queryParams": [],
+      "bodyType": "AddARegistrationOrDeviceTokenRequest",
+      "responseType": "AddARegistrationOrDeviceTokenResponse",
+      "summary": "Add a registration or device token",
+      "docsUrl": "https://sendbird.com/docs/chat/v3/platform-api/guides/user#2-add-a-registration-or-device-token"
+    },
+    {
+      "operationId": "listRegistrationOrDeviceTokens",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/push/{token_type}",
+      "pathParams": [
+        "user_id",
+        "token_type"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "ListRegistrationOrDeviceTokensResponse",
+      "summary": "List registration or device tokens",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-device-tokens/list-registration-or-device-tokens#1-list-registration-or-device-tokens"
+    },
+    {
+      "operationId": "removeARegistrationOrDeviceToken",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "DELETE",
+      "path": "/v3/users/{user_id}/push/{token_type}/{token}",
+      "pathParams": [
+        "user_id",
+        "token_type",
+        "token"
+      ],
+      "queryParams": [],
+      "bodyType": null,
+      "responseType": "RemoveARegistrationOrDeviceTokenResponse",
+      "summary": "Remove a registration or device token - When unregistering a specific token",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-device-tokens/remove-a-registration-or-device-token#1-remove-a-registration-or-device-token"
+    },
+    {
+      "operationId": "chooseAPushNotificationContentTemplate",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "PUT",
+      "path": "/v3/users/{user_id}/push/template",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "ChooseAPushNotificationContentTemplateRequest",
+      "responseType": "ChooseAPushNotificationContentTemplateResponse",
+      "summary": "Choose a push notification content template",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/message/messaging-basics/send-a-message),"
+    },
+    {
+      "operationId": "createUserToken",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "POST",
+      "path": "/v3/users/{user_id}/token",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [],
+      "bodyType": "CreateUserTokenRequest",
+      "responseType": "CreateUserTokenResponse",
+      "summary": "Create user token",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/creating-users/create-a-user#2-access-token-vs-session-token)"
+    },
+    {
+      "operationId": "viewNumberOfChannelsWithUnreadMessages",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/unread_channel_count",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [
+        "custom_types",
+        "super_mode"
+      ],
+      "bodyType": null,
+      "responseType": "ViewNumberOfChannelsWithUnreadMessagesResponse",
+      "summary": "View number of channels with unread messages",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-number-of-channels-with-unread-messages#1-get-number-of-channels-with-unread-messages"
+    },
+    {
+      "operationId": "viewNumberOfUnreadMessages",
+      "className": "UserApi",
+      "tag": "users",
+      "method": "GET",
+      "path": "/v3/users/{user_id}/unread_message_count",
+      "pathParams": [
+        "user_id"
+      ],
+      "queryParams": [
+        "custom_types",
+        "super_mode"
+      ],
+      "bodyType": null,
+      "responseType": "ViewNumberOfUnreadMessagesResponse",
+      "summary": "View number of unread messages",
+      "docsUrl": "https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-number-of-unread-messages#1-get-number-of-unread-messages](https://sendbird.com/docs/chat/platform-api/v3/user/managing-unread-count/get-number-of-unread-messages#1-get-number-of-unread-messages)"
+    }
+  ],
+  "counts": {
+    "endpoints": 83,
+    "schemas": 172,
+    "models": 133,
+    "enums": 40
+  }
+}
