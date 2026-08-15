@@ -1,0 +1,2204 @@
+{
+  "endpoints": {
+    "removeARegistrationOrDeviceTokenFromAnOwner": {
+      "zh": [
+        "移除令牌的拥有者令牌",
+        "移除属于某用户的注册或设备令牌。需在 token_type 中指定 gcm、huawei 或 apns，分别对应 FCM 注册令牌、HMS 设备令牌或 APNs 设备令牌，以匹配所使用的推送服务。"
+      ],
+      "en": [
+        "Remove a registration or device token from an owner",
+        "Removes a registration or device token that belongs to a user. Specify gcm, huawei, or apns in token_type for an FCM registration token, HMS device token, or APNs device token, respectively, to match the push notification service in use."
+      ]
+    },
+    "viewWhoOwnsARegistrationOrDeviceToken": {
+      "zh": [
+        "查询令牌的拥有者",
+        "通过令牌本身查询拥有该注册或设备令牌的用户。需在 token_type 中指定 gcm、huawei 或 apns，分别对应 FCM 注册令牌、HMS 设备令牌或 APNs 设备令牌。"
+      ],
+      "en": [
+        "View who owns a registration or device token",
+        "Retrieves the user who owns a registration or device token. Specify gcm, huawei, or apns in token_type for an FCM registration token, HMS device token, or APNs device token, respectively."
+      ]
+    },
+    "createAUser": {
+      "zh": [
+        "创建用户",
+        "在 Sendbird 应用中创建用户以发起对话。用户以唯一的 user_id 标识，并可设置可更改的昵称、头像等属性；创建后可对用户及其行为进行细粒度控制。"
+      ],
+      "en": [
+        "Create a user",
+        "Creates a user in your Sendbird application to initiate conversations. A user is identified by a unique user_id and can have a changeable nickname, profile image, and more, giving you fine-grained control over users and what they can do."
+      ]
+    },
+    "listUsers": {
+      "zh": [
+        "查询用户列表",
+        "分页获取应用内的用户列表。可通过多种查询参数组合定制筛选范围，生成符合需求的用户列表。"
+      ],
+      "en": [
+        "List users",
+        "Retrieves a paginated list of users in your Sendbird application. Combine various query parameters to customize the filter scope and shape the returned user list."
+      ]
+    },
+    "deleteAUser": {
+      "zh": [
+        "删除用户",
+        "从应用中删除指定 user_id 的用户。该接口会删除用户数据及其元数据，但不会删除其发送的消息；如需连同消息一并删除，应改用 GDPR 请求。"
+      ],
+      "en": [
+        "Delete a user",
+        "Deletes a user with the given user_id from your application. This deletes the user's data and metadata but not their messages; to delete user data including messages, use a GDPR request instead."
+      ]
+    },
+    "updateAUser": {
+      "zh": [
+        "更新用户信息",
+        "更新指定 user_id 用户的信息，可修改昵称、头像，颁发新的访问令牌（将替换旧令牌作为认证所需），也可停用或重新激活用户。若 leave_all_when_deactivated 为 true，停用时用户会退出所有已加入的群组频道。"
+      ],
+      "en": [
+        "Update a user",
+        "Updates information for a user with the given user_id, including changing the nickname or profile image and issuing a new access token that replaces the previous one for authentication. You can also deactivate or reactivate the user; with leave_all_when_deactivated set to true, the user leaves all joined group channels when deactivated."
+      ]
+    },
+    "viewAUser": {
+      "zh": [
+        "查询用户信息",
+        "通过 user_id 获取指定用户的详细信息，返回该用户的资源表示，包括昵称、头像等属性。"
+      ],
+      "en": [
+        "View a user",
+        "Retrieves information about a user by user_id, returning the user's resource representation including attributes such as nickname and profile image."
+      ]
+    },
+    "getChannelInvitationPreference": {
+      "zh": [
+        "获取频道邀请偏好",
+        "获取指定 user_id 用户在群组频道中的邀请偏好。用户同时受个人偏好与应用级默认偏好的影响，其中针对具体用户设置的邀请偏好优先级更高。"
+      ],
+      "en": [
+        "Get channel invitation preference",
+        "Retrieves a user's group channel invitation preference for the given user_id. Users are subject to both user-specific and application-wide preferences, and the user-specific setting takes precedence over the default."
+      ]
+    },
+    "updateChannelInvitationPreference": {
+      "zh": [
+        "更新频道邀请偏好",
+        "更新指定 user_id 用户在群组频道中的邀请偏好。更新应用级默认频道邀请偏好不会覆盖已有用户各自的偏好，修改只影响更新后创建的用户。"
+      ],
+      "en": [
+        "Update channel invitation preference",
+        "Updates a user's group channel invitation preference for the given user_id. Updating the application's default preference does not override existing users' individual preferences; the change only affects users created after the update."
+      ]
+    },
+    "updateCountPreferenceOfAChannel": {
+      "zh": [
+        "更新频道计数偏好",
+        "更新指定 user_id 用户在特定群组频道（channel_url）中的计数偏好，可设置统计未读消息数、未读提及消息数或两者。"
+      ],
+      "en": [
+        "Update count preference of a channel",
+        "Updates a user's count preference for a specific group channel identified by channel_url, choosing whether to track the number of unread messages, unread mentioned messages, or both."
+      ]
+    },
+    "viewCountPreferenceOfAChannel": {
+      "zh": [
+        "查看频道计数偏好",
+        "获取指定 user_id 用户在特定群组频道（channel_url）中的计数偏好，即该频道统计未读消息数、未读提及消息数或两者的情况。"
+      ],
+      "en": [
+        "View count preference of a channel",
+        "Retrieves a user's count preference for a specific group channel identified by channel_url, i.e., whether the number of unread messages, unread mentioned messages, or both is counted."
+      ]
+    },
+    "markAllMessagesAsRead": {
+      "zh": [
+        "将所有消息标记为已读",
+        "将指定 user_id 用户在部分或全部群组频道中的未读消息标记为已读；若未指定频道，则标记其在所有群组频道中的未读消息为已读。"
+      ],
+      "en": [
+        "Mark all messages as read",
+        "Marks a user's unread messages as read in certain group channels; if no channels are specified, the user's unread messages in all group channels are marked as read."
+      ]
+    },
+    "listMyGroupChannels": {
+      "zh": [
+        "查询已加入的群组频道",
+        "分页获取指定 user_id 用户已加入的群组频道列表。可通过多种查询参数确定搜索范围，并选择返回关于频道的何种信息。"
+      ],
+      "en": [
+        "List my group channels",
+        "Retrieves a paginated list of group channels that a user with the given user_id has joined. Use various query parameters to determine the search scope and select the channel information to return."
+      ]
+    },
+    "leaveMyGroupChannels": {
+      "zh": [
+        "退出我的群组频道",
+        "让指定 user_id 用户一次性退出全部群组频道，或仅退出特定 custom_type 的频道。此接口不能对已停用用户调用；只退出单个频道请改用退出频道接口。"
+      ],
+      "en": [
+        "Leave my group channels",
+        "Lets a user leave all of their group channels at once, or only those with a specific custom_type. This API cannot be called for a deactivated user; to leave a single channel, use the leave-a-channel API instead."
+      ]
+    },
+    "removeAllRegistrationOrDeviceToken": {
+      "zh": [
+        "移除全部设备令牌",
+        "移除指定 user_id 用户注册的全部注册或设备令牌。可传入 token_type 指定 gcm、huawei 或 apns，分别对应 FCM 注册令牌、HMS 设备令牌或 APNs 设备令牌。"
+      ],
+      "en": [
+        "Remove all registration or device tokens",
+        "Removes all registration or device tokens registered to a user with the given user_id. Specify gcm, huawei, or apns in token_type for FCM registration tokens, HMS device tokens, or APNs device tokens, respectively."
+      ]
+    },
+    "resetPushPreferences": {
+      "zh": [
+        "重置推送偏好",
+        "将指定 user_id 用户的通知偏好重置为默认值：do_not_disturb 与 snooze_enabled 设为 false、时间段相关参数归零、时区设为 UTC、push_sound 设为 default。推送通知仅适用于群组频道。"
+      ],
+      "en": [
+        "Reset push preferences",
+        "Resets a user's notification preferences for the given user_id to their defaults: do_not_disturb and snooze_enabled are set to false, time-frame parameters are set to 0, timezone is set to UTC, and push_sound is set to default. Push notifications are only available for group channels."
+      ]
+    },
+    "updatePushPreferences": {
+      "zh": [
+        "更新推送偏好",
+        "更新指定 user_id 用户的通知偏好，例如免打扰时段与推送提示音等，以控制设备空闲或应用在后台运行时推送消息的送达方式。推送通知仅适用于群组频道。"
+      ],
+      "en": [
+        "Update push preferences",
+        "Updates a user's notification preferences for the given user_id, such as do-not-disturb periods and push sound, controlling how push messages are delivered when the device is idle or the app runs in the background. Push notifications are only available for group channels."
+      ]
+    },
+    "viewPushPreferences": {
+      "zh": [
+        "查看推送偏好",
+        "获取指定 user_id 用户当前的通知偏好设置，包括免打扰、暂免通知、时区及推送提示音等。推送通知仅适用于群组频道。"
+      ],
+      "en": [
+        "View push preferences",
+        "Retrieves a user's current notification preferences for the given user_id, including do-not-disturb, snooze, timezone, and push sound settings. Push notifications are only available for group channels."
+      ]
+    },
+    "updatePushPreferencesForAChannel": {
+      "zh": [
+        "更新频道推送偏好",
+        "更新指定 user_id 用户在特定群组频道（channel_url）中的通知偏好，例如是否接收该频道的推送消息。推送通知仅适用于群组频道。"
+      ],
+      "en": [
+        "Update push preferences for a channel",
+        "Updates a user's notification preferences for a specific group channel identified by channel_url, such as whether to receive push messages for that channel. Push notifications are only available for group channels."
+      ]
+    },
+    "viewPushPreferencesForAChannel": {
+      "zh": [
+        "查看频道推送偏好",
+        "获取指定 user_id 用户在特定群组频道（channel_url）中的通知偏好，例如是否接收该频道的推送消息。推送通知仅适用于群组频道。"
+      ],
+      "en": [
+        "View push preferences for a channel",
+        "Retrieves a user's notification preferences for a specific group channel identified by channel_url, such as whether to receive push messages for that channel. Push notifications are only available for group channels."
+      ]
+    },
+    "addARegistrationOrDeviceToken": {
+      "zh": [
+        "添加注册或设备令牌",
+        "将指定 user_id 用户的注册或设备令牌添加到 Sendbird 服务器，用于代表服务器向推送服务发送通知请求。每种令牌类型各限 20 个；达到上限时添加新令牌前会先删除最旧的令牌，仅保留最新的 20 个。"
+      ],
+      "en": [
+        "Add a registration or device token",
+        "Adds a user's registration or device token to the Sendbird server so your server can send notification requests to push services on behalf of the user. A user can have up to 20 tokens of each type; the oldest token is deleted before a new one is added once the limit is reached, keeping only the 20 newest tokens."
+      ]
+    },
+    "listRegistrationOrDeviceTokens": {
+      "zh": [
+        "查询设备令牌列表",
+        "获取指定 user_id 用户的注册或设备令牌列表。需在 token_type 中指定 gcm、huawei 或 apns，分别对应 FCM 注册令牌、HMS 设备令牌或 APNs 设备令牌。"
+      ],
+      "en": [
+        "List registration or device tokens",
+        "Retrieves a list of a user's registration or device tokens. Specify gcm, huawei, or apns in token_type for FCM registration tokens, HMS device tokens, or APNs device tokens, respectively."
+      ]
+    },
+    "removeARegistrationOrDeviceToken": {
+      "zh": [
+        "移除指定设备令牌",
+        "移除指定 user_id 用户某个特定的注册或设备令牌。需在 token_type 中指定 gcm、huawei 或 apns 并传入对应的令牌值，分别对应 FCM 注册令牌、HMS 设备令牌或 APNs 设备令牌。"
+      ],
+      "en": [
+        "Remove a specific registration or device token",
+        "Removes a specific registration or device token from a user with the given user_id. Specify gcm, huawei, or apns in token_type and provide the token value, for an FCM registration token, HMS device token, or APNs device token, respectively."
+      ]
+    },
+    "chooseAPushNotificationContentTemplate": {
+      "zh": [
+        "选择推送内容模板",
+        "为指定 user_id 用户选择推送通知内容模板（default 或 alternative），决定推送消息在其设备上的展示形式。模板可在 Sendbird Dashboard 中自定义。"
+      ],
+      "en": [
+        "Choose a push notification content template",
+        "Chooses a push notification content template (default or alternative) for a user with the given user_id, determining how push messages appear on the user's device. Templates can be customized in the Sendbird Dashboard."
+      ]
+    },
+    "createUserToken": {
+      "zh": [
+        "颁发用户会话令牌",
+        "为指定 user_id 用户颁发用于认证的会话令牌。会话令牌不存储于 Sendbird 数据库，提供无状态的认证方式并提升服务器性能；此接口取代了已弃用的令牌颁发方式，效率更高。"
+      ],
+      "en": [
+        "Create a user session token",
+        "Issues a session token for authenticating a user with the given user_id. Session tokens are not stored in the Sendbird database, providing an efficient stateless authentication method, and this endpoint supersedes the deprecated alternative."
+      ]
+    },
+    "viewNumberOfChannelsWithUnreadMessages": {
+      "zh": [
+        "查看含未读消息的频道数",
+        "获取指定 user_id 用户存在未读消息的群组频道总数。可通过多种查询参数确定群组频道的搜索范围。"
+      ],
+      "en": [
+        "View number of channels with unread messages",
+        "Retrieves the total number of group channels in which a user with the given user_id has unread messages. Use various query parameters to determine the search scope of group channels."
+      ]
+    },
+    "viewNumberOfUnreadMessages": {
+      "zh": [
+        "查看未读消息数量",
+        "获取指定 user_id 用户在群组频道中的未读消息总数。未读计数功能仅适用于群组频道。"
+      ],
+      "en": [
+        "View number of unread messages",
+        "Retrieves a user's total number of unread messages in group channels for the given user_id. The unread count feature is only available for group channels."
+      ]
+    },
+    "createAGroupChannel": {
+      "zh": [
+        "创建群组频道",
+        "创建用于一对一或一对多对话的群组频道，默认支持最多 100 名成员，超级群组（Supergroup）可扩展至数万名。频道可为私密（仅受邀加入）或公开，并支持输入指示、未读计数与已读回执；单个用户最多可加入 2,000 个群组频道。"
+      ],
+      "en": [
+        "Create a group channel",
+        "Creates a group channel for 1-to-1 or 1-to-N conversations, supporting up to 100 members by default and tens of thousands in Supergroup channels. Channels can be private (invite-only) or public, and support typing indicators, unread counts, and read receipts; a single user can join up to 2,000 group channels."
+      ]
+    },
+    "listChannels": {
+      "zh": [
+        "获取群组频道列表",
+        "检索应用内群组频道的列表，可通过多种查询参数限定搜索范围并选择要返回的频道信息。如需获取某个用户已加入的频道，应改用 User 模块下按用户列出群组频道的接口。"
+      ],
+      "en": [
+        "List group channels",
+        "Retrieves a list of group channels in the application; various query parameters let you narrow the search scope and choose which channel information to return. To list channels a specific user has joined, use the list-group-channels-by-user action under the User section instead."
+      ]
+    },
+    "deleteAGroupChannel": {
+      "zh": [
+        "删除群组频道",
+        "删除指定的群组频道或超级群组频道，需提供 channel_url。该操作会永久移除频道，属于不可逆的删除副作用。"
+      ],
+      "en": [
+        "Delete a group channel",
+        "Deletes the group channel or Supergroup channel identified by channel_url. This action permanently removes the channel and is irreversible."
+      ]
+    },
+    "getAGroupChannel": {
+      "zh": [
+        "获取群组频道详情",
+        "检索指定群组频道的信息，需提供 channel_url；可通过可选查询参数决定响应中是否包含投递回执、已读回执或成员信息。"
+      ],
+      "en": [
+        "Get a group channel",
+        "Retrieves information about the group channel identified by channel_url; optional query parameters determine whether delivery receipts, read receipts, or member information are included in the response."
+      ]
+    },
+    "updateAGroupChannel": {
+      "zh": [
+        "更新群组频道",
+        "更新指定群组频道或超级群组频道的信息，需提供 channel_url。该接口不能修改频道成员，如需变更成员应改用邀请成员接口。"
+      ],
+      "en": [
+        "Update a group channel",
+        "Updates information about the group channel or Supergroup channel identified by channel_url. This API cannot change channel members; use the invite-as-members action to modify membership."
+      ]
+    },
+    "acceptAnInvitation": {
+      "zh": [
+        "接受频道邀请",
+        "让用户接受群组频道邀请并加入频道。单个用户最多可加入 2,000 个群组频道，已达上限的用户的邀请会被自动取消。仅当应用的 auto_accept 属性设为 false 时该接口可用。"
+      ],
+      "en": [
+        "Accept a channel invitation",
+        "Lets a user accept an invitation and join a group channel. A single user can join up to 2,000 group channels, and invitations to users at capacity are automatically canceled. This action is only available when the application's auto_accept property is set to false."
+      ]
+    },
+    "hideAChannel": {
+      "zh": [
+        "隐藏群组频道",
+        "将群组频道从用户的频道列表中隐藏，用于归档频道。可仅为当前用户隐藏，也可为所有成员隐藏，并可决定新消息到达时频道是否仍保持隐藏。仅群组频道支持隐藏。"
+      ],
+      "en": [
+        "Hide a group channel",
+        "Hides a group channel from a user's channel list so users can archive channels and focus on important ones. You can hide it from the user only or from all members, and control whether it stays hidden when a new message is sent. Only group channels can be hidden."
+      ]
+    },
+    "unhideAChannel": {
+      "zh": [
+        "取消隐藏群组频道",
+        "让已隐藏的群组频道重新出现在某个用户或全体成员的频道列表中，需提供 channel_url。仅群组频道支持隐藏与取消隐藏。"
+      ],
+      "en": [
+        "Unhide a group channel",
+        "Makes a hidden group channel reappear on the channel list of a specific user or of every member, identified by channel_url. Only group channels can be hidden or unhidden."
+      ]
+    },
+    "inviteAsMembers": {
+      "zh": [
+        "邀请成员",
+        "将一个或多个用户以成员身份邀请进群组频道，需提供 channel_url 与 user_ids。被邀请用户无需接受即可立即加入；如需让用户选择接受或拒绝邀请，可配置邀请偏好。"
+      ],
+      "en": [
+        "Invite users as members",
+        "Invites one or more users as members to the group channel identified by channel_url. Invited users join immediately without accepting the invitation; configure invitation preferences if users should be able to accept or decline."
+      ]
+    },
+    "joinAChannel": {
+      "zh": [
+        "加入公开群组频道",
+        "让用户加入公开群组频道，需提供 channel_url；仅 is_public 为 true 的频道可通过该接口加入。单个用户最多可加入 2,000 个群组频道，达到上限后无法再加入新频道。"
+      ],
+      "en": [
+        "Join a public group channel",
+        "Lets a user join a public group channel identified by channel_url; only channels with is_public set to true can be joined this way. A single user can join up to 2,000 group channels and cannot join a new one once at capacity."
+      ]
+    },
+    "leaveAChannel": {
+      "zh": [
+        "离开群组频道",
+        "让一个或多个成员离开群组频道，需提供 channel_url 与 user_ids。离开后这些用户将从频道的成员列表中被移除。"
+      ],
+      "en": [
+        "Leave a group channel",
+        "Makes one or more members leave the group channel identified by channel_url; after leaving, the users are removed from the channel's member list."
+      ]
+    },
+    "listMembers": {
+      "zh": [
+        "获取频道成员列表",
+        "检索指定群组频道的成员列表，需提供 channel_url，可通过查询参数筛选与分页成员信息。"
+      ],
+      "en": [
+        "List group channel members",
+        "Retrieves the member list of the group channel identified by channel_url, with query parameters to filter and paginate the member information."
+      ]
+    },
+    "checkIfMember": {
+      "zh": [
+        "检查用户是否为成员",
+        "检查指定 user_id 的用户是否为 channel_url 对应群组频道的成员。"
+      ],
+      "en": [
+        "Check if a user is a member",
+        "Checks whether the user identified by user_id is a member of the group channel identified by channel_url."
+      ]
+    },
+    "cancelTheRegistrationOfOperators": {
+      "zh": [
+        "取消操作者注册",
+        "取消 channel_url 群组频道中指定用户的操作者身份，但将其保留为普通成员，需提供 operator_ids。"
+      ],
+      "en": [
+        "Unregister group channel operators",
+        "Removes operator status from the specified users in the group channel identified by channel_url while keeping them in the channel as members. Provide operator_ids."
+      ]
+    },
+    "listOperators": {
+      "zh": [
+        "获取群组频道操作者列表",
+        "检索指定群组频道的操作者列表，需提供 channel_url。"
+      ],
+      "en": [
+        "List group channel operators",
+        "Retrieves the list of operators for the group channel identified by channel_url."
+      ]
+    },
+    "registerOperatorsToAGroupChannel": {
+      "zh": [
+        "注册群组频道操作者",
+        "将一个或多个用户注册为群组频道的操作者，需提供 channel_url 与 operator_ids；操作者拥有频道管理权限。"
+      ],
+      "en": [
+        "Register group channel operators",
+        "Registers one or more users as operators of the group channel identified by channel_url; operators gain management privileges for the channel. Provide operator_ids."
+      ]
+    },
+    "resetChatHistory": {
+      "zh": [
+        "重置用户聊天记录",
+        "重置指定用户在某群组频道中的聊天记录相关属性，仅清除该用户视角的既有消息，不删除数据库中的消息，其他成员仍可查看。通过更新频道的 last_message 与 read_receipt 属性实现。"
+      ],
+      "en": [
+        "Reset a user's chat history",
+        "Resets the chat-history-related properties for a specific user in a group channel, clearing existing messages only from that user's view. Messages are not deleted from the Sendbird database, so other members can still see them; this is done by updating the last_message and read_receipt properties."
+      ]
+    },
+    "startTypingIndicators": {
+      "zh": [
+        "开启输入指示器",
+        "为 channel_url 群组频道开启输入指示器，向其他成员显示指定用户正在输入的状态，营造更具实时互动感的对话环境。"
+      ],
+      "en": [
+        "Start typing indicators",
+        "Starts a typing indicator for the group channel identified by channel_url, showing other users that the user is typing to create a more interactive conversation environment."
+      ]
+    },
+    "stopTypingIndicators": {
+      "zh": [
+        "关闭输入指示器",
+        "关闭 channel_url 群组频道的输入指示器，表示用户不再输入；用户发送消息或清空输入文本时，指示器也会自动消失。"
+      ],
+      "en": [
+        "Stop typing indicators",
+        "Stops the typing indicator for the group channel identified by channel_url to signal that the user is no longer typing; the indicator also disappears when the user sends a message or clears the message text."
+      ]
+    },
+    "createAnOpenChannel": {
+      "zh": [
+        "创建开放频道",
+        "创建可容纳海量用户的开放频道，借助动态分区将参与者分散到各子频道。用户无需邀请即可加入，适合演唱会、直播等无需长期成员关系的短时活动场景。"
+      ],
+      "en": [
+        "Create an open channel",
+        "Creates an open channel that facilitates conversations for millions of users through dynamic partitioning into subchannels. Users need no invitation to join, making it suitable for short-lived live events like concerts or live streams that don't require sustained membership."
+      ]
+    },
+    "listOpenChannels": {
+      "zh": [
+        "获取开放频道列表",
+        "检索应用内开放频道的列表，可通过各种查询参数限定搜索范围并选择要返回的频道信息。"
+      ],
+      "en": [
+        "List open channels",
+        "Retrieves a list of open channels in the application; various query parameters let you narrow the search scope and choose which channel information to receive."
+      ]
+    },
+    "deleteAnOpenChannel": {
+      "zh": [
+        "删除开放频道",
+        "删除指定的开放频道，需提供 channel_url。删除后频道及其数据将不可恢复。"
+      ],
+      "en": [
+        "Delete an open channel",
+        "Deletes the open channel identified by channel_url, permanently removing the channel and its data."
+      ]
+    },
+    "getAnOpenChannel": {
+      "zh": [
+        "获取开放频道详情",
+        "检索指定开放频道的信息，需提供 channel_url。"
+      ],
+      "en": [
+        "Get an open channel",
+        "Retrieves information about the open channel identified by channel_url."
+      ]
+    },
+    "updateAnOpenChannel": {
+      "zh": [
+        "更新开放频道",
+        "更新指定开放频道的信息，需提供 channel_url，例如添加封面图片以便识别频道，或设置自定义频道类型用于按类型分组管理。"
+      ],
+      "en": [
+        "Update an open channel",
+        "Updates information about the open channel identified by channel_url, such as adding a cover image to better identify the channel or specifying a custom channel type for grouping channels by type."
+      ]
+    },
+    "listChannelOperators": {
+      "zh": [
+        "获取开放频道操作者列表",
+        "检索指定开放频道的操作者列表，需提供 channel_url。"
+      ],
+      "en": [
+        "List open channel operators",
+        "Retrieves the list of operators for the open channel identified by channel_url."
+      ]
+    },
+    "registerOperators": {
+      "zh": [
+        "注册开放频道操作者",
+        "将一个或多个用户注册为开放频道的操作者，需提供 channel_url 与 operator_ids；操作者可管理该频道。"
+      ],
+      "en": [
+        "Register open channel operators",
+        "Registers one or more users as operators of the open channel identified by channel_url; operators can manage the channel. Provide operator_ids."
+      ]
+    },
+    "unregisterOperators": {
+      "zh": [
+        "取消开放频道操作者",
+        "取消指定用户在开放频道中的操作者身份，但保留其参与者身份，需提供 channel_url 与 operator_ids。"
+      ],
+      "en": [
+        "Unregister open channel operators",
+        "Removes operator status from the specified users in the open channel identified by channel_url while keeping them in the channel as participants. Provide operator_ids."
+      ]
+    },
+    "scheduleAnAnnouncement": {
+      "zh": [
+        "创建公告",
+        "创建一条公告，用于向指定频道批量发送系统消息。也可在 Sendbird Dashboard 中创建并排期公告，需提供消息内容与目标频道。"
+      ],
+      "en": [
+        "Create an announcement",
+        "Creates an announcement that sends a message to target channels. Announcements can also be created and scheduled from the Sendbird Dashboard."
+      ]
+    },
+    "createABot": {
+      "zh": [
+        "创建机器人",
+        "在应用中创建机器人，与创建普通用户类似，但需指定回调 URL 以接收事件。机器人需先加入群组频道才能与用户交互，也可通过邀请成员功能加入频道。"
+      ],
+      "en": [
+        "Create a bot",
+        "Creates a new bot in the application like a normal user, but requires a callback URL to receive events. The bot must join a group channel to interact with users."
+      ]
+    },
+    "listBots": {
+      "zh": [
+        "列出所有机器人",
+        "分页检索应用内全部机器人的列表，返回机器人 ID、名称等信息，可用于管理应用中的机器人资源。"
+      ],
+      "en": [
+        "List all bots",
+        "Retrieves a paginated list of all bots in the application, including bot IDs and names, for managing bot resources."
+      ]
+    },
+    "joinChannels": {
+      "zh": [
+        "机器人加入频道",
+        "让指定 bot_userid 的机器人加入一个或多个群组频道，之后机器人即可在这些频道中收发消息。"
+      ],
+      "en": [
+        "Make a bot join channels",
+        "Makes the bot identified by bot_userid join one or more group channels, allowing it to exchange messages there."
+      ]
+    },
+    "leaveGroupChannels": {
+      "zh": [
+        "机器人退出全部频道",
+        "让指定 bot_userid 的机器人退出其加入的全部群组频道，之后不再接收这些频道的消息与事件。"
+      ],
+      "en": [
+        "Make a bot leave all channels",
+        "Makes the bot identified by bot_userid leave all group channels it has joined, so it stops receiving messages and events from them."
+      ]
+    },
+    "leaveAGroupChannel": {
+      "zh": [
+        "机器人退出指定频道",
+        "让指定 bot_userid 的机器人退出 channel_url 对应的单个群组频道，停止在该频道内的消息收发。"
+      ],
+      "en": [
+        "Make a bot leave a specific channel",
+        "Makes the bot identified by bot_userid leave the group channel specified by channel_url, stopping message exchange in that channel."
+      ]
+    },
+    "sendABotMessage": {
+      "zh": [
+        "发送机器人消息",
+        "以指定 bot_userid 的机器人身份向群组频道发送消息，机器人需已加入目标频道。"
+      ],
+      "en": [
+        "Send a bot message",
+        "Sends a message to a group channel on behalf of the bot identified by bot_userid; the bot must have joined the target channel."
+      ]
+    },
+    "listMessages": {
+      "zh": [
+        "获取频道消息列表",
+        "按创建时间排序获取频道历史消息，channel_type 为 open_channels/group_channels，channel_url 指定频道；线程回复不与父消息分组。"
+      ],
+      "en": [
+        "List channel messages",
+        "Retrieves a channel's past messages in creation order. channel_type is open_channels or group_channels, channel_url identifies the channel, and thread replies are not grouped with their parents."
+      ]
+    },
+    "sendAMessage": {
+      "zh": [
+        "发送消息",
+        "向 channel_type 与 channel_url 指定的频道发送消息，支持文本、文件与管理员消息，也可附带上传文件，常用于业务方以程序化方式向用户发送消息。"
+      ],
+      "en": [
+        "Send a message",
+        "Sends a text, file, or admin message to the channel specified by channel_type and channel_url, with support for uploading files; commonly used for programmatic messages to users."
+      ]
+    },
+    "deleteAMessage": {
+      "zh": [
+        "删除消息",
+        "从 channel_type 与 channel_url 指定的频道中删除 message_id 对应的消息，删除后该消息不再对频道成员可见。"
+      ],
+      "en": [
+        "Delete a message",
+        "Deletes the message identified by message_id from the channel specified by channel_type and channel_url, removing it from view for channel members."
+      ]
+    },
+    "getAMessage": {
+      "zh": [
+        "获取单条消息",
+        "按 message_id 检索指定频道中的单条消息详情，channel_type 指定频道类型，channel_url 指定目标频道。"
+      ],
+      "en": [
+        "Get a message",
+        "Retrieves details of the message identified by message_id in the channel specified by channel_type and channel_url."
+      ]
+    },
+    "updateAMessage": {
+      "zh": [
+        "更新消息",
+        "更新指定频道中 message_id 对应消息的特定信息，如消息内容等字段，可用于编辑已发送的消息。"
+      ],
+      "en": [
+        "Update a message",
+        "Updates specific fields, such as content, of the message identified by message_id in the specified channel."
+      ]
+    },
+    "addExtraDataToAMessage": {
+      "zh": [
+        "为消息添加附加数据",
+        "为指定消息添加一个或多个键值对形式的附加数据（排序元数组），用于存储消息的额外信息。"
+      ],
+      "en": [
+        "Add extra data to a message",
+        "Adds one or more key-value items to a message's sorted metaarray, storing additional information for the message."
+      ]
+    },
+    "removeExtraDataFromAMessage": {
+      "zh": [
+        "移除消息附加数据",
+        "按键删除消息排序元数组中的特定附加数据项，仅移除指定的键值对。"
+      ],
+      "en": [
+        "Remove extra data from a message",
+        "Removes specific items from a message's sorted metaarray by their keys."
+      ]
+    },
+    "updateExtraDataInAMessage": {
+      "zh": [
+        "更新消息附加数据",
+        "按键更新消息排序元数组中指定附加数据项的值，可用于修改已存储的额外信息。"
+      ],
+      "en": [
+        "Update extra data in a message",
+        "Updates the values of specific items in a message's sorted metaarray by their keys."
+      ]
+    },
+    "getTotalNumberOfMessagesInAChannel": {
+      "zh": [
+        "获取频道消息总数",
+        "返回 channel_type 与 channel_url 指定频道中的消息总数（数量），可用于统计与展示。"
+      ],
+      "en": [
+        "Get total message count in a channel",
+        "Returns the total number of messages in the channel specified by channel_type and channel_url, useful for statistics and display."
+      ]
+    },
+    "markChannelMessagesAsRead": {
+      "zh": [
+        "标记全部消息已读",
+        "将群组频道中的全部消息标记为指定用户已读，用于已读回执。仅适用于群组频道中的用户。"
+      ],
+      "en": [
+        "Mark all messages as read",
+        "Marks all messages in a group channel as read for a specific user, supporting read receipts. Only applicable to users in a group channel."
+      ]
+    },
+    "migrateMessages": {
+      "zh": [
+        "批量迁移消息",
+        "将其他聊天系统的消息批量迁移到 Sendbird 目标频道（target_channel_url）。该功能需联系支持团队开通，迁移前需先通过用户创建 API 注册原系统用户。"
+      ],
+      "en": [
+        "Migrate messages in batch",
+        "Migrates messages from another chat system into the Sendbird channel identified by target_channel_url. The feature must be enabled by support; register existing users via the user creation API first."
+      ]
+    },
+    "createAChannelMetadata": {
+      "zh": [
+        "创建频道元数据",
+        "为 channel_type 与 channel_url 指定的频道创建键值形式的元数据项，用于存储频道的附加信息。"
+      ],
+      "en": [
+        "Create channel metadata",
+        "Creates key-value metadata items for the channel specified by channel_type and channel_url, storing additional information about the channel."
+      ]
+    },
+    "deleteAChannelMetadataWhenDeletingAllItemsOfAChannelMetadata": {
+      "zh": [
+        "删除频道元数据",
+        "删除指定频道中的一个或多个元数据项；不传键参数时删除该频道的全部元数据。"
+      ],
+      "en": [
+        "Delete channel metadata",
+        "Deletes one or all metadata items stored in the channel specified by channel_type and channel_url; without keys, all metadata is removed."
+      ]
+    },
+    "updateAChannelMetadata": {
+      "zh": [
+        "更新频道元数据",
+        "按键更新 channel_type 与 channel_url 指定频道中已有的元数据项，或向元数据中添加新的键值项。"
+      ],
+      "en": [
+        "Update channel metadata",
+        "Updates existing metadata items of the channel by their keys, or adds new items to the metadata."
+      ]
+    },
+    "viewAChannelMetadataWhenRetrievingAllItemsOfAChannelMetadata": {
+      "zh": [
+        "获取频道元数据",
+        "检索 channel_type 与 channel_url 指定频道中存储的一个或多个元数据项，不传键参数时返回全部元数据。"
+      ],
+      "en": [
+        "View channel metadata",
+        "Retrieves one or more metadata items stored in the channel specified by channel_type and channel_url; without keys, all metadata is returned."
+      ]
+    },
+    "freezeAGroupChannel": {
+      "zh": [
+        "冻结群组频道",
+        "冻结或解冻 channel_url 指定的群组频道。冻结后频道成员无法发送消息，属于审核（moderation）工具。"
+      ],
+      "en": [
+        "Freeze a group channel",
+        "Freezes or unfreezes the group channel specified by channel_url. While frozen, channel members cannot send messages, serving as a moderation tool."
+      ]
+    },
+    "freezeAnOpenChannel": {
+      "zh": [
+        "冻结开放频道",
+        "冻结或解冻 channel_url 指定的开放频道，冻结后频道成员无法发送消息，属于审核（moderation）工具。"
+      ],
+      "en": [
+        "Freeze an open channel",
+        "Freezes or unfreezes the open channel specified by channel_url, preventing members from sending messages while frozen."
+      ]
+    },
+    "blockAUser": {
+      "zh": [
+        "封禁用户",
+        "让 user_id 用户屏蔽另一用户，使其不再接收被屏蔽用户的推送通知。在 1 对 1 群组频道中同时不再接收其消息；在 1 对 N 频道中仍可能收到消息，但不会收到通知。"
+      ],
+      "en": [
+        "Block a user",
+        "Blocks another user on behalf of the user identified by user_id, suppressing the blocked user's notifications; messages are hidden in 1-to-1 channels but may still arrive in 1-to-N channels."
+      ]
+    },
+    "listBlockedUsers": {
+      "zh": [
+        "查看封禁用户列表",
+        "检索指定 user_id 用户封禁的用户列表，或封禁该用户的用户列表（取决于查询参数），用于审核管理。"
+      ],
+      "en": [
+        "List blocked users",
+        "Retrieves the list of users blocked by the user identified by user_id, or the list of users blocking that user, depending on the query parameter."
+      ]
+    },
+    "unblockAUser": {
+      "zh": [
+        "解除用户封禁",
+        "解除 user_id 用户对 target_id 用户的封禁，恢复双方的消息与通知往来。"
+      ],
+      "en": [
+        "Unblock a user",
+        "Unblocks the user identified by target_id for the user identified by user_id, restoring message and notification exchange between them."
+      ]
+    },
+    "viewNumberOfDailyActiveUsers": {
+      "zh": [
+        "查看日活跃用户数",
+        "返回应用的日活跃用户数（DAU）数量。该指标每 30 分钟计算一次，自 UTC 00:00 起，首次更新在 00:30。"
+      ],
+      "en": [
+        "View daily active users",
+        "Returns the number of daily active users (DAU) of the application; recalculated every 30 minutes from 00:00 UTC, first updated at 00:30."
+      ]
+    },
+    "viewNumberOfMonthlyActiveUsers": {
+      "zh": [
+        "查看月活跃用户数",
+        "返回应用的月活跃用户数（MAU）数量。该指标每 30 分钟计算一次，自 UTC 00:00 起，首次更新在 00:30。"
+      ],
+      "en": [
+        "View monthly active users",
+        "Returns the number of monthly active users (MAU) of the application; recalculated every 30 minutes from 00:00 UTC, first updated at 00:30."
+      ]
+    }
+  },
+  "schemas": {
+    "AcceptAnInvitationRequest": {
+      "zh": "接受频道邀请请求体。",
+      "en": "Request body to accept a channel invitation."
+    },
+    "AddARegistrationOrDeviceTokenRequest": {
+      "zh": "注册设备令牌请求体。",
+      "en": "Request body to register a device token for push notifications."
+    },
+    "AddExtraDataToAMessageRequest": {
+      "zh": "向消息添加额外数据请求体。",
+      "en": "Request body to attach extra data to a message."
+    },
+    "BlockAUserRequest": {
+      "zh": "屏蔽用户请求体。",
+      "en": "Request body to block a user."
+    },
+    "ChooseAPushNotificationContentTemplateRequest": {
+      "zh": "选择推送通知内容模板请求体。",
+      "en": "Request body to choose a push notification content template."
+    },
+    "CreateABotRequest": {
+      "zh": "创建机器人请求体。",
+      "en": "Request body to create a bot."
+    },
+    "CreateAChannelMetadataRequest": {
+      "zh": "创建频道元数据请求体。",
+      "en": "Request body to create channel metadata."
+    },
+    "CreateAGroupChannelRequest": {
+      "zh": "创建群组频道请求体。",
+      "en": "Create group channel request body."
+    },
+    "CreateAUserRequest": {
+      "zh": "创建用户请求体。",
+      "en": "Request body to create a user."
+    },
+    "CreateAnOpenChannelRequest": {
+      "zh": "创建公开频道请求体。",
+      "en": "Request body to create an open channel."
+    },
+    "CreateUserMetadataRequest": {
+      "zh": "创建用户元数据请求体。",
+      "en": "Request body to create user metadata."
+    },
+    "CreateUserTokenRequest": {
+      "zh": "为用户签发访问令牌请求体。",
+      "en": "Request body to issue an access token for a user."
+    },
+    "FreezeAGroupChannelRequest": {
+      "zh": "冻结群组频道请求体。",
+      "en": "Request body to freeze a group channel."
+    },
+    "FreezeAnOpenChannelRequest": {
+      "zh": "冻结公开频道请求体。",
+      "en": "Request body to freeze an open channel."
+    },
+    "HideAChannelRequest": {
+      "zh": "隐藏频道请求体。",
+      "en": "Request body to hide a channel from a user."
+    },
+    "InviteAsMembersRequest": {
+      "zh": "邀请成员加入群组频道请求体。",
+      "en": "Request body to invite users as group channel members."
+    },
+    "JoinAChannelRequest": {
+      "zh": "加入公开频道请求体。",
+      "en": "Request body to join a channel."
+    },
+    "JoinChannelsRequest": {
+      "zh": "批量加入频道请求体。",
+      "en": "Request body to join multiple channels at once."
+    },
+    "LeaveAChannelRequest": {
+      "zh": "离开频道请求体。",
+      "en": "Request body to leave a channel."
+    },
+    "LeaveMyGroupChannelsRequest": {
+      "zh": "批量退出我的群组频道请求体。",
+      "en": "Request body to leave all of the user's group channels."
+    },
+    "MarkAllMessagesAsReadRequest": {
+      "zh": "将所有消息标记为已读请求体。",
+      "en": "Request body to mark all messages as read."
+    },
+    "MarkChannelMessagesAsReadRequest": {
+      "zh": "将频道内消息标记为已读请求体。",
+      "en": "Request body to mark a channel's messages as read."
+    },
+    "MigrateMessagesAdminMessageRequest": {
+      "zh": "迁移管理员消息请求体。",
+      "en": "Request body to migrate an admin message."
+    },
+    "MigrateMessagesFileMessageRequest": {
+      "zh": "迁移文件消息请求体。",
+      "en": "Request body to migrate a file message."
+    },
+    "MigrateMessagesRequest": {
+      "zh": "批量迁移历史消息请求体。",
+      "en": "Request body to migrate a batch of historical messages."
+    },
+    "MigrateMessagesTextMessageRequest": {
+      "zh": "迁移文本消息请求体。",
+      "en": "Request body to migrate a text message."
+    },
+    "RegisterOperatorsToAGroupChannelRequest": {
+      "zh": "为群组频道注册运营者请求体。",
+      "en": "Request body to register operators for a group channel."
+    },
+    "ResetChatHistoryRequest": {
+      "zh": "重置频道聊天记录请求体。",
+      "en": "Request body to reset a channel's chat history."
+    },
+    "ScheduleAnAnnouncementRequest": {
+      "zh": "创建定时公告请求体。",
+      "en": "Request body to schedule an announcement."
+    },
+    "SendABotMessageRequest": {
+      "zh": "以机器人身份发送消息请求体。",
+      "en": "Request body to send a message as a bot."
+    },
+    "SendAMessageRequest": {
+      "zh": "发送消息请求体。",
+      "en": "Request body to send a message to a channel."
+    },
+    "SendAdminMessageRequestBody": {
+      "zh": "发送管理员消息请求体。",
+      "en": "Request body to send an admin message."
+    },
+    "SendFileMessageRequestBody": {
+      "zh": "发送文件消息请求体。",
+      "en": "Request body to send a file message."
+    },
+    "SendTextMessageRequestBody": {
+      "zh": "发送文本消息请求体。",
+      "en": "Request body to send a text message."
+    },
+    "StartTypingIndicatorsRequest": {
+      "zh": "开始输入状态指示请求体。",
+      "en": "Request body to start typing indicators in a channel."
+    },
+    "UpdateAChannelMetadataRequest": {
+      "zh": "更新频道元数据请求体。",
+      "en": "Request body to update channel metadata."
+    },
+    "UpdateAGroupChannelRequest": {
+      "zh": "更新群组频道请求体。",
+      "en": "Request body to update a group channel."
+    },
+    "UpdateAMessageRequest": {
+      "zh": "更新消息请求体。",
+      "en": "Request body to update an existing message."
+    },
+    "UpdateAUserRequest": {
+      "zh": "更新用户信息请求体。",
+      "en": "Request body to update a user."
+    },
+    "UpdateAnOpenChannelRequest": {
+      "zh": "更新公开频道请求体。",
+      "en": "Request body to update an open channel."
+    },
+    "UpdateBotByIdData": {
+      "zh": "按 ID 更新机器人请求数据。",
+      "en": "Request data to update a bot by its ID."
+    },
+    "UpdateChannelInvitationPreferenceRequest": {
+      "zh": "更新频道邀请偏好请求体。",
+      "en": "Request body to update a channel's invitation preference."
+    },
+    "UpdateCountPreferenceOfAChannelRequest": {
+      "zh": "更新频道未读计数偏好请求体。",
+      "en": "Request body to update a channel's count preference."
+    },
+    "UpdateExtraDataInAMessageRequest": {
+      "zh": "更新消息额外数据请求体。",
+      "en": "Request body to update extra data in a message."
+    },
+    "UpdatePushPreferencesForAChannelRequest": {
+      "zh": "更新指定频道推送偏好请求体。",
+      "en": "Request body to update push preferences for a channel."
+    },
+    "UpdatePushPreferencesRequest": {
+      "zh": "更新推送偏好请求体。",
+      "en": "Request body to update a user's push preferences."
+    },
+    "UpdateSpecificUserMetadataRequest": {
+      "zh": "更新指定用户元数据请求体。",
+      "en": "Request body to update a specific user's metadata."
+    },
+    "UpdateUserMetadataRequest": {
+      "zh": "更新用户元数据请求体。",
+      "en": "Request body to update user metadata."
+    },
+    "AddARegistrationOrDeviceTokenResponse": {
+      "zh": "添加设备令牌响应结构。",
+      "en": "Response containing the registered device token."
+    },
+    "AddExtraDataToAMessageResponse": {
+      "zh": "添加消息额外数据响应结构。",
+      "en": "Response confirming extra data added to a message."
+    },
+    "BlockAUserResponse": {
+      "zh": "屏蔽用户响应结构。",
+      "en": "Response confirming that a user was blocked."
+    },
+    "CheckIfMemberResponse": {
+      "zh": "成员资格检查响应结构。",
+      "en": "Response indicating whether a user is a channel member."
+    },
+    "ChooseAPushNotificationContentTemplateResponse": {
+      "zh": "选择推送模板响应结构。",
+      "en": "Response confirming the chosen push notification template."
+    },
+    "CreateABotResponse": {
+      "zh": "创建机器人响应结构。",
+      "en": "Response containing the created bot."
+    },
+    "CreateAChannelMetadataResponse": {
+      "zh": "创建频道元数据响应结构。",
+      "en": "Response containing the created channel metadata."
+    },
+    "CreateUserTokenResponse": {
+      "zh": "创建用户令牌响应结构。",
+      "en": "Response containing the issued user access token."
+    },
+    "GetAGroupChannelResponse": {
+      "zh": "获取群组频道详情响应结构。",
+      "en": "Response containing a group channel's details."
+    },
+    "GetChannelInvitationPreferenceResponse": {
+      "zh": "获取频道邀请偏好响应结构。",
+      "en": "Response with a channel's invitation preference."
+    },
+    "GetTotalNumberOfMessagesInAChannelResponse": {
+      "zh": "获取频道消息总数响应结构。",
+      "en": "Response with the total number of messages in a channel."
+    },
+    "GroupChannelListMembersResponse": {
+      "zh": "群组频道成员列表响应结构。",
+      "en": "Response listing the members of a group channel."
+    },
+    "GroupChatListChannelsResponse": {
+      "zh": "群组频道列表响应结构。",
+      "en": "Response listing the user's group chat channels."
+    },
+    "InviteAsMembersResponse": {
+      "zh": "邀请成员响应结构。",
+      "en": "Response with the channel after inviting members."
+    },
+    "ListBlockedUsersResponse": {
+      "zh": "已屏蔽用户列表响应结构。",
+      "en": "Response listing the users blocked by the caller."
+    },
+    "ListBotsResponse": {
+      "zh": "机器人列表响应结构。",
+      "en": "Response listing the application's bots."
+    },
+    "ListMessagesResponse": {
+      "zh": "消息列表响应结构。",
+      "en": "Response listing messages of a channel."
+    },
+    "ListMyGroupChannelsResponse": {
+      "zh": "我的群组频道列表响应结构。",
+      "en": "Response listing the user's group channels."
+    },
+    "ListOpenChannelsResponse": {
+      "zh": "公开频道列表响应结构。",
+      "en": "Response listing open channels."
+    },
+    "ListOperatorsResponse": {
+      "zh": "频道运营者列表响应结构。",
+      "en": "Response listing the operators of a channel."
+    },
+    "ListRegistrationOrDeviceTokensResponse": {
+      "zh": "设备令牌列表响应结构。",
+      "en": "Response listing registered device tokens."
+    },
+    "ListUsersResponse": {
+      "zh": "用户列表响应结构。",
+      "en": "Response listing users of the application."
+    },
+    "RemoveARegistrationOrDeviceTokenResponse": {
+      "zh": "移除设备令牌响应结构。",
+      "en": "Response confirming a device token was removed."
+    },
+    "RemoveAllRegistrationOrDeviceTokenResponse": {
+      "zh": "移除全部设备令牌响应结构。",
+      "en": "Response confirming all device tokens were removed."
+    },
+    "ResetChatHistoryResponse": {
+      "zh": "重置聊天记录响应结构。",
+      "en": "Response confirming that chat history was reset."
+    },
+    "ScheduleAnAnnouncementResponse": {
+      "zh": "安排公告响应结构。",
+      "en": "Response containing the scheduled announcement."
+    },
+    "SendABotMessageResponse": {
+      "zh": "机器人发送消息响应结构。",
+      "en": "Response containing the message sent by the bot."
+    },
+    "SendbirdMessageResponse": {
+      "zh": "发送消息响应结构。",
+      "en": "Response containing the message that was sent."
+    },
+    "UpdateBotByIdResponse": {
+      "zh": "更新机器人响应结构。",
+      "en": "Response containing the updated bot."
+    },
+    "UpdateChannelInvitationPreferenceResponse": {
+      "zh": "更新邀请偏好响应结构。",
+      "en": "Response with the updated invitation preference."
+    },
+    "UpdateCountPreferenceOfChannelByUrlResponse": {
+      "zh": "更新频道计数偏好响应结构。",
+      "en": "Response with the updated channel count preference."
+    },
+    "UpdateExtraDataInAMessageResponse": {
+      "zh": "更新消息额外数据响应结构。",
+      "en": "Response confirming updated extra data in a message."
+    },
+    "UpdatePushPreferencesForAChannelResponse": {
+      "zh": "更新频道推送偏好响应结构。",
+      "en": "Response with the updated channel push preferences."
+    },
+    "UpdatePushPreferencesResponse": {
+      "zh": "更新推送偏好响应结构。",
+      "en": "Response with the updated push preferences."
+    },
+    "ViewBotByIdResponse": {
+      "zh": "查看机器人详情响应结构。",
+      "en": "Response containing a bot's details by ID."
+    },
+    "ViewBotByIdResponseBot": {
+      "zh": "机器人详情响应中的机器人对象。",
+      "en": "The bot object inside a view-bot response."
+    },
+    "ViewCountPreferenceOfAChannelResponse": {
+      "zh": "查看频道计数偏好响应结构。",
+      "en": "Response with a channel's count preference."
+    },
+    "ViewNumberOfChannelsWithUnreadMessagesResponse": {
+      "zh": "含未读消息频道数响应结构。",
+      "en": "Response with the count of channels with unread messages."
+    },
+    "ViewNumberOfDailyActiveUsersResponse": {
+      "zh": "日活跃用户数响应结构。",
+      "en": "Response with the daily active user count."
+    },
+    "ViewNumberOfMonthlyActiveUsersResponse": {
+      "zh": "月活跃用户数响应结构。",
+      "en": "Response with the monthly active user count."
+    },
+    "ViewNumberOfUnreadMessagesResponse": {
+      "zh": "未读消息总数响应结构。",
+      "en": "Response with the total unread message count."
+    },
+    "ViewPushPreferencesForAChannelResponse": {
+      "zh": "查看频道推送偏好响应结构。",
+      "en": "Response with a channel's push preferences."
+    },
+    "ViewPushPreferencesResponse": {
+      "zh": "查看推送偏好响应结构。",
+      "en": "Response with the user's push preferences."
+    },
+    "CreateABotResponseBot": {
+      "zh": "创建机器人响应中的机器人对象。",
+      "en": "The bot object inside the create-bot response."
+    },
+    "CreateABotResponseBotStyle": {
+      "zh": "机器人样式对象（头像与配色）。",
+      "en": "The bot style object holding profile and color scheme."
+    },
+    "GetAGroupChannelResponseAllOf": {
+      "zh": "群组频道响应的扩展字段部分。",
+      "en": "The extended fields of a group channel response."
+    },
+    "GetAGroupChannelResponseAllOfChannel": {
+      "zh": "群组频道响应中的频道对象。",
+      "en": "The channel object inside a group channel response."
+    },
+    "InviteAsMembersResponseAllOf": {
+      "zh": "邀请成员响应的扩展字段部分。",
+      "en": "The extended fields of an invite-members response."
+    },
+    "ListBotsResponseBotsInner": {
+      "zh": "机器人列表中的单个机器人项。",
+      "en": "A single bot entry inside the bots list."
+    },
+    "ListBotsResponseBotsInnerAi": {
+      "zh": "机器人项的 AI 配置对象。",
+      "en": "The AI configuration of a bot list entry."
+    },
+    "ListBotsResponseBotsInnerBot": {
+      "zh": "机器人列表项的机器人数据。",
+      "en": "The bot data of a bots-list entry."
+    },
+    "ListBotsResponseBotsInnerBotStyle": {
+      "zh": "机器人列表项的样式对象。",
+      "en": "The style object of a bot entry."
+    },
+    "ListBotsResponseBotsInnerBotStyleColor": {
+      "zh": "机器人样式配色对象。",
+      "en": "The color palette of a bot style."
+    },
+    "ListBotsResponseBotsInnerFirstMessagesInner": {
+      "zh": "机器人开场消息列表项。",
+      "en": "A single first-message item of a bot."
+    },
+    "ListBotsResponseBotsInnerFirstMessagesInnerData": {
+      "zh": "机器人开场消息的数据对象。",
+      "en": "The data payload of a bot's first message."
+    },
+    "ListBotsResponseBotsInnerSafeguard": {
+      "zh": "机器人安全防护配置对象。",
+      "en": "The safeguard configuration of a bot."
+    },
+    "MigrateMessagesFileMessageRequestThumbnailsInner": {
+      "zh": "迁移文件消息的缩略图项。",
+      "en": "A thumbnail entry of a migrated file message."
+    },
+    "MigrateMessagesRequestMessagesInner": {
+      "zh": "迁移消息列表中的单条消息。",
+      "en": "A single message entry in the migration list."
+    },
+    "ScheduleAnAnnouncementRequestCreateChannelOptions": {
+      "zh": "公告所需频道的创建选项。",
+      "en": "Channel creation options used for an announcement."
+    },
+    "ScheduleAnAnnouncementRequestMessage": {
+      "zh": "公告的消息内容对象。",
+      "en": "The message content of an announcement."
+    },
+    "ScheduleAnAnnouncementResponseMessage": {
+      "zh": "公告响应中的消息对象。",
+      "en": "The message object inside an announcement response."
+    },
+    "SendAMessageRequestPushMessageTemplate": {
+      "zh": "发送消息的推送模板选择对象。",
+      "en": "The push message template applied to a sent message."
+    },
+    "SendAMessageRequestPushMessageTemplateOneOf": {
+      "zh": "推送模板取值的选项之一。",
+      "en": "One of the push message template value options."
+    },
+    "SendTextMessageRequestBodyPushMessageTemplate": {
+      "zh": "文本消息的推送模板对象。",
+      "en": "The push message template of a text message."
+    },
+    "UpdatePushPreferencesRequestDndSchedulesInner": {
+      "zh": "免打扰时段安排项。",
+      "en": "A do-not-disturb schedule entry."
+    },
+    "UpdatePushPreferencesRequestDndSchedulesInnerTimeWindowsInner": {
+      "zh": "免打扰时段内的时间窗口项。",
+      "en": "A time window within a do-not-disturb schedule."
+    },
+    "SendbirdFile": {
+      "zh": "文件资源模型，描述附件与缩略图。",
+      "en": "File resource model describing attachments and thumbnails."
+    },
+    "SendbirdGroupChannel": {
+      "zh": "群组频道资源模型，承载成员与消息。",
+      "en": "Group channel resource model holding members and messages."
+    },
+    "SendbirdMember": {
+      "zh": "群组频道成员模型，含角色与状态。",
+      "en": "Group channel member model with role and state."
+    },
+    "SendbirdUser": {
+      "zh": "用户资源模型，含昵称、头像与在线状态。",
+      "en": "User resource model with nickname, profile, and online state."
+    },
+    "SendbirdOpenChannel": {
+      "zh": "公开频道资源模型，面向大众开放。",
+      "en": "Open channel resource model accessible to the public."
+    },
+    "SendbirdBasicUserInfo": {
+      "zh": "基础用户信息模型，含 ID、昵称与头像。",
+      "en": "Basic user info model with ID, nickname, and profile."
+    },
+    "SendbirdDisappearingMessage": {
+      "zh": "阅后即焚消息配置，到期自动删除。",
+      "en": "Disappearing message config that auto-deletes after a period."
+    },
+    "SendbirdExtendedMessagePayload": {
+      "zh": "扩展消息载荷，支持自定义消息类型。",
+      "en": "Extended message payload for custom message types."
+    },
+    "SendbirdGroupChannelDetail": {
+      "zh": "群组频道详情模型，含频道与成员信息。",
+      "en": "Group channel detail model with channel and member info."
+    },
+    "SendbirdGroupChannelDetailChannel": {
+      "zh": "群组频道详情中的频道对象。",
+      "en": "The channel object within a group channel detail."
+    },
+    "SendbirdGroupChannelLastMessage": {
+      "zh": "群组频道最后一条消息对象。",
+      "en": "The last message of a group channel."
+    },
+    "SendbirdMessageResponseExtendedMessagePayload": {
+      "zh": "消息响应中的扩展载荷对象。",
+      "en": "The extended payload inside a message response."
+    },
+    "SendbirdMessageResponseMessageEvents": {
+      "zh": "消息响应中的事件条目列表。",
+      "en": "Message event entries contained in a message response."
+    },
+    "SendbirdParentMessageInfo": {
+      "zh": "父消息信息，用于回复与话题线程。",
+      "en": "Parent message info used for replies and threads."
+    },
+    "SendbirdReaction": {
+      "zh": "消息表情反应对象，含用户与表情键。",
+      "en": "Message reaction object with users and emoji keys."
+    },
+    "SendbirdSmsFallback": {
+      "zh": "推送失败时的短信兜底配置。",
+      "en": "SMS fallback configuration for failed push deliveries."
+    },
+    "SendbirdSortedMetaarrayInner": {
+      "zh": "排序元数据数组的单个条目。",
+      "en": "A single entry of a sorted metadata array."
+    },
+    "SendbirdThumbnail": {
+      "zh": "文件缩略图对象，含尺寸与 URL。",
+      "en": "Thumbnail object of a file with size and URL."
+    },
+    "CheckIfMemberResponseStateEnum": {
+      "zh": "成员状态枚举：joined / invited_by_friend。",
+      "en": "Member state enum: joined or invited by friend."
+    },
+    "ChooseAPushNotificationContentTemplateRequestNameEnum": {
+      "zh": "推送内容模板名称枚举：default / alternative。",
+      "en": "Push content template name enum: default or alternative."
+    },
+    "GetAGroupChannelResponseCountPreferenceEnum": {
+      "zh": "未读计数偏好枚举：all / unread_message_count。",
+      "en": "Unread count preference enum: all or unread message count."
+    },
+    "GetAGroupChannelResponseHiddenStateEnum": {
+      "zh": "频道隐藏状态枚举：unhidden / hidden / hidden_allow_auto_join。",
+      "en": "Channel hidden state enum: unhidden, hidden, or hidden with auto join."
+    },
+    "GetAGroupChannelResponseMemberStateEnum": {
+      "zh": "成员状态枚举：joined / invited / none。",
+      "en": "Member state enum: joined, invited, or none."
+    },
+    "GetAGroupChannelResponseMyRoleEnum": {
+      "zh": "当前用户角色枚举：operator / member / none。",
+      "en": "Caller role enum: operator, member, or none."
+    },
+    "InviteAsMembersResponseCountPreferenceEnum": {
+      "zh": "未读计数偏好枚举：all / unread_message_count。",
+      "en": "Unread count preference enum: all or unread message count."
+    },
+    "InviteAsMembersResponseHiddenStateEnum": {
+      "zh": "频道隐藏状态枚举：unhidden / hidden / hidden_allow_auto_join。",
+      "en": "Channel hidden state enum: unhidden, hidden, or hidden with auto join."
+    },
+    "InviteAsMembersResponseMemberStateEnum": {
+      "zh": "成员状态枚举：joined / invited / none。",
+      "en": "Member state enum: joined, invited, or none."
+    },
+    "InviteAsMembersResponseMyRoleEnum": {
+      "zh": "当前用户角色枚举：operator / member / none。",
+      "en": "Caller role enum: operator, member, or none."
+    },
+    "LeaveAChannelRequestReasonEnum": {
+      "zh": "离开频道原因枚举：voluntarily / by_operator。",
+      "en": "Leave reason enum: voluntarily or by operator."
+    },
+    "MigrateMessagesAdminMessageRequestMessageTypeEnum": {
+      "zh": "管理员消息类型枚举：ADMM。",
+      "en": "Admin message type enum: ADMM."
+    },
+    "MigrateMessagesFileMessageRequestMessageTypeEnum": {
+      "zh": "文件消息类型枚举：FILE。",
+      "en": "File message type enum: FILE."
+    },
+    "MigrateMessagesRequestMessagesInnerMessageTypeEnum": {
+      "zh": "迁移消息类型枚举：MESG / FILE / ADMM。",
+      "en": "Migrated message type enum: text, file, or admin message."
+    },
+    "MigrateMessagesTextMessageRequestMessageTypeEnum": {
+      "zh": "文本消息类型枚举：MESG。",
+      "en": "Text message type enum: MESG."
+    },
+    "SendABotMessageRequestMessageTypeEnum": {
+      "zh": "机器人消息类型枚举：MESG / FILE / ADMM。",
+      "en": "Bot message type enum: text, file, or admin message."
+    },
+    "SendABotMessageRequestMentionTypeEnum": {
+      "zh": "提及类型枚举：users / channel。",
+      "en": "Mention type enum: users or channel."
+    },
+    "SendAMessageRequestMessageTypeEnum": {
+      "zh": "消息类型枚举：MESG / FILE / ADMM。",
+      "en": "Message type enum: text, file, or admin message."
+    },
+    "SendAMessageRequestMentionTypeEnum": {
+      "zh": "提及类型枚举：users / channel。",
+      "en": "Mention type enum: users or channel."
+    },
+    "SendAdminMessageRequestBodyMentionTypeEnum": {
+      "zh": "提及类型枚举：users / channel。",
+      "en": "Mention type enum: users or channel."
+    },
+    "SendAdminMessageRequestBodyMessageTypeEnum": {
+      "zh": "管理员消息类型枚举：ADMM。",
+      "en": "Admin message type enum: ADMM."
+    },
+    "SendbirdGroupChannelCountPreferenceEnum": {
+      "zh": "未读计数偏好枚举：all / unread_message_count。",
+      "en": "Unread count preference enum: all or unread message count."
+    },
+    "SendbirdGroupChannelHiddenStateEnum": {
+      "zh": "频道隐藏状态枚举：unhidden / hidden / hidden_allow_auto_join。",
+      "en": "Channel hidden state enum: unhidden, hidden, or hidden with auto join."
+    },
+    "SendbirdGroupChannelMemberStateEnum": {
+      "zh": "成员状态枚举：joined / invited / none。",
+      "en": "Member state enum: joined, invited, or none."
+    },
+    "SendbirdGroupChannelMyRoleEnum": {
+      "zh": "当前用户角色枚举：operator / member / none。",
+      "en": "Caller role enum: operator, member, or none."
+    },
+    "SendbirdMemberRoleEnum": {
+      "zh": "成员角色枚举：operator / member。",
+      "en": "Member role enum: operator or member."
+    },
+    "SendbirdMemberStateEnum": {
+      "zh": "成员状态枚举：joined / invited / none。",
+      "en": "Member state enum: joined, invited, or none."
+    },
+    "SendbirdUserStateEnum": {
+      "zh": "用户状态枚举：activated / deactivated。",
+      "en": "User state enum: activated or deactivated."
+    },
+    "SendFileMessageRequestBodyMentionTypeEnum": {
+      "zh": "提及类型枚举：users / channel。",
+      "en": "Mention type enum: users or channel."
+    },
+    "SendFileMessageRequestBodyMessageTypeEnum": {
+      "zh": "文件消息类型枚举：FILE。",
+      "en": "File message type enum: FILE."
+    },
+    "SendTextMessageRequestBodyMentionTypeEnum": {
+      "zh": "提及类型枚举：users / channel。",
+      "en": "Mention type enum: users or channel."
+    },
+    "SendTextMessageRequestBodyMessageTypeEnum": {
+      "zh": "文本消息类型枚举：MESG。",
+      "en": "Text message type enum: MESG."
+    },
+    "SendbirdBasicUserInfoRoleEnum": {
+      "zh": "用户角色枚举：operator / member / none。",
+      "en": "User role enum: operator, member, or none."
+    },
+    "SendbirdPushTriggerOption": {
+      "zh": "推送触发选项枚举：all / mention_only / off。",
+      "en": "Push trigger option enum: all, mention only, or off."
+    },
+    "UpdateAMessageRequestMessageTypeEnum": {
+      "zh": "消息类型枚举：MESG / FILE / ADMM。",
+      "en": "Message type enum: text, file, or admin message."
+    },
+    "UpdateCountPreferenceOfAChannelRequestCountPreferenceEnum": {
+      "zh": "计数偏好枚举：all / unread_message_count。",
+      "en": "Count preference enum: all or unread message count."
+    },
+    "UpdateCountPreferenceOfChannelByUrlResponseCountPreferenceEnum": {
+      "zh": "计数偏好枚举：all / unread_message_count。",
+      "en": "Count preference enum: all or unread message count."
+    },
+    "UpdatePushPreferencesForAChannelRequestPushTriggerOptionEnum": {
+      "zh": "推送触发选项枚举：all / mention_only / off。",
+      "en": "Push trigger option enum: all, mention only, or off."
+    },
+    "UpdatePushPreferencesRequestDndSchedulesInnerDayOfWeekEnum": {
+      "zh": "星期枚举：SUN / MON / TUE / WED / THU / FRI / SAT。",
+      "en": "Day-of-week enum from Sunday through Saturday."
+    },
+    "ViewCountPreferenceOfAChannelResponseCountPreferenceEnum": {
+      "zh": "计数偏好枚举：all / unread_message_count。",
+      "en": "Count preference enum: all or unread message count."
+    },
+    "SendbirdApiError": {
+      "zh": "API 错误响应，包含错误消息与错误代码。",
+      "en": "API error response with an error message and code."
+    }
+  },
+  "fields": {
+    "custom_type": {
+      "zh": "自定义类型标识",
+      "en": "Custom type identifier."
+    },
+    "data": {
+      "zh": "附加数据载荷",
+      "en": "Additional data payload."
+    },
+    "created_at": {
+      "zh": "创建时间",
+      "en": "Creation timestamp."
+    },
+    "message": {
+      "zh": "错误消息。",
+      "en": "Error message."
+    },
+    "user_id": {
+      "zh": "用户 ID",
+      "en": "User identifier."
+    },
+    "sorted_metaarray": {
+      "zh": "排序元数据数组",
+      "en": "Sorted metadata array."
+    },
+    "name": {
+      "zh": "名称",
+      "en": "Name."
+    },
+    "metadata": {
+      "zh": "元数据映射",
+      "en": "Metadata map."
+    },
+    "channel_url": {
+      "zh": "频道 URL",
+      "en": "Channel URL."
+    },
+    "cover_url": {
+      "zh": "封面图 URL",
+      "en": "Cover image URL."
+    },
+    "push_trigger_option": {
+      "zh": "推送触发选项",
+      "en": "Push trigger option."
+    },
+    "message_type": {
+      "zh": "消息类型",
+      "en": "Message type."
+    },
+    "mentioned_user_ids": {
+      "zh": "提及用户 ID 列表",
+      "en": "Mentioned user IDs."
+    },
+    "next": {
+      "zh": "下一页游标",
+      "en": "Next page cursor."
+    },
+    "dedup_id": {
+      "zh": "消息去重 ID",
+      "en": "Message deduplication ID."
+    },
+    "require_auth": {
+      "zh": "是否需要认证",
+      "en": "Whether authentication is required."
+    },
+    "mention_type": {
+      "zh": "提及类型",
+      "en": "Mention type."
+    },
+    "type": {
+      "zh": "类型",
+      "en": "Type."
+    },
+    "user": {
+      "zh": "用户对象",
+      "en": "User object."
+    },
+    "is_ephemeral": {
+      "zh": "是否临时消息",
+      "en": "Whether the message is ephemeral."
+    },
+    "freeze": {
+      "zh": "是否冻结频道",
+      "en": "Whether the channel is frozen."
+    },
+    "max_length_message": {
+      "zh": "消息最大长度",
+      "en": "Maximum message length."
+    },
+    "message_survival_seconds": {
+      "zh": "消息存活秒数",
+      "en": "Message survival seconds."
+    },
+    "is_silent": {
+      "zh": "是否静默发送",
+      "en": "Whether the message is silent."
+    },
+    "user_ids": {
+      "zh": "用户 ID 列表",
+      "en": "User ID list."
+    },
+    "bot_callback_url": {
+      "zh": "机器人回调 URL",
+      "en": "Bot callback URL."
+    },
+    "is_privacy_mode": {
+      "zh": "是否隐私模式",
+      "en": "Whether privacy mode is on."
+    },
+    "channel_invitation_preference": {
+      "zh": "频道邀请偏好",
+      "en": "Channel invitation preference."
+    },
+    "enable_mark_as_read": {
+      "zh": "是否启用已读标记",
+      "en": "Whether mark-as-read is enabled."
+    },
+    "show_member": {
+      "zh": "是否显示成员",
+      "en": "Whether to show members."
+    },
+    "is_distinct": {
+      "zh": "是否独立频道",
+      "en": "Whether the channel is distinct."
+    },
+    "is_public": {
+      "zh": "是否公开频道",
+      "en": "Whether the channel is public."
+    },
+    "is_super": {
+      "zh": "是否超级频道",
+      "en": "Whether the channel is a super channel."
+    },
+    "member_count": {
+      "zh": "成员数量",
+      "en": "Member count."
+    },
+    "mark_as_read": {
+      "zh": "标记为已读",
+      "en": "Mark as read."
+    },
+    "push_sound": {
+      "zh": "推送提示音",
+      "en": "Push notification sound."
+    },
+    "token": {
+      "zh": "令牌",
+      "en": "Token."
+    },
+    "bot_nickname": {
+      "zh": "机器人昵称",
+      "en": "Bot nickname."
+    },
+    "bot_profile_url": {
+      "zh": "机器人头像 URL",
+      "en": "Bot profile URL."
+    },
+    "nickname": {
+      "zh": "昵称",
+      "en": "Nickname."
+    },
+    "profile_url": {
+      "zh": "头像 URL",
+      "en": "Profile image URL."
+    },
+    "is_active": {
+      "zh": "是否激活",
+      "en": "Whether the user is active."
+    },
+    "is_online": {
+      "zh": "是否在线",
+      "en": "Whether the user is online."
+    },
+    "last_seen_at": {
+      "zh": "最后在线时间",
+      "en": "Last seen timestamp."
+    },
+    "unread_message_count": {
+      "zh": "未读消息数",
+      "en": "Unread message count."
+    },
+    "unread_channel_count": {
+      "zh": "未读频道数",
+      "en": "Unread channel count."
+    },
+    "is_hide_me_from_friends": {
+      "zh": "对好友隐藏自己",
+      "en": "Whether hidden from friends."
+    },
+    "is_shadow_blocked": {
+      "zh": "是否影子屏蔽",
+      "en": "Whether shadow-blocked."
+    },
+    "preferred_languages": {
+      "zh": "偏好语言列表",
+      "en": "Preferred languages."
+    },
+    "locale": {
+      "zh": "区域设置",
+      "en": "Locale."
+    },
+    "access_token": {
+      "zh": "访问令牌",
+      "en": "Access token."
+    },
+    "session_token": {
+      "zh": "会话令牌",
+      "en": "Session token."
+    },
+    "created_at_seconds": {
+      "zh": "创建时间（秒）",
+      "en": "Creation time in seconds."
+    },
+    "updated_at_seconds": {
+      "zh": "更新时间（秒）",
+      "en": "Update time in seconds."
+    },
+    "is_frozen": {
+      "zh": "是否冻结",
+      "en": "Whether frozen."
+    },
+    "operator": {
+      "zh": "运营者对象",
+      "en": "Operator object."
+    },
+    "member": {
+      "zh": "成员对象",
+      "en": "Member object."
+    },
+    "hidden": {
+      "zh": "是否隐藏",
+      "en": "Whether hidden."
+    },
+    "participant_count": {
+      "zh": "参与人数",
+      "en": "Participant count."
+    },
+    "operator_count": {
+      "zh": "运营者人数",
+      "en": "Operator count."
+    },
+    "joined_at": {
+      "zh": "加入时间",
+      "en": "Joined timestamp."
+    },
+    "invite": {
+      "zh": "邀请操作",
+      "en": "Invite action."
+    },
+    "inviter": {
+      "zh": "邀请者",
+      "en": "Inviter."
+    },
+    "role": {
+      "zh": "角色",
+      "en": "Role."
+    },
+    "state": {
+      "zh": "状态",
+      "en": "State."
+    },
+    "cover_image": {
+      "zh": "封面图片",
+      "en": "Cover image."
+    },
+    "description": {
+      "zh": "描述",
+      "en": "Description."
+    },
+    "is_created": {
+      "zh": "是否已创建",
+      "en": "Whether created."
+    },
+    "issue_access_token": {
+      "zh": "签发访问令牌",
+      "en": "Issue access token."
+    },
+    "phone_number": {
+      "zh": "手机号",
+      "en": "Phone number."
+    },
+    "profile_file": {
+      "zh": "头像文件",
+      "en": "Profile image file."
+    },
+    "discovery_keys": {
+      "zh": "发现键列表",
+      "en": "Discovery keys."
+    },
+    "has_ever_logged_in": {
+      "zh": "是否曾登录",
+      "en": "Whether ever logged in."
+    },
+    "require_auth_for_profile_image": {
+      "zh": "头像需认证",
+      "en": "Auth required for profile image."
+    },
+    "is_muted": {
+      "zh": "是否被禁言",
+      "en": "Whether muted."
+    },
+    "muted_until": {
+      "zh": "禁言截止时间",
+      "en": "Muted until timestamp."
+    },
+    "unmuted_at": {
+      "zh": "解除禁言时间",
+      "en": "Unmuted timestamp."
+    },
+    "is_banned": {
+      "zh": "是否被拉黑",
+      "en": "Whether banned."
+    },
+    "banned_until": {
+      "zh": "拉黑截止时间",
+      "en": "Banned until timestamp."
+    },
+    "banned_at": {
+      "zh": "拉黑时间",
+      "en": "Banned timestamp."
+    },
+    "restriction_info": {
+      "zh": "限制信息",
+      "en": "Restriction information."
+    },
+    "last_message": {
+      "zh": "最后一条消息",
+      "en": "Last message."
+    },
+    "last_message_ts": {
+      "zh": "最后消息时间戳",
+      "en": "Last message timestamp."
+    },
+    "last_message_created_at": {
+      "zh": "最后消息创建时间",
+      "en": "Last message creation time."
+    },
+    "unread_message_count_by_preference": {
+      "zh": "按偏好的未读数",
+      "en": "Unread count by preference."
+    },
+    "unread_mention_count": {
+      "zh": "未读提及数",
+      "en": "Unread mention count."
+    },
+    "is_read_only": {
+      "zh": "是否只读频道",
+      "en": "Whether read-only."
+    },
+    "is_announcement_only": {
+      "zh": "是否仅公告频道",
+      "en": "Whether announcement-only."
+    },
+    "is_broadcast": {
+      "zh": "是否广播频道",
+      "en": "Whether broadcast channel."
+    },
+    "is_ephemeral_member": {
+      "zh": "是否临时成员",
+      "en": "Whether ephemeral member."
+    },
+    "super_mode": {
+      "zh": "超级频道模式",
+      "en": "Super channel mode."
+    },
+    "distinct_mode": {
+      "zh": "独立频道模式",
+      "en": "Distinct channel mode."
+    },
+    "public_mode": {
+      "zh": "公开频道模式",
+      "en": "Public channel mode."
+    },
+    "hidden_mode": {
+      "zh": "隐藏频道模式",
+      "en": "Hidden channel mode."
+    },
+    "member_state_filter": {
+      "zh": "成员状态过滤",
+      "en": "Member state filter."
+    },
+    "unread_filter": {
+      "zh": "未读过滤条件",
+      "en": "Unread filter."
+    },
+    "order": {
+      "zh": "排序方式",
+      "en": "Sort order."
+    },
+    "limit": {
+      "zh": "返回条数上限",
+      "en": "Result limit."
+    },
+    "cursor": {
+      "zh": "分页游标",
+      "en": "Pagination cursor."
+    },
+    "offset": {
+      "zh": "分页偏移量",
+      "en": "Pagination offset."
+    },
+    "total_count": {
+      "zh": "总数量",
+      "en": "Total count."
+    },
+    "has_more": {
+      "zh": "是否还有更多",
+      "en": "Whether more results exist."
+    },
+    "message_count": {
+      "zh": "消息数量",
+      "en": "Message count."
+    },
+    "messages": {
+      "zh": "消息列表",
+      "en": "Message list."
+    },
+    "users": {
+      "zh": "用户列表",
+      "en": "User list."
+    },
+    "channels": {
+      "zh": "频道列表",
+      "en": "Channel list."
+    },
+    "operators": {
+      "zh": "运营者列表",
+      "en": "Operator list."
+    },
+    "blocked_users": {
+      "zh": "屏蔽用户列表",
+      "en": "Blocked user list."
+    },
+    "bots": {
+      "zh": "机器人列表",
+      "en": "Bot list."
+    },
+    "files": {
+      "zh": "文件列表",
+      "en": "File list."
+    },
+    "size": {
+      "zh": "大小",
+      "en": "Size."
+    },
+    "url": {
+      "zh": "URL 地址",
+      "en": "URL address."
+    },
+    "width": {
+      "zh": "宽度",
+      "en": "Width."
+    },
+    "height": {
+      "zh": "高度",
+      "en": "Height."
+    },
+    "requires_auth": {
+      "zh": "是否需要认证",
+      "en": "Whether authentication is required."
+    },
+    "is_removed": {
+      "zh": "是否已移除",
+      "en": "Whether removed."
+    },
+    "removed_at": {
+      "zh": "移除时间",
+      "en": "Removed timestamp."
+    },
+    "file_name": {
+      "zh": "文件名",
+      "en": "File name."
+    },
+    "mime_type": {
+      "zh": "MIME 类型",
+      "en": "MIME type."
+    },
+    "thumbnail_url": {
+      "zh": "缩略图 URL",
+      "en": "Thumbnail URL."
+    },
+    "is_super_channel": {
+      "zh": "是否超级频道",
+      "en": "Whether super channel."
+    },
+    "is_distinct_channel": {
+      "zh": "是否独立频道",
+      "en": "Whether distinct channel."
+    },
+    "channel": {
+      "zh": "频道对象",
+      "en": "Channel object."
+    },
+    "participants": {
+      "zh": "参与者列表",
+      "en": "Participant list."
+    },
+    "is_operator": {
+      "zh": "是否运营者",
+      "en": "Whether operator."
+    },
+    "last_read_at": {
+      "zh": "最后阅读时间",
+      "en": "Last read timestamp."
+    },
+    "unread_message_count_by_channel": {
+      "zh": "频道未读消息数",
+      "en": "Unread messages by channel."
+    },
+    "unread_mention_count_by_channel": {
+      "zh": "频道未读提及数",
+      "en": "Unread mentions by channel."
+    },
+    "count_preference": {
+      "zh": "计数偏好",
+      "en": "Count preference."
+    },
+    "allow_partial_operators": {
+      "zh": "允许部分运营者",
+      "en": "Allow partial operators."
+    },
+    "channel_invitation_preference_updated": {
+      "zh": "邀请偏好更新时间",
+      "en": "Invitation preference update time."
+    },
+    "is_quiet": {
+      "zh": "是否静默",
+      "en": "Whether quiet."
+    },
+    "is_mandatory": {
+      "zh": "是否强制",
+      "en": "Whether mandatory."
+    },
+    "scheduled_at": {
+      "zh": "计划执行时间",
+      "en": "Scheduled timestamp."
+    },
+    "announce_message": {
+      "zh": "公告消息内容",
+      "en": "Announcement message."
+    },
+    "announce_url": {
+      "zh": "公告图片 URL",
+      "en": "Announcement image URL."
+    },
+    "target_channel_type": {
+      "zh": "目标频道类型",
+      "en": "Target channel type."
+    },
+    "target_at": {
+      "zh": "目标执行时间",
+      "en": "Target timestamp."
+    },
+    "status": {
+      "zh": "状态",
+      "en": "Status."
+    },
+    "failed_count": {
+      "zh": "失败数量",
+      "en": "Failed count."
+    },
+    "success_count": {
+      "zh": "成功数量",
+      "en": "Success count."
+    },
+    "completed_at": {
+      "zh": "完成时间",
+      "en": "Completed timestamp."
+    },
+    "started_at": {
+      "zh": "开始时间",
+      "en": "Started timestamp."
+    },
+    "ended_at": {
+      "zh": "结束时间",
+      "en": "Ended timestamp."
+    },
+    "daily_active_users": {
+      "zh": "日活跃用户",
+      "en": "Daily active users."
+    },
+    "monthly_active_users": {
+      "zh": "月活跃用户",
+      "en": "Monthly active users."
+    },
+    "date": {
+      "zh": "日期",
+      "en": "Date."
+    },
+    "active_users": {
+      "zh": "活跃用户",
+      "en": "Active users."
+    },
+    "user_count": {
+      "zh": "用户数量",
+      "en": "User count."
+    },
+    "bot_userid": {
+      "zh": "机器人用户 ID",
+      "en": "Bot user ID."
+    },
+    "is_agent": {
+      "zh": "是否客服代理",
+      "en": "Whether agent."
+    },
+    "is_bot": {
+      "zh": "是否机器人",
+      "en": "Whether bot."
+    },
+    "read_receipt": {
+      "zh": "已读回执",
+      "en": "Read receipt."
+    },
+    "delivery_receipt": {
+      "zh": "送达回执",
+      "en": "Delivery receipt."
+    },
+    "is_silent_message": {
+      "zh": "是否静默消息",
+      "en": "Whether silent message."
+    },
+    "is_mark_as_read": {
+      "zh": "是否标记已读",
+      "en": "Whether marked as read."
+    },
+    "created_at_ts": {
+      "zh": "创建时间戳",
+      "en": "Created-at timestamp."
+    },
+    "updated_at_ts": {
+      "zh": "更新时间戳",
+      "en": "Updated-at timestamp."
+    },
+    "code": {
+      "zh": "错误代码。",
+      "en": "Error code."
+    }
+  },
+  "tags": {
+    "announcements": {
+      "zh": "公告：向频道批量推送的定时消息。",
+      "en": "Announcements: scheduled broadcast messages to channels."
+    },
+    "bots": {
+      "zh": "机器人：机器人账号的创建、列表与消息发送。",
+      "en": "Bots: bot account creation, listing, and message sending."
+    },
+    "groupChannels": {
+      "zh": "群组频道：一对一与多对多私密对话频道。",
+      "en": "Group channels: 1-to-1 and group private conversation channels."
+    },
+    "messages": {
+      "zh": "消息：文本、文件与管理消息的发送与管理。",
+      "en": "Messages: text, file, and admin message management."
+    },
+    "metadata": {
+      "zh": "元数据：频道上的键值元数据管理。",
+      "en": "Metadata: key-value metadata management on channels."
+    },
+    "moderation": {
+      "zh": "审核：频道冻结与用户封禁管理。",
+      "en": "Moderation: channel freeze and user block management."
+    },
+    "openChannels": {
+      "zh": "开放频道：公开可加入的频道管理。",
+      "en": "Open channels: public joinable channel management."
+    },
+    "statistics": {
+      "zh": "统计：日活跃与月活跃用户数查询。",
+      "en": "Statistics: daily and monthly active user counts."
+    },
+    "users": {
+      "zh": "用户：用户生命周期、推送偏好与设备令牌管理。",
+      "en": "Users: user lifecycle, push preferences, and device token management."
+    }
+  }
+}

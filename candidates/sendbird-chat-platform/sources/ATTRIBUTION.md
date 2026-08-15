@@ -1,0 +1,5 @@
+# Sendbird Chat Platform API v3 attribution
+
+This directory stages the Sendbird Chat Platform API v3 candidate contract. Sendbird publishes no OpenAPI document, so the contract is deterministically reconstructed from the official generated SDK [`sendbird/sendbird-platform-sdk-typescript`](https://github.com/sendbird/sendbird-platform-sdk-typescript) at pinned revision `fccf6fa11117e15bd4dcdd89127407f0b46e7ce8` (v2.1.8), an openapi-generator artifact. The TypeScript package.json declares the [Unlicense](https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json); the Java SDK is MIT-licensed (Copyright (c) 2022 Sendbird). No SDK source is copied into the PontxSpec or the generated client, and no official documentation prose is reproduced; all Hub copy is independently authored.
+
+Use of the Sendbird API is governed by the [Sendbird Terms of Service](https://sendbird.com/terms-of-service/). The Sendbird name is used descriptively; this project is not affiliated with or endorsed by Sendbird.

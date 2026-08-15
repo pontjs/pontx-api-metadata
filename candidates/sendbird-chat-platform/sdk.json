@@ -1,0 +1,45 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/sendbird-chat-platform",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/sendbird-chat-platform"
+  },
+  "cli": {
+    "name": "pontx-sendbird-chat-platform"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createSendbirdChatPlatformClient",
+      "identifier": "client",
+      "options": {
+        "appId": "SENDBIRD_APP_ID",
+        "apiToken": "SENDBIRD_API_TOKEN"
+      }
+    },
+    "controllers": {
+      "announcements": "announcements",
+      "bots": "bots",
+      "groupChannels": "groupChannels",
+      "messages": "messages",
+      "metadata": "metadata",
+      "moderation": "moderation",
+      "openChannels": "openChannels",
+      "statistics": "statistics",
+      "users": "users"
+    }
+  },
+  "examples": {
+    "typescript": "import { createSendbirdChatPlatformClient } from \"@pontx/sendbird-chat-platform\";\n\nconst client = createSendbirdChatPlatformClient({\n  appId: process.env.SENDBIRD_APP_ID,\n  apiToken: process.env.SENDBIRD_API_TOKEN,\n});\nconst user = await client.users.viewAUser({ userId: \"user_id_123\" });",
+    "cli": "pnpm add --global @pontx/sendbird-chat-platform\n\npontx-sendbird-chat-platform call users view-a-user --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "candidates/sendbird-chat-platform/spec.pontx.json",
+    "sha256": "345c240cef7256744aa4ef936ca3efb47aecd0cab048622e515a4b676e5e4ea1"
+  }
+}
