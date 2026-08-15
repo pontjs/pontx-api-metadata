@@ -121,7 +121,12 @@ assert(twelve.websocketAudit.officialPythonSdk?.commit ===
   "7b1e60f0de6cbfe4874b476bc237f2d4c628b839" &&
   twelve.websocketAudit.pontxProgress?.asyncapiCommit ===
   "0f6a32e61f993bfb1c37373ef95efd79465c181f" &&
-  twelve.websocketAudit.pontxProgress?.remaining?.includes("provider-complete-inbound-schemas"),
+  twelve.websocketAudit.pontxProgress?.generatedClientCommit ===
+  "1ef0a829c785422b06e9fa0d76fff244de8446cb" &&
+  twelve.websocketAudit.pontxProgress?.implemented?.includes("generated-stream-client") &&
+  twelve.websocketAudit.pontxProgress?.remaining?.includes("provider-complete-inbound-schemas") &&
+  twelve.websocketAudit.pontxProgress?.remaining?.includes("complete-stream-sdk-cli-e2e") &&
+  !twelve.websocketAudit.pontxProgress?.remaining?.includes("generated-stream-client-binding"),
 "Twelve Data partial Pontx support and remaining contract work must stay explicit");
 
 const actual = new Set(

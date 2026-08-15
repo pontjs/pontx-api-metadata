@@ -74,7 +74,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
 | 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 与 metadata/生成 SDK 再分发权仍未确认 | 继续重建七个 Endpoint，并获取 convert/usage 许可 fixture 与书面发布许可 |
 | 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS、三项成功 fixture 或授权测试密钥与 metadata/SDK 书面许可 |
-| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成与只读 CLI 基础，仍未完成生成 stream client、Hub 文档和凭证安全连接验证；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 完成流式客户端/Hub/凭证安全链路，并取得完整入站 Schema/fixture 与发布许可 |
+| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture 与发布许可 |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
@@ -129,7 +129,7 @@ MongoDB 与 SQS 仍不是 catalog-ready：二者需完成双语规范、全部�
 ### 暂缓
 
 - PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
-- Twelve Data Forex：已完成部分 WebSocket 基础能力，但完整入站 Schema、生成 stream client、Hub 文档、凭证安全验证及 metadata/SDK 发布与外部展示许可仍待确认。
+- Twelve Data Forex：已完成 WebSocket runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，但完整入站 Schema、Hub 文档、凭证安全验证及 metadata/SDK 发布与外部展示许可仍待确认。
 - 12 个 AI/LLM 集合：协议门阻断。
 - Stripe Identity：隐私与合规门阻断。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。
