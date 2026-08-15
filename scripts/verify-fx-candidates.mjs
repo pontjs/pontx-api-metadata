@@ -90,7 +90,7 @@ assert(currencyBeacon.pontxProbe.status === "not-run-contract-blocked" &&
 
 const twelve = candidate("twelve-data-forex");
 assert(twelve.stage === "protocol-blocked" && twelve.gateStatus.transport === "blocked",
-  "Twelve Data Forex must remain atomically blocked on WebSocket");
+  "Twelve Data Forex must remain atomically blocked until its complete WebSocket contract and client path are validated");
 assert(twelve.contractSource.sourceSha256 ===
   "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c" &&
   twelve.contractSource.observedOperations === 187 && twelve.contractSource.observedSchemas === 797,
@@ -109,10 +109,24 @@ assert(twelve.pontxProbe.generatedOperations === 187 && twelve.pontxProbe.genera
 "Twelve Data REST generation proof drifted");
 assert(twelve.pontxProbe.credentialFinding.includes("printed"),
   "Twelve Data CLI credential safety finding must remain explicit");
+assert(twelve.websocketAudit?.reverifiedAt === "2026-08-15" &&
+  twelve.websocketAudit.officialConnectionUrl === "wss://ws.twelvedata.com/v1/quotes/price?apikey={apiKey}" &&
+  twelve.websocketAudit.outboundActionsConfirmedByOfficialSdk?.join(",") === "subscribe,unsubscribe,reset,heartbeat" &&
+  twelve.websocketAudit.documentedInboundEventNames?.join(",") === "subscribe-status,price" &&
+  twelve.websocketAudit.missingCompleteInboundEventSchemas?.join(",") === "subscribe-status,price",
+"Twelve Data official WebSocket evidence drifted");
+assert(twelve.websocketAudit.officialPythonSdk?.commit ===
+  "3d53d271a450c50b2199722b5d2db7b92e213d3b" &&
+  twelve.websocketAudit.pontxProgress?.runtimeCommit ===
+  "7b1e60f0de6cbfe4874b476bc237f2d4c628b839" &&
+  twelve.websocketAudit.pontxProgress?.asyncapiCommit ===
+  "0f6a32e61f993bfb1c37373ef95efd79465c181f" &&
+  twelve.websocketAudit.pontxProgress?.remaining?.includes("provider-complete-inbound-schemas"),
+"Twelve Data partial Pontx support and remaining contract work must stay explicit");
 
 const actual = new Set(
   registry.products.filter((product) => expected.has(product.slug)).map((product) => product.slug)
 );
 assert(actual.size === expected.size, "FX candidate set is incomplete");
 
-console.log("Verified FX candidates: ECB admission-ready contract, OXR/Twelve probes, CurrencyBeacon stop gate");
+console.log("Verified FX candidates: ECB admission-ready contract, OXR/CurrencyBeacon evidence, and Twelve partial WebSocket evidence");
