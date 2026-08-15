@@ -21,8 +21,8 @@
     {
       "id": "caller-directed-data",
       "claim": "The Notion API is caller-directed: workspace content is private End User data, and Pontx Hub does not proxy, cache, or aggregate it.",
-      "summary": "Notion Developer Terms section 4 imposes integrator data-handling and privacy obligations for End User data; the Pontx product metadata disables Hub execution for every endpoint.",
-      "sourceUrl": "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20",
+      "summary": "The official Notion API authorization documentation treats workspace pages as user-controlled content: users select which pages, including private pages, a connection may access, and apps that create pages in users' workspaces must complete OAuth authorization first. The official Notion security page states Notion keeps user data secure and private. Pontx product metadata disables Hub execution for every Notion endpoint so calls stay caller-directed.",
+      "sourceUrl": "https://developers.notion.com/docs/authorization",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
