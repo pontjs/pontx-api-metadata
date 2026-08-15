@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "status": "staging-sdk-release",
+  "status": "published",
   "canonicalSpec": "products/amazon-sqs/spec.pontx.json",
   "import": {
     "format": "Smithy 2.0 JSON AST",
@@ -106,5 +106,21 @@
       "endpoints": 23,
       "schemas": 114
     }
+  },
+  "sdk": {
+    "package": "@pontx/amazon-sqs",
+    "version": "0.1.1",
+    "registry": "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.1",
+    "integrity": "sha512-G2QPOpFbf9JDPpb20dqqBr3ER3kbAa4uJtPWUQCP2h3HYxxCvrJ4BBvLuj07vnzzEbSEIxKxf8ZK3eGqbogCxg==",
+    "shasum": "f303b11f5bc986497efbfbdff7013652bbb36819",
+    "repository": "https://github.com/pontjs/amazon-sqs",
+    "sourceCommit": "3c0e040f83173b096677a54d8450c877656862a4",
+    "mergedCommit": "707f4c0d4a305bbbece0f2d4e1959d3ff0e275f3",
+    "workflowRun": "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674",
+    "nodeVersions": [
+      "20",
+      "22"
+    ],
+    "verifiedAt": "2026-08-15"
   }
 }

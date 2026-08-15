@@ -2,8 +2,8 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/amazon-sqs",
-    "version": "0.1.0",
-    "status": "planned",
+    "version": "0.1.1",
+    "status": "published",
     "repository": "https://github.com/pontjs/amazon-sqs"
   },
   "cli": {
@@ -27,8 +27,26 @@
   "coverage": {
     "mode": "full"
   },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 6,
+      "total": 6,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "20",
+      "22"
+    ],
+    "sourceCommit": "3c0e040f83173b096677a54d8450c877656862a4",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/amazon-sqs",
+    "workflowRunUrl": "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674"
+  },
   "spec": {
     "path": "products/amazon-sqs/spec.pontx.json",
-    "sha256": "47fe17acd3e47cf6ef7af669e9ec0e4b8bd308aaccff31ee5e15ee1c5b50687f"
+    "sha256": "47fe17acd3e47cf6ef7af669e9ec0e4b8bd308aaccff31ee5e15ee1c5b50687f",
+    "metadataCommit": "d24224857ed1c87e7ba92ba333742d980e44c977"
   }
 }
