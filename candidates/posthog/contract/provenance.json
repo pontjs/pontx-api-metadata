@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "status": "contract-complete-awaiting-sdk-release",
+  "canonicalSpec": "candidates/posthog/contract/spec.pontx.json",
+  "source": {
+    "repository": "https://github.com/PostHog/posthog.com/tree/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents",
+    "revision": "7516256e3a9d19863cb6952afbe4282d7a4433f8",
+    "license": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE",
+    "sourceType": "first-party documentation under contents/",
+    "retained": "The contract is independently authored from fixed first-party documentation facts. No hosted OpenAPI payload, ee/ source, PostHog SDK source, or supplier documentation prose is vendored."
+  },
+  "derivation": {
+    "boundary": "The complete documented public project-token runtime surface: POST /i/v0/e/, POST /batch/, and POST /flags?v=2. It excludes the authenticated management API, /flags/definitions local evaluation, SSE/workflow endpoints, static assets/recordings, and deprecated /capture, /engage, and /decide routes.",
+    "method": "Independent bilingual PontxSpec reconstruction from fixed official documentation, accounting for every documented request field, query parameter, success/error response, dynamic map, documented constraint, and execution policy.",
+    "paths": 3,
+    "endpoints": 3,
+    "schemas": 8,
+    "methods": {
+      "POST": 3
+    },
+    "responseMediaTypes": [
+      "application/json"
+    ]
+  },
+  "riskReview": {
+    "classification": "caller-directed-analytics-write-and-billable-flag-evaluation",
+    "hubProxyEnabled": false,
+    "mutations": 2,
+    "credentials": "A caller-local project token is required in every JSON body; it is never stored, logged, or sent to Hub.",
+    "execution": "Hub execution is disabled for all endpoints. Capture and batch mutate event/person/group data; flags can consume quota and use caller identity/properties. SDK/CLI must show a complete request preview and require explicit confirmation before sending."
+  },
+  "sources": {
+    "overview": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx",
+    "capture": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+    "flags": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
+    "flagRequest": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/feature-flags-code-api.mdx",
+    "flagOverrides": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/override-server-properties/api.mdx",
+    "flagBoundary": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/feature-flags/surfaces/api.mdx",
+    "license": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE"
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "candidates/posthog/contract/spec.pontx.json",
+      "sha256": "34e72b9919bc63b1370b9ddfd7d59515330b1250b90bac9e3341967dada73bf9",
+      "endpoints": 3,
+      "schemas": 8
+    },
+    "en-US": {
+      "path": "candidates/posthog/contract/locales/en-US/spec.pontx.json",
+      "sha256": "5a378f7368603c973ca74ed47973d26a15e540f7f37b9b727de3d86bbe79fa09",
+      "endpoints": 3,
+      "schemas": 8
+    }
+  }
+}
