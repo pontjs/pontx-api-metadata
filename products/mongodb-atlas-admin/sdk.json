@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/mongodb-atlas-admin",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/mongodb-atlas-admin"
+  },
+  "cli": {
+    "name": "pontx-mongodb-atlas-admin"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createMongoDbAtlasAdminClient",
+      "identifier": "client",
+      "options": {
+        "clientId": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_ID",
+        "clientSecret": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET"
+      }
+    },
+    "controllers": {
+      "AI Model API Keys": "aiModelApiKeys",
+      "AI Model Rate Limits": "aiModelRateLimits",
+      "AWS Clusters DNS": "awsClustersDns",
+      "Access Tracking": "accessTracking",
+      "Activity Feed": "activityFeed",
+      "Alert Configurations": "alertConfigurations",
+      "Alerts": "alerts",
+      "Atlas Search": "atlasSearch",
+      "Auditing": "auditing",
+      "Cloud Backups": "cloudBackups",
+      "Cloud Migration Service": "cloudMigrationService",
+      "Cloud Provider Access": "cloudProviderAccess",
+      "Cluster Outage Simulation": "clusterOutageSimulation",
+      "Clusters": "clusters",
+      "Collection Level Metrics": "collectionLevelMetrics",
+      "Custom Database Roles": "customDatabaseRoles",
+      "Data Federation": "dataFederation",
+      "Database Users": "databaseUsers",
+      "Encryption at Rest using Customer Key Management": "encryptionAtRestUsingCustomerKeyManagement",
+      "Events": "events",
+      "Federated Authentication": "federatedAuthentication",
+      "Flex Clusters": "flexClusters",
+      "Flex Restore Jobs": "flexRestoreJobs",
+      "Flex Snapshots": "flexSnapshots",
+      "Global Clusters": "globalClusters",
+      "Invoices": "invoices",
+      "LDAP Configuration": "ldapConfiguration",
+      "Legacy Backup": "legacyBackup",
+      "Limit Description": "limitDescription",
+      "Maintenance Windows": "maintenanceWindows",
+      "Metric Integrations": "metricIntegrations",
+      "MongoDB Cloud Users": "mongoDbCloudUsers",
+      "Monitoring and Logs": "monitoringAndLogs",
+      "Network Peering": "networkPeering",
+      "Online Archive": "onlineArchive",
+      "Organizations": "organizations",
+      "Overload Protection Simulation": "overloadProtectionSimulation",
+      "Performance Advisor": "performanceAdvisor",
+      "Private Endpoint Services": "privateEndpointServices",
+      "Programmatic API Keys": "programmaticApiKeys",
+      "Project IP Access List": "projectIpAccessList",
+      "Projects": "projects",
+      "Push-Based Log Export": "pushBasedLogExport",
+      "Query Shape Insights": "queryShapeInsights",
+      "Rate Limiting": "rateLimiting",
+      "Remote MCP Configurations": "remoteMcpConfigurations",
+      "Resource Policies": "resourcePolicies",
+      "Rolling Index": "rollingIndex",
+      "Root": "root",
+      "Sandbox": "sandbox",
+      "Serverless Instances": "serverlessInstances",
+      "Serverless Private Endpoints": "serverlessPrivateEndpoints",
+      "Service Accounts": "serviceAccounts",
+      "Standby Links": "standbyLinks",
+      "Streams": "streams",
+      "Teams": "teams",
+      "Third-Party Integrations": "thirdPartyIntegrations",
+      "X.509 Authentication": "x509Authentication"
+    }
+  },
+  "examples": {
+    "typescript": "import { createMongoDbAtlasAdminClient } from \"@pontx/mongodb-atlas-admin\";\n\nconst client = createMongoDbAtlasAdminClient();\nconst organizations = await client.organizations.listOrgs({});",
+    "cli": "pnpm add --global @pontx/mongodb-atlas-admin\n\npontx-mongodb-atlas-admin preview organizations listOrgs --input '{}'"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/mongodb-atlas-admin/spec.pontx.json",
+    "sha256": "d0f3ecce1133da55b320701ac24c091ec81f9bc8051817732a03a28cbef00ec5"
+  }
+}

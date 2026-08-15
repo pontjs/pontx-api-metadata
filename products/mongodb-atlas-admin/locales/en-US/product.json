@@ -1,0 +1,45 @@
+{
+  "display": {
+    "title": "MongoDB Atlas Administration API v2",
+    "summary": "All 540 MongoDB Atlas administration endpoints from a fixed Apache-2.0 OpenAPI revision. Hub provides documentation and an independent SDK/CLI, but never proxies account, organization, project, network, backup, or operational data; callers connect directly with local credentials.",
+    "accent": "#13AA52"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+      "https://github.com/mongodb/openapi/tree/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+      "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/LICENSE",
+      "https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/",
+      "https://www.mongodb.com/legal/terms-and-conditions/cloud",
+      "https://www.mongodb.com/legal/trademark-usage-guidelines"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "The complete boundary is all 540 endpoints and 1,145 schemas in openapi/v2.json at the fixed mongodb/openapi revision. Apache-2.0 applies to the imported specification source; MongoDB Cloud service use, website content, and trademarks are governed separately. Hub does not proxy Atlas management traffic; SDK/CLI credentials stay caller-local, and every mutation needs a preview and explicit confirmation."
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "MongoDB Atlas plans, resource billing, and account eligibility are governed by MongoDB's current pricing and service terms. Pontx neither resells the service nor quotes for MongoDB.",
+    "officialUrl": "https://www.mongodb.com/pricing",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "ServiceAccounts",
+      "description": "OAuth service-account client ID. The SDK/CLI also requires MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET; both values remain only in the caller-local environment and must not appear in request examples, logs, or Hub.",
+      "guide": {
+        "title": "Configure an Atlas OAuth service account",
+        "steps": [
+          "Create an Atlas service account with only the minimum required role.",
+          "Keep its client ID and client secret only in caller-local environment variables.",
+          "Generate a redacted preview with a read endpoint before executing a request."
+        ]
+      }
+    },
+    {
+      "schemeId": "DigestAuth",
+      "description": "Legacy Digest API public and private keys. Use this mode only where the caller still requires it, keep least privilege, and never place either value in examples, logs, or Hub."
+    }
+  ]
+}

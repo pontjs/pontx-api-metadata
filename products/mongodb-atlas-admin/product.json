@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "slug": "mongodb-atlas-admin",
+  "name": "MongoDB Atlas Administration API v2",
+  "provider": "MongoDB",
+  "category": "Cloud",
+  "featured": true,
+  "display": {
+    "title": "MongoDB Atlas 管理 API v2",
+    "summary": "覆盖固定 Apache-2.0 OpenAPI revision 中全部 540 个 MongoDB Atlas 管理 Endpoint。Hub 提供文档与独立 SDK/CLI，但不代理账户、组织、项目、网络、备份或运行数据；调用方通过本地凭证直连。",
+    "accent": "#13AA52"
+  },
+  "legal": {
+    "license": "Apache-2.0 for the imported OpenAPI source; MongoDB Cloud service, website, and trademark terms apply separately.",
+    "attributionUrl": "https://github.com/mongodb/openapi/tree/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+      "https://github.com/mongodb/openapi/tree/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+      "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/LICENSE",
+      "https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/",
+      "https://www.mongodb.com/legal/terms-and-conditions/cloud",
+      "https://www.mongodb.com/legal/trademark-usage-guidelines"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "完整边界是固定 mongodb/openapi revision 中 openapi/v2.json 的 540 个 Endpoint 和 1,145 个 Schema。Apache-2.0 适用于导入的规范源码；MongoDB Cloud 服务使用、官网内容和商标分别受其自身条款约束。Hub 不代理 Atlas 管理流量，SDK/CLI 仅使用调用方本地凭证；任何变更操作都必须先预览并获得显式确认。"
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "MongoDB Atlas 的套餐、资源计费和账户资格由 MongoDB 的当前定价与服务条款决定；Pontx 不代售、转售或代表 MongoDB 报价。",
+    "officialUrl": "https://www.mongodb.com/pricing",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "ServiceAccounts",
+      "envVar": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_ID",
+      "description": "OAuth 服务账号客户端 ID。SDK/CLI 还要求 MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET；两项凭证只保留在调用方本地环境，不能写入请求示例、日志或 Hub。",
+      "guide": {
+        "url": "https://www.mongodb.com/docs/atlas/configure-api-access/",
+        "title": "配置 Atlas OAuth 服务账号",
+        "steps": [
+          "在 Atlas 中创建仅具所需最低权限的服务账号。",
+          "将客户端 ID 和客户端密钥仅放入调用方本地环境变量。",
+          "先用只读 Endpoint 生成脱敏预览，再执行请求。"
+        ]
+      }
+    },
+    {
+      "schemeId": "DigestAuth",
+      "usernameEnvVar": "MONGODB_ATLAS_PUBLIC_KEY",
+      "passwordEnvVar": "MONGODB_ATLAS_PRIVATE_KEY",
+      "description": "旧版 Digest API 公钥和私钥。仅在调用方仍需该认证方式时使用，并限制到最低权限；不得写入示例、日志或 Hub。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "listOrgs",
+    "requestExampleId": "default"
+  }
+}
