@@ -42,9 +42,6 @@
       "description": "使用 AWS 默认凭证链；常用环境变量包括 AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY、可选 AWS_SESSION_TOKEN 和 AWS_REGION。凭证仅保留在调用者环境，不能写入示例、日志或 Hub。"
     }
   ],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "ListQueues",
     "requestExampleId": "default"

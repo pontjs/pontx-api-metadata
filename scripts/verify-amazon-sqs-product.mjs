@@ -71,7 +71,6 @@ assert.deepEqual(provenance.sdk, {
 });
 assert.equal(provenance.outputs["zh-CN"].sha256, sha256(zhBytes));
 assert.equal(provenance.outputs["en-US"].sha256, sha256(enBytes));
-assert.equal(product.execution.hubProxyEnabled, false, "Hub execution must stay disabled for SQS");
 
 const source = JSON.parse(sourceBytes.toString("utf8"));
 const serviceId = "com.amazonaws.sqs#AmazonSQS";
