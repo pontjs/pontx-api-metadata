@@ -527,6 +527,10 @@ const sdk = {
         clientSecret: "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET",
       },
     },
+    // Pontx generated clients pass an explicit query object before any body.
+    // Keep this public call shape explicit so Hub-generated SDK snippets are
+    // checked against the package rather than relying on a global convention.
+    argumentOrder: ["path", "query", "body"],
     controllers: Object.fromEntries(controllerEntries),
   },
   examples: {

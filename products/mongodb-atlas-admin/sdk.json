@@ -19,6 +19,11 @@
         "clientSecret": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET"
       }
     },
+    "argumentOrder": [
+      "path",
+      "query",
+      "body"
+    ],
     "controllers": {
       "AI Model API Keys": "aiModelApiKeys",
       "AI Model Rate Limits": "aiModelRateLimits",
