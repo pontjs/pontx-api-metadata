@@ -6,7 +6,7 @@
       "id": "private-response-boundary",
       "claim": "Pinhere API responses can include private project data, issue content, DOM context, screenshots, token metadata, or Webhook delivery diagnostics.",
       "summary": "Every read Endpoint's execution-disabled reason identifies private resources, issue text, DOM, screenshots, Token metadata, or delivery diagnostics as sensitive response content.",
-      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -14,7 +14,7 @@
       "id": "pkce-flow",
       "claim": "For a Chrome extension, preserve OAuth 2.0 Authorization Code + PKCE values only in the extension and its trusted backend; never substitute a copied browser session.",
       "summary": "The provider-owned PontxSpec declares Chrome extension OAuth 2.0 Authorization Code + PKCE and separately identifies website Session Cookie authentication.",
-      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -22,7 +22,7 @@
       "id": "stateful-actions",
       "claim": "Treat every requested create, claim, completion, reopen, delete, token action, or Webhook action as a persistent or security-sensitive operation.",
       "summary": "The provider-owned PontxSpec marks these state-changing or secret-bearing Endpoints as execution disabled and requires a local preview plus explicit confirmation.",
-      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -30,7 +30,7 @@
       "id": "one-time-secret-boundary",
       "claim": "Treat one-time token or secret responses as non-recoverable sensitive output: return only the minimum needed to the intended local recipient and do not persist them.",
       "summary": "The provider-owned PontxSpec identifies token creation and Webhook secret rotation as operations that return a one-time secret and must never be recorded by Hub.",
-      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+      "sourceUrl": "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     }

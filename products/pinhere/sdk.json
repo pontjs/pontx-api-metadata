@@ -35,8 +35,26 @@
   "coverage": {
     "mode": "full"
   },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 10,
+      "total": 10,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "024321a7559918cff2eb766b6387af6d59885ad2",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/pinhere",
+    "workflowRunUrl": "https://github.com/pontjs/pinhere/actions/runs/31886414810"
+  },
   "spec": {
     "path": "products/pinhere/spec.pontx.json",
-    "sha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f"
+    "sha256": "132d1988e36f4ecc186822b3c8a567ad30e270322d8772208675ab466a5ebe26"
   }
 }

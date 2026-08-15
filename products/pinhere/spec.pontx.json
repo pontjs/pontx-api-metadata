@@ -10,8 +10,8 @@
   "servers": [
     {
       "id": "production",
-      "url": "https://pinhere.dev/api/v1",
-      "description": "Pinhere 生产 API。"
+      "url": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1",
+      "description": "Pinhere 生产 API（Vercel）。"
     }
   ],
   "tags": [
@@ -4246,8 +4246,8 @@
         "description": "Chrome 扩展 OAuth 2.0 Authorization Code + PKCE。",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://pinhere.dev/extension-authorize",
-            "tokenUrl": "https://pinhere.dev/api/v1/oauth/token",
+            "authorizationUrl": "https://pinhere-jasonhzqs-projects.vercel.app/extension-authorize",
+            "tokenUrl": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1/oauth/token",
             "scopes": {
               "projects:read": "读取项目并按页面 URL 解析项目。",
               "issues:create": "创建缺陷。",

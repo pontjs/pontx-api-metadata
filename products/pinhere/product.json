@@ -12,15 +12,17 @@
   },
   "legal": {
     "license": "MIT",
-    "attributionUrl": "https://github.com/jasonHzq/pinhere/tree/576e6f7160b5bb04d5856620def23c6bd3b25082"
+    "attributionUrl": "https://github.com/jasonHzq/pinhere/tree/4df51d12e3a707454ffdcef310de5d1e41bbbdfe"
   },
   "documentation": {
     "status": "official",
     "evidence": [
-      "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
-      "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/locales/en-US/spec.pontx.json",
-      "https://github.com/jasonHzq/pinhere/blob/576e6f7160b5bb04d5856620def23c6bd3b25082/LICENSE",
-      "https://github.com/pontjs/pinhere/actions/runs/31878239387"
+      "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/spec.pontx.json",
+      "https://raw.githubusercontent.com/jasonHzq/pinhere/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/apps/web/specs/locales/en-US/spec.pontx.json",
+      "https://github.com/jasonHzq/pinhere/blob/4df51d12e3a707454ffdcef310de5d1e41bbbdfe/LICENSE",
+      "https://pinhere-jasonhzqs-projects.vercel.app/.well-known/pontx.json",
+      "https://github.com/jasonHzq/pinhere/actions/runs/31885917089",
+      "https://github.com/pontjs/pinhere/actions/runs/31886414810"
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
@@ -29,7 +31,7 @@
   "pricing": {
     "status": "unknown",
     "summary": "尚无经固定官方来源验证的公开定价承诺；接入前请以 Pinhere 当前产品页面或账户协议为准。",
-    "officialUrl": "https://pinhere.dev",
+    "officialUrl": "https://pinhere-jasonhzqs-projects.vercel.app",
     "verifiedAt": "2026-08-15"
   },
   "credentials": [

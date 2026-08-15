@@ -10,8 +10,8 @@
   "servers": [
     {
       "id": "production",
-      "url": "https://pinhere.dev/api/v1",
-      "description": "Pinhere production API."
+      "url": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1",
+      "description": "Pinhere production API on Vercel."
     }
   ],
   "tags": [
@@ -4246,8 +4246,8 @@
         "description": "OAuth 2.0 Authorization Code + PKCE for the Chrome extension.",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://pinhere.dev/extension-authorize",
-            "tokenUrl": "https://pinhere.dev/api/v1/oauth/token",
+            "authorizationUrl": "https://pinhere-jasonhzqs-projects.vercel.app/extension-authorize",
+            "tokenUrl": "https://pinhere-jasonhzqs-projects.vercel.app/api/v1/oauth/token",
             "scopes": {
               "projects:read": "Read projects and resolve a project by page URL.",
               "issues:create": "Create issues.",
