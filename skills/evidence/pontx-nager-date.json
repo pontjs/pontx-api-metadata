@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "nager-date",
+  "claims": [
+    {
+      "id": "public-holiday-service",
+      "claim": "Nager.Date Community API v4 is a public service for public-holiday information.",
+      "summary": "The supplier's Community API v4 OpenAPI description identifies the service as a public service for public-holiday information.",
+      "sourceUrl": "https://nagerholidays.com/openapi/community-v4.json",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "commercial-sponsorship",
+      "claim": "Nager.Date Community API terms allow private or non-profit projects and require active sponsorship for commercial use.",
+      "summary": "The official Terms of Service grants private or non-profit use and states that commercial purposes require active sponsorship.",
+      "sourceUrl": "https://nagerholidays.com/legal/termsofservice",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "no-community-credential",
+      "claim": "The Community API does not require a credential in the official v4 contract.",
+      "summary": "The official Community API v4 OpenAPI document has no root security requirement or security scheme.",
+      "sourceUrl": "https://nagerholidays.com/openapi/community-v4.json",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-nager-date",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List 2026 public holidays for a US rollout calendar without making a call yet.",
+      "expected_output": "Checks provider-use eligibility, retrieves current endpoint and schema facts through Pontx discovery, and prepares a narrow local read without inventing fields.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Should our daily automation run in this country today?",
+      "expected_output": "Retrieves the current status endpoint, verifies country or subdivision and UTC-offset semantics, and handles each documented success status without guessing timezone behavior.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Use Nager.Date in our paid scheduling product.",
+      "expected_output": "Stops for confirmation of active provider sponsorship before advising implementation, then keeps any permitted integration caller-directed and non-aggregating.",
+      "files": []
+    }
+  ]
+}
