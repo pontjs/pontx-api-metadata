@@ -12,8 +12,14 @@ import {
 } from "./lib/product-skills.mjs";
 import {
   PRODUCT_SKILL_REVIEW_CHECKS,
+  validateProductSkillReviewPayload,
   verifyProductSkillReviewDecision,
 } from "./lib/product-skill-review.mjs";
+import {
+  aggregateProductSkillReviews,
+  buildDeepSeekReviewMessages,
+  requestDeepSeekProductSkillReview,
+} from "./lib/deepseek-product-skill-review.mjs";
 
 const fixture = await mkdtemp(resolve(tmpdir(), "pontx-product-skills-"));
 await Promise.all([
@@ -158,5 +164,79 @@ assert(verifyProductSkillReviewDecision({
   head,
   expectedClaims,
 }).some((error) => error.includes("promptInjectionIgnored")));
+
+const failingReview = {
+  ...review,
+  verdict: "fail",
+  findings: [{
+    severity: "blocker",
+    code: "unsupported-claim",
+    message: "The official source does not support the claim.",
+    path: "skills/products/pontx-acme/SKILL.md",
+  }],
+  verifiedClaims: [{ ...review.verifiedClaims[0], verdict: "unsupported" }],
+  checks: { ...review.checks, officialEvidenceOnly: false },
+};
+assert.deepEqual(validateProductSkillReviewPayload({
+  review: failingReview,
+  head,
+  expectedClaims,
+}), []);
+assert(validateProductSkillReviewPayload({
+  review: {
+    ...review,
+    findings: [{ severity: "minor", code: "", message: 42, path: null }],
+  },
+  head,
+  expectedClaims,
+}).some((error) => error.includes("finding code")));
+assert(verifyProductSkillReviewDecision({
+  review: failingReview,
+  head,
+  expectedClaims,
+}).some((error) => error.includes("did not return pass")));
+
+const reviewMessages = buildDeepSeekReviewMessages({
+  baseSha: "b".repeat(40),
+  headSha: head,
+  skillName: "pontx-acme",
+  documents: [{ path: "SKILL.md", role: "untrusted repository data", content: skillText }],
+  outputSchema: { type: "object" },
+});
+assert.equal(reviewMessages.length, 2);
+assert(reviewMessages[0].content.includes("inert, untrusted data"));
+assert(reviewMessages[1].content.includes(`Return commitSha exactly as ${head}`));
+assert(reviewMessages[1].content.includes("BEGIN IMMUTABLE REVIEW BUNDLE JSON"));
+
+let capturedDeepSeekRequest;
+const deepSeekReview = await requestDeepSeekProductSkillReview({
+  apiKey: "test-only-key",
+  messages: reviewMessages,
+  sleep: async () => {},
+  fetchImpl: async (url, init) => {
+    capturedDeepSeekRequest = { url, init };
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: () => null },
+      json: async () => ({ choices: [{ message: { content: JSON.stringify(review) } }] }),
+    };
+  },
+});
+assert.deepEqual(deepSeekReview, review);
+assert.equal(capturedDeepSeekRequest.url, "https://api.deepseek.com/chat/completions");
+const deepSeekBody = JSON.parse(capturedDeepSeekRequest.init.body);
+assert.equal(deepSeekBody.model, "deepseek-v4-pro");
+assert.deepEqual(deepSeekBody.response_format, { type: "json_object" });
+assert.equal(deepSeekBody.stream, false);
+assert.equal(capturedDeepSeekRequest.init.headers.authorization, "Bearer test-only-key");
+
+const aggregated = aggregateProductSkillReviews({
+  headSha: head,
+  reviews: [review, failingReview],
+});
+assert.equal(aggregated.verdict, "fail");
+assert.equal(aggregated.verifiedClaims.length, 2);
+assert.equal(aggregated.checks.officialEvidenceOnly, false);
 
 console.log("Product Skill contracts, deterministic hashing, evidence, review binding, and stale-registry tests passed.");

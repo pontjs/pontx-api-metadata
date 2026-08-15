@@ -59,10 +59,13 @@ metadata.
 
 New Skills start at `1.0.0`. Installed-byte changes require a higher SemVer;
 only `published` entries reach the registry and marketplace workflow. A
-content-only PR may enter independent Codex review and repository auto-merge,
+content-only PR may enter a fresh, stateless DeepSeek review and repository auto-merge,
 but any script, schema, workflow, license, or documentation change requires
-normal human review. Missing reviewer or ClawHub secrets block those external
-steps; never weaken or bypass the gate.
+normal human review. The reviewer calls DeepSeek's OpenAI-compatible Chat
+Completions endpoint directly with an immutable, read-only review bundle; it
+does not reuse an author session or expose repository tools to source content.
+Missing `DEEPSEEK_API_KEY` or ClawHub credentials block those external steps;
+never weaken or bypass the gate.
 
 The hierarchy test fixes the current production baseline at 7 products, 142 Endpoints, and 322 Schemas and also validates a non-HTTP RPC fixture. The earlier 5-product baseline was 126 Endpoints and 275 Schemas; ECB Data Portal and Stripe Identity were admitted before this migration, and the hierarchy preserves every currently published resource. If a deliberate product change alters those counts, update the fixture expectation in the same reviewed change.
 

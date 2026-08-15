@@ -12,8 +12,9 @@ const argument = (name) => {
 const input = argument("--input");
 const base = argument("--base");
 const head = argument("--head");
+const explicitSkills = (argument("--skills") ?? "").split(",").filter(Boolean);
 if (!input || !/^[a-f0-9]{40}$/i.test(base ?? "") || !/^[a-f0-9]{40}$/i.test(head ?? "")) {
-  console.error("Usage: node scripts/verify-product-skill-review.mjs --input <json> --base <sha> --head <sha>");
+  console.error("Usage: node scripts/verify-product-skill-review.mjs --input <json> --base <sha> --head <sha> [--skills <names>]");
   process.exit(2);
 }
 
@@ -26,6 +27,13 @@ for (const path of changedPaths) {
   const match = path.match(/^skills\/(?:products\/(pontx-[a-z0-9-]+)\/|(?:manifests|evidence|evals)\/(pontx-[a-z0-9-]+)\.json$)/);
   const name = match?.[1] ?? match?.[2];
   if (name) skillNames.add(name);
+}
+for (const name of explicitSkills) {
+  if (!/^pontx-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name)) {
+    console.error(`Invalid explicit product Skill name ${name}.`);
+    process.exit(2);
+  }
+  skillNames.add(name);
 }
 if (!skillNames.size) {
   console.error("Independent review has no changed product Skill sources to verify.");

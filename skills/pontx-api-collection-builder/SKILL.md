@@ -82,7 +82,7 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 
 使用 `skills/products/AUTHORING_PROMPT.md`，为正式 slug 创建 `pontx-<slug>`。安装目录只放英文 `SKILL.md` 和确有必要的单个 reference；manifest、官方 claim 证据和 2–3 个冒烟任务分别进入 `skills/manifests/`、`skills/evidence/`、`skills/evals/`。Skill 必须通过 `pontx-hub search/show/sdk` 获取当前 Endpoint、Schema、auth 和包事实，突出 `@pontx/<slug>`、产品 CLI 与统一 Hub Skill 的分工，不复制清单或固定版本。
 
-先保持 `draft`；官方来源与当前 product/PontxSpec/SDK 任何冲突都回流修复事实源，不能让 Skill 自选一个版本。生成确定性 `skills/registry.json`，完成静态预算/claim/版本/hash 门和全新只读 Codex 审核后，才转为 `published` 并验证 skills.sh 干净安装、ClawHub exact SemVer 发布与 Hub same-commit 消费。
+先保持 `draft`；官方来源与当前 product/PontxSpec/SDK 任何冲突都回流修复事实源，不能让 Skill 自选一个版本。生成确定性 `skills/registry.json`，完成静态预算/claim/版本/hash 门和全新、无会话继承、只读的 DeepSeek 审核后，才转为 `published` 并验证 skills.sh 干净安装、ClawHub exact SemVer 发布与 Hub same-commit 消费。
 
 ## 阶段 3：从契约构建 SDK 与产品 CLI
 
