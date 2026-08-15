@@ -219,3 +219,42 @@ jobs:
             exit 1
           fi
           gh pr merge "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --auto --squash
+
+  rollout-merged-content:
+    if: github.event_name == 'pull_request' && needs.gate.outputs.verified == 'true'
+    needs: [classify, review, gate, enable-auto-merge]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: write
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Wait for the unchanged reviewed head to merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REVIEWED_HEAD: ${{ needs.classify.outputs.head-sha }}
+        run: |
+          deadline=$((SECONDS + 1500))
+          while [ "$SECONDS" -lt "$deadline" ]; do
+            current_head=$(gh api "/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '.head.sha')
+            if [ "$current_head" != "$REVIEWED_HEAD" ]; then
+              echo "PR head changed after independent review."
+              exit 1
+            fi
+            merged_at=$(gh api "/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '.merged_at // ""')
+            if [ -n "$merged_at" ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Reviewed PR did not merge before the rollout deadline."
+          exit 1
+
+      - name: Dispatch the main metadata deployment and idempotent Skill rollout
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run publish.yml --repo "$GITHUB_REPOSITORY" --ref main
+          gh workflow run publish-product-skills.yml --repo "$GITHUB_REPOSITORY" --ref main

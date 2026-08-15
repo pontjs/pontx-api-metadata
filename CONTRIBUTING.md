@@ -59,11 +59,14 @@ metadata.
 
 New Skills start at `1.0.0`. Installed-byte changes require a higher SemVer;
 only `published` entries reach the registry and marketplace workflow. A
-content-only PR may enter a fresh, stateless DeepSeek review and repository auto-merge,
-but any script, schema, workflow, license, or documentation change requires
-normal human review. The reviewer calls DeepSeek's OpenAI-compatible Chat
-Completions endpoint directly with an immutable, read-only review bundle; it
-does not reuse an author session or expose repository tools to source content.
+content-only PR may enter a fresh, stateless DeepSeek review and repository
+auto-merge, but any script, schema, workflow, license, or documentation change
+requires normal human review. The reviewer calls DeepSeek's OpenAI-compatible
+Chat Completions endpoint directly with an immutable, read-only review bundle;
+it does not reuse an author session or expose repository tools to source
+content. After the unchanged reviewed head merges, that workflow explicitly
+dispatches the main metadata deployment and the idempotent marketplace rollout;
+this avoids relying on suppressed recursive `push` events from `GITHUB_TOKEN`.
 Missing `DEEPSEEK_API_KEY` or ClawHub credentials block those external steps;
 never weaken or bypass the gate.
 
