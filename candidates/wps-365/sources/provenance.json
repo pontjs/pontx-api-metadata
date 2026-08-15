@@ -47,20 +47,55 @@
   },
   "transport": {
     "rest": "811 plain REST operations (GET/POST/DELETE only; the official document declares no PUT/PATCH).",
-    "sse": "15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) use text/event-stream; modeled with typed SSE contract (events.message dataFormat=json, unknownEventPolicy=preserve).",
-    "callbacks": "Event subscriptions are encrypted HTTP callbacks (AES-CBC + HMAC-SHA256) pushed by WPS to the caller; they are not callable Pontx Endpoints and are documented in product.json, not modeled as endpoints.",
-    "note": "Per-vendor SSE event-name semantics still require final review against official docs before the transport gate is marked passed."
+    "sse": "15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) use text/event-stream; typed SSE contract events.message dataFormat=json, unknownEventPolicy=preserve.",
+    "callbacks": "Event subscriptions are encrypted HTTP callbacks (AES-CBC + HMAC-SHA256) pushed by WPS to the caller; not callable Pontx Endpoints.",
+    "sseAudit": {
+      "method": "Official docs search API + docs collections tree + per-doc content API (open.wps.cn/docs/api/doc/<id>); 6 of 15 paths have dedicated official doc pages (771, 772, 773, 774, 777, 53); the other 8 exist only in the OpenAPI spec.",
+      "verdict": "sse.events.message + dataFormat=json + unknownEventPolicy=preserve is faithful and kept for all 15: the official spec enumerates no event names; the only protocol-level event name documented (aidocs/search/gpt, doc 53) is literally event:message; all other endpoints carry their type/terminal discriminator inside the JSON payload, so declaring more would be speculative.",
+      "terminalMarkers": {
+        "generate_slides_from_pxf_v2 / gen_slides_from_multipages": "stream_status done (reply|done) - doc 771",
+        "ainotes": "stream_status all_done (start/slide_start_processing/processing/finish/ping/all_done) - doc 772",
+        "html2pptx": "type generate_pptx_finish (spec enum) - matches sibling doc 3881",
+        "outline/contents": "stream_status finish (spec enum) - matches sibling doc 2426",
+        "generator/generate_slides": "state end (begin/generating/begin_merge/merging/end) - spec enum",
+        "aidocs/search/gpt": "sub-codes 800100 understand -> 800200 recall -> 800300 answer -> 100100 answer done -> 100200 follow-up questions; 100113 heartbeat ignored - doc 53"
+      },
+      "specialCases": {
+        "export_pxf_from_file/text/theme": "single-event document streams (the whole pxf_root outline in one event; no stream_status field) - docs 773/777/774",
+        "aidocs/in_store/chunk": "response schema is bare $ref error, payload effectively unmodeled - upstream spec gap",
+        "docqa/insight/chat": "same sub-code family as search-gpt (inference; no dedicated doc)"
+      }
+    }
   },
   "riskReview": {
     "classification": "private-enterprise-data-with-developer-terms",
-    "mutations": "many (POST/DELETE across users, messaging, mail, meetings, drive, approvals)",
-    "credentials": "OAuth2 app (client credentials) and delegated (user authorization) tokens plus optional KSO-1 HMAC-SHA256 signing; modeled as environment variables only.",
-    "execution": "All Hub execution is disabled because WPS 365 enterprise data is private business data and the developer agreement imposes integrator data-handling obligations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation."
+    "hubProxyEnabled": false,
+    "readEndpoints": 284,
+    "mutations": {
+      "count": 542,
+      "methods": {
+        "POST": 541,
+        "DELETE": 1
+      }
+    },
+    "credentialPolicy": "OAuth2 app (client credentials) and delegated (user authorization) tokens plus optional KSO-1 HMAC-SHA256 signing; credentials remain in the caller environment only. No credential appears in generated examples, Hub, logs, provenance, or SDK output.",
+    "executionPolicy": "Hub execution is disabled for all WPS 365 traffic. The local CLI previews every call, redacts sensitive values, and requires exact request-bound explicit confirmation before every mutation (POST/DELETE).",
+    "sensitiveAreas": [
+      "enterprise contacts and organization (addressBook 103)",
+      "cloud documents and drive files (drive 89, documents, filetransfer, wiki, doclib)",
+      "messaging and conversations (chats 35)",
+      "mailboxes and mail (mail 53)",
+      "meetings and meeting rooms (meetings 57)",
+      "approval workflows (workflow 34) and attendance (8)",
+      "compliance/DRM (security 35, audit 11)",
+      "DBSheet/smart sheets data (dbsheet 58, airsheet 25, airpage 22, sheets 25)"
+    ],
+    "sse": "15 text/event-stream endpoints under /v7/sse/* (AIPPT, AI docs, doc QA, agent chat); typed SSE contract declared; streaming responses are not buffered by the CLI."
   },
   "outputs": {
     "zh-CN": {
       "path": "candidates/wps-365/spec.pontx.json",
-      "sha256": "a9edac8751ec72b37b663aa6d565fb4473cd34c376b0bda584ecce4d90ea30a1",
+      "sha256": "8d9ae0bec1e8cf37092e344f79c51a9b6e0d181e8e4dd5cc308a0bf60e389a98",
       "endpoints": 826,
       "schemas": 3119
     },

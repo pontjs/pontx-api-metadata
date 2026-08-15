@@ -11,9 +11,9 @@
 | authority（官方来源与边界） | passed | 官方 open.wps.cn 文档站 + API Explorer + 官方 npm CLI `@wps365-open/wps365@0.2.27`（maintainers 为 @wps.cn 员工）；官方机器契约为 OpenAPI 3.0.0 v7 |
 | redistribution（再分发） | passed | 官方规范可由 `https://open.wps.cn/v7/developer/cli_tools/specs/api-internal` 免登录下载（无文件级 license 字段），同时随官方 MIT 许可 npm 包分发；独立撰写 Hub 文案、保留 attribution、不暗示官方背书、不复制文档站 prose |
 | contract（完整契约） | passed | 官方规范固定：806 paths / 827 operations / 3,119 schemas，SHA-256 `3a2dfe64b4debf6435405e2e15e3b7682504c4c91c842c8a491783ea72ae8548`。已构建双语 PontxSpec：826 个 Endpoint（排除 1 个浏览器重定向 OAuth helper）/ 3,119 Schema，静态质量 50/50，仅 i18n.structure 基线 finding（双语 disabledReason，与 nager-date/dropbox-sign/notion 一致）；`pnpm test` 与 `pnpm validate` 全绿 |
-| transport（协议面） | in-progress | 812 纯 REST（GET/POST/DELETE，无 PUT/PATCH）+ 15 个 `/v7/sse/*` text/event-stream 端点（typed SSE 契约已声明，message 事件 + preserve）；事件订阅为加密 HTTP callback（AES-CBC + HMAC-SHA256）；SSE 事件类型逐供应商复核待完成 |
-| risk（安全执行策略） | pending | OAuth2 app/delegated 双通道 + 可选 KSO-1 请求签名；敏感读写面（用户/组织、消息、邮件、会议、云文档、审批）需逐 Endpoint 策略 |
-| sdkCli（SDK/CLI） | pending | 未开始；next：独立 SDK 仓库生成 `@pontx/wps-365` / `pontx-wps-365` |
+| transport（协议面） | passed | 811 纯 REST（GET/POST/DELETE，无 PUT/PATCH）+ 15 个 `/v7/sse/*` text/event-stream 端点（typed SSE 契约 message 事件 + json + preserve，官方文档复核确认与 wire 一致：唯一协议级事件名即 event:message（doc 53），其余端点的类型/终止标识在 payload 内）；事件订阅为加密 HTTP callback（AES-CBC + HMAC-SHA256）。详见 provenance.transport.sseAudit |
+| risk（安全执行策略） | passed | OAuth2 app/delegated 双通道 + 可选 KSO-1 请求签名；Hub 执行全禁用（hubProxyEnabled=false，284 read / 542 mutation），凭证仅环境变量注入，mutation 预览先行；敏感面按 tag 分类记录于 provenance.riskReview |
+| sdkCli（SDK/CLI） | pending（SDK 已就绪，待 operator 发布） | `.worktrees/wps-365-sdk` commit `59c2899`：contract verify / generate check / strict typecheck / 6/6 unit / ESM-CJS-DTS build / 2/2 built E2E / tarball fresh-install / release readiness 全过；待 operator 建 `pontjs/wps-365`、Node 18/20/22 CI、发布 `@pontx/wps-365@0.1.0` / `pontx-wps-365` 并 registry 复验 |
 
 ## 契约构建记录（2026-08-16）
 
@@ -25,7 +25,7 @@
 - 质量：静态 50/50（structure 6 / directory 6 / contract 8 / description 10 / examples 6 / requestExamples 4 / runtime 5 / i18n 5），0 Critical/0 Major/0 Minor，仅 1 条 i18n.structure 基线（双语 disabledReason，与已上线产品一致）。
 - 产物：`spec.pontx.json`（zh，SHA a9edac87...）、`locales/en-US/spec.pontx.json`、`product.json`、`sdk.json`、`sources/provenance.json`、`sources/ATTRIBUTION.md`、`sources/tag-map.json`、`sources/derivation.json`。
 - 验证：`pnpm test`（SDK quality / hierarchy / product skills）、`pnpm validate`（products 14/playground/candidates/fx/skills）全绿；`verify-candidates.mjs` 通过 16 个候选。
-- 下一步：SSE 事件类型逐供应商复核（15 个 /v7/sse/* 的官方事件语义）→ risk 策略 → SDK/CLI 生成与发布（需 operator）→ metadata 准入 → Preview/Production → 生产验收。
+- 下一步（operator）：建立 `pontjs/wps-365` 仓库 + Node 18/20/22 CI → 发布 `@pontx/wps-365@0.1.0` / `pontx-wps-365` 并 registry fresh-install 复验 → metadata 写入真实版本证据并准入 develop → Preview（Agent Browser 中英文审查）→ main → Production → 生产验收矩阵（网站/API/统一 CLI/语义搜索/助手）。
 
 ## 官方证据清单（已固定）
 

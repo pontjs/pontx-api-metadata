@@ -16,14 +16,14 @@
     "zh": "WPS 365 统一 OpenAPI 产品面（Kingsoft Office Open APIs v7）：通讯录/组织、云文档（drive/documents/sheets/dbsheet/airsheet）、消息（im）、会议、日历、智能文档（aidocs/aippt/airpage）、邮件、待办、审批（workflow）、wiki、事件订阅等。官方机器契约为 open.wps.cn 发布、经官方 MIT CLI 分发且字节可复现的 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas）。事件订阅采用加密 HTTP callback（AES-CBC + HMAC-SHA256 签名）；15 个 `/v7/sse/*` 端点使用 text/event-stream；其余为纯 REST（GET/POST/DELETE，无 PUT/PATCH）。认证为 OAuth2 app（client credentials）与 delegated（用户授权）双通道，另有可选 KSO-1 HMAC-SHA256 请求签名。",
     "en": "The supplier-defined WPS 365 unified OpenAPI product surface (Kingsoft Office Open APIs v7): contacts/organization, cloud documents (drive/documents/sheets/dbsheet/airsheet), messaging (im), meetings, calendars, smart documents (aidocs/aippt/airpage), mail, todo, approval workflows, wiki, and event subscriptions. The official machine contract is an OpenAPI 3.0.0 specification published on open.wps.cn, distributed through the official MIT CLI and byte-reproducible (806 paths / 827 operations / 3,119 schemas). Event subscriptions use encrypted HTTP callbacks (AES-CBC + HMAC-SHA256 signature); 15 `/v7/sse/*` endpoints use text/event-stream; the rest are plain REST (GET/POST/DELETE, no PUT/PATCH). Authentication is OAuth2 dual-channel app (client credentials) and delegated (user authorization), with optional KSO-1 HMAC-SHA256 request signing."
   },
-  "stage": "contract-in-progress",
+  "stage": "contract-built",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
     "redistribution": "passed",
-    "contract": "pending",
-    "transport": "pending",
-    "risk": "pending",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "passed",
     "sdkCli": "pending"
   },
   "evidence": [
@@ -58,24 +58,14 @@
   ],
   "blockers": [
     {
-      "gate": "contract",
-      "zh": "官方机器契约已固定（OpenAPI 3.0.0 v7，806 paths / 827 operations / 3,119 schemas，SHA-256 3a2dfe64...；官方 MIT CLI 内嵌字节一致）。规范本身无 operationId、无 tags、无 prose：全部 827 个 Endpoint 需要稳定 operationId 与显式 tags（curated.yaml 提供 101 个官方命令 ID 作锚点），双语 prose 需从官方文档站（zh/en markdown）逐 Endpoint 提取与复核。",
-      "en": "The official machine contract is now pinned (OpenAPI 3.0.0 v7, 806 paths / 827 operations / 3,119 schemas, SHA-256 3a2dfe64...; byte-identical to the spec embedded in the official MIT CLI). The spec itself carries no operationIds, tags, or prose: all 827 endpoints need stable operationIds and explicit tags (curated.yaml provides 101 official command IDs as anchors), and bilingual prose must be extracted and verified per endpoint from the official docs site (zh/en markdown)."
-    },
-    {
-      "gate": "transport",
-      "zh": "812 个纯 REST 端点已确认；15 个 text/event-stream 端点（/v7/sse/*：aippt、aidocs、docqa、wps365agent）需用 Pontx typed SSE 合同逐事件类型复核；事件订阅为加密 HTTP callback。",
-      "en": "812 plain REST endpoints are confirmed; the 15 text/event-stream endpoints (/v7/sse/*: aippt, aidocs, docqa, wps365agent) require per-event-type review with the Pontx typed SSE contract; event subscriptions use encrypted HTTP callbacks."
-    },
-    {
-      "gate": "risk",
-      "zh": "产品面含用户/组织管理、消息、邮件、会议、云文档与审批等敏感读写；需要逐 Endpoint 的安全执行策略（OAuth2 app/delegated 双通道、KSO-1 签名、mutation 预览先行、凭证环境变量注入）。",
-      "en": "The surface includes sensitive reads/writes for users/organization, messaging, mail, meetings, cloud documents, and approvals; per-endpoint security execution policy is required (OAuth2 app/delegated dual channel, KSO-1 signing, preview-first mutation, credential injection via environment variables)."
+      "gate": "sdkCli",
+      "zh": "独立 SDK 仓库（.worktrees/wps-365-sdk，commit 59c2899）已就绪：826 Endpoint / 3,119 Schema 契约验证、生成漂移检查、strict typecheck、6/6 单元测试、ESM/CJS/DTS build、2/2 built E2E、tarball fresh-install、release readiness 全部通过。剩余为 operator 步骤：建立 pontjs/wps-365 仓库、Node 18/20/22 CI、发布 @pontx/wps-365@0.1.0 与 pontx-wps-365 并从 registry 复验，随后 metadata 准入、Preview/Production 与生产验收。",
+      "en": "The independent SDK repository (.worktrees/wps-365-sdk, commit 59c2899) is release-ready: 826-endpoint/3,119-schema contract verification, generation drift check, strict typecheck, 6/6 unit tests, ESM/CJS/DTS build, 2/2 built E2E, tarball fresh-install, and release readiness all pass. Remaining steps are operator-bound: establish the pontjs/wps-365 repository, Node 18/20/22 CI, publish @pontx/wps-365@0.1.0 and pontx-wps-365 with registry re-verification, then metadata admission, Preview/Production, and production acceptance."
     }
   ],
   "nextAction": {
-    "zh": "以固定官方规范（api-internal + curated-internal）为唯一机器契据：用 @pontx/spec importOpenAPI 导入，派生稳定 operationId 与显式 tags（curated.yaml 命令 ID 锚点 + 路径模块分组），从官方文档站 zh/en markdown 提取双语 prose，完成契约/transport/risk 审计后构建候选 PontxSpec 并通过质量门。",
-    "en": "Using the pinned official contract (api-internal + curated-internal) as the sole machine source: import with @pontx/spec importOpenAPI, derive stable operationIds and explicit tags (curated.yaml command-ID anchors plus path-module grouping), extract bilingual prose from the official docs site zh/en markdown, and after the contract/transport/risk audit build the candidate PontxSpec and pass quality gates."
+    "zh": "operator 步骤：将 .worktrees/wps-365-sdk（commit 59c2899）正式化为 pontjs/wps-365 仓库并跑 Node 18/20/22 CI；发布 @pontx/wps-365@0.1.0 与 pontx-wps-365 并从 registry fresh-install 复验；随后在 metadata 写入真实版本/质量证据，准入 develop → Preview → main → Production，完成生产验收矩阵。",
+    "en": "Operator steps: formalize .worktrees/wps-365-sdk (commit 59c2899) as the pontjs/wps-365 repository and run Node 18/20/22 CI; publish @pontx/wps-365@0.1.0 and pontx-wps-365 and re-verify via registry fresh-install; then write real version/quality evidence into metadata, admit develop → Preview → main → Production, and complete the production acceptance matrix."
   },
   "verifiedAt": "2026-08-16"
 }
