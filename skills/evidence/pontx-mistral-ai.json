@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "mistral-ai",
+  "claims": [
+    {
+      "id": "paid-usage-model",
+      "claim": "Mistral AI Platform bills per model usage, and prompts, completions, uploaded files, agents, and workflow data can be sensitive.",
+      "summary": "The Mistral AI Platform API is a paid, bearer-key-authenticated platform; prompts, completions, files, agents, and workflow data are caller data.",
+      "sourceUrl": "https://docs.mistral.ai/api",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "bearer-api-key",
+      "claim": "Keep `MISTRAL_API_KEY` out of source, shell history, inputs, logs, and chat.",
+      "summary": "The fixed mistralai/platform-docs-public revision (openapi-public-doc.yaml) declares a single ApiKey HTTP bearer security scheme for the developer surface.",
+      "sourceUrl": "https://github.com/mistralai/platform-docs-public",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "sse-streaming-endpoints",
+      "claim": "Chat Completions, FIM, Agents conversations, Audio transcription/speech, and Workflows event/log Endpoints stream responses as Server-Sent Events.",
+      "summary": "The fixed official openapi-public-doc.yaml declares text/event-stream responses on 11 ApiKey Endpoints (chat completions, FIM, audio transcription/speech, three Agents conversation stream variants, and four Workflows streams).",
+      "sourceUrl": "https://github.com/mistralai/platform-docs-public/blob/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/openapi-public-doc.yaml",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "agents-conversation-events",
+      "claim": "Agents conversation streams emit named events such as `conversation.response.started`, `message.output.delta`, `tool.execution.started`, and `tool.execution.done`; unknown future events must be preserved, not dropped.",
+      "summary": "The official Agents streaming guide documents these named SSE events with sample payloads and lists agent.handoff.started/done, conversation.response.done/error, and function.call.delta.",
+      "sourceUrl": "https://github.com/mistralai/platform-docs-public/blob/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/src/content/en/docs/studio/agents/agents-api/streaming/_page.mdx",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "batch-and-audio",
+      "claim": "For large or asynchronous workloads prefer Batch jobs over live inference. OCR Endpoints extract structured text from documents. Audio Endpoints cover transcription, speech synthesis, and voice management.",
+      "summary": "The official API reference (docs.mistral.ai/api) and the fixed spec document Batch job management, OCR, and Audio (transcriptions, speech, voices) Endpoints.",
+      "sourceUrl": "https://docs.mistral.ai/api",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}
