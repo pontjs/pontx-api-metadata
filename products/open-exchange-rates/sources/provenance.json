@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "status": "draft",
+  "canonicalSpec": "products/open-exchange-rates/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.1.0",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourceUrl": "https://docs.openexchangerates.org/reference/convert",
+    "sourceSha256": "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e",
+    "observedAt": "2026-08-15",
+    "retained": "The mutable supplier machine contract is not stored locally. PontxSpec is the independently curated canonical contract after one-time import and source-by-source review."
+  },
+  "terms": {
+    "urls": [
+      "https://openexchangerates.org/terms",
+      "https://openexchangerates.org/services-agreement",
+      "https://openexchangerates.org/acceptable-use"
+    ],
+    "verifiedAt": "2026-08-15",
+    "policy": "The local SDK/CLI connects directly with caller-owned credentials. Hub proxying, caching, persistence, and response display are disabled because the terms prohibit reproducing, reselling, or providing supplier information without a licence."
+  },
+  "derivation": {
+    "boundary": "All seven official v0.7 read-only GET endpoints.",
+    "sourceFree": true,
+    "rawContractNormalizations": [
+      "Converted /historical/:date.json to the literal path template /historical/{date}.json.",
+      "Replaced supplier hyphenated operation identifiers with stable lower-camel Pontx operation IDs.",
+      "Reconstructed missing component schemas from the official endpoint response examples and schemas; explicitly preserved the official convert success schema and example."
+    ],
+    "verifiedAt": "2026-08-15"
+  }
+}

@@ -1,0 +1,1785 @@
+{
+  "pontx": "2.1",
+  "name": "open-exchange-rates",
+  "style": "RESTFul",
+  "info": {
+    "title": "Open Exchange Rates API v0.7",
+    "version": "0.7",
+    "description": "独立整理的 Open Exchange Rates v0.7 JSON REST 契约，覆盖官方定义的全部七个只读 Endpoint。调用方使用自己的 App ID；受条款约束，Hub 不代理、缓存、持久化或展示响应。"
+  },
+  "servers": [
+    {
+      "id": "open-exchange-rates-api",
+      "url": "https://openexchangerates.org/api",
+      "description": "Open Exchange Rates HTTPS API。"
+    }
+  ],
+  "security": [
+    {
+      "appId": []
+    }
+  ],
+  "tags": [],
+  "components": {
+    "securitySchemes": {
+      "appId": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "app_id",
+        "description": "调用方自己的 Open Exchange Rates App ID。不得写入示例、日志或持久化存储。"
+      }
+    },
+    "schemas": {
+      "ApiError": {
+        "title": "API 错误",
+        "description": "供应商为错误响应使用的公共 JSON 对象。",
+        "type": "object",
+        "required": [
+          "error",
+          "status",
+          "message",
+          "description"
+        ],
+        "properties": {
+          "error": {
+            "type": "boolean",
+            "description": "错误标记。",
+            "examples": [
+              true
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP 状态码。",
+            "examples": [
+              401
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "机器可读的错误代码。",
+            "examples": [
+              "invalid_app_id"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "面向集成人员的错误说明。",
+            "examples": [
+              "Invalid App ID provided."
+            ]
+          }
+        }
+      },
+      "RateMap": {
+        "title": "货币汇率映射",
+        "description": "以三字母货币代码为键、数值汇率为值的动态对象。",
+        "type": "object",
+        "additionalProperties": {
+          "type": "number",
+          "description": "该货币相对基准货币的汇率。",
+          "examples": [
+            0.92
+          ]
+        }
+      },
+      "StandardRatesResponse": {
+        "title": "标准汇率响应",
+        "description": "latest 与 historical Endpoint 共同使用的汇率信封。",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "timestamp",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商条款链接。",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商许可信息链接。",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "UTC Unix 秒级时间戳。",
+            "examples": [
+              1449877801
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "响应使用的三字母基准货币。",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap",
+            "description": "按货币代码索引的汇率。"
+          }
+        }
+      },
+      "CurrencyNamesResponse": {
+        "title": "支持货币响应",
+        "description": "将可用三字母货币代码映射为完整货币名称的动态对象。",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string",
+          "description": "货币完整名称。",
+          "examples": [
+            "Euro"
+          ]
+        }
+      },
+      "TimeSeriesRates": {
+        "title": "按日期的汇率",
+        "description": "以 ISO 日期为键、每个日期的汇率映射为值的动态对象。",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/RateMap",
+          "description": "该 UTC 日期的汇率映射。"
+        }
+      },
+      "TimeSeriesResponse": {
+        "title": "时间序列响应",
+        "description": "指定日期范围内按日返回的汇率信封。",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "start_date",
+          "end_date",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商条款链接。",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商许可信息链接。",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "结果范围的开始日期。",
+            "examples": [
+              "2024-01-01"
+            ]
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "结果范围的结束日期。",
+            "examples": [
+              "2024-01-02"
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "响应使用的三字母基准货币。",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/TimeSeriesRates",
+            "description": "按 UTC 日期索引的汇率。"
+          }
+        }
+      },
+      "ConversionRequest": {
+        "title": "换算请求回显",
+        "description": "供应商返回的换算请求参数。",
+        "type": "object",
+        "required": [
+          "query",
+          "amount",
+          "from",
+          "to"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "不含 App ID 的换算路径。",
+            "examples": [
+              "/convert/100/USD/EUR"
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "description": "要换算的金额。",
+            "examples": [
+              100
+            ]
+          },
+          "from": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "源货币代码。",
+            "examples": [
+              "USD"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "目标货币代码。",
+            "examples": [
+              "EUR"
+            ]
+          }
+        }
+      },
+      "ConversionMeta": {
+        "title": "换算元数据",
+        "description": "供应商用于计算的汇率和时间。",
+        "type": "object",
+        "required": [
+          "timestamp",
+          "rate"
+        ],
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "description": "计算时使用的 UTC Unix 秒级时间戳。",
+            "examples": [
+              1449885661
+            ]
+          },
+          "rate": {
+            "type": "number",
+            "description": "换算时使用的汇率。",
+            "examples": [
+              0.92
+            ]
+          }
+        }
+      },
+      "ConversionResponse": {
+        "title": "货币换算响应",
+        "description": "供应商的路径式货币换算 JSON 响应。",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "request",
+          "meta",
+          "response"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商条款链接。",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商许可信息链接。",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "request": {
+            "$ref": "#/components/schemas/ConversionRequest",
+            "description": "请求回显。"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ConversionMeta",
+            "description": "计算元数据。"
+          },
+          "response": {
+            "type": "number",
+            "description": "换算后的数值。",
+            "examples": [
+              92
+            ]
+          }
+        }
+      },
+      "OhlcRate": {
+        "title": "OHLC 汇率",
+        "description": "单个货币在请求区间内的开盘、高、低、收盘和平均汇率。",
+        "type": "object",
+        "required": [
+          "open",
+          "high",
+          "low",
+          "close",
+          "average"
+        ],
+        "properties": {
+          "open": {
+            "type": "number",
+            "description": "开盘汇率。",
+            "examples": [
+              0.92
+            ]
+          },
+          "high": {
+            "type": "number",
+            "description": "最高汇率。",
+            "examples": [
+              0.93
+            ]
+          },
+          "low": {
+            "type": "number",
+            "description": "最低汇率。",
+            "examples": [
+              0.91
+            ]
+          },
+          "close": {
+            "type": "number",
+            "description": "收盘汇率。",
+            "examples": [
+              0.92
+            ]
+          },
+          "average": {
+            "type": "number",
+            "description": "平均汇率。",
+            "examples": [
+              0.92
+            ]
+          }
+        }
+      },
+      "OhlcRates": {
+        "title": "OHLC 汇率映射",
+        "description": "以货币代码为键、OHLC 汇率对象为值的动态对象。",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/OhlcRate",
+          "description": "该货币的 OHLC 汇率。"
+        }
+      },
+      "OhlcResponse": {
+        "title": "OHLC 响应",
+        "description": "指定起始时间和周期的 OHLC 汇率信封。",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "start_time",
+          "end_time",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商条款链接。",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "供应商许可信息链接。",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "结果区间的 UTC 开始时间。",
+            "examples": [
+              "2017-07-17T11:00:00Z"
+            ]
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "结果区间的 UTC 结束时间。",
+            "examples": [
+              "2017-07-17T11:29:59Z"
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "响应使用的三字母基准货币。",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/OhlcRates",
+            "description": "按货币代码索引的 OHLC 汇率。"
+          }
+        }
+      },
+      "PlanFeatures": {
+        "title": "套餐能力",
+        "description": "套餐对相关 API 功能的可用性标记。",
+        "type": "object",
+        "properties": {
+          "base": {
+            "type": "boolean",
+            "description": "是否支持 base 参数。",
+            "examples": [
+              true
+            ]
+          },
+          "symbols": {
+            "type": "boolean",
+            "description": "是否支持 symbols 参数。",
+            "examples": [
+              true
+            ]
+          },
+          "experimental": {
+            "type": "boolean",
+            "description": "是否支持 experimental 数据。",
+            "examples": [
+              false
+            ]
+          },
+          "time-series": {
+            "type": "boolean",
+            "description": "是否支持时间序列。",
+            "examples": [
+              true
+            ]
+          },
+          "convert": {
+            "type": "boolean",
+            "description": "是否支持货币换算。",
+            "examples": [
+              false
+            ]
+          }
+        }
+      },
+      "UsagePlan": {
+        "title": "套餐信息",
+        "description": "关联 App ID 的供应商套餐摘要。",
+        "type": "object",
+        "required": [
+          "name",
+          "quota",
+          "update_frequency",
+          "features"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "套餐名称。",
+            "examples": [
+              "Enterprise"
+            ]
+          },
+          "quota": {
+            "type": "string",
+            "description": "套餐调用额度说明。",
+            "examples": [
+              "100,000 requests/month"
+            ]
+          },
+          "update_frequency": {
+            "type": "string",
+            "description": "套餐更新频率说明。",
+            "examples": [
+              "30-minute"
+            ]
+          },
+          "features": {
+            "$ref": "#/components/schemas/PlanFeatures",
+            "description": "套餐能力。"
+          }
+        }
+      },
+      "UsageStatistics": {
+        "title": "用量统计",
+        "description": "当前计费周期的调用统计。",
+        "type": "object",
+        "required": [
+          "requests",
+          "requests_quota",
+          "requests_remaining",
+          "days_elapsed",
+          "days_remaining",
+          "daily_average"
+        ],
+        "properties": {
+          "requests": {
+            "type": "integer",
+            "description": "已使用请求数。",
+            "examples": [
+              10
+            ]
+          },
+          "requests_quota": {
+            "type": "integer",
+            "description": "套餐请求额度。",
+            "examples": [
+              1000
+            ]
+          },
+          "requests_remaining": {
+            "type": "integer",
+            "description": "剩余请求数。",
+            "examples": [
+              990
+            ]
+          },
+          "days_elapsed": {
+            "type": "integer",
+            "description": "当前周期已过天数。",
+            "examples": [
+              1
+            ]
+          },
+          "days_remaining": {
+            "type": "integer",
+            "description": "当前周期剩余天数。",
+            "examples": [
+              29
+            ]
+          },
+          "daily_average": {
+            "type": "integer",
+            "description": "当前周期的日均请求数。",
+            "examples": [
+              10
+            ]
+          }
+        }
+      },
+      "UsageData": {
+        "title": "用量数据",
+        "description": "App ID、状态、套餐和用量统计。",
+        "type": "object",
+        "required": [
+          "app_id",
+          "status",
+          "plan",
+          "usage"
+        ],
+        "properties": {
+          "app_id": {
+            "type": "string",
+            "description": "调用方 App ID；仅作为响应字段，不得记录或展示真实值。",
+            "examples": [
+              "YOUR_APP_ID"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "App ID 状态。",
+            "examples": [
+              "active"
+            ]
+          },
+          "plan": {
+            "$ref": "#/components/schemas/UsagePlan",
+            "description": "套餐信息。"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageStatistics",
+            "description": "用量统计。"
+          }
+        }
+      },
+      "UsageResponse": {
+        "title": "用量响应",
+        "description": "usage Endpoint 的成功响应。",
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP 成功状态。",
+            "examples": [
+              200
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/UsageData",
+            "description": "套餐与用量数据。"
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "getLatestRates": {
+      "consumes": [],
+      "description": "返回当前套餐可用的最新汇率。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "getLatestRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "可选的三字母基准货币代码；未提供时供应商使用 USD。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的、以逗号分隔的三字母货币代码列表。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "是否包含替代、黑市和数字货币汇率。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/latest.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StandardRatesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "查询最新汇率",
+      "tags": []
+    },
+    "getHistoricalRates": {
+      "consumes": [],
+      "description": "返回指定 UTC 日期的最后已发布汇率。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "getHistoricalRates",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "date",
+          "required": true,
+          "schema": {
+            "description": "要查询的 UTC 日期。",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "可选的三字母基准货币代码；未提供时供应商使用 USD。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的、以逗号分隔的三字母货币代码列表。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "是否包含替代、黑市和数字货币汇率。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/historical/{date}.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "date": "2024-01-01"
+            },
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StandardRatesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "查询历史汇率",
+      "tags": []
+    },
+    "listCurrencies": {
+      "consumes": [],
+      "description": "返回供应商可用的货币代码与完整名称。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "listCurrencies",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "是否包含替代货币。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_inactive",
+          "required": false,
+          "schema": {
+            "description": "是否包含历史或已停用货币。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/currencies.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {}
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrencyNamesResponse"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超过服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "summary": "列出支持的货币",
+      "tags": []
+    },
+    "getTimeSeries": {
+      "consumes": [],
+      "description": "返回指定日期范围内的日度汇率；该功能受调用方套餐限制。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "getTimeSeries",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start",
+          "required": true,
+          "schema": {
+            "description": "时间序列开始日期。",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "required": true,
+          "schema": {
+            "description": "时间序列结束日期。",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-02"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "可选的三字母基准货币代码；未提供时供应商使用 USD。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的、以逗号分隔的三字母货币代码列表。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "是否包含替代、黑市和数字货币汇率。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/time-series.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "start": "2024-01-01",
+              "end": "2024-01-02",
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSeriesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "查询时间序列汇率",
+      "tags": []
+    },
+    "convertCurrency": {
+      "consumes": [],
+      "description": "按最新可用汇率把一个金额从源货币换算为目标货币；该功能仅供支持该能力的套餐调用。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "convertCurrency",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "value",
+          "required": true,
+          "schema": {
+            "description": "要换算的数值金额。",
+            "type": "number",
+            "examples": [
+              100
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "源货币的三字母代码。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "目标货币的三字母代码。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/convert/{value}/{from}/{to}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "value": 100,
+              "from": "USD",
+              "to": "EUR"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "换算货币金额",
+      "tags": []
+    },
+    "getOhlc": {
+      "consumes": [],
+      "description": "返回指定起始时间和周期内的开盘、高、低、收盘和平均汇率；该功能受调用方套餐限制。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "getOhlc",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start_time",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 UTC 起始时间，秒必须为 00。",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2017-07-17T11:00:00Z"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "required": true,
+          "schema": {
+            "description": "OHLC 周期。",
+            "type": "string",
+            "examples": [
+              "30m"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "可选的三字母基准货币代码；未提供时供应商使用 USD。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的、以逗号分隔的三字母货币代码列表。",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/ohlc.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "start_time": "2017-07-17T11:00:00Z",
+              "period": "30m",
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OhlcResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "查询 OHLC 汇率",
+      "tags": []
+    },
+    "getUsage": {
+      "consumes": [],
+      "description": "返回调用方 App ID 的套餐信息和当前用量统计。",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates 条款限制对供应商信息的复制、转售或提供。Pontx Hub 不代理、缓存、持久化或展示响应；请使用自己的 App ID 通过本地 SDK 或 CLI 直连。"
+        }
+      },
+      "method": "GET",
+      "operationId": "getUsage",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "是否以便于调试的格式返回 JSON。",
+            "type": "boolean",
+            "default": true,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/usage.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "prettyprint": false
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsageResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "请求参数无效。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "缺少或无效的 App ID。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "调用被访问限制拒绝。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "请求的路由不存在。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "调用方超出套餐权限或服务限制。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "查询套餐用量",
+      "tags": []
+    }
+  }
+}

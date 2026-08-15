@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "slug": "open-exchange-rates",
+  "name": "Open Exchange Rates API",
+  "provider": "Open Exchange Rates",
+  "category": "Finance",
+  "featured": false,
+  "display": {
+    "title": "Open Exchange Rates 汇率 API",
+    "summary": "查询最新、历史、时间序列、OHLC 汇率、支持货币、金额换算和套餐用量。供应商条款限制将数据作为 Hub 服务提供，因此调用方应使用自己的 App ID 通过本地 SDK 或 CLI 直连。",
+    "accent": "#0E7490"
+  },
+  "legal": {
+    "license": "Open Exchange Rates Terms, Acceptable Use Policy, and paid-services agreement; independently authored Pontx metadata and SDK/CLI code",
+    "attributionUrl": "https://openexchangerates.org/terms"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://docs.openexchangerates.org/reference/api-introduction",
+      "https://docs.openexchangerates.org/reference/latest-json",
+      "https://docs.openexchangerates.org/reference/historical-json",
+      "https://docs.openexchangerates.org/reference/currencies-json",
+      "https://docs.openexchangerates.org/reference/time-series-json",
+      "https://docs.openexchangerates.org/reference/convert",
+      "https://docs.openexchangerates.org/reference/ohlc-json",
+      "https://docs.openexchangerates.org/reference/usage-json",
+      "https://docs.openexchangerates.org/reference/errors",
+      "https://openexchangerates.org/terms",
+      "https://openexchangerates.org/services-agreement",
+      "https://openexchangerates.org/acceptable-use"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "完整边界为官方 v0.7 文档中的 latest、historical、currencies、time-series、convert、ohlc 与 usage 七个 GET Endpoint。供应商的 ReadMe machine contract 是可变来源，已记录审计哈希；PontxSpec 为一次导入并经人工核对后的独立规范。"
+  },
+  "pricing": {
+    "status": "tiers",
+    "summary": "不同套餐决定 base、time-series、convert、OHLC 和刷新频率等能力；以供应商定价和 usage 响应为准。",
+    "officialUrl": "https://openexchangerates.org/signup",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "appId",
+      "envVar": "PONTX_OPEN_EXCHANGE_RATES_APP_ID",
+      "description": "在 Open Exchange Rates 注册后取得的调用方 App ID；仅在本地 SDK/CLI 直连执行时读取。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "listCurrencies",
+    "requestExampleId": "default"
+  }
+}
