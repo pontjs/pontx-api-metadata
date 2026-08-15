@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "mongodb-atlas-admin",
+  "claims": [
+    {
+      "id": "direct-only-atlas-management",
+      "claim": "Hub discovery is not an execution path: Atlas management calls stay caller-local.",
+      "summary": "The product is intentionally documentation and caller-local SDK/CLI only; Hub does not proxy authenticated Atlas administration traffic.",
+      "sourceUrl": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "least-privilege-service-account",
+      "claim": "Use an Atlas OAuth service account with only the required role when it is available.",
+      "summary": "The skill recommends the current service-account authentication path with least privilege and keeps credentials caller-local.",
+      "sourceUrl": "https://www.mongodb.com/docs/atlas/configure-api-access/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "mutation-confirmation",
+      "claim": "Every mutation must be previewed with redacted input and then receive explicit confirmation.",
+      "summary": "This is Pontx's high-impact administration safety policy; the fixed source contains destructive and configuration-changing methods.",
+      "sourceUrl": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

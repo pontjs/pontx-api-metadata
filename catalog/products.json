@@ -16,6 +16,7 @@
     "stripe-identity",
     "amazon-sqs",
     "pinhere",
-    "nager-date"
+    "nager-date",
+    "mongodb-atlas-admin"
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "source": {
+    "repository": "https://github.com/mongodb/openapi/tree/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+    "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+    "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+    "sha256": "3c39ed724df4079b2c1ede6156e23590f0defa45b821c68f059d3bb5e9d89461",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "observedAt": "2026-08-15",
+    "importMethod": "one-time @pontx/spec importOpenAPI conversion; generated PontxSpec is canonical after import",
+    "boundary": {
+      "endpoints": 540,
+      "schemas": 1145,
+      "methods": {
+        "GET": 268,
+        "POST": 115,
+        "PATCH": 67,
+        "PUT": 10,
+        "DELETE": 80
+      }
+    },
+    "transformations": [
+      "Preserved all imported endpoint methods, paths, operation IDs, tags, security requirements, parameters, response statuses, media types, Schema constraints, enums, defaults, and reference topology.",
+      "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
+      "Added one reviewed request outline per Endpoint. Required account, organization, project, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
+      "Applied direct-only execution policy to every authenticated Atlas management Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses."
+    ]
+  },
+  "legalReview": {
+    "sourceLicense": "The fixed mongodb/openapi repository revision and its LICENSE grant Apache-2.0 permissions for the imported source file.",
+    "serviceBoundary": "MongoDB Cloud use remains governed by MongoDB Cloud terms; this package neither resells nor sublicenses the service.",
+    "websiteBoundary": "Product prose is independently authored. MongoDB website documentation is used only as linked evidence and is not copied as page content.",
+    "trademarkBoundary": "MongoDB and Atlas are used descriptively to identify interoperability. Pontx is independently branded and does not claim endorsement."
+  },
+  "riskReview": {
+    "classification": "high-impact-cloud-administration",
+    "hubProxyEnabled": false,
+    "readEndpoints": 268,
+    "mutations": {
+      "count": 272,
+      "methods": {
+        "POST": 115,
+        "PATCH": 67,
+        "PUT": 10,
+        "DELETE": 80
+      }
+    },
+    "credentialPolicy": "OAuth service-account client credentials or legacy Digest key pairs remain in the caller environment only. No credential appears in generated examples, Hub, logs, provenance, or SDK output.",
+    "executionPolicy": "Hub execution is disabled for all Atlas management traffic. The local CLI previews every call, redacts sensitive values, and requires exact request-bound explicit confirmation before every mutation.",
+    "sensitiveAreas": [
+      "account and organization data",
+      "project and cluster configuration",
+      "network and private endpoint configuration",
+      "database access and API credentials",
+      "backup, restore, billing, logs, and audit data"
+    ]
+  }
+}
