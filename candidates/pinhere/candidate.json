@@ -20,7 +20,7 @@
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
-    "redistribution": "blocked",
+    "redistribution": "passed",
     "contract": "passed",
     "transport": "passed",
     "risk": "passed",
@@ -28,10 +28,10 @@
   },
   "contractSource": {
     "kind": "product-owned-pontx-spec",
-    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/e1ad3385463ac3d97a750cd134fb75dea077c334/apps/web/specs/spec.pontx.json",
-    "revision": "e1ad3385463ac3d97a750cd134fb75dea077c334",
+    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+    "revision": "576e6f7160b5bb04d5856620def23c6bd3b25082",
     "observedAt": "2026-08-15",
-    "license": "not-declared",
+    "license": "MIT",
     "pontxVersion": "2.1",
     "sourceSha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f",
     "observedOperations": 34,
@@ -66,7 +66,11 @@
     },
     {
       "kind": "spec",
-      "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/e1ad3385463ac3d97a750cd134fb75dea077c334/apps/web/specs/spec.pontx.json"
+      "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/jasonHzq/pinhere/blob/576e6f7160b5bb04d5856620def23c6bd3b25082/LICENSE"
     },
     {
       "kind": "ci",
@@ -75,23 +79,26 @@
     {
       "kind": "preview",
       "url": "https://pinhere-khbqe15nr-jasonhzqs-projects.vercel.app"
+    },
+    {
+      "kind": "sdk-source",
+      "url": "https://github.com/pontjs/pinhere/tree/61b965cdfb7ccf5f10e441dbfdae8186b040c656"
+    },
+    {
+      "kind": "sdk-ci",
+      "url": "https://github.com/pontjs/pinhere/actions/runs/31878239387"
     }
   ],
   "blockers": [
     {
-      "gate": "redistribution",
-      "zh": "公共产品仓库未声明 LICENSE 或其他可核验的再分发条款。不得把产品自有 PontxSpec、其双语副本、生成 SDK/CLI 或产品 Skill 作为正式 Pontx 产品发布。",
-      "en": "The public product repository declares no LICENSE or other verifiable redistribution terms. The product-owned PontxSpec, bilingual copies, generated SDK/CLI, and product Skill must not be published as an admitted Pontx product."
-    },
-    {
       "gate": "sdkCli",
-      "zh": "设计目标域名 pinhere.dev 尚未绑定，https://pinhere.dev/.well-known/pontx.json 不可用；现有 Vercel Preview 不是 canonical 生产地址。@pontx/pinhere 与 pontx-pinhere 只能保持本地 private/UNLICENSED RC，不得发布到 npm。",
-      "en": "The intended pinhere.dev domain is not bound and https://pinhere.dev/.well-known/pontx.json is unavailable; the current Vercel Preview is not a canonical production address. @pontx/pinhere and pontx-pinhere may remain only a local private/UNLICENSED release candidate and must not be published to npm."
+      "zh": "pinhere.dev 当前未在 .dev 注册局注册，因此正式 API 与 https://pinhere.dev/.well-known/pontx.json 均不可达。公开 SDK 源码与 Node 18/20/22 CI 已就绪，但在 canonical 生产服务验证前不得发布 @pontx/pinhere 与 pontx-pinhere。",
+      "en": "pinhere.dev is currently unregistered at the .dev registry, so the production API and https://pinhere.dev/.well-known/pontx.json are unreachable. The public SDK source and Node 18/20/22 CI are ready, but @pontx/pinhere and pontx-pinhere must not be published before the canonical production service is verified."
     }
   ],
   "nextAction": {
-    "zh": "由 Pinhere 所有者选择并提交明确许可证，绑定 pinhere.dev，并使正式发现地址返回与固定 source hash 一致的 PontxSpec；随后完成独立 SDK 仓库、Node 18/20/22 CI、npm registry 复验、正式 Metadata/Skill、Preview 与 Production 上线。生产 Hobby cron 当前仅每日 00:00 UTC 运行一次；除非计划升级，不得把五分钟自动重试描述为已上线能力。",
-    "en": "The Pinhere owner must select and commit an explicit license, bind pinhere.dev, and serve a PontxSpec matching the pinned source hash from the canonical discovery URL. Then complete the independent SDK repository, Node 18/20/22 CI, npm registry verification, admitted Metadata/Skill, Preview, and Production rollout. The production Hobby cron currently runs only once daily at 00:00 UTC; do not describe five-minute automatic retries as deployed unless the plan is upgraded."
+    "zh": "注册 pinhere.dev，将其绑定到 jasonhzqs-projects/pinhere 的正式 Vercel 部署，并使发现地址返回与固定 source hash 一致的 PontxSpec；随后解除 SDK release gate，完成 npm registry 复验、正式 Metadata/Skill、Preview 与 Production 上线。生产 Hobby cron 当前仅每日 00:00 UTC 运行一次；除非计划升级，不得把五分钟自动重试描述为已上线能力。",
+    "en": "Register pinhere.dev, bind it to the production jasonhzqs-projects/pinhere Vercel deployment, and serve a PontxSpec matching the pinned source hash from the discovery URL. Then clear the SDK release gate and complete npm registry verification, admitted Metadata/Skill, Preview, and Production rollout. The production Hobby cron currently runs only once daily at 00:00 UTC; do not describe five-minute automatic retries as deployed unless the plan is upgraded."
   },
   "verifiedAt": "2026-08-15"
 }
