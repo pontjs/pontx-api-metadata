@@ -21,6 +21,7 @@
     "openai",
     "notion",
     "mistral-ai",
-    "sendbird-chat-platform"
+    "sendbird-chat-platform",
+    "wps-365"
   ]
 }

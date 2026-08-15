@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/wps-365",
     "version": "0.1.0",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/wps-365"
   },
   "cli": {
@@ -54,7 +54,31 @@
     "mode": "full"
   },
   "spec": {
-    "path": "candidates/wps-365/spec.pontx.json",
-    "sha256": "8d9ae0bec1e8cf37092e344f79c51a9b6e0d181e8e4dd5cc308a0bf60e389a98"
+    "path": "products/wps-365/spec.pontx.json",
+    "sha256": "8d9ae0bec1e8cf37092e344f79c51a9b6e0d181e8e4dd5cc308a0bf60e389a98",
+    "metadataCommit": "PENDING-ADMISSION-COMMIT"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 6,
+      "total": 6,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "2539df3ed8503056538c79c9040f0a4357a35f4b",
+    "testedAt": "2026-08-16",
+    "repositoryUrl": "https://github.com/pontjs/wps-365",
+    "workflowRunUrl": "https://github.com/pontjs/wps-365/actions/runs/31901382901",
+    "registryVerification": {
+      "npmView": "@pontx/wps-365@0.1.0 dist-tags.latest = 0.1.0",
+      "freshInstall": "passed (ESM factory + 24 controllers, CJS require, CLI pontx-wps-365 help/preview, consumer typecheck)",
+      "verifiedAt": "2026-08-16"
+    }
   }
 }

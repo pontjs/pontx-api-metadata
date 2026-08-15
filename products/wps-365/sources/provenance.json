@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "status": "candidate-contract-staged",
+  "status": "admitted",
   "canonicalSpec": "candidates/wps-365/spec.pontx.json",
   "import": {
     "format": "OpenAPI 3.0.0",
@@ -115,5 +115,25 @@
     "risk": "Write per-endpoint security execution policy (app/delegated channels, KSO-1, mutation guards).",
     "sdkCli": "Generate @pontx/wps-365 SDK + pontx-wps-365 CLI in an isolated SDK repository; operator npm publish and registry re-verification.",
     "admission": "metadata develop → Preview → main → Production; production acceptance matrix."
+  },
+  "admission": {
+    "date": "2026-08-16",
+    "sdkPublished": {
+      "package": "@pontx/wps-365",
+      "version": "0.1.0",
+      "cli": "pontx-wps-365",
+      "repository": "https://github.com/pontjs/wps-365",
+      "sourceCommit": "59c2899",
+      "registryVerified": true,
+      "verifiedAt": "2026-08-16"
+    },
+    "gates": {
+      "authority": "passed",
+      "redistribution": "passed",
+      "contract": "passed",
+      "transport": "passed",
+      "risk": "passed",
+      "sdkCli": "passed"
+    }
   }
 }

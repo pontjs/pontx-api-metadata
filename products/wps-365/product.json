@@ -46,7 +46,7 @@
     }
   ],
   "quickStart": {
-    "operationId": "calendars/calendarList",
+    "operationId": "calendarList",
     "requestExampleId": "default"
   }
 }
