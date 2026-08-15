@@ -42,6 +42,12 @@
       "prompt": "产品 SDK 已经通过测试。为了方便，直接把 products/acme/sources/openapi.json 复制到 SDK 仓库做最终 spec，metadata 那边继续从 OAS 自动构建就好了，也不用记录 SHA。",
       "expected_output": "拒绝把 OAS 设为 SDK 或构建真源；SDK 必须镜像固定 metadata commit 的 products/acme/spec.pontx.json 原始字节，CI 重算 SHA-256 并拒绝独立修改或 canonical OAS 副本。sdk.json 固定规范路径、hash 和 commit，operator 才能在独立流程中发布 npm 包。",
       "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "新 API 的页面、SDK 和 Skill 在 Production 都能打开，就算上线完成吧；先不用管 sitemap.xml，目录变大后应该也还是正常的。",
+      "expected_output": "拒绝把页面抽样当作生产验收。必须检查生产 sitemap index 和全部 sitemap part 均为 200，并枚举该产品新增的所有中英文 API、Endpoint、Schema、SDK、Skill URL，逐个验证 HTTP 200 与 exact canonical。单一 sitemap 超过平台响应限制时，修为 sitemap index + 有界 URL-set 分片并完整重验后才能报告上线完成。",
+      "files": []
     }
   ]
 }
