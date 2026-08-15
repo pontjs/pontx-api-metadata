@@ -78,6 +78,11 @@ assert(currencyBeacon.contractSource.observedOperations === 5 &&
   currencyBeacon.contractSource.documentedCompleteSuccessExamples === 2 &&
   currencyBeacon.contractSource.observedAnonymousError.httpStatus === 401,
 "CurrencyBeacon evidence counts drifted");
+assert(currencyBeacon.contractSource.humanDocumentationAudit?.reverifiedAt === "2026-08-15" &&
+  currencyBeacon.contractSource.humanDocumentationAudit.responseFieldPathEvidence?.historical?.[0] === "response.rates" &&
+  currencyBeacon.contractSource.humanDocumentationAudit.responseFieldPathEvidence?.timeseries?.[0] === "response.rates" &&
+  currencyBeacon.contractSource.humanDocumentationAudit.missingCompleteSuccessSchemas?.join(",") === "historical,timeseries,currencies",
+"CurrencyBeacon page-level remediation evidence drifted");
 assert(currencyBeacon.pontxProbe.status === "not-run-contract-blocked" &&
   currencyBeacon.pontxProbe.completeSuccessSchemasDocumented === 2 &&
   currencyBeacon.pontxProbe.publicationReady === false,
