@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/openai",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/openai"
+  },
+  "cli": {
+    "name": "pontx-openai"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createOpenAiClient",
+      "identifier": "client",
+      "options": {
+        "apiKey": "OPENAI_API_KEY"
+      }
+    },
+    "controllers": {
+      "Assistants": "assistants",
+      "Audio": "audio",
+      "Audit Logs": "auditLogs",
+      "Batch": "batch",
+      "Certificates": "certificates",
+      "Chat": "chat",
+      "Completions": "completions",
+      "Conversations": "conversations",
+      "Data retention": "dataRetention",
+      "Embeddings": "embeddings",
+      "Evals": "evals",
+      "Files": "files",
+      "Fine-tuning": "fineTuning",
+      "Group organization role assignments": "groupOrganizationRoleAssignments",
+      "Group users": "groupUsers",
+      "Groups": "groups",
+      "Hosted tools": "hostedTools",
+      "Images": "images",
+      "Invites": "invites",
+      "Models": "models",
+      "Moderations": "moderations",
+      "Project group role assignments": "projectGroupRoleAssignments",
+      "Project groups": "projectGroups",
+      "Project user role assignments": "projectUserRoleAssignments",
+      "Projects": "projects",
+      "Realtime": "realtime",
+      "Responses": "responses",
+      "Roles": "roles",
+      "Skills": "skills",
+      "Spend alerts": "spendAlerts",
+      "Uploads": "uploads",
+      "Usage": "usage",
+      "User organization role assignments": "userOrganizationRoleAssignments",
+      "Users": "users",
+      "Vector stores": "vectorStores",
+      "Videos": "videos"
+    }
+  },
+  "examples": {
+    "typescript": "import { createOpenAiClient } from \"@pontx/openai\";\n\nconst client = createOpenAiClient();\nconst models = await client.models.listModels();",
+    "cli": "pnpm add --global @pontx/openai\n\npontx-openai preview models listModels"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/openai/spec.pontx.json",
+    "sha256": "f6cacdf6fb8639a34c3442acbbea78e5f5ad987be530e68616f70fffb6a395b4"
+  }
+}

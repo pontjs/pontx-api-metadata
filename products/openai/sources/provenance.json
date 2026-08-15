@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "source": {
+    "repository": "https://github.com/openai/openai-openapi/tree/2186421dca0cca7c1e67caa7739005e8b1ccc4dd",
+    "revision": "2186421dca0cca7c1e67caa7739005e8b1ccc4dd",
+    "url": "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/openapi.json",
+    "sha256": "542299d304cdeb78deff4172b3790d52c7e7e75fb2b517e9c2787c52f1424acc",
+    "license": {
+      "name": "MIT",
+      "url": "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/LICENSE",
+      "sha256": "bcba3de214851cce46ed5af42d6698044616eeace887c3231bc7a20474ab639e"
+    },
+    "observedAt": "2026-08-16",
+    "importMethod": "one-time @pontx/spec importOpenAPI conversion; generated PontxSpec is canonical after import",
+    "boundary": {
+      "endpoints": 288,
+      "schemas": 1421,
+      "methods": {
+        "GET": 122,
+        "POST": 123,
+        "DELETE": 43
+      },
+      "sseEndpoints": 7
+    },
+    "transformations": [
+      "Preserved all imported Endpoint methods, paths, operation IDs, tags, security requirements, parameters, response statuses, media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
+      "Added one reviewed request outline per Endpoint. Required model, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
+      "Applied direct-only execution policy to every OpenAI Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses.",
+      "The dedicated wss:// Realtime WebSocket protocol is documented by OpenAI outside this repository's machine contract and remains out of scope; it is neither invented nor trimmed from the OAS."
+    ]
+  },
+  "legalReview": {
+    "sourceLicense": "The fixed openai/openai-openapi repository revision and its LICENSE grant MIT permissions for the imported source file.",
+    "serviceBoundary": "OpenAI Platform use remains governed by the OpenAI Services Agreement; this package neither resells nor sublicenses the service.",
+    "websiteBoundary": "Product prose is independently authored. OpenAI website documentation is used only as linked evidence and is not copied as page content.",
+    "trademarkBoundary": "OpenAI is used descriptively to identify interoperability. Pontx is independently branded and does not claim endorsement."
+  },
+  "riskReview": {
+    "classification": "paid-ai-platform-with-user-data",
+    "hubProxyEnabled": false,
+    "readEndpoints": 122,
+    "mutations": {
+      "count": 166,
+      "methods": {
+        "POST": 123,
+        "DELETE": 43
+      }
+    },
+    "credentialPolicy": "OpenAI API keys (and admin keys where required) remain in the caller environment only. No credential appears in generated examples, Hub, logs, provenance, or SDK output.",
+    "executionPolicy": "Hub execution is disabled for all OpenAI traffic. The local CLI previews every call, redacts sensitive values, and requires exact request-bound explicit confirmation before every mutation; paid inference calls are never issued for verification.",
+    "sensitiveAreas": [
+      "model prompts and completions",
+      "organization and account administration",
+      "API keys and certificates",
+      "usage, costs, and audit data",
+      "fine-tuning, files, and uploaded content"
+    ]
+  }
+}

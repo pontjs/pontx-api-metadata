@@ -1,0 +1,45 @@
+{
+  "display": {
+    "title": "OpenAI API",
+    "summary": "All 288 OpenAI Platform REST endpoints from a fixed MIT-licensed official revision, including typed SSE streaming and Realtime call management. Hub provides documentation and an independent SDK/CLI, but never proxies model, account, or usage data; callers connect directly with local API keys.",
+    "accent": "#10A37F"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/openapi.json",
+      "https://github.com/openai/openai-openapi/tree/2186421dca0cca7c1e67caa7739005e8b1ccc4dd",
+      "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/LICENSE",
+      "https://developers.openai.com/api/reference/overview",
+      "https://openai.com/policies/services-agreement/",
+      "https://openai.com/policies/usage-policies/"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "The complete boundary is all 288 endpoints (GET 122 / POST 123 / DELETE 43) and 1,421 schemas in openapi.json at the fixed openai/openai-openapi revision, of which 7 endpoints declare typed SSE streaming responses. MIT applies to the imported specification source; OpenAI Platform service use, website content, and trademarks are governed separately. Hub does not proxy OpenAI traffic; SDK/CLI credentials stay caller-local, and every mutation needs a preview and explicit confirmation."
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "OpenAI Platform model usage billing, plans, and account eligibility are governed by OpenAI's current pricing and service terms. Pontx neither resells the service nor quotes for OpenAI.",
+    "officialUrl": "https://openai.com/api/pricing/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "ApiKeyAuth",
+      "description": "OpenAI Platform API key. The SDK/CLI reads it only from the caller-local environment; it must never appear in request examples, logs, or Hub.",
+      "guide": {
+        "title": "Get an OpenAI API key",
+        "steps": [
+          "Create an API key in OpenAI Platform with the least privilege required for the task.",
+          "Keep it only in the caller-local OPENAI_API_KEY environment variable.",
+          "Generate a redacted preview with a read endpoint before executing a request."
+        ]
+      }
+    },
+    {
+      "schemeId": "AdminApiKeyAuth",
+      "description": "Admin API key required for organization administration endpoints. Use caller-locally with least privilege only; never place it in examples, logs, or Hub."
+    }
+  ]
+}
