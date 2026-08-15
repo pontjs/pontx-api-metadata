@@ -62117,7 +62117,7 @@
   "servers": [
     {
       "description": "Twelve Data HTTPS API。",
-      "id": "twelveDataApi",
+      "id": "twelve-data-api",
       "url": "https://api.twelvedata.com"
     }
   ],

@@ -95,7 +95,7 @@ const twelveQuality = evaluatePontxQuality({
   locales: { "en-US": twelveEnglishContract },
 });
 assert(createHash("sha256").update(twelveContractBytes).digest("hex")
-  === "9ab258450233b33622093122054377ece290547ad171a6877bc80b463fc8e031"
+  === "5705b5bff48cd1b4736d29ca59c132a545339ae9e56879173cc46017a2190d6b"
   && Object.keys(twelveContract.apis).length === 111
   && Object.keys(twelveContract.components.schemas).length === 443
   && twelveContract.tags.map((tag) => tag.name).sort().join(",")
@@ -108,9 +108,9 @@ assert(twelveQuality.score === 100 && twelveQuality.grade === "A"
 assert(twelveProduct.execution.hubProxyEnabled === false
   && twelveProduct.credentials?.[0]?.envVar === "PONTX_TWELVE_DATA_API_KEY"
   && twelveSdk.package.name === "@pontx/twelve-data-forex"
-  && twelveSdk.package.version === "0.1.0"
+  && twelveSdk.package.version === "0.1.1"
   && twelveSdk.coverage.mode === "full"
-  && twelveSdk.spec.sha256 === "9ab258450233b33622093122054377ece290547ad171a6877bc80b463fc8e031",
+  && twelveSdk.spec.sha256 === "5705b5bff48cd1b4736d29ca59c132a545339ae9e56879173cc46017a2190d6b",
 "Twelve Data product safety and SDK contract drifted");
 assert(twelveProvenance.source.sha256 === "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c"
   && twelveProvenance.scope.endpointCount === 111

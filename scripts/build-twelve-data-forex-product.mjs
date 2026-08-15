@@ -501,7 +501,7 @@ function buildSpec(imported, language) {
     info: language === "zh"
       ? { title: "Twelve Data Forex API", version: "2026-08-15", description: "独立整理的 Twelve Data 外汇 REST 与实时行情契约。仅包含可用于外汇的市场数据、货币换算、技术指标与参考 Endpoint；调用方凭据直连上游。" }
       : { title: "Twelve Data Forex API", version: "2026-08-15", description: "Independently curated Twelve Data Forex REST and realtime-quote contract. It includes only Forex-applicable market data, conversion, technical-indicator, and reference Endpoints; caller credentials connect directly to the upstream service." },
-    servers: [{ id: "twelveDataApi", url: "https://api.twelvedata.com", description: language === "zh" ? "Twelve Data HTTPS API。" : "Twelve Data HTTPS API." }],
+    servers: [{ id: "twelve-data-api", url: "https://api.twelvedata.com", description: language === "zh" ? "Twelve Data HTTPS API。" : "Twelve Data HTTPS API." }],
     security: [{ apiKey: [] }],
     externalDocs: { url: "https://twelvedata.com/docs", description: language === "zh" ? "供应商文档证据。" : "Supplier documentation evidence." },
     components: {
