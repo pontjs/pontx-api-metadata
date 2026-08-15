@@ -1,0 +1,3611 @@
+version: 1
+
+groups:
+  calendar:
+    description: 日历、日程与忙闲管理
+    children:
+      event:
+        description: 日程的增删改查与搜索
+      event-room:
+        description: 日程会议室管理
+      event-instance:
+        description: 重复日程实例查询
+      event-attendee:
+        description: 日程参与者管理
+      event-minutes:
+        description: 日程会议纪要
+      free-busy:
+        description: 忙闲信息查询
+      primary:
+        description: 主日历批量查询
+
+  im:
+    description: 消息与群会话管理
+    children:
+      message:
+        description: 消息发送与撤回
+      chat:
+        description: 群会话管理
+      p2p-chat:
+        description: 单聊会话查询
+      unread-chat:
+        description: 未读会话统计
+      chat-member:
+        description: 群成员管理
+      chat-message:
+        description: 会话消息记录
+
+  user:
+    description: 企业用户与组织架构
+    children:
+      dept:
+        description: 用户所属部门查询
+
+  mail:
+    description: 邮箱与邮件管理
+    children:
+      mailbox:
+        description: 邮箱列表管理
+      mailbox-folder:
+        description: 邮箱文件夹管理
+      mailbox-subfolder:
+        description: 邮箱子文件夹管理
+      message:
+        description: 邮件消息管理
+      draft:
+        description: 邮件草稿管理
+
+  drive:
+    description: 云文档与文件管理
+    children:
+      file:
+        description: 文件与文件夹操作
+      file-content:
+        description: 文件正文内容
+      file-path:
+        description: 文件路径查询
+      recent-file:
+        description: 最近访问的文件
+      starred-file:
+        description: 收藏的文件
+      frequent-file:
+        description: 常用文件
+      link:
+        description: 文件分享链接管理
+      file-version:
+        description: 文件版本管理
+
+  dbsheet:
+    description: 多维表数据管理
+    children:
+      schema:
+        description: 多维表结构信息
+      sheet:
+        description: 数据表管理
+      field:
+        description: 字段管理
+      record:
+        description: 记录的增删改查
+      record-page:
+        description: 记录分页查询
+
+  meeting:
+    description: 在线会议管理
+    children:
+      participant:
+        description: 参会人管理
+      minute:
+        description: 会议纪要
+      minute-summary:
+        description: 会议纪要摘要
+      minute-transcript:
+        description: 会议纪要转写
+      recording:
+        description: 会议录制
+      recording-summary:
+        description: 录制摘要
+      recording-transcript:
+        description: 录制转写
+
+commands:
+  - id: calendar.list
+    command: calendar list
+    summary: 查询日历列表
+    description: 查询当前可访问的日历列表，支持分页。
+    method: GET
+    path: /v7/calendars
+    response_schema_ref: "#/components/schemas/list_calendars_resp_body"
+    flags:
+      - name: page-token
+        type: string
+        description: 分页标记，传入上一次响应中的 next_page_token
+        to: query.page_token
+      - name: page-size
+        type: integer
+        default: 20
+        description: 每页返回的日历数量，默认为 20，最大值为 20
+        to: query.page_size
+    examples:
+      - command: wps365-cli calendar list
+        description: 查询第一页日历列表
+      - command: 'wps365-cli calendar list --page-size 10 --page-token "next-token"'
+        description: 按分页标记继续查询日历列表
+  - id: calendar.event.create
+    command: calendar event create
+    summary: 创建日程
+    description: 在指定日历中创建日程，开始时间和结束时间使用 RFC3339 格式。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/create
+    request_schema_ref: "#/components/schemas/create_event_req_body"
+    response_schema_ref: "#/components/schemas/create_event_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+    flags:
+      - name: start
+        type: string
+        required: true
+        description: 起始时间，RFC3339 格式，例如 2024-01-15T14:30:00+08:00
+      - name: end
+        type: string
+        required: true
+        description: 结束时间，RFC3339 格式，例如 2024-01-15T15:30:00+08:00
+      - name: name
+        type: string
+        description: 日程标题
+      - name: description
+        type: string
+        description: 日程描述，最长 2000 字符
+      - name: location
+        type: string
+        description: 地点名称
+      - name: reminders
+        type: string
+        description: 提醒时间，单位为分钟，多个用逗号分隔
+      - name: visibility
+        type: string
+        description: 可见性
+      - name: free-busy-status
+        type: string
+        description: 忙闲状态
+      - name: recurrence-body
+        type: string
+        description: 重复规则 JSON
+      - name: online-meeting-body
+        type: string
+        description: 在线会议配置 JSON
+    body:
+      bindings:
+        - from_flag: name
+          to: summary
+        - from_flag: description
+          to: description
+        - from_flag: start
+          to: start_time.datetime
+        - from_flag: end
+          to: end_time.datetime
+        - from_flag: location
+          to: locations[0].name
+        - from_flag: reminders
+          to: reminders
+          transform: "split_csv | to_int | wrap(minutes)"
+        - from_flag: visibility
+          to: visibility
+        - from_flag: free-busy-status
+          to: free_busy_status
+        - from_flag: recurrence-body
+          to: recurrence
+          transform: parse_json
+        - from_flag: online-meeting-body
+          to: online_meeting
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli calendar event create primary --name "项目评审" --start "2024-01-15T14:30:00+08:00" --end "2024-01-15T15:30:00+08:00"'
+        description: 在主日历中创建一个日程
+      - command: 'wps365-cli calendar event create primary --name "项目评审" --start "2024-01-15T14:30:00+08:00" --end "2024-01-15T15:30:00+08:00" --reminders "30,10"'
+        description: 创建带多个提醒时间的日程
+      - command: 'wps365-cli calendar event create primary --name "周会" --start "2024-01-15T14:30:00+08:00" --end "2024-01-15T15:30:00+08:00" --location "3F 会议室"'
+        description: 创建带地点的日程
+  - id: calendar.event-room.list
+    command: calendar event-room list
+    summary: 查询日程的会议室列表
+    description: 获取指定日程关联的会议室列表。
+    method: GET
+    path: /v7/calendars/{calendar_id}/events/{event_id}/meeting_rooms
+    response_schema_ref: "#/components/schemas/list_event_meeting_rooms_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    examples:
+      - command: 'wps365-cli calendar event-room list primary "event_id_xxx"'
+        description: 查询主日历下某日程的会议室列表
+  - id: calendar.event-room.add
+    command: calendar event-room add
+    summary: 批量添加日程会议室
+    description: 为指定日程批量添加会议室，最多 40 个。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/meeting_rooms/batch_create
+    request_schema_ref: "#/components/schemas/batch_create_event_meeting_room_req_body"
+    response_schema_ref: "#/components/schemas/batch_create_event_meeting_room_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: room-ids
+        type: string
+        required: true
+        description: 会议室 id，多个用逗号分隔，最多 40 个
+    body:
+      bindings:
+        - from_flag: room-ids
+          to: room_ids
+          transform: split_csv
+    examples:
+      - command: 'wps365-cli calendar event-room add primary "event_id_xxx" --room-ids "room_1,room_2"'
+        description: 为日程批量添加两个会议室
+  - id: calendar.event-room.remove
+    command: calendar event-room remove
+    summary: 批量删除日程会议室
+    description: 从指定日程中批量移除会议室，最多 50 个。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/meeting_rooms/batch_delete
+    request_schema_ref: "#/components/schemas/batch_delete_event_meeting_room_req_body"
+    response_schema_ref: "#/components/schemas/batch_delete_event_meeting_room_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: room-ids
+        type: string
+        required: true
+        description: 会议室 id，多个用逗号分隔，最多 50 个
+    body:
+      bindings:
+        - from_flag: room-ids
+          to: room_ids
+          transform: split_csv
+    examples:
+      - command: 'wps365-cli calendar event-room remove primary "event_id_xxx" --room-ids "room_1"'
+        description: 从日程中移除指定的会议室
+  - id: calendar.create
+    command: calendar create
+    summary: 创建日历
+    description: 创建一个新日历。
+    method: POST
+    path: /v7/calendars/create
+    request_schema_ref: "#/components/schemas/create_calendar_req_body"
+    response_schema_ref: "#/components/schemas/create_calendar_resp_body"
+    flags:
+      - name: name
+        type: string
+        required: true
+        description: 日历标题，长度 1–40
+    body:
+      bindings:
+        - from_flag: name
+          to: summary
+    examples:
+      - command: 'wps365-cli calendar create --name "项目日历"'
+        description: 创建一个名为"项目日历"的日历
+  - id: calendar.get
+    command: calendar get
+    summary: 查看日历
+    description: 查看指定日历的详细信息。
+    method: GET
+    path: /v7/calendars/{calendar_id}
+    response_schema_ref: "#/components/schemas/get_calendar_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+    examples:
+      - command: 'wps365-cli calendar get primary'
+        description: 查看主日历信息
+      - command: 'wps365-cli calendar get "cal_xxx"'
+        description: 查看指定日历信息
+  - id: calendar.update
+    command: calendar update
+    summary: 修改日历
+    description: 修改指定日历的标题。
+    method: POST
+    path: /v7/calendars/{calendar_id}/update
+    request_schema_ref: "#/components/schemas/update_calendar_req_body"
+    response_schema_ref: "#/components/schemas/update_calendar_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id
+        to: path.calendar_id
+    flags:
+      - name: name
+        type: string
+        description: 新的日历标题，长度 1–40
+    body:
+      bindings:
+        - from_flag: name
+          to: summary
+    examples:
+      - command: 'wps365-cli calendar update "cal_xxx" --name "新名称"'
+        description: 修改日历标题
+  - id: calendar.delete
+    command: calendar delete
+    summary: 删除日历
+    description: 删除指定日历。
+    method: POST
+    path: /v7/calendars/{calendar_id}/delete
+    response_schema_ref: "#/components/schemas/delete_calendar_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id
+        to: path.calendar_id
+    examples:
+      - command: 'wps365-cli calendar delete "cal_xxx"'
+        description: 删除指定日历
+  - id: calendar.subscribe
+    command: calendar subscribe
+    summary: 订阅日历
+    description: 订阅指定日历。
+    method: POST
+    path: /v7/calendars/{calendar_id}/subscribe
+    response_schema_ref: "#/components/schemas/calendar_subscribe_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id
+        to: path.calendar_id
+    examples:
+      - command: 'wps365-cli calendar subscribe "cal_xxx"'
+        description: 订阅指定日历
+  - id: calendar.unsubscribe
+    command: calendar unsubscribe
+    summary: 取消订阅日历
+    description: 取消订阅指定日历。
+    method: POST
+    path: /v7/calendars/{calendar_id}/unsubscribe
+    response_schema_ref: "#/components/schemas/calendar_unsubscribe_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id
+        to: path.calendar_id
+    examples:
+      - command: 'wps365-cli calendar unsubscribe "cal_xxx"'
+        description: 取消订阅指定日历
+  - id: calendar.event.list
+    command: calendar event list
+    summary: 查询日程列表
+    description: 查询指定日历下的日程列表，支持按时间区间筛选与增量同步。
+    method: GET
+    path: /v7/calendars/{calendar_id}/events
+    response_schema_ref: "#/components/schemas/list_events_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+    flags:
+      - name: start
+        type: string
+        description: 起始时间，RFC3339 格式，与 --end 配合使用，区间不超过 31 天
+        to: query.start_time
+      - name: end
+        type: string
+        description: 结束时间，RFC3339 格式
+        to: query.end_time
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: page-size
+        type: integer
+        default: 30
+        description: 每页数量，1–100，默认 30
+        to: query.page_size
+      - name: sync-token
+        type: string
+        description: 增量同步 token
+        to: query.sync_token
+      - name: anchor-time
+        type: string
+        description: 锚点时间，RFC3339 格式
+        to: query.anchor_time
+      - name: with-cancelled
+        type: boolean
+        description: 增量同步时是否包含已取消的日程
+        to: query.with_cancelled
+    examples:
+      - command: 'wps365-cli calendar event list primary'
+        description: 查询主日历下的日程列表
+      - command: 'wps365-cli calendar event list primary --start "2024-01-01T00:00:00+08:00" --end "2024-01-31T23:59:59+08:00"'
+        description: 查询指定时间区间内的日程
+      - command: 'wps365-cli calendar event list primary --page-size 50'
+        description: 查询日程列表并设置每页数量
+  - id: calendar.event.get
+    command: calendar event get
+    summary: 查询日程
+    description: 查询指定日程的详细信息。
+    method: GET
+    path: /v7/calendars/{calendar_id}/events/{event_id}
+    response_schema_ref: "#/components/schemas/get_event_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    examples:
+      - command: 'wps365-cli calendar event get primary "evt_xxx"'
+        description: 查看主日历下某日程的详细信息
+  - id: calendar.event.update
+    command: calendar event update
+    summary: 修改日程
+    description: 修改指定日程，支持增量更新。对于重复日程，可通过 --mod-type 指定修改范围。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/update
+    request_schema_ref: "#/components/schemas/update_event_req_body"
+    response_schema_ref: "#/components/schemas/update_event_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: name
+        type: string
+        description: 日程标题
+      - name: description
+        type: string
+        description: 日程描述
+      - name: start
+        type: string
+        description: 起始时间，RFC3339 格式
+      - name: end
+        type: string
+        description: 结束时间，RFC3339 格式
+      - name: location
+        type: string
+        description: 地点名称
+      - name: reminders
+        type: string
+        description: 提醒时间，单位为分钟，多个用逗号分隔
+      - name: visibility
+        type: string
+        description: 可见性
+      - name: free-busy-status
+        type: string
+        description: 忙闲状态
+      - name: mod-type
+        type: string
+        description: 重复日程修改范围，可选 one 或 all
+      - name: which-day-time
+        type: string
+        description: 重复日程中要改的那一天的开始时间（毫秒时间戳），mod-type=one 时必填
+      - name: no-notification
+        type: boolean
+        description: 不向参与者发更新通知
+      - name: recurrence-body
+        type: string
+        description: 重复规则 JSON
+      - name: online-meeting-body
+        type: string
+        description: 在线会议配置 JSON
+    body:
+      bindings:
+        - from_flag: name
+          to: summary
+        - from_flag: description
+          to: description
+        - from_flag: start
+          to: start_time.datetime
+        - from_flag: end
+          to: end_time.datetime
+        - from_flag: location
+          to: locations[0].name
+        - from_flag: reminders
+          to: reminders
+          transform: "split_csv | to_int | wrap(minutes)"
+        - from_flag: visibility
+          to: visibility
+        - from_flag: free-busy-status
+          to: free_busy_status
+        - from_flag: mod-type
+          to: mod_type
+        - from_flag: which-day-time
+          to: which_day_time
+          transform: to_int
+        - from_flag: no-notification
+          to: is_notification
+          transform: "to_bool | negate"
+        - from_flag: recurrence-body
+          to: recurrence
+          transform: parse_json
+        - from_flag: online-meeting-body
+          to: online_meeting
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli calendar event update primary "evt_xxx" --name "新标题"'
+        description: 修改日程标题
+      - command: 'wps365-cli calendar event update primary "evt_xxx" --start "2024-01-16T14:30:00+08:00" --end "2024-01-16T15:30:00+08:00" --mod-type all'
+        description: 修改重复日程的所有实例时间
+  - id: calendar.event.delete
+    command: calendar event delete
+    summary: 删除日程
+    description: 删除指定日程。对于重复日程，可通过 --mod-type 指定删除范围。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/delete
+    request_schema_ref: "#/components/schemas/delete_event_req_body"
+    response_schema_ref: "#/components/schemas/delete_event_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: mod-type
+        type: string
+        description: 重复日程删除范围，可选 one 或 all
+      - name: which-day-time
+        type: string
+        description: 重复日程中要删的那一天的开始时间（毫秒时间戳），mod-type=one 时必填
+      - name: no-notification
+        type: boolean
+        description: 不向参与者发通知
+    body:
+      bindings:
+        - from_flag: mod-type
+          to: mod_type
+        - from_flag: which-day-time
+          to: which_day_time
+          transform: to_int
+        - from_flag: no-notification
+          to: is_notification
+          transform: "to_bool | negate"
+    examples:
+      - command: 'wps365-cli calendar event delete primary "evt_xxx"'
+        description: 删除指定日程
+      - command: 'wps365-cli calendar event delete primary "evt_xxx" --mod-type all'
+        description: 删除重复日程的所有实例
+
+  - id: calendar.event-minutes.create
+    command: calendar event-minutes create
+    summary: 创建会议纪要
+    description: 为指定日程创建会议纪要，纪要以文档形式展示，成功创建后会返回纪要文档 URL。日程内至少需要有 1 个参与人。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/meeting_minutes/create
+    response_schema_ref: "#/components/schemas/create_event_meeting_minutes_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    examples:
+      - command: 'wps365-cli calendar event-minutes create primary "evt_xxx"'
+        description: 为指定日程创建会议纪要
+
+  - id: calendar.event.search
+    command: calendar event search
+    summary: 搜索日程
+    description: 在指定日历中搜索日程。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/search
+    request_schema_ref: "#/components/schemas/search_events_req_body"
+    response_schema_ref: "#/components/schemas/search_events_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+    flags:
+      - name: keyword
+        type: string
+        required: true
+        description: 搜索关键词，长度 1–100
+      - name: page-size
+        type: integer
+        default: 200
+        description: 每页数量，1–500，默认 200
+      - name: page-token
+        type: string
+        description: 分页标记
+    body:
+      bindings:
+        - from_flag: keyword
+          to: keyword
+        - from_flag: page-size
+          to: page_size
+        - from_flag: page-token
+          to: page_token
+    examples:
+      - command: 'wps365-cli calendar event search primary --keyword "评审"'
+        description: 在主日历中搜索包含"评审"的日程
+  - id: calendar.event.respond
+    command: calendar event respond
+    summary: 答复日程邀请
+    description: 答复日程邀请，支持接受、拒绝、暂定。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/respond
+    request_schema_ref: "#/components/schemas/respond_event_req_body"
+    response_schema_ref: "#/components/schemas/respond_event_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: status
+        type: string
+        required: true
+        description: 答复状态，可选 accepted、declined、tentative
+      - name: mod-type
+        type: string
+        required: true
+        description: 答复范围，可选 normal、one、all
+        default: normal
+      - name: which-day-time
+        type: string
+        required: true
+        description: 日程开始时间戳（毫秒）
+    body:
+      bindings:
+        - from_flag: status
+          to: response_status
+        - from_flag: mod-type
+          to: mod_type
+        - from_flag: which-day-time
+          to: which_day_time
+          transform: to_int
+    examples:
+      - command: 'wps365-cli calendar event respond primary "evt_xxx" --status accepted --which-day-time "1705305000000"'
+        description: 接受日程邀请
+      - command: 'wps365-cli calendar event respond primary "evt_xxx" --status declined --which-day-time "1705305000000"'
+        description: 拒绝日程邀请
+  - id: calendar.event-instance.list
+    command: calendar event-instance list
+    summary: 查询日程实例列表
+    description: 查询指定日历下的日程实例列表（含重复日程展开后的实例）。
+    method: GET
+    path: /v7/calendars/{calendar_id}/event_instances
+    response_schema_ref: "#/components/schemas/list_event_instances_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+    flags:
+      - name: start
+        type: string
+        description: 起始时间，RFC3339 格式
+        to: query.start_time
+      - name: end
+        type: string
+        description: 结束时间，RFC3339 格式
+        to: query.end_time
+    examples:
+      - command: 'wps365-cli calendar event-instance list primary --start "2024-01-01T00:00:00+08:00" --end "2024-01-31T23:59:59+08:00"'
+        description: 查询主日历下指定时间区间内的日程实例
+  - id: calendar.event-instance.get
+    command: calendar event-instance get
+    summary: 查询日程实例
+    description: 查询指定日程的实例列表（重复日程展开后的各个实例）。
+    method: GET
+    path: /v7/calendars/{calendar_id}/events/{event_id}/event_instances
+    response_schema_ref: "#/components/schemas/event_instances_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: start
+        type: string
+        description: 起始时间，RFC3339 格式
+        to: query.start_time
+      - name: end
+        type: string
+        description: 结束时间，RFC3339 格式
+        to: query.end_time
+    examples:
+      - command: 'wps365-cli calendar event-instance get primary "evt_xxx" --start "2024-01-01T00:00:00+08:00" --end "2024-03-31T23:59:59+08:00"'
+        description: 查询指定日程在某时间区间内的所有实例
+  - id: calendar.event-attendee.list
+    command: calendar event-attendee list
+    summary: 获取日程参与者列表
+    description: 获取指定日程的参与者列表。
+    method: GET
+    path: /v7/calendars/{calendar_id}/events/{event_id}/attendees
+    response_schema_ref: "#/components/schemas/list_event_attendees_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: page-size
+        type: integer
+        description: 每页数量，1–100
+        to: query.page_size
+    examples:
+      - command: 'wps365-cli calendar event-attendee list primary "evt_xxx"'
+        description: 查询日程的参与者列表
+  - id: calendar.event-attendee.add
+    command: calendar event-attendee add
+    summary: 添加日程参与者
+    description: 为指定日程批量添加参与者，最多 200 个。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/attendees/batch_create
+    request_schema_ref: "#/components/schemas/batch_create_event_attendee_req_body"
+    response_schema_ref: "#/components/schemas/batch_create_event_attendee_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: user-ids
+        type: string
+        description: 用户 ID，多个用逗号分隔
+      - name: no-notification
+        type: boolean
+        description: 不发送通知
+      - name: attendees-body
+        type: string
+        description: 高级参数，完整参与者 JSON 数组（支持 user、group、third_party_email 类型）
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: attendees
+          transform: "split_csv | wrap(type=user, user_id)"
+        - from_flag: no-notification
+          to: is_notification
+          transform: "to_bool | negate"
+        - from_flag: attendees-body
+          to: attendees
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli calendar event-attendee add primary "evt_xxx" --user-ids "u1,u2,u3"'
+        description: 为日程添加三个用户参与者
+      - command: 'wps365-cli calendar event-attendee add primary "evt_xxx" --attendees-body ''[{"type":"third_party_email","third_party_email":"guest@example.com"}]'''
+        description: 通过高级 JSON 参数添加第三方邮箱参与者
+  - id: calendar.event-attendee.remove
+    command: calendar event-attendee remove
+    summary: 删除日程参与者
+    description: 从指定日程中批量删除参与者。
+    method: POST
+    path: /v7/calendars/{calendar_id}/events/{event_id}/attendees/batch_delete
+    request_schema_ref: "#/components/schemas/batch_delete_event_attendee_req_body"
+    response_schema_ref: "#/components/schemas/batch_delete_event_attendee_resp_body"
+    args:
+      - name: calendar-id
+        required: true
+        description: 日历 id，可使用 primary 指代主日历
+        to: path.calendar_id
+      - name: event-id
+        required: true
+        description: 日程 id
+        to: path.event_id
+    flags:
+      - name: user-ids
+        type: string
+        description: 用户 ID，多个用逗号分隔
+      - name: no-notification
+        type: boolean
+        description: 不发送通知
+      - name: attendees-body
+        type: string
+        description: 高级参数，完整参与者 JSON 数组
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: attendees
+          transform: "split_csv | wrap(type=user, user_id)"
+        - from_flag: no-notification
+          to: is_notification
+          transform: "to_bool | negate"
+        - from_flag: attendees-body
+          to: attendees
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli calendar event-attendee remove primary "evt_xxx" --user-ids "u1,u2"'
+        description: 从日程中移除两个用户参与者
+  - id: calendar.free-busy.list
+    command: calendar free-busy list
+    summary: 查看日程忙闲
+    description: 查看指定用户或会议室在某时间段内的忙闲状态，时间区间不超过 7 天。
+    method: GET
+    path: /v7/free_busy_list
+    response_schema_ref: "#/components/schemas/list_free_busy_resp_body"
+    flags:
+      - name: start
+        type: string
+        required: true
+        description: 起始时间，RFC3339 格式
+        to: query.start_time
+      - name: end
+        type: string
+        required: true
+        description: 结束时间，RFC3339 格式，与 --start 间隔不超过 7 天
+        to: query.end_time
+      - name: user-ids
+        type: string
+        description: 用户 ID，多个用逗号分隔，最多 50 个
+        to: query.user_ids
+      - name: room-ids
+        type: string
+        description: 会议室 ID，多个用逗号分隔，最多 50 个
+        to: query.room_ids
+    examples:
+      - command: 'wps365-cli calendar free-busy list --start "2024-01-15T00:00:00+08:00" --end "2024-01-15T23:59:59+08:00" --user-ids "u1,u2"'
+        description: 查看两个用户在某天的忙闲状态
+  - id: calendar.primary.batch-get
+    command: calendar primary batch-get
+    summary: 批量获取主日历
+    description: 批量获取指定用户的主日历信息，最多 20 个用户。
+    method: POST
+    path: /v7/calendars/primary/batch_get
+    request_schema_ref: "#/components/schemas/batch_get_primary_calendars_req_body"
+    response_schema_ref: "#/components/schemas/batch_get_primary_calendars_resp_body"
+    flags:
+      - name: user-ids
+        type: string
+        required: true
+        description: 用户 ID，多个用逗号分隔，最多 20 个
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: user_ids
+          transform: split_csv
+    examples:
+      - command: 'wps365-cli calendar primary batch-get --user-ids "u1,u2,u3"'
+        description: 批量获取三个用户的主日历信息
+  - id: im.message.send
+    command: im message send
+    summary: 发送文本消息
+    description: 向一类接收对象批量发送 IM 文本消息，默认向用户发送纯文本。
+    method: POST
+    path: /v7/messages/batch_create
+    request_schema_ref: "#/components/schemas/batch_create_message_req_body"
+    response_schema_ref: "#/components/schemas/batch_create_message_resp_body"
+    flags:
+      - name: to
+        type: string
+        required: true
+        description: 接收者 ID，多个用逗号分隔；同一次调用中的接收者类型必须一致
+      - name: text
+        type: string
+        required: true
+        description: 发送的文本内容
+      - name: receiver-type
+        type: string
+        default: user
+        description: 接收者类型，可选 user、dept、company、chat、enterprise_partner、enterprise_partner_dept、enterprise_partner_user
+      - name: partner-id
+        type: string
+        description: 关联组织 ID；当 receiver-type 为关联组织类型时使用
+      - name: text-format
+        type: string
+        default: plain
+        description: 文本格式，可选 plain 或 markdown
+      - name: mentions-body
+        type: string
+        description: 高级参数，传入 mentions JSON，用于 <at ...> 标签对应的 at 信息
+      - name: id-type
+        type: string
+        default: internal
+        description: 高级参数，对应请求头 X-Kso-Id-Type
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      defaults:
+        type: text
+        receivers[0].type: user
+        content.text.type: plain
+      bindings:
+        - from_flag: to
+          to: receivers[0].receiver_ids
+          transform: split_csv
+        - from_flag: text
+          to: content.text.content
+        - from_flag: receiver-type
+          to: receivers[0].type
+        - from_flag: partner-id
+          to: receivers[0].partner_id
+        - from_flag: text-format
+          to: content.text.type
+        - from_flag: mentions-body
+          to: mentions
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli im message send --to "u1,u2" --text "hello"'
+        description: 向两个用户发送纯文本消息
+      - command: 'wps365-cli im message send --receiver-type dept --to "dept_1,dept_2" --text "请查收通知"'
+        description: 向多个部门发送同一条文本消息
+      - command: 'wps365-cli im message send --to u1 --text "**hello**" --text-format markdown'
+        description: 向单个用户发送 Markdown 文本消息
+  - id: im.chat.list
+    command: im chat list
+    summary: 获取会话列表
+    description: 获取用户会话列表，支持分页。
+    method: GET
+    path: /v7/chats
+    response_schema_ref: "#/components/schemas/get_chat_list_resp_body"
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–100
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+    examples:
+      - command: 'wps365-cli im chat list --page-size 20'
+        description: 查询会话列表
+  - id: im.chat.get
+    command: im chat get
+    summary: 获取会话信息
+    description: 获取指定会话的详细信息。
+    method: GET
+    path: /v7/chats/{chat_id}
+    response_schema_ref: "#/components/schemas/get_chat_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    examples:
+      - command: 'wps365-cli im chat get "chat_xxx"'
+        description: 查看指定会话的详细信息
+  - id: im.chat.create
+    command: im chat create
+    summary: 创建会话
+    description: 创建会话，支持创建 P2P 会话和群聊。
+    method: POST
+    path: /v7/chats/create
+    request_schema_ref: "#/components/schemas/create_chat_req_body"
+    response_schema_ref: "#/components/schemas/create_chat_resp_body"
+    flags:
+      - name: type
+        type: string
+        required: true
+        description: 会话类型，可选 p2p 或 group
+      - name: member-ids
+        type: string
+        required: true
+        description: 成员用户 ID，多个用逗号分隔；P2P 需包含操作者和对方
+      - name: name
+        type: string
+        description: 群名称（群聊时使用）
+      - name: owner-id
+        type: string
+        description: 群主用户 ID（群聊时必填）
+    body:
+      bindings:
+        - from_flag: type
+          to: type
+        - from_flag: member-ids
+          to: account_id_list
+          transform: "split_csv | wrap(type=user, id)"
+        - from_flag: name
+          to: name
+        - from_flag: owner-id
+          to: owner_id
+    examples:
+      - command: 'wps365-cli im chat create --type group --member-ids "u1,u2,u3" --name "项目群" --owner-id "u1"'
+        description: 创建一个群聊
+      - command: 'wps365-cli im chat create --type p2p --member-ids "u1,u2"'
+        description: 创建一个 P2P 会话
+  - id: im.chat.update
+    command: im chat update
+    summary: 更新群信息
+    description: 更新群信息，如群名称、群主等。
+    method: POST
+    path: /v7/chats/{chat_id}/update
+    request_schema_ref: "#/components/schemas/update_chat_req_body"
+    response_schema_ref: "#/components/schemas/update_chat_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    flags:
+      - name: name
+        type: string
+        description: 新的群名称
+      - name: owner-id
+        type: string
+        description: 新的群主用户 ID
+    body:
+      bindings:
+        - from_flag: name
+          to: name
+        - from_flag: owner-id
+          to: owner_id
+    examples:
+      - command: 'wps365-cli im chat update "chat_xxx" --name "新群名"'
+        description: 修改群名称
+  - id: im.chat.delete
+    command: im chat delete
+    summary: 解散群
+    description: 解散指定群。
+    method: POST
+    path: /v7/chats/{chat_id}/delete
+    response_schema_ref: "#/components/schemas/delete_chat_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    examples:
+      - command: 'wps365-cli im chat delete "chat_xxx"'
+        description: 解散指定群
+  - id: im.p2p-chat.get
+    command: im p2p-chat get
+    summary: 获取 P2P 会话
+    description: 根据用户 ID 获取 P2P 会话信息。
+    method: GET
+    path: /v7/chats/get_p2p_chat
+    response_schema_ref: "#/components/schemas/get_chat_by_userid_resp_body"
+    flags:
+      - name: user-id
+        type: string
+        required: true
+        description: 用户 ID
+        to: query.user_id
+      - name: id-type
+        type: string
+        default: internal
+        description: 高级参数，对应请求头 X-Kso-Id-Type
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: 'wps365-cli im p2p-chat get --user-id "u1"'
+        description: 获取与指定用户的 P2P 会话
+  - id: im.unread-chat.count
+    command: im unread-chat count
+    summary: 获取未读消息数
+    description: 获取用户最近会话消息未读数。仅支持 delegated 身份。
+    method: GET
+    path: /v7/chats/unread_count
+    response_schema_ref: "#/components/schemas/chats_unread_count_resp_body"
+    examples:
+      - command: wps365-cli im unread-chat count
+        description: 查看未读消息数
+  - id: im.chat-member.list
+    command: im chat-member list
+    summary: 获取群成员列表
+    description: 获取群聊成员列表，支持分页和按状态/类型过滤。
+    method: GET
+    path: /v7/chats/{chat_id}/members
+    response_schema_ref: "#/components/schemas/list_chat_members_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–100
+        to: query.page_size
+      - name: status
+        type: integer
+        default: 1
+        description: "成员状态，可选 1: normal、2: dissolved"
+        to: query.status
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: type
+        type: string
+        description: 成员类型，可选 user、app
+        to: query.type
+    examples:
+      - command: 'wps365-cli im chat-member list "chat_xxx" --page-size 50 --status 1'
+        description: 查询群的正常成员列表
+  - id: im.chat-member.add
+    command: im chat-member add
+    summary: 添加群成员
+    description: 批量添加群成员。
+    method: POST
+    path: /v7/chats/{chat_id}/members/batch_create
+    request_schema_ref: "#/components/schemas/batch_create_chat_member_req_body"
+    response_schema_ref: "#/components/schemas/batch_create_chat_member_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    flags:
+      - name: user-ids
+        type: string
+        required: true
+        description: 成员用户 ID，多个用逗号分隔，最多 100 个
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: account_id_list
+          transform: "split_csv | wrap(type=user, id)"
+    examples:
+      - command: 'wps365-cli im chat-member add "chat_xxx" --user-ids "u1,u2,u3"'
+        description: 向群中添加三个成员
+  - id: im.chat-member.remove
+    command: im chat-member remove
+    summary: 删除群成员
+    description: 批量删除群成员。
+    method: POST
+    path: /v7/chats/{chat_id}/members/batch_delete
+    request_schema_ref: "#/components/schemas/batch_delete_chat_member_req_body"
+    response_schema_ref: "#/components/schemas/batch_delete_chat_member_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    flags:
+      - name: user-ids
+        type: string
+        required: true
+        description: 成员用户 ID，多个用逗号分隔，最多 100 个
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: account_id_list
+          transform: "split_csv | wrap(type=user, id)"
+    examples:
+      - command: 'wps365-cli im chat-member remove "chat_xxx" --user-ids "u1,u2"'
+        description: 从群中移除两个成员
+  - id: im.chat-message.list
+    command: im chat-message list
+    summary: 获取会话历史消息
+    description: 获取会话历史消息，支持分页和时间范围过滤。
+    method: GET
+    path: /v7/chats/{chat_id}/messages
+    response_schema_ref: "#/components/schemas/chats_messages_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–100
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: start
+        type: integer
+        description: 起始时间戳（毫秒）
+        to: query.start_time
+      - name: end
+        type: integer
+        description: 结束时间戳（毫秒）
+        to: query.end_time
+      - name: order
+        type: string
+        description: 排序方式，可选 asc 或 desc
+        to: query.order
+    examples:
+      - command: 'wps365-cli im chat-message list "chat_xxx" --page-size 20'
+        description: 查询会话的历史消息
+  - id: im.chat-message.get
+    command: im chat-message get
+    summary: 获取消息内容
+    description: 根据消息 ID 获取消息内容。
+    method: GET
+    path: /v7/chats/{chat_id}/messages/{message_id}
+    response_schema_ref: "#/components/schemas/get_message_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+      - name: message-id
+        required: true
+        description: 消息 ID
+        to: path.message_id
+    examples:
+      - command: 'wps365-cli im chat-message get "chat_xxx" "msg_xxx"'
+        description: 查看指定消息的详细内容
+  - id: im.chat-message.reply
+    command: im chat-message reply
+    summary: 回复消息
+    description: 回复指定消息。默认回复纯文本。
+    method: POST
+    path: /v7/chats/{chat_id}/messages/{message_id}/reply
+    request_schema_ref: "#/components/schemas/send_reply_message_req_body"
+    response_schema_ref: "#/components/schemas/reply_message_resp_body"
+    args:
+      - name: chat-id
+        required: true
+        description: 会话 ID
+        to: path.chat_id
+      - name: message-id
+        required: true
+        description: 被回复的消息 ID
+        to: path.message_id
+    flags:
+      - name: text
+        type: string
+        required: true
+        description: 回复的文本内容
+      - name: text-format
+        type: string
+        default: plain
+        description: 文本格式，可选 plain 或 markdown
+      - name: mentions-body
+        type: string
+        description: 高级参数，传入 mentions JSON
+      - name: id-type
+        type: string
+        default: internal
+        description: 高级参数，对应请求头 X-Kso-Id-Type
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      defaults:
+        type: text
+        content.text.type: plain
+      bindings:
+        - from_flag: text
+          to: content.text.content
+        - from_flag: text-format
+          to: content.text.type
+        - from_flag: mentions-body
+          to: mentions
+          transform: parse_json
+    examples:
+      - command: 'wps365-cli im chat-message reply "chat_xxx" "msg_xxx" --text "收到"'
+        description: 回复一条纯文本消息
+  - id: im.message.recall
+    command: im message recall
+    summary: 撤回消息
+    description: 撤回消息。
+    method: POST
+    path: /v7/messages/{message_id}/recall
+    response_schema_ref: "#/components/schemas/recall_message_resp_body"
+    args:
+      - name: message-id
+        required: true
+        description: 消息 ID
+        to: path.message_id
+    examples:
+      - command: 'wps365-cli im message recall "msg_xxx"'
+        description: 撤回指定消息
+  - id: user.me
+    command: user me
+    summary: 获取当前用户信息
+    description: 获取当前用户信息
+    method: GET
+    path: /v7/users/current
+    response_schema_ref: "#/components/schemas/get_current_user_resp_body"
+    examples:
+      - command: wps365-cli user me
+        description: 获取当前用户信息
+  - id: user.list
+    command: user list
+    summary: 列出所有用户
+    description: 查询企业用户列表，支持按状态过滤和分页，仅支持应用身份。
+    method: GET
+    path: /v7/users
+    response_schema_ref: "#/components/schemas/list_users_resp_body"
+    flags:
+      - name: status
+        type: string[]
+        repeatable: true
+        default: ["active"]
+        description: "用户状态，可选值：active、notactive、disabled"
+        to: query.status
+        # TODO(F4): 待确认 API 是否接受 ?status=active,disabled 格式后，统一为逗号分隔
+      - name: page-size
+        type: integer
+        required: false
+        default: 10
+        description: 分页大小，默认 10，最大 50
+        to: query.page_size
+      - name: page-token
+        type: string
+        required: false
+        description: 分页标记
+        to: query.page_token
+      - name: with-total
+        type: boolean
+        required: false
+        description: 是否返回总数
+        to: query.with_total
+      - name: with-dept
+        type: boolean
+        required: false
+        description: 是否返回部门信息
+        to: query.with_dept
+      - name: id-type
+        type: string
+        required: false
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli user list --status active
+        description: 列出所有正常状态的用户
+      - command: wps365-cli user list --status active --status disabled --page-size 50
+        description: 列出正常和禁用状态的用户，每页 50 条
+  - id: user.get
+    command: user get
+    summary: 获取指定用户
+    description: |
+      基于不同标识查询用户信息，仅支持应用身份。
+      默认按 user_id 查询（GET），可通过 --type 切换为按邮箱、手机号或外部 ID 批量查询（POST）。
+    method: GET
+    path: /v7/users/{user_id}
+    response_schema_ref: "#/components/schemas/get_user_resp_body"
+    args:
+      - name: identifier
+        required: true
+        description: 用户标识（user_id / 邮箱 / 手机号 / 外部 ID，多个用逗号分隔）
+        to: path.user_id
+    flags:
+      - name: type
+        type: string
+        required: false
+        default: id
+        description: "查询类型：id（默认）、email、phone、external-id"
+      - name: status
+        type: string
+        required: false
+        description: "用户状态过滤，多个用逗号分隔，可选值：active、notactive、disabled"
+      - name: with-dept
+        type: boolean
+        required: false
+        description: 是否返回部门信息
+        to: query.with_dept
+      - name: id-type
+        type: string
+        required: false
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    dispatch:
+      flag: type
+      default: id
+      routes:
+        - when: email
+          method: POST
+          path: /v7/users/by_emails
+          request_schema_ref: "#/components/schemas/list_users_by_emails_req_body"
+          response_schema_ref: "#/components/schemas/list_users_by_emails_resp_body"
+          body:
+            bindings:
+              - from_arg: identifier
+                to: emails
+                transform: split_csv
+              - from_flag: status
+                to: status
+                transform: split_csv
+              - from_flag: with-dept
+                to: with_dept
+        - when: phone
+          method: POST
+          path: /v7/users/by_phones
+          request_schema_ref: "#/components/schemas/list_users_by_phones_req_body"
+          response_schema_ref: "#/components/schemas/list_users_by_phones_resp_body"
+          body:
+            bindings:
+              - from_arg: identifier
+                to: phones
+                transform: split_csv
+              - from_flag: status
+                to: status
+                transform: split_csv
+              - from_flag: with-dept
+                to: with_dept
+        - when: external-id
+          method: POST
+          path: /v7/users/by_ex_user_ids
+          request_schema_ref: "#/components/schemas/list_users_by_ex_user_ids_req_body"
+          response_schema_ref: "#/components/schemas/list_users_by_ex_user_ids_resp_body"
+          body:
+            bindings:
+              - from_arg: identifier
+                to: ex_user_ids
+                transform: split_csv
+              - from_flag: status
+                to: status
+                transform: split_csv
+    examples:
+      - command: wps365-cli user get u123456
+        description: 按 user_id 获取用户信息
+      - command: wps365-cli user get u123456 --with-dept
+        description: 获取用户信息并包含部门
+      - command: 'wps365-cli user get "zhang@example.com,li@example.com" --type email --status active'
+        description: 按邮箱批量查询用户
+      - command: 'wps365-cli user get "13800138000,13900139000" --type phone --status active'
+        description: 按手机号批量查询用户
+      - command: 'wps365-cli user get "ext1,ext2" --type external-id --status active'
+        description: 按外部 ID 批量查询用户
+  - id: user.search
+    command: user search
+    summary: 搜索企业用户
+    description: 搜索企业用户，支持按关键字和字段过滤。
+    method: GET
+    path: /v7/users/search
+    response_schema_ref: "#/components/schemas/search_user_resp_body"
+    flags:
+      - name: keyword
+        type: string
+        required: true
+        description: 搜索关键字
+        to: query.keyword
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: status
+        type: string[]
+        required: false
+        repeatable: true
+        default:
+          - active
+        description: "用户状态过滤，可选值：active、notactive、disabled、dimission"
+        to: query.status
+        # TODO(F4): 待确认 API 是否接受 ?status=active,disabled 格式后，统一为逗号分隔
+      - name: search-field
+        type: string[]
+        required: false
+        repeatable: true
+        default:
+          - user_name
+        description: "搜索字段，可选值：email、phone、user_name、login_name"
+        to: query.search_field
+        # TODO(F4): 待确认 API 是否接受逗号格式后，统一为逗号分隔
+      - name: search-source
+        type: string[]
+        required: false
+        repeatable: true
+        default:
+          - company_user
+        description: "搜索来源，可选值：company_user、enterprise_partner"
+        to: query.search_source
+      - name: search-source-v2
+        type: string[]
+        required: false
+        repeatable: true
+        description: "搜索来源 v2，可选值：company_user、enterprise_partner"
+        to: query.search_source_v2
+      - name: user-type
+        type: string[]
+        required: false
+        repeatable: true
+        description: "用户类型，可选值：company_member、external_guest"
+        to: query.user_type
+      - name: page-token
+        type: string
+        required: false
+        description: 分页标记
+        to: query.page_token
+      - name: with-total
+        type: boolean
+        required: false
+        description: 是否返回总数
+        to: query.with_total
+      - name: id-type
+        type: string
+        required: false
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: 'wps365-cli user search --keyword "张" --page-size 20'
+        description: 搜索包含"张"的用户
+      - command: 'wps365-cli user search --keyword "zhang@example.com" --page-size 10 --search-field email'
+        description: 按邮箱搜索用户
+  - id: user.dept.list
+    command: user dept list
+    summary: 获取用户所在部门列表
+    description: 获取指定用户所在的部门列表，仅支持应用身份。
+    method: GET
+    path: /v7/users/{user_id}/depts
+    response_schema_ref: "#/components/schemas/list_user_depts_resp_body"
+    args:
+      - name: user-id
+        required: true
+        description: 用户 ID
+        to: path.user_id
+    flags:
+      - name: id-type
+        type: string
+        required: false
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli user dept list u123456
+        description: 获取用户所在部门列表
+  # ── mail: 邮箱管理 ──────────────────────────────────────────────
+  - id: mail.mailbox.list
+    command: mail mailbox list
+    summary: 获取邮箱列表
+    description: 获取当前用户的所有邮箱信息，支持分页。
+    method: GET
+    path: /v7/mailboxes
+    response_schema_ref: "#/components/schemas/list_mailboxes_resp_body"
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–100
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+    examples:
+      - command: wps365-cli mail mailbox list
+        description: 查询当前用户的邮箱列表
+      - command: 'wps365-cli mail mailbox list --page-size 10'
+        description: 按分页查询邮箱列表
+  # ── mail: 邮件目录 ──────────────────────────────────────────────
+  - id: mail.mailbox-folder.list
+    command: mail mailbox-folder list
+    summary: 获取邮箱目录列表
+    description: 获取指定邮箱的所有目录。
+    method: GET
+    path: /v7/mailboxes/{mailbox_id}/folders
+    response_schema_ref: "#/components/schemas/list_mail_folders_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+    flags:
+      - name: page-size
+        type: integer
+        default: 10
+        description: 每页数量，1–50，默认 10
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+    examples:
+      - command: 'wps365-cli mail mailbox-folder list "mbx_xxx"'
+        description: 查询邮箱的目录列表
+  - id: mail.mailbox-subfolder.list
+    command: mail mailbox-subfolder list
+    summary: 获取子目录列表
+    description: 获取指定目录下的所有子目录信息。
+    method: GET
+    path: /v7/mailboxes/{mailbox_id}/folders/{folder_id}/children
+    response_schema_ref: "#/components/schemas/list_mail_folder_children_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+      - name: folder-id
+        required: true
+        description: 父目录ID
+        to: path.folder_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–50
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+    examples:
+      - command: 'wps365-cli mail mailbox-subfolder list "mbx_xxx" "fld_xxx"'
+        description: 查询指定目录下的子目录
+  # ── mail: 邮件操作 ──────────────────────────────────────────────
+  - id: mail.message.list
+    command: mail message list
+    summary: 获取邮件列表
+    description: 获取指定邮箱某目录下的邮件列表。folder-id 可为目录 ID 或系统标识（inbox、drafts、sent、junk、trash）。
+    method: GET
+    path: /v7/mailboxes/{mailbox_id}/folders/{folder_id}/messages
+    response_schema_ref: "#/components/schemas/list_mail_messages_in_folder_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+      - name: folder-id
+        required: true
+        description: 目录 ID 或系统标识（inbox、drafts、sent、junk、trash）
+        to: path.folder_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 每页数量，1–10
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: start
+        type: integer
+        description: 起始时间戳
+        to: query.start_time
+      - name: end
+        type: integer
+        description: 结束时间戳
+        to: query.end_time
+      - name: filter
+        type: string
+        description: 过滤条件，可选 unread、flagged，多个用逗号分隔
+        to: query.filter
+      - name: thread-id
+        type: string
+        description: 会话 ID，按会话筛选
+        to: query.thread_id
+    examples:
+      - command: 'wps365-cli mail message list "mbx_xxx" inbox --page-size 10'
+        description: 查询收件箱中的邮件列表
+      - command: 'wps365-cli mail message list "mbx_xxx" inbox --page-size 5 --filter "unread"'
+        description: 查询收件箱中的未读邮件
+  - id: mail.message.get
+    command: mail message get
+    summary: 获取邮件详情
+    description: 获取一封邮件的详细内容。
+    method: GET
+    path: /v7/mailboxes/{mailbox_id}/folders/{folder_id}/messages/{message_id}
+    response_schema_ref: "#/components/schemas/get_mail_message_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+      - name: folder-id
+        required: true
+        description: 目录 ID 或系统标识
+        to: path.folder_id
+      - name: message-id
+        required: true
+        description: 邮件 ID
+        to: path.message_id
+    flags:
+      - name: with-ocr-body
+        type: boolean
+        description: 是否返回 OCR 正文
+        to: query.with_ocr_body
+      - name: with-importance-flag
+        type: boolean
+        description: 是否返回重要性标识
+        to: query.with_importance_flag
+    examples:
+      - command: 'wps365-cli mail message get "mbx_xxx" inbox "msg_xxx"'
+        description: 查看一封邮件的详细内容
+  - id: mail.draft.create
+    command: mail draft create
+    summary: 创建草稿
+    description: 创建草稿并放入草稿箱。
+    method: POST
+    path: /v7/mailboxes/{mailbox_id}/messages/create
+    request_schema_ref: "#/components/schemas/create_mail_draft_req_body"
+    response_schema_ref: "#/components/schemas/create_mail_draft_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+    flags:
+      - name: subject
+        type: string
+        description: 邮件标题
+      - name: body
+        type: string
+        description: 邮件正文
+      - name: to
+        type: string
+        description: 收件人邮箱地址，多个用逗号分隔
+      - name: cc
+        type: string
+        description: 抄送人邮箱地址，多个用逗号分隔
+      - name: bcc
+        type: string
+        description: 密送人邮箱地址，多个用逗号分隔
+    body:
+      bindings:
+        - from_flag: subject
+          to: subject
+        - from_flag: body
+          to: body
+        - from_flag: to
+          to: to_recipients
+          transform: "split_csv | wrap(email_address)"
+        - from_flag: cc
+          to: cc_recipients
+          transform: "split_csv | wrap(email_address)"
+        - from_flag: bcc
+          to: bcc_recipients
+          transform: "split_csv | wrap(email_address)"
+    examples:
+      - command: 'wps365-cli mail draft create "mbx_xxx" --subject "测试邮件" --body "这是正文" --to "a@example.com,b@example.com"'
+        description: 创建一封草稿邮件
+  - id: mail.draft.send
+    command: mail draft send
+    summary: 发送草稿
+    description: 将草稿箱中的指定邮件发出。
+    method: POST
+    path: /v7/mailboxes/{mailbox_id}/messages/{message_id}/send
+    response_schema_ref: "#/components/schemas/send_mail_message_resp_body"
+    args:
+      - name: mailbox-id
+        required: true
+        description: 邮箱 ID
+        to: path.mailbox_id
+      - name: message-id
+        required: true
+        description: 邮件 ID（草稿 ID）
+        to: path.message_id
+    examples:
+      - command: 'wps365-cli mail draft send "mbx_xxx" "msg_xxx"'
+        description: 发送草稿箱中的邮件
+  # ── mail: 邮件搜索 ──────────────────────────────────────────────
+  - id: mail.message.search
+    command: mail message search
+    summary: 高级搜索邮件
+    description: 高级搜索邮件，支持多条件组合。仅支持用户登录后访问自己的邮箱。
+    method: GET
+    path: /v7/mail_messages/search
+    response_schema_ref: "#/components/schemas/advance_search_mail_messages_resp_body"
+    flags:
+      - name: mailbox-ids
+        type: string
+        required: true
+        description: 邮箱 ID，多个用逗号分隔
+        to: query.mailbox_ids
+      - name: keyword
+        type: string
+        description: 搜索关键词
+        to: query.keyword
+      - name: subject
+        type: string
+        description: 按标题搜索
+        to: query.subject
+      - name: from
+        type: string
+        description: 按发件人搜索
+        to: query.from
+      - name: to
+        type: string
+        description: 按收件人搜索
+        to: query.to
+      - name: has-attachment
+        type: boolean
+        description: 是否有附件
+        to: query.has_attachment
+      - name: start
+        type: integer
+        description: 起始时间戳
+        to: query.start_time
+      - name: end
+        type: integer
+        description: 结束时间戳
+        to: query.end_time
+      - name: folders
+        type: string
+        description: 搜索目录范围
+        to: query.folders
+      - name: page-size
+        type: integer
+        default: 5
+        description: 每页数量，1–10
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+    examples:
+      - command: 'wps365-cli mail message search --mailbox-ids "mbx_xxx" --keyword "项目报告"'
+        description: 在邮箱中搜索包含"项目报告"的邮件
+      - command: 'wps365-cli mail message search --mailbox-ids "mbx_xxx" --from "boss@example.com" --has-attachment true'
+        description: 搜索来自指定发件人且包含附件的邮件
+  # ── drive: 云盘 ────────────────────────────────────────────────
+  - id: drive.list
+    command: drive list
+    summary: 获取盘列表
+    description: 按归属身份分页查询可访问的盘列表。
+    method: GET
+    path: /v7/drives
+    response_schema_ref: "#/components/schemas/list_drives_resp_body"
+    flags:
+      - name: allotee-type
+        type: string
+        default: user
+        description: 盘归属身份类型（user、group、app）
+        to: query.allotee_type
+      - name: allotee-id
+        type: string
+        description: 盘归属身份 ID
+        to: query.allotee_id
+      - name: page-size
+        type: integer
+        description: 分页大小，最大 500
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: sources
+        type: string
+        description: 盘来源，多个用逗号分隔
+        to: query.sources
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive list --allotee-type user --page-size 50
+        description: 分页查询当前用户归属的盘列表
+  - id: drive.get
+    command: drive get
+    summary: 获取盘信息
+    description: 根据盘 ID 获取盘元数据。
+    method: GET
+    path: /v7/drives/{drive_id}/meta
+    response_schema_ref: "#/components/schemas/get_drive_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+    flags:
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+    examples:
+      - command: wps365-cli drive get dr_abc123
+        description: 获取指定盘的元信息
+  - id: drive.create
+    command: drive create
+    summary: 新建驱动盘
+    description: 创建新盘并指定归属身份。
+    method: POST
+    path: /v7/drives/create
+    request_schema_ref: "#/components/schemas/create_drive_req_body"
+    response_schema_ref: "#/components/schemas/create_drive_resp_body"
+    flags:
+      - name: name
+        type: string
+        required: true
+        description: 盘名称
+      - name: allotee-type
+        type: string
+        default: user
+        description: 归属类型
+      - name: allotee-id
+        type: string
+        description: 归属身份 ID
+    body:
+      bindings:
+        - from_flag: name
+          to: name
+        - from_flag: allotee-type
+          to: allotee_type
+        - from_flag: allotee-id
+          to: allotee_id
+    examples:
+      - command: wps365-cli drive create --name "项目盘" --allotee-type user --allotee-id u123
+        description: 为用户创建一个新盘
+  - id: drive.file.list
+    command: drive file list
+    summary: 获取子文件列表
+    description: 列出指定父目录下的子文件与文件夹，支持排序与过滤。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{parent_id}/children
+    response_schema_ref: "#/components/schemas/list_file_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: parent-id
+        required: true
+        description: 父目录 ID（根目录为 0）
+        to: path.parent_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: filter-exts
+        type: string
+        description: 按扩展名过滤
+        to: query.filter_exts
+      - name: filter-type
+        type: string
+        description: 按类型过滤
+        to: query.filter_type
+      - name: order
+        type: string
+        description: 排序方向
+        to: query.order
+      - name: order-by
+        type: string
+        description: 排序字段
+        to: query.order_by
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive file list dr_1 0 --page-size 50
+        description: 列出盘根目录下子项
+  - id: drive.file.get
+    command: drive file get
+    summary: 获取文件信息
+    description: 在指定盘内根据文件 ID 获取文件元数据。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/meta
+    response_schema_ref: "#/components/schemas/get_file_directly_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+      - name: with-drive
+        type: boolean
+        description: 是否返回盘信息
+        to: query.with_drive
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive file get dr_1 f_001
+        description: 获取指定文件的元信息
+  - id: drive.file.create
+    command: drive file create
+    summary: 新建文件或文件夹
+    description: 在指定父目录下创建新文件或文件夹。
+    method: POST
+    path: /v7/drives/{drive_id}/files/{parent_id}/create
+    request_schema_ref: "#/components/schemas/create_file_req_body"
+    response_schema_ref: "#/components/schemas/create_file_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: parent-id
+        required: true
+        description: 父目录 ID
+        to: path.parent_id
+    flags:
+      - name: name
+        type: string
+        required: true
+        description: 名称
+      - name: file-type
+        type: string
+        required: true
+        description: 文件类型
+      - name: on-name-conflict
+        type: string
+        description: 同名冲突策略
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      bindings:
+        - from_flag: name
+          to: name
+        - from_flag: file-type
+          to: file_type
+        - from_flag: on-name-conflict
+          to: on_name_conflict
+    examples:
+      - command: wps365-cli drive file create dr_1 0 --name "新建文件夹" --file-type folder
+        description: 在根目录下创建文件夹
+  - id: drive.file.delete
+    command: drive file delete
+    summary: 删除文件
+    description: 删除指定盘内的文件或文件夹。
+    method: POST
+    path: /v7/drives/{drive_id}/files/{file_id}/delete
+    response_schema_ref: "#/components/schemas/delete_file_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    examples:
+      - command: wps365-cli drive file delete dr_1 f_old
+        description: 删除指定文件
+  - id: drive.file.rename
+    command: drive file rename
+    summary: 重命名文件或文件夹
+    description: 修改指定文件或文件夹的名称。
+    method: POST
+    path: /v7/drives/{drive_id}/files/{file_id}/rename
+    request_schema_ref: "#/components/schemas/rename_file_req_body"
+    response_schema_ref: "#/components/schemas/rename_file_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: name
+        type: string
+        required: true
+        description: 新名称
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      bindings:
+        - from_flag: name
+          to: dst_name
+    examples:
+      - command: wps365-cli drive file rename dr_1 f_001 --name "重命名后"
+        description: 重命名文件
+  - id: drive.file.batch-copy
+    command: drive file batch-copy
+    summary: 批量复制文件
+    description: 将多个文件复制到目标盘的指定目录。
+    method: POST
+    path: /v7/drives/{drive_id}/files/batch_copy
+    request_schema_ref: "#/components/schemas/batch_copy_files_req_body"
+    response_schema_ref: "#/components/schemas/batch_copy_files_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 源盘 ID
+        to: path.drive_id
+    flags:
+      - name: file-ids
+        type: string
+        required: true
+        description: 文件 ID，多个用逗号分隔
+      - name: dst-drive-id
+        type: string
+        required: true
+        description: 目标盘 ID
+      - name: dst-parent-id
+        type: string
+        required: true
+        description: 目标父目录 ID
+    body:
+      bindings:
+        - from_flag: file-ids
+          to: file_ids
+          transform: split_csv
+        - from_flag: dst-drive-id
+          to: dst_drive_id
+        - from_flag: dst-parent-id
+          to: dst_parent_id
+    examples:
+      - command: wps365-cli drive file batch-copy dr_src --file-ids f1 --dst-drive-id dr_dst --dst-parent-id 0
+        description: 批量复制文件到目标盘根目录
+  - id: drive.file.batch-move
+    command: drive file batch-move
+    summary: 批量移动文件
+    description: 将多个文件移动到目标盘的指定目录。
+    method: POST
+    path: /v7/drives/{drive_id}/files/batch_move
+    request_schema_ref: "#/components/schemas/batch_move_files_req_body"
+    response_schema_ref: "#/components/schemas/batch_move_files_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 源盘 ID
+        to: path.drive_id
+    flags:
+      - name: file-ids
+        type: string
+        required: true
+        description: 文件 ID，多个用逗号分隔
+      - name: dst-drive-id
+        type: string
+        required: true
+        description: 目标盘 ID
+      - name: dst-parent-id
+        type: string
+        required: true
+        description: 目标父目录 ID
+    body:
+      bindings:
+        - from_flag: file-ids
+          to: file_ids
+          transform: split_csv
+        - from_flag: dst-drive-id
+          to: dst_drive_id
+        - from_flag: dst-parent-id
+          to: dst_parent_id
+    examples:
+      - command: wps365-cli drive file batch-move dr_1 --file-ids f1,f2 --dst-drive-id dr_1 --dst-parent-id dir_9
+        description: 批量移动文件到另一目录
+  - id: drive.file.download
+    command: drive file download
+    summary: 获取文件下载信息
+    description: 获取指定文件的下载地址或下载参数。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/download
+    response_schema_ref: "#/components/schemas/download_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: with-hash
+        type: boolean
+        description: 是否返回哈希
+        to: query.with_hash
+    examples:
+      - command: wps365-cli drive file download dr_1 f_001
+        description: 获取文件下载信息
+  - id: drive.file-content.get
+    command: drive file-content get
+    summary: 文档内容抽取
+    description: 抽取指定文件的文本或结构化内容。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/content
+    response_schema_ref: "#/components/schemas/get_file_content_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: format
+        type: string
+        description: 内容格式
+        to: query.format
+    examples:
+      - command: wps365-cli drive file-content get dr_1 f_doc
+        description: 抽取文档内容
+  - id: drive.file-path.get
+    command: drive file-path get
+    summary: 获取文件路径
+    description: 获取文件在盘内的完整路径信息。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/path
+    response_schema_ref: "#/components/schemas/get_file_path_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive file-path get dr_1 f_001
+        description: 查询文件路径
+  - id: drive.file.search
+    command: drive file search
+    summary: 搜索文件
+    description: 按类型、关键字等条件搜索文件。
+    method: GET
+    path: /v7/files/search
+    response_schema_ref: "#/components/schemas/search_files_resp_body"
+    flags:
+      - name: type
+        type: string
+        default: all
+        description: 搜索类型
+        to: query.type
+      - name: keyword
+        type: string
+        description: 关键字
+        to: query.keyword
+      - name: file-type
+        type: string
+        description: 文件类型过滤
+        to: query.file_type
+      - name: file-exts
+        type: string
+        description: 扩展名过滤
+        to: query.file_exts
+      - name: drive-ids
+        type: string
+        description: 盘 ID 列表，多个用逗号分隔
+        to: query.drive_ids
+      - name: parent-ids
+        type: string
+        description: 父目录 ID 列表，多个用逗号分隔
+        to: query.parent_ids
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+    examples:
+      - command: wps365-cli drive file search --type all --page-size 20
+        description: 按类型搜索文件
+  - id: drive.recent-file.list
+    command: drive recent-file list
+    summary: 获取最近文件列表
+    description: 分页列出最近访问或更新的文件。
+    method: GET
+    path: /v7/drive_latest/items
+    response_schema_ref: "#/components/schemas/list_latest_items_resp_body"
+    flags:
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: include-exts
+        type: string
+        description: 包含的扩展名
+        to: query.include_exts
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive recent-file list --page-size 30
+        description: 获取最近文件列表
+  - id: drive.starred-file.list
+    command: drive starred-file list
+    summary: 获取收藏文件列表
+    description: 分页列出已收藏的文件。
+    method: GET
+    path: /v7/drive_star/items
+    response_schema_ref: "#/components/schemas/list_star_items_resp_body"
+    flags:
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: include-exts
+        type: string
+        description: 包含的扩展名
+        to: query.include_exts
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive starred-file list --page-size 20
+        description: 获取收藏文件列表
+  - id: drive.frequent-file.list
+    command: drive frequent-file list
+    summary: 获取常用文件列表
+    description: 分页列出常用访问的文件。
+    method: GET
+    path: /v7/drive_freq/items
+    response_schema_ref: "#/components/schemas/list_freq_items_resp_body"
+    flags:
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: with-permission
+        type: boolean
+        description: 是否返回权限信息
+        to: query.with_permission
+      - name: with-link
+        type: boolean
+        description: 是否返回链接信息
+        to: query.with_link
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive frequent-file list --page-size 20
+        description: 获取常用文件列表
+  - id: drive.link.open
+    command: drive link open
+    summary: 开启文件分享
+    description: 为文件开启分享链接并指定角色与范围。
+    method: POST
+    path: /v7/drives/{drive_id}/files/{file_id}/open_link
+    request_schema_ref: "#/components/schemas/open_link_req_body"
+    response_schema_ref: "#/components/schemas/open_file_link_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: role-id
+        type: string
+        required: true
+        description: 角色 ID
+      - name: scope
+        type: string
+        required: true
+        description: 分享范围
+    body:
+      bindings:
+        - from_flag: role-id
+          to: role_id
+        - from_flag: scope
+          to: scope
+    examples:
+      - command: wps365-cli drive link open dr_1 f_001 --role-id r_viewer --scope org
+        description: 开启文件分享链接
+  - id: drive.link.close
+    command: drive link close
+    summary: 取消文件分享
+    description: 关闭文件的分享链接。
+    method: POST
+    path: /v7/drives/{drive_id}/files/{file_id}/close_link
+    request_schema_ref: "#/components/schemas/close_file_link_req_body"
+    response_schema_ref: "#/components/schemas/close_file_link_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: mode
+        type: string
+        description: 关闭模式
+    body:
+      bindings:
+        - from_flag: mode
+          to: mode
+    examples:
+      - command: wps365-cli drive link close dr_1 f_001
+        description: 取消文件分享
+  - id: drive.file-version.list
+    command: drive file-version list
+    summary: 获取文件版本列表
+    description: 分页列出指定文件的历史版本。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/versions
+    response_schema_ref: "#/components/schemas/list_versions_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: page-size
+        type: integer
+        description: 分页大小
+        to: query.page_size
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: with-comment
+        type: boolean
+        description: 是否返回版本备注
+        to: query.with_comment
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive file-version list dr_1 f_001 --page-size 20
+        description: 列出文件历史版本
+  - id: drive.file-version.get
+    command: drive file-version get
+    summary: 获取文件版本信息
+    description: 获取指定版本号的文件元数据。
+    method: GET
+    path: /v7/drives/{drive_id}/files/{file_id}/versions/{version_num}/meta
+    response_schema_ref: "#/components/schemas/get_version_resp_body"
+    args:
+      - name: drive-id
+        required: true
+        description: 盘 ID
+        to: path.drive_id
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: version-num
+        required: true
+        description: 版本号
+        to: path.version_num
+    flags:
+      - name: with-ext-attrs
+        type: boolean
+        description: 是否返回扩展属性
+        to: query.with_ext_attrs
+      - name: id-type
+        type: string
+        description: ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    examples:
+      - command: wps365-cli drive file-version get dr_1 f_001 2
+        description: 获取指定版本信息
+  # ============================================================
+  # dbsheet 多维表格
+  # ============================================================
+
+  # --- schema ---
+
+  - id: dbsheet.schema.get
+    command: dbsheet schema get
+    summary: 获取多维表格 schema
+    description: 获取多维表格的完整 schema，包含所有数据表、字段和视图信息。
+    method: GET
+    path: /v7/coop/dbsheet/{file_id}/schema
+    response_schema_ref: "#/components/schemas/dbsheet_get_schema_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    examples:
+      - command: wps365-cli dbsheet schema get f_abc123
+        description: 获取多维表格 schema
+
+  # --- sheets ---
+
+  - id: dbsheet.sheet.create
+    command: dbsheet sheet create
+    summary: 创建数据表
+    description: 在多维表格中创建新的数据表。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/create
+    request_schema_ref: "#/components/schemas/coop_dbsheet_create_sheet_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_create_sheet_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+    flags:
+      - name: name
+        type: string
+        required: false
+        description: 数据表名称
+      - name: fields-body
+        type: string
+        required: true
+        description: 字段定义 JSON 数组（字段类型使用 PascalCase，如 MultiLineText、SingleSelect）
+      - name: views-body
+        type: string
+        required: true
+        description: 视图定义 JSON 数组（视图类型使用 PascalCase，如 Grid、Kanban）
+      - name: after-sheet-id
+        type: integer
+        required: false
+        description: 插入到指定数据表之后（数据表 ID）
+      - name: before-sheet-id
+        type: integer
+        required: false
+        description: 插入到指定数据表之前（数据表 ID）
+    body:
+      defaults:
+        position: {}
+      bindings:
+        - from_flag: name
+          to: name
+        - from_flag: fields-body
+          to: fields
+          transform: parse_json
+        - from_flag: views-body
+          to: views
+          transform: parse_json
+        - from_flag: after-sheet-id
+          to: position.after_sheet_id
+          transform: to_int
+        - from_flag: before-sheet-id
+          to: position.before_sheet_id
+          transform: to_int
+    examples:
+      - command: >-
+          wps365-cli dbsheet sheet create f_abc123 --name "任务跟踪"
+          --fields-body '[{"name":"任务名","type":"MultiLineText"},{"name":"状态","type":"SingleSelect"}]'
+          --views-body '[{"name":"默认视图","type":"Grid"}]'
+        description: 创建包含两个字段的数据表
+
+  - id: dbsheet.sheet.update
+    command: dbsheet sheet update
+    summary: 更新数据表
+    description: 更新数据表（重命名）。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/update
+    request_schema_ref: "#/components/schemas/coop_dbsheet_update_sheet_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_update_sheet_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: name
+        type: string
+        required: false
+        description: 新数据表名称
+    body:
+      bindings:
+        - from_flag: name
+          to: name
+    examples:
+      - command: wps365-cli dbsheet sheet update f_abc123 12345 --name "新表名"
+        description: 重命名数据表
+
+  - id: dbsheet.sheet.delete
+    command: dbsheet sheet delete
+    summary: 删除数据表
+    description: 删除指定的数据表。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/delete
+    response_schema_ref: "#/components/schemas/dbsheet_delete_sheet_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    examples:
+      - command: wps365-cli dbsheet sheet delete f_abc123 12345
+        description: 删除数据表
+
+  # --- fields ---
+
+  - id: dbsheet.field.create
+    command: dbsheet field create
+    summary: 创建字段
+    description: 在指定数据表中创建字段。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/fields
+    request_schema_ref: "#/components/schemas/coop_dbsheet_create_fields_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_create_fields_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: fields-body
+        type: string
+        required: false
+        description: 字段定义 JSON 数组
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+    body:
+      bindings:
+        - from_flag: fields-body
+          to: fields
+          transform: parse_json
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+    examples:
+      - command: >-
+          wps365-cli dbsheet field create f_abc123 12345
+          --fields-body '[{"name":"优先级","type":"SingleSelect"}]'
+        description: 创建单选字段
+
+  - id: dbsheet.field.update
+    command: dbsheet field update
+    summary: 更新字段
+    description: 更新指定数据表中的字段。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/fields/update
+    request_schema_ref: "#/components/schemas/coop_dbsheet_update_fields_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_update_fields_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: fields-body
+        type: string
+        required: true
+        description: 字段更新 JSON 数组
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+    body:
+      bindings:
+        - from_flag: fields-body
+          to: fields
+          transform: parse_json
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+    examples:
+      - command: >-
+          wps365-cli dbsheet field update f_abc123 12345
+          --fields-body '[{"id":"fld_xxx","name":"新字段名"}]'
+        description: 重命名字段
+
+  - id: dbsheet.field.delete
+    command: dbsheet field delete
+    summary: 删除字段
+    description: 删除指定数据表中的字段。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/fields/delete
+    request_schema_ref: "#/components/schemas/coop_dbsheet_delete_fields_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_delete_fields_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: fields
+        type: string
+        required: true
+        description: 待删除字段 ID 列表，多个用逗号分隔
+    body:
+      bindings:
+        - from_flag: fields
+          to: fields
+          transform: split_csv
+    examples:
+      - command: wps365-cli dbsheet field delete f_abc123 12345 --fields "fld_xxx,fld_yyy"
+        description: 删除多个字段
+
+  # --- records ---
+
+  - id: dbsheet.record.list
+    command: dbsheet record list
+    summary: 列出所有记录
+    description: 列出数据表中的所有记录，支持筛选和分页。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records
+    request_schema_ref: "#/components/schemas/coop_dbsheet_list_all_records_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_list_all_records_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: view-id
+        type: string
+        required: false
+        description: 视图 ID
+      - name: fields
+        type: string
+        required: false
+        description: 返回字段列表，多个用逗号分隔
+      - name: filter-body
+        type: string
+        required: false
+        description: 筛选条件 JSON
+      - name: max-records
+        type: integer
+        required: false
+        description: 最大记录数
+      - name: page-size
+        type: integer
+        required: false
+        description: 每页大小
+      - name: page-token
+        type: string
+        required: false
+        description: 分页 token
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+      - name: show-fields-info
+        type: boolean
+        required: false
+        description: 是否返回字段 schema
+      - name: show-record-extra-info
+        type: boolean
+        required: false
+        description: 是否返回记录额外信息
+      - name: text-value
+        type: string
+        required: false
+        description: 文本值格式
+    body:
+      bindings:
+        - from_flag: view-id
+          to: view_id
+        - from_flag: fields
+          to: fields
+          transform: split_csv
+        - from_flag: filter-body
+          to: filter
+          transform: parse_json
+        - from_flag: max-records
+          to: max_records
+          transform: to_int
+        - from_flag: page-size
+          to: page_size
+          transform: to_int
+        - from_flag: page-token
+          to: page_token
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+        - from_flag: show-fields-info
+          to: show_fields_info
+          transform: to_bool
+        - from_flag: show-record-extra-info
+          to: show_record_extra_info
+          transform: to_bool
+        - from_flag: text-value
+          to: text_value
+    examples:
+      - command: wps365-cli dbsheet record list f_abc123 12345
+        description: 列出所有记录
+      - command: wps365-cli dbsheet record list f_abc123 12345 --page-size 50 --show-fields-info
+        description: 分页列出记录并返回字段信息
+
+  - id: dbsheet.record-page.list
+    command: dbsheet record-page list
+    summary: 按页码列出记录
+    description: 按页码列出数据表中的记录。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/list_by_page
+    request_schema_ref: "#/components/schemas/coop_dbsheet_list_records_by_page_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_list_records_by_page_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: page-num
+        type: integer
+        required: false
+        description: 页码（从 1 开始）
+      - name: view-id
+        type: string
+        required: false
+        description: 视图 ID
+      - name: fields
+        type: string
+        required: false
+        description: 返回字段列表，多个用逗号分隔
+      - name: filter-body
+        type: string
+        required: false
+        description: 筛选条件 JSON
+      - name: max-records
+        type: integer
+        required: false
+        description: 最大记录数
+      - name: page-size
+        type: integer
+        required: false
+        description: 每页大小
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+      - name: show-fields-info
+        type: boolean
+        required: false
+        description: 是否返回字段 schema
+      - name: show-record-extra-info
+        type: boolean
+        required: false
+        description: 是否返回记录额外信息
+      - name: text-value
+        type: string
+        required: false
+        description: 文本值格式
+    body:
+      bindings:
+        - from_flag: page-num
+          to: page_num
+          transform: to_int
+        - from_flag: view-id
+          to: view_id
+        - from_flag: fields
+          to: fields
+          transform: split_csv
+        - from_flag: filter-body
+          to: filter
+          transform: parse_json
+        - from_flag: max-records
+          to: max_records
+          transform: to_int
+        - from_flag: page-size
+          to: page_size
+          transform: to_int
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+        - from_flag: show-fields-info
+          to: show_fields_info
+          transform: to_bool
+        - from_flag: show-record-extra-info
+          to: show_record_extra_info
+          transform: to_bool
+        - from_flag: text-value
+          to: text_value
+    examples:
+      - command: wps365-cli dbsheet record-page list f_abc123 12345 --page-num 1 --page-size 20
+        description: 按页码列出记录
+
+  - id: dbsheet.record.get
+    command: dbsheet record get
+    summary: 获取单条记录
+    description: 获取单条记录详情。
+    method: GET
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/{record_id}
+    response_schema_ref: "#/components/schemas/dbsheet_retrieve_record_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+      - name: record-id
+        required: true
+        description: 记录 ID
+        to: path.record_id
+    flags:
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+        to: query.prefer_id
+      - name: show-fields-info
+        type: boolean
+        required: false
+        description: 是否返回字段 schema
+        to: query.show_fields_info
+      - name: show-record-extra-info
+        type: boolean
+        required: false
+        description: 是否返回记录额外信息
+        to: query.show_record_extra_info
+      - name: text-value
+        type: string
+        required: false
+        description: 文本值格式
+        to: query.text_value
+    examples:
+      - command: wps365-cli dbsheet record get f_abc123 12345 rec_xxx
+        description: 获取单条记录
+      - command: wps365-cli dbsheet record get f_abc123 12345 rec_xxx --show-fields-info
+        description: 获取记录并返回字段信息
+
+  - id: dbsheet.record.search
+    command: dbsheet record search
+    summary: 批量检索记录
+    description: 按记录 ID 批量检索记录。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/search
+    request_schema_ref: "#/components/schemas/coop_dbsheet_retrieve_records_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_retrieve_records_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: records
+        type: string
+        required: true
+        description: 记录 ID 列表，多个用逗号分隔
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+      - name: show-fields-info
+        type: boolean
+        required: false
+        description: 是否返回字段 schema
+      - name: show-record-extra-info
+        type: boolean
+        required: false
+        description: 是否返回记录额外信息
+      - name: text-value
+        type: string
+        required: false
+        description: 文本值格式
+    body:
+      bindings:
+        - from_flag: records
+          to: records
+          transform: split_csv
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+        - from_flag: show-fields-info
+          to: show_fields_info
+          transform: to_bool
+        - from_flag: show-record-extra-info
+          to: show_record_extra_info
+          transform: to_bool
+        - from_flag: text-value
+          to: text_value
+    examples:
+      - command: wps365-cli dbsheet record search f_abc123 12345 --records "rec_001,rec_002"
+        description: 批量检索记录
+
+  - id: dbsheet.record.create
+    command: dbsheet record create
+    summary: 创建记录
+    description: 在数据表中创建记录。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/create
+    request_schema_ref: "#/components/schemas/coop_dbsheet_create_record_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_create_record_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: records-body
+        type: string
+        required: false
+        description: 记录数据 JSON 数组，每项含 fields_value
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+    body:
+      bindings:
+        - from_flag: records-body
+          to: records
+          transform: parse_json
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+    examples:
+      - command: >-
+          wps365-cli dbsheet record create f_abc123 12345
+          --records-body '[{"fields_value":"{\"任务名\":\"完成设计\"}"}]'
+        description: 创建一条记录
+
+  - id: dbsheet.record.update
+    command: dbsheet record update
+    summary: 更新记录
+    description: 批量更新记录。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/update
+    request_schema_ref: "#/components/schemas/coop_dbsheet_update_record_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_update_record_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: records-body
+        type: string
+        required: false
+        description: 记录更新 JSON 数组，每项含 id 和 fields_value
+      - name: prefer-id
+        type: boolean
+        required: false
+        description: 是否优先使用指定 ID
+    body:
+      bindings:
+        - from_flag: records-body
+          to: records
+          transform: parse_json
+        - from_flag: prefer-id
+          to: prefer_id
+          transform: to_bool
+    examples:
+      - command: >-
+          wps365-cli dbsheet record update f_abc123 12345
+          --records-body '[{"id":"rec_xxx","fields_value":"{\"状态\":\"已完成\"}"}]'
+        description: 更新记录状态
+
+  - id: dbsheet.record.delete
+    command: dbsheet record delete
+    summary: 删除记录
+    description: 批量删除记录。
+    method: POST
+    path: /v7/coop/dbsheet/{file_id}/sheets/{sheet_id}/records/batch_delete
+    request_schema_ref: "#/components/schemas/coop_dbsheet_delete_record_req_body"
+    response_schema_ref: "#/components/schemas/dbsheet_delete_record_resp_body"
+    args:
+      - name: file-id
+        required: true
+        description: 文件 ID
+        to: path.file_id
+      - name: sheet-id
+        required: true
+        description: 数据表 ID
+        to: path.sheet_id
+    flags:
+      - name: records
+        type: string
+        required: true
+        description: 待删除记录 ID 列表，多个用逗号分隔
+    body:
+      bindings:
+        - from_flag: records
+          to: records
+          transform: split_csv
+    examples:
+      - command: wps365-cli dbsheet record delete f_abc123 12345 --records "rec_001,rec_002"
+        description: 批量删除记录
+
+  - id: meeting.list
+    command: meeting list
+    summary: 获取会议列表
+    description: 获取指定时间范围的会议简要信息列表（60天内）。不传 join-code 返回已结束会议，传 join-code 返回进行中会议。
+    method: GET
+    path: /v7/meetings
+    response_schema_ref: "#/components/schemas/list_meetings_resp_body"
+    flags:
+      - name: start
+        type: string
+        required: true
+        description: 查询开始时间（unix 时间，单位 sec）
+        to: query.start_time
+      - name: end
+        type: string
+        required: true
+        description: 查询结束时间（unix 时间，单位 sec）
+        to: query.end_time
+      - name: join-code
+        type: string
+        description: 入会码；传入时只返回进行中的会议，不传时只返回已结束的会议。应用身份下必须传入
+        to: query.join_code
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: page-size
+        type: integer
+        default: 20
+        description: 分页大小，默认 20，最大 50
+        to: query.page_size
+    output:
+      table_columns:
+        - id
+        - subject
+        - join_code
+        - join_url
+    examples:
+      - command: 'wps365-cli meeting list --start "1700000000" --end "1700086400"'
+        description: 查询指定时间范围的会议列表
+
+  - id: meeting.get
+    command: meeting get
+    summary: 获取会议详情
+    description: 获取一个会议的详细数据。
+    method: GET
+    path: /v7/meetings/{meeting_id}
+    response_schema_ref: "#/components/schemas/get_meeting_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    flags:
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    output:
+      table_columns:
+        - id
+        - subject
+        - status
+        - join_code
+        - join_url
+        - start_time
+        - end_time
+        - create_time
+    examples:
+      - command: wps365-cli meeting get mtg_abc123
+        description: 查看会议详情
+
+  - id: meeting.end
+    command: meeting end
+    summary: 结束会议
+    description: 结束一个进行中的会议。
+    method: POST
+    path: /v7/meetings/{meeting_id}/end
+    response_schema_ref: "#/components/schemas/end_meeting_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    examples:
+      - command: wps365-cli meeting end mtg_abc123
+        description: 结束指定会议
+
+  - id: meeting.set-host
+    command: meeting set-host
+    summary: 设置主持人
+    description: 设置会议的主持人。
+    method: POST
+    path: /v7/meetings/{meeting_id}/set_host
+    request_schema_ref: "#/components/schemas/meeting_set_host_req_body"
+    response_schema_ref: "#/components/schemas/meeting_set_host_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    flags:
+      - name: host-user-id
+        type: string
+        required: true
+        description: 新主持人用户 ID
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      defaults:
+        host_user.type: user
+      bindings:
+        - from_flag: host-user-id
+          to: host_user.user_id
+    examples:
+      - command: wps365-cli meeting set-host mtg_abc123 --host-user-id u_xyz789
+        description: 设置新主持人
+
+  - id: meeting.participant.list
+    command: meeting participant list
+    summary: 获取参会人列表
+    description: 获取会议的参会人列表。
+    method: GET
+    path: /v7/meetings/{meeting_id}/participants
+    response_schema_ref: "#/components/schemas/meeting_get_participants_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    flags:
+      - name: page-token
+        type: string
+        description: 分页标记
+        to: query.page_token
+      - name: page-size
+        type: integer
+        default: 20
+        description: 分页大小，默认 20，最大 100
+        to: query.page_size
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    output:
+      table_columns:
+        - user_id
+        - type
+        - is_host
+    examples:
+      - command: wps365-cli meeting participant list mtg_abc123
+        description: 查看会议参会人
+
+  - id: meeting.participant.invite
+    command: meeting participant invite
+    summary: 邀请参会人
+    description: 邀请参会人进入会议，单次最多 20 个。
+    method: POST
+    path: /v7/meetings/{meeting_id}/participants/invite
+    request_schema_ref: "#/components/schemas/meeting_invite_participants_req_body"
+    response_schema_ref: "#/components/schemas/meeting_invite_participants_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    flags:
+      - name: invitees
+        type: string
+        required: true
+        description: 被邀请人用户 ID，多个用逗号分隔，最多 20 个
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      bindings:
+        - from_flag: invitees
+          to: invitees
+          transform: "split_csv | wrap(type=user, user_id)"
+    examples:
+      - command: wps365-cli meeting participant invite mtg_abc123 --invitees "u1,u2,u3"
+        description: 邀请多个用户参加会议
+
+  - id: meeting.participant.remove
+    command: meeting participant remove
+    summary: 移除参会人
+    description: 将参会人从会议中移除，单次最多 20 个。
+    method: POST
+    path: /v7/meetings/{meeting_id}/participants/remove
+    request_schema_ref: "#/components/schemas/meeting_remove_participants_req_body"
+    response_schema_ref: "#/components/schemas/meeting_remove_participants_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    flags:
+      - name: user-ids
+        type: string
+        required: true
+        description: 被移除用户 ID，多个用逗号分隔，最多 20 个
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    body:
+      bindings:
+        - from_flag: user-ids
+          to: kickout_users
+          transform: "split_csv | wrap(type=user, user_id)"
+    examples:
+      - command: wps365-cli meeting participant remove mtg_abc123 --user-ids "u1,u2"
+        description: 从会议中移除用户
+
+  - id: meeting.minute.list
+    command: meeting minute list
+    summary: 获取纪要列表
+    description: 获取一个会议的纪要列表。
+    method: GET
+    path: /v7/meetings/{meeting_id}/minutes
+    response_schema_ref: "#/components/schemas/meeting_get_minutes_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    output:
+      table_columns:
+        - id
+        - duration
+        - view_url
+    examples:
+      - command: wps365-cli meeting minute list mtg_abc123
+        description: 查看会议纪要列表
+
+  - id: meeting.minute-summary.get
+    command: meeting minute-summary get
+    summary: 获取纪要总结要点
+    description: 获取指定纪要的总结要点。
+    method: GET
+    path: /v7/meetings/{meeting_id}/minutes/{minute_id}/summary
+    response_schema_ref: "#/components/schemas/get_minute_summary_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+      - name: minute-id
+        required: true
+        description: 纪要 ID
+        to: path.minute_id
+    examples:
+      - command: wps365-cli meeting minute-summary get mtg_abc123 min_xyz789
+        description: 查看纪要总结
+
+  - id: meeting.minute-transcript.get
+    command: meeting minute-transcript get
+    summary: 获取纪要语音转写
+    description: 获取指定纪要的语音转写文本。
+    method: GET
+    path: /v7/meetings/{meeting_id}/minutes/{minute_id}/transcript
+    response_schema_ref: "#/components/schemas/get_minute_transcript_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+      - name: minute-id
+        required: true
+        description: 纪要 ID
+        to: path.minute_id
+    flags:
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    output:
+      mode: passthrough
+    examples:
+      - command: wps365-cli meeting minute-transcript get mtg_abc123 min_xyz789
+        description: 查看纪要语音转写
+  - id: meeting.recording.list
+    command: meeting recording list
+    summary: 获取录制列表
+    description: 获取一个会议的录制列表。
+    method: GET
+    path: /v7/meetings/{meeting_id}/recordings
+    response_schema_ref: "#/components/schemas/meeting_get_recordings_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+    output:
+      table_columns:
+        - id
+        - type
+        - duration
+        - view_url
+    examples:
+      - command: wps365-cli meeting recording list mtg_abc123
+        description: 查看会议录制列表
+
+  - id: meeting.recording-summary.get
+    command: meeting recording-summary get
+    summary: 获取录制总结要点
+    description: 获取指定录制的总结要点。
+    method: GET
+    path: /v7/meetings/{meeting_id}/recordings/{recording_id}/summary
+    response_schema_ref: "#/components/schemas/get_recording_summary_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+      - name: recording-id
+        required: true
+        description: 录制 ID
+        to: path.recording_id
+    examples:
+      - command: wps365-cli meeting recording-summary get mtg_abc123 rec_xyz789
+        description: 查看录制总结
+
+  - id: meeting.recording-transcript.get
+    command: meeting recording-transcript get
+    summary: 获取录制语音转写
+    description: 获取指定录制的语音转写文本。
+    method: GET
+    path: /v7/meetings/{meeting_id}/recordings/{recording_id}/transcript
+    response_schema_ref: "#/components/schemas/get_recording_transcript_resp_body"
+    args:
+      - name: meeting-id
+        required: true
+        description: 会议 ID
+        to: path.meeting_id
+      - name: recording-id
+        required: true
+        description: 录制 ID
+        to: path.recording_id
+    flags:
+      - name: id-type
+        type: string
+        description: 用户 ID 类型
+    headers:
+      - name: X-Kso-Id-Type
+        from_flag: id-type
+    output:
+      mode: passthrough
+    examples:
+      - command: wps365-cli meeting recording-transcript get mtg_abc123 rec_xyz789
+        description: 查看录制语音转写

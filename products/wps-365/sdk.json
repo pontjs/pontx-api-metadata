@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/wps-365",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/wps-365"
+  },
+  "cli": {
+    "name": "pontx-wps-365"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createWps365Client",
+      "identifier": "client",
+      "options": {
+        "auth": "WPS365_APP_CLIENT_ID",
+        "secret": "WPS365_APP_CLIENT_SECRET"
+      }
+    },
+    "controllers": {
+      "airsheet": "airsheet",
+      "addressBook": "addressBook",
+      "ai": "ai",
+      "airpage": "airpage",
+      "announce": "announce",
+      "developer": "developer",
+      "attendance": "attendance",
+      "audit": "audit",
+      "workflow": "workflow",
+      "calendars": "calendars",
+      "chats": "chats",
+      "documents": "documents",
+      "security": "security",
+      "dbsheet": "dbsheet",
+      "sheets": "sheets",
+      "drive": "drive",
+      "doclib": "doclib",
+      "filetransfer": "filetransfer",
+      "lowCodeApp": "lowCodeApp",
+      "mail": "mail",
+      "meetings": "meetings",
+      "store": "store",
+      "todo": "todo",
+      "wiki": "wiki"
+    }
+  },
+  "examples": {
+    "typescript": "import { createWps365Client } from \"@pontx/wps-365\";\n\nconst client = createWps365Client({ auth: process.env.WPS365_APP_CLIENT_ID, secret: process.env.WPS365_APP_CLIENT_SECRET });\nconst calendars = await client.calendars.calendarList();",
+    "cli": "pnpm add --global @pontx/wps-365\n\npontx-wps-365 call calendars list-calendars --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/wps-365/spec.pontx.json",
+    "sha256": "8d9ae0bec1e8cf37092e344f79c51a9b6e0d181e8e4dd5cc308a0bf60e389a98",
+    "metadataCommit": "01701d12a8bf61a332d9895f200d73185e0f01dd"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 6,
+      "total": 6,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "2539df3ed8503056538c79c9040f0a4357a35f4b",
+    "testedAt": "2026-08-16",
+    "repositoryUrl": "https://github.com/pontjs/wps-365",
+    "workflowRunUrl": "https://github.com/pontjs/wps-365/actions/runs/31901382901",
+    "registryVerification": {
+      "npmView": "@pontx/wps-365@0.1.0 dist-tags.latest = 0.1.0",
+      "freshInstall": "passed (ESM factory + 24 controllers, CJS require, CLI pontx-wps-365 help/preview, consumer typecheck)",
+      "verifiedAt": "2026-08-16"
+    }
+  }
+}

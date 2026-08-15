@@ -1,0 +1,36 @@
+{
+  "display": {
+    "title": "WPS 365 enterprise collaboration open API",
+    "summary": "Manage contacts and organization, cloud documents, DBSheet/smart sheets, messaging, meetings, calendars, mail, todo, approvals, and event subscriptions through the official WPS 365 OpenAPI (v7); the official machine contract is the OpenAPI 3.0.0 published on open.wps.cn (827 endpoints / 3,119 schemas). Enterprise data is private business data; Pontx does not proxy, cache, or aggregate it and callers use the local SDK/CLI directly.",
+    "accent": "#FFFFFF"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "https://open.wps.cn/v7/developer/cli_tools/specs/curated-internal",
+      "https://www.npmjs.com/package/@wps365-open/wps365",
+      "https://open.wps.cn/documents/app-integration-dev/guide/overview",
+      "https://open.wps.cn/documents/app-integration-dev/wps365/server/api-description/signature-description"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "The complete boundary is the Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document published on open.wps.cn (806 paths / 827 operations / 3,119 schemas), SHA-256 3a2dfe64...; the same bytes are distributed in the official MIT CLI package @wps365-open/wps365@0.2.27 and are byte-reproducible. The document itself has no operationIds/tags/prose; stable operationIds in this collection anchor on the 101 official curated command IDs and are derived from method+path otherwise; tags group by path module; bilingual prose is independently authored and checked against the official docs. Event subscriptions are encrypted HTTP callbacks; 15 /v7/sse/* endpoints use text/event-stream."
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "WPS 365 API calls are provided with the enterprise WPS 365 subscription and developer app permissions; most endpoints require applied app permissions. Some AI capabilities (AIPPT, AI Q&A, AI extraction, AI translation, AI creation) have free trial quotas that increase after certification. See the WPS Open Platform developer console for details.",
+    "officialUrl": "https://open.wps.cn/documents/app-integration-dev/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "app",
+      "description": "App authorization (client credentials) client ID/Secret; inject via environment variables and never log or commit them."
+    },
+    {
+      "schemeId": "delegated",
+      "description": "Delegated (user) access token obtained via authorization code; inject via environment variable and never log or commit it."
+    }
+  ]
+}

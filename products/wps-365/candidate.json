@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "slug": "wps-365",
+  "name": {
+    "zh": "WPS 365 OpenAPI",
+    "en": "WPS 365 OpenAPI"
+  },
+  "provider": "Kingsoft Office",
+  "category": "Productivity",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 2,
+    "score": 90
+  },
+  "boundary": {
+    "zh": "WPS 365 统一 OpenAPI 产品面（Kingsoft Office Open APIs v7）：通讯录/组织、云文档（drive/documents/sheets/dbsheet/airsheet）、消息（im）、会议、日历、智能文档（aidocs/aippt/airpage）、邮件、待办、审批（workflow）、wiki、事件订阅等。官方机器契约为 open.wps.cn 发布、经官方 MIT CLI 分发且字节可复现的 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas）。事件订阅采用加密 HTTP callback（AES-CBC + HMAC-SHA256 签名）；15 个 `/v7/sse/*` 端点使用 text/event-stream；其余为纯 REST（GET/POST/DELETE，无 PUT/PATCH）。认证为 OAuth2 app（client credentials）与 delegated（用户授权）双通道，另有可选 KSO-1 HMAC-SHA256 请求签名。",
+    "en": "The supplier-defined WPS 365 unified OpenAPI product surface (Kingsoft Office Open APIs v7): contacts/organization, cloud documents (drive/documents/sheets/dbsheet/airsheet), messaging (im), meetings, calendars, smart documents (aidocs/aippt/airpage), mail, todo, approval workflows, wiki, and event subscriptions. The official machine contract is an OpenAPI 3.0.0 specification published on open.wps.cn, distributed through the official MIT CLI and byte-reproducible (806 paths / 827 operations / 3,119 schemas). Event subscriptions use encrypted HTTP callbacks (AES-CBC + HMAC-SHA256 signature); 15 `/v7/sse/*` endpoints use text/event-stream; the rest are plain REST (GET/POST/DELETE, no PUT/PATCH). Authentication is OAuth2 dual-channel app (client credentials) and delegated (user authorization), with optional KSO-1 HMAC-SHA256 request signing."
+  },
+  "stage": "sdk-cli-ready",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "passed",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "passed",
+    "sdkCli": "passed"
+  },
+  "evidence": [
+    {
+      "kind": "spec",
+      "url": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal"
+    },
+    {
+      "kind": "spec",
+      "url": "https://open.wps.cn/v7/developer/cli_tools/specs/curated-internal"
+    },
+    {
+      "kind": "package",
+      "url": "https://www.npmjs.com/package/@wps365-open/wps365"
+    },
+    {
+      "kind": "docs",
+      "url": "https://open.wps.cn/documents/app-integration-dev/guide/overview"
+    },
+    {
+      "kind": "docs",
+      "url": "https://open.wps.cn/documents/app-integration-dev/guide/dev-tool-and-source/api-explorer"
+    },
+    {
+      "kind": "docs",
+      "url": "https://open.wps.cn/documents/app-integration-dev/wps365/server/api-description/signature-description"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://open.wps.cn/documents/app-integration-dev/wps365/server/event-subscription/security-verification"
+    }
+  ],
+  "blockers": [],
+  "nextAction": {
+    "zh": "六项门槛全部通过。下一步：operator 将候选提升为正式产品（catalog/products.json 准入），更新 metadata 的 package.status=published 与质量证据，develop → Preview（Agent Browser 中英文审查）→ main → Production 部署 → 生产验收矩阵（网站/API/统一 CLI/语义搜索/助手）。",
+    "en": "All six gates passed. Next: operator promotes the candidate to a formal product (catalog/products.json admission), updates metadata with package.status=published and quality evidence, then develop -> Preview (Agent Browser zh/en review) -> main -> Production deployment -> production acceptance matrix (web/API/unified CLI/semantic search/assistant)."
+  },
+  "verifiedAt": "2026-08-16"
+}

@@ -1,0 +1,3419 @@
+{
+  "derivation": {
+    "【智能表格】/airsheet_create_worksheet": {
+      "id": "airsheetWorksheets",
+      "tag": "airsheet"
+    },
+    "postV7AccessAdminCheck_permission": {
+      "id": "accessAdminCheckPermission",
+      "tag": "access"
+    },
+    "getV7AccessAdminPermissionsByPermissionUsers": {
+      "id": "accessAdminPermissionsUsers",
+      "tag": "access"
+    },
+    "getV7AccessAdminScope": {
+      "id": "accessAdminScope",
+      "tag": "access"
+    },
+    "postV7AidocsContract_extract": {
+      "id": "aidocsContractextract",
+      "tag": "aidocs"
+    },
+    "postV7AidocsDoclibSwitch": {
+      "id": "aidocsDoclibSwitch",
+      "tag": "aidocs"
+    },
+    "getV7AidocsDoclibSwitchStatus": {
+      "id": "aidocsDoclibSwitchStatus",
+      "tag": "aidocs"
+    },
+    "getV7AidocsDoclib_list": {
+      "id": "aidocsDocliblist",
+      "tag": "aidocs"
+    },
+    "postV7AidocsDriveByDrive_idFileByParent_idUpload": {
+      "id": "aidocsDriveFileUpload",
+      "tag": "aidocs"
+    },
+    "postV7AidocsExtractCommit": {
+      "id": "aidocsExtractCommit",
+      "tag": "aidocs"
+    },
+    "postV7AidocsExtractRes": {
+      "id": "aidocsExtractRes",
+      "tag": "aidocs"
+    },
+    "getV7AidocsFile_id_convert": {
+      "id": "aidocsFileidconvert",
+      "tag": "aidocs"
+    },
+    "postV7AidocsIn_storeAsync": {
+      "id": "aidocsInstoreAsync",
+      "tag": "aidocs"
+    },
+    "postV7AidocsIn_storeStatus": {
+      "id": "aidocsInstoreStatus",
+      "tag": "aidocs"
+    },
+    "postV7AidocsParse_contentCache": {
+      "id": "aidocsParsecontentCache",
+      "tag": "aidocs"
+    },
+    "postV7AidocsRecall_file": {
+      "id": "aidocsRecallfile",
+      "tag": "aidocs"
+    },
+    "postV7AidocsRecall_rank": {
+      "id": "aidocsRecallrank",
+      "tag": "aidocs"
+    },
+    "postV7AidocsRegister_callback": {
+      "id": "aidocsRegistercallback",
+      "tag": "aidocs"
+    },
+    "deleteV7AidocsSpaceByDrive_id": {
+      "id": "aidocsSpace",
+      "tag": "aidocs"
+    },
+    "postV7AidocsSpaceCreate": {
+      "id": "aidocsSpaceCreate",
+      "tag": "aidocs"
+    },
+    "getV7AidocsSpaces": {
+      "id": "aidocsSpaces",
+      "tag": "aidocs"
+    },
+    "getV7AiopenAi_gateway_logsSearch": {
+      "id": "aiopenAigatewaylogsSearch",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAi_recommend_question": {
+      "id": "aiopenAirecommendquestion",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAi_table_assistant": {
+      "id": "aiopenAitableassistant",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAi_table_intent": {
+      "id": "aiopenAitableintent",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcCompose": {
+      "id": "aiopenAigcCompose",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeDeep_chapter": {
+      "id": "aiopenAigcComposeDeepChapter",
+      "tag": "aiopen"
+    },
+    "getV7AiopenAigcComposeLibraries": {
+      "id": "aiopenAigcComposeLibraries",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesByLibrary_idDelete": {
+      "id": "aiopenAigcComposeLibrariesDelete",
+      "tag": "aiopen"
+    },
+    "getV7AiopenAigcComposeLibrariesByLibrary_idFiles": {
+      "id": "aiopenAigcComposeLibrariesFiles",
+      "tag": "aiopen"
+    },
+    "getV7AiopenAigcComposeLibrariesByLibrary_idFilesByFile_id": {
+      "id": "aiopenAigcComposeLibrariesFiles2",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesByLibrary_idFilesByFile_idDelete": {
+      "id": "aiopenAigcComposeLibrariesFilesDelete",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesByLibrary_idFilesByFile_idRetry": {
+      "id": "aiopenAigcComposeLibrariesFilesRetry",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesByLibrary_idFilesCreate": {
+      "id": "aiopenAigcComposeLibrariesFilesCreate",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesByLibrary_idParsesByParse_idUpdate": {
+      "id": "aiopenAigcComposeLibrariesParsesUpdate",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeLibrariesCreate": {
+      "id": "aiopenAigcComposeLibrariesCreate",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeRef_filesAsync_parse": {
+      "id": "aiopenAigcComposeRefFilesAsyncParse",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeRef_filesExtract_assets": {
+      "id": "aiopenAigcComposeRefFilesExtractAssets",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeRef_filesParse": {
+      "id": "aiopenAigcComposeRefFilesParse",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeRef_filesSearch": {
+      "id": "aiopenAigcComposeRefFilesSearch",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcComposeRef_filesStatusBatch_get": {
+      "id": "aiopenAigcComposeRefFilesStatusBatchGet",
+      "tag": "aiopen"
+    },
+    "postV7AiopenAigcCorrect": {
+      "id": "aiopenAigcCorrect",
+      "tag": "aiopen"
+    },
+    "postV7AiopenChunksSearch": {
+      "id": "aiopenChunksSearch",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDoc_operate_tasksCreate": {
+      "id": "aiopenDocoperatetasksCreate",
+      "tag": "aiopen"
+    },
+    "getV7AiopenDoc_operate_tasksSearch": {
+      "id": "aiopenDocoperatetasksSearch",
+      "tag": "aiopen"
+    },
+    "getV7AiopenDoc_operate_tasksSearchByTask_id": {
+      "id": "aiopenDocoperatetasksSearch2",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDrivesByDrive_idFilesByFile_idOperate": {
+      "id": "aiopenDrivesFilesOperate",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDrivesByDrive_idFilesByFile_idQa": {
+      "id": "aiopenDrivesFilesQa",
+      "tag": "aiopen"
+    },
+    "getV7AiopenDrivesByDrive_idFilesByFile_idStatus": {
+      "id": "aiopenDrivesFilesStatus",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDrivesByDrive_idFilesStatus": {
+      "id": "aiopenDrivesFilesStatus2",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDrivesByDrive_idToggle": {
+      "id": "aiopenDrivesToggle",
+      "tag": "aiopen"
+    },
+    "getV7AiopenDrivesByDrive_idToggle_detailsSearch": {
+      "id": "aiopenDrivesToggleDetailsSearch",
+      "tag": "aiopen"
+    },
+    "postV7AiopenDrivesQa": {
+      "id": "aiopenDrivesQa",
+      "tag": "aiopen"
+    },
+    "getV7AiopenFilesSearch": {
+      "id": "aiopenFilesSearch",
+      "tag": "aiopen"
+    },
+    "postV7AiopenResourceFilesCommit_upload": {
+      "id": "aiopenResourceFilesCommitUpload",
+      "tag": "aiopen"
+    },
+    "postV7AiopenResourceFilesRequest_upload": {
+      "id": "aiopenResourceFilesRequestUpload",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSemantic_keywordsSearch": {
+      "id": "aiopenSemantickeywordsSearch",
+      "tag": "aiopen"
+    },
+    "getV7AiopenSessions": {
+      "id": "aiopenSessions",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSessionsBySession_idClose": {
+      "id": "aiopenSessionsClose",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSessionsCreate": {
+      "id": "aiopenSessionsCreate",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSessionsMessagesBatch_get": {
+      "id": "aiopenSessionsMessagesBatchGet",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSlidesGeneratorGen_outline": {
+      "id": "aiopenSlidesGeneratorGenOutline",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSlidesGeneratorGen_slides": {
+      "id": "aiopenSlidesGeneratorGenSlides",
+      "tag": "aiopen"
+    },
+    "postV7AiopenSlidesTheme_tplList": {
+      "id": "aiopenSlidesThemeTplList",
+      "tag": "aiopen"
+    },
+    "postV7AipptGen_slides_from_multipages": {
+      "id": "aipptGenslidesfrommultipages",
+      "tag": "aippt"
+    },
+    "postV7AipptGen_tpl_from_ppt": {
+      "id": "aipptGentplfromppt",
+      "tag": "aippt"
+    },
+    "postV7AipptGenerate_slides_from_pxf_v2": {
+      "id": "aipptGenerateslidesfrompxfv2",
+      "tag": "aippt"
+    },
+    "postV7AipptTheme_tplList": {
+      "id": "aipptThemetplList",
+      "tag": "aippt"
+    },
+    "getV7AirpageByFile_id": {
+      "id": "airpageList",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idAnchor_attachment_replace": {
+      "id": "airpageAnchorattachmentreplace",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocks": {
+      "id": "airpageBlocks",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksBatch_delete": {
+      "id": "airpageBlocksBatchDelete",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksBatch_get": {
+      "id": "airpageBlocksBatchGet",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksBatch_update": {
+      "id": "airpageBlocksBatchUpdate",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksConvert": {
+      "id": "airpageBlocksConvert",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksCreate": {
+      "id": "airpageBlocksCreate",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksDelete": {
+      "id": "airpageBlocksDelete",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idBlocksUpdate": {
+      "id": "airpageBlocksUpdate",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idExport_taskQuery": {
+      "id": "airpageExporttaskQuery",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idExport_to_docx": {
+      "id": "airpageExporttodocx",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idExport_to_json": {
+      "id": "airpageExporttojson",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idExport_to_pdf": {
+      "id": "airpageExporttopdf",
+      "tag": "airpage"
+    },
+    "postV7AirpageByFile_idImport_json_data": {
+      "id": "airpageImportjsondata",
+      "tag": "airpage"
+    },
+    "postV7AirpageFiles": {
+      "id": "airpageFiles",
+      "tag": "airpage"
+    },
+    "getV7AirsheetByFile_idWorksheets": {
+      "id": "airsheetWorksheets2",
+      "tag": "airsheet"
+    },
+    "getV7AirsheetByFile_idWorksheetsByWorksheet_idData_validations": {
+      "id": "airsheetWorksheetsDataValidations",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idData_validations": {
+      "id": "airsheetWorksheetsDataValidations2",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idData_validationsBatch_delete": {
+      "id": "airsheetWorksheetsDataValidationsBatchDelete",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idData_validationsBatch_update": {
+      "id": "airsheetWorksheetsDataValidationsBatchUpdate",
+      "tag": "airsheet"
+    },
+    "getV7AirsheetByFile_idWorksheetsByWorksheet_idFilters": {
+      "id": "airsheetWorksheetsFilters",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idFilters": {
+      "id": "airsheetWorksheetsFilters2",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idFiltersDelete": {
+      "id": "airsheetWorksheetsFiltersDelete",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idFiltersUpdate": {
+      "id": "airsheetWorksheetsFiltersUpdate",
+      "tag": "airsheet"
+    },
+    "getV7AirsheetByFile_idWorksheetsByWorksheet_idProtection_ranges": {
+      "id": "airsheetWorksheetsProtectionRanges",
+      "tag": "airsheet"
+    },
+    "getV7AirsheetByFile_idWorksheetsByWorksheet_idRange_data": {
+      "id": "airsheetWorksheetsRangeData",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idRange_dataBatch_delete": {
+      "id": "airsheetWorksheetsRangeDataBatchDelete",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idRange_dataBatch_update": {
+      "id": "airsheetWorksheetsRangeDataBatchUpdate",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idRange_dataFind": {
+      "id": "airsheetWorksheetsRangeDataFind",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetByFile_idWorksheetsByWorksheet_idRows": {
+      "id": "airsheetWorksheetsRows",
+      "tag": "airsheet"
+    },
+    "postV7AirsheetFiles": {
+      "id": "airsheetFiles",
+      "tag": "airsheet"
+    },
+    "getV7AnnounceAnnounces": {
+      "id": "announceAnnounces",
+      "tag": "announce"
+    },
+    "getV7AnnounceAnnouncesByAnnounce_id": {
+      "id": "announceAnnounces2",
+      "tag": "announce"
+    },
+    "getV7AnnounceAnnouncesByAnnounce_idDownload": {
+      "id": "announceAnnouncesDownload",
+      "tag": "announce"
+    },
+    "getV7AnnounceAnnouncesByAnnounce_idVisibilities": {
+      "id": "announceAnnouncesVisibilities",
+      "tag": "announce"
+    },
+    "postV7App_badgesBatch_set": {
+      "id": "appbadgesBatchset",
+      "tag": "app_badges"
+    },
+    "getV7Applications": {
+      "id": "applicationsList",
+      "tag": "applications"
+    },
+    "getV7AppsByApp_idConfigsChat": {
+      "id": "appsConfigsChat",
+      "tag": "apps"
+    },
+    "postV7AppsByApp_idConfigsChatUpdate": {
+      "id": "appsConfigsChatUpdate",
+      "tag": "apps"
+    },
+    "getV7Asr_tasksByTask_id": {
+      "id": "asrtasksList",
+      "tag": "asr_tasks"
+    },
+    "postV7Asr_tasksCreate": {
+      "id": "asrtasksCreate",
+      "tag": "asr_tasks"
+    },
+    "postV7AttendanceApproval_recordsDelete": {
+      "id": "attendanceApprovalrecordsDelete",
+      "tag": "attendance"
+    },
+    "postV7AttendanceApproval_recordsImport": {
+      "id": "attendanceApprovalrecordsImport",
+      "tag": "attendance"
+    },
+    "getV7AttendanceGroups": {
+      "id": "attendanceGroups",
+      "tag": "attendance"
+    },
+    "getV7AttendanceGroupsByGroup_id": {
+      "id": "attendanceGroups2",
+      "tag": "attendance"
+    },
+    "postV7AttendanceGroupsByGroup_idDelete": {
+      "id": "attendanceGroupsDelete",
+      "tag": "attendance"
+    },
+    "postV7AttendanceGroupsByGroup_idUpdate": {
+      "id": "attendanceGroupsUpdate",
+      "tag": "attendance"
+    },
+    "postV7AttendanceGroupsCreate": {
+      "id": "attendanceGroupsCreate",
+      "tag": "attendance"
+    },
+    "postV7AttendancePunchesBatch_get": {
+      "id": "attendancePunchesBatchGet",
+      "tag": "attendance"
+    },
+    "getV7AuditChats": {
+      "id": "auditChats",
+      "tag": "audit"
+    },
+    "postV7AuditChatsByChat_idDelete": {
+      "id": "auditChatsDelete",
+      "tag": "audit"
+    },
+    "getV7AuditChatsByChat_idMembers": {
+      "id": "auditChatsMembers",
+      "tag": "audit"
+    },
+    "getV7AuditChatsByChat_idMessages": {
+      "id": "auditChatsMessages",
+      "tag": "audit"
+    },
+    "postV7AuditChatsByChat_idMessagesByMessage_idDelete": {
+      "id": "auditChatsMessagesDelete",
+      "tag": "audit"
+    },
+    "postV7AuditChatsByChat_idMessagesBatch_get": {
+      "id": "auditChatsMessagesBatchGet",
+      "tag": "audit"
+    },
+    "postV7AuditChatsBatch_get": {
+      "id": "auditChatsBatchGet",
+      "tag": "audit"
+    },
+    "getV7Audit_categories": {
+      "id": "auditcategoriesList",
+      "tag": "audit_categories"
+    },
+    "postV7Audit_categoriesCreate": {
+      "id": "auditcategoriesCreate",
+      "tag": "audit_categories"
+    },
+    "getV7Audit_logs": {
+      "id": "auditlogsList",
+      "tag": "audit_logs"
+    },
+    "postV7Audit_logs": {
+      "id": "auditlogs",
+      "tag": "audit_logs"
+    },
+    "getV7AutomationByFile_idWorkflows": {
+      "id": "automationWorkflows",
+      "tag": "automation"
+    },
+    "postV7AutomationByFile_idWorkflowsByWorkflow_idStatus": {
+      "id": "automationWorkflowsStatus",
+      "tag": "automation"
+    },
+    "getV7Calendar_exchange_bindsByExchange_binding_id": {
+      "id": "calendarexchangebindsList",
+      "tag": "calendar_exchange_binds"
+    },
+    "postV7Calendar_exchange_bindsByExchange_binding_idDelete": {
+      "id": "calendarexchangebindsDelete",
+      "tag": "calendar_exchange_binds"
+    },
+    "postV7Calendar_exchange_bindsCreate": {
+      "id": "calendarexchangebindsCreate",
+      "tag": "calendar_exchange_binds"
+    },
+    "getV7Calendars": {
+      "id": "calendarlist",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_id": {
+      "id": "calendarget",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idDelete": {
+      "id": "calendardelete",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEvent_instances": {
+      "id": "calendareventinstancelist",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEvents": {
+      "id": "calendareventlist",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEventsByEvent_id": {
+      "id": "calendareventget",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEventsByEvent_idAttendee_groupsByGroup_idMembers": {
+      "id": "calendarsEventsAttendeeGroupsMembers",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEventsByEvent_idAttendees": {
+      "id": "calendareventattendeelist",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idAttendeesBatch_create": {
+      "id": "calendareventattendeeadd",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idAttendeesBatch_delete": {
+      "id": "calendareventattendeeremove",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idCreate_chat": {
+      "id": "calendarsEventsCreateChat",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idDelete": {
+      "id": "calendareventdelete",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEventsByEvent_idEvent_instances": {
+      "id": "calendareventinstanceget",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idMeeting_minutesCreate": {
+      "id": "calendareventminutescreate",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idEventsByEvent_idMeeting_rooms": {
+      "id": "calendareventroomlist",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idMeeting_roomsBatch_create": {
+      "id": "calendareventroomadd",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idMeeting_roomsBatch_delete": {
+      "id": "calendareventroomremove",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idRespond": {
+      "id": "calendareventrespond",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsByEvent_idUpdate": {
+      "id": "calendareventupdate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsBatch_create": {
+      "id": "calendarsEventsBatchCreate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsCreate": {
+      "id": "calendareventcreate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idEventsSearch": {
+      "id": "calendareventsearch",
+      "tag": "calendars"
+    },
+    "getV7CalendarsByCalendar_idPermissions": {
+      "id": "calendarsPermissions",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idPermissionsByCalendar_permission_idDelete": {
+      "id": "calendarsPermissionsDelete",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idPermissionsBatch_create": {
+      "id": "calendarsPermissionsBatchCreate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idPermissionsCreate": {
+      "id": "calendarsPermissionsCreate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idSubscribe": {
+      "id": "calendarsubscribe",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idUnsubscribe": {
+      "id": "calendarunsubscribe",
+      "tag": "calendars"
+    },
+    "postV7CalendarsByCalendar_idUpdate": {
+      "id": "calendarupdate",
+      "tag": "calendars"
+    },
+    "postV7CalendarsCreate": {
+      "id": "calendarcreate",
+      "tag": "calendars"
+    },
+    "getV7CalendarsPrimary": {
+      "id": "calendarsPrimary",
+      "tag": "calendars"
+    },
+    "postV7CalendarsPrimaryBatch_get": {
+      "id": "calendarprimarybatchget",
+      "tag": "calendars"
+    },
+    "postV7CalendarsPrimaryTimeoff_eventsByTimeoff_event_idDelete": {
+      "id": "calendarsPrimaryTimeoffEventsDelete",
+      "tag": "calendars"
+    },
+    "postV7CalendarsPrimaryTimeoff_eventsCreate": {
+      "id": "calendarsPrimaryTimeoffEventsCreate",
+      "tag": "calendars"
+    },
+    "getV7Chats": {
+      "id": "imchatlist",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_id": {
+      "id": "imchatget",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idBookmarks": {
+      "id": "chatsBookmarks",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idBookmarksBatch_create": {
+      "id": "chatsBookmarksBatchCreate",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idBookmarksBatch_delete": {
+      "id": "chatsBookmarksBatchDelete",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idDelete": {
+      "id": "imchatdelete",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idMembers": {
+      "id": "imchatmemberlist",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idMembersBatch_create": {
+      "id": "imchatmemberadd",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idMembersBatch_delete": {
+      "id": "imchatmemberremove",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idMembersIs_in_chat": {
+      "id": "chatsMembersIsInChat",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idMessages": {
+      "id": "imchatmessagelist",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idMessagesByMessage_id": {
+      "id": "imchatmessageget",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idMessagesByMessage_idReply": {
+      "id": "imchatmessagereply",
+      "tag": "chats"
+    },
+    "getV7ChatsByChat_idMessagesByMessage_idResourcesByStorage_keyDownload": {
+      "id": "chatsMessagesResourcesDownload",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idMessagesByMessage_idUrgent_app": {
+      "id": "chatsMessagesUrgentApp",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idMessagesSend_cloud_file": {
+      "id": "chatsMessagesSendCloudFile",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idShare_link": {
+      "id": "chatsSharelink",
+      "tag": "chats"
+    },
+    "postV7ChatsByChat_idUpdate": {
+      "id": "imchatupdate",
+      "tag": "chats"
+    },
+    "postV7ChatsBatch_get": {
+      "id": "chatsBatchget",
+      "tag": "chats"
+    },
+    "postV7ChatsCreate": {
+      "id": "imchatcreate",
+      "tag": "chats"
+    },
+    "postV7ChatsCreate_dept_chat": {
+      "id": "chatsCreatedeptchat",
+      "tag": "chats"
+    },
+    "getV7ChatsGet_p2p_chat": {
+      "id": "imp2pchatget",
+      "tag": "chats"
+    },
+    "postV7ChatsNormalize_dept_chat": {
+      "id": "chatsNormalizedeptchat",
+      "tag": "chats"
+    },
+    "postV7ChatsResourcesUpload": {
+      "id": "chatsResourcesUpload",
+      "tag": "chats"
+    },
+    "getV7ChatsUnread_count": {
+      "id": "imunreadchatcount",
+      "tag": "chats"
+    },
+    "postV7ChatsUpdate_dept_chat": {
+      "id": "chatsUpdatedeptchat",
+      "tag": "chats"
+    },
+    "getV7CoFilesByCo_file_idComments": {
+      "id": "coFilesComments",
+      "tag": "co"
+    },
+    "getV7CompaniesCurrent": {
+      "id": "companiesCurrent",
+      "tag": "companies"
+    },
+    "postV7CompaniesDept_custom_attrsBatch_create": {
+      "id": "companiesDeptcustomattrsBatchCreate",
+      "tag": "companies"
+    },
+    "postV7CompaniesDept_custom_attrsBatch_delete": {
+      "id": "companiesDeptcustomattrsBatchDelete",
+      "tag": "companies"
+    },
+    "getV7CompaniesDept_custom_attrsBatch_read": {
+      "id": "companiesDeptcustomattrsBatchRead",
+      "tag": "companies"
+    },
+    "postV7CompaniesDept_custom_attrsBatch_update": {
+      "id": "companiesDeptcustomattrsBatchUpdate",
+      "tag": "companies"
+    },
+    "postV7CompaniesUser_custom_attrsBatch_create": {
+      "id": "companiesUsercustomattrsBatchCreate",
+      "tag": "companies"
+    },
+    "postV7CompaniesUser_custom_attrsBatch_delete": {
+      "id": "companiesUsercustomattrsBatchDelete",
+      "tag": "companies"
+    },
+    "getV7CompaniesUser_custom_attrsBatch_read": {
+      "id": "companiesUsercustomattrsBatchRead",
+      "tag": "companies"
+    },
+    "postV7CompaniesUser_custom_attrsBatch_update": {
+      "id": "companiesUsercustomattrsBatchUpdate",
+      "tag": "companies"
+    },
+    "getV7Confidential_docsByRoot_guidAccess_rights": {
+      "id": "confidentialdocsAccessrights",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsByRoot_guidAccess_rightsUpdate": {
+      "id": "confidentialdocsAccessrightsUpdate",
+      "tag": "confidential_docs"
+    },
+    "getV7Confidential_docsByRoot_guidUser_access_rights": {
+      "id": "confidentialdocsUseraccessrights",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsDecrypt": {
+      "id": "confidentialdocsDecrypt",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsEncrypt": {
+      "id": "confidentialdocsEncrypt",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsInfo": {
+      "id": "confidentialdocsInfo",
+      "tag": "confidential_docs"
+    },
+    "getV7Confidential_docsInfoHistories": {
+      "id": "confidentialdocsInfoHistories",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsSaveas": {
+      "id": "confidentialdocsSaveas",
+      "tag": "confidential_docs"
+    },
+    "postV7Confidential_docsUpdate": {
+      "id": "confidentialdocsUpdate",
+      "tag": "confidential_docs"
+    },
+    "getV7Console_settingsOrg_display": {
+      "id": "consolesettingsOrgdisplay",
+      "tag": "console_settings"
+    },
+    "postV7Console_settingsUsage_tips": {
+      "id": "consolesettingsUsagetips",
+      "tag": "console_settings"
+    },
+    "getV7ContactsPermissions_scope": {
+      "id": "contactsPermissionsscope",
+      "tag": "contacts"
+    },
+    "getV7ContactsPermissions_scopeEntities": {
+      "id": "contactsPermissionsscopeEntities",
+      "tag": "contacts"
+    },
+    "getV7ContactsVisibilityRules": {
+      "id": "contactsVisibilityRules",
+      "tag": "contacts"
+    },
+    "postV7ContactsVisibilityRules": {
+      "id": "contactsVisibilityRules2",
+      "tag": "contacts"
+    },
+    "postV7ContactsVisibilityRulesByRule_id": {
+      "id": "contactsVisibilityRules3",
+      "tag": "contacts"
+    },
+    "postV7ContactsVisibilityRulesBatch_delete": {
+      "id": "contactsVisibilityRulesBatchDelete",
+      "tag": "contacts"
+    },
+    "getV7CoopAirpageByFile_idAsync_to_tasksByTask_idQuery": {
+      "id": "coopAirpageAsyncToTasksQuery",
+      "tag": "coop"
+    },
+    "postV7CoopAirpageByFile_idAttachmentsUpload": {
+      "id": "coopAirpageAttachmentsUpload",
+      "tag": "coop"
+    },
+    "postV7CoopAirpageByFile_idExport_to_docxAsync_tasksCreate": {
+      "id": "coopAirpageExportToDocxAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "postV7CoopAirpageByFile_idExport_to_imageAsync_tasksCreate": {
+      "id": "coopAirpageExportToImageAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "postV7CoopAirpageByFile_idExport_to_pdfAsync_tasksCreate": {
+      "id": "coopAirpageExportToPdfAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "postV7CoopAirpageByFile_idImport_data": {
+      "id": "coopAirpageImportData",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idImport": {
+      "id": "coopAirsheetImport",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idProtection_rangesCreate": {
+      "id": "coopAirsheetProtectionRangesCreate",
+      "tag": "coop"
+    },
+    "getV7CoopAirsheetByFile_idSheets": {
+      "id": "coopAirsheetSheets",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idWorksheetByWorksheet_idRowsCreate": {
+      "id": "coopAirsheetWorksheetRowsCreate",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idWorksheetsByWorksheet_idCopy": {
+      "id": "coopAirsheetWorksheetsCopy",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idWorksheetsByWorksheet_idUpdate": {
+      "id": "coopAirsheetWorksheetsUpdate",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idWorksheetsCreate": {
+      "id": "coopAirsheetWorksheetsCreate",
+      "tag": "coop"
+    },
+    "postV7CoopAirsheetByFile_idWorksheetsDelete": {
+      "id": "coopAirsheetWorksheetsDelete",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idAttachmentsByAttachment_id": {
+      "id": "coopDbsheetAttachments",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idAttachmentsUpload": {
+      "id": "coopDbsheetAttachmentsUpload",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idContent_permissions": {
+      "id": "coopDbsheetContentPermissions",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idContent_permissionsAsync_tasksByTask_idQuery": {
+      "id": "coopDbsheetContentPermissionsAsyncTasksQuery",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsBatch_addAsync_tasksCreate": {
+      "id": "coopDbsheetContentPermissionsBatchAddAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsBatch_modifyAsync_tasksCreate": {
+      "id": "coopDbsheetContentPermissionsBatchModifyAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsDeleteAsync_tasksCreate": {
+      "id": "coopDbsheetContentPermissionsDeleteAsyncTasksCreate",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idContent_permissionsSubjects": {
+      "id": "coopDbsheetContentPermissionsSubjects",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsSubjectsBatch_add": {
+      "id": "coopDbsheetContentPermissionsSubjectsBatchAdd",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsSubjectsBatch_change": {
+      "id": "coopDbsheetContentPermissionsSubjectsBatchChange",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idContent_permissionsSubjectsBatch_remove": {
+      "id": "coopDbsheetContentPermissionsSubjectsBatchRemove",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idHooks": {
+      "id": "coopDbsheetHooks",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idHooksByHook_idDelete": {
+      "id": "coopDbsheetHooksDelete",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idHooksCreate": {
+      "id": "coopDbsheetHooksCreate",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idSchema": {
+      "id": "dbsheetschemaget",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idDelete": {
+      "id": "dbsheetsheetdelete",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idFields": {
+      "id": "dbsheetfieldcreate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idFieldsDelete": {
+      "id": "dbsheetfielddelete",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idFieldsUpdate": {
+      "id": "dbsheetfieldupdate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecords": {
+      "id": "dbsheetrecordlist",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idSheetsBySheet_idRecordsByRecord_id": {
+      "id": "dbsheetrecordget",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsBatch_delete": {
+      "id": "dbsheetrecorddelete",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsCreate": {
+      "id": "dbsheetrecordcreate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsList_by_page": {
+      "id": "dbsheetrecordpagelist",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsByParent_idChildren": {
+      "id": "coopDbsheetSheetsRecordsParentsChildren",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsByParent_idChildrenBatch_bind": {
+      "id": "coopDbsheetSheetsRecordsParentsChildrenBatchBind",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsByParent_idChildrenBatch_unbind": {
+      "id": "coopDbsheetSheetsRecordsParentsChildrenBatchUnbind",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsDisable": {
+      "id": "coopDbsheetSheetsRecordsParentsDisable",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsEnable": {
+      "id": "coopDbsheetSheetsRecordsParentsEnable",
+      "tag": "coop"
+    },
+    "getV7CoopDbsheetByFile_idSheetsBySheet_idRecordsParentsStatus": {
+      "id": "coopDbsheetSheetsRecordsParentsStatus",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsSearch": {
+      "id": "dbsheetrecordsearch",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idRecordsUpdate": {
+      "id": "dbsheetrecordupdate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idUpdate": {
+      "id": "dbsheetsheetupdate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idViews": {
+      "id": "coopDbsheetSheetsViews",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idViewsByView_idDelete": {
+      "id": "coopDbsheetSheetsViewsDelete",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsBySheet_idViewsByView_idUpdate": {
+      "id": "coopDbsheetSheetsViewsUpdate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetByFile_idSheetsCreate": {
+      "id": "dbsheetsheetcreate",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetIdDemix": {
+      "id": "coopDbsheetIdDemix",
+      "tag": "coop"
+    },
+    "postV7CoopDbsheetIdMix": {
+      "id": "coopDbsheetIdMix",
+      "tag": "coop"
+    },
+    "getV7CoopEtByFile_idUsersByUser_idRegional_permission": {
+      "id": "coopEtUsersRegionalPermission",
+      "tag": "coop"
+    },
+    "getV7CoopFilesByFile_idAttachmentsByAttachment_id": {
+      "id": "coopFilesAttachments",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idAttachmentsBatch_get": {
+      "id": "coopFilesAttachmentsBatchGet",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idAttachmentsThumbnailsBatch_get": {
+      "id": "coopFilesAttachmentsThumbnailsBatchGet",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idAttachmentsUpload": {
+      "id": "coopFilesAttachmentsUpload",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idAttachmentsUploadAddress": {
+      "id": "coopFilesAttachmentsUploadAddress",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idAttachmentsUploadComplete": {
+      "id": "coopFilesAttachmentsUploadComplete",
+      "tag": "coop"
+    },
+    "postV7CoopFilesByFile_idRollback": {
+      "id": "coopFilesRollback",
+      "tag": "coop"
+    },
+    "postV7Create_workbench_favorite_app": {
+      "id": "createworkbenchfavoriteapp",
+      "tag": "create_workbench_favorite_app"
+    },
+    "getV7DbsheetByFile_idDashboards": {
+      "id": "dbsheetDashboards",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idDashboardsByDashboard_idCopy": {
+      "id": "dbsheetDashboardsCopy",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idExportAsync_tasksByTask_typeQuery": {
+      "id": "dbsheetExportAsyncTasksQuery",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idExportAsync_tasksCreate": {
+      "id": "dbsheetExportAsyncTasksCreate",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idFormsByView_idFields": {
+      "id": "dbsheetSheetsFormsFields",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idFormsByView_idFieldsByField_idUpdate": {
+      "id": "dbsheetSheetsFormsFieldsUpdate",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idFormsByView_idMeta": {
+      "id": "dbsheetSheetsFormsMeta",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idFormsByView_idMeta": {
+      "id": "dbsheetSheetsFormsMeta2",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idViews": {
+      "id": "dbsheetSheetsViews",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idViewsByView_id": {
+      "id": "dbsheetSheetsViews2",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksByShare_id": {
+      "id": "dbsheetSheetsViewsSharedlinks",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksByShare_idClose": {
+      "id": "dbsheetSheetsViewsSharedlinksClose",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksByShare_idSettings": {
+      "id": "dbsheetSheetsViewsSharedlinksSettings",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksByShare_idSettings": {
+      "id": "dbsheetSheetsViewsSharedlinksSettings2",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksByShare_idUpdate": {
+      "id": "dbsheetSheetsViewsSharedlinksUpdate",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksOpen": {
+      "id": "dbsheetSheetsViewsSharedlinksOpen",
+      "tag": "dbsheet"
+    },
+    "getV7DbsheetByFile_idSheetsBySheet_idViewsByView_idSharedlinksStatus": {
+      "id": "dbsheetSheetsViewsSharedlinksStatus",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBatch_create": {
+      "id": "dbsheetSheetsBatchCreate",
+      "tag": "dbsheet"
+    },
+    "postV7DbsheetByFile_idSheetsBatch_delete": {
+      "id": "dbsheetSheetsBatchDelete",
+      "tag": "dbsheet"
+    },
+    "getV7Deleted_files": {
+      "id": "deletedfilesList",
+      "tag": "deleted_files"
+    },
+    "postV7Deleted_filesByFile_idDelete": {
+      "id": "deletedfilesDelete",
+      "tag": "deleted_files"
+    },
+    "getV7Deleted_filesByFile_idMeta": {
+      "id": "deletedfilesMeta",
+      "tag": "deleted_files"
+    },
+    "postV7Deleted_filesByFile_idRestore": {
+      "id": "deletedfilesRestore",
+      "tag": "deleted_files"
+    },
+    "postV7Deleted_filesBatch_delete": {
+      "id": "deletedfilesBatchdelete",
+      "tag": "deleted_files"
+    },
+    "postV7Deleted_filesBatch_restore": {
+      "id": "deletedfilesBatchrestore",
+      "tag": "deleted_files"
+    },
+    "postV7Deleted_filesClear": {
+      "id": "deletedfilesClear",
+      "tag": "deleted_files"
+    },
+    "getV7DeptsByDept_id": {
+      "id": "deptsList",
+      "tag": "depts"
+    },
+    "getV7DeptsByDept_idChildren": {
+      "id": "deptsChildren",
+      "tag": "depts"
+    },
+    "postV7DeptsByDept_idDelete": {
+      "id": "deptsDelete",
+      "tag": "depts"
+    },
+    "getV7DeptsByDept_idMembers": {
+      "id": "deptsMembers",
+      "tag": "depts"
+    },
+    "postV7DeptsByDept_idMembersByUser_idCreate": {
+      "id": "deptsMembersCreate",
+      "tag": "depts"
+    },
+    "postV7DeptsByDept_idMembersByUser_idDelete": {
+      "id": "deptsMembersDelete",
+      "tag": "depts"
+    },
+    "postV7DeptsByDept_idMembersBatch_read": {
+      "id": "deptsMembersBatchRead",
+      "tag": "depts"
+    },
+    "getV7DeptsByDept_idParents": {
+      "id": "deptsParents",
+      "tag": "depts"
+    },
+    "postV7DeptsByDept_idUpdate": {
+      "id": "deptsUpdate",
+      "tag": "depts"
+    },
+    "postV7DeptsBatch_delete": {
+      "id": "deptsBatchdelete",
+      "tag": "depts"
+    },
+    "postV7DeptsBatch_read": {
+      "id": "deptsBatchread",
+      "tag": "depts"
+    },
+    "postV7DeptsBy_ex_dept_ids": {
+      "id": "deptsByexdeptids",
+      "tag": "depts"
+    },
+    "getV7DeptsChanges": {
+      "id": "deptsChanges",
+      "tag": "depts"
+    },
+    "postV7DeptsCreate": {
+      "id": "deptsCreate",
+      "tag": "depts"
+    },
+    "postV7DeptsCustom_attrsBatch_read": {
+      "id": "deptsCustomattrsBatchRead",
+      "tag": "depts"
+    },
+    "postV7DeptsCustom_attrsBatch_update": {
+      "id": "deptsCustomattrsBatchUpdate",
+      "tag": "depts"
+    },
+    "getV7DeptsRoot": {
+      "id": "deptsRoot",
+      "tag": "depts"
+    },
+    "getV7DeptsSearch": {
+      "id": "deptsSearch",
+      "tag": "depts"
+    },
+    "getV7DeveloperApp_admins": {
+      "id": "developerAppadmins",
+      "tag": "developer"
+    },
+    "getV7DeveloperApp_adminsByUser_idCheck": {
+      "id": "developerAppadminsCheck",
+      "tag": "developer"
+    },
+    "postV7DeveloperApp_badgesBatch_update": {
+      "id": "developerAppbadgesBatchUpdate",
+      "tag": "developer"
+    },
+    "getV7DeveloperApplicationsCurrent": {
+      "id": "developerApplicationsCurrent",
+      "tag": "developer"
+    },
+    "getV7DeveloperApplicationsCurrentMembers": {
+      "id": "developerApplicationsCurrentMembers",
+      "tag": "developer"
+    },
+    "getV7DeveloperApplicationsCurrentSubjects": {
+      "id": "developerApplicationsCurrentSubjects",
+      "tag": "developer"
+    },
+    "getV7DeveloperApps": {
+      "id": "developerApps",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_id": {
+      "id": "developerApps2",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idChange_owner": {
+      "id": "developerAppsChangeOwner",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_idContacts_range": {
+      "id": "developerAppsContactsRange",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_idContacts_range_apply": {
+      "id": "developerAppsContactsRangeApply",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idDisable": {
+      "id": "developerAppsDisable",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idEnable": {
+      "id": "developerAppsEnable",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_idMembers": {
+      "id": "developerAppsMembers",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idMembersBatch_update": {
+      "id": "developerAppsMembersBatchUpdate",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idSubjectsBatch_add": {
+      "id": "developerAppsSubjectsBatchAdd",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idSubjectsBatch_remove": {
+      "id": "developerAppsSubjectsBatchRemove",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idSubjectsBatch_update": {
+      "id": "developerAppsSubjectsBatchUpdate",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idSubjectsCheck_white_black_list": {
+      "id": "developerAppsSubjectsCheckWhiteBlackList",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsByApp_idUpdate_approval_status": {
+      "id": "developerAppsUpdateApprovalStatus",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_idVersions": {
+      "id": "developerAppsVersions",
+      "tag": "developer"
+    },
+    "getV7DeveloperAppsByApp_idVersionsByVersion": {
+      "id": "developerAppsVersions2",
+      "tag": "developer"
+    },
+    "postV7DeveloperAppsBatch_get": {
+      "id": "developerAppsBatchGet",
+      "tag": "developer"
+    },
+    "getV7DeveloperGet_app_admin_scope": {
+      "id": "developerGetappadminscope",
+      "tag": "developer"
+    },
+    "getV7DeveloperVisible_apps": {
+      "id": "developerVisibleapps",
+      "tag": "developer"
+    },
+    "postV7DevhubAppsByApp_idChatsCancel": {
+      "id": "devhubAppsChatsCancel",
+      "tag": "devhub"
+    },
+    "postV7DevhubAppsByApp_idChatsCreate": {
+      "id": "devhubAppsChatsCreate",
+      "tag": "devhub"
+    },
+    "getV7DevhubAppsByApp_idDetail": {
+      "id": "devhubAppsDetail",
+      "tag": "devhub"
+    },
+    "postV7DevhubAppsByApp_idSessionsCreate": {
+      "id": "devhubAppsSessionsCreate",
+      "tag": "devhub"
+    },
+    "getV7DevhubAppsByApp_idSessionsMessages": {
+      "id": "devhubAppsSessionsMessages",
+      "tag": "devhub"
+    },
+    "getV7DoclibByDrive_idInvite_url": {
+      "id": "doclibInviteurl",
+      "tag": "doclib"
+    },
+    "postV7DoclibCreate": {
+      "id": "doclibCreate",
+      "tag": "doclib"
+    },
+    "postV7DoclibDelete": {
+      "id": "doclibDelete",
+      "tag": "doclib"
+    },
+    "getV7DoclibFilesByFile_idInherit": {
+      "id": "doclibFilesInherit",
+      "tag": "doclib"
+    },
+    "getV7DoclibMeta": {
+      "id": "doclibMeta",
+      "tag": "doclib"
+    },
+    "getV7DoclibSearch": {
+      "id": "doclibSearch",
+      "tag": "doclib"
+    },
+    "getV7DoclibSettings": {
+      "id": "doclibSettings",
+      "tag": "doclib"
+    },
+    "postV7DoclibUpdate": {
+      "id": "doclibUpdate",
+      "tag": "doclib"
+    },
+    "getV7Doclibs": {
+      "id": "doclibsList",
+      "tag": "doclibs"
+    },
+    "postV7DocqaInsightRecallRank": {
+      "id": "docqaInsightRecallRank",
+      "tag": "docqa"
+    },
+    "postV7DocqaInsightSwitch": {
+      "id": "docqaInsightSwitch",
+      "tag": "docqa"
+    },
+    "postV7DocqaInstoreRecallRank": {
+      "id": "docqaInstoreRecallRank",
+      "tag": "docqa"
+    },
+    "postV7DocqaInstoreSwitch": {
+      "id": "docqaInstoreSwitch",
+      "tag": "docqa"
+    },
+    "getV7DocqaInstoreSwitchStatus": {
+      "id": "docqaInstoreSwitchStatus",
+      "tag": "docqa"
+    },
+    "postV7DocumentsByFile_idAttachmentsBatch_get": {
+      "id": "documentsAttachmentsBatchGet",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idAttachmentsUpload": {
+      "id": "documentsAttachmentsUpload",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idAttachmentsUploadAddress": {
+      "id": "documentsAttachmentsUploadAddress",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idAttachmentsUploadComplete": {
+      "id": "documentsAttachmentsUploadComplete",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idCommentsByComment_idDelete": {
+      "id": "documentsCommentsDelete",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idCommentsByComment_idUpdate": {
+      "id": "documentsCommentsUpdate",
+      "tag": "documents"
+    },
+    "getV7DocumentsByFile_idCommentsByOrigin_idList": {
+      "id": "documentsCommentsList",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idCommentsCreate": {
+      "id": "documentsCommentsCreate",
+      "tag": "documents"
+    },
+    "postV7DocumentsByFile_idExports": {
+      "id": "documentsExports",
+      "tag": "documents"
+    },
+    "getV7DocumentsByFile_idExportsByExport_task_id": {
+      "id": "documentsExports2",
+      "tag": "documents"
+    },
+    "getV7DocumentsByFile_idLikes": {
+      "id": "documentsLikes",
+      "tag": "documents"
+    },
+    "postV7DocumentsFolder_latestCreate": {
+      "id": "documentsFolderlatestCreate",
+      "tag": "documents"
+    },
+    "getV7DocumentsFolder_latestList": {
+      "id": "documentsFolderlatestList",
+      "tag": "documents"
+    },
+    "getV7Domains": {
+      "id": "domainsList",
+      "tag": "domains"
+    },
+    "getV7Drive_freqItems": {
+      "id": "drivefrequentfilelist",
+      "tag": "drive_freq"
+    },
+    "postV7Drive_labelItemsBatch_get": {
+      "id": "drivelabelItemsBatchGet",
+      "tag": "drive_label"
+    },
+    "postV7Drive_labelsByLabel_idObjectsBatch_add": {
+      "id": "drivelabelsObjectsBatchAdd",
+      "tag": "drive_labels"
+    },
+    "postV7Drive_labelsByLabel_idObjectsBatch_remove": {
+      "id": "drivelabelsObjectsBatchRemove",
+      "tag": "drive_labels"
+    },
+    "getV7Drive_latestItems": {
+      "id": "driverecentfilelist",
+      "tag": "drive_latest"
+    },
+    "getV7Drive_starItems": {
+      "id": "drivestarredfilelist",
+      "tag": "drive_star"
+    },
+    "getV7Drive_tasksByTask_idMeta": {
+      "id": "drivetasksMeta",
+      "tag": "drive_tasks"
+    },
+    "getV7Drives": {
+      "id": "drivelist",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idClose_link": {
+      "id": "drivesCloselink",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idClose_link": {
+      "id": "drivelinkclose",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idContent": {
+      "id": "drivefilecontentget",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idContent": {
+      "id": "drivesFilesContent",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idDelete": {
+      "id": "drivefiledelete",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idDownload": {
+      "id": "drivefiledownload",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idMeta": {
+      "id": "drivefileget",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idOpen_link": {
+      "id": "drivelinkopen",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idPath": {
+      "id": "drivefilepathget",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idPermissions": {
+      "id": "drivesFilesPermissions",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idPermissionsByPermission_idDelete": {
+      "id": "drivesFilesPermissionsDelete",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idPermissionsAcl": {
+      "id": "drivesFilesPermissionsAcl",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idPermissionsBatch_create": {
+      "id": "drivesFilesPermissionsBatchCreate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idPermissionsBatch_delete": {
+      "id": "drivesFilesPermissionsBatchDelete",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idPermissionsBatch_update": {
+      "id": "drivesFilesPermissionsBatchUpdate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idPermissionsCreate": {
+      "id": "drivesFilesPermissionsCreate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idRename": {
+      "id": "drivefilerename",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idSave_as": {
+      "id": "drivesFilesSaveAs",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idTransfer_owner": {
+      "id": "drivesFilesTransferOwner",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idUpdate": {
+      "id": "drivesFilesUpdate",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idVersions": {
+      "id": "drivefileversionlist",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idVersionsByVersion_numDownload": {
+      "id": "drivesFilesVersionsDownload",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByFile_idVersionsByVersion_numMeta": {
+      "id": "drivefileversionget",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idVersionsByVersion_numRevert": {
+      "id": "drivesFilesVersionsRevert",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByFile_idVersionsByVersion_numUpdate": {
+      "id": "drivesFilesVersionsUpdate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idCheck_name": {
+      "id": "drivesFilesCheckName",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesByParent_idChildren": {
+      "id": "drivefilelist",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idCommit_upload": {
+      "id": "drivesFilesCommitUpload",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idCreate": {
+      "id": "drivefilecreate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idCreate_multipart_upload_task": {
+      "id": "drivesFilesCreateMultipartUploadTask",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idRapid_upload": {
+      "id": "drivesFilesRapidUpload",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesByParent_idRequest_upload": {
+      "id": "drivesFilesRequestUpload",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesBatch_copy": {
+      "id": "drivefilebatchcopy",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesBatch_delete": {
+      "id": "drivesFilesBatchDelete",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idFilesBatch_download": {
+      "id": "drivesFilesBatchDownload",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idFilesBatch_move": {
+      "id": "drivefilebatchmove",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idMeta": {
+      "id": "driveget",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idOpen_link": {
+      "id": "drivesOpenlink",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idPermissionsBatch_create": {
+      "id": "drivesPermissionsBatchCreate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idPermissionsBatch_delete": {
+      "id": "drivesPermissionsBatchDelete",
+      "tag": "drives"
+    },
+    "getV7DrivesByDrive_idRoles": {
+      "id": "drivesRoles",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idRolesByRole_idDelete": {
+      "id": "drivesRolesDelete",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idRolesByRole_idUpdate": {
+      "id": "drivesRolesUpdate",
+      "tag": "drives"
+    },
+    "postV7DrivesByDrive_idRolesCreate": {
+      "id": "drivesRolesCreate",
+      "tag": "drives"
+    },
+    "getV7DrivesAuthorized": {
+      "id": "drivesAuthorized",
+      "tag": "drives"
+    },
+    "postV7DrivesCreate": {
+      "id": "drivecreate",
+      "tag": "drives"
+    },
+    "postV7EcisaccountsyncFullSync": {
+      "id": "ecisaccountsyncFullSync",
+      "tag": "ecisaccountsync"
+    },
+    "postV7EcisaccountsyncIncrementSync": {
+      "id": "ecisaccountsyncIncrementSync",
+      "tag": "ecisaccountsync"
+    },
+    "getV7Encrypted_docsByGuidAccess_rights": {
+      "id": "encrypteddocsAccessrights",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsByGuidAccess_rightsUpdate": {
+      "id": "encrypteddocsAccessrightsUpdate",
+      "tag": "encrypted_docs"
+    },
+    "getV7Encrypted_docsByGuidUser_access_rights": {
+      "id": "encrypteddocsUseraccessrights",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsDecrypt": {
+      "id": "encrypteddocsDecrypt",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsEncrypt": {
+      "id": "encrypteddocsEncrypt",
+      "tag": "encrypted_docs"
+    },
+    "getV7Encrypted_docsInfo": {
+      "id": "encrypteddocsInfo",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsTicketsCreate": {
+      "id": "encrypteddocsTicketsCreate",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsTicketsDecrypt": {
+      "id": "encrypteddocsTicketsDecrypt",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsTicketsUpdate": {
+      "id": "encrypteddocsTicketsUpdate",
+      "tag": "encrypted_docs"
+    },
+    "postV7Encrypted_docsUpdate": {
+      "id": "encrypteddocsUpdate",
+      "tag": "encrypted_docs"
+    },
+    "getV7EventEgress_ip": {
+      "id": "eventEgressip",
+      "tag": "event"
+    },
+    "postV7File_classification_labelsByLabel_idAttach": {
+      "id": "fileclassificationlabelsAttach",
+      "tag": "file_classification_labels"
+    },
+    "getV7File_classification_labelsByLabel_idCheck_attached": {
+      "id": "fileclassificationlabelsCheckattached",
+      "tag": "file_classification_labels"
+    },
+    "postV7File_classification_labelsByLabel_idDetach": {
+      "id": "fileclassificationlabelsDetach",
+      "tag": "file_classification_labels"
+    },
+    "getV7File_classification_labelsApproval_info": {
+      "id": "fileclassificationlabelsApprovalinfo",
+      "tag": "file_classification_labels"
+    },
+    "getV7File_classification_labelsBatch_get": {
+      "id": "fileclassificationlabelsBatchget",
+      "tag": "file_classification_labels"
+    },
+    "getV7FilesByFile_idMeta": {
+      "id": "filesMeta",
+      "tag": "files"
+    },
+    "getV7FilesByFile_idPermission_settings": {
+      "id": "filesPermissionsettings",
+      "tag": "files"
+    },
+    "postV7FilesByFile_idPermission_settings": {
+      "id": "filesPermissionsettings2",
+      "tag": "files"
+    },
+    "postV7FilesByFile_idPermissionsApprove": {
+      "id": "filesPermissionsApprove",
+      "tag": "files"
+    },
+    "postV7FilesAi_searchQuery_drive_status": {
+      "id": "filesAisearchQueryDriveStatus",
+      "tag": "files"
+    },
+    "getV7FilesBatch_get": {
+      "id": "filesBatchget",
+      "tag": "files"
+    },
+    "getV7FilesSearch": {
+      "id": "drivefilesearch",
+      "tag": "files"
+    },
+    "postV7FiletransferDrivesUpdate": {
+      "id": "filetransferDrivesUpdate",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFail_typeAdd": {
+      "id": "filetransferFailtypeAdd",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileBatch_delete": {
+      "id": "filetransferFileBatchDelete",
+      "tag": "filetransfer"
+    },
+    "getV7FiletransferFileDownload": {
+      "id": "filetransferFileDownload",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileEncryptJwks": {
+      "id": "filetransferFileEncryptJwks",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFilePreview": {
+      "id": "filetransferFilePreview",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileStatusUpdate": {
+      "id": "filetransferFileStatusUpdate",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileUpload": {
+      "id": "filetransferFileUpload",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileUploadCommit": {
+      "id": "filetransferFileUploadCommit",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileUploadFromCloud": {
+      "id": "filetransferFileUploadFromCloud",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileUploadInit": {
+      "id": "filetransferFileUploadInit",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferFileUploadSign": {
+      "id": "filetransferFileUploadSign",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferTaskApprovalCreate": {
+      "id": "filetransferTaskApprovalCreate",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferTaskCommit": {
+      "id": "filetransferTaskCommit",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferTaskCreate": {
+      "id": "filetransferTaskCreate",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferTaskStatusBatch_update": {
+      "id": "filetransferTaskStatusBatchUpdate",
+      "tag": "filetransfer"
+    },
+    "postV7FiletransferTransferPercent": {
+      "id": "filetransferTransferPercent",
+      "tag": "filetransfer"
+    },
+    "getV7FiletransferUserTransfers": {
+      "id": "filetransferUserTransfers",
+      "tag": "filetransfer"
+    },
+    "getV7Free_busy_list": {
+      "id": "calendarfreebusylist",
+      "tag": "free_busy_list"
+    },
+    "getV7Get_workbench_favorite_apps": {
+      "id": "getworkbenchfavoriteappsList",
+      "tag": "get_workbench_favorite_apps"
+    },
+    "getV7Groups": {
+      "id": "groupsList",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_id": {
+      "id": "groupsList2",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_idCheck_in_group": {
+      "id": "groupsCheckingroup",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idDelete": {
+      "id": "groupsDelete",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_idMembers": {
+      "id": "groupsMembers",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersBatch_create": {
+      "id": "groupsMembersBatchCreate",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersBatch_delete": {
+      "id": "groupsMembersBatchDelete",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersBatch_read": {
+      "id": "groupsMembersBatchRead",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersCreate": {
+      "id": "groupsMembersCreate",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersDelete": {
+      "id": "groupsMembersDelete",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_idMembersRead": {
+      "id": "groupsMembersRead",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_idMembersSearch": {
+      "id": "groupsMembersSearch",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idMembersUpdate_role": {
+      "id": "groupsMembersUpdateRole",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idRestore": {
+      "id": "groupsRestore",
+      "tag": "groups"
+    },
+    "getV7GroupsByGroup_idSettings": {
+      "id": "groupsSettings",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idSettings": {
+      "id": "groupsSettings2",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idUpdate": {
+      "id": "groupsUpdate",
+      "tag": "groups"
+    },
+    "postV7GroupsByGroup_idUpdate_owner": {
+      "id": "groupsUpdateowner",
+      "tag": "groups"
+    },
+    "postV7GroupsCreate": {
+      "id": "groupsCreate",
+      "tag": "groups"
+    },
+    "getV7GroupsSearch": {
+      "id": "groupsSearch",
+      "tag": "groups"
+    },
+    "postV7KdocsTemplatesByTemplate_idNew_file": {
+      "id": "kdocsTemplatesNewFile",
+      "tag": "kdocs"
+    },
+    "getV7LinksByLink_idMeta": {
+      "id": "linksMeta",
+      "tag": "links"
+    },
+    "postV7LinksByLink_idUpdate": {
+      "id": "linksUpdate",
+      "tag": "links"
+    },
+    "getV7LinksRecv": {
+      "id": "linksRecv",
+      "tag": "links"
+    },
+    "getV7LinksSend": {
+      "id": "linksSend",
+      "tag": "links"
+    },
+    "getV7LinksSettings": {
+      "id": "linksSettings",
+      "tag": "links"
+    },
+    "postV7LongtaskAipptGen_tpl_from_ppt": {
+      "id": "longtaskAipptGenTplFromPpt",
+      "tag": "longtask"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idMembers": {
+      "id": "lowcodeappAppinstanceMembers",
+      "tag": "low_code_app"
+    },
+    "getV7Low_code_appApp_instanceByApp_instance_idTableByTable_idFields": {
+      "id": "lowcodeappAppinstanceTableFields",
+      "tag": "low_code_app"
+    },
+    "getV7Low_code_appApp_instanceByApp_instance_idTableByTable_idRecordsByRecord_id": {
+      "id": "lowcodeappAppinstanceTableRecords",
+      "tag": "low_code_app"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idTableByTable_idRecordsByRecord_idDelete": {
+      "id": "lowcodeappAppinstanceTableRecordsDelete",
+      "tag": "low_code_app"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idTableByTable_idRecordsByRecord_idUpdate": {
+      "id": "lowcodeappAppinstanceTableRecordsUpdate",
+      "tag": "low_code_app"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idTableByTable_idRecordsCreate": {
+      "id": "lowcodeappAppinstanceTableRecordsCreate",
+      "tag": "low_code_app"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idTableByTable_idRecordsSearch": {
+      "id": "lowcodeappAppinstanceTableRecordsSearch",
+      "tag": "low_code_app"
+    },
+    "postV7Low_code_appApp_instanceByApp_instance_idTables": {
+      "id": "lowcodeappAppinstanceTables",
+      "tag": "low_code_app"
+    },
+    "getV7Mail_archiveByArchive_idDownload": {
+      "id": "mailarchiveDownload",
+      "tag": "mail_archive"
+    },
+    "getV7Mail_archiveSearch": {
+      "id": "mailarchiveSearch",
+      "tag": "mail_archive"
+    },
+    "getV7Mail_contacts": {
+      "id": "mailcontactsList",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contacts": {
+      "id": "mailcontacts",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsByIdDelete": {
+      "id": "mailcontactsDelete",
+      "tag": "mail_contacts"
+    },
+    "getV7Mail_contactsByIdMembers": {
+      "id": "mailcontactsMembers",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsByIdMembersBatch_create": {
+      "id": "mailcontactsMembersBatchCreate",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsByIdMembersBatch_delete": {
+      "id": "mailcontactsMembersBatchDelete",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsByIdUpdate": {
+      "id": "mailcontactsUpdate",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsBatch_create": {
+      "id": "mailcontactsBatchcreate",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsBatch_delete": {
+      "id": "mailcontactsBatchdelete",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_contactsBatch_update": {
+      "id": "mailcontactsBatchupdate",
+      "tag": "mail_contacts"
+    },
+    "postV7Mail_groups": {
+      "id": "mailgroups",
+      "tag": "mail_groups"
+    },
+    "getV7Mail_groupsByMail_group_id": {
+      "id": "mailgroupsList",
+      "tag": "mail_groups"
+    },
+    "postV7Mail_groupsByMail_group_idAccepted_sendersBatch_update": {
+      "id": "mailgroupsAcceptedsendersBatchUpdate",
+      "tag": "mail_groups"
+    },
+    "postV7Mail_groupsByMail_group_idMembersBatch_update": {
+      "id": "mailgroupsMembersBatchUpdate",
+      "tag": "mail_groups"
+    },
+    "postV7Mail_groupsByMail_group_idUpdate": {
+      "id": "mailgroupsUpdate",
+      "tag": "mail_groups"
+    },
+    "postV7Mail_groupsBatch_delete": {
+      "id": "mailgroupsBatchdelete",
+      "tag": "mail_groups"
+    },
+    "getV7Mail_groupsSearch": {
+      "id": "mailgroupsSearch",
+      "tag": "mail_groups"
+    },
+    "getV7Mail_messagesSearch": {
+      "id": "mailmessagesearch",
+      "tag": "mail_messages"
+    },
+    "getV7Mail_migrationsByMigration_idTasks": {
+      "id": "mailmigrationsTasks",
+      "tag": "mail_migrations"
+    },
+    "postV7Mail_migrationsByMigration_idTasks": {
+      "id": "mailmigrationsTasks2",
+      "tag": "mail_migrations"
+    },
+    "postV7Mail_migrationsByMigration_idTasksByTask_idStart": {
+      "id": "mailmigrationsTasksStart",
+      "tag": "mail_migrations"
+    },
+    "getV7Mail_tasksByTask_id": {
+      "id": "mailtasksList",
+      "tag": "mail_tasks"
+    },
+    "getV7Mailboxes": {
+      "id": "mailmailboxlist",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_id": {
+      "id": "mailboxesList",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_idFolders": {
+      "id": "mailmailboxfolderlist",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_idFoldersByFolder_idChildren": {
+      "id": "mailmailboxsubfolderlist",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_idFoldersByFolder_idMessages": {
+      "id": "mailmessagelist",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_idFoldersByFolder_idMessagesByMessage_id": {
+      "id": "mailmessageget",
+      "tag": "mailboxes"
+    },
+    "postV7MailboxesByMailbox_idFoldersByFolder_idMessagesImport": {
+      "id": "mailboxesFoldersMessagesImport",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesByMailbox_idMembers": {
+      "id": "mailboxesMembers",
+      "tag": "mailboxes"
+    },
+    "postV7MailboxesByMailbox_idMessagesByMessage_idSend": {
+      "id": "maildraftsend",
+      "tag": "mailboxes"
+    },
+    "postV7MailboxesByMailbox_idMessagesCreate": {
+      "id": "maildraftcreate",
+      "tag": "mailboxes"
+    },
+    "getV7MailboxesSearch": {
+      "id": "mailboxesSearch",
+      "tag": "mailboxes"
+    },
+    "getV7Meeting_reservesByMeeting_reserve_id": {
+      "id": "meetingreservesList",
+      "tag": "meeting_reserves"
+    },
+    "postV7Meeting_reservesByMeeting_reserve_idDelete": {
+      "id": "meetingreservesDelete",
+      "tag": "meeting_reserves"
+    },
+    "getV7Meeting_reservesByMeeting_reserve_idGet_active_meeting": {
+      "id": "meetingreservesGetactivemeeting",
+      "tag": "meeting_reserves"
+    },
+    "postV7Meeting_reservesByMeeting_reserve_idUpdate": {
+      "id": "meetingreservesUpdate",
+      "tag": "meeting_reserves"
+    },
+    "postV7Meeting_reservesCreate": {
+      "id": "meetingreservesCreate",
+      "tag": "meeting_reserves"
+    },
+    "getV7Meeting_room_banned_users": {
+      "id": "meetingroombannedusersList",
+      "tag": "meeting_room_banned_users"
+    },
+    "postV7Meeting_room_banned_usersCreate": {
+      "id": "meetingroombannedusersCreate",
+      "tag": "meeting_room_banned_users"
+    },
+    "postV7Meeting_room_banned_usersDelete": {
+      "id": "meetingroombannedusersDelete",
+      "tag": "meeting_room_banned_users"
+    },
+    "postV7Meeting_room_bookingsByBooking_idUpdate_status": {
+      "id": "meetingroombookingsUpdatestatus",
+      "tag": "meeting_room_bookings"
+    },
+    "postV7Meeting_room_bookingsBatch_get": {
+      "id": "meetingroombookingsBatchget",
+      "tag": "meeting_room_bookings"
+    },
+    "postV7Meeting_room_bookingsForm_submissionsBatch_get": {
+      "id": "meetingroombookingsFormsubmissionsBatchGet",
+      "tag": "meeting_room_bookings"
+    },
+    "getV7Meeting_room_levels": {
+      "id": "meetingroomlevelsList",
+      "tag": "meeting_room_levels"
+    },
+    "getV7Meeting_room_levelsByRoom_level_id": {
+      "id": "meetingroomlevelsList2",
+      "tag": "meeting_room_levels"
+    },
+    "postV7Meeting_room_levelsByRoom_level_idDelete": {
+      "id": "meetingroomlevelsDelete",
+      "tag": "meeting_room_levels"
+    },
+    "postV7Meeting_room_levelsByRoom_level_idUpdate": {
+      "id": "meetingroomlevelsUpdate",
+      "tag": "meeting_room_levels"
+    },
+    "postV7Meeting_room_levelsBatch_get": {
+      "id": "meetingroomlevelsBatchget",
+      "tag": "meeting_room_levels"
+    },
+    "postV7Meeting_room_levelsCreate": {
+      "id": "meetingroomlevelsCreate",
+      "tag": "meeting_room_levels"
+    },
+    "getV7Meeting_room_privileged_users": {
+      "id": "meetingroomprivilegedusersList",
+      "tag": "meeting_room_privileged_users"
+    },
+    "postV7Meeting_room_privileged_usersCreate": {
+      "id": "meetingroomprivilegedusersCreate",
+      "tag": "meeting_room_privileged_users"
+    },
+    "postV7Meeting_room_privileged_usersDelete": {
+      "id": "meetingroomprivilegedusersDelete",
+      "tag": "meeting_room_privileged_users"
+    },
+    "postV7Meeting_room_settingsByRoom_idUpdate": {
+      "id": "meetingroomsettingsUpdate",
+      "tag": "meeting_room_settings"
+    },
+    "postV7Meeting_room_settingsBatch_get": {
+      "id": "meetingroomsettingsBatchget",
+      "tag": "meeting_room_settings"
+    },
+    "getV7Meeting_room_tags": {
+      "id": "meetingroomtagsList",
+      "tag": "meeting_room_tags"
+    },
+    "postV7Meeting_room_tagsByTag_idDelete": {
+      "id": "meetingroomtagsDelete",
+      "tag": "meeting_room_tags"
+    },
+    "postV7Meeting_room_tagsByTag_idUpdate": {
+      "id": "meetingroomtagsUpdate",
+      "tag": "meeting_room_tags"
+    },
+    "postV7Meeting_room_tagsCreate": {
+      "id": "meetingroomtagsCreate",
+      "tag": "meeting_room_tags"
+    },
+    "getV7Meeting_rooms": {
+      "id": "meetingroomsList",
+      "tag": "meeting_rooms"
+    },
+    "getV7Meeting_roomsByRoom_id": {
+      "id": "meetingroomsList2",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsByRoom_idDelete": {
+      "id": "meetingroomsDelete",
+      "tag": "meeting_rooms"
+    },
+    "getV7Meeting_roomsByRoom_idDisable": {
+      "id": "meetingroomsDisable",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsByRoom_idDisable": {
+      "id": "meetingroomsDisable2",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsByRoom_idRelease": {
+      "id": "meetingroomsRelease",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsByRoom_idUpdate": {
+      "id": "meetingroomsUpdate",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsBatch_get": {
+      "id": "meetingroomsBatchget",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsCreate": {
+      "id": "meetingroomsCreate",
+      "tag": "meeting_rooms"
+    },
+    "postV7Meeting_roomsSearch": {
+      "id": "meetingroomsSearch",
+      "tag": "meeting_rooms"
+    },
+    "getV7Meetings": {
+      "id": "meetinglist",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_id": {
+      "id": "meetingget",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idEnd": {
+      "id": "meetingend",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idMinutes": {
+      "id": "meetingminutelist",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idMinutesByMinute_idSummary": {
+      "id": "meetingminutesummaryget",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idMinutesByMinute_idTranscript": {
+      "id": "meetingminutetranscriptget",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idParticipants": {
+      "id": "meetingparticipantlist",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idParticipantsInvite": {
+      "id": "meetingparticipantinvite",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idParticipantsRemove": {
+      "id": "meetingparticipantremove",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idRecordings": {
+      "id": "meetingrecordinglist",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idRecordingsByRecording_idChapters": {
+      "id": "meetingsRecordingsChapters",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idRecordingsByRecording_idMedia": {
+      "id": "meetingsRecordingsMedia",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idRecordingsByRecording_idShare": {
+      "id": "meetingsRecordingsShare",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idRecordingsByRecording_idSummary": {
+      "id": "meetingrecordingsummaryget",
+      "tag": "meetings"
+    },
+    "getV7MeetingsByMeeting_idRecordingsByRecording_idTranscript": {
+      "id": "meetingrecordingtranscriptget",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idRecordingsStart": {
+      "id": "meetingsRecordingsStart",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idRecordingsStop": {
+      "id": "meetingsRecordingsStop",
+      "tag": "meetings"
+    },
+    "postV7MeetingsByMeeting_idSet_host": {
+      "id": "meetingsethost",
+      "tag": "meetings"
+    },
+    "postV7MessagesByMessage_idRecall": {
+      "id": "immessagerecall",
+      "tag": "messages"
+    },
+    "postV7MessagesByMessage_idUpdate": {
+      "id": "messagesUpdate",
+      "tag": "messages"
+    },
+    "postV7MessagesBatch_create": {
+      "id": "immessagesend",
+      "tag": "messages"
+    },
+    "postV7MessagesCreate": {
+      "id": "messagesCreate",
+      "tag": "messages"
+    },
+    "postV7MessagesGet_message_ids": {
+      "id": "messagesGetmessageids",
+      "tag": "messages"
+    },
+    "getV7MinutesByMinute_id": {
+      "id": "minutesList",
+      "tag": "minutes"
+    },
+    "postV7MinutesByMinute_idDelete": {
+      "id": "minutesDelete",
+      "tag": "minutes"
+    },
+    "postV7MinutesCreate": {
+      "id": "minutesCreate",
+      "tag": "minutes"
+    },
+    "postV7Multipart_upload_tasksByUpload_idAbort": {
+      "id": "multipartuploadtasksAbort",
+      "tag": "multipart_upload_tasks"
+    },
+    "postV7Multipart_upload_tasksByUpload_idCommit": {
+      "id": "multipartuploadtasksCommit",
+      "tag": "multipart_upload_tasks"
+    },
+    "getV7Oauth2Qrcode_auth_code": {
+      "id": "oauth2Qrcodeauthcode",
+      "tag": "oauth2"
+    },
+    "getV7OpendocsFilesByFile_idEditLink": {
+      "id": "opendocsFilesEditLink",
+      "tag": "opendocs"
+    },
+    "getV7OpendocsFilesByFile_idPreviewLink": {
+      "id": "opendocsFilesPreviewLink",
+      "tag": "opendocs"
+    },
+    "getV7Org_dimensions": {
+      "id": "orgdimensionsList",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDelete": {
+      "id": "orgdimensionsDelete",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByDept_idChildren": {
+      "id": "orgdimensionsDeptsChildren",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByDept_idDelete": {
+      "id": "orgdimensionsDeptsDelete",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByDept_idMembersBatch_create": {
+      "id": "orgdimensionsDeptsMembersBatchCreate",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByDept_idMembersBatch_delete": {
+      "id": "orgdimensionsDeptsMembersBatchDelete",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByDept_idUpdate": {
+      "id": "orgdimensionsDeptsUpdate",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idDeptsByParent_id": {
+      "id": "orgdimensionsDepts",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idMembersByUser_idUpdate": {
+      "id": "orgdimensionsMembersUpdate",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idMembersBatch_read": {
+      "id": "orgdimensionsMembersBatchRead",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsByOrg_dimension_idUpdate": {
+      "id": "orgdimensionsUpdate",
+      "tag": "org_dimensions"
+    },
+    "postV7Org_dimensionsCreate": {
+      "id": "orgdimensionsCreate",
+      "tag": "org_dimensions"
+    },
+    "getV7Partners": {
+      "id": "partnersList",
+      "tag": "partners"
+    },
+    "getV7PartnersByPartner_idDeptsByDept_idChildren": {
+      "id": "partnersDeptsChildren",
+      "tag": "partners"
+    },
+    "getV7PartnersByPartner_idDeptsByDept_idMembers": {
+      "id": "partnersDeptsMembers",
+      "tag": "partners"
+    },
+    "postV7PartnersBy_partner_company_ids": {
+      "id": "partnersBypartnercompanyids",
+      "tag": "partners"
+    },
+    "postV7Privilege_functionsCreate_task": {
+      "id": "privilegefunctionsCreatetask",
+      "tag": "privilege_functions"
+    },
+    "getV7Privilege_functionsQuery_task": {
+      "id": "privilegefunctionsQuerytask",
+      "tag": "privilege_functions"
+    },
+    "getV7Privileges": {
+      "id": "privilegesList",
+      "tag": "privileges"
+    },
+    "getV7Public_mailboxes": {
+      "id": "publicmailboxesList",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxes": {
+      "id": "publicmailboxes",
+      "tag": "public_mailboxes"
+    },
+    "getV7Public_mailboxesByPublic_mailbox_id": {
+      "id": "publicmailboxesList2",
+      "tag": "public_mailboxes"
+    },
+    "getV7Public_mailboxesByPublic_mailbox_idAliases": {
+      "id": "publicmailboxesAliases",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idAliases": {
+      "id": "publicmailboxesAliases2",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idDelete": {
+      "id": "publicmailboxesDelete",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idDelete_alias": {
+      "id": "publicmailboxesDeletealias",
+      "tag": "public_mailboxes"
+    },
+    "getV7Public_mailboxesByPublic_mailbox_idMembers": {
+      "id": "publicmailboxesMembers",
+      "tag": "public_mailboxes"
+    },
+    "getV7Public_mailboxesByPublic_mailbox_idMembersByMember_id": {
+      "id": "publicmailboxesMembers2",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idMembersBatch_create": {
+      "id": "publicmailboxesMembersBatchCreate",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idMembersBatch_delete": {
+      "id": "publicmailboxesMembersBatchDelete",
+      "tag": "public_mailboxes"
+    },
+    "postV7Public_mailboxesByPublic_mailbox_idUpdate": {
+      "id": "publicmailboxesUpdate",
+      "tag": "public_mailboxes"
+    },
+    "postV7Remove_workbench_favorite_app": {
+      "id": "removeworkbenchfavoriteapp",
+      "tag": "remove_workbench_favorite_app"
+    },
+    "postV7ScanrulesDelete": {
+      "id": "scanrulesDelete",
+      "tag": "scanrules"
+    },
+    "postV7ScanrulesSave": {
+      "id": "scanrulesSave",
+      "tag": "scanrules"
+    },
+    "getV7ScanrulesSearch": {
+      "id": "scanrulesSearch",
+      "tag": "scanrules"
+    },
+    "postV7ScantasksSync": {
+      "id": "scantasksSync",
+      "tag": "scantasks"
+    },
+    "postV7Second_deleted_filesByFile_idDelete": {
+      "id": "seconddeletedfilesDelete",
+      "tag": "second_deleted_files"
+    },
+    "postV7Second_deleted_filesBatch_delete": {
+      "id": "seconddeletedfilesBatchdelete",
+      "tag": "second_deleted_files"
+    },
+    "getV7Service_principalsCurrent": {
+      "id": "serviceprincipalsCurrent",
+      "tag": "service_principals"
+    },
+    "postV7SheetsByFile_idProtection_ranges": {
+      "id": "sheetsProtectionranges",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idProtection_rangesBatch_delete": {
+      "id": "sheetsProtectionrangesBatchDelete",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idProtection_rangesBatch_update": {
+      "id": "sheetsProtectionrangesBatchUpdate",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idUsersByUser_idRegional_permission": {
+      "id": "sheetsUsersRegionalPermission",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idWorksheets": {
+      "id": "sheetsWorksheets",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheets": {
+      "id": "sheetsWorksheets2",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idCopy": {
+      "id": "sheetsWorksheetsCopy",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idWorksheetsByWorksheet_idData_validations": {
+      "id": "sheetsWorksheetsDataValidations",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idData_validations": {
+      "id": "sheetsWorksheetsDataValidations2",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idData_validationsBatch_delete": {
+      "id": "sheetsWorksheetsDataValidationsBatchDelete",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idData_validationsBatch_update": {
+      "id": "sheetsWorksheetsDataValidationsBatchUpdate",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idWorksheetsByWorksheet_idFilters": {
+      "id": "sheetsWorksheetsFilters",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idFilters": {
+      "id": "sheetsWorksheetsFilters2",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idFiltersDelete": {
+      "id": "sheetsWorksheetsFiltersDelete",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idFiltersUpdate": {
+      "id": "sheetsWorksheetsFiltersUpdate",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idWorksheetsByWorksheet_idProtection_ranges": {
+      "id": "sheetsWorksheetsProtectionRanges",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idProtection_rangesUpdate_auto_filter": {
+      "id": "sheetsWorksheetsProtectionRangesUpdateAutoFilter",
+      "tag": "sheets"
+    },
+    "getV7SheetsByFile_idWorksheetsByWorksheet_idRange_data": {
+      "id": "sheetsWorksheetsRangeData",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idRange_dataBatch_delete": {
+      "id": "sheetsWorksheetsRangeDataBatchDelete",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idRange_dataBatch_update": {
+      "id": "sheetsWorksheetsRangeDataBatchUpdate",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idRange_dataFind": {
+      "id": "sheetsWorksheetsRangeDataFind",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idRows": {
+      "id": "sheetsWorksheetsRows",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsByWorksheet_idUpdate": {
+      "id": "sheetsWorksheetsUpdate",
+      "tag": "sheets"
+    },
+    "postV7SheetsByFile_idWorksheetsBatch_delete": {
+      "id": "sheetsWorksheetsBatchDelete",
+      "tag": "sheets"
+    },
+    "postV7SpaceQuotaAlloc": {
+      "id": "spaceQuotaAlloc",
+      "tag": "space"
+    },
+    "getV7SpaceQuotaDetail": {
+      "id": "spaceQuotaDetail",
+      "tag": "space"
+    },
+    "postV7SseAidocsIn_storeChunk": {
+      "id": "sseAidocsInStoreChunk",
+      "tag": "sse"
+    },
+    "postV7SseAidocsSearchGpt": {
+      "id": "sseAidocsSearchGpt",
+      "tag": "sse"
+    },
+    "postV7SseAipptAinotes": {
+      "id": "sseAipptAinotes",
+      "tag": "sse"
+    },
+    "postV7SseAipptExport_pxf_from_file": {
+      "id": "sseAipptExportPxfFromFile",
+      "tag": "sse"
+    },
+    "postV7SseAipptExport_pxf_from_text": {
+      "id": "sseAipptExportPxfFromText",
+      "tag": "sse"
+    },
+    "postV7SseAipptExport_pxf_from_theme": {
+      "id": "sseAipptExportPxfFromTheme",
+      "tag": "sse"
+    },
+    "postV7SseAipptGen_slides_from_multipages": {
+      "id": "sseAipptGenSlidesFromMultipages",
+      "tag": "sse"
+    },
+    "postV7SseAipptGenerate_slides_from_pxf_v2": {
+      "id": "sseAipptGenerateSlidesFromPxfV2",
+      "tag": "sse"
+    },
+    "postV7SseAipptHtml2pptx": {
+      "id": "sseAipptHtml2pptx",
+      "tag": "sse"
+    },
+    "postV7SseAipptOutlineContents": {
+      "id": "sseAipptOutlineContents",
+      "tag": "sse"
+    },
+    "postV7SseDocqaInsightChat": {
+      "id": "sseDocqaInsightChat",
+      "tag": "sse"
+    },
+    "postV7SseGeneratorGenerate_slides": {
+      "id": "sseGeneratorGenerateSlides",
+      "tag": "sse"
+    },
+    "postV7SseWps365agentChat_stream": {
+      "id": "sseWps365agentChatStream",
+      "tag": "sse"
+    },
+    "getV7StoreAllocations": {
+      "id": "storeAllocations",
+      "tag": "store"
+    },
+    "postV7StoreAllocationsBatch_create": {
+      "id": "storeAllocationsBatchCreate",
+      "tag": "store"
+    },
+    "postV7StoreAllocationsBatch_delete": {
+      "id": "storeAllocationsBatchDelete",
+      "tag": "store"
+    },
+    "getV7StoreEntitlements": {
+      "id": "storeEntitlements",
+      "tag": "store"
+    },
+    "getV7StoreOrders": {
+      "id": "storeOrders",
+      "tag": "store"
+    },
+    "getV7StoreOrdersByOrder_id": {
+      "id": "storeOrders2",
+      "tag": "store"
+    },
+    "postV7StoreOrdersCalculate_fee": {
+      "id": "storeOrdersCalculateFee",
+      "tag": "store"
+    },
+    "postV7StoreOrdersCreate": {
+      "id": "storeOrdersCreate",
+      "tag": "store"
+    },
+    "getV7SubscriptionAccounts": {
+      "id": "subscriptionAccounts",
+      "tag": "subscription"
+    },
+    "getV7SubscriptionAccountsByAccount_idPublished_contents": {
+      "id": "subscriptionAccountsPublishedContents",
+      "tag": "subscription"
+    },
+    "getV7SubscriptionAccountsByAccount_idStoragesByStore_key": {
+      "id": "subscriptionAccountsStorages",
+      "tag": "subscription"
+    },
+    "getV7SubscriptionContentsByContent_idStoragesByStore_key": {
+      "id": "subscriptionContentsStorages",
+      "tag": "subscription"
+    },
+    "postV7SyncChats": {
+      "id": "syncChats",
+      "tag": "sync"
+    },
+    "postV7SyncChatsByChat_idFinish": {
+      "id": "syncChatsFinish",
+      "tag": "sync"
+    },
+    "postV7SyncChatsByChat_idMembers": {
+      "id": "syncChatsMembers",
+      "tag": "sync"
+    },
+    "postV7SyncChatsByChat_idMessagesBatch_create": {
+      "id": "syncChatsMessagesBatchCreate",
+      "tag": "sync"
+    },
+    "getV7Titles": {
+      "id": "titlesList",
+      "tag": "titles"
+    },
+    "getV7TitlesBy_name": {
+      "id": "titlesByname",
+      "tag": "titles"
+    },
+    "postV7TitlesCreate": {
+      "id": "titlesCreate",
+      "tag": "titles"
+    },
+    "getV7TodoCategories": {
+      "id": "todoCategories",
+      "tag": "todo"
+    },
+    "postV7TodoCategoriesByCategory_idDelete": {
+      "id": "todoCategoriesDelete",
+      "tag": "todo"
+    },
+    "postV7TodoCategoriesByCategory_idUpdate": {
+      "id": "todoCategoriesUpdate",
+      "tag": "todo"
+    },
+    "postV7TodoCategoriesCreate": {
+      "id": "todoCategoriesCreate",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasks": {
+      "id": "todoPersonaltasks",
+      "tag": "todo"
+    },
+    "getV7TodoPersonal_tasksByTask_id": {
+      "id": "todoPersonaltasks2",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksByTask_idAdd_members": {
+      "id": "todoPersonaltasksAddMembers",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksByTask_idRemove_members": {
+      "id": "todoPersonaltasksRemoveMembers",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksByTask_idUpdate": {
+      "id": "todoPersonaltasksUpdate",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksByTask_idUpdate_status": {
+      "id": "todoPersonaltasksUpdateStatus",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksBatch_delete": {
+      "id": "todoPersonaltasksBatchDelete",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksBatch_get": {
+      "id": "todoPersonaltasksBatchGet",
+      "tag": "todo"
+    },
+    "postV7TodoPersonal_tasksBatch_get_simple": {
+      "id": "todoPersonaltasksBatchGetSimple",
+      "tag": "todo"
+    },
+    "postV7TodoTasks": {
+      "id": "todoTasks",
+      "tag": "todo"
+    },
+    "getV7TodoTasksByTask_id": {
+      "id": "todoTasks2",
+      "tag": "todo"
+    },
+    "postV7TodoTasksByTask_idRemind": {
+      "id": "todoTasksRemind",
+      "tag": "todo"
+    },
+    "postV7TodoTasksByTask_idUpdate": {
+      "id": "todoTasksUpdate",
+      "tag": "todo"
+    },
+    "postV7TodoTasksBatch_create": {
+      "id": "todoTasksBatchCreate",
+      "tag": "todo"
+    },
+    "postV7TodoTasksBatch_delete": {
+      "id": "todoTasksBatchDelete",
+      "tag": "todo"
+    },
+    "postV7TodoTasksBatch_get": {
+      "id": "todoTasksBatchGet",
+      "tag": "todo"
+    },
+    "postV7TodoTasksBatch_update": {
+      "id": "todoTasksBatchUpdate",
+      "tag": "todo"
+    },
+    "getV7TracesourceManufacturerByManufacturerConf": {
+      "id": "tracesourceManufacturerConf",
+      "tag": "tracesource"
+    },
+    "getV7TracesourcePolicies": {
+      "id": "tracesourcePolicies",
+      "tag": "tracesource"
+    },
+    "getV7Tracesource_objectsByTracesource_object_idWatermark_uuids": {
+      "id": "tracesourceobjectsWatermarkuuids",
+      "tag": "tracesource_objects"
+    },
+    "postV7Tracesource_objectsCreate": {
+      "id": "tracesourceobjectsCreate",
+      "tag": "tracesource_objects"
+    },
+    "getV7TrackingAppsByApp_nameDatas": {
+      "id": "trackingAppsDatas",
+      "tag": "tracking"
+    },
+    "getV7User_mailboxesByUser_id": {
+      "id": "usermailboxesList",
+      "tag": "user_mailboxes"
+    },
+    "getV7User_mailboxesByUser_idAliases": {
+      "id": "usermailboxesAliases",
+      "tag": "user_mailboxes"
+    },
+    "postV7User_mailboxesByUser_idAliases": {
+      "id": "usermailboxesAliases2",
+      "tag": "user_mailboxes"
+    },
+    "postV7User_mailboxesByUser_idCreate": {
+      "id": "usermailboxesCreate",
+      "tag": "user_mailboxes"
+    },
+    "postV7User_mailboxesByUser_idDelete": {
+      "id": "usermailboxesDelete",
+      "tag": "user_mailboxes"
+    },
+    "postV7User_mailboxesByUser_idDelete_alias": {
+      "id": "usermailboxesDeletealias",
+      "tag": "user_mailboxes"
+    },
+    "getV7Users": {
+      "id": "userlist",
+      "tag": "users"
+    },
+    "getV7UsersByUser_id": {
+      "id": "userget",
+      "tag": "users"
+    },
+    "postV7UsersByUser_idDelete": {
+      "id": "usersDelete",
+      "tag": "users"
+    },
+    "getV7UsersByUser_idDepts": {
+      "id": "userdeptlist",
+      "tag": "users"
+    },
+    "postV7UsersByUser_idRecover": {
+      "id": "usersRecover",
+      "tag": "users"
+    },
+    "postV7UsersByUser_idUpdate": {
+      "id": "usersUpdate",
+      "tag": "users"
+    },
+    "postV7UsersBatch_delete": {
+      "id": "usersBatchdelete",
+      "tag": "users"
+    },
+    "postV7UsersBatch_disable": {
+      "id": "usersBatchdisable",
+      "tag": "users"
+    },
+    "postV7UsersBatch_enable": {
+      "id": "usersBatchenable",
+      "tag": "users"
+    },
+    "postV7UsersBatch_logout": {
+      "id": "usersBatchlogout",
+      "tag": "users"
+    },
+    "postV7UsersBatch_read": {
+      "id": "usersBatchread",
+      "tag": "users"
+    },
+    "postV7UsersBatch_read_dimission_users": {
+      "id": "usersBatchreaddimissionusers",
+      "tag": "users"
+    },
+    "postV7UsersBatch_update_dept": {
+      "id": "usersBatchupdatedept",
+      "tag": "users"
+    },
+    "postV7UsersBatch_update_order": {
+      "id": "usersBatchupdateorder",
+      "tag": "users"
+    },
+    "postV7UsersBy_emails": {
+      "id": "usersByemails",
+      "tag": "users"
+    },
+    "postV7UsersBy_ex_user_ids": {
+      "id": "usersByexuserids",
+      "tag": "users"
+    },
+    "postV7UsersBy_phones": {
+      "id": "usersByphones",
+      "tag": "users"
+    },
+    "getV7UsersChanges": {
+      "id": "usersChanges",
+      "tag": "users"
+    },
+    "getV7UsersCount": {
+      "id": "usersCount",
+      "tag": "users"
+    },
+    "postV7UsersCreate": {
+      "id": "usersCreate",
+      "tag": "users"
+    },
+    "getV7UsersCurrent": {
+      "id": "userme",
+      "tag": "users"
+    },
+    "getV7UsersCurrent_id": {
+      "id": "usersCurrentid",
+      "tag": "users"
+    },
+    "postV7UsersCustom_attrsBatch_read": {
+      "id": "usersCustomattrsBatchRead",
+      "tag": "users"
+    },
+    "postV7UsersCustom_attrsBatch_update": {
+      "id": "usersCustomattrsBatchUpdate",
+      "tag": "users"
+    },
+    "getV7UsersSearch": {
+      "id": "usersearch",
+      "tag": "users"
+    },
+    "postV7WikiSearch": {
+      "id": "wikiSearch",
+      "tag": "wiki"
+    },
+    "getV7WikiSpaces": {
+      "id": "wikiSpaces",
+      "tag": "wiki"
+    },
+    "getV7WikiSpacesBySpace_idFilesByFile_idChildren": {
+      "id": "wikiSpacesFilesChildren",
+      "tag": "wiki"
+    },
+    "getV7WikiSpacesBySpace_idFilesByFile_idMeta": {
+      "id": "wikiSpacesFilesMeta",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idFilesByFile_idRename": {
+      "id": "wikiSpacesFilesRename",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idFilesByParent_idCreate": {
+      "id": "wikiSpacesFilesCreate",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idFilesBatch_copy": {
+      "id": "wikiSpacesFilesBatchCopy",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idFilesBatch_move": {
+      "id": "wikiSpacesFilesBatchMove",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idFilesMove": {
+      "id": "wikiSpacesFilesMove",
+      "tag": "wiki"
+    },
+    "getV7WikiSpacesBySpace_idMembers": {
+      "id": "wikiSpacesMembers",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idMembersBatch_create": {
+      "id": "wikiSpacesMembersBatchCreate",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idMembersBatch_delete": {
+      "id": "wikiSpacesMembersBatchDelete",
+      "tag": "wiki"
+    },
+    "getV7WikiSpacesBySpace_idMeta": {
+      "id": "wikiSpacesMeta",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesBySpace_idSettings": {
+      "id": "wikiSpacesSettings",
+      "tag": "wiki"
+    },
+    "postV7WikiSpacesCreate": {
+      "id": "wikiSpacesCreate",
+      "tag": "wiki"
+    },
+    "getV7WikiTasksByTask_id": {
+      "id": "wikiTasks",
+      "tag": "wiki"
+    },
+    "postV7WordlibsDelete": {
+      "id": "wordlibsDelete",
+      "tag": "wordlibs"
+    },
+    "postV7WordlibsSave": {
+      "id": "wordlibsSave",
+      "tag": "wordlibs"
+    },
+    "getV7WordlibsSearch": {
+      "id": "wordlibsSearch",
+      "tag": "wordlibs"
+    },
+    "postV7Workbench_blocksByBlock_idUpdate_content": {
+      "id": "workbenchblocksUpdatecontent",
+      "tag": "workbench_blocks"
+    },
+    "getV7WorkflowApproval_defines": {
+      "id": "workflowApprovaldefines",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_defines": {
+      "id": "workflowApprovaldefines2",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_definesById": {
+      "id": "workflowApprovaldefines3",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_definesByIdCustom": {
+      "id": "workflowApprovaldefinesCustom",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_definesByIdDelete": {
+      "id": "workflowApprovaldefinesDelete",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_definesByIdSettings": {
+      "id": "workflowApprovaldefinesSettings",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_definesByIdUpdate": {
+      "id": "workflowApprovaldefinesUpdate",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_definesByIdVisible": {
+      "id": "workflowApprovaldefinesVisible",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_definesBatch_get": {
+      "id": "workflowApprovaldefinesBatchGet",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_definesUser_manage": {
+      "id": "workflowApprovaldefinesUserManage",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_instances": {
+      "id": "workflowApprovalinstances",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_instances": {
+      "id": "workflowApprovalinstances2",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_instancesById": {
+      "id": "workflowApprovalinstances3",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_instancesByIdComment": {
+      "id": "workflowApprovalinstancesComment",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_instancesByIdRevoke": {
+      "id": "workflowApprovalinstancesRevoke",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_instancesBatch_get": {
+      "id": "workflowApprovalinstancesBatchGet",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_instancesBatch_get_cc": {
+      "id": "workflowApprovalinstancesBatchGetCc",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_instancesBatch_get_timeline": {
+      "id": "workflowApprovalinstancesBatchGetTimeline",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_instancesSimulation": {
+      "id": "workflowApprovalinstancesSimulation",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_tasksByIdAdd_sign": {
+      "id": "workflowApprovaltasksAddSign",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_tasksByIdApprove": {
+      "id": "workflowApprovaltasksApprove",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_tasksByIdReject": {
+      "id": "workflowApprovaltasksReject",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_tasksByIdRollback": {
+      "id": "workflowApprovaltasksRollback",
+      "tag": "workflow"
+    },
+    "postV7WorkflowApproval_tasksByIdTransfer": {
+      "id": "workflowApprovaltasksTransfer",
+      "tag": "workflow"
+    },
+    "getV7WorkflowApproval_tasksBatch_get": {
+      "id": "workflowApprovaltasksBatchGet",
+      "tag": "workflow"
+    },
+    "postV7WorkflowExternal_defines": {
+      "id": "workflowExternaldefines",
+      "tag": "workflow"
+    },
+    "getV7WorkflowExternal_definesByDefine_code": {
+      "id": "workflowExternaldefines2",
+      "tag": "workflow"
+    },
+    "postV7WorkflowExternal_instances": {
+      "id": "workflowExternalinstances",
+      "tag": "workflow"
+    },
+    "postV7WorkflowExternal_instancesDiff": {
+      "id": "workflowExternalinstancesDiff",
+      "tag": "workflow"
+    },
+    "getV7WorkflowExternal_tasks": {
+      "id": "workflowExternaltasks",
+      "tag": "workflow"
+    },
+    "postV7WorkflowMessageSend": {
+      "id": "workflowMessageSend",
+      "tag": "workflow"
+    },
+    "postV7WorkflowMessageUpdate": {
+      "id": "workflowMessageUpdate",
+      "tag": "workflow"
+    }
+  },
+  "pathModules": {
+    "airsheet": 17,
+    "access": 3,
+    "aidocs": 17,
+    "aiopen": 43,
+    "aippt": 4,
+    "airpage": 16,
+    "announce": 4,
+    "app_badges": 1,
+    "applications": 1,
+    "apps": 2,
+    "asr_tasks": 2,
+    "attendance": 8,
+    "audit": 7,
+    "audit_categories": 2,
+    "audit_logs": 2,
+    "automation": 2,
+    "calendar_exchange_binds": 3,
+    "calendars": 34,
+    "chats": 26,
+    "co": 1,
+    "companies": 9,
+    "confidential_docs": 9,
+    "console_settings": 2,
+    "contacts": 6,
+    "coop": 61,
+    "create_workbench_favorite_app": 1,
+    "dbsheet": 19,
+    "deleted_files": 7,
+    "depts": 18,
+    "developer": 25,
+    "devhub": 5,
+    "doclib": 8,
+    "doclibs": 1,
+    "docqa": 5,
+    "documents": 13,
+    "domains": 1,
+    "drive_freq": 1,
+    "drive_label": 1,
+    "drive_labels": 2,
+    "drive_latest": 1,
+    "drive_star": 1,
+    "drive_tasks": 1,
+    "drives": 47,
+    "ecisaccountsync": 2,
+    "encrypted_docs": 10,
+    "event": 1,
+    "file_classification_labels": 5,
+    "files": 7,
+    "filetransfer": 18,
+    "free_busy_list": 1,
+    "get_workbench_favorite_apps": 1,
+    "groups": 20,
+    "kdocs": 1,
+    "links": 5,
+    "longtask": 1,
+    "low_code_app": 8,
+    "mail_archive": 2,
+    "mail_contacts": 10,
+    "mail_groups": 7,
+    "mail_messages": 1,
+    "mail_migrations": 3,
+    "mail_tasks": 1,
+    "mailboxes": 11,
+    "meeting_reserves": 5,
+    "meeting_room_banned_users": 3,
+    "meeting_room_bookings": 3,
+    "meeting_room_levels": 6,
+    "meeting_room_privileged_users": 3,
+    "meeting_room_settings": 2,
+    "meeting_room_tags": 4,
+    "meeting_rooms": 10,
+    "meetings": 18,
+    "messages": 5,
+    "minutes": 3,
+    "multipart_upload_tasks": 2,
+    "oauth2": 1,
+    "opendocs": 2,
+    "org_dimensions": 12,
+    "partners": 4,
+    "privilege_functions": 2,
+    "privileges": 1,
+    "public_mailboxes": 12,
+    "remove_workbench_favorite_app": 1,
+    "scanrules": 3,
+    "scantasks": 1,
+    "second_deleted_files": 2,
+    "service_principals": 1,
+    "sheets": 24,
+    "space": 2,
+    "sse": 13,
+    "store": 8,
+    "subscription": 4,
+    "sync": 4,
+    "titles": 3,
+    "todo": 21,
+    "tracesource": 2,
+    "tracesource_objects": 2,
+    "tracking": 1,
+    "user_mailboxes": 6,
+    "users": 25,
+    "wiki": 16,
+    "wordlibs": 3,
+    "workbench_blocks": 1,
+    "workflow": 32
+  },
+  "curatedSha256": "24e11b4206c126c7f4f7bf614f2e2422c9a3bcad4b02311ae94ce88f0b3dffd5"
+}

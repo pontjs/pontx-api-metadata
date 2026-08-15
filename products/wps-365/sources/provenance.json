@@ -1,0 +1,139 @@
+{
+  "formatVersion": 1,
+  "status": "admitted",
+  "canonicalSpec": "candidates/wps-365/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.0.0",
+    "importer": "@pontx/spec@1.0.0-beta.9 importOpenAPI",
+    "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+    "sourceSha256": "3a2dfe64b4debf6435405e2e15e3b7682504c4c91c842c8a491783ea72ae8548",
+    "observedAt": "2026-08-16",
+    "retained": "The official OpenAPI document is published by WPS on open.wps.cn without authentication and is byte-identical to the spec embedded in the official MIT-licensed CLI package @wps365-open/wps365@0.2.27. The exact bytes are retained in sources/openapi.yaml as evidence and reproducibility proof; the document has no file-level license field, so this collection relies on the official MIT package license and the public availability of the endpoint, and does not copy the official documentation site prose."
+  },
+  "curated": {
+    "url": "https://open.wps.cn/v7/developer/cli_tools/specs/curated-internal",
+    "sha256": "24e11b4206c126c7f4f7bf614f2e2422c9a3bcad4b02311ae94ce88f0b3dffd5",
+    "note": "Official curated command catalog (101 commands, 7 groups) used as stable operationId anchors."
+  },
+  "cliPackage": {
+    "name": "@wps365-open/wps365",
+    "version": "0.2.27",
+    "license": "MIT",
+    "npmUrl": "https://www.npmjs.com/package/@wps365-open/wps365",
+    "repository": "git+ssh://git@ksogit.kingsoft.net:open-std/wps365-cli.git",
+    "note": "Official WPS 365 CLI published by Kingsoft (maintainer emails at wps.cn); embeds the official OpenAPI spec (api.yaml) and the curated command catalog."
+  },
+  "license": {
+    "status": "reviewed",
+    "analysis": "The official spec is published publicly on open.wps.cn (no auth) and distributed inside the official MIT-licensed CLI package. The MIT license covers the package contents, including the embedded spec. This collection independently authors all bilingual prose, retains attribution (ATTRIBUTION.md), does not copy the official docs site prose, and does not imply official endorsement by Kingsoft. API usage, credentials, and data-handling obligations are governed by the WPS Open Platform developer agreement between the caller and Kingsoft.",
+    "verdict": "An independently authored bilingual PontxSpec and a generated @pontx/wps-365 SDK/CLI can be published with these boundaries: attribution retained, no copying of official docs prose, no implied official endorsement, no Hub proxying/caching/aggregation of WPS 365 enterprise data, and caller-direct execution with caller-owned credentials."
+  },
+  "derivation": {
+    "boundary": "All 826 callable operations in the official Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document (806 paths / 827 operations), excluding GET /v7/oauth2/qrcode_auth_code (browser-redirect OAuth helper: official spec declares only 302+default, no JSON success contract, no official docs page, absent from the curated CLI command surface, and returns 404 Route Not Found without a browser session).",
+    "method": "one-time @pontx/spec importOpenAPI conversion followed by a source-free bilingual PontxSpec curation: stable operationIds anchor on the 101 official curated command IDs (curated.yaml) and derive deterministically from method+path otherwise; explicit tags map path modules to 24 canonical controllers (sources/tag-map.json); the 15 /v7/sse/* text/event-stream endpoints declare a typed SSE contract (message event, json dataFormat, preserve unknown events) since the official document does not enumerate event names; parameter/schema/constraint/enum/example and response semantics are retained from the official document.",
+    "paths": 806,
+    "endpoints": 826,
+    "schemas": 3119,
+    "methods": {
+      "POST": 541,
+      "GET": 284,
+      "DELETE": 1
+    },
+    "responseMediaTypes": [
+      "application/json",
+      "multipart/form-data",
+      "text/event-stream"
+    ]
+  },
+  "transport": {
+    "rest": "811 plain REST operations (GET/POST/DELETE only; the official document declares no PUT/PATCH).",
+    "sse": "15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) use text/event-stream; typed SSE contract events.message dataFormat=json, unknownEventPolicy=preserve.",
+    "callbacks": "Event subscriptions are encrypted HTTP callbacks (AES-CBC + HMAC-SHA256) pushed by WPS to the caller; not callable Pontx Endpoints.",
+    "sseAudit": {
+      "method": "Official docs search API + docs collections tree + per-doc content API (open.wps.cn/docs/api/doc/<id>); 6 of 15 paths have dedicated official doc pages (771, 772, 773, 774, 777, 53); the other 8 exist only in the OpenAPI spec.",
+      "verdict": "sse.events.message + dataFormat=json + unknownEventPolicy=preserve is faithful and kept for all 15: the official spec enumerates no event names; the only protocol-level event name documented (aidocs/search/gpt, doc 53) is literally event:message; all other endpoints carry their type/terminal discriminator inside the JSON payload, so declaring more would be speculative.",
+      "terminalMarkers": {
+        "generate_slides_from_pxf_v2 / gen_slides_from_multipages": "stream_status done (reply|done) - doc 771",
+        "ainotes": "stream_status all_done (start/slide_start_processing/processing/finish/ping/all_done) - doc 772",
+        "html2pptx": "type generate_pptx_finish (spec enum) - matches sibling doc 3881",
+        "outline/contents": "stream_status finish (spec enum) - matches sibling doc 2426",
+        "generator/generate_slides": "state end (begin/generating/begin_merge/merging/end) - spec enum",
+        "aidocs/search/gpt": "sub-codes 800100 understand -> 800200 recall -> 800300 answer -> 100100 answer done -> 100200 follow-up questions; 100113 heartbeat ignored - doc 53"
+      },
+      "specialCases": {
+        "export_pxf_from_file/text/theme": "single-event document streams (the whole pxf_root outline in one event; no stream_status field) - docs 773/777/774",
+        "aidocs/in_store/chunk": "response schema is bare $ref error, payload effectively unmodeled - upstream spec gap",
+        "docqa/insight/chat": "same sub-code family as search-gpt (inference; no dedicated doc)"
+      }
+    }
+  },
+  "riskReview": {
+    "classification": "private-enterprise-data-with-developer-terms",
+    "hubProxyEnabled": false,
+    "readEndpoints": 284,
+    "mutations": {
+      "count": 542,
+      "methods": {
+        "POST": 541,
+        "DELETE": 1
+      }
+    },
+    "credentialPolicy": "OAuth2 app (client credentials) and delegated (user authorization) tokens plus optional KSO-1 HMAC-SHA256 signing; credentials remain in the caller environment only. No credential appears in generated examples, Hub, logs, provenance, or SDK output.",
+    "executionPolicy": "Hub execution is disabled for all WPS 365 traffic. The local CLI previews every call, redacts sensitive values, and requires exact request-bound explicit confirmation before every mutation (POST/DELETE).",
+    "sensitiveAreas": [
+      "enterprise contacts and organization (addressBook 103)",
+      "cloud documents and drive files (drive 89, documents, filetransfer, wiki, doclib)",
+      "messaging and conversations (chats 35)",
+      "mailboxes and mail (mail 53)",
+      "meetings and meeting rooms (meetings 57)",
+      "approval workflows (workflow 34) and attendance (8)",
+      "compliance/DRM (security 35, audit 11)",
+      "DBSheet/smart sheets data (dbsheet 58, airsheet 25, airpage 22, sheets 25)"
+    ],
+    "sse": "15 text/event-stream endpoints under /v7/sse/* (AIPPT, AI docs, doc QA, agent chat); typed SSE contract declared; streaming responses are not buffered by the CLI."
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "candidates/wps-365/spec.pontx.json",
+      "sha256": "8d9ae0bec1e8cf37092e344f79c51a9b6e0d181e8e4dd5cc308a0bf60e389a98",
+      "endpoints": 826,
+      "schemas": 3119
+    },
+    "en-US": {
+      "path": "candidates/wps-365/locales/en-US/spec.pontx.json",
+      "endpoints": 826,
+      "schemas": 3119
+    }
+  },
+  "quality": {
+    "staticScore50": 50,
+    "findings": "0 Critical, 0 Major, 0 Minor; 1 baseline i18n.structure finding from bilingual disabledReason (consistent with launched nager-date, dropbox-sign, notion products).",
+    "verifiedAt": "2026-08-16"
+  },
+  "nextActions": {
+    "transport": "Review per-vendor SSE event semantics for the 15 /v7/sse/* endpoints against official docs.",
+    "risk": "Write per-endpoint security execution policy (app/delegated channels, KSO-1, mutation guards).",
+    "sdkCli": "Generate @pontx/wps-365 SDK + pontx-wps-365 CLI in an isolated SDK repository; operator npm publish and registry re-verification.",
+    "admission": "metadata develop → Preview → main → Production; production acceptance matrix."
+  },
+  "admission": {
+    "date": "2026-08-16",
+    "sdkPublished": {
+      "package": "@pontx/wps-365",
+      "version": "0.1.0",
+      "cli": "pontx-wps-365",
+      "repository": "https://github.com/pontjs/wps-365",
+      "sourceCommit": "59c2899",
+      "registryVerified": true,
+      "verifiedAt": "2026-08-16"
+    },
+    "gates": {
+      "authority": "passed",
+      "redistribution": "passed",
+      "contract": "passed",
+      "transport": "passed",
+      "risk": "passed",
+      "sdkCli": "passed"
+    }
+  }
+}
