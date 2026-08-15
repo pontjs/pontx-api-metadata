@@ -16,26 +16,26 @@
     "zh": "PostHog 官方托管实例公开的完整 Public API schema；不按 Explinks 的数据仓库子集裁剪。",
     "en": "The complete Public API schema exposed by an official PostHog hosted instance, not the narrower data-warehouse subset shown by Explinks."
   },
-  "stage": "protocol-blocked",
+  "stage": "contract-in-progress",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
     "redistribution": "pending",
     "contract": "pending",
-    "transport": "blocked",
+    "transport": "pending",
     "risk": "pending",
     "sdkCli": "pending"
   },
   "contractSource": {
     "kind": "openapi",
     "url": "https://eu.posthog.com/api/schema/?format=json",
-    "observedAt": "2026-08-14",
+    "observedAt": "2026-08-15",
     "mutableSource": true,
     "license": "review-required",
     "openapiVersion": "3.1.0",
-    "observedPaths": 1314,
-    "observedOperations": 1863,
-    "observedSchemas": 3403
+    "observedPaths": 1326,
+    "observedOperations": 1877,
+    "observedSchemas": 3441
   },
   "evidence": [
     {
@@ -52,29 +52,33 @@
     },
     {
       "kind": "license",
-      "url": "https://github.com/PostHog/posthog/blob/master/LICENSE"
+      "url": "https://github.com/PostHog/posthog/blob/6fca5f877e5140ddbc82c018a5458b27505c9450/LICENSE"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE"
     }
   ],
   "blockers": [
     {
       "gate": "transport",
-      "zh": "官方完整 schema 含多个 text/event-stream / SSE Endpoint；按原子暂缓规则整集阻断。",
-      "en": "The complete official schema contains multiple text/event-stream/SSE endpoints, so the whole collection is blocked by the atomic transport hold."
+      "zh": "Pontx 已具备 typed SSE 基础能力，但 metadata 当前依赖的已发布 spec 版本尚未升级；官方 schema 中实际 stream 路由仅以 string 表示响应，尚无可审核的事件联合、错误和终止语义。",
+      "en": "Pontx now has typed-SSE foundations, but metadata has not yet adopted the released spec version; the official schema represents its actual stream routes only as strings, without an auditable event union, error contract, or termination semantics."
     },
     {
       "gate": "redistribution",
-      "zh": "完整 schema 混合核心与企业能力，需确认各路径适用的 MIT/企业许可及规范再分发条件。",
-      "en": "The complete schema mixes core and enterprise capabilities; applicable MIT/enterprise licensing and specification redistribution terms require review."
+      "zh": "独立 SDK 和介绍并非因 ee/ 企业许可证而当然不可发布：官方 posthog.com 仓库对 contents/ 文档内容授予 MIT 权利，根仓库的 MIT 适用于非 ee/ 内容。但托管 schema 本身未声明许可证；必须逐项记录所用文档/源码出处，不复制 ee/、未授权 schema payload 或受限品牌资产。",
+      "en": "The ee/ Enterprise License does not by itself forbid an independently authored SDK or API introduction: the official posthog.com repository grants MIT rights for documentation under contents/, while the root repository's MIT license applies outside ee/. The hosted schema itself is unlicensed, so every reused fact or prose node still needs provenance; no ee/ code, unlicensed schema payload, or restricted brand asset may be copied."
     },
     {
       "gate": "contract",
-      "zh": "当前契约来自官方托管实例的可变 schema URL，未固定到可复现的 Git revision，不能作为不可变的完整契约快照。",
-      "en": "The current contract comes from a mutable schema URL on an official hosted instance and is not pinned to a reproducible Git revision, so it cannot serve as an immutable complete-contract snapshot."
+      "zh": "当前契约来自官方托管实例的可变 schema URL，未固定到可复现的 Git revision；官方 MIT 文档源只覆盖完整 schema 的一小部分 Endpoint。不能把托管 payload 原样入库，必须以可许可的一手文档/源码逐项独立重建并证明完整性。",
+      "en": "The current contract comes from a mutable official hosted-schema URL rather than a reproducible Git revision, while the official MIT documentation source covers only a small subset of its endpoints. The hosted payload cannot be vendored; a complete contract must be independently reconstructed from permitted first-party documentation/source and have coverage evidence."
     }
   ],
   "nextAction": {
-    "zh": "获取并固定可再分发、可复现的不可变完整 schema 快照，同时实现并验证 SSE 契约支持，再复核混合许可边界。",
-    "en": "Obtain and pin a redistributable, reproducible, immutable snapshot of the complete schema; implement and validate SSE contract support; then re-review the mixed-license boundary."
+    "zh": "建立 Endpoint/Schema/SSE 的逐项来源与覆盖矩阵：优先使用 MIT 的 contents/ 文档和非 ee/ MIT 源码，托管 schema 仅用于差异观测；升级并验证已发布 typed SSE 契约能力，随后完成敏感读取/写入策略、双语 PontxSpec 与 SDK/CLI 发布链路。",
+    "en": "Build an endpoint/schema/SSE provenance-and-coverage matrix: prefer MIT-licensed contents/ documentation and non-ee/ MIT source, using the hosted schema only for drift observation; adopt and validate a released typed-SSE contract, then complete sensitive read/write policy, bilingual PontxSpec, and the SDK/CLI release chain."
   },
-  "verifiedAt": "2026-08-14"
+  "verifiedAt": "2026-08-15"
 }
