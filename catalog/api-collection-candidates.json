@@ -260,8 +260,8 @@
       "blockers": [
         {
           "gate": "transport",
-          "zh": "2026-08-15 已复核：SQS 实际使用 AWS Query（GET 查询或 application/x-www-form-urlencoded POST），每个 action 通过 Action 与 Version 参数复用同一队列 URL；它不是普通 JSON REST。当前 OAS 路径/方法模型不能无损表示同一物理请求位点上的 23 个 RPC action，且尚未有已验证的 AWS Query、SigV4 与 endpoint-rule runtime。",
-          "en": "Reverified on 2026-08-15: SQS uses AWS Query (GET query or application/x-www-form-urlencoded POST), with Action and Version selecting 23 RPC actions at the same queue URL; it is not ordinary JSON REST. The current OAS path/method model cannot losslessly represent those logical operations at one physical request target, and no verified AWS Query, SigV4, and endpoint-rule runtime exists yet."
+          "zh": "2026-08-15 已复核：官方文档提供 AWS Query 的 GET/表单 POST；固定 Smithy 同时声明 AWS JSON 1.0、AWS Query compatibility、SigV4 和端点规则。23 个 action 以协议 action/target 而不是普通 REST path 定位，当前 OAS 路径/方法模型不能无损表达，且 Pontx 尚未具备已验证的双协议、SigV4 与 endpoint-rule 完整运行时。",
+          "en": "Reverified on 2026-08-15: official documentation provides AWS Query GET/form POST, while the pinned Smithy declares AWS JSON 1.0, AWS Query compatibility, SigV4, and endpoint rules. Its 23 actions are addressed by protocol action/target rather than ordinary REST paths, which the current OAS path/method model cannot represent losslessly; Pontx still lacks a verified complete dual-protocol, SigV4, and endpoint-rule runtime."
         },
         {
           "gate": "risk",
@@ -275,8 +275,8 @@
         }
       ],
       "nextAction": {
-        "zh": "先实现并测试 Smithy→Pontx RPC 契约（不伪造 REST path）、AWS Query 序列化、SigV4 与官方 endpoint-rule 向量；随后完成双语说明、逐 action mutation 策略和生成 SDK/CLI。",
-        "en": "First implement and test a Smithy-to-Pontx RPC contract (without fabricated REST paths), AWS Query serialization, SigV4, and the official endpoint-rule vectors; then complete bilingual prose, per-action mutation policy, and generated SDK/CLI."
+        "zh": "先实现并测试 Smithy→Pontx RPC 契约（不伪造 REST path）、主 AWS JSON 1.0 与 AWS Query compatibility、SigV4 和官方 endpoint-rule 向量；随后完成双语说明、逐 action mutation 策略和生成 SDK/CLI。",
+        "en": "First implement and test a Smithy-to-Pontx RPC contract (without fabricated REST paths), primary AWS JSON 1.0 with AWS Query compatibility, SigV4, and the official endpoint-rule vectors; then complete bilingual prose, per-action mutation policy, and generated SDK/CLI."
       },
       "verifiedAt": "2026-08-15"
     },
