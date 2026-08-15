@@ -80,7 +80,7 @@ Before executing:
 2. Preview the exact request locally:
 
 ```bash
-pnpm exec pontx-wps-365 call calendars list-calendars --dry-run
+pnpm exec pontx-wps-365 call calendars calendarList --dry-run
 ```
 
 3. Review the rendered path, body, and side effects — deletes are permanent,
