@@ -370,18 +370,27 @@ function proseForField(name, language) {
 function leafExample(name, schema) {
   if (Array.isArray(schema.enum) && schema.enum.length) return schema.enum[0];
   if (schema.const !== undefined) return schema.const;
+  if (schema.type === "boolean") return true;
+  if (schema.type === "integer") return typeof schema.minimum === "number" ? Math.max(schema.minimum, 1) : 1;
+  if (schema.type === "number") {
+    if (typeof schema.exclusiveMaximum === "number") {
+      const minimum = typeof schema.minimum === "number" ? schema.minimum : 0;
+      return minimum + (schema.exclusiveMaximum - minimum) / 2;
+    }
+    if (typeof schema.maximum === "number") {
+      return typeof schema.minimum === "number" ? (schema.minimum + schema.maximum) / 2 : schema.maximum;
+    }
+    return typeof schema.minimum === "number" ? schema.minimum : 1;
+  }
   const format = schema.format;
   if (format === "uuid" || /id$/.test(name)) return "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52";
   if (format === "date-time" || /time/.test(name)) return "2026-03-11T00:00:00.000Z";
   if (format === "date" || /date/.test(name)) return "2026-03-11";
-  if (format === "email" || /email/.test(name)) return "member@example.com";
+  if (format === "email" || name === "email") return "member@example.com";
   if (format === "uri" || format === "url" || /url|link|href|avatar|icon|cover|image/.test(name)) return "https://example.com";
   if (name === "title" || name === "name" || name === "plain_text" || name === "content") return "Example title";
   if (name === "query") return "meeting notes";
   if (name === "color") return "default";
-  if (schema.type === "boolean") return true;
-  if (schema.type === "integer") return typeof schema.minimum === "number" ? Math.max(schema.minimum, 1) : 1;
-  if (schema.type === "number") return typeof schema.minimum === "number" ? schema.minimum : 1;
   if (schema.type === "string") return "example content";
   return undefined;
 }
@@ -429,9 +438,28 @@ function copySchema(input, language, context) {
   }
   const compound = output.type === "object" || output.type === "array" || output.properties || output.items
     || output.additionalProperties || output.allOf || output.anyOf || output.oneOf || output.not;
-  if (!compound) {
+  if (output.type === "null") {
+    output.nullable = true;
+    output.examples = [null];
+  } else if (!compound) {
     const example = leafExample(context.name, output);
     if (example !== undefined) output.examples = [example];
+  }
+  // Normalize the OAS nullability encoding: oneOf [X, {type:"null"}] -> X with nullable: true.
+  // This keeps the nullable semantics while avoiding untyped {type:"null"} branches that
+  // the generator and evaluator cannot express cleanly.
+  if (output.oneOf && output.oneOf.length === 2) {
+    const [first, second] = output.oneOf;
+    const firstNull = first && first.type === "null";
+    const secondNull = second && second.type === "null";
+    if (firstNull && !secondNull && second && typeof second === "object" && !second.$ref) {
+      const merged = { ...second, nullable: true, title: output.title, description: output.description };
+      return merged;
+    }
+    if (secondNull && !firstNull && first && typeof first === "object" && !first.$ref) {
+      const merged = { ...first, nullable: true, title: output.title, description: output.description };
+      return merged;
+    }
   }
   return output;
 }
@@ -551,9 +579,16 @@ function bodyForOp(operationId, schema, schemas) {
   if (operationId === "patch-block-children") {
     return { children: [{ object: "block", type: "paragraph", paragraph: { rich_text: richText("Appended content") } }] };
   }
-  if (operationId === "create-a-database" || operationId === "create-database") {
+  if (operationId === "create-a-database") {
     return {
       parent: { database_id: SAMPLE_UUID },
+      title: richText("Example database"),
+      properties: { Name: { type: "title", title: {} } },
+    };
+  }
+  if (operationId === "create-database") {
+    return {
+      parent: { type: "page_id", page_id: SAMPLE_UUID },
       title: richText("Example database"),
       properties: { Name: { type: "title", title: {} } },
     };

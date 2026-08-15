@@ -88,19 +88,19 @@
   "outputs": {
     "zh-CN": {
       "path": "candidates/notion/spec.pontx.json",
-      "sha256": "bfc6a18b834a70f3b1ce5f40e4e54685c81cec47df3a8d59607d5c2c99149b25",
+      "sha256": "d93959c1b2618fb3b10ef6b0c2b72f38f4d18e53071e861ee496857beef41414",
       "endpoints": 49,
       "schemas": 523
     },
     "en-US": {
       "path": "candidates/notion/locales/en-US/spec.pontx.json",
-      "sha256": "a165fa95ca16ea591bac35dc7986b06dc0f901037c4daa897c750f7c5fcabad8",
+      "sha256": "5ee9706b71fa06bdf6208c0a8ea12164eb5865a27647c05da4c12819b9e69b36",
       "endpoints": 49,
       "schemas": 523
     }
   },
   "quality": {
-    "staticScore50": 49.81,
+    "staticScore50": 50,
     "summary": ""
   }
 }

@@ -7183,7 +7183,7 @@
                           "width_ratio": {
                             "description": "width ratio 字段。",
                             "examples": [
-                              1
+                              0.5
                             ],
                             "exclusiveMaximum": 1,
                             "exclusiveMinimum": 0,
@@ -8417,6 +8417,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -8490,6 +8494,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -9385,6 +9393,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -9452,6 +9464,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -9708,8 +9724,9 @@
                   {
                     "description": "资源图标。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon 值",
                     "type": "null"
                   }
@@ -10103,6 +10120,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -10179,6 +10200,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -11403,8 +11428,9 @@
                   {
                     "description": "资源图标。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon 值",
                     "type": "null"
                   }
@@ -11439,6 +11465,10 @@
                                 },
                                 {
                                   "description": "资源说明。",
+                                  "examples": [
+                                    null
+                                  ],
+                                  "nullable": true,
                                   "title": "description 值",
                                   "type": "null"
                                 }
@@ -11541,22 +11571,12 @@
                                               },
                                               "description": {
                                                 "description": "资源说明。",
-                                                "oneOf": [
-                                                  {
-                                                    "description": "资源说明。",
-                                                    "examples": [
-                                                      "example content"
-                                                    ],
-                                                    "title": "description 值",
-                                                    "type": "string"
-                                                  },
-                                                  {
-                                                    "description": "资源说明。",
-                                                    "title": "description 值",
-                                                    "type": "null"
-                                                  }
+                                                "examples": [
+                                                  "example content"
                                                 ],
-                                                "title": "description 值"
+                                                "nullable": true,
+                                                "title": "description 值",
+                                                "type": "string"
                                               }
                                             },
                                             "title": "options 值",
@@ -11666,22 +11686,12 @@
                                               },
                                               "description": {
                                                 "description": "资源说明。",
-                                                "oneOf": [
-                                                  {
-                                                    "description": "资源说明。",
-                                                    "examples": [
-                                                      "example content"
-                                                    ],
-                                                    "title": "description 值",
-                                                    "type": "string"
-                                                  },
-                                                  {
-                                                    "description": "资源说明。",
-                                                    "title": "description 值",
-                                                    "type": "null"
-                                                  }
+                                                "examples": [
+                                                  "example content"
                                                 ],
-                                                "title": "description 值"
+                                                "nullable": true,
+                                                "title": "description 值",
+                                                "type": "string"
                                               }
                                             },
                                             "title": "options 值",
@@ -12072,22 +12082,12 @@
                                   "properties": {
                                     "prefix": {
                                       "description": "prefix 字段。",
-                                      "oneOf": [
-                                        {
-                                          "description": "prefix 字段。",
-                                          "examples": [
-                                            "example content"
-                                          ],
-                                          "title": "prefix 值",
-                                          "type": "string"
-                                        },
-                                        {
-                                          "description": "prefix 字段。",
-                                          "title": "prefix 值",
-                                          "type": "null"
-                                        }
+                                      "examples": [
+                                        "example content"
                                       ],
-                                      "title": "prefix 值"
+                                      "nullable": true,
+                                      "title": "prefix 值",
+                                      "type": "string"
                                     }
                                   },
                                   "title": "unique id 值",
@@ -12435,6 +12435,10 @@
                     },
                     {
                       "description": "页面属性值或数据源属性模式。",
+                      "examples": [
+                        null
+                      ],
+                      "nullable": true,
                       "title": "properties 值",
                       "type": "null"
                     }
@@ -12860,7 +12864,8 @@
           "request": {
             "body": {
               "parent": {
-                "database_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
+                "page_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52",
+                "type": "page_id"
               },
               "properties": {
                 "Name": {
@@ -14409,6 +14414,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -14482,6 +14491,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -18647,7 +18660,7 @@
                                       "email_verified": {
                                         "description": "email verified 字段。",
                                         "examples": [
-                                          "member@example.com"
+                                          true
                                         ],
                                         "title": "email verified 值",
                                         "type": "boolean"
@@ -18894,7 +18907,7 @@
                                   "email_verified": {
                                     "description": "email verified 字段。",
                                     "examples": [
-                                      "member@example.com"
+                                      true
                                     ],
                                     "title": "email verified 值",
                                     "type": "boolean"
@@ -19952,8 +19965,9 @@
                   {
                     "description": "资源封面。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "cover 值",
                     "type": "null"
                   }
@@ -19977,8 +19991,9 @@
                   {
                     "description": "资源图标。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon 值",
                     "type": "null"
                   }
@@ -20121,8 +20136,9 @@
                             {
                               "description": "资源在 Notion 中的打开链接。",
                               "examples": [
-                                "https://example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "url 值",
                               "type": "null"
                             }
@@ -20157,6 +20173,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -20191,6 +20211,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -20213,6 +20237,10 @@
                             },
                             {
                               "description": "单选选项。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "select 值",
                               "type": "null"
                             }
@@ -20258,6 +20286,10 @@
                                       },
                                       {
                                         "description": "资源说明。",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description 值",
                                         "type": "null"
                                       }
@@ -20292,6 +20324,10 @@
                                       },
                                       {
                                         "description": "资源说明。",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description 值",
                                         "type": "null"
                                       }
@@ -20386,8 +20422,9 @@
                             {
                               "description": "电子邮件地址。",
                               "examples": [
-                                "member@example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "email 值",
                               "type": "null"
                             }
@@ -20422,6 +20459,10 @@
                             },
                             {
                               "description": "phone number 字段。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "phone number 值",
                               "type": "null"
                             }
@@ -20457,8 +20498,9 @@
                             {
                               "description": "日期或时间。",
                               "examples": [
-                                "2026-03-11"
+                                null
                               ],
+                              "nullable": true,
                               "title": "date 值",
                               "type": "null"
                             }
@@ -20597,6 +20639,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -20631,6 +20677,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -20653,6 +20703,10 @@
                             },
                             {
                               "description": "HTTP 状态码。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "status 值",
                               "type": "null"
                             }
@@ -21204,8 +21258,9 @@
                   {
                     "description": "资源封面。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "cover 值",
                     "type": "null"
                   }
@@ -21221,8 +21276,9 @@
                   {
                     "description": "资源图标。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon 值",
                     "type": "null"
                   }
@@ -21456,8 +21512,9 @@
                             {
                               "description": "资源在 Notion 中的打开链接。",
                               "examples": [
-                                "https://example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "url 值",
                               "type": "null"
                             }
@@ -21492,6 +21549,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -21526,6 +21587,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -21548,6 +21613,10 @@
                             },
                             {
                               "description": "单选选项。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "select 值",
                               "type": "null"
                             }
@@ -21593,6 +21662,10 @@
                                       },
                                       {
                                         "description": "资源说明。",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description 值",
                                         "type": "null"
                                       }
@@ -21627,6 +21700,10 @@
                                       },
                                       {
                                         "description": "资源说明。",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description 值",
                                         "type": "null"
                                       }
@@ -21721,8 +21798,9 @@
                             {
                               "description": "电子邮件地址。",
                               "examples": [
-                                "member@example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "email 值",
                               "type": "null"
                             }
@@ -21757,6 +21835,10 @@
                             },
                             {
                               "description": "phone number 字段。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "phone number 值",
                               "type": "null"
                             }
@@ -21792,8 +21874,9 @@
                             {
                               "description": "日期或时间。",
                               "examples": [
-                                "2026-03-11"
+                                null
                               ],
+                              "nullable": true,
                               "title": "date 值",
                               "type": "null"
                             }
@@ -21932,6 +22015,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -21966,6 +22053,10 @@
                                     },
                                     {
                                       "description": "资源说明。",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description 值",
                                       "type": "null"
                                     }
@@ -21988,6 +22079,10 @@
                             },
                             {
                               "description": "HTTP 状态码。",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "status 值",
                               "type": "null"
                             }
@@ -27082,6 +27177,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -27155,6 +27254,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -27487,6 +27590,10 @@
                       },
                       {
                         "description": "下一页游标（不透明，应原样回传）。",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor 值",
                         "type": "null"
                       }
@@ -27560,6 +27667,10 @@
                   },
                   {
                     "description": "下一页游标（不透明，应原样回传）。",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor 值",
                     "type": "null"
                   }
@@ -32876,30 +32987,20 @@
         "properties": {
           "card_layout": {
             "description": "card layout 字段。",
-            "oneOf": [
-              {
-                "description": "card layout 字段。",
-                "enum": [
-                  "list",
-                  "compact"
-                ],
-                "enumValueTitles": {
-                  "compact": "枚举值：compact。",
-                  "list": "枚举值：list。"
-                },
-                "examples": [
-                  "list"
-                ],
-                "title": "card layout 值",
-                "type": "string"
-              },
-              {
-                "description": "card layout 字段。",
-                "title": "card layout 值",
-                "type": "null"
-              }
+            "enum": [
+              "list",
+              "compact"
             ],
-            "title": "card layout 值"
+            "enumValueTitles": {
+              "compact": "枚举值：compact。",
+              "list": "枚举值：list。"
+            },
+            "examples": [
+              "list"
+            ],
+            "nullable": true,
+            "title": "card layout 值",
+            "type": "string"
           },
           "cover": {
             "description": "资源封面。",
@@ -32910,8 +33011,9 @@
               {
                 "description": "资源封面。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover 值",
                 "type": "null"
               }
@@ -32920,88 +33022,52 @@
           },
           "cover_aspect": {
             "description": "cover aspect 字段。",
-            "oneOf": [
-              {
-                "description": "cover aspect 字段。",
-                "enum": [
-                  "contain",
-                  "cover"
-                ],
-                "enumValueTitles": {
-                  "contain": "枚举值：contain。",
-                  "cover": "枚举值：cover。"
-                },
-                "examples": [
-                  "contain"
-                ],
-                "title": "cover aspect 值",
-                "type": "string"
-              },
-              {
-                "description": "cover aspect 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover aspect 值",
-                "type": "null"
-              }
+            "enum": [
+              "contain",
+              "cover"
             ],
-            "title": "cover aspect 值"
+            "enumValueTitles": {
+              "contain": "枚举值：contain。",
+              "cover": "枚举值：cover。"
+            },
+            "examples": [
+              "contain"
+            ],
+            "nullable": true,
+            "title": "cover aspect 值",
+            "type": "string"
           },
           "cover_size": {
             "description": "cover size 字段。",
-            "oneOf": [
-              {
-                "description": "cover size 字段。",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large"
-                ],
-                "enumValueTitles": {
-                  "large": "枚举值：large。",
-                  "medium": "枚举值：medium。",
-                  "small": "枚举值：small。"
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "cover size 值",
-                "type": "string"
-              },
-              {
-                "description": "cover size 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover size 值",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large"
             ],
-            "title": "cover size 值"
+            "enumValueTitles": {
+              "large": "枚举值：large。",
+              "medium": "枚举值：medium。",
+              "small": "枚举值：small。"
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "cover size 值",
+            "type": "string"
           },
           "group_by": {
             "$ref": "#/components/schemas/groupByConfigRequest"
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "sub_group_by": {
             "description": "sub group by 字段。",
@@ -33011,6 +33077,10 @@
               },
               {
                 "description": "sub group by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "sub group by 值",
                 "type": "null"
               }
@@ -33251,22 +33321,12 @@
         "properties": {
           "boolean": {
             "description": "boolean 字段。",
-            "oneOf": [
-              {
-                "description": "boolean 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "boolean 值",
-                "type": "boolean"
-              },
-              {
-                "description": "boolean 字段。",
-                "title": "boolean 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "boolean 值"
+            "nullable": true,
+            "title": "boolean 值",
+            "type": "boolean"
           },
           "type": {
             "const": "boolean",
@@ -33314,50 +33374,24 @@
                         "properties": {
                           "avatar_url": {
                             "description": "avatar url 字段。",
-                            "oneOf": [
-                              {
-                                "description": "avatar url 字段。",
-                                "examples": [
-                                  "https://example.com"
-                                ],
-                                "title": "avatar url 值",
-                                "type": "string"
-                              },
-                              {
-                                "description": "avatar url 字段。",
-                                "examples": [
-                                  "https://example.com"
-                                ],
-                                "title": "avatar url 值",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "https://example.com"
                             ],
-                            "title": "avatar url 值"
+                            "nullable": true,
+                            "title": "avatar url 值",
+                            "type": "string"
                           },
                           "id": {
                             "$ref": "#/components/schemas/idResponse"
                           },
                           "name": {
                             "description": "名称。",
-                            "oneOf": [
-                              {
-                                "description": "名称。",
-                                "examples": [
-                                  "Example title"
-                                ],
-                                "title": "name 值",
-                                "type": "string"
-                              },
-                              {
-                                "description": "名称。",
-                                "examples": [
-                                  "Example title"
-                                ],
-                                "title": "name 值",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "Example title"
                             ],
-                            "title": "name 值"
+                            "nullable": true,
+                            "title": "name 值",
+                            "type": "string"
                           },
                           "object": {
                             "const": "user",
@@ -33383,7 +33417,7 @@
                               "email_verified": {
                                 "description": "email verified 字段。",
                                 "examples": [
-                                  "member@example.com"
+                                  true
                                 ],
                                 "title": "email verified 值",
                                 "type": "boolean"
@@ -33490,22 +33524,12 @@
           },
           "workspace_name": {
             "description": "工作区名称。",
-            "oneOf": [
-              {
-                "description": "工作区名称。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "workspace name 值",
-                "type": "string"
-              },
-              {
-                "description": "工作区名称。",
-                "title": "workspace name 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "workspace name 值"
+            "nullable": true,
+            "title": "workspace name 值",
+            "type": "string"
           }
         },
         "required": [
@@ -33836,42 +33860,22 @@
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "show_weekends": {
             "description": "show weekends 字段。",
-            "oneOf": [
-              {
-                "description": "show weekends 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "show weekends 值",
-                "type": "boolean"
-              },
-              {
-                "description": "show weekends 字段。",
-                "title": "show weekends 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show weekends 值"
+            "nullable": true,
+            "title": "show weekends 值",
+            "type": "boolean"
           },
           "type": {
             "const": "calendar",
@@ -33884,30 +33888,20 @@
           },
           "view_range": {
             "description": "view range 字段。",
-            "oneOf": [
-              {
-                "description": "view range 字段。",
-                "enum": [
-                  "week",
-                  "month"
-                ],
-                "enumValueTitles": {
-                  "month": "枚举值：month。",
-                  "week": "枚举值：week。"
-                },
-                "examples": [
-                  "week"
-                ],
-                "title": "view range 值",
-                "type": "string"
-              },
-              {
-                "description": "view range 字段。",
-                "title": "view range 值",
-                "type": "null"
-              }
+            "enum": [
+              "week",
+              "month"
             ],
-            "title": "view range 值"
+            "enumValueTitles": {
+              "month": "枚举值：month。",
+              "week": "枚举值：week。"
+            },
+            "examples": [
+              "week"
+            ],
+            "nullable": true,
+            "title": "view range 值",
+            "type": "string"
           }
         },
         "required": [
@@ -34004,8 +33998,9 @@
                   {
                     "description": "资源图标。",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon 值",
                     "type": "null"
                   }
@@ -34436,53 +34431,33 @@
         "properties": {
           "axis_labels": {
             "description": "axis labels 字段。",
-            "oneOf": [
-              {
-                "description": "axis labels 字段。",
-                "enum": [
-                  "none",
-                  "x_axis",
-                  "y_axis",
-                  "both"
-                ],
-                "enumValueTitles": {
-                  "both": "枚举值：both。",
-                  "none": "枚举值：none。",
-                  "x_axis": "枚举值：x_axis。",
-                  "y_axis": "枚举值：y_axis。"
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "axis labels 值",
-                "type": "string"
-              },
-              {
-                "description": "axis labels 字段。",
-                "title": "axis labels 值",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "x_axis",
+              "y_axis",
+              "both"
             ],
-            "title": "axis labels 值"
+            "enumValueTitles": {
+              "both": "枚举值：both。",
+              "none": "枚举值：none。",
+              "x_axis": "枚举值：x_axis。",
+              "y_axis": "枚举值：y_axis。"
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "axis labels 值",
+            "type": "string"
           },
           "caption": {
             "description": "caption 字段。",
-            "oneOf": [
-              {
-                "description": "caption 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "caption 值",
-                "type": "string"
-              },
-              {
-                "description": "caption 字段。",
-                "title": "caption 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "caption 值"
+            "nullable": true,
+            "title": "caption 值",
+            "type": "string"
           },
           "chart_type": {
             "description": "chart type 字段。",
@@ -34508,385 +34483,235 @@
           },
           "color_by_value": {
             "description": "color by value 字段。",
-            "oneOf": [
-              {
-                "description": "color by value 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "color by value 值",
-                "type": "boolean"
-              },
-              {
-                "description": "color by value 字段。",
-                "title": "color by value 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "color by value 值"
+            "nullable": true,
+            "title": "color by value 值",
+            "type": "boolean"
           },
           "color_theme": {
             "description": "color theme 字段。",
-            "oneOf": [
-              {
-                "description": "color theme 字段。",
-                "enum": [
-                  "gray",
-                  "blue",
-                  "yellow",
-                  "green",
-                  "purple",
-                  "teal",
-                  "orange",
-                  "pink",
-                  "red",
-                  "auto",
-                  "colorful"
-                ],
-                "enumValueTitles": {
-                  "auto": "枚举值：auto。",
-                  "blue": "枚举值：blue。",
-                  "colorful": "枚举值：colorful。",
-                  "gray": "枚举值：gray。",
-                  "green": "枚举值：green。",
-                  "orange": "枚举值：orange。",
-                  "pink": "枚举值：pink。",
-                  "purple": "枚举值：purple。",
-                  "red": "枚举值：red。",
-                  "teal": "枚举值：teal。",
-                  "yellow": "枚举值：yellow。"
-                },
-                "examples": [
-                  "gray"
-                ],
-                "title": "color theme 值",
-                "type": "string"
-              },
-              {
-                "description": "color theme 字段。",
-                "title": "color theme 值",
-                "type": "null"
-              }
+            "enum": [
+              "gray",
+              "blue",
+              "yellow",
+              "green",
+              "purple",
+              "teal",
+              "orange",
+              "pink",
+              "red",
+              "auto",
+              "colorful"
             ],
-            "title": "color theme 值"
+            "enumValueTitles": {
+              "auto": "枚举值：auto。",
+              "blue": "枚举值：blue。",
+              "colorful": "枚举值：colorful。",
+              "gray": "枚举值：gray。",
+              "green": "枚举值：green。",
+              "orange": "枚举值：orange。",
+              "pink": "枚举值：pink。",
+              "purple": "枚举值：purple。",
+              "red": "枚举值：red。",
+              "teal": "枚举值：teal。",
+              "yellow": "枚举值：yellow。"
+            },
+            "examples": [
+              "gray"
+            ],
+            "nullable": true,
+            "title": "color theme 值",
+            "type": "string"
           },
           "cumulative": {
             "description": "cumulative 字段。",
-            "oneOf": [
-              {
-                "description": "cumulative 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "cumulative 值",
-                "type": "boolean"
-              },
-              {
-                "description": "cumulative 字段。",
-                "title": "cumulative 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "cumulative 值"
+            "nullable": true,
+            "title": "cumulative 值",
+            "type": "boolean"
           },
           "donut_labels": {
             "description": "donut labels 字段。",
-            "oneOf": [
-              {
-                "description": "donut labels 字段。",
-                "enum": [
-                  "none",
-                  "value",
-                  "name",
-                  "name_and_value"
-                ],
-                "enumValueTitles": {
-                  "name": "枚举值：name。",
-                  "name_and_value": "枚举值：name_and_value。",
-                  "none": "枚举值：none。",
-                  "value": "枚举值：value。"
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "donut labels 值",
-                "type": "string"
-              },
-              {
-                "description": "donut labels 字段。",
-                "title": "donut labels 值",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "value",
+              "name",
+              "name_and_value"
             ],
-            "title": "donut labels 值"
+            "enumValueTitles": {
+              "name": "枚举值：name。",
+              "name_and_value": "枚举值：name_and_value。",
+              "none": "枚举值：none。",
+              "value": "枚举值：value。"
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "donut labels 值",
+            "type": "string"
           },
           "grid_lines": {
             "description": "grid lines 字段。",
-            "oneOf": [
-              {
-                "description": "grid lines 字段。",
-                "enum": [
-                  "none",
-                  "horizontal",
-                  "vertical",
-                  "both"
-                ],
-                "enumValueTitles": {
-                  "both": "枚举值：both。",
-                  "horizontal": "枚举值：horizontal。",
-                  "none": "枚举值：none。",
-                  "vertical": "枚举值：vertical。"
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "grid lines 值",
-                "type": "string"
-              },
-              {
-                "description": "grid lines 字段。",
-                "title": "grid lines 值",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "horizontal",
+              "vertical",
+              "both"
             ],
-            "title": "grid lines 值"
+            "enumValueTitles": {
+              "both": "枚举值：both。",
+              "horizontal": "枚举值：horizontal。",
+              "none": "枚举值：none。",
+              "vertical": "枚举值：vertical。"
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "grid lines 值",
+            "type": "string"
           },
           "group_style": {
             "description": "group style 字段。",
-            "oneOf": [
-              {
-                "description": "group style 字段。",
-                "enum": [
-                  "normal",
-                  "percent",
-                  "side_by_side"
-                ],
-                "enumValueTitles": {
-                  "normal": "枚举值：normal。",
-                  "percent": "枚举值：percent。",
-                  "side_by_side": "枚举值：side_by_side。"
-                },
-                "examples": [
-                  "normal"
-                ],
-                "title": "group style 值",
-                "type": "string"
-              },
-              {
-                "description": "group style 字段。",
-                "title": "group style 值",
-                "type": "null"
-              }
+            "enum": [
+              "normal",
+              "percent",
+              "side_by_side"
             ],
-            "title": "group style 值"
+            "enumValueTitles": {
+              "normal": "枚举值：normal。",
+              "percent": "枚举值：percent。",
+              "side_by_side": "枚举值：side_by_side。"
+            },
+            "examples": [
+              "normal"
+            ],
+            "nullable": true,
+            "title": "group style 值",
+            "type": "string"
           },
           "height": {
             "description": "height 字段。",
-            "oneOf": [
-              {
-                "description": "height 字段。",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large",
-                  "extra_large"
-                ],
-                "enumValueTitles": {
-                  "extra_large": "枚举值：extra_large。",
-                  "large": "枚举值：large。",
-                  "medium": "枚举值：medium。",
-                  "small": "枚举值：small。"
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "height 值",
-                "type": "string"
-              },
-              {
-                "description": "height 字段。",
-                "title": "height 值",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "extra_large"
             ],
-            "title": "height 值"
+            "enumValueTitles": {
+              "extra_large": "枚举值：extra_large。",
+              "large": "枚举值：large。",
+              "medium": "枚举值：medium。",
+              "small": "枚举值：small。"
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "height 值",
+            "type": "string"
           },
           "hide_empty_groups": {
             "description": "hide empty groups 字段。",
-            "oneOf": [
-              {
-                "description": "hide empty groups 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "hide empty groups 值",
-                "type": "boolean"
-              },
-              {
-                "description": "hide empty groups 字段。",
-                "title": "hide empty groups 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide empty groups 值"
+            "nullable": true,
+            "title": "hide empty groups 值",
+            "type": "boolean"
           },
           "hide_line_fill_area": {
             "description": "hide line fill area 字段。",
-            "oneOf": [
-              {
-                "description": "hide line fill area 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "hide line fill area 值",
-                "type": "boolean"
-              },
-              {
-                "description": "hide line fill area 字段。",
-                "title": "hide line fill area 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide line fill area 值"
+            "nullable": true,
+            "title": "hide line fill area 值",
+            "type": "boolean"
           },
           "hide_title": {
             "description": "hide title 字段。",
-            "oneOf": [
-              {
-                "description": "hide title 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "hide title 值",
-                "type": "boolean"
-              },
-              {
-                "description": "hide title 字段。",
-                "title": "hide title 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide title 值"
+            "nullable": true,
+            "title": "hide title 值",
+            "type": "boolean"
           },
           "legend_position": {
             "description": "legend position 字段。",
-            "oneOf": [
-              {
-                "description": "legend position 字段。",
-                "enum": [
-                  "off",
-                  "bottom",
-                  "side"
-                ],
-                "enumValueTitles": {
-                  "bottom": "枚举值：bottom。",
-                  "off": "枚举值：off。",
-                  "side": "枚举值：side。"
-                },
-                "examples": [
-                  "off"
-                ],
-                "title": "legend position 值",
-                "type": "string"
-              },
-              {
-                "description": "legend position 字段。",
-                "title": "legend position 值",
-                "type": "null"
-              }
+            "enum": [
+              "off",
+              "bottom",
+              "side"
             ],
-            "title": "legend position 值"
+            "enumValueTitles": {
+              "bottom": "枚举值：bottom。",
+              "off": "枚举值：off。",
+              "side": "枚举值：side。"
+            },
+            "examples": [
+              "off"
+            ],
+            "nullable": true,
+            "title": "legend position 值",
+            "type": "string"
           },
           "reference_lines": {
             "description": "reference lines 字段。",
-            "oneOf": [
-              {
-                "description": "reference lines 字段。",
-                "items": {
-                  "$ref": "#/components/schemas/chartReferenceLineRequest"
-                },
-                "maxItems": 100,
-                "title": "reference lines 值",
-                "type": "array"
-              },
-              {
-                "description": "reference lines 字段。",
-                "title": "reference lines 值",
-                "type": "null"
-              }
-            ],
-            "title": "reference lines 值"
+            "items": {
+              "$ref": "#/components/schemas/chartReferenceLineRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "reference lines 值",
+            "type": "array"
           },
           "show_data_labels": {
             "description": "show data labels 字段。",
-            "oneOf": [
-              {
-                "description": "show data labels 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "show data labels 值",
-                "type": "boolean"
-              },
-              {
-                "description": "show data labels 字段。",
-                "title": "show data labels 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show data labels 值"
+            "nullable": true,
+            "title": "show data labels 值",
+            "type": "boolean"
           },
           "smooth_line": {
             "description": "smooth line 字段。",
-            "oneOf": [
-              {
-                "description": "smooth line 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "smooth line 值",
-                "type": "boolean"
-              },
-              {
-                "description": "smooth line 字段。",
-                "title": "smooth line 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "smooth line 值"
+            "nullable": true,
+            "title": "smooth line 值",
+            "type": "boolean"
           },
           "sort": {
             "description": "排序条件。",
-            "oneOf": [
-              {
-                "description": "排序条件。",
-                "enum": [
-                  "manual",
-                  "x_ascending",
-                  "x_descending",
-                  "y_ascending",
-                  "y_descending"
-                ],
-                "enumValueTitles": {
-                  "manual": "枚举值：manual。",
-                  "x_ascending": "枚举值：x_ascending。",
-                  "x_descending": "枚举值：x_descending。",
-                  "y_ascending": "枚举值：y_ascending。",
-                  "y_descending": "枚举值：y_descending。"
-                },
-                "examples": [
-                  "manual"
-                ],
-                "title": "sort 值",
-                "type": "string"
-              },
-              {
-                "description": "排序条件。",
-                "title": "sort 值",
-                "type": "null"
-              }
+            "enum": [
+              "manual",
+              "x_ascending",
+              "x_descending",
+              "y_ascending",
+              "y_descending"
             ],
-            "title": "sort 值"
+            "enumValueTitles": {
+              "manual": "枚举值：manual。",
+              "x_ascending": "枚举值：x_ascending。",
+              "x_descending": "枚举值：x_descending。",
+              "y_ascending": "枚举值：y_ascending。",
+              "y_descending": "枚举值：y_descending。"
+            },
+            "examples": [
+              "manual"
+            ],
+            "nullable": true,
+            "title": "sort 值",
+            "type": "string"
           },
           "stack_by": {
             "description": "stack by 字段。",
@@ -34896,6 +34721,10 @@
               },
               {
                 "description": "stack by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "stack by 值",
                 "type": "null"
               }
@@ -34919,6 +34748,10 @@
               },
               {
                 "description": "属性值。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "value 值",
                 "type": "null"
               }
@@ -34933,6 +34766,10 @@
               },
               {
                 "description": "x axis 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "x axis 值",
                 "type": "null"
               }
@@ -34941,25 +34778,12 @@
           },
           "x_axis_property_id": {
             "description": "x axis property id 字段。",
-            "oneOf": [
-              {
-                "description": "x axis property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "x axis property id 值",
-                "type": "string"
-              },
-              {
-                "description": "x axis property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "x axis property id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "x axis property id 值"
+            "nullable": true,
+            "title": "x axis property id 值",
+            "type": "string"
           },
           "y_axis": {
             "description": "y axis 字段。",
@@ -34969,6 +34793,10 @@
               },
               {
                 "description": "y axis 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "y axis 值",
                 "type": "null"
               }
@@ -34977,63 +34805,30 @@
           },
           "y_axis_max": {
             "description": "y axis max 字段。",
-            "oneOf": [
-              {
-                "description": "y axis max 字段。",
-                "examples": [
-                  1
-                ],
-                "title": "y axis max 值",
-                "type": "number"
-              },
-              {
-                "description": "y axis max 字段。",
-                "title": "y axis max 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis max 值"
+            "nullable": true,
+            "title": "y axis max 值",
+            "type": "number"
           },
           "y_axis_min": {
             "description": "y axis min 字段。",
-            "oneOf": [
-              {
-                "description": "y axis min 字段。",
-                "examples": [
-                  1
-                ],
-                "title": "y axis min 值",
-                "type": "number"
-              },
-              {
-                "description": "y axis min 字段。",
-                "title": "y axis min 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis min 值"
+            "nullable": true,
+            "title": "y axis min 值",
+            "type": "number"
           },
           "y_axis_property_id": {
             "description": "y axis property id 字段。",
-            "oneOf": [
-              {
-                "description": "y axis property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "y axis property id 值",
-                "type": "string"
-              },
-              {
-                "description": "y axis property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "y axis property id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "y axis property id 值"
+            "nullable": true,
+            "title": "y axis property id 值",
+            "type": "string"
           }
         },
         "required": [
@@ -35069,22 +34864,12 @@
           },
           "caption": {
             "description": "caption 字段。",
-            "oneOf": [
-              {
-                "description": "caption 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "caption 值",
-                "type": "string"
-              },
-              {
-                "description": "caption 字段。",
-                "title": "caption 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "caption 值"
+            "nullable": true,
+            "title": "caption 值",
+            "type": "string"
           },
           "chart_type": {
             "description": "chart type 字段。",
@@ -35280,23 +35065,13 @@
           },
           "reference_lines": {
             "description": "reference lines 字段。",
-            "oneOf": [
-              {
-                "description": "reference lines 字段。",
-                "items": {
-                  "$ref": "#/components/schemas/chartReferenceLineResponse"
-                },
-                "maxItems": 100,
-                "title": "reference lines 值",
-                "type": "array"
-              },
-              {
-                "description": "reference lines 字段。",
-                "title": "reference lines 值",
-                "type": "null"
-              }
-            ],
-            "title": "reference lines 值"
+            "items": {
+              "$ref": "#/components/schemas/chartReferenceLineResponse"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "reference lines 值",
+            "type": "array"
           },
           "show_data_labels": {
             "description": "show data labels 字段。",
@@ -35344,6 +35119,10 @@
               },
               {
                 "description": "stack by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "stack by 值",
                 "type": "null"
               }
@@ -35370,6 +35149,10 @@
               },
               {
                 "description": "x axis 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "x axis 值",
                 "type": "null"
               }
@@ -35392,6 +35175,10 @@
               },
               {
                 "description": "y axis 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "y axis 值",
                 "type": "null"
               }
@@ -35400,41 +35187,21 @@
           },
           "y_axis_max": {
             "description": "y axis max 字段。",
-            "oneOf": [
-              {
-                "description": "y axis max 字段。",
-                "examples": [
-                  1
-                ],
-                "title": "y axis max 值",
-                "type": "number"
-              },
-              {
-                "description": "y axis max 字段。",
-                "title": "y axis max 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis max 值"
+            "nullable": true,
+            "title": "y axis max 值",
+            "type": "number"
           },
           "y_axis_min": {
             "description": "y axis min 字段。",
-            "oneOf": [
-              {
-                "description": "y axis min 字段。",
-                "examples": [
-                  1
-                ],
-                "title": "y axis min 值",
-                "type": "number"
-              },
-              {
-                "description": "y axis min 字段。",
-                "title": "y axis min 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis min 值"
+            "nullable": true,
+            "title": "y axis min 值",
+            "type": "number"
           },
           "y_axis_property_id": {
             "description": "y axis property id 字段。",
@@ -36283,7 +36050,7 @@
           "width_ratio": {
             "description": "width ratio 字段。",
             "examples": [
-              1
+              0.5
             ],
             "exclusiveMaximum": 1,
             "exclusiveMinimum": 0,
@@ -36467,22 +36234,12 @@
             "properties": {
               "resolved_name": {
                 "description": "resolved name 字段。",
-                "oneOf": [
-                  {
-                    "description": "resolved name 字段。",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "resolved name 值",
-                    "type": "string"
-                  },
-                  {
-                    "description": "resolved name 字段。",
-                    "title": "resolved name 值",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "resolved name 值"
+                "nullable": true,
+                "title": "resolved name 值",
+                "type": "string"
               },
               "type": {
                 "description": "对象或块类型。",
@@ -36847,8 +36604,9 @@
               {
                 "description": "资源图标。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon 值",
                 "type": "null"
               }
@@ -37911,8 +37669,9 @@
               {
                 "description": "资源封面。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover 值",
                 "type": "null"
               }
@@ -37952,8 +37711,9 @@
               {
                 "description": "资源图标。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon 值",
                 "type": "null"
               }
@@ -38013,25 +37773,12 @@
           },
           "public_url": {
             "description": "公开访问链接。",
-            "oneOf": [
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "string"
-              },
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url 值"
+            "nullable": true,
+            "title": "public url 值",
+            "type": "string"
           },
           "title": {
             "description": "资源标题。",
@@ -38173,25 +37920,12 @@
                         },
                         "name": {
                           "description": "名称。",
-                          "oneOf": [
-                            {
-                              "description": "名称。",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name 值",
-                              "type": "string"
-                            },
-                            {
-                              "description": "名称。",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name 值",
-                              "type": "null"
-                            }
+                          "examples": [
+                            "Example title"
                           ],
-                          "title": "name 值"
+                          "nullable": true,
+                          "title": "name 值",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -38297,6 +38031,10 @@
               },
               {
                 "description": "configuration 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "configuration 值",
                 "type": "null"
               }
@@ -38311,6 +38049,10 @@
               },
               {
                 "description": "创建者。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "created by 值",
                 "type": "null"
               }
@@ -38336,25 +38078,12 @@
           },
           "data_source_id": {
             "description": "数据源 ID。",
-            "oneOf": [
-              {
-                "description": "数据源 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "data source id 值",
-                "type": "string"
-              },
-              {
-                "description": "数据源 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "data source id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "data source id 值"
+            "nullable": true,
+            "title": "data source id 值",
+            "type": "string"
           },
           "filter": {
             "description": "过滤条件。",
@@ -38364,6 +38093,10 @@
               },
               {
                 "description": "过滤条件。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "filter 值",
                 "type": "null"
               }
@@ -38381,6 +38114,10 @@
               },
               {
                 "description": "最后编辑者。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "last edited by 值",
                 "type": "null"
               }
@@ -38417,43 +38154,23 @@
             "$ref": "#/components/schemas/databaseParentResponse"
           },
           "quick_filters": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/quickFilterConditionResponse"
+            },
             "description": "quick filters 字段。",
-            "oneOf": [
-              {
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/quickFilterConditionResponse"
-                },
-                "description": "quick filters 字段。",
-                "title": "quick filters 值",
-                "type": "object"
-              },
-              {
-                "description": "quick filters 字段。",
-                "title": "quick filters 值",
-                "type": "null"
-              }
-            ],
-            "title": "quick filters 值"
+            "nullable": true,
+            "title": "quick filters 值",
+            "type": "object"
           },
           "sorts": {
             "description": "sorts 字段。",
-            "oneOf": [
-              {
-                "description": "sorts 字段。",
-                "items": {
-                  "$ref": "#/components/schemas/viewSortResponse"
-                },
-                "maxItems": 100,
-                "title": "sorts 值",
-                "type": "array"
-              },
-              {
-                "description": "sorts 字段。",
-                "title": "sorts 值",
-                "type": "null"
-              }
-            ],
-            "title": "sorts 值"
+            "items": {
+              "$ref": "#/components/schemas/viewSortResponse"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "sorts 值",
+            "type": "array"
           },
           "type": {
             "description": "对象或块类型。",
@@ -38744,8 +38461,9 @@
               {
                 "description": "资源封面。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover 值",
                 "type": "null"
               }
@@ -38788,8 +38506,9 @@
               {
                 "description": "资源图标。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon 值",
                 "type": "null"
               }
@@ -38846,25 +38565,12 @@
           },
           "public_url": {
             "description": "公开访问链接。",
-            "oneOf": [
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "string"
-              },
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url 值"
+            "nullable": true,
+            "title": "public url 值",
+            "type": "string"
           },
           "title": {
             "description": "资源标题。",
@@ -39018,6 +38724,10 @@
               },
               {
                 "description": "资源说明。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "description 值",
                 "type": "null"
               }
@@ -39137,25 +38847,12 @@
                         },
                         "name": {
                           "description": "名称。",
-                          "oneOf": [
-                            {
-                              "description": "名称。",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name 值",
-                              "type": "string"
-                            },
-                            {
-                              "description": "名称。",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name 值",
-                              "type": "null"
-                            }
+                          "examples": [
+                            "Example title"
                           ],
-                          "title": "name 值"
+                          "nullable": true,
+                          "title": "name 值",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -39283,8 +38980,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -39322,8 +39020,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -39562,8 +39261,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -39791,8 +39491,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -39842,23 +39543,13 @@
         "properties": {
           "end": {
             "description": "时间范围结束。",
-            "oneOf": [
-              {
-                "description": "时间范围结束。",
-                "examples": [
-                  "2026-03-11"
-                ],
-                "format": "date",
-                "title": "end 值",
-                "type": "string"
-              },
-              {
-                "description": "时间范围结束。",
-                "title": "end 值",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11"
             ],
-            "title": "end 值"
+            "format": "date",
+            "nullable": true,
+            "title": "end 值",
+            "type": "string"
           },
           "start": {
             "description": "时间范围开始。",
@@ -39878,8 +39569,9 @@
               {
                 "description": "时区。",
                 "examples": [
-                  "2026-03-11T00:00:00.000Z"
+                  null
                 ],
+                "nullable": true,
                 "title": "time zone 值",
                 "type": "null"
               }
@@ -39899,23 +39591,13 @@
         "properties": {
           "end": {
             "description": "时间范围结束。",
-            "oneOf": [
-              {
-                "description": "时间范围结束。",
-                "examples": [
-                  "2026-03-11"
-                ],
-                "format": "date",
-                "title": "end 值",
-                "type": "string"
-              },
-              {
-                "description": "时间范围结束。",
-                "title": "end 值",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11"
             ],
-            "title": "end 值"
+            "format": "date",
+            "nullable": true,
+            "title": "end 值",
+            "type": "string"
           },
           "start": {
             "description": "时间范围开始。",
@@ -39935,8 +39617,9 @@
               {
                 "description": "时区。",
                 "examples": [
-                  "2026-03-11T00:00:00.000Z"
+                  null
                 ],
+                "nullable": true,
                 "title": "time zone 值",
                 "type": "null"
               }
@@ -39965,8 +39648,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -40262,25 +39946,12 @@
         "properties": {
           "email": {
             "description": "电子邮件地址。",
-            "oneOf": [
-              {
-                "description": "电子邮件地址。",
-                "examples": [
-                  "member@example.com"
-                ],
-                "title": "email 值",
-                "type": "string"
-              },
-              {
-                "description": "电子邮件地址。",
-                "examples": [
-                  "member@example.com"
-                ],
-                "title": "email 值",
-                "type": "null"
-              }
+            "examples": [
+              "member@example.com"
             ],
-            "title": "email 值"
+            "nullable": true,
+            "title": "email 值",
+            "type": "string"
           },
           "type": {
             "const": "email",
@@ -42343,42 +42014,22 @@
           },
           "content_length": {
             "description": "content length 字段。",
-            "oneOf": [
-              {
-                "description": "content length 字段。",
-                "examples": [
-                  1
-                ],
-                "minimum": 0,
-                "title": "content length 值",
-                "type": "integer"
-              },
-              {
-                "description": "content length 字段。",
-                "title": "content length 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "content length 值"
+            "minimum": 0,
+            "nullable": true,
+            "title": "content length 值",
+            "type": "integer"
           },
           "content_type": {
             "description": "content type 字段。",
-            "oneOf": [
-              {
-                "description": "content type 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "content type 值",
-                "type": "string"
-              },
-              {
-                "description": "content type 字段。",
-                "title": "content type 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "content type 值"
+            "nullable": true,
+            "title": "content type 值",
+            "type": "string"
           },
           "created_by": {
             "additionalProperties": false,
@@ -42424,26 +42075,13 @@
           },
           "expiry_time": {
             "description": "expiry time 字段。",
-            "oneOf": [
-              {
-                "description": "expiry time 字段。",
-                "examples": [
-                  "2026-03-11T00:00:00.000Z"
-                ],
-                "format": "date-time",
-                "title": "expiry time 值",
-                "type": "string"
-              },
-              {
-                "description": "expiry time 字段。",
-                "examples": [
-                  "2026-03-11T00:00:00.000Z"
-                ],
-                "title": "expiry time 值",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11T00:00:00.000Z"
             ],
-            "title": "expiry time 值"
+            "format": "date-time",
+            "nullable": true,
+            "title": "expiry time 值",
+            "type": "string"
           },
           "file_import_result": {
             "allOf": [
@@ -42518,41 +42156,21 @@
                           },
                           "parameter": {
                             "description": "parameter 字段。",
-                            "oneOf": [
-                              {
-                                "description": "parameter 字段。",
-                                "examples": [
-                                  "example content"
-                                ],
-                                "title": "parameter 值",
-                                "type": "string"
-                              },
-                              {
-                                "description": "parameter 字段。",
-                                "title": "parameter 值",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "example content"
                             ],
-                            "title": "parameter 值"
+                            "nullable": true,
+                            "title": "parameter 值",
+                            "type": "string"
                           },
                           "status_code": {
                             "description": "status code 字段。",
-                            "oneOf": [
-                              {
-                                "description": "status code 字段。",
-                                "examples": [
-                                  1
-                                ],
-                                "title": "status code 值",
-                                "type": "integer"
-                              },
-                              {
-                                "description": "status code 字段。",
-                                "title": "status code 值",
-                                "type": "null"
-                              }
+                            "examples": [
+                              1
                             ],
-                            "title": "status code 值"
+                            "nullable": true,
+                            "title": "status code 值",
+                            "type": "integer"
                           },
                           "type": {
                             "description": "对象或块类型。",
@@ -42611,22 +42229,12 @@
           },
           "filename": {
             "description": "filename 字段。",
-            "oneOf": [
-              {
-                "description": "filename 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "filename 值",
-                "type": "string"
-              },
-              {
-                "description": "filename 字段。",
-                "title": "filename 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "filename 值"
+            "nullable": true,
+            "title": "filename 值",
+            "type": "string"
           },
           "id": {
             "$ref": "#/components/schemas/idResponse"
@@ -42880,41 +42488,21 @@
                               },
                               "parameter": {
                                 "description": "parameter 字段。",
-                                "oneOf": [
-                                  {
-                                    "description": "parameter 字段。",
-                                    "examples": [
-                                      "example content"
-                                    ],
-                                    "title": "parameter 值",
-                                    "type": "string"
-                                  },
-                                  {
-                                    "description": "parameter 字段。",
-                                    "title": "parameter 值",
-                                    "type": "null"
-                                  }
+                                "examples": [
+                                  "example content"
                                 ],
-                                "title": "parameter 值"
+                                "nullable": true,
+                                "title": "parameter 值",
+                                "type": "string"
                               },
                               "status_code": {
                                 "description": "status code 字段。",
-                                "oneOf": [
-                                  {
-                                    "description": "status code 字段。",
-                                    "examples": [
-                                      1
-                                    ],
-                                    "title": "status code 值",
-                                    "type": "integer"
-                                  },
-                                  {
-                                    "description": "status code 字段。",
-                                    "title": "status code 值",
-                                    "type": "null"
-                                  }
+                                "examples": [
+                                  1
                                 ],
-                                "title": "status code 值"
+                                "nullable": true,
+                                "title": "status code 值",
+                                "type": "integer"
                               },
                               "type": {
                                 "description": "对象或块类型。",
@@ -43162,74 +42750,44 @@
         "properties": {
           "anonymous_submissions": {
             "description": "anonymous submissions 字段。",
-            "oneOf": [
-              {
-                "description": "anonymous submissions 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "anonymous submissions 值",
-                "type": "boolean"
-              },
-              {
-                "description": "anonymous submissions 字段。",
-                "title": "anonymous submissions 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "anonymous submissions 值"
+            "nullable": true,
+            "title": "anonymous submissions 值",
+            "type": "boolean"
           },
           "is_form_closed": {
             "description": "is form closed 字段。",
-            "oneOf": [
-              {
-                "description": "is form closed 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "is form closed 值",
-                "type": "boolean"
-              },
-              {
-                "description": "is form closed 字段。",
-                "title": "is form closed 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "is form closed 值"
+            "nullable": true,
+            "title": "is form closed 值",
+            "type": "boolean"
           },
           "submission_permissions": {
             "description": "submission permissions 字段。",
-            "oneOf": [
-              {
-                "description": "submission permissions 字段。",
-                "enum": [
-                  "none",
-                  "comment_only",
-                  "reader",
-                  "read_and_write",
-                  "editor"
-                ],
-                "enumValueTitles": {
-                  "comment_only": "枚举值：comment_only。",
-                  "editor": "枚举值：editor。",
-                  "none": "枚举值：none。",
-                  "read_and_write": "枚举值：read_and_write。",
-                  "reader": "枚举值：reader。"
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "submission permissions 值",
-                "type": "string"
-              },
-              {
-                "description": "submission permissions 字段。",
-                "title": "submission permissions 值",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "comment_only",
+              "reader",
+              "read_and_write",
+              "editor"
             ],
-            "title": "submission permissions 值"
+            "enumValueTitles": {
+              "comment_only": "枚举值：comment_only。",
+              "editor": "枚举值：editor。",
+              "none": "枚举值：none。",
+              "read_and_write": "枚举值：read_and_write。",
+              "reader": "枚举值：reader。"
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "submission permissions 值",
+            "type": "string"
           },
           "type": {
             "const": "form",
@@ -44021,30 +43579,20 @@
         "properties": {
           "card_layout": {
             "description": "card layout 字段。",
-            "oneOf": [
-              {
-                "description": "card layout 字段。",
-                "enum": [
-                  "list",
-                  "compact"
-                ],
-                "enumValueTitles": {
-                  "compact": "枚举值：compact。",
-                  "list": "枚举值：list。"
-                },
-                "examples": [
-                  "list"
-                ],
-                "title": "card layout 值",
-                "type": "string"
-              },
-              {
-                "description": "card layout 字段。",
-                "title": "card layout 值",
-                "type": "null"
-              }
+            "enum": [
+              "list",
+              "compact"
             ],
-            "title": "card layout 值"
+            "enumValueTitles": {
+              "compact": "枚举值：compact。",
+              "list": "枚举值：list。"
+            },
+            "examples": [
+              "list"
+            ],
+            "nullable": true,
+            "title": "card layout 值",
+            "type": "string"
           },
           "cover": {
             "description": "资源封面。",
@@ -44055,8 +43603,9 @@
               {
                 "description": "资源封面。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover 值",
                 "type": "null"
               }
@@ -44065,85 +43614,49 @@
           },
           "cover_aspect": {
             "description": "cover aspect 字段。",
-            "oneOf": [
-              {
-                "description": "cover aspect 字段。",
-                "enum": [
-                  "contain",
-                  "cover"
-                ],
-                "enumValueTitles": {
-                  "contain": "枚举值：contain。",
-                  "cover": "枚举值：cover。"
-                },
-                "examples": [
-                  "contain"
-                ],
-                "title": "cover aspect 值",
-                "type": "string"
-              },
-              {
-                "description": "cover aspect 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover aspect 值",
-                "type": "null"
-              }
+            "enum": [
+              "contain",
+              "cover"
             ],
-            "title": "cover aspect 值"
+            "enumValueTitles": {
+              "contain": "枚举值：contain。",
+              "cover": "枚举值：cover。"
+            },
+            "examples": [
+              "contain"
+            ],
+            "nullable": true,
+            "title": "cover aspect 值",
+            "type": "string"
           },
           "cover_size": {
             "description": "cover size 字段。",
-            "oneOf": [
-              {
-                "description": "cover size 字段。",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large"
-                ],
-                "enumValueTitles": {
-                  "large": "枚举值：large。",
-                  "medium": "枚举值：medium。",
-                  "small": "枚举值：small。"
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "cover size 值",
-                "type": "string"
-              },
-              {
-                "description": "cover size 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover size 值",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large"
             ],
-            "title": "cover size 值"
+            "enumValueTitles": {
+              "large": "枚举值：large。",
+              "medium": "枚举值：medium。",
+              "small": "枚举值：small。"
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "cover size 值",
+            "type": "string"
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "type": {
             "const": "gallery",
@@ -44397,25 +43910,12 @@
           },
           "name": {
             "description": "名称。",
-            "oneOf": [
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "string"
-              },
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name 值"
+            "nullable": true,
+            "title": "name 值",
+            "type": "string"
           },
           "object": {
             "const": "group",
@@ -46164,23 +45664,13 @@
         "properties": {
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "type": {
             "const": "list",
@@ -46254,73 +45744,43 @@
         "properties": {
           "height": {
             "description": "height 字段。",
-            "oneOf": [
-              {
-                "description": "height 字段。",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large",
-                  "extra_large"
-                ],
-                "enumValueTitles": {
-                  "extra_large": "枚举值：extra_large。",
-                  "large": "枚举值：large。",
-                  "medium": "枚举值：medium。",
-                  "small": "枚举值：small。"
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "height 值",
-                "type": "string"
-              },
-              {
-                "description": "height 字段。",
-                "title": "height 值",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "extra_large"
             ],
-            "title": "height 值"
+            "enumValueTitles": {
+              "extra_large": "枚举值：extra_large。",
+              "large": "枚举值：large。",
+              "medium": "枚举值：medium。",
+              "small": "枚举值：small。"
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "height 值",
+            "type": "string"
           },
           "map_by": {
             "description": "map by 字段。",
-            "oneOf": [
-              {
-                "description": "map by 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "map by 值",
-                "type": "string"
-              },
-              {
-                "description": "map by 字段。",
-                "title": "map by 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "map by 值"
+            "nullable": true,
+            "title": "map by 值",
+            "type": "string"
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "type": {
             "const": "map",
@@ -47234,22 +46694,12 @@
                     },
                     "description": {
                       "description": "资源说明。",
-                      "oneOf": [
-                        {
-                          "description": "资源说明。",
-                          "examples": [
-                            "example content"
-                          ],
-                          "title": "description 值",
-                          "type": "string"
-                        },
-                        {
-                          "description": "资源说明。",
-                          "title": "description 值",
-                          "type": "null"
-                        }
+                      "examples": [
+                        "example content"
                       ],
-                      "title": "description 值"
+                      "nullable": true,
+                      "title": "description 值",
+                      "type": "string"
                     },
                     "name": {
                       "description": "名称。",
@@ -47562,22 +47012,12 @@
         "properties": {
           "number": {
             "description": "数值。",
-            "oneOf": [
-              {
-                "description": "数值。",
-                "examples": [
-                  1
-                ],
-                "title": "number 值",
-                "type": "number"
-              },
-              {
-                "description": "数值。",
-                "title": "number 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number 值"
+            "nullable": true,
+            "title": "number 值",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -47740,22 +47180,12 @@
         "properties": {
           "number": {
             "description": "数值。",
-            "oneOf": [
-              {
-                "description": "数值。",
-                "examples": [
-                  1
-                ],
-                "title": "number 值",
-                "type": "number"
-              },
-              {
-                "description": "数值。",
-                "title": "number 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number 值"
+            "nullable": true,
+            "title": "number 值",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -47980,22 +47410,12 @@
         "properties": {
           "number": {
             "description": "数值。",
-            "oneOf": [
-              {
-                "description": "数值。",
-                "examples": [
-                  1
-                ],
-                "title": "number 值",
-                "type": "number"
-              },
-              {
-                "description": "数值。",
-                "title": "number 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number 值"
+            "nullable": true,
+            "title": "number 值",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -48549,8 +47969,9 @@
               {
                 "description": "资源封面。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover 值",
                 "type": "null"
               }
@@ -48578,8 +47999,9 @@
               {
                 "description": "资源图标。",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon 值",
                 "type": "null"
               }
@@ -48647,25 +48069,12 @@
           },
           "public_url": {
             "description": "公开访问链接。",
-            "oneOf": [
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "string"
-              },
-              {
-                "description": "公开访问链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url 值"
+            "nullable": true,
+            "title": "public url 值",
+            "type": "string"
           },
           "url": {
             "description": "资源在 Notion 中的打开链接。",
@@ -48895,25 +48304,12 @@
                   },
                   "transcript_id": {
                     "description": "transcript id 字段。",
-                    "oneOf": [
-                      {
-                        "description": "transcript id 字段。",
-                        "examples": [
-                          "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                        ],
-                        "title": "transcript id 值",
-                        "type": "string"
-                      },
-                      {
-                        "description": "transcript id 字段。",
-                        "examples": [
-                          "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                        ],
-                        "title": "transcript id 值",
-                        "type": "null"
-                      }
+                    "examples": [
+                      "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
                     ],
-                    "title": "transcript id 值"
+                    "nullable": true,
+                    "title": "transcript id 值",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -50056,7 +49452,7 @@
               "email_verified": {
                 "description": "email verified 字段。",
                 "examples": [
-                  "member@example.com"
+                  true
                 ],
                 "title": "email verified 值",
                 "type": "boolean"
@@ -50181,22 +49577,12 @@
         "properties": {
           "phone_number": {
             "description": "phone number 字段。",
-            "oneOf": [
-              {
-                "description": "phone number 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "phone number 值",
-                "type": "string"
-              },
-              {
-                "description": "phone number 字段。",
-                "title": "phone number 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "phone number 值"
+            "nullable": true,
+            "title": "phone number 值",
+            "type": "string"
           },
           "type": {
             "const": "phone_number",
@@ -50346,66 +49732,30 @@
         "properties": {
           "address": {
             "description": "address 字段。",
-            "oneOf": [
-              {
-                "description": "address 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "address 值",
-                "type": "string"
-              },
-              {
-                "description": "address 字段。",
-                "title": "address 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "address 值"
+            "nullable": true,
+            "title": "address 值",
+            "type": "string"
           },
           "aws_place_id": {
             "description": "aws place id 字段。",
-            "oneOf": [
-              {
-                "description": "aws place id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "aws place id 值",
-                "type": "string"
-              },
-              {
-                "description": "aws place id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "aws place id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "aws place id 值"
+            "nullable": true,
+            "title": "aws place id 值",
+            "type": "string"
           },
           "google_place_id": {
             "description": "google place id 字段。",
-            "oneOf": [
-              {
-                "description": "google place id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "google place id 值",
-                "type": "string"
-              },
-              {
-                "description": "google place id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "google place id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "google place id 值"
+            "nullable": true,
+            "title": "google place id 值",
+            "type": "string"
           },
           "lat": {
             "description": "lat 字段。",
@@ -50425,25 +49775,12 @@
           },
           "name": {
             "description": "名称。",
-            "oneOf": [
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "string"
-              },
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name 值"
+            "nullable": true,
+            "title": "name 值",
+            "type": "string"
           }
         },
         "required": [
@@ -50465,6 +49802,10 @@
               },
               {
                 "description": "place 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "place 值",
                 "type": "null"
               }
@@ -50592,6 +49933,10 @@
               },
               {
                 "description": "资源说明。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "description 值",
                 "type": "null"
               }
@@ -51596,8 +50941,9 @@
                               {
                                 "description": "日期或时间。",
                                 "examples": [
-                                  "2026-03-11"
+                                  null
                                 ],
+                                "nullable": true,
                                 "title": "date 值",
                                 "type": "null"
                               }
@@ -52112,8 +51458,9 @@
                               {
                                 "description": "日期或时间。",
                                 "examples": [
-                                  "2026-03-11"
+                                  null
                                 ],
+                                "nullable": true,
                                 "title": "date 值",
                                 "type": "null"
                               }
@@ -52371,6 +51718,10 @@
           },
           {
             "description": "public Api Async Task Status Result Json Value 字段。",
+            "examples": [
+              null
+            ],
+            "nullable": true,
             "title": "publicApiAsyncTaskStatusResultJsonValue 数据结构",
             "type": "null"
           },
@@ -53100,25 +52451,12 @@
           },
           "href": {
             "description": "链接地址。",
-            "oneOf": [
-              {
-                "description": "链接地址。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "href 值",
-                "type": "string"
-              },
-              {
-                "description": "链接地址。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "href 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "href 值"
+            "nullable": true,
+            "title": "href 值",
+            "type": "string"
           },
           "plain_text": {
             "description": "去样式后的纯文本。",
@@ -53620,8 +52958,9 @@
                       {
                         "description": "日期或时间。",
                         "examples": [
-                          "2026-03-11"
+                          null
                         ],
+                        "nullable": true,
                         "title": "date 值",
                         "type": "null"
                       }
@@ -54087,22 +53426,12 @@
                     },
                     "description": {
                       "description": "资源说明。",
-                      "oneOf": [
-                        {
-                          "description": "资源说明。",
-                          "examples": [
-                            "example content"
-                          ],
-                          "title": "description 值",
-                          "type": "string"
-                        },
-                        {
-                          "description": "资源说明。",
-                          "title": "description 值",
-                          "type": "null"
-                        }
+                      "examples": [
+                        "example content"
                       ],
-                      "title": "description 值"
+                      "nullable": true,
+                      "title": "description 值",
+                      "type": "string"
                     },
                     "name": {
                       "description": "名称。",
@@ -54211,6 +53540,10 @@
               },
               {
                 "description": "单选选项。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "select 值",
                 "type": "null"
               }
@@ -54246,22 +53579,12 @@
           },
           "description": {
             "description": "资源说明。",
-            "oneOf": [
-              {
-                "description": "资源说明。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description 值",
-                "type": "string"
-              },
-              {
-                "description": "资源说明。",
-                "title": "description 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description 值"
+            "nullable": true,
+            "title": "description 值",
+            "type": "string"
           },
           "id": {
             "description": "资源的 UUID v4 标识符。",
@@ -54301,6 +53624,10 @@
               },
               {
                 "description": "单选选项。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "select 值",
                 "type": "null"
               }
@@ -54681,22 +54008,12 @@
           },
           "description": {
             "description": "资源说明。",
-            "oneOf": [
-              {
-                "description": "资源说明。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description 值",
-                "type": "string"
-              },
-              {
-                "description": "资源说明。",
-                "title": "description 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description 值"
+            "nullable": true,
+            "title": "description 值",
+            "type": "string"
           },
           "group": {
             "$ref": "#/components/schemas/statusOptionGroup"
@@ -54809,22 +54126,12 @@
           },
           "description": {
             "description": "资源说明。",
-            "oneOf": [
-              {
-                "description": "资源说明。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description 值",
-                "type": "string"
-              },
-              {
-                "description": "资源说明。",
-                "title": "description 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description 值"
+            "nullable": true,
+            "title": "description 值",
+            "type": "string"
           },
           "group": {
             "$ref": "#/components/schemas/statusOptionGroup"
@@ -54943,6 +54250,10 @@
               },
               {
                 "description": "HTTP 状态码。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "status 值",
                 "type": "null"
               }
@@ -54978,22 +54289,12 @@
           },
           "description": {
             "description": "资源说明。",
-            "oneOf": [
-              {
-                "description": "资源说明。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description 值",
-                "type": "string"
-              },
-              {
-                "description": "资源说明。",
-                "title": "description 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description 值"
+            "nullable": true,
+            "title": "description 值",
+            "type": "string"
           },
           "id": {
             "description": "资源的 UUID v4 标识符。",
@@ -55033,6 +54334,10 @@
               },
               {
                 "description": "HTTP 状态码。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "status 值",
                 "type": "null"
               }
@@ -55091,22 +54396,12 @@
         "properties": {
           "string": {
             "description": "string 字段。",
-            "oneOf": [
-              {
-                "description": "string 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "string 值",
-                "type": "string"
-              },
-              {
-                "description": "string 字段。",
-                "title": "string 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "string 值"
+            "nullable": true,
+            "title": "string 值",
+            "type": "string"
           },
           "type": {
             "const": "string",
@@ -55996,6 +55291,10 @@
               },
               {
                 "description": "group by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "group by 值",
                 "type": "null"
               }
@@ -56004,23 +55303,13 @@
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "show_vertical_lines": {
             "description": "show vertical lines 字段。",
@@ -56038,6 +55327,10 @@
               },
               {
                 "description": "subtasks 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "subtasks 值",
                 "type": "null"
               }
@@ -56701,35 +55994,22 @@
               },
               "link": {
                 "description": "文本链接。",
-                "oneOf": [
-                  {
-                    "description": "文本链接。",
-                    "properties": {
-                      "url": {
-                        "description": "资源在 Notion 中的打开链接。",
-                        "examples": [
-                          "https://example.com"
-                        ],
-                        "title": "url 值",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "url"
-                    ],
-                    "title": "link 值",
-                    "type": "object"
-                  },
-                  {
-                    "description": "文本链接。",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "description": "资源在 Notion 中的打开链接。",
                     "examples": [
                       "https://example.com"
                     ],
-                    "title": "link 值",
-                    "type": "null"
+                    "title": "url 值",
+                    "type": "string"
                   }
+                },
+                "required": [
+                  "url"
                 ],
-                "title": "link 值"
+                "title": "link 值",
+                "type": "object"
               }
             },
             "required": [
@@ -56771,37 +56051,24 @@
                 "type": "string"
               },
               "link": {
+                "additionalProperties": false,
                 "description": "文本链接。",
-                "oneOf": [
-                  {
-                    "additionalProperties": false,
-                    "description": "文本链接。",
-                    "properties": {
-                      "url": {
-                        "description": "资源在 Notion 中的打开链接。",
-                        "examples": [
-                          "https://example.com"
-                        ],
-                        "title": "url 值",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "url"
-                    ],
-                    "title": "link 值",
-                    "type": "object"
-                  },
-                  {
-                    "description": "文本链接。",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "description": "资源在 Notion 中的打开链接。",
                     "examples": [
                       "https://example.com"
                     ],
-                    "title": "link 值",
-                    "type": "null"
+                    "title": "url 值",
+                    "type": "string"
                   }
+                },
+                "required": [
+                  "url"
                 ],
-                "title": "link 值"
+                "title": "link 值",
+                "type": "object"
               }
             },
             "required": [
@@ -56841,25 +56108,12 @@
         "properties": {
           "property_id": {
             "description": "属性 ID。",
-            "oneOf": [
-              {
-                "description": "属性 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id 值",
-                "type": "string"
-              },
-              {
-                "description": "属性 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "property id 值"
+            "nullable": true,
+            "title": "property id 值",
+            "type": "string"
           }
         },
         "title": "timelineArrowsByRequest 数据结构",
@@ -56871,25 +56125,12 @@
         "properties": {
           "property_id": {
             "description": "属性 ID。",
-            "oneOf": [
-              {
-                "description": "属性 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id 值",
-                "type": "string"
-              },
-              {
-                "description": "属性 ID。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "property id 值"
+            "nullable": true,
+            "title": "property id 值",
+            "type": "string"
           }
         },
         "title": "timelineArrowsByResponse 数据结构",
@@ -56901,7 +56142,7 @@
           "center_timestamp": {
             "description": "center timestamp 字段。",
             "examples": [
-              "2026-03-11T00:00:00.000Z"
+              1
             ],
             "title": "center timestamp 值",
             "type": "integer"
@@ -56948,7 +56189,7 @@
           "center_timestamp": {
             "description": "center timestamp 字段。",
             "examples": [
-              "2026-03-11T00:00:00.000Z"
+              1
             ],
             "minimum": 0,
             "title": "center timestamp 值",
@@ -57000,6 +56241,10 @@
               },
               {
                 "description": "arrows by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "arrows by 值",
                 "type": "null"
               }
@@ -57008,22 +56253,12 @@
           },
           "color_by": {
             "description": "color by 字段。",
-            "oneOf": [
-              {
-                "description": "color by 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "color by 值",
-                "type": "boolean"
-              },
-              {
-                "description": "color by 字段。",
-                "title": "color by 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "color by 值"
+            "nullable": true,
+            "title": "color by 值",
+            "type": "boolean"
           },
           "date_property_id": {
             "description": "date property id 字段。",
@@ -57035,25 +56270,12 @@
           },
           "end_date_property_id": {
             "description": "end date property id 字段。",
-            "oneOf": [
-              {
-                "description": "end date property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "end date property id 值",
-                "type": "string"
-              },
-              {
-                "description": "end date property id 字段。",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "end date property id 值",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "end date property id 值"
+            "nullable": true,
+            "title": "end date property id 值",
+            "type": "string"
           },
           "preference": {
             "description": "preference 字段。",
@@ -57063,6 +56285,10 @@
               },
               {
                 "description": "preference 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "preference 值",
                 "type": "null"
               }
@@ -57071,62 +56297,32 @@
           },
           "properties": {
             "description": "页面属性值或数据源属性模式。",
-            "oneOf": [
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties 值",
-                "type": "array"
-              },
-              {
-                "description": "页面属性值或数据源属性模式。",
-                "title": "properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties 值",
+            "type": "array"
           },
           "show_table": {
             "description": "show table 字段。",
-            "oneOf": [
-              {
-                "description": "show table 字段。",
-                "examples": [
-                  true
-                ],
-                "title": "show table 值",
-                "type": "boolean"
-              },
-              {
-                "description": "show table 字段。",
-                "title": "show table 值",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show table 值"
+            "nullable": true,
+            "title": "show table 值",
+            "type": "boolean"
           },
           "table_properties": {
             "description": "table properties 字段。",
-            "oneOf": [
-              {
-                "description": "table properties 字段。",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "table properties 值",
-                "type": "array"
-              },
-              {
-                "description": "table properties 字段。",
-                "title": "table properties 值",
-                "type": "null"
-              }
-            ],
-            "title": "table properties 值"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "table properties 值",
+            "type": "array"
           },
           "type": {
             "const": "timeline",
@@ -57835,22 +57031,12 @@
             "properties": {
               "prefix": {
                 "description": "prefix 字段。",
-                "oneOf": [
-                  {
-                    "description": "prefix 字段。",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "prefix 值",
-                    "type": "string"
-                  },
-                  {
-                    "description": "prefix 字段。",
-                    "title": "prefix 值",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "prefix 值"
+                "nullable": true,
+                "title": "prefix 值",
+                "type": "string"
               }
             },
             "required": [
@@ -57884,22 +57070,12 @@
             "properties": {
               "prefix": {
                 "description": "prefix 字段。",
-                "oneOf": [
-                  {
-                    "description": "prefix 字段。",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "prefix 值",
-                    "type": "string"
-                  },
-                  {
-                    "description": "prefix 字段。",
-                    "title": "prefix 值",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "prefix 值"
+                "nullable": true,
+                "title": "prefix 值",
+                "type": "string"
               }
             },
             "title": "unique id 值",
@@ -57986,41 +57162,21 @@
         "properties": {
           "number": {
             "description": "数值。",
-            "oneOf": [
-              {
-                "description": "数值。",
-                "examples": [
-                  1
-                ],
-                "title": "number 值",
-                "type": "number"
-              },
-              {
-                "description": "数值。",
-                "title": "number 值",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number 值"
+            "nullable": true,
+            "title": "number 值",
+            "type": "number"
           },
           "prefix": {
             "description": "prefix 字段。",
-            "oneOf": [
-              {
-                "description": "prefix 字段。",
-                "examples": [
-                  "example content"
-                ],
-                "title": "prefix 值",
-                "type": "string"
-              },
-              {
-                "description": "prefix 字段。",
-                "title": "prefix 值",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "prefix 值"
+            "nullable": true,
+            "title": "prefix 值",
+            "type": "string"
           }
         },
         "required": [
@@ -58343,6 +57499,10 @@
               },
               {
                 "description": "过滤条件。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "filter 值",
                 "type": "null"
               }
@@ -58358,34 +57518,28 @@
             "type": "string"
           },
           "quick_filters": {
-            "description": "quick filters 字段。",
-            "oneOf": [
-              {
-                "additionalProperties": {
-                  "description": "quick filters 字段。",
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/quickFilterConditionRequest"
-                    },
-                    {
-                      "description": "quick filters 字段。",
-                      "title": "quick filters 值",
-                      "type": "null"
-                    }
-                  ],
-                  "title": "quick filters 值"
+            "additionalProperties": {
+              "description": "quick filters 字段。",
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/quickFilterConditionRequest"
                 },
-                "description": "quick filters 字段。",
-                "title": "quick filters 值",
-                "type": "object"
-              },
-              {
-                "description": "quick filters 字段。",
-                "title": "quick filters 值",
-                "type": "null"
-              }
-            ],
-            "title": "quick filters 值"
+                {
+                  "description": "quick filters 字段。",
+                  "examples": [
+                    null
+                  ],
+                  "nullable": true,
+                  "title": "quick filters 值",
+                  "type": "null"
+                }
+              ],
+              "title": "quick filters 值"
+            },
+            "description": "quick filters 字段。",
+            "nullable": true,
+            "title": "quick filters 值",
+            "type": "object"
           },
           "sorts": {
             "description": "sorts 字段。",
@@ -58395,6 +57549,10 @@
               },
               {
                 "description": "sorts 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "sorts 值",
                 "type": "null"
               }
@@ -58513,25 +57671,12 @@
           },
           "url": {
             "description": "资源在 Notion 中的打开链接。",
-            "oneOf": [
-              {
-                "description": "资源在 Notion 中的打开链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "url 值",
-                "type": "string"
-              },
-              {
-                "description": "资源在 Notion 中的打开链接。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "url 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "url 值"
+            "nullable": true,
+            "title": "url 值",
+            "type": "string"
           }
         },
         "required": [
@@ -58568,50 +57713,24 @@
         "properties": {
           "avatar_url": {
             "description": "avatar url 字段。",
-            "oneOf": [
-              {
-                "description": "avatar url 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "avatar url 值",
-                "type": "string"
-              },
-              {
-                "description": "avatar url 字段。",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "avatar url 值",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "avatar url 值"
+            "nullable": true,
+            "title": "avatar url 值",
+            "type": "string"
           },
           "id": {
             "$ref": "#/components/schemas/idResponse"
           },
           "name": {
             "description": "名称。",
-            "oneOf": [
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "string"
-              },
-              {
-                "description": "名称。",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name 值",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name 值"
+            "nullable": true,
+            "title": "name 值",
+            "type": "string"
           },
           "object": {
             "const": "user",
@@ -58731,6 +57850,10 @@
               },
               {
                 "description": "verification 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verification 值",
                 "type": "null"
               }
@@ -58761,8 +57884,9 @@
               {
                 "description": "日期或时间。",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date 值",
                 "type": "null"
               }
@@ -58793,6 +57917,10 @@
               },
               {
                 "description": "verified by 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verified by 值",
                 "type": "null"
               }
@@ -58844,8 +57972,9 @@
           "date": {
             "description": "日期或时间。",
             "examples": [
-              "2026-03-11"
+              null
             ],
+            "nullable": true,
             "title": "date 值",
             "type": "null"
           },
@@ -58860,6 +57989,10 @@
           },
           "verified_by": {
             "description": "verified by 字段。",
+            "examples": [
+              null
+            ],
+            "nullable": true,
             "title": "verified by 值",
             "type": "null"
           }
@@ -58905,6 +58038,10 @@
               },
               {
                 "description": "verification 字段。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verification 值",
                 "type": "null"
               }
@@ -59977,6 +59114,10 @@
               },
               {
                 "description": "下一页游标（不透明，应原样回传）。",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "next cursor 值",
                 "type": "null"
               }

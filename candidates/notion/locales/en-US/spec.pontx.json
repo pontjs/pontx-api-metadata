@@ -7183,7 +7183,7 @@
                           "width_ratio": {
                             "description": "width ratio field.",
                             "examples": [
-                              1
+                              0.5
                             ],
                             "exclusiveMaximum": 1,
                             "exclusiveMinimum": 0,
@@ -8417,6 +8417,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -8490,6 +8494,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -9385,6 +9393,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -9452,6 +9464,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -9708,8 +9724,9 @@
                   {
                     "description": "Resource icon.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon value",
                     "type": "null"
                   }
@@ -10103,6 +10120,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -10179,6 +10200,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -11403,8 +11428,9 @@
                   {
                     "description": "Resource icon.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon value",
                     "type": "null"
                   }
@@ -11439,6 +11465,10 @@
                                 },
                                 {
                                   "description": "Resource description.",
+                                  "examples": [
+                                    null
+                                  ],
+                                  "nullable": true,
                                   "title": "description value",
                                   "type": "null"
                                 }
@@ -11541,22 +11571,12 @@
                                               },
                                               "description": {
                                                 "description": "Resource description.",
-                                                "oneOf": [
-                                                  {
-                                                    "description": "Resource description.",
-                                                    "examples": [
-                                                      "example content"
-                                                    ],
-                                                    "title": "description value",
-                                                    "type": "string"
-                                                  },
-                                                  {
-                                                    "description": "Resource description.",
-                                                    "title": "description value",
-                                                    "type": "null"
-                                                  }
+                                                "examples": [
+                                                  "example content"
                                                 ],
-                                                "title": "description value"
+                                                "nullable": true,
+                                                "title": "description value",
+                                                "type": "string"
                                               }
                                             },
                                             "title": "options value",
@@ -11666,22 +11686,12 @@
                                               },
                                               "description": {
                                                 "description": "Resource description.",
-                                                "oneOf": [
-                                                  {
-                                                    "description": "Resource description.",
-                                                    "examples": [
-                                                      "example content"
-                                                    ],
-                                                    "title": "description value",
-                                                    "type": "string"
-                                                  },
-                                                  {
-                                                    "description": "Resource description.",
-                                                    "title": "description value",
-                                                    "type": "null"
-                                                  }
+                                                "examples": [
+                                                  "example content"
                                                 ],
-                                                "title": "description value"
+                                                "nullable": true,
+                                                "title": "description value",
+                                                "type": "string"
                                               }
                                             },
                                             "title": "options value",
@@ -12072,22 +12082,12 @@
                                   "properties": {
                                     "prefix": {
                                       "description": "prefix field.",
-                                      "oneOf": [
-                                        {
-                                          "description": "prefix field.",
-                                          "examples": [
-                                            "example content"
-                                          ],
-                                          "title": "prefix value",
-                                          "type": "string"
-                                        },
-                                        {
-                                          "description": "prefix field.",
-                                          "title": "prefix value",
-                                          "type": "null"
-                                        }
+                                      "examples": [
+                                        "example content"
                                       ],
-                                      "title": "prefix value"
+                                      "nullable": true,
+                                      "title": "prefix value",
+                                      "type": "string"
                                     }
                                   },
                                   "title": "unique id value",
@@ -12435,6 +12435,10 @@
                     },
                     {
                       "description": "Page property values or data source property schema.",
+                      "examples": [
+                        null
+                      ],
+                      "nullable": true,
                       "title": "properties value",
                       "type": "null"
                     }
@@ -12860,7 +12864,8 @@
           "request": {
             "body": {
               "parent": {
-                "database_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
+                "page_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52",
+                "type": "page_id"
               },
               "properties": {
                 "Name": {
@@ -14409,6 +14414,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -14482,6 +14491,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -18647,7 +18660,7 @@
                                       "email_verified": {
                                         "description": "email verified field.",
                                         "examples": [
-                                          "member@example.com"
+                                          true
                                         ],
                                         "title": "email verified value",
                                         "type": "boolean"
@@ -18894,7 +18907,7 @@
                                   "email_verified": {
                                     "description": "email verified field.",
                                     "examples": [
-                                      "member@example.com"
+                                      true
                                     ],
                                     "title": "email verified value",
                                     "type": "boolean"
@@ -19952,8 +19965,9 @@
                   {
                     "description": "Resource cover.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "cover value",
                     "type": "null"
                   }
@@ -19977,8 +19991,9 @@
                   {
                     "description": "Resource icon.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon value",
                     "type": "null"
                   }
@@ -20121,8 +20136,9 @@
                             {
                               "description": "Link for opening the resource in Notion.",
                               "examples": [
-                                "https://example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "url value",
                               "type": "null"
                             }
@@ -20157,6 +20173,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -20191,6 +20211,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -20213,6 +20237,10 @@
                             },
                             {
                               "description": "Select option.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "select value",
                               "type": "null"
                             }
@@ -20258,6 +20286,10 @@
                                       },
                                       {
                                         "description": "Resource description.",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description value",
                                         "type": "null"
                                       }
@@ -20292,6 +20324,10 @@
                                       },
                                       {
                                         "description": "Resource description.",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description value",
                                         "type": "null"
                                       }
@@ -20386,8 +20422,9 @@
                             {
                               "description": "Email address.",
                               "examples": [
-                                "member@example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "email value",
                               "type": "null"
                             }
@@ -20422,6 +20459,10 @@
                             },
                             {
                               "description": "phone number field.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "phone number value",
                               "type": "null"
                             }
@@ -20457,8 +20498,9 @@
                             {
                               "description": "Date or datetime.",
                               "examples": [
-                                "2026-03-11"
+                                null
                               ],
+                              "nullable": true,
                               "title": "date value",
                               "type": "null"
                             }
@@ -20597,6 +20639,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -20631,6 +20677,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -20653,6 +20703,10 @@
                             },
                             {
                               "description": "HTTP status code.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "status value",
                               "type": "null"
                             }
@@ -21204,8 +21258,9 @@
                   {
                     "description": "Resource cover.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "cover value",
                     "type": "null"
                   }
@@ -21221,8 +21276,9 @@
                   {
                     "description": "Resource icon.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon value",
                     "type": "null"
                   }
@@ -21456,8 +21512,9 @@
                             {
                               "description": "Link for opening the resource in Notion.",
                               "examples": [
-                                "https://example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "url value",
                               "type": "null"
                             }
@@ -21492,6 +21549,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -21526,6 +21587,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -21548,6 +21613,10 @@
                             },
                             {
                               "description": "Select option.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "select value",
                               "type": "null"
                             }
@@ -21593,6 +21662,10 @@
                                       },
                                       {
                                         "description": "Resource description.",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description value",
                                         "type": "null"
                                       }
@@ -21627,6 +21700,10 @@
                                       },
                                       {
                                         "description": "Resource description.",
+                                        "examples": [
+                                          null
+                                        ],
+                                        "nullable": true,
                                         "title": "description value",
                                         "type": "null"
                                       }
@@ -21721,8 +21798,9 @@
                             {
                               "description": "Email address.",
                               "examples": [
-                                "member@example.com"
+                                null
                               ],
+                              "nullable": true,
                               "title": "email value",
                               "type": "null"
                             }
@@ -21757,6 +21835,10 @@
                             },
                             {
                               "description": "phone number field.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "phone number value",
                               "type": "null"
                             }
@@ -21792,8 +21874,9 @@
                             {
                               "description": "Date or datetime.",
                               "examples": [
-                                "2026-03-11"
+                                null
                               ],
+                              "nullable": true,
                               "title": "date value",
                               "type": "null"
                             }
@@ -21932,6 +22015,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -21966,6 +22053,10 @@
                                     },
                                     {
                                       "description": "Resource description.",
+                                      "examples": [
+                                        null
+                                      ],
+                                      "nullable": true,
                                       "title": "description value",
                                       "type": "null"
                                     }
@@ -21988,6 +22079,10 @@
                             },
                             {
                               "description": "HTTP status code.",
+                              "examples": [
+                                null
+                              ],
+                              "nullable": true,
                               "title": "status value",
                               "type": "null"
                             }
@@ -27082,6 +27177,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -27155,6 +27254,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -27487,6 +27590,10 @@
                       },
                       {
                         "description": "Next page cursor (opaque; pass back verbatim).",
+                        "examples": [
+                          null
+                        ],
+                        "nullable": true,
                         "title": "next cursor value",
                         "type": "null"
                       }
@@ -27560,6 +27667,10 @@
                   },
                   {
                     "description": "Next page cursor (opaque; pass back verbatim).",
+                    "examples": [
+                      null
+                    ],
+                    "nullable": true,
                     "title": "next cursor value",
                     "type": "null"
                   }
@@ -32876,30 +32987,20 @@
         "properties": {
           "card_layout": {
             "description": "card layout field.",
-            "oneOf": [
-              {
-                "description": "card layout field.",
-                "enum": [
-                  "list",
-                  "compact"
-                ],
-                "enumValueTitles": {
-                  "compact": "Enum value: compact.",
-                  "list": "Enum value: list."
-                },
-                "examples": [
-                  "list"
-                ],
-                "title": "card layout value",
-                "type": "string"
-              },
-              {
-                "description": "card layout field.",
-                "title": "card layout value",
-                "type": "null"
-              }
+            "enum": [
+              "list",
+              "compact"
             ],
-            "title": "card layout value"
+            "enumValueTitles": {
+              "compact": "Enum value: compact.",
+              "list": "Enum value: list."
+            },
+            "examples": [
+              "list"
+            ],
+            "nullable": true,
+            "title": "card layout value",
+            "type": "string"
           },
           "cover": {
             "description": "Resource cover.",
@@ -32910,8 +33011,9 @@
               {
                 "description": "Resource cover.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover value",
                 "type": "null"
               }
@@ -32920,88 +33022,52 @@
           },
           "cover_aspect": {
             "description": "cover aspect field.",
-            "oneOf": [
-              {
-                "description": "cover aspect field.",
-                "enum": [
-                  "contain",
-                  "cover"
-                ],
-                "enumValueTitles": {
-                  "contain": "Enum value: contain.",
-                  "cover": "Enum value: cover."
-                },
-                "examples": [
-                  "contain"
-                ],
-                "title": "cover aspect value",
-                "type": "string"
-              },
-              {
-                "description": "cover aspect field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover aspect value",
-                "type": "null"
-              }
+            "enum": [
+              "contain",
+              "cover"
             ],
-            "title": "cover aspect value"
+            "enumValueTitles": {
+              "contain": "Enum value: contain.",
+              "cover": "Enum value: cover."
+            },
+            "examples": [
+              "contain"
+            ],
+            "nullable": true,
+            "title": "cover aspect value",
+            "type": "string"
           },
           "cover_size": {
             "description": "cover size field.",
-            "oneOf": [
-              {
-                "description": "cover size field.",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large"
-                ],
-                "enumValueTitles": {
-                  "large": "Enum value: large.",
-                  "medium": "Enum value: medium.",
-                  "small": "Enum value: small."
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "cover size value",
-                "type": "string"
-              },
-              {
-                "description": "cover size field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover size value",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large"
             ],
-            "title": "cover size value"
+            "enumValueTitles": {
+              "large": "Enum value: large.",
+              "medium": "Enum value: medium.",
+              "small": "Enum value: small."
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "cover size value",
+            "type": "string"
           },
           "group_by": {
             "$ref": "#/components/schemas/groupByConfigRequest"
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "sub_group_by": {
             "description": "sub group by field.",
@@ -33011,6 +33077,10 @@
               },
               {
                 "description": "sub group by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "sub group by value",
                 "type": "null"
               }
@@ -33251,22 +33321,12 @@
         "properties": {
           "boolean": {
             "description": "boolean field.",
-            "oneOf": [
-              {
-                "description": "boolean field.",
-                "examples": [
-                  true
-                ],
-                "title": "boolean value",
-                "type": "boolean"
-              },
-              {
-                "description": "boolean field.",
-                "title": "boolean value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "boolean value"
+            "nullable": true,
+            "title": "boolean value",
+            "type": "boolean"
           },
           "type": {
             "const": "boolean",
@@ -33314,50 +33374,24 @@
                         "properties": {
                           "avatar_url": {
                             "description": "avatar url field.",
-                            "oneOf": [
-                              {
-                                "description": "avatar url field.",
-                                "examples": [
-                                  "https://example.com"
-                                ],
-                                "title": "avatar url value",
-                                "type": "string"
-                              },
-                              {
-                                "description": "avatar url field.",
-                                "examples": [
-                                  "https://example.com"
-                                ],
-                                "title": "avatar url value",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "https://example.com"
                             ],
-                            "title": "avatar url value"
+                            "nullable": true,
+                            "title": "avatar url value",
+                            "type": "string"
                           },
                           "id": {
                             "$ref": "#/components/schemas/idResponse"
                           },
                           "name": {
                             "description": "Name.",
-                            "oneOf": [
-                              {
-                                "description": "Name.",
-                                "examples": [
-                                  "Example title"
-                                ],
-                                "title": "name value",
-                                "type": "string"
-                              },
-                              {
-                                "description": "Name.",
-                                "examples": [
-                                  "Example title"
-                                ],
-                                "title": "name value",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "Example title"
                             ],
-                            "title": "name value"
+                            "nullable": true,
+                            "title": "name value",
+                            "type": "string"
                           },
                           "object": {
                             "const": "user",
@@ -33383,7 +33417,7 @@
                               "email_verified": {
                                 "description": "email verified field.",
                                 "examples": [
-                                  "member@example.com"
+                                  true
                                 ],
                                 "title": "email verified value",
                                 "type": "boolean"
@@ -33490,22 +33524,12 @@
           },
           "workspace_name": {
             "description": "Workspace name.",
-            "oneOf": [
-              {
-                "description": "Workspace name.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "workspace name value",
-                "type": "string"
-              },
-              {
-                "description": "Workspace name.",
-                "title": "workspace name value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "workspace name value"
+            "nullable": true,
+            "title": "workspace name value",
+            "type": "string"
           }
         },
         "required": [
@@ -33836,42 +33860,22 @@
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "show_weekends": {
             "description": "show weekends field.",
-            "oneOf": [
-              {
-                "description": "show weekends field.",
-                "examples": [
-                  true
-                ],
-                "title": "show weekends value",
-                "type": "boolean"
-              },
-              {
-                "description": "show weekends field.",
-                "title": "show weekends value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show weekends value"
+            "nullable": true,
+            "title": "show weekends value",
+            "type": "boolean"
           },
           "type": {
             "const": "calendar",
@@ -33884,30 +33888,20 @@
           },
           "view_range": {
             "description": "view range field.",
-            "oneOf": [
-              {
-                "description": "view range field.",
-                "enum": [
-                  "week",
-                  "month"
-                ],
-                "enumValueTitles": {
-                  "month": "Enum value: month.",
-                  "week": "Enum value: week."
-                },
-                "examples": [
-                  "week"
-                ],
-                "title": "view range value",
-                "type": "string"
-              },
-              {
-                "description": "view range field.",
-                "title": "view range value",
-                "type": "null"
-              }
+            "enum": [
+              "week",
+              "month"
             ],
-            "title": "view range value"
+            "enumValueTitles": {
+              "month": "Enum value: month.",
+              "week": "Enum value: week."
+            },
+            "examples": [
+              "week"
+            ],
+            "nullable": true,
+            "title": "view range value",
+            "type": "string"
           }
         },
         "required": [
@@ -34004,8 +33998,9 @@
                   {
                     "description": "Resource icon.",
                     "examples": [
-                      "https://example.com"
+                      null
                     ],
+                    "nullable": true,
                     "title": "icon value",
                     "type": "null"
                   }
@@ -34436,53 +34431,33 @@
         "properties": {
           "axis_labels": {
             "description": "axis labels field.",
-            "oneOf": [
-              {
-                "description": "axis labels field.",
-                "enum": [
-                  "none",
-                  "x_axis",
-                  "y_axis",
-                  "both"
-                ],
-                "enumValueTitles": {
-                  "both": "Enum value: both.",
-                  "none": "Enum value: none.",
-                  "x_axis": "Enum value: x_axis.",
-                  "y_axis": "Enum value: y_axis."
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "axis labels value",
-                "type": "string"
-              },
-              {
-                "description": "axis labels field.",
-                "title": "axis labels value",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "x_axis",
+              "y_axis",
+              "both"
             ],
-            "title": "axis labels value"
+            "enumValueTitles": {
+              "both": "Enum value: both.",
+              "none": "Enum value: none.",
+              "x_axis": "Enum value: x_axis.",
+              "y_axis": "Enum value: y_axis."
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "axis labels value",
+            "type": "string"
           },
           "caption": {
             "description": "caption field.",
-            "oneOf": [
-              {
-                "description": "caption field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "caption value",
-                "type": "string"
-              },
-              {
-                "description": "caption field.",
-                "title": "caption value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "caption value"
+            "nullable": true,
+            "title": "caption value",
+            "type": "string"
           },
           "chart_type": {
             "description": "chart type field.",
@@ -34508,385 +34483,235 @@
           },
           "color_by_value": {
             "description": "color by value field.",
-            "oneOf": [
-              {
-                "description": "color by value field.",
-                "examples": [
-                  true
-                ],
-                "title": "color by value value",
-                "type": "boolean"
-              },
-              {
-                "description": "color by value field.",
-                "title": "color by value value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "color by value value"
+            "nullable": true,
+            "title": "color by value value",
+            "type": "boolean"
           },
           "color_theme": {
             "description": "color theme field.",
-            "oneOf": [
-              {
-                "description": "color theme field.",
-                "enum": [
-                  "gray",
-                  "blue",
-                  "yellow",
-                  "green",
-                  "purple",
-                  "teal",
-                  "orange",
-                  "pink",
-                  "red",
-                  "auto",
-                  "colorful"
-                ],
-                "enumValueTitles": {
-                  "auto": "Enum value: auto.",
-                  "blue": "Enum value: blue.",
-                  "colorful": "Enum value: colorful.",
-                  "gray": "Enum value: gray.",
-                  "green": "Enum value: green.",
-                  "orange": "Enum value: orange.",
-                  "pink": "Enum value: pink.",
-                  "purple": "Enum value: purple.",
-                  "red": "Enum value: red.",
-                  "teal": "Enum value: teal.",
-                  "yellow": "Enum value: yellow."
-                },
-                "examples": [
-                  "gray"
-                ],
-                "title": "color theme value",
-                "type": "string"
-              },
-              {
-                "description": "color theme field.",
-                "title": "color theme value",
-                "type": "null"
-              }
+            "enum": [
+              "gray",
+              "blue",
+              "yellow",
+              "green",
+              "purple",
+              "teal",
+              "orange",
+              "pink",
+              "red",
+              "auto",
+              "colorful"
             ],
-            "title": "color theme value"
+            "enumValueTitles": {
+              "auto": "Enum value: auto.",
+              "blue": "Enum value: blue.",
+              "colorful": "Enum value: colorful.",
+              "gray": "Enum value: gray.",
+              "green": "Enum value: green.",
+              "orange": "Enum value: orange.",
+              "pink": "Enum value: pink.",
+              "purple": "Enum value: purple.",
+              "red": "Enum value: red.",
+              "teal": "Enum value: teal.",
+              "yellow": "Enum value: yellow."
+            },
+            "examples": [
+              "gray"
+            ],
+            "nullable": true,
+            "title": "color theme value",
+            "type": "string"
           },
           "cumulative": {
             "description": "cumulative field.",
-            "oneOf": [
-              {
-                "description": "cumulative field.",
-                "examples": [
-                  true
-                ],
-                "title": "cumulative value",
-                "type": "boolean"
-              },
-              {
-                "description": "cumulative field.",
-                "title": "cumulative value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "cumulative value"
+            "nullable": true,
+            "title": "cumulative value",
+            "type": "boolean"
           },
           "donut_labels": {
             "description": "donut labels field.",
-            "oneOf": [
-              {
-                "description": "donut labels field.",
-                "enum": [
-                  "none",
-                  "value",
-                  "name",
-                  "name_and_value"
-                ],
-                "enumValueTitles": {
-                  "name": "Enum value: name.",
-                  "name_and_value": "Enum value: name_and_value.",
-                  "none": "Enum value: none.",
-                  "value": "Enum value: value."
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "donut labels value",
-                "type": "string"
-              },
-              {
-                "description": "donut labels field.",
-                "title": "donut labels value",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "value",
+              "name",
+              "name_and_value"
             ],
-            "title": "donut labels value"
+            "enumValueTitles": {
+              "name": "Enum value: name.",
+              "name_and_value": "Enum value: name_and_value.",
+              "none": "Enum value: none.",
+              "value": "Enum value: value."
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "donut labels value",
+            "type": "string"
           },
           "grid_lines": {
             "description": "grid lines field.",
-            "oneOf": [
-              {
-                "description": "grid lines field.",
-                "enum": [
-                  "none",
-                  "horizontal",
-                  "vertical",
-                  "both"
-                ],
-                "enumValueTitles": {
-                  "both": "Enum value: both.",
-                  "horizontal": "Enum value: horizontal.",
-                  "none": "Enum value: none.",
-                  "vertical": "Enum value: vertical."
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "grid lines value",
-                "type": "string"
-              },
-              {
-                "description": "grid lines field.",
-                "title": "grid lines value",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "horizontal",
+              "vertical",
+              "both"
             ],
-            "title": "grid lines value"
+            "enumValueTitles": {
+              "both": "Enum value: both.",
+              "horizontal": "Enum value: horizontal.",
+              "none": "Enum value: none.",
+              "vertical": "Enum value: vertical."
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "grid lines value",
+            "type": "string"
           },
           "group_style": {
             "description": "group style field.",
-            "oneOf": [
-              {
-                "description": "group style field.",
-                "enum": [
-                  "normal",
-                  "percent",
-                  "side_by_side"
-                ],
-                "enumValueTitles": {
-                  "normal": "Enum value: normal.",
-                  "percent": "Enum value: percent.",
-                  "side_by_side": "Enum value: side_by_side."
-                },
-                "examples": [
-                  "normal"
-                ],
-                "title": "group style value",
-                "type": "string"
-              },
-              {
-                "description": "group style field.",
-                "title": "group style value",
-                "type": "null"
-              }
+            "enum": [
+              "normal",
+              "percent",
+              "side_by_side"
             ],
-            "title": "group style value"
+            "enumValueTitles": {
+              "normal": "Enum value: normal.",
+              "percent": "Enum value: percent.",
+              "side_by_side": "Enum value: side_by_side."
+            },
+            "examples": [
+              "normal"
+            ],
+            "nullable": true,
+            "title": "group style value",
+            "type": "string"
           },
           "height": {
             "description": "height field.",
-            "oneOf": [
-              {
-                "description": "height field.",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large",
-                  "extra_large"
-                ],
-                "enumValueTitles": {
-                  "extra_large": "Enum value: extra_large.",
-                  "large": "Enum value: large.",
-                  "medium": "Enum value: medium.",
-                  "small": "Enum value: small."
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "height value",
-                "type": "string"
-              },
-              {
-                "description": "height field.",
-                "title": "height value",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "extra_large"
             ],
-            "title": "height value"
+            "enumValueTitles": {
+              "extra_large": "Enum value: extra_large.",
+              "large": "Enum value: large.",
+              "medium": "Enum value: medium.",
+              "small": "Enum value: small."
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "height value",
+            "type": "string"
           },
           "hide_empty_groups": {
             "description": "hide empty groups field.",
-            "oneOf": [
-              {
-                "description": "hide empty groups field.",
-                "examples": [
-                  true
-                ],
-                "title": "hide empty groups value",
-                "type": "boolean"
-              },
-              {
-                "description": "hide empty groups field.",
-                "title": "hide empty groups value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide empty groups value"
+            "nullable": true,
+            "title": "hide empty groups value",
+            "type": "boolean"
           },
           "hide_line_fill_area": {
             "description": "hide line fill area field.",
-            "oneOf": [
-              {
-                "description": "hide line fill area field.",
-                "examples": [
-                  true
-                ],
-                "title": "hide line fill area value",
-                "type": "boolean"
-              },
-              {
-                "description": "hide line fill area field.",
-                "title": "hide line fill area value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide line fill area value"
+            "nullable": true,
+            "title": "hide line fill area value",
+            "type": "boolean"
           },
           "hide_title": {
             "description": "hide title field.",
-            "oneOf": [
-              {
-                "description": "hide title field.",
-                "examples": [
-                  true
-                ],
-                "title": "hide title value",
-                "type": "boolean"
-              },
-              {
-                "description": "hide title field.",
-                "title": "hide title value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "hide title value"
+            "nullable": true,
+            "title": "hide title value",
+            "type": "boolean"
           },
           "legend_position": {
             "description": "legend position field.",
-            "oneOf": [
-              {
-                "description": "legend position field.",
-                "enum": [
-                  "off",
-                  "bottom",
-                  "side"
-                ],
-                "enumValueTitles": {
-                  "bottom": "Enum value: bottom.",
-                  "off": "Enum value: off.",
-                  "side": "Enum value: side."
-                },
-                "examples": [
-                  "off"
-                ],
-                "title": "legend position value",
-                "type": "string"
-              },
-              {
-                "description": "legend position field.",
-                "title": "legend position value",
-                "type": "null"
-              }
+            "enum": [
+              "off",
+              "bottom",
+              "side"
             ],
-            "title": "legend position value"
+            "enumValueTitles": {
+              "bottom": "Enum value: bottom.",
+              "off": "Enum value: off.",
+              "side": "Enum value: side."
+            },
+            "examples": [
+              "off"
+            ],
+            "nullable": true,
+            "title": "legend position value",
+            "type": "string"
           },
           "reference_lines": {
             "description": "reference lines field.",
-            "oneOf": [
-              {
-                "description": "reference lines field.",
-                "items": {
-                  "$ref": "#/components/schemas/chartReferenceLineRequest"
-                },
-                "maxItems": 100,
-                "title": "reference lines value",
-                "type": "array"
-              },
-              {
-                "description": "reference lines field.",
-                "title": "reference lines value",
-                "type": "null"
-              }
-            ],
-            "title": "reference lines value"
+            "items": {
+              "$ref": "#/components/schemas/chartReferenceLineRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "reference lines value",
+            "type": "array"
           },
           "show_data_labels": {
             "description": "show data labels field.",
-            "oneOf": [
-              {
-                "description": "show data labels field.",
-                "examples": [
-                  true
-                ],
-                "title": "show data labels value",
-                "type": "boolean"
-              },
-              {
-                "description": "show data labels field.",
-                "title": "show data labels value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show data labels value"
+            "nullable": true,
+            "title": "show data labels value",
+            "type": "boolean"
           },
           "smooth_line": {
             "description": "smooth line field.",
-            "oneOf": [
-              {
-                "description": "smooth line field.",
-                "examples": [
-                  true
-                ],
-                "title": "smooth line value",
-                "type": "boolean"
-              },
-              {
-                "description": "smooth line field.",
-                "title": "smooth line value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "smooth line value"
+            "nullable": true,
+            "title": "smooth line value",
+            "type": "boolean"
           },
           "sort": {
             "description": "Sort conditions.",
-            "oneOf": [
-              {
-                "description": "Sort conditions.",
-                "enum": [
-                  "manual",
-                  "x_ascending",
-                  "x_descending",
-                  "y_ascending",
-                  "y_descending"
-                ],
-                "enumValueTitles": {
-                  "manual": "Enum value: manual.",
-                  "x_ascending": "Enum value: x_ascending.",
-                  "x_descending": "Enum value: x_descending.",
-                  "y_ascending": "Enum value: y_ascending.",
-                  "y_descending": "Enum value: y_descending."
-                },
-                "examples": [
-                  "manual"
-                ],
-                "title": "sort value",
-                "type": "string"
-              },
-              {
-                "description": "Sort conditions.",
-                "title": "sort value",
-                "type": "null"
-              }
+            "enum": [
+              "manual",
+              "x_ascending",
+              "x_descending",
+              "y_ascending",
+              "y_descending"
             ],
-            "title": "sort value"
+            "enumValueTitles": {
+              "manual": "Enum value: manual.",
+              "x_ascending": "Enum value: x_ascending.",
+              "x_descending": "Enum value: x_descending.",
+              "y_ascending": "Enum value: y_ascending.",
+              "y_descending": "Enum value: y_descending."
+            },
+            "examples": [
+              "manual"
+            ],
+            "nullable": true,
+            "title": "sort value",
+            "type": "string"
           },
           "stack_by": {
             "description": "stack by field.",
@@ -34896,6 +34721,10 @@
               },
               {
                 "description": "stack by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "stack by value",
                 "type": "null"
               }
@@ -34919,6 +34748,10 @@
               },
               {
                 "description": "Property value.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "value value",
                 "type": "null"
               }
@@ -34933,6 +34766,10 @@
               },
               {
                 "description": "x axis field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "x axis value",
                 "type": "null"
               }
@@ -34941,25 +34778,12 @@
           },
           "x_axis_property_id": {
             "description": "x axis property id field.",
-            "oneOf": [
-              {
-                "description": "x axis property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "x axis property id value",
-                "type": "string"
-              },
-              {
-                "description": "x axis property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "x axis property id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "x axis property id value"
+            "nullable": true,
+            "title": "x axis property id value",
+            "type": "string"
           },
           "y_axis": {
             "description": "y axis field.",
@@ -34969,6 +34793,10 @@
               },
               {
                 "description": "y axis field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "y axis value",
                 "type": "null"
               }
@@ -34977,63 +34805,30 @@
           },
           "y_axis_max": {
             "description": "y axis max field.",
-            "oneOf": [
-              {
-                "description": "y axis max field.",
-                "examples": [
-                  1
-                ],
-                "title": "y axis max value",
-                "type": "number"
-              },
-              {
-                "description": "y axis max field.",
-                "title": "y axis max value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis max value"
+            "nullable": true,
+            "title": "y axis max value",
+            "type": "number"
           },
           "y_axis_min": {
             "description": "y axis min field.",
-            "oneOf": [
-              {
-                "description": "y axis min field.",
-                "examples": [
-                  1
-                ],
-                "title": "y axis min value",
-                "type": "number"
-              },
-              {
-                "description": "y axis min field.",
-                "title": "y axis min value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis min value"
+            "nullable": true,
+            "title": "y axis min value",
+            "type": "number"
           },
           "y_axis_property_id": {
             "description": "y axis property id field.",
-            "oneOf": [
-              {
-                "description": "y axis property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "y axis property id value",
-                "type": "string"
-              },
-              {
-                "description": "y axis property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "y axis property id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "y axis property id value"
+            "nullable": true,
+            "title": "y axis property id value",
+            "type": "string"
           }
         },
         "required": [
@@ -35069,22 +34864,12 @@
           },
           "caption": {
             "description": "caption field.",
-            "oneOf": [
-              {
-                "description": "caption field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "caption value",
-                "type": "string"
-              },
-              {
-                "description": "caption field.",
-                "title": "caption value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "caption value"
+            "nullable": true,
+            "title": "caption value",
+            "type": "string"
           },
           "chart_type": {
             "description": "chart type field.",
@@ -35280,23 +35065,13 @@
           },
           "reference_lines": {
             "description": "reference lines field.",
-            "oneOf": [
-              {
-                "description": "reference lines field.",
-                "items": {
-                  "$ref": "#/components/schemas/chartReferenceLineResponse"
-                },
-                "maxItems": 100,
-                "title": "reference lines value",
-                "type": "array"
-              },
-              {
-                "description": "reference lines field.",
-                "title": "reference lines value",
-                "type": "null"
-              }
-            ],
-            "title": "reference lines value"
+            "items": {
+              "$ref": "#/components/schemas/chartReferenceLineResponse"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "reference lines value",
+            "type": "array"
           },
           "show_data_labels": {
             "description": "show data labels field.",
@@ -35344,6 +35119,10 @@
               },
               {
                 "description": "stack by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "stack by value",
                 "type": "null"
               }
@@ -35370,6 +35149,10 @@
               },
               {
                 "description": "x axis field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "x axis value",
                 "type": "null"
               }
@@ -35392,6 +35175,10 @@
               },
               {
                 "description": "y axis field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "y axis value",
                 "type": "null"
               }
@@ -35400,41 +35187,21 @@
           },
           "y_axis_max": {
             "description": "y axis max field.",
-            "oneOf": [
-              {
-                "description": "y axis max field.",
-                "examples": [
-                  1
-                ],
-                "title": "y axis max value",
-                "type": "number"
-              },
-              {
-                "description": "y axis max field.",
-                "title": "y axis max value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis max value"
+            "nullable": true,
+            "title": "y axis max value",
+            "type": "number"
           },
           "y_axis_min": {
             "description": "y axis min field.",
-            "oneOf": [
-              {
-                "description": "y axis min field.",
-                "examples": [
-                  1
-                ],
-                "title": "y axis min value",
-                "type": "number"
-              },
-              {
-                "description": "y axis min field.",
-                "title": "y axis min value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "y axis min value"
+            "nullable": true,
+            "title": "y axis min value",
+            "type": "number"
           },
           "y_axis_property_id": {
             "description": "y axis property id field.",
@@ -36283,7 +36050,7 @@
           "width_ratio": {
             "description": "width ratio field.",
             "examples": [
-              1
+              0.5
             ],
             "exclusiveMaximum": 1,
             "exclusiveMinimum": 0,
@@ -36467,22 +36234,12 @@
             "properties": {
               "resolved_name": {
                 "description": "resolved name field.",
-                "oneOf": [
-                  {
-                    "description": "resolved name field.",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "resolved name value",
-                    "type": "string"
-                  },
-                  {
-                    "description": "resolved name field.",
-                    "title": "resolved name value",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "resolved name value"
+                "nullable": true,
+                "title": "resolved name value",
+                "type": "string"
               },
               "type": {
                 "description": "Object or block type.",
@@ -36847,8 +36604,9 @@
               {
                 "description": "Resource icon.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon value",
                 "type": "null"
               }
@@ -37911,8 +37669,9 @@
               {
                 "description": "Resource cover.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover value",
                 "type": "null"
               }
@@ -37952,8 +37711,9 @@
               {
                 "description": "Resource icon.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon value",
                 "type": "null"
               }
@@ -38013,25 +37773,12 @@
           },
           "public_url": {
             "description": "Public access link.",
-            "oneOf": [
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "string"
-              },
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url value"
+            "nullable": true,
+            "title": "public url value",
+            "type": "string"
           },
           "title": {
             "description": "Resource title.",
@@ -38173,25 +37920,12 @@
                         },
                         "name": {
                           "description": "Name.",
-                          "oneOf": [
-                            {
-                              "description": "Name.",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name value",
-                              "type": "string"
-                            },
-                            {
-                              "description": "Name.",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name value",
-                              "type": "null"
-                            }
+                          "examples": [
+                            "Example title"
                           ],
-                          "title": "name value"
+                          "nullable": true,
+                          "title": "name value",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -38297,6 +38031,10 @@
               },
               {
                 "description": "configuration field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "configuration value",
                 "type": "null"
               }
@@ -38311,6 +38049,10 @@
               },
               {
                 "description": "Creator.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "created by value",
                 "type": "null"
               }
@@ -38336,25 +38078,12 @@
           },
           "data_source_id": {
             "description": "Data source ID.",
-            "oneOf": [
-              {
-                "description": "Data source ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "data source id value",
-                "type": "string"
-              },
-              {
-                "description": "Data source ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "data source id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "data source id value"
+            "nullable": true,
+            "title": "data source id value",
+            "type": "string"
           },
           "filter": {
             "description": "Filter conditions.",
@@ -38364,6 +38093,10 @@
               },
               {
                 "description": "Filter conditions.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "filter value",
                 "type": "null"
               }
@@ -38381,6 +38114,10 @@
               },
               {
                 "description": "Last editor.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "last edited by value",
                 "type": "null"
               }
@@ -38417,43 +38154,23 @@
             "$ref": "#/components/schemas/databaseParentResponse"
           },
           "quick_filters": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/quickFilterConditionResponse"
+            },
             "description": "quick filters field.",
-            "oneOf": [
-              {
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/quickFilterConditionResponse"
-                },
-                "description": "quick filters field.",
-                "title": "quick filters value",
-                "type": "object"
-              },
-              {
-                "description": "quick filters field.",
-                "title": "quick filters value",
-                "type": "null"
-              }
-            ],
-            "title": "quick filters value"
+            "nullable": true,
+            "title": "quick filters value",
+            "type": "object"
           },
           "sorts": {
             "description": "sorts field.",
-            "oneOf": [
-              {
-                "description": "sorts field.",
-                "items": {
-                  "$ref": "#/components/schemas/viewSortResponse"
-                },
-                "maxItems": 100,
-                "title": "sorts value",
-                "type": "array"
-              },
-              {
-                "description": "sorts field.",
-                "title": "sorts value",
-                "type": "null"
-              }
-            ],
-            "title": "sorts value"
+            "items": {
+              "$ref": "#/components/schemas/viewSortResponse"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "sorts value",
+            "type": "array"
           },
           "type": {
             "description": "Object or block type.",
@@ -38744,8 +38461,9 @@
               {
                 "description": "Resource cover.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover value",
                 "type": "null"
               }
@@ -38788,8 +38506,9 @@
               {
                 "description": "Resource icon.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon value",
                 "type": "null"
               }
@@ -38846,25 +38565,12 @@
           },
           "public_url": {
             "description": "Public access link.",
-            "oneOf": [
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "string"
-              },
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url value"
+            "nullable": true,
+            "title": "public url value",
+            "type": "string"
           },
           "title": {
             "description": "Resource title.",
@@ -39018,6 +38724,10 @@
               },
               {
                 "description": "Resource description.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "description value",
                 "type": "null"
               }
@@ -39137,25 +38847,12 @@
                         },
                         "name": {
                           "description": "Name.",
-                          "oneOf": [
-                            {
-                              "description": "Name.",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name value",
-                              "type": "string"
-                            },
-                            {
-                              "description": "Name.",
-                              "examples": [
-                                "Example title"
-                              ],
-                              "title": "name value",
-                              "type": "null"
-                            }
+                          "examples": [
+                            "Example title"
                           ],
-                          "title": "name value"
+                          "nullable": true,
+                          "title": "name value",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -39283,8 +38980,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -39322,8 +39020,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -39562,8 +39261,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -39791,8 +39491,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -39842,23 +39543,13 @@
         "properties": {
           "end": {
             "description": "Time range end.",
-            "oneOf": [
-              {
-                "description": "Time range end.",
-                "examples": [
-                  "2026-03-11"
-                ],
-                "format": "date",
-                "title": "end value",
-                "type": "string"
-              },
-              {
-                "description": "Time range end.",
-                "title": "end value",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11"
             ],
-            "title": "end value"
+            "format": "date",
+            "nullable": true,
+            "title": "end value",
+            "type": "string"
           },
           "start": {
             "description": "Time range start.",
@@ -39878,8 +39569,9 @@
               {
                 "description": "Time zone.",
                 "examples": [
-                  "2026-03-11T00:00:00.000Z"
+                  null
                 ],
+                "nullable": true,
                 "title": "time zone value",
                 "type": "null"
               }
@@ -39899,23 +39591,13 @@
         "properties": {
           "end": {
             "description": "Time range end.",
-            "oneOf": [
-              {
-                "description": "Time range end.",
-                "examples": [
-                  "2026-03-11"
-                ],
-                "format": "date",
-                "title": "end value",
-                "type": "string"
-              },
-              {
-                "description": "Time range end.",
-                "title": "end value",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11"
             ],
-            "title": "end value"
+            "format": "date",
+            "nullable": true,
+            "title": "end value",
+            "type": "string"
           },
           "start": {
             "description": "Time range start.",
@@ -39935,8 +39617,9 @@
               {
                 "description": "Time zone.",
                 "examples": [
-                  "2026-03-11T00:00:00.000Z"
+                  null
                 ],
+                "nullable": true,
                 "title": "time zone value",
                 "type": "null"
               }
@@ -39965,8 +39648,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -40262,25 +39946,12 @@
         "properties": {
           "email": {
             "description": "Email address.",
-            "oneOf": [
-              {
-                "description": "Email address.",
-                "examples": [
-                  "member@example.com"
-                ],
-                "title": "email value",
-                "type": "string"
-              },
-              {
-                "description": "Email address.",
-                "examples": [
-                  "member@example.com"
-                ],
-                "title": "email value",
-                "type": "null"
-              }
+            "examples": [
+              "member@example.com"
             ],
-            "title": "email value"
+            "nullable": true,
+            "title": "email value",
+            "type": "string"
           },
           "type": {
             "const": "email",
@@ -42343,42 +42014,22 @@
           },
           "content_length": {
             "description": "content length field.",
-            "oneOf": [
-              {
-                "description": "content length field.",
-                "examples": [
-                  1
-                ],
-                "minimum": 0,
-                "title": "content length value",
-                "type": "integer"
-              },
-              {
-                "description": "content length field.",
-                "title": "content length value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "content length value"
+            "minimum": 0,
+            "nullable": true,
+            "title": "content length value",
+            "type": "integer"
           },
           "content_type": {
             "description": "content type field.",
-            "oneOf": [
-              {
-                "description": "content type field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "content type value",
-                "type": "string"
-              },
-              {
-                "description": "content type field.",
-                "title": "content type value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "content type value"
+            "nullable": true,
+            "title": "content type value",
+            "type": "string"
           },
           "created_by": {
             "additionalProperties": false,
@@ -42424,26 +42075,13 @@
           },
           "expiry_time": {
             "description": "expiry time field.",
-            "oneOf": [
-              {
-                "description": "expiry time field.",
-                "examples": [
-                  "2026-03-11T00:00:00.000Z"
-                ],
-                "format": "date-time",
-                "title": "expiry time value",
-                "type": "string"
-              },
-              {
-                "description": "expiry time field.",
-                "examples": [
-                  "2026-03-11T00:00:00.000Z"
-                ],
-                "title": "expiry time value",
-                "type": "null"
-              }
+            "examples": [
+              "2026-03-11T00:00:00.000Z"
             ],
-            "title": "expiry time value"
+            "format": "date-time",
+            "nullable": true,
+            "title": "expiry time value",
+            "type": "string"
           },
           "file_import_result": {
             "allOf": [
@@ -42518,41 +42156,21 @@
                           },
                           "parameter": {
                             "description": "parameter field.",
-                            "oneOf": [
-                              {
-                                "description": "parameter field.",
-                                "examples": [
-                                  "example content"
-                                ],
-                                "title": "parameter value",
-                                "type": "string"
-                              },
-                              {
-                                "description": "parameter field.",
-                                "title": "parameter value",
-                                "type": "null"
-                              }
+                            "examples": [
+                              "example content"
                             ],
-                            "title": "parameter value"
+                            "nullable": true,
+                            "title": "parameter value",
+                            "type": "string"
                           },
                           "status_code": {
                             "description": "status code field.",
-                            "oneOf": [
-                              {
-                                "description": "status code field.",
-                                "examples": [
-                                  1
-                                ],
-                                "title": "status code value",
-                                "type": "integer"
-                              },
-                              {
-                                "description": "status code field.",
-                                "title": "status code value",
-                                "type": "null"
-                              }
+                            "examples": [
+                              1
                             ],
-                            "title": "status code value"
+                            "nullable": true,
+                            "title": "status code value",
+                            "type": "integer"
                           },
                           "type": {
                             "description": "Object or block type.",
@@ -42611,22 +42229,12 @@
           },
           "filename": {
             "description": "filename field.",
-            "oneOf": [
-              {
-                "description": "filename field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "filename value",
-                "type": "string"
-              },
-              {
-                "description": "filename field.",
-                "title": "filename value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "filename value"
+            "nullable": true,
+            "title": "filename value",
+            "type": "string"
           },
           "id": {
             "$ref": "#/components/schemas/idResponse"
@@ -42880,41 +42488,21 @@
                               },
                               "parameter": {
                                 "description": "parameter field.",
-                                "oneOf": [
-                                  {
-                                    "description": "parameter field.",
-                                    "examples": [
-                                      "example content"
-                                    ],
-                                    "title": "parameter value",
-                                    "type": "string"
-                                  },
-                                  {
-                                    "description": "parameter field.",
-                                    "title": "parameter value",
-                                    "type": "null"
-                                  }
+                                "examples": [
+                                  "example content"
                                 ],
-                                "title": "parameter value"
+                                "nullable": true,
+                                "title": "parameter value",
+                                "type": "string"
                               },
                               "status_code": {
                                 "description": "status code field.",
-                                "oneOf": [
-                                  {
-                                    "description": "status code field.",
-                                    "examples": [
-                                      1
-                                    ],
-                                    "title": "status code value",
-                                    "type": "integer"
-                                  },
-                                  {
-                                    "description": "status code field.",
-                                    "title": "status code value",
-                                    "type": "null"
-                                  }
+                                "examples": [
+                                  1
                                 ],
-                                "title": "status code value"
+                                "nullable": true,
+                                "title": "status code value",
+                                "type": "integer"
                               },
                               "type": {
                                 "description": "Object or block type.",
@@ -43162,74 +42750,44 @@
         "properties": {
           "anonymous_submissions": {
             "description": "anonymous submissions field.",
-            "oneOf": [
-              {
-                "description": "anonymous submissions field.",
-                "examples": [
-                  true
-                ],
-                "title": "anonymous submissions value",
-                "type": "boolean"
-              },
-              {
-                "description": "anonymous submissions field.",
-                "title": "anonymous submissions value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "anonymous submissions value"
+            "nullable": true,
+            "title": "anonymous submissions value",
+            "type": "boolean"
           },
           "is_form_closed": {
             "description": "is form closed field.",
-            "oneOf": [
-              {
-                "description": "is form closed field.",
-                "examples": [
-                  true
-                ],
-                "title": "is form closed value",
-                "type": "boolean"
-              },
-              {
-                "description": "is form closed field.",
-                "title": "is form closed value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "is form closed value"
+            "nullable": true,
+            "title": "is form closed value",
+            "type": "boolean"
           },
           "submission_permissions": {
             "description": "submission permissions field.",
-            "oneOf": [
-              {
-                "description": "submission permissions field.",
-                "enum": [
-                  "none",
-                  "comment_only",
-                  "reader",
-                  "read_and_write",
-                  "editor"
-                ],
-                "enumValueTitles": {
-                  "comment_only": "Enum value: comment_only.",
-                  "editor": "Enum value: editor.",
-                  "none": "Enum value: none.",
-                  "read_and_write": "Enum value: read_and_write.",
-                  "reader": "Enum value: reader."
-                },
-                "examples": [
-                  "none"
-                ],
-                "title": "submission permissions value",
-                "type": "string"
-              },
-              {
-                "description": "submission permissions field.",
-                "title": "submission permissions value",
-                "type": "null"
-              }
+            "enum": [
+              "none",
+              "comment_only",
+              "reader",
+              "read_and_write",
+              "editor"
             ],
-            "title": "submission permissions value"
+            "enumValueTitles": {
+              "comment_only": "Enum value: comment_only.",
+              "editor": "Enum value: editor.",
+              "none": "Enum value: none.",
+              "read_and_write": "Enum value: read_and_write.",
+              "reader": "Enum value: reader."
+            },
+            "examples": [
+              "none"
+            ],
+            "nullable": true,
+            "title": "submission permissions value",
+            "type": "string"
           },
           "type": {
             "const": "form",
@@ -44021,30 +43579,20 @@
         "properties": {
           "card_layout": {
             "description": "card layout field.",
-            "oneOf": [
-              {
-                "description": "card layout field.",
-                "enum": [
-                  "list",
-                  "compact"
-                ],
-                "enumValueTitles": {
-                  "compact": "Enum value: compact.",
-                  "list": "Enum value: list."
-                },
-                "examples": [
-                  "list"
-                ],
-                "title": "card layout value",
-                "type": "string"
-              },
-              {
-                "description": "card layout field.",
-                "title": "card layout value",
-                "type": "null"
-              }
+            "enum": [
+              "list",
+              "compact"
             ],
-            "title": "card layout value"
+            "enumValueTitles": {
+              "compact": "Enum value: compact.",
+              "list": "Enum value: list."
+            },
+            "examples": [
+              "list"
+            ],
+            "nullable": true,
+            "title": "card layout value",
+            "type": "string"
           },
           "cover": {
             "description": "Resource cover.",
@@ -44055,8 +43603,9 @@
               {
                 "description": "Resource cover.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover value",
                 "type": "null"
               }
@@ -44065,85 +43614,49 @@
           },
           "cover_aspect": {
             "description": "cover aspect field.",
-            "oneOf": [
-              {
-                "description": "cover aspect field.",
-                "enum": [
-                  "contain",
-                  "cover"
-                ],
-                "enumValueTitles": {
-                  "contain": "Enum value: contain.",
-                  "cover": "Enum value: cover."
-                },
-                "examples": [
-                  "contain"
-                ],
-                "title": "cover aspect value",
-                "type": "string"
-              },
-              {
-                "description": "cover aspect field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover aspect value",
-                "type": "null"
-              }
+            "enum": [
+              "contain",
+              "cover"
             ],
-            "title": "cover aspect value"
+            "enumValueTitles": {
+              "contain": "Enum value: contain.",
+              "cover": "Enum value: cover."
+            },
+            "examples": [
+              "contain"
+            ],
+            "nullable": true,
+            "title": "cover aspect value",
+            "type": "string"
           },
           "cover_size": {
             "description": "cover size field.",
-            "oneOf": [
-              {
-                "description": "cover size field.",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large"
-                ],
-                "enumValueTitles": {
-                  "large": "Enum value: large.",
-                  "medium": "Enum value: medium.",
-                  "small": "Enum value: small."
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "cover size value",
-                "type": "string"
-              },
-              {
-                "description": "cover size field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "cover size value",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large"
             ],
-            "title": "cover size value"
+            "enumValueTitles": {
+              "large": "Enum value: large.",
+              "medium": "Enum value: medium.",
+              "small": "Enum value: small."
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "cover size value",
+            "type": "string"
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "type": {
             "const": "gallery",
@@ -44397,25 +43910,12 @@
           },
           "name": {
             "description": "Name.",
-            "oneOf": [
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "string"
-              },
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name value"
+            "nullable": true,
+            "title": "name value",
+            "type": "string"
           },
           "object": {
             "const": "group",
@@ -46164,23 +45664,13 @@
         "properties": {
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "type": {
             "const": "list",
@@ -46254,73 +45744,43 @@
         "properties": {
           "height": {
             "description": "height field.",
-            "oneOf": [
-              {
-                "description": "height field.",
-                "enum": [
-                  "small",
-                  "medium",
-                  "large",
-                  "extra_large"
-                ],
-                "enumValueTitles": {
-                  "extra_large": "Enum value: extra_large.",
-                  "large": "Enum value: large.",
-                  "medium": "Enum value: medium.",
-                  "small": "Enum value: small."
-                },
-                "examples": [
-                  "small"
-                ],
-                "title": "height value",
-                "type": "string"
-              },
-              {
-                "description": "height field.",
-                "title": "height value",
-                "type": "null"
-              }
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "extra_large"
             ],
-            "title": "height value"
+            "enumValueTitles": {
+              "extra_large": "Enum value: extra_large.",
+              "large": "Enum value: large.",
+              "medium": "Enum value: medium.",
+              "small": "Enum value: small."
+            },
+            "examples": [
+              "small"
+            ],
+            "nullable": true,
+            "title": "height value",
+            "type": "string"
           },
           "map_by": {
             "description": "map by field.",
-            "oneOf": [
-              {
-                "description": "map by field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "map by value",
-                "type": "string"
-              },
-              {
-                "description": "map by field.",
-                "title": "map by value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "map by value"
+            "nullable": true,
+            "title": "map by value",
+            "type": "string"
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "type": {
             "const": "map",
@@ -47234,22 +46694,12 @@
                     },
                     "description": {
                       "description": "Resource description.",
-                      "oneOf": [
-                        {
-                          "description": "Resource description.",
-                          "examples": [
-                            "example content"
-                          ],
-                          "title": "description value",
-                          "type": "string"
-                        },
-                        {
-                          "description": "Resource description.",
-                          "title": "description value",
-                          "type": "null"
-                        }
+                      "examples": [
+                        "example content"
                       ],
-                      "title": "description value"
+                      "nullable": true,
+                      "title": "description value",
+                      "type": "string"
                     },
                     "name": {
                       "description": "Name.",
@@ -47562,22 +47012,12 @@
         "properties": {
           "number": {
             "description": "Number.",
-            "oneOf": [
-              {
-                "description": "Number.",
-                "examples": [
-                  1
-                ],
-                "title": "number value",
-                "type": "number"
-              },
-              {
-                "description": "Number.",
-                "title": "number value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number value"
+            "nullable": true,
+            "title": "number value",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -47740,22 +47180,12 @@
         "properties": {
           "number": {
             "description": "Number.",
-            "oneOf": [
-              {
-                "description": "Number.",
-                "examples": [
-                  1
-                ],
-                "title": "number value",
-                "type": "number"
-              },
-              {
-                "description": "Number.",
-                "title": "number value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number value"
+            "nullable": true,
+            "title": "number value",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -47980,22 +47410,12 @@
         "properties": {
           "number": {
             "description": "Number.",
-            "oneOf": [
-              {
-                "description": "Number.",
-                "examples": [
-                  1
-                ],
-                "title": "number value",
-                "type": "number"
-              },
-              {
-                "description": "Number.",
-                "title": "number value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number value"
+            "nullable": true,
+            "title": "number value",
+            "type": "number"
           },
           "type": {
             "const": "number",
@@ -48549,8 +47969,9 @@
               {
                 "description": "Resource cover.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "cover value",
                 "type": "null"
               }
@@ -48578,8 +47999,9 @@
               {
                 "description": "Resource icon.",
                 "examples": [
-                  "https://example.com"
+                  null
                 ],
+                "nullable": true,
                 "title": "icon value",
                 "type": "null"
               }
@@ -48647,25 +48069,12 @@
           },
           "public_url": {
             "description": "Public access link.",
-            "oneOf": [
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "string"
-              },
-              {
-                "description": "Public access link.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "public url value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "public url value"
+            "nullable": true,
+            "title": "public url value",
+            "type": "string"
           },
           "url": {
             "description": "Link for opening the resource in Notion.",
@@ -48895,25 +48304,12 @@
                   },
                   "transcript_id": {
                     "description": "transcript id field.",
-                    "oneOf": [
-                      {
-                        "description": "transcript id field.",
-                        "examples": [
-                          "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                        ],
-                        "title": "transcript id value",
-                        "type": "string"
-                      },
-                      {
-                        "description": "transcript id field.",
-                        "examples": [
-                          "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                        ],
-                        "title": "transcript id value",
-                        "type": "null"
-                      }
+                    "examples": [
+                      "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
                     ],
-                    "title": "transcript id value"
+                    "nullable": true,
+                    "title": "transcript id value",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -50056,7 +49452,7 @@
               "email_verified": {
                 "description": "email verified field.",
                 "examples": [
-                  "member@example.com"
+                  true
                 ],
                 "title": "email verified value",
                 "type": "boolean"
@@ -50181,22 +49577,12 @@
         "properties": {
           "phone_number": {
             "description": "phone number field.",
-            "oneOf": [
-              {
-                "description": "phone number field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "phone number value",
-                "type": "string"
-              },
-              {
-                "description": "phone number field.",
-                "title": "phone number value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "phone number value"
+            "nullable": true,
+            "title": "phone number value",
+            "type": "string"
           },
           "type": {
             "const": "phone_number",
@@ -50346,66 +49732,30 @@
         "properties": {
           "address": {
             "description": "address field.",
-            "oneOf": [
-              {
-                "description": "address field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "address value",
-                "type": "string"
-              },
-              {
-                "description": "address field.",
-                "title": "address value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "address value"
+            "nullable": true,
+            "title": "address value",
+            "type": "string"
           },
           "aws_place_id": {
             "description": "aws place id field.",
-            "oneOf": [
-              {
-                "description": "aws place id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "aws place id value",
-                "type": "string"
-              },
-              {
-                "description": "aws place id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "aws place id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "aws place id value"
+            "nullable": true,
+            "title": "aws place id value",
+            "type": "string"
           },
           "google_place_id": {
             "description": "google place id field.",
-            "oneOf": [
-              {
-                "description": "google place id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "google place id value",
-                "type": "string"
-              },
-              {
-                "description": "google place id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "google place id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "google place id value"
+            "nullable": true,
+            "title": "google place id value",
+            "type": "string"
           },
           "lat": {
             "description": "lat field.",
@@ -50425,25 +49775,12 @@
           },
           "name": {
             "description": "Name.",
-            "oneOf": [
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "string"
-              },
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name value"
+            "nullable": true,
+            "title": "name value",
+            "type": "string"
           }
         },
         "required": [
@@ -50465,6 +49802,10 @@
               },
               {
                 "description": "place field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "place value",
                 "type": "null"
               }
@@ -50592,6 +49933,10 @@
               },
               {
                 "description": "Resource description.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "description value",
                 "type": "null"
               }
@@ -51596,8 +50941,9 @@
                               {
                                 "description": "Date or datetime.",
                                 "examples": [
-                                  "2026-03-11"
+                                  null
                                 ],
+                                "nullable": true,
                                 "title": "date value",
                                 "type": "null"
                               }
@@ -52112,8 +51458,9 @@
                               {
                                 "description": "Date or datetime.",
                                 "examples": [
-                                  "2026-03-11"
+                                  null
                                 ],
+                                "nullable": true,
                                 "title": "date value",
                                 "type": "null"
                               }
@@ -52371,6 +51718,10 @@
           },
           {
             "description": "public Api Async Task Status Result Json Value field.",
+            "examples": [
+              null
+            ],
+            "nullable": true,
             "title": "publicApiAsyncTaskStatusResultJsonValue data structure",
             "type": "null"
           },
@@ -53100,25 +52451,12 @@
           },
           "href": {
             "description": "Link URL.",
-            "oneOf": [
-              {
-                "description": "Link URL.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "href value",
-                "type": "string"
-              },
-              {
-                "description": "Link URL.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "href value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "href value"
+            "nullable": true,
+            "title": "href value",
+            "type": "string"
           },
           "plain_text": {
             "description": "Plain text without styling.",
@@ -53620,8 +52958,9 @@
                       {
                         "description": "Date or datetime.",
                         "examples": [
-                          "2026-03-11"
+                          null
                         ],
+                        "nullable": true,
                         "title": "date value",
                         "type": "null"
                       }
@@ -54087,22 +53426,12 @@
                     },
                     "description": {
                       "description": "Resource description.",
-                      "oneOf": [
-                        {
-                          "description": "Resource description.",
-                          "examples": [
-                            "example content"
-                          ],
-                          "title": "description value",
-                          "type": "string"
-                        },
-                        {
-                          "description": "Resource description.",
-                          "title": "description value",
-                          "type": "null"
-                        }
+                      "examples": [
+                        "example content"
                       ],
-                      "title": "description value"
+                      "nullable": true,
+                      "title": "description value",
+                      "type": "string"
                     },
                     "name": {
                       "description": "Name.",
@@ -54211,6 +53540,10 @@
               },
               {
                 "description": "Select option.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "select value",
                 "type": "null"
               }
@@ -54246,22 +53579,12 @@
           },
           "description": {
             "description": "Resource description.",
-            "oneOf": [
-              {
-                "description": "Resource description.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description value",
-                "type": "string"
-              },
-              {
-                "description": "Resource description.",
-                "title": "description value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description value"
+            "nullable": true,
+            "title": "description value",
+            "type": "string"
           },
           "id": {
             "description": "UUID v4 identifier of the resource.",
@@ -54301,6 +53624,10 @@
               },
               {
                 "description": "Select option.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "select value",
                 "type": "null"
               }
@@ -54681,22 +54008,12 @@
           },
           "description": {
             "description": "Resource description.",
-            "oneOf": [
-              {
-                "description": "Resource description.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description value",
-                "type": "string"
-              },
-              {
-                "description": "Resource description.",
-                "title": "description value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description value"
+            "nullable": true,
+            "title": "description value",
+            "type": "string"
           },
           "group": {
             "$ref": "#/components/schemas/statusOptionGroup"
@@ -54809,22 +54126,12 @@
           },
           "description": {
             "description": "Resource description.",
-            "oneOf": [
-              {
-                "description": "Resource description.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description value",
-                "type": "string"
-              },
-              {
-                "description": "Resource description.",
-                "title": "description value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description value"
+            "nullable": true,
+            "title": "description value",
+            "type": "string"
           },
           "group": {
             "$ref": "#/components/schemas/statusOptionGroup"
@@ -54943,6 +54250,10 @@
               },
               {
                 "description": "HTTP status code.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "status value",
                 "type": "null"
               }
@@ -54978,22 +54289,12 @@
           },
           "description": {
             "description": "Resource description.",
-            "oneOf": [
-              {
-                "description": "Resource description.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "description value",
-                "type": "string"
-              },
-              {
-                "description": "Resource description.",
-                "title": "description value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "description value"
+            "nullable": true,
+            "title": "description value",
+            "type": "string"
           },
           "id": {
             "description": "UUID v4 identifier of the resource.",
@@ -55033,6 +54334,10 @@
               },
               {
                 "description": "HTTP status code.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "status value",
                 "type": "null"
               }
@@ -55091,22 +54396,12 @@
         "properties": {
           "string": {
             "description": "string field.",
-            "oneOf": [
-              {
-                "description": "string field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "string value",
-                "type": "string"
-              },
-              {
-                "description": "string field.",
-                "title": "string value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "string value"
+            "nullable": true,
+            "title": "string value",
+            "type": "string"
           },
           "type": {
             "const": "string",
@@ -55996,6 +55291,10 @@
               },
               {
                 "description": "group by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "group by value",
                 "type": "null"
               }
@@ -56004,23 +55303,13 @@
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "show_vertical_lines": {
             "description": "show vertical lines field.",
@@ -56038,6 +55327,10 @@
               },
               {
                 "description": "subtasks field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "subtasks value",
                 "type": "null"
               }
@@ -56701,35 +55994,22 @@
               },
               "link": {
                 "description": "Text link.",
-                "oneOf": [
-                  {
-                    "description": "Text link.",
-                    "properties": {
-                      "url": {
-                        "description": "Link for opening the resource in Notion.",
-                        "examples": [
-                          "https://example.com"
-                        ],
-                        "title": "url value",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "url"
-                    ],
-                    "title": "link value",
-                    "type": "object"
-                  },
-                  {
-                    "description": "Text link.",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "description": "Link for opening the resource in Notion.",
                     "examples": [
                       "https://example.com"
                     ],
-                    "title": "link value",
-                    "type": "null"
+                    "title": "url value",
+                    "type": "string"
                   }
+                },
+                "required": [
+                  "url"
                 ],
-                "title": "link value"
+                "title": "link value",
+                "type": "object"
               }
             },
             "required": [
@@ -56771,37 +56051,24 @@
                 "type": "string"
               },
               "link": {
+                "additionalProperties": false,
                 "description": "Text link.",
-                "oneOf": [
-                  {
-                    "additionalProperties": false,
-                    "description": "Text link.",
-                    "properties": {
-                      "url": {
-                        "description": "Link for opening the resource in Notion.",
-                        "examples": [
-                          "https://example.com"
-                        ],
-                        "title": "url value",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "url"
-                    ],
-                    "title": "link value",
-                    "type": "object"
-                  },
-                  {
-                    "description": "Text link.",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "description": "Link for opening the resource in Notion.",
                     "examples": [
                       "https://example.com"
                     ],
-                    "title": "link value",
-                    "type": "null"
+                    "title": "url value",
+                    "type": "string"
                   }
+                },
+                "required": [
+                  "url"
                 ],
-                "title": "link value"
+                "title": "link value",
+                "type": "object"
               }
             },
             "required": [
@@ -56841,25 +56108,12 @@
         "properties": {
           "property_id": {
             "description": "Property ID.",
-            "oneOf": [
-              {
-                "description": "Property ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id value",
-                "type": "string"
-              },
-              {
-                "description": "Property ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "property id value"
+            "nullable": true,
+            "title": "property id value",
+            "type": "string"
           }
         },
         "title": "timelineArrowsByRequest data structure",
@@ -56871,25 +56125,12 @@
         "properties": {
           "property_id": {
             "description": "Property ID.",
-            "oneOf": [
-              {
-                "description": "Property ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id value",
-                "type": "string"
-              },
-              {
-                "description": "Property ID.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "property id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "property id value"
+            "nullable": true,
+            "title": "property id value",
+            "type": "string"
           }
         },
         "title": "timelineArrowsByResponse data structure",
@@ -56901,7 +56142,7 @@
           "center_timestamp": {
             "description": "center timestamp field.",
             "examples": [
-              "2026-03-11T00:00:00.000Z"
+              1
             ],
             "title": "center timestamp value",
             "type": "integer"
@@ -56948,7 +56189,7 @@
           "center_timestamp": {
             "description": "center timestamp field.",
             "examples": [
-              "2026-03-11T00:00:00.000Z"
+              1
             ],
             "minimum": 0,
             "title": "center timestamp value",
@@ -57000,6 +56241,10 @@
               },
               {
                 "description": "arrows by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "arrows by value",
                 "type": "null"
               }
@@ -57008,22 +56253,12 @@
           },
           "color_by": {
             "description": "color by field.",
-            "oneOf": [
-              {
-                "description": "color by field.",
-                "examples": [
-                  true
-                ],
-                "title": "color by value",
-                "type": "boolean"
-              },
-              {
-                "description": "color by field.",
-                "title": "color by value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "color by value"
+            "nullable": true,
+            "title": "color by value",
+            "type": "boolean"
           },
           "date_property_id": {
             "description": "date property id field.",
@@ -57035,25 +56270,12 @@
           },
           "end_date_property_id": {
             "description": "end date property id field.",
-            "oneOf": [
-              {
-                "description": "end date property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "end date property id value",
-                "type": "string"
-              },
-              {
-                "description": "end date property id field.",
-                "examples": [
-                  "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-                ],
-                "title": "end date property id value",
-                "type": "null"
-              }
+            "examples": [
+              "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
             ],
-            "title": "end date property id value"
+            "nullable": true,
+            "title": "end date property id value",
+            "type": "string"
           },
           "preference": {
             "description": "preference field.",
@@ -57063,6 +56285,10 @@
               },
               {
                 "description": "preference field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "preference value",
                 "type": "null"
               }
@@ -57071,62 +56297,32 @@
           },
           "properties": {
             "description": "Page property values or data source property schema.",
-            "oneOf": [
-              {
-                "description": "Page property values or data source property schema.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "properties value",
-                "type": "array"
-              },
-              {
-                "description": "Page property values or data source property schema.",
-                "title": "properties value",
-                "type": "null"
-              }
-            ],
-            "title": "properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "properties value",
+            "type": "array"
           },
           "show_table": {
             "description": "show table field.",
-            "oneOf": [
-              {
-                "description": "show table field.",
-                "examples": [
-                  true
-                ],
-                "title": "show table value",
-                "type": "boolean"
-              },
-              {
-                "description": "show table field.",
-                "title": "show table value",
-                "type": "null"
-              }
+            "examples": [
+              true
             ],
-            "title": "show table value"
+            "nullable": true,
+            "title": "show table value",
+            "type": "boolean"
           },
           "table_properties": {
             "description": "table properties field.",
-            "oneOf": [
-              {
-                "description": "table properties field.",
-                "items": {
-                  "$ref": "#/components/schemas/viewPropertyConfigRequest"
-                },
-                "maxItems": 100,
-                "title": "table properties value",
-                "type": "array"
-              },
-              {
-                "description": "table properties field.",
-                "title": "table properties value",
-                "type": "null"
-              }
-            ],
-            "title": "table properties value"
+            "items": {
+              "$ref": "#/components/schemas/viewPropertyConfigRequest"
+            },
+            "maxItems": 100,
+            "nullable": true,
+            "title": "table properties value",
+            "type": "array"
           },
           "type": {
             "const": "timeline",
@@ -57835,22 +57031,12 @@
             "properties": {
               "prefix": {
                 "description": "prefix field.",
-                "oneOf": [
-                  {
-                    "description": "prefix field.",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "prefix value",
-                    "type": "string"
-                  },
-                  {
-                    "description": "prefix field.",
-                    "title": "prefix value",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "prefix value"
+                "nullable": true,
+                "title": "prefix value",
+                "type": "string"
               }
             },
             "required": [
@@ -57884,22 +57070,12 @@
             "properties": {
               "prefix": {
                 "description": "prefix field.",
-                "oneOf": [
-                  {
-                    "description": "prefix field.",
-                    "examples": [
-                      "example content"
-                    ],
-                    "title": "prefix value",
-                    "type": "string"
-                  },
-                  {
-                    "description": "prefix field.",
-                    "title": "prefix value",
-                    "type": "null"
-                  }
+                "examples": [
+                  "example content"
                 ],
-                "title": "prefix value"
+                "nullable": true,
+                "title": "prefix value",
+                "type": "string"
               }
             },
             "title": "unique id value",
@@ -57986,41 +57162,21 @@
         "properties": {
           "number": {
             "description": "Number.",
-            "oneOf": [
-              {
-                "description": "Number.",
-                "examples": [
-                  1
-                ],
-                "title": "number value",
-                "type": "number"
-              },
-              {
-                "description": "Number.",
-                "title": "number value",
-                "type": "null"
-              }
+            "examples": [
+              1
             ],
-            "title": "number value"
+            "nullable": true,
+            "title": "number value",
+            "type": "number"
           },
           "prefix": {
             "description": "prefix field.",
-            "oneOf": [
-              {
-                "description": "prefix field.",
-                "examples": [
-                  "example content"
-                ],
-                "title": "prefix value",
-                "type": "string"
-              },
-              {
-                "description": "prefix field.",
-                "title": "prefix value",
-                "type": "null"
-              }
+            "examples": [
+              "example content"
             ],
-            "title": "prefix value"
+            "nullable": true,
+            "title": "prefix value",
+            "type": "string"
           }
         },
         "required": [
@@ -58343,6 +57499,10 @@
               },
               {
                 "description": "Filter conditions.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "filter value",
                 "type": "null"
               }
@@ -58358,34 +57518,28 @@
             "type": "string"
           },
           "quick_filters": {
-            "description": "quick filters field.",
-            "oneOf": [
-              {
-                "additionalProperties": {
-                  "description": "quick filters field.",
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/quickFilterConditionRequest"
-                    },
-                    {
-                      "description": "quick filters field.",
-                      "title": "quick filters value",
-                      "type": "null"
-                    }
-                  ],
-                  "title": "quick filters value"
+            "additionalProperties": {
+              "description": "quick filters field.",
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/quickFilterConditionRequest"
                 },
-                "description": "quick filters field.",
-                "title": "quick filters value",
-                "type": "object"
-              },
-              {
-                "description": "quick filters field.",
-                "title": "quick filters value",
-                "type": "null"
-              }
-            ],
-            "title": "quick filters value"
+                {
+                  "description": "quick filters field.",
+                  "examples": [
+                    null
+                  ],
+                  "nullable": true,
+                  "title": "quick filters value",
+                  "type": "null"
+                }
+              ],
+              "title": "quick filters value"
+            },
+            "description": "quick filters field.",
+            "nullable": true,
+            "title": "quick filters value",
+            "type": "object"
           },
           "sorts": {
             "description": "sorts field.",
@@ -58395,6 +57549,10 @@
               },
               {
                 "description": "sorts field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "sorts value",
                 "type": "null"
               }
@@ -58513,25 +57671,12 @@
           },
           "url": {
             "description": "Link for opening the resource in Notion.",
-            "oneOf": [
-              {
-                "description": "Link for opening the resource in Notion.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "url value",
-                "type": "string"
-              },
-              {
-                "description": "Link for opening the resource in Notion.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "url value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "url value"
+            "nullable": true,
+            "title": "url value",
+            "type": "string"
           }
         },
         "required": [
@@ -58568,50 +57713,24 @@
         "properties": {
           "avatar_url": {
             "description": "avatar url field.",
-            "oneOf": [
-              {
-                "description": "avatar url field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "avatar url value",
-                "type": "string"
-              },
-              {
-                "description": "avatar url field.",
-                "examples": [
-                  "https://example.com"
-                ],
-                "title": "avatar url value",
-                "type": "null"
-              }
+            "examples": [
+              "https://example.com"
             ],
-            "title": "avatar url value"
+            "nullable": true,
+            "title": "avatar url value",
+            "type": "string"
           },
           "id": {
             "$ref": "#/components/schemas/idResponse"
           },
           "name": {
             "description": "Name.",
-            "oneOf": [
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "string"
-              },
-              {
-                "description": "Name.",
-                "examples": [
-                  "Example title"
-                ],
-                "title": "name value",
-                "type": "null"
-              }
+            "examples": [
+              "Example title"
             ],
-            "title": "name value"
+            "nullable": true,
+            "title": "name value",
+            "type": "string"
           },
           "object": {
             "const": "user",
@@ -58731,6 +57850,10 @@
               },
               {
                 "description": "verification field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verification value",
                 "type": "null"
               }
@@ -58761,8 +57884,9 @@
               {
                 "description": "Date or datetime.",
                 "examples": [
-                  "2026-03-11"
+                  null
                 ],
+                "nullable": true,
                 "title": "date value",
                 "type": "null"
               }
@@ -58793,6 +57917,10 @@
               },
               {
                 "description": "verified by field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verified by value",
                 "type": "null"
               }
@@ -58844,8 +57972,9 @@
           "date": {
             "description": "Date or datetime.",
             "examples": [
-              "2026-03-11"
+              null
             ],
+            "nullable": true,
             "title": "date value",
             "type": "null"
           },
@@ -58860,6 +57989,10 @@
           },
           "verified_by": {
             "description": "verified by field.",
+            "examples": [
+              null
+            ],
+            "nullable": true,
             "title": "verified by value",
             "type": "null"
           }
@@ -58905,6 +58038,10 @@
               },
               {
                 "description": "verification field.",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "verification value",
                 "type": "null"
               }
@@ -59977,6 +59114,10 @@
               },
               {
                 "description": "Next page cursor (opaque; pass back verbatim).",
+                "examples": [
+                  null
+                ],
+                "nullable": true,
                 "title": "next cursor value",
                 "type": "null"
               }
