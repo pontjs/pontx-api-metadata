@@ -8,8 +8,8 @@
   "scope": "Static REST-router registration inventory only. routeTree omits runtime-generated lookup segments, so it is not an OpenAPI document or endpoint contract.",
   "counts": {
     "routeRegistrations": 363,
-    "rootMitSource": 350,
-    "requiresEeResolution": 13
+    "rootMitSource": 349,
+    "requiresEeResolution": 14
   },
   "registrations": [
     {
@@ -1462,7 +1462,7 @@
       "lookup": "project_id",
       "source": "products/experiments/backend/routes.py",
       "line": 17,
-      "provenance": "root-mit-source"
+      "provenance": "requires-ee-resolution"
     },
     {
       "routeTree": "api/projects/exports/",

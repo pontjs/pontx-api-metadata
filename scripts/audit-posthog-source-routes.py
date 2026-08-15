@@ -74,6 +74,27 @@ class RouteCollector(ast.NodeVisitor):
         for statement in node.orelse:
             self.visit(statement)
 
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+        """Track the common ``if not EE_AVAILABLE: return`` route guard.
+
+        Some product route modules use a guard clause rather than wrapping the
+        following registrations in an ``if EE_AVAILABLE`` block.  Once that
+        guard returns, the remainder of that function is EE-only at runtime.
+        """
+        guard_applies_to_remainder = False
+        for statement in node.body:
+            is_unavailable_guard = (
+                isinstance(statement, ast.If)
+                and "not EE_AVAILABLE" in as_text(statement.test)
+                and any(isinstance(child, ast.Return) for child in ast.walk(statement))
+            )
+            self.visit(statement)
+            if is_unavailable_guard:
+                self.ee_condition_depth += 1
+                guard_applies_to_remainder = True
+        if guard_applies_to_remainder:
+            self.ee_condition_depth -= 1
+
     def visit_Assign(self, node: ast.Assign) -> None:
         call = node.value
         if isinstance(call, ast.Call):
