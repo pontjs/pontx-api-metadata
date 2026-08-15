@@ -6,7 +6,7 @@
       "id": "official-machine-contract",
       "claim": "WPS 365 OpenAPI is the official Kingsoft Office Open APIs v7 machine contract: 806 paths, 827 operations, and 3,119 schemas",
       "summary": "The official OpenAPI 3.0.0 document published at open.wps.cn declares the Kingsoft Office Open APIs v7 contract with 806 paths, 827 operations, and 3,119 schemas; the same document is retained byte-identically in the metadata repository as sources/openapi.yaml.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/guide/overview.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -14,7 +14,7 @@
       "id": "mit-cli-byte-identical",
       "claim": "byte-identical to the spec embedded in the official MIT CLI `@wps365-open/wps365`",
       "summary": "The official MIT-licensed CLI package @wps365-open/wps365@0.2.27 embeds the same OpenAPI document (api.yaml); provenance verified the published spec and the package-embedded spec are byte-identical (SHA-256 3a2dfe64...).",
-      "sourceUrl": "https://www.npmjs.com/package/@wps365-open/wps365",
+      "sourceUrl": "https://registry.npmjs.org/@wps365-open%2Fwps365",
       "sourceType": "official-sdk",
       "verifiedAt": "2026-08-15"
     },
@@ -22,7 +22,7 @@
       "id": "direct-production-host",
       "claim": "The client connects directly to the official production host `https://openapi.wps.cn` (path prefix `/v7`) with the caller's own OAuth2 credentials.",
       "summary": "The official OpenAPI document declares the production server url https://openapi.wps.cn with the /v7 path prefix, and WPS 365 requires OAuth2 access-token authentication on every call.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/app/app-management/list-installed-apps.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -30,7 +30,7 @@
       "id": "developer-console-permissions",
       "claim": "Create an application on the open.wps.cn developer console and apply for the permission scopes each workflow needs.",
       "summary": "The official WPS 365 open-platform overview describes registering applications on the WPS open platform and the application permission system (应用权限体系) that binds data-access and interface-call permissions to an application.",
-      "sourceUrl": "https://open.wps.cn/documents/app-integration-dev/guide/overview",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/guide/overview.md",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
@@ -38,7 +38,7 @@
       "id": "kso-scope-gating",
       "claim": "Every Endpoint is gated by `kso.*` scopes — for example `kso.calendar_events.readwrite` gates calendar reads and writes.",
       "summary": "The OpenAPI document's security schemes enumerate kso.* permission scopes (for example kso.calendar_events.readwrite under the calendar domain) and each operation declares the scopes required per channel.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/certification-authorization/summary.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -46,7 +46,7 @@
       "id": "oauth2-dual-channel",
       "claim": "Use the app channel (client credentials) for server-to-server automation owned by the application, and the delegated channel (authorization code) when acting on behalf of a specific user.",
       "summary": "The OpenAPI document declares two OAuth2 security schemes: app uses the clientCredentials flow (application identity access token) and delegated uses the authorizationCode flow (user-authorized access token).",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/certification-authorization/summary.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -54,7 +54,7 @@
       "id": "channel-scope-sets",
       "claim": "The app and delegated channels can carry different scope sets",
       "summary": "Operations declare per-channel security requirements, and the app and delegated schemes expose different scope lists (for example calendar events require kso.calendar_events.readwrite for app but add kso.mcp_* scopes for delegated).",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/certification-authorization/summary.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -62,7 +62,7 @@
       "id": "kso1-optional",
       "claim": "KSO-1 request signing is optional and enabled per application under the developer console security settings.",
       "summary": "The official signature documentation states KSO-1 signing is only required when interface signing (接口签名) is enabled under the developer console security settings for the application.",
-      "sourceUrl": "https://open.wps.cn/documents/app-integration-dev/wps365/server/api-description/signature-description",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/api-description/signature-description.md",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
@@ -70,7 +70,7 @@
       "id": "kso1-headers",
       "claim": "requests must carry the `X-Kso-Date` and `X-Kso-Authorization` headers with an HMAC-SHA256 signature",
       "summary": "The official signature documentation specifies the X-Kso-Date and X-Kso-Authorization headers, where the signature value is HMAC-SHA256 computed over \"KSO-1\" + Method + RequestURI + ContentType + KsoDate + sha256(RequestBody).",
-      "sourceUrl": "https://open.wps.cn/documents/app-integration-dev/wps365/server/api-description/signature-description",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/api-description/signature-description.md",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
@@ -78,7 +78,7 @@
       "id": "sse-streaming-surface",
       "claim": "15 operations under `/v7/sse/*` (AIPPT generation, AI docs search, document QA, agent chat) stream `text/event-stream` responses.",
       "summary": "The OpenAPI document declares 15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) whose response media type is text/event-stream.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open.wps.cn/docs/api/doc/771?lang=zh&source=dms",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -86,7 +86,7 @@
       "id": "sse-payload-terminals",
       "claim": "The machine contract enumerates no per-endpoint event names: every event is a JSON payload that carries the type and terminal-state markers.",
       "summary": "The official document declares no per-endpoint SSE event names and no stream_status field list; each SSE event carries a JSON payload whose type/terminal discriminator (for example stream_status done or state end) signals completion.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open.wps.cn/docs/api/doc/772?lang=zh&source=dms",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
@@ -94,7 +94,7 @@
       "id": "encrypted-callback-events",
       "claim": "Event subscriptions are encrypted HTTP callbacks pushed by WPS to the caller: each event carries `encrypted_data` plus `signature`, `nonce`, and `iv` fields.",
       "summary": "The official event documentation shows WPS pushing subscription events to the subscriber's endpoint and describes the pre-decryption event body (topic, operation, time, nonce, iv, signature, encrypted_data) with a documented decryption algorithm.",
-      "sourceUrl": "https://open.wps.cn/documents/app-integration-dev/wps365/server/meeting/event/company-meeting-start",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/event-subscription/security-verification.md",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
@@ -102,7 +102,7 @@
       "id": "get-post-delete-only",
       "claim": "Reads are GET and mutations are POST or DELETE only; the official document declares no PUT or PATCH.",
       "summary": "The OpenAPI document defines only GET (284), POST (541), and DELETE (1) methods across 826 callable operations and declares no PUT or PATCH anywhere in the contract.",
-      "sourceUrl": "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/api-description/flow.md",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     }
