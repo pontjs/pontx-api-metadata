@@ -2991,10 +2991,10 @@
   },
   "security": [
     {
-      "basicAuth": []
+      "bearerAuth": []
     },
     {
-      "bearerAuth": []
+      "basicAuth": []
     }
   ],
   "externalDocs": {

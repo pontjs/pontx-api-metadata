@@ -47,7 +47,7 @@
   },
   "spec": {
     "path": "products/stripe-identity/spec.pontx.json",
-    "sha256": "7cf618fb52cf2b8fc9bfb7b53ace1a2959f1a2bcd1f17a6f96885fdad4f7c031",
+    "sha256": "1029854b53619d8d4b50c6227f86eb989445dae2bfdf269bf95763ecce69379c",
     "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
   }
 }
