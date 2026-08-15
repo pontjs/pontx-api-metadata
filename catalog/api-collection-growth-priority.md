@@ -72,7 +72,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
-| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema，并且 metadata/生成 SDK 再分发权未确认 | 获取可固定的完整 OAS 与书面发布许可 |
+| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 与 metadata/生成 SDK 再分发权仍未确认 | 继续重建七个 Endpoint，并获取 convert/usage 许可 fixture 与书面发布许可 |
 | 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，但只完整给出两个成功响应；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS 与 metadata/SDK 书面许可 |
 | 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas，但完整 Forex 产品还含 WebSocket；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 先实现 WebSocket/AsyncAPI，修复 CLI 安全方案注入，并取得完整契约和发布许可 |
 
