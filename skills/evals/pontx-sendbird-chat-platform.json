@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-sendbird-chat-platform",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Look up a user in our Sendbird application without calling anything yet.",
+      "expected_output": "Confirms the local SENDBIRD_APP_ID / SENDBIRD_API_TOKEN boundary, resolves the current users/viewAUser endpoint and path inputs through Pontx discovery, and prepares a narrow preview-first local read without inventing fields or persisting data in Hub.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Send a message to one of our group channels.",
+      "expected_output": "Resolves messages/sendAMessage and its channel_type/channel_url/body inputs, shows a complete request preview (path, body, message_type), requires explicit confirmation before executing the mutation, and keeps the caller's application credentials local.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Delete a group channel to clean up a test app.",
+      "expected_output": "Warns that deletion is permanent, resolves deleteAGroupChannel with the channel_url, previews the exact request, and refuses to execute until the caller explicitly confirms the destructive mutation.",
+      "files": []
+    }
+  ]
+}
