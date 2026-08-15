@@ -64,17 +64,17 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 | 排名 | API 集合 | 分数 | 审计结果（以各条验证日期为准） | 当前下一步 |
 | ---: | --- | ---: | --- | --- |
-| 1 | Notion API | 92 | 官方文档与 MIT SDK 可用；完整 OAS、协议与 prose 再分发待确认 | 固定 `Notion-Version: 2026-03-11` 并逐接口对账 |
+| 1 | Notion API | 92 | 官方文档与 MIT SDK 可用，但 Notion Developer Terms §3.1 禁止复制、展示或向第三方分发 API；完整 OAS 与协议审计也仍待完成 | 取得书面许可，明确可发布 metadata、重建 OAS 与独立生成 SDK 后再固定 `Notion-Version: 2026-03-11` 并逐接口对账 |
 | 2 | WPS 365 OpenAPI | 90 | 官方称超过 1,000 个接口；事件订阅使用加密 HTTP callback，但无公开完整规范快照，许可与其余协议面待确认 | 获取官方规范或书面授权后做全产品盘点 |
-| 3 | MongoDB Atlas Administration API v2 | 88 | 官方 Apache-2.0 OAS；335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type | 双语化、风险策略、SDK/CLI 发布 |
+| 3 | MongoDB Atlas Administration API v2 | 88 | 335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type；但固定 OAS 的 `info.license` 是 CC BY-NC-SA 3.0 US，仓库 Apache-2.0 LICENSE 未解决 OAS 的非商用限制 | 取得 MongoDB 对 OAS/独立生成 SDK 的书面商用再分发澄清，或固定一个明确许可的 OAS 版本 |
 | 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
-| 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；无 Server-Sent Events | 建立可复现 Smithy→OAS 转换并完成 SigV4/风险策略 |
+| 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；SSE 指 server-side encryption，并非流式协议。2026-08-15 复核：官方文档提供 AWS Query（GET 或表单 POST），而固定模型同时声明 AWS JSON 1.0、AWS Query compatibility、SigV4 和端点规则；并非普通 JSON REST，现有 OAS path/method 模型无法无损表示 | 先实现并验证 Smithy→Pontx RPC、AWS JSON 1.0、AWS Query compatibility、SigV4 与官方 endpoint-rule vectors，再完成风险策略 |
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
-| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 与 metadata/生成 SDK 再分发权仍未确认 | 继续重建七个 Endpoint，并获取 convert/usage 许可 fixture 与书面发布许可 |
-| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS、三项成功 fixture 或授权测试密钥与 metadata/SDK 书面许可 |
-| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture 与发布许可 |
+| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 仍未确认。Pontx 仅以独立表述发布 metadata/客户端，不转发文档、数据或标识 | 继续重建七个 Endpoint，并获取 convert/usage 的可审核成功 fixture |
+| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS。Pontx 仅以独立表述发布 metadata/客户端，不代理、缓存或再分发数据 | 获取完整 OAS、三项成功 fixture 或授权测试密钥 |
+| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schema；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；市场数据仍由调用方按自己的套餐直连，Hub 不代理或再分发 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
@@ -106,17 +106,18 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 | API 集合 | 当前状态 | 原因 |
 | --- | --- | --- |
-| Stripe Identity API | 合规阻断 | 官方 MIT OAS 中有 8 个 Identity operations，但政府证件、自拍、生物特征与身份号码属于高度敏感个人数据；数据角色、地域、保留、同意、日志和代理边界未获书面批准 |
+| Stripe Identity API | 已正式准入（仅文档/本地 SDK） | 固定官方 MIT OAS 的 8 个 Identity Endpoint / 35 个 Schema 已完成双语、风险、SDK/CLI 与生产发布。因证件、自拍、身份号码、联系信息、验证结果与 client secret 属于高度敏感数据，Hub 对 8/8 Endpoint 禁止代理；调用仅从调用者受控环境中的本地 SDK/CLI 发出 |
 
 ## 当前实施队列
 
-### 契约源已具备，继续准入工程
+### 需先补齐 Pontx 协议能力
 
-1. MongoDB Atlas Administration API v2
-2. Amazon SQS API
-3. ECB Data Portal SDMX API（已正式准入，进入持续维护；不再占用准入工程队列）
+1. Amazon SQS API：完整边界依赖 Smithy→Pontx RPC（不伪造 REST path）、AWS JSON 1.0、AWS Query compatibility、SigV4 与区域 endpoint-rule runtime；在这些能力有可复现的类型、SDK/CLI、预览和安全验证前不可裁剪上线。
 
-MongoDB 与 SQS 仍不是 catalog-ready：二者需完成双语规范、全部风险策略、成功请求示例和 SDK/CLI。ECB 已完成准入并保留在候选注册表中用于持续治理。
+### 需先取得供应商许可
+
+1. MongoDB Atlas Administration API v2：固定 OAS 的 CC BY-NC-SA 条款与仓库 Apache-2.0 LICENSE 冲突，需 MongoDB 书面澄清或另一个明确许可版本。
+2. Notion API：Developer Terms §3.1 禁止向第三方复制、展示或分发 API，需 Notion 书面许可。
 
 ### 先解决证据或边界缺口
 
