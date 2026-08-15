@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "notion",
+  "claims": [
+    {
+      "id": "versioned-api",
+      "claim": "Requests need a bearer token (internal connection token or personal access token) and the required `Notion-Version` header; the SDK sends version `2026-03-11` automatically.",
+      "summary": "The official versioning reference states the Notion-Version header is required and names 2026-03-11 as the latest version; the authentication reference requires a bearer token.",
+      "sourceUrl": "https://developers.notion.com/reference/versioning",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "rate-limits",
+      "claim": "Each connection averages three requests per second and is also subject to the workspace plan’s shared quota.",
+      "summary": "The official request-limits reference documents the per-connection and per-workspace rate limits, the 429/529 error codes, and the Retry-After retry guidance.",
+      "sourceUrl": "https://developers.notion.com/reference/request-limits",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "caller-directed-data",
+      "claim": "The Notion API is caller-directed: workspace content is private End User data, and Pontx Hub does not proxy, cache, or aggregate it.",
+      "summary": "Notion Developer Terms section 4 imposes integrator data-handling and privacy obligations for End User data; the Pontx product metadata disables Hub execution for every endpoint.",
+      "sourceUrl": "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "oauth-public-connections",
+      "claim": "Public connections complete OAuth and use the client id/secret only to exchange tokens on the `/v1/oauth` endpoints.",
+      "summary": "The official OAuth token exchange endpoint (create-a-token) uses HTTP Basic client credentials; the authorization guide describes the public-connection OAuth flow.",
+      "sourceUrl": "https://developers.notion.com/reference/create-a-token",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "mutation-surface",
+      "claim": "The API includes deletes and other irreversible writes (delete blocks, delete comments, delete views, revoke tokens).",
+      "summary": "The official OpenAPI snapshot declares DELETE operations for blocks, comments, and views and a revoke-token OAuth endpoint.",
+      "sourceUrl": "https://developers.notion.com/openapi.json",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhooks-callbacks",
+      "claim": "Notion webhooks are provider-to-caller HTTP callbacks carrying signed event payloads (page, database, data source, comment, file upload, view events).",
+      "summary": "The official webhooks reference describes signed HTTP callbacks and the event types delivered to the caller's endpoint.",
+      "sourceUrl": "https://developers.notion.com/reference/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}
