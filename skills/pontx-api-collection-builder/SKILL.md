@@ -1,141 +1,151 @@
 ---
 name: pontx-api-collection-builder
-description: Build or substantially extend a production-grade API collection in pontx-api-metadata from authoritative evidence through bilingual OpenAPI, catalog registration, execution policy, approved hashes, compilation, and Hub verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, or rebuild an API/API 集合/接口集合/开放平台 for Pontx Hub, including requests phrased only as “收录这个 API” or “把这些文档做成 API 集合”. Do not use it merely to call or consume an API that is already cataloged.
+description: >-
+  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual API contract, iterative metadata quality improvement, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, npm publication, catalog admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at an OpenAPI file, local SDK release candidate, npm publish, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
 ---
 
 # Pontx API Collection Builder
 
-把来源分散的 API 事实整理成准确、可追溯、可搜索、可安全执行且可持续维护的 Pontx API 集合。目标不是“生成一个能解析的 OpenAPI 文件”，而是交付一个能够经受证据审查、代码生成、双语展示和运行时安全检查的契约。
+把一个 API 产品从候选证据推进到生产可发现、可集成、可安全调用的完整 Pontx 产品。OpenAPI、metadata、SDK、产品 CLI、Hub、统一 CLI、语义搜索和助手是同一条交付链；任何中间产物都不是默认终点。
+
+## 完成定义
+
+只有以下结果同时成立，才报告“产品上线完成”：
+
+1. 产品完整边界内的 API 契约有权威证据、许可/再分发依据、双语内容和明确安全策略；
+2. `@pontx/<slug>` SDK 与同包 `pontx-<slug>` CLI 从该契约生成，通过标准质量门并已在 npm 发布；
+3. metadata 绑定真实 registry 版本、SDK 源 commit 和 CI 证据，经 Preview 审查后进入 Production；
+4. 生产网站、公共 Hub API、统一 `pontx-hub` CLI、非品牌中英文语义查询和 AI 助手都能发现该产品；
+5. 助手能把自然语言任务变成 catalog-approved 请求，经既有 preview/credential/confirmation 边界完成至少一条获准的安全读取调用。若许可或代理策略不允许任何受控调用，产品可交付文档和本地 SDK/CLI，但不能把本 skill 的“完整助手调用闭环”标为通过。
+
+读取并执行 [references/quality-gates.md](references/quality-gates.md) 的 G0–G10；进入 SDK、发包或上线阶段前，再完整读取 [references/release-and-launch.md](references/release-and-launch.md)。早期门失败时继续修复或明确阻断，不用后续页面、包或部署掩盖问题。
 
 ## 开始前
 
-1. 定位 `pontx-api-metadata` 仓库，读取工作区 `AGENTS.md`、仓库 `README.md`、`CONTRIBUTING.md` 和相关本地说明。
-2. 在编辑前运行 `git status --short` 和 `git branch --show-current`。保留所有既有改动，不清理或覆盖无关文件。
-3. 完整阅读 [references/quality-gates.md](references/quality-gates.md)，按其中的阻断级质量门执行。
-4. 读取将要修改的 `catalog/source.json` 条目、`catalog/locales/<locale>.json`、同类 API 的 OAS，以及仓库现有构建脚本。以当前仓库实际契约为准，不从旧示例猜字段。
-5. 若目录字段或公共负载需要变化，先读取跨仓库契约和变更路由；先让消费者兼容旧/新负载，再更新生产者。
+1. 定位工作区和 `pontx-api-metadata`，读取根 `AGENTS.md`、跨仓库架构/契约/变更路由/发布 runbook、动态 `api-hub-plan.md`、目标仓库 README/package scripts/本地说明。
+2. 识别实际涉及的独立仓库：metadata、API 专属 SDK、`pontx` 生成/runtime（仅有通用缺口时）、`pontx-hub`，以及公共合同变化时的 `pontx-hub-cli`。每个仓库编辑前分别运行 `git status --short`、当前分支和相关近期提交检查，保留既有改动。
+3. 创建或更新一个产品 launch ledger，记录阶段、证据、阻断项、产物 commit/version、验证命令、CI/deployment 和生产验收结果。候选账本、计划或产品专属 provenance 文件存在时复用，不另建冲突事实源。
+4. 以当前仓库脚本和公共契约为准，不照抄旧产品的字段、包结构、Controller 路径或发布命令。
 
-如果用户只要求方案、评审或诊断，保持只读并交付证据和建议。只有“添加、构建、修改、修复”等明确请求才授权编辑文件。提交、推送、发布和部署始终需要单独授权。
+只读审计不授权修改或外部发布。用户要求“添加、构建、补充、收录、发布、上线”时，按工作区已有的实现与发布授权推进完整闭环，不在每个正常阶段重复停下询问。提供方真实 mutation、付费调用、用户数据调用和新凭证使用始终需要该次请求对应的明确批准；不得把产品上线授权解释成业务写入授权。
 
-## 1. 固定范围与身份
+## 阶段 0：固定产品边界与上线账本
 
-先形成一份简短的 intake，再开始写 OAS：
+先记录：
 
-- API 产品、提供方、上游版本和稳定版本标识；
-- 稳定 `slug`、包名和 CLI 名；
-- 官方文档、官方 OAS、源代码、变更日志、许可或服务条款；
-- 目标 Endpoint 范围，以及明确排除的范围；
-- 服务器、区域、鉴权方式、OAuth flow/scope、速率限制和套餐差异；
-- `official`、`observed` 或 `inferred` 的文档状态；
-- 已知缺口、验证时间和无法确认的假设。
+- 提供方、产品、上游主版本、稳定 `slug`、`@pontx/<slug>` 和 `pontx-<slug>`；
+- 完整产品协议面与 Endpoint 范围，包括 REST、SSE、WebSocket、webhook/callback、异步任务、文件和二进制；
+- 官方规范/文档/源码/变更日志、条款/许可/attribution、价格/套餐/速率限制；
+- server/region、auth/OAuth flow/scope、凭证环境变量、敏感数据和 mutation 分类；
+- `official`、`observed`、`inferred` 状态、验证日期、未知项和每个准入门状态；
+- metadata、SDK、Preview、Production、生产验收的当前状态与下一动作。
 
-同一上游 API 的不兼容主版本通常建成独立集合和独立 `slug`。不要为了减少条目而把 v1、v2 合并，也不要因标题或描述变化修改已有稳定身份。
+同一上游 API 的不兼容主版本通常使用独立集合。完整产品含 Pontx 尚未支持的必要协议时，整集暂缓，不通过删除 SSE/WebSocket 等能力伪装完整。
 
-## 2. 建立证据账本
+## 阶段 1：迭代建立权威、完整契约
 
-按以下优先级收集事实：官方机器可读契约 → 官方开发者文档/变更日志 → 官方源代码与测试 → 经授权的代表性响应 → 可复现的浏览器网络观测。搜索结果、博客和 SDK 猜测只能用于发现线索，不能单独批准结构或安全语义。
+先用公开互联网搜索广泛发现官方入口、机器契约、变更记录、SDK 源码、条款、错误/限制和已知差异，再按以下优先级批准事实：官方不可变机器契约 → 官方开发者文档/变更日志 → 官方源码与测试 → 经授权的代表性响应 → 可复现的浏览器网络观测。搜索摘要、博客和第三方 SDK 只用于找到线索，不能单独批准结构、许可或安全语义。
 
-为关键事实记录：
+维护事实级证据账本，精确关联 Endpoint、参数、请求、响应、Schema、auth、限制、协议与版本。对每一轮：
 
-| 事实 | 证据 URL/文件 | 状态 | 置信度 | 最后验证 |
-| --- | --- | --- | --- | --- |
-| Endpoint、参数、响应、鉴权、限制等 | 精确到页面或文件 | official/observed/inferred | high/medium/low | `YYYY-MM-DD` |
+1. 对比所有权威来源并列出冲突、遗漏和版本漂移；
+2. 在安全、低成本、许可允许且已获调用授权时，用最小只读请求验证 wire 事实；未知响应不得靠猜测补全；
+3. 量化 Endpoint/Schema/response/status/example/prose 覆盖与静态质量；
+4. 修复 metadata 后重新生成 SDK/CLI，用类型、请求构造和 E2E 暴露下一轮缺口；
+5. 重复，直到 G0–G6 无 blocker/major，或记录不能继续的外部证据/许可/协议阻断。
 
-对于 `observed` 或 `inferred` 集合：
+对 `observed`/`inferred` 内容保留精确证据和日期，不冒充官方 API；登录、账户、交易、用户隐私、内部主机或无授权再分发的接口不得进入正式产品。
 
-- 产品级填写 `documentationStatus`、`evidenceUrls`、`verifiedAt` 和双语 `stabilityNote`；
-- 每个 Endpoint 填写匹配的 `x-pontx-documentation-status`、`x-pontx-evidence` 和 `x-pontx-verified-at`；
-- 不把网页流量描述成官方开发者 API；
-- 不收录登录、账户、交易、广告、写入或用户隐私数据 Endpoint；
-- 没有足够证据时保留缺口或停止发布，不用“常见做法”补齐事实。
+## 阶段 2：构建双语 metadata
 
-## 3. 编写规范中文 OpenAPI
+`specs/<slug>/openapi.json` 是 `zh-CN` 结构源。完整表达：
 
-使用仓库当前支持的 OpenAPI 版本；新集合优先沿用当前基线，不为追逐最新版本而制造工具兼容风险。`specs/<slug>/openapi.json` 是 `zh-CN` 结构源。
+- `info`、真实 HTTPS servers、稳定唯一 `operationId`、显式 OAS `tags`；
+- 参数位置/序列化/类型/格式/约束/枚举/默认值/单位/有效示例；
+- 所有真实 request media、成功和错误 status、response headers、分页/异步/重试语义；
+- 完整 Schema 图、required/nullable/readOnly/writeOnly/composition/discriminator/binary；
+- auth/security scheme、OAuth flow/URL/scope、套餐/速率限制和弃用迁移；
+- 与 Schema 和业务语义一致、无凭证和个人数据的示例；
+- Endpoint 级证据、执行、代理、mutation 和服务器 allowlist 策略。
 
-完整覆盖下列内容：
+`specs/<slug>/locales/<locale>/openapi.json` 只能翻译批准的 prose；路径、方法、tag、标识、顺序、约束、示例、安全和执行策略必须与中文源一致。产品级中文事实写入 `catalog/source.json`，翻译写入 locale 文件，不在 Hub 应用中复制 API 文案。
 
-- `info`：准确的标题、说明、上游版本、许可、联系或问题入口；
-- `servers`：真实 HTTPS 基址和必要变量，不放示例密钥、用户 ID 或私有主机；
-- Endpoint：稳定且唯一的 `operationId`、简洁 `summary`、行为和边界清楚的 `description`、合理 tags；
-- 参数：`name`、`in`、`required`、类型、格式、枚举、默认值、范围、长度、模式、单位、序列化方式和有效示例；
-- 请求体：必填性、所有真实 media type、Schema、约束和代表性示例；
-- 响应：所有有意义的成功与错误状态、media type、headers、分页/游标和完整 Schema；
-- `components`：复用稳定 Schema、参数、响应和 security scheme，保留真实 `readOnly`/`writeOnly`、nullable、枚举和 discriminator 语义；
-- 鉴权：准确描述 API Key/Bearer/Basic/OAuth2/OpenID Connect 位置、flow、URL 和 scope，并在根或 Endpoint 级正确引用；
-- 生命周期：真实记录 `deprecated`、替代 Endpoint 和迁移说明，不静默删除历史能力；
-- 示例：与 Schema、约束、media type 和业务语义一致，不使用真实凭证或个人数据。
+先审最终字节，再更新 `approvedSha256` 与每个 `approvedLocaleSha256`。运行当前 metadata 仓库声明的 locale、build、verify、候选/质量和 diff 检查；连续构建两次确认确定性。检查生成 catalog 中产品、Endpoint、请求、每个响应和 Schema 图数量与身份。
 
-把 HTTP 方法语义当作事实校验：GET/HEAD/OPTIONS/TRACE 应保持安全；PUT、DELETE 和安全方法具有幂等语义。上游若不符合规范，应如实记录风险，而不是擅自重设计线上行为。
+## 阶段 3：从契约构建 SDK 与产品 CLI
 
-错误格式以提供方事实为准。只有上游确实采用 RFC 9457 时才标记 `application/problem+json`；不要为了“标准化”而伪造并不存在的错误契约。
+在独立、可发布的产品 SDK 仓库生成 `@pontx/<slug>`；可执行文件 `pontx-<slug>` 与 SDK 在同一 npm 包发布。不要创建或更新冻结的 `@pontx/api-*` 包，也不要把产品 CLI 混进 `pontx-hub-cli`。
 
-## 4. 生成结构相同的本地化规范
+包必须：
 
-从中文结构基线复制出 `specs/<slug>/locales/<locale>/openapi.json`，只翻译仓库批准的 prose 节点。可以翻译标题、摘要、描述、OAuth scope 说明、枚举说明和批准的 Pontx prose 扩展；不得改变或重排：
+- 固定规范/provenance、上游版本/hash/license/notice，生成物可复现并有 drift check；
+- 使用已发布的精确 Pontx runtime/generator 版本和冻结 lockfile；
+- 输出 Node 支持矩阵要求的 ESM、CommonJS、声明和 CLI；
+- 只从环境/调用方配置读取凭证并始终脱敏；
+- 保留 server path、auth、serialization、multipart/binary、错误和真实 Controller 映射；Controller 只来自显式 OAS tags，未 tagged Endpoint 保持 client 根调用；
+- 对 mutation 实施 preview-first、绑定未变请求且短期有效的确认；不得把上线测试变成真实 mutation；
+- 只打包运行所需代码、types、license/notices 和 CLI 产物，不携带凭证、缓存、测试数据或无权再分发的上游内容。
 
-- path、method、`operationId`、tag、参数名和 Schema/属性名；
-- 类型、格式、约束、默认值、枚举值、示例和 `$ref`；
-- server、安全声明、OAuth URL/scope key 和执行策略；
-- 数组顺序或任何会影响生成代码/运行时的结构。
+执行 `release-and-launch.md` 的标准验证。若生成、类型检查、SDK/CLI E2E 或真实只读 probe 暴露契约问题，优先修 metadata/OAS 并重生成，不手改生成代码掩盖问题；metadata、SDK/CLI 和测试必须再次整轮通过。
 
-中文产品文案和非 prose 配置写入 `catalog/source.json`；英语产品文案写入 `catalog/locales/en-US.json`。不要在应用代码中重复 API 文案。
+## 阶段 4：安全发包与 registry 复验
 
-## 5. 注册目录与执行策略
+在发布前固定 SDK 源 commit，并要求目标 Node 矩阵 CI 全绿。`prepublishOnly` 或等价 release gate 必须拒绝：未发布的依赖、范围依赖、本地 `link:`/`file:`/`workspace:`、override、缺失/漂移 lockfile、生成漂移、失败/跳过测试、缺失 notice 或意外包文件。
 
-为集合补全当前目录契约要求的身份、提供方、分类、证据、许可、服务器、鉴权、SDK 和展示元数据。
+确认 npm 身份/scope、包名和目标版本，检查版本尚未占用，再按独立 SDK 仓库的 operator release 流程发布 public 包。发布后不要只看 `npm publish` 退出码：从 registry 查询精确版本，在全新临时目录安装，验证 ESM/CJS/types、产品 CLI `--help`、代表性 preview、凭证脱敏、mutation guard，并在许可和授权允许时完成一条安全只读调用。记录 package/version、完整源 commit、CI run、pack 摘要和 registry 复验。
 
-- 凭证只记录环境变量名；不读取、打印、持久化或提交真实值。
-- `sdkStatus=published` 必须有可验证的已发布包和版本；否则使用真实的未发布状态。
-- 仅根据证据启用代理执行。目标必须是 Endpoint 明确允许的 HTTPS 主机；拒绝任意 URL、私网/回环/链路本地/元数据地址、不安全重定向和危险 headers。
-- 对写 Endpoint 保留 preview-first 和绑定原请求的显式确认边界。
-- 对 `observed`/`inferred` 集合默认关闭执行；只有经验证的只读 Endpoint、精确主机 allowlist 和固定 headers 才可例外启用。
+只有 registry 复验全部通过，metadata 才能设置 `sdkStatus=published`；发包失败或版本事实不一致时继续修复，不能先标 published。
 
-## 6. 更新完整性并运行质量门
+## 阶段 5：回写 metadata 并分阶段上线
 
-计算规范文件的原始字节 SHA-256，并更新：
+把实际 npm 版本、包/CLI 名、源 commit、CI URL、Node 矩阵、unit/E2E 结果和验证日期回写 metadata 的当前质量证据字段；SDK/CLI 示例必须与 registry 产物的真实导出、Controller 和参数一致。
 
-- `approvedSha256`；
-- 每个 locale 的 `approvedLocaleSha256.<locale>`。
+重新运行 metadata 全部门和 Hub 本地消费者门，至少包括 Hub tests、typecheck、production build、SDK registry verification，以及该产品的搜索、SSR、Schema、Playground/preview、snippet 和 AI tool eval。新产品通常不需要发布新版统一 Hub CLI；只有公共 Hub HTTP/CLI 合同变化时才按 consumer-first 顺序修改并发布 `@pontx/hub-cli`。
 
-不要先改 hash 再假设文件正确；hash 是已审内容的封条。随后在元数据仓库运行：
+按仓库 runbook：
 
-```bash
-node scripts/test-locales.mjs
-node scripts/lint-locales.mjs
-node scripts/build-catalog.mjs
-node scripts/verify-specs.mjs
-git diff --check
-```
+1. 独立提交/推送 SDK 与必要消费者，等待 CI；
+2. metadata 进入 `develop`，等待 Preview Ready，并用 Agent Browser 检查中英文完整用户路径；
+3. Preview 无 blocker 后提升到 `main`，等待 Production Ready；
+4. 不把 PR、source fix、local build、npm publish 或 Preview 当成完成。
 
-再次运行构建，确认生成结果稳定且没有新增差异。检查 `catalog/catalog.json` 中的新 API、Endpoint、请求、所有响应和 Schema 图均存在；不要手改生成文件。
+跨仓库提交、依赖发布和部署顺序以当前工作区 runbook 为准；每个仓库保持独立 commit/status。
 
-## 7. 验证消费者路径
+## 阶段 6：生产产品验收
 
-按照工作区 runbook，在相邻 `pontx-hub` 仓库先检查状态并读取其 README/package scripts，然后使用本地生成 catalog 运行相关测试、类型检查和生产构建。至少确认：
+针对最终 registry artifact 和最终生产 catalog 执行同一份矩阵：
 
-- 中英文产品、Endpoint 和 Schema 可发现且身份一致；
-- SSR/搜索能够看到重要请求与响应字段；
-- auth、服务器路径前缀、弃用和 SDK 状态未丢失；
-- 允许执行的只读 Endpoint 先 preview，再做经用户授权的最小真实验证；
-- 写 Endpoint、付费调用和需要用户数据的调用不因“验证规范”而自动执行。
+- **网站/API**：中英文 API/Endpoint/Schema/SDK 页面、SSR、canonical/hreflang/sitemap、身份、auth、完整请求/响应和安全状态正确；
+- **精确发现**：生产 Hub API 和 freshly installed `pontx-hub` 能以 stable ID list/search/show/sdk/preview 该产品；
+- **语义发现**：至少一条中文和一条英文非品牌任务查询能在要求的 top-k 找到正确 API/Endpoint/Schema，并返回 `strategy`、`semanticVersion`、`match.mode`/`match.fields`；把这些查询加入持久化 relevance eval；
+- **产品包**：fresh install 的 `@pontx/<slug>` 与 `pontx-<slug>` 对 registry 版本再次通过代表性 SDK/CLI 路径；
+- **助手**：持久化 deterministic eval 覆盖 search → resource/auth → SDK/CLI → prepare；生产登录态助手用自然语言选中该产品，模型不接触凭证，客户端注入 session-only credential，经 preview 后完成一条获准的安全只读调用并校验非空业务响应；mutation 只检查确认边界，不执行；
+- **安全**：任意 URL、未批准 server、私网/回环、危险 header、凭证日志和未确认 mutation 仍被拒绝。
 
-如果改动只产生元数据而未改变目录契约，通常无需修改 Hub 代码；但 Hub 消费者验证仍是完成条件。
+使用浏览器验证真实生产用户路径和控制台/网络状态，不能只用直接 HTTP 替代 UI。失败必须回到 owning repository 修复并重新走受影响门；生产验收全部通过后，更新 launch ledger 和 `api-hub-plan.md`。
 
-## 8. 交付报告
+## 持续推进与阻断规则
 
-使用以下结构收尾：
+- 任务默认终点是阶段 6，不在“metadata 已写”“SDK RC 可 build”“npm 已发”“Preview 可见”处主动结束。
+- 只有权威证据、许可/书面授权、必要协议能力、凭证/权限、registry/CI/部署外部拒绝等真实 blocker 才能中止。先穷尽安全恢复步骤，再记录失败阶段、已完成证据、确切外部错误和解除条件。
+- 不用“后续可做”隐藏本次范围内仍未完成的发布或生产验收；launch ledger 必须始终显示当前阶段和下一动作。
+- 上线后将证据 freshness、上游 drift、SDK registry install、语义 relevance 和安全调用 canary 交给治理/巡检流程，避免产品再次退化。
+
+## 交付报告
+
+按以下结构收尾：
 
 ```markdown
-# API 集合构建结果
-## 范围与身份
-## 权威证据与未决项
-## 覆盖情况（Endpoint / Schema / auth / locale）
-## 执行与安全策略
-## 修改文件
-## 验证结果
-## 风险、阻断项与后续动作
-## Git / 发布状态
+# API 产品上线结果
+## 结论（complete / blocked）
+## 阶段矩阵（contract / metadata / SDK+CLI / npm / Preview / Production / discovery / assistant call）
+## 产品边界、权威证据与许可
+## 契约覆盖与质量迭代
+## SDK/CLI 包、版本、commit 与 registry 证据
+## Metadata / Hub / 统一 CLI / 语义搜索 / 助手验证
+## 安全、真实调用与未执行 mutation
+## 各仓库 commit、CI、部署 URL/ID
+## 阻断项、解除条件或持续治理
 ```
 
-明确区分已验证事实、基于证据的推断和未知项。报告实际运行的命令及结果；不要把未执行的 Hub 测试、真实请求、提交、推送或部署写成已完成。
+明确区分事实、推断和未知。只报告实际执行且有证据的命令、发布、部署和生产调用；未通过阶段不得写成完成。

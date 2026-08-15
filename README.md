@@ -188,7 +188,7 @@ workflow-run URL.
 
 ## Agent skills
 
-- [`pontx-api-collection-builder`](./skills/pontx-api-collection-builder/SKILL.md) turns authoritative API evidence into a production-ready bilingual OpenAPI collection, catalog entry, execution policy, approved hashes, and verified Hub integration.
+- [`pontx-api-collection-builder`](./skills/pontx-api-collection-builder/SKILL.md) owns the complete onboarding lifecycle: authoritative and iteratively verified API evidence, production-ready bilingual metadata, generated and safety-tested `@pontx/<slug>` SDK plus `pontx-<slug>` CLI, npm publication, staged Hub rollout, and production verification through the website, universal CLI, semantic search, and AI-assistant call path.
 - [`pontx-api-collection-governance`](./skills/pontx-api-collection-governance/SKILL.md) audits and remediates existing collections for freshness, drift, compatibility, deprecation, localization, execution safety, SDK truth, and consumer readiness.
 - The internal [`pontx-metadata-quality-loop`](https://github.com/pontjs/pontx-beta/tree/main/.agents/skills/pontx-metadata-quality-loop) workflow lives in `pontx-beta`; it owns the scorer, dynamic benchmark, state machine, and evaluator-auditor protocol while this repository remains the Metadata source of truth.
 

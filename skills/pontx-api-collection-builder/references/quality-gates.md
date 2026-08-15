@@ -85,12 +85,59 @@ hash 失配、生成物过期或非确定性构建均为 `BLOCKER`。
 
 消费者不接受新负载是 `BLOCKER`；仅展示质量不足通常为 `MAJOR`。
 
+## G7：SDK 与产品 CLI 契约保真
+
+- 独立产品仓库从最终已审 OAS 生成 `@pontx/<slug>` 和同包 `pontx-<slug>`，生成物可复现且无手改漂移。
+- SDK 保留真实 server path、参数序列化、auth、请求/响应类型、媒体类型、错误和二进制语义。
+- Controller 只来自 Endpoint 显式 OAS tags；未 tagged Endpoint 保持 client 根调用，不合成或保留 `common`/`default` Controller 或别名。
+- strict typecheck、ESM、CommonJS、声明和 CLI build 通过；unit tests 100% 通过且 0 skipped。
+- built-package E2E 覆盖代表性 SDK 请求、产品 CLI help/preview/call、凭证脱敏、server path 和产品特有媒体/错误路径。
+- mutation 在未确认、请求变化或确认过期时不会发出；mutation/付费/用户数据不通过生产实调验证。
+- SDK/CLI 暴露的类型或请求构造缺口回流修复 OAS/metadata，随后重新生成和重跑 G2–G7。
+
+生成代码与已审契约不一致、凭证可泄漏、mutation 可绕过或关键 E2E 失败均为 `BLOCKER`。只通过本地 build 而没有 built-package E2E 是 `MAJOR`。
+
+## G8：不可变发包与 registry 复验
+
+- Pontx runtime/generator 使用 registry 已存在的精确版本；冻结 lockfile 无 `link:`、`file:`、`workspace:` 或本地 override。
+- 发布前固定完整 SDK source commit，目标 Node 矩阵 CI 全绿，generation/typecheck/tests/build/E2E 在 release gate 中重跑。
+- `npm pack --dry-run --json` 文件清单只含预期 code/types/bin/license/notices，不含凭证、缓存、私有 fixture 或无权再分发的上游材料。
+- npm package/scope/version/public access 已核对，发布前版本未占用；不得绕过 `prepublishOnly` 或等价质量门。
+- 发布后从全新临时目录仅安装 registry 精确版本，验证 ESM/CJS/types、`pontx-<slug>`、preview、安全门和获准的代表性只读路径。
+- package/version、integrity、完整 source commit、CI URL、Node 矩阵、unit/E2E 和验证日期形成 version-bound 证据。
+
+tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 未完成或质量证据未绑定同一版本均为 `BLOCKER`。`npm publish` 成功但未 fresh-install 复验仍未通过本门。
+
+## G9：Metadata 准入与分阶段上线
+
+- 只有 G8 registry 复验通过后，metadata 才设置 `sdkStatus=published` 并写入真实 package/version/CLI/quality 证据。
+- SDK/CLI 示例与 registry 产物的真实导出、Controller/root 路径和参数完全一致。
+- metadata 全部门与 Hub tests、typecheck、production build、SDK registry verification、搜索/SSR/Schema/Playground/snippet/AI tool eval 通过。
+- 公共 catalog/Hub HTTP/CLI contract 变化遵循 consumer-first；动态 catalog 已足够时不为新增产品发布无意义的统一 CLI 版本。
+- `develop` 的 Preview Ready 且完成中英文浏览器审查后，才提升 `main`；Production workflow/deployment 必须实际 Ready。
+- SDK、必要消费者、metadata、Preview 和 Production 的 commit/run/deployment 证据写入同一 launch ledger。
+
+先标 published、生产 metadata 指向不存在/不匹配的包、Preview 未审直接提升、消费者未兼容或 Production 未 Ready 均为 `BLOCKER`。PR、merge、source fix 或 Preview 本身不是完成状态。
+
+## G10：生产发现、语义检索与助手调用
+
+- 生产 Hub API、zh/en API/Endpoint/Schema/SDK 页面加载最终 catalog，稳定 ID、SSR、canonical/hreflang/sitemap 和 SDK 版本正确。
+- fresh-installed 统一 `pontx-hub` CLI 能 list/search/show/sdk/preview 该产品和代表 Endpoint/Schema。
+- 至少一条中文和一条英文非品牌任务查询在要求 top-k 返回正确资源，并暴露 `strategy`、`semanticVersion`、`match.mode` 与 `match.fields`；查询进入持久化 relevance eval。
+- AI deterministic eval 覆盖 search → resource/auth → SDK/CLI → prepare，且 credential 不进入模型/tool input。
+- 生产登录态助手从自然语言任务选中正确产品并完成 catalog-approved preview；客户端用 session-only credential 完成一条获准的安全 read，首个响应非空且满足关键 Schema。
+- mutation 只验证 preview 和未变请求确认边界；任意 URL、未批准 server、私网、危险 header、凭证日志和未确认 mutation 仍被拒绝。
+- 使用 Agent Browser 或当前工作区指定的浏览器工具验证真实生产 UI、网络和控制台，而不是只用直接 HTTP。
+
+精确产品名可搜到但非品牌意图不可发现是 `MAJOR`。统一 CLI 不接受产品、助手无法准确 prepare、没有任何合法安全的助手 read 调用路径、凭证进入模型或生产安全边界失效是 `BLOCKER`。
+
 ## 发布判定
 
 只有同时满足以下条件才称为“高质量完成”：
 
-1. G0–G6 无 blocker；
+1. G0–G10 无 blocker；
 2. 所有 major 已解决，或有用户明确接受且不影响准确性/安全性的限界说明；
 3. 工作树只包含有意改动；
-4. 证据、验证命令、风险与未执行步骤已在交付报告中披露；
-5. 未在缺少授权时提交、推送、发布、部署或执行有副作用的请求。
+4. 证据、验证命令、包/commit/CI/deployment、风险与未执行 mutation 已在交付报告中披露；
+5. Production 网站、统一 CLI、语义搜索和助手调用矩阵有最终 registry artifact 与 production catalog 的同版本证据；
+6. 未在缺少授权时执行提供方 mutation、付费调用、用户数据调用或其他超出产品上线范围的外部副作用。

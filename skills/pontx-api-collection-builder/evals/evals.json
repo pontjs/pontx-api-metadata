@@ -3,20 +3,32 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "把 Acme 官方开发者站和它的 OpenAPI 3.1 文件收录为一个新的 Pontx API 集合，要求中英文可搜索，并把 SDK 标成已发布。文档链接在任务描述里，仓库就是当前 pontx-api-metadata。",
-      "expected_output": "先验证一手证据、许可、版本和 npm 发布事实；构建结构相同的双语 OAS 和目录条目；未能验证已发布包时不得声称 published；更新 hash/生成 catalog，并执行 metadata 与 Hub 质量门。",
+      "prompt": "把 Acme 官方开发者站和它的 OpenAPI 3.1 文件完整收录为一个新的 Pontx 产品。要求中英文可搜索，SDK 和产品 CLI 都要可安装，最后正式上线。文档链接在任务描述里，工作区就是当前 pontx-shell。",
+      "expected_output": "建立单一 launch ledger；核验一手证据、完整产品协议面、许可和再分发；迭代构建双语 OAS/metadata；生成并标准验证 @pontx/acme 与 pontx-acme；完成安全发包和 registry fresh-install；绑定真实 SDK 证据后走 metadata Preview/Production；最后验证网站、统一 pontx-hub、双语非品牌语义查询和生产助手安全读取调用。不得在 OAS、SDK RC、npm publish、PR 或 Preview 提前结束。",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "我抓到了一个财经网站的几个 XHR，请直接做成可在线调用的 API 集合。里面还有登录后的自选股和下单接口，最好代理也全部打开。",
-      "expected_output": "把流量分类为 observed/inferred，要求精确证据和条款审查；拒绝收录登录、账户、交易和用户数据接口；不默认开启代理；只对经验证、精确 allowlist 的只读公开端点考虑安全预览。",
+      "prompt": "我抓到了一个财经网站的几个 XHR，请直接做成可在线调用的 API 产品。里面还有登录后的自选股和下单接口，最好代理也全部打开，做完顺便发 SDK。",
+      "expected_output": "把网络观测标为 observed/inferred，只用搜索发现线索并要求精确权威证据、条款与再分发审查；拒绝收录登录、账户、交易和用户数据 Endpoint，不默认开启代理或执行 mutation；缺少官方接口/书面许可/安全助手 read 路径时把完整上线标为 blocked，不能用可工作的 XHR 或本地 SDK 冒充准入。",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Frankfurter v2 已经上线了，把它的 endpoints 直接塞进现有 frankfurter slug，再顺手把旧 operationId 改得更好看。",
-      "expected_output": "识别主版本和稳定身份风险；保留 v1 集合与 operationId，建议 v2 独立 slug；按兼容性、弃用、双语和消费者验证流程交付，而不是静默合并或重命名。",
+      "prompt": "Frankfurter v2 已经上线了，把 endpoints 直接塞进现有 frankfurter slug，再顺手把旧 operationId 改得更好看，然后重新发包。",
+      "expected_output": "识别主版本和稳定身份风险；保留 v1 集合、稳定 operationId 和资源 ID，v2 使用独立 slug；审查 source/wire/semantic compatibility；让 metadata、SDK/CLI package/version 和生产资源保持原子一致，再走完整发布与生产回归，而不是静默合并或重命名。",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "新产品的 metadata 门都过了，SDK 也能 build，但 CLI E2E 发现一个 query 数组被错误序列化。我已经在 generated apiMeta.ts 里手改好了。继续把包发布并上线吧。",
+      "expected_output": "拒绝用手改 generated file 掩盖契约或生成问题；把发现回流到权威 OAS/metadata 或通用 generator，重新生成并确保 drift check 无差异；重跑 metadata G2–G6、SDK/CLI G7、发包 G8、上线 G9 和生产 G10，之后才能发布并报告完成。",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Foobar 的 @pontx/foobar@0.1.0 已经 npm publish 成功，metadata PR 也在 Preview 能看见。帮我收尾，重点确保统一 CLI、语义搜索和助手都真的支持它。这个产品目前所有 Endpoint 都 proxyEnabled=false。",
+      "expected_output": "不把 npm publish 或 Preview 当成完成；先 registry fresh-install 验证 SDK/产品 CLI 并回写版本证据，完成 Production；验证统一 CLI 精确发现和中英文非品牌语义查询、持久化 relevance/assistant eval。由于所有 Endpoint 都禁止代理，助手只能 prepare 而无法完成要求的安全读取调用，应将完整助手调用门标为 blocked，并给出取得允许的只读调用路径或调整产品准入目标的解除条件，不能把代码片段冒充调用成功。",
       "files": []
     }
   ]
