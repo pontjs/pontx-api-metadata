@@ -8,7 +8,7 @@
   "provider": "MongoDB",
   "category": "Cloud",
   "priority": {
-    "group": "eligible-review",
+    "group": "license-blocked",
     "rank": 3,
     "score": 88
   },
@@ -16,11 +16,11 @@
     "zh": "MongoDB Atlas Administration API v2；不包含 MongoDB wire protocol、Atlas Data API 或其他独立产品。",
     "en": "MongoDB Atlas Administration API v2 only; it excludes the MongoDB wire protocol, Atlas Data API, and other separately defined products."
   },
-  "stage": "audit-required",
+  "stage": "license-blocked",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
-    "redistribution": "passed",
+    "redistribution": "blocked",
     "contract": "passed",
     "transport": "passed",
     "risk": "pending",
@@ -31,7 +31,7 @@
     "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
     "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
     "observedAt": "2026-08-14",
-    "license": "Apache-2.0",
+    "license": "CC BY-NC-SA 3.0 US (declared by the pinned OAS); repository LICENSE is Apache-2.0 and does not resolve the OAS restriction",
     "openapiVersion": "3.0.1",
     "observedPaths": 335,
     "observedOperations": 540,
@@ -44,14 +44,23 @@
     },
     {
       "kind": "spec",
-      "url": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json"
+      "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json"
     },
     {
       "kind": "license",
-      "url": "https://github.com/mongodb/openapi/blob/main/LICENSE"
+      "url": "https://github.com/mongodb/openapi/blob/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/LICENSE"
+    },
+    {
+      "kind": "license",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/"
     }
   ],
   "blockers": [
+    {
+      "gate": "redistribution",
+      "zh": "固定 OAS revision 的 info.license 明确为 CC BY-NC-SA 3.0 US；同仓库 Apache-2.0 LICENSE 不能解除该规范的非商业与相同方式共享限制。未取得 MongoDB 对该 OAS、派生 metadata/PontxSpec 与独立 SDK/CLI 的书面商用再分发澄清前，禁止创建可发布产品产物。",
+      "en": "The pinned OAS revision explicitly declares CC BY-NC-SA 3.0 US in info.license. The repository's Apache-2.0 LICENSE does not remove that specification's non-commercial and share-alike restrictions. Do not create publishable product artifacts until MongoDB provides written commercial-redistribution clarification for the OAS, derived metadata/PontxSpec, and independent SDK/CLI."
+    },
     {
       "gate": "risk",
       "zh": "管理面包含删除集群、网络与访问配置等高影响写接口，需完成 Endpoint 级 preview/confirmation 与代理禁用策略。",
@@ -59,13 +68,13 @@
     },
     {
       "gate": "sdkCli",
-      "zh": "规范可生成，但 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin 尚未构建、测试和发布。",
-      "en": "The contract is generation-ready, but @pontx/mongodb-atlas-admin and pontx-mongodb-atlas-admin have not been built, tested, and published."
+      "zh": "在再分发门解除并完成 Endpoint 级风险策略前，不得构建、测试或发布 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin。",
+      "en": "Do not build, test, or publish @pontx/mongodb-atlas-admin or pontx-mongodb-atlas-admin before the redistribution gate is cleared and endpoint-level risk policy is complete."
     }
   ],
   "nextAction": {
-    "zh": "基于已固定的官方 v2 规范提交，完成双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
-    "en": "Use the pinned official v2 specification revision to complete bilingual prose and sensitive-endpoint execution policy, then publish the SDK/CLI release chain."
+    "zh": "先取得 MongoDB 对固定 OAS、派生 metadata/PontxSpec 与独立 SDK/CLI 的书面商用再分发澄清，或改用具有明确可发布许可的固定版本；随后才可进行双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
+    "en": "First obtain MongoDB's written commercial-redistribution clarification for the pinned OAS, derived metadata/PontxSpec, and independent SDK/CLI, or switch to a fixed revision with an explicit publishable license; only then complete bilingual prose, sensitive-endpoint execution policy, and the SDK/CLI release chain."
   },
-  "verifiedAt": "2026-08-14"
+  "verifiedAt": "2026-08-15"
 }
