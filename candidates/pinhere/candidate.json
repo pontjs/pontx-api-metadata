@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "slug": "pinhere",
+  "name": {
+    "zh": "Pinhere API",
+    "en": "Pinhere API"
+  },
+  "provider": "Pinhere",
+  "category": "Developer Tools",
+  "priority": {
+    "group": "owner-requested",
+    "rank": 1,
+    "score": 96
+  },
+  "boundary": {
+    "zh": "Pinhere v1 的完整 REST API，包含项目与 Origin、缺陷内容和状态流转、私有截图、Webhook 与投递诊断、PAT，以及 Chrome 扩展 OAuth 2.0 PKCE；共 34 个接口和 36 个 Schema。",
+    "en": "The complete Pinhere v1 REST API for projects and origins, issue content and lifecycle transitions, private screenshots, webhooks and delivery diagnostics, PATs, and Chrome-extension OAuth 2.0 PKCE, comprising 34 Endpoints and 36 Schemas."
+  },
+  "stage": "release-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "blocked",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "passed",
+    "sdkCli": "blocked"
+  },
+  "contractSource": {
+    "kind": "product-owned-pontx-spec",
+    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/d78e0d7f52bad08fd47d0eba024cbe177f2424e7/apps/web/specs/spec.pontx.json",
+    "revision": "d78e0d7f52bad08fd47d0eba024cbe177f2424e7",
+    "observedAt": "2026-08-15",
+    "license": "not-declared",
+    "pontxVersion": "2.1",
+    "sourceSha256": "e0d6cb7e45a2d0f732d833f67a8460c7b847816ca81a30f487692f24057738de",
+    "observedOperations": 34,
+    "observedSchemas": 36,
+    "locales": [
+      "zh-CN",
+      "en-US"
+    ]
+  },
+  "executionPolicy": {
+    "hubProxyEnabledOperations": 0,
+    "callerDirectOnly": true,
+    "mutationPolicy": "preview-first-exact-request-confirmation",
+    "credentials": [
+      "Pinhere PAT (ph_pat_*)",
+      "website session cookie",
+      "extension OAuth 2.0 PKCE"
+    ]
+  },
+  "previewDeployment": {
+    "url": "https://pinhere-khbqe15nr-jasonhzqs-projects.vercel.app",
+    "deploymentId": "dpl_37McaGfWfEF1HZhSgZ5s5tFH3Mh4",
+    "status": "Ready",
+    "canonical": false,
+    "observedAt": "2026-08-15",
+    "hobbyCron": "0 0 * * *"
+  },
+  "evidence": [
+    {
+      "kind": "source",
+      "url": "https://github.com/jasonHzq/pinhere"
+    },
+    {
+      "kind": "spec",
+      "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/d78e0d7f52bad08fd47d0eba024cbe177f2424e7/apps/web/specs/spec.pontx.json"
+    },
+    {
+      "kind": "ci",
+      "url": "https://github.com/jasonHzq/pinhere/actions/runs/31874020359"
+    },
+    {
+      "kind": "preview",
+      "url": "https://pinhere-khbqe15nr-jasonhzqs-projects.vercel.app"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "redistribution",
+      "zh": "公共产品仓库未声明 LICENSE 或其他可核验的再分发条款。不得把产品自有 PontxSpec、其双语副本、生成 SDK/CLI 或产品 Skill 作为正式 Pontx 产品发布。",
+      "en": "The public product repository declares no LICENSE or other verifiable redistribution terms. The product-owned PontxSpec, bilingual copies, generated SDK/CLI, and product Skill must not be published as an admitted Pontx product."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "设计目标域名 pinhere.dev 尚未绑定，https://pinhere.dev/.well-known/pontx.json 不可用；现有 Vercel Preview 不是 canonical 生产地址。@pontx/pinhere 与 pontx-pinhere 只能保持本地 private/UNLICENSED RC，不得发布到 npm。",
+      "en": "The intended pinhere.dev domain is not bound and https://pinhere.dev/.well-known/pontx.json is unavailable; the current Vercel Preview is not a canonical production address. @pontx/pinhere and pontx-pinhere may remain only a local private/UNLICENSED release candidate and must not be published to npm."
+    }
+  ],
+  "nextAction": {
+    "zh": "由 Pinhere 所有者选择并提交明确许可证，绑定 pinhere.dev，并使正式发现地址返回与固定 source hash 一致的 PontxSpec；随后完成独立 SDK 仓库、Node 18/20/22 CI、npm registry 复验、正式 Metadata/Skill、Preview 与 Production 上线。生产 Hobby cron 当前仅每日 00:00 UTC 运行一次；除非计划升级，不得把五分钟自动重试描述为已上线能力。",
+    "en": "The Pinhere owner must select and commit an explicit license, bind pinhere.dev, and serve a PontxSpec matching the pinned source hash from the canonical discovery URL. Then complete the independent SDK repository, Node 18/20/22 CI, npm registry verification, admitted Metadata/Skill, Preview, and Production rollout. The production Hobby cron currently runs only once daily at 00:00 UTC; do not describe five-minute automatic retries as deployed unless the plan is upgraded."
+  },
+  "verifiedAt": "2026-08-15"
+}
