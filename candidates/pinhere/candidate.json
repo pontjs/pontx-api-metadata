@@ -28,12 +28,12 @@
   },
   "contractSource": {
     "kind": "product-owned-pontx-spec",
-    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/d78e0d7f52bad08fd47d0eba024cbe177f2424e7/apps/web/specs/spec.pontx.json",
-    "revision": "d78e0d7f52bad08fd47d0eba024cbe177f2424e7",
+    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/e1ad3385463ac3d97a750cd134fb75dea077c334/apps/web/specs/spec.pontx.json",
+    "revision": "e1ad3385463ac3d97a750cd134fb75dea077c334",
     "observedAt": "2026-08-15",
     "license": "not-declared",
     "pontxVersion": "2.1",
-    "sourceSha256": "e0d6cb7e45a2d0f732d833f67a8460c7b847816ca81a30f487692f24057738de",
+    "sourceSha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f",
     "observedOperations": 34,
     "observedSchemas": 36,
     "locales": [
@@ -66,11 +66,11 @@
     },
     {
       "kind": "spec",
-      "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/d78e0d7f52bad08fd47d0eba024cbe177f2424e7/apps/web/specs/spec.pontx.json"
+      "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/e1ad3385463ac3d97a750cd134fb75dea077c334/apps/web/specs/spec.pontx.json"
     },
     {
       "kind": "ci",
-      "url": "https://github.com/jasonHzq/pinhere/actions/runs/31874020359"
+      "url": "https://github.com/jasonHzq/pinhere/actions/runs/31874376964"
     },
     {
       "kind": "preview",
