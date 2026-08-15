@@ -93,4 +93,22 @@ try {
   await rm(invalidCredentialSecretRoot, { recursive: true, force: true });
 }
 
+const invalidSdkArgumentOrderRoot = await mkdtemp(resolve(tmpdir(), "pontx-invalid-sdk-argument-order-"));
+try {
+  await cp(fixtureRoot, invalidSdkArgumentOrderRoot, { recursive: true });
+  const sdkPath = resolve(invalidSdkArgumentOrderRoot, "products/rpc-minimal/sdk.json");
+  const sdk = JSON.parse(await readFile(sdkPath, "utf8"));
+  sdk.contract.argumentOrder = ["path", "body", "body"];
+  await writeFile(sdkPath, `${JSON.stringify(sdk, null, 2)}\n`);
+  const invalidSdkArgumentOrder = await validateHierarchy({
+    root: invalidSdkArgumentOrderRoot,
+    requireMetadataCommit: false,
+  });
+  assert(invalidSdkArgumentOrder.errors.some(
+    (error) => error.includes("SDK argumentOrder must contain path, body, and query exactly once"),
+  ));
+} finally {
+  await rm(invalidSdkArgumentOrderRoot, { recursive: true, force: true });
+}
+
 console.log("Hierarchy contract tests passed, including RPC, credential env vars, and forbidden common/default alias coverage.");

@@ -231,6 +231,14 @@ function validateSdk(slug, sdk, spec, specBytes, requireMetadataCommit, errors) 
   if (Object.hasOwn(sdk.contract ?? {}, "operations")) {
     errors.push(`${slug}: SDK contract must derive Endpoint IDs from coverage, not duplicate operations`);
   }
+  if (sdk.contract?.argumentOrder !== undefined) {
+    const order = sdk.contract.argumentOrder;
+    const expected = new Set(["path", "body", "query"]);
+    if (!Array.isArray(order) || order.length !== expected.size
+      || new Set(order).size !== expected.size || order.some((value) => !expected.has(value))) {
+      errors.push(`${slug}: SDK argumentOrder must contain path, body, and query exactly once`);
+    }
+  }
   const contractIds = sdk.coverage?.mode === "partial"
     ? new Set(sdk.coverage.endpointIds ?? [])
     : new Set(ids);
