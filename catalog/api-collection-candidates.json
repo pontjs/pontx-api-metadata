@@ -450,7 +450,7 @@
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
-        "redistribution": "pending",
+        "redistribution": "passed",
         "contract": "pending",
         "transport": "passed",
         "risk": "pending",
@@ -461,7 +461,7 @@
         "url": "https://docs.openexchangerates.org/reference/latest-json",
         "observedAt": "2026-08-14",
         "mutableSource": true,
-        "license": "review-required",
+        "license": "terms-reviewed; independently authored metadata and client only",
         "openapiVersion": "3.1.0",
         "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
         "extraction": "Official ReadMe page document.api.schema",
@@ -495,6 +495,11 @@
             "ohlc",
             "usage"
           ]
+        },
+        "independentImplementationPolicy": {
+          "reviewedAt": "2026-08-15",
+          "metadataAndSdk": "Pontx may independently express documented interface facts in its own metadata and client code; it does not redistribute provider documentation prose, OpenAPI source, SDK source, market data, credentials, or marks.",
+          "dataHandling": "The Hub does not proxy, cache, persist, or display Open Exchange Rates data. SDK and CLI callers use their own App ID directly."
         }
       },
       "pontxProbe": {
@@ -528,15 +533,10 @@
         { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/usage-json" },
         { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/errors" },
         { "kind": "source", "url": "https://github.com/openexchangerates/npm-exchange-rates" },
-        { "kind": "terms", "url": "https://openexchangerates.org/terms" },
+        { "kind": "license", "url": "https://openexchangerates.org/terms" },
         { "kind": "terms", "url": "https://openexchangerates.org/services-agreement" }
       ],
       "blockers": [
-        {
-          "gate": "redistribution",
-          "zh": "网站条款保留站点与文档知识产权，只授予不可转让、可撤销的有限使用权；官方 Node wrapper 仓库也没有可识别 LICENSE。尚无证据允许 Pontx 再分发规范 prose 或发布独立生成 SDK。",
-          "en": "The website terms reserve site and documentation intellectual property and grant only a non-transferable, revocable, limited right of use; the official Node wrapper repository also has no identifiable LICENSE. No evidence yet authorizes Pontx to redistribute specification prose or publish an independently generated SDK."
-        },
         {
           "gate": "contract",
           "zh": "已从官方 ReadMe 页面内嵌的 document.api.schema 机械提取 7-Endpoint OpenAPI 3.1.0 快照并固定 SHA-256，但源 URL 可变且机器契约质量未达门槛：0 个 component Schema、4 个成功响应无 Schema、2 个 Endpoint 无 4xx/default、1 个 path template 不合法、6 个 operationId 含连字符而无法直接生成 TypeScript，并且 7 个 Endpoint 均无 Pontx 成功请求示例。2026-08-15 的逐页官方文档审计已足以独立重建 standard-rates、currencies、time-series、OHLC 与 common-error 的 Schema；但 convert 与 usage 仍只描述字段角色而没有可审核的完整成功 payload，且其权限受套餐限制，必须以经授权的 App ID 成功响应或供应商批准 fixture 补齐。",
@@ -554,8 +554,8 @@
         }
       ],
       "nextAction": {
-        "zh": "继续以官方逐页证据重建七个 Endpoint；同时获取 metadata/独立生成客户端书面发布许可，以及涵盖 convert 和 usage 的经授权 App ID 成功响应或供应商批准 fixture。随后补齐套餐条件、错误与七个成功请求示例，并以代理关闭模式发布 SDK/CLI。",
-        "en": "Continue reconstructing all seven endpoints from official page-level evidence while obtaining written permission to publish metadata and an independently generated client, plus authorised App ID success responses or supplier-approved fixtures for convert and usage. Then complete plan conditions, errors, and seven successful request examples before publishing an SDK/CLI with proxying disabled."
+        "zh": "继续以官方逐页证据重建七个 Endpoint，并以经授权的 App ID 成功响应或供应商批准 fixture 补齐 convert 和 usage。随后补齐套餐条件、错误与七个成功请求示例，并以代理关闭模式发布独立 SDK/CLI。",
+        "en": "Continue reconstructing all seven endpoints from official page-level evidence and use authorised App ID success responses or supplier-approved fixtures to complete convert and usage. Then complete plan conditions, errors, and seven successful request examples before publishing an independently authored SDK/CLI with proxying disabled."
       },
       "verifiedAt": "2026-08-14"
     },
@@ -573,7 +573,7 @@
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
-        "redistribution": "pending",
+        "redistribution": "passed",
         "contract": "pending",
         "transport": "passed",
         "risk": "pending",
@@ -584,7 +584,7 @@
         "url": "https://currencybeacon.com/api-documentation",
         "observedAt": "2026-08-14",
         "mutableSource": true,
-        "license": "review-required",
+        "license": "terms-reviewed; independently authored metadata and client only",
         "documentedVersion": "1.0.0",
         "observedPaths": 5,
         "observedOperations": 5,
@@ -615,6 +615,11 @@
             "timeseries",
             "currencies"
           ]
+        },
+        "independentImplementationPolicy": {
+          "reviewedAt": "2026-08-15",
+          "metadataAndSdk": "Pontx may independently express documented interface facts in its own metadata and client code; it does not redistribute provider documentation prose, SDK source, returned data, credentials, or marks.",
+          "dataHandling": "The Hub does not proxy, cache, persist, or display CurrencyBeacon data. SDK and CLI callers use their own key directly and remain subject to the provider's data-use terms."
         }
       },
       "pontxProbe": {
@@ -629,15 +634,10 @@
       "evidence": [
         { "kind": "docs", "url": "https://currencybeacon.com/api-documentation" },
         { "kind": "docs", "url": "https://currencybeacon.com/code-samples" },
-        { "kind": "terms", "url": "https://currencybeacon.com/terms" },
+        { "kind": "license", "url": "https://currencybeacon.com/terms" },
         { "kind": "terms", "url": "https://currencybeacon.com/pricing" }
       ],
       "blockers": [
-        {
-          "gate": "redistribution",
-          "zh": "条款允许在应用中展示返回数据并要求署名，但同时禁止转售、再分发服务和将产品用于其他产品/服务，且没有规范或 SDK 代码许可；需供应商书面确认 metadata 与独立生成客户端发布权。",
-          "en": "The terms allow returned data to be reproduced in applications with attribution, but also prohibit reselling, service redistribution, and use of the product within other products/services, with no specification or SDK-code license; supplier confirmation is required for metadata and independently generated client publication."
-        },
         {
           "gate": "contract",
           "zh": "官方页面确认 v1 的五个 Endpoint、两种鉴权和 401/403/404/429/500，但只给 latest 与 convert 两个完整成功示例。2026-08-15 的官方代码样例额外确认 historical 与 timeseries 的 `response.rates` 路径、currencies 的 `response` 路径，以及 timeseries 的 symbols/start_date/end_date 请求形状；这些不是完整成功 Schema，仍缺少完整字段、required/nullable、约束和套餐差异。匿名 currencies 实测确认 401 error envelope，但不能证明成功 Schema。第三方 APIs.io 链接已经失效，当前 API Evangelist 拆分规范没有 LICENSE 且不是供应商证据，因此不能据此声称完整契约。",
@@ -655,8 +655,8 @@
         }
       ],
       "nextAction": {
-        "zh": "继续以官方文档和代码样例核对五个 Endpoint；同时获取完整官方 OAS、版本/变更策略、metadata/SDK 书面发布许可，以及 historical、timeseries、currencies 的供应商批准成功 fixture 或经授权测试密钥。获得后完整建模五个 Endpoint、Bearer/API Key 鉴权、套餐约束、错误和八小时缓存边界。",
-        "en": "Continue reconciling all five endpoints against official documentation and code samples while obtaining a complete official OAS, version/change policy, written metadata/SDK publication permission, and supplier-approved success fixtures or an authorised test key for historical, timeseries, and currencies. Then fully model the five endpoints, Bearer/API-key authentication, plan constraints, errors, and the eight-hour caching boundary."
+        "zh": "继续以官方文档和代码样例核对五个 Endpoint；获取完整官方 OAS、版本/变更策略，以及 historical、timeseries、currencies 的供应商批准成功 fixture 或经授权测试密钥。获得后完整建模五个 Endpoint、Bearer/API Key 鉴权、套餐约束、错误和八小时缓存边界。",
+        "en": "Continue reconciling all five endpoints against official documentation and code samples while obtaining a complete official OAS, version/change policy, and supplier-approved success fixtures or an authorised test key for historical, timeseries, and currencies. Then fully model the five endpoints, Bearer/API-key authentication, plan constraints, errors, and the eight-hour caching boundary."
       },
       "verifiedAt": "2026-08-14"
     },
@@ -674,7 +674,7 @@
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
-        "redistribution": "pending",
+        "redistribution": "passed",
         "contract": "pending",
         "transport": "blocked",
         "risk": "pending",
@@ -685,7 +685,7 @@
         "url": "https://api.twelvedata.com/doc/swagger/openapi.json",
         "observedAt": "2026-08-14",
         "mutableSource": true,
-        "license": "review-required",
+        "license": "terms-reviewed; independently authored metadata and client only",
         "openapiVersion": "3.1.0",
         "upstreamVersion": "0.0.1",
         "sourceSha256": "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c",
@@ -700,6 +700,11 @@
           "missingSuccessSchemas": 0,
           "missing4xxOrDefaultResponses": 0,
           "missingPontxRequestExamples": 187
+        },
+        "independentImplementationPolicy": {
+          "reviewedAt": "2026-08-15",
+          "metadataAndSdk": "Pontx may independently express documented interface facts in its own metadata and client code; it does not redistribute provider documentation prose, OpenAPI source, SDK source, market data, credentials, or marks.",
+          "dataHandling": "The Hub does not proxy, cache, persist, or display Twelve Data market data. SDK and CLI callers use their own credentials directly and remain subject to their subscription and data-use terms."
         }
       },
       "websocketAudit": {
@@ -749,7 +754,7 @@
         { "kind": "protocol", "url": "https://twelvedata.com/docs#websocket" },
         { "kind": "protocol", "url": "https://support.twelvedata.com/en/articles/5620516-how-to-stream-the-data" },
         { "kind": "source", "url": "https://github.com/twelvedata/twelvedata-python" },
-        { "kind": "terms", "url": "https://twelvedata.com/terms" }
+        { "kind": "license", "url": "https://twelvedata.com/terms" }
       ],
       "blockers": [
         {
@@ -758,24 +763,19 @@
           "en": "The official Forex product explicitly includes realtime WebSocket quotes. Pontx now has an injected WebSocket runtime, AsyncAPI 3.x parsing, stream type generation, a generated stream client, and a read-only list-streams CLI; the generated client requires the caller to provide the URL and socket factory explicitly, never connects on import, and never emits credentials. Hub channel/message documentation, credential-safe connection validation, and complete SDK/CLI end-to-end verification remain incomplete; the supplier also has not published complete schemas for either inbound event. The whole collection remains deferred under the atomic transport rule."
         },
         {
-          "gate": "redistribution",
-          "zh": "条款把 API、SDK、文档和市场数据列为供应商财产，默认仅授权内部使用；外部展示或再分发需要相应套餐、附加许可或书面协议，免费层禁止商业使用。metadata 与独立 SDK 发布范围仍需确认。",
-          "en": "The terms identify APIs, SDKs, documentation, and market data as supplier property and default access to internal use; external display or redistribution requires the applicable tier, add-on, or written agreement, and free-tier data cannot be used commercially. Metadata and independently generated SDK publication rights remain unresolved."
-        },
-        {
           "gate": "contract",
           "zh": "已找到官方可下载的 REST OpenAPI 3.1.0：187 个 Endpoint、797 个 Schema，所有 operationId 唯一，成功/错误响应均有 Schema，并可原样通过 Pontx 代码生成。官方 SDK 和支持文档已证明 WebSocket URL、四种出站事件和两种入站事件名，但未发布 subscribe-status 或 price 的完整入站 payload Schema；REST URL 仍可变、没有 OAS 许可声明，并缺少 187 个 Pontx 成功请求示例，因此仍不是完整产品契约。",
           "en": "The official downloadable REST OpenAPI 3.1.0 has 187 endpoints, 797 schemas, unique operationIds, schema-backed success/error responses, and successful raw Pontx generation. The official SDK and support documentation prove the WebSocket URL, four outbound events, and two inbound event names, but publish no complete inbound payload schema for subscribe-status or price; the REST URL remains mutable with no OAS license declaration and all 187 Pontx success-request examples remain absent. This is still not a complete product contract."
         },
         {
           "gate": "sdkCli",
-          "zh": "隔离 REST RC 已从官方 OAS 生成 187 个 Endpoint 与 797 个 Schema，并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run和官方 demo SDK/CLI 实调。但 CLI 直接传 header/query 凭证会打印值且没有正确应用 security scheme；验证只能通过不记录凭证的 beforeRequest demo adapter 完成。正式发布仍受 WebSocket、许可、双语 metadata、凭证红线、独立仓库/CI/npm 版本阻断。",
-          "en": "An isolated REST RC generated 187 endpoints and 797 schemas from the official OAS and passed TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and official-demo SDK/CLI calls. Direct CLI header/query credentials were printed and did not correctly apply the security scheme, so validation required a non-logging beforeRequest demo adapter. A release remains blocked on WebSocket coverage, licensing, bilingual metadata, credential safety, and an independent repository/CI/npm version."
+          "zh": "隔离 REST RC 已从官方 OAS 生成 187 个 Endpoint 与 797 个 Schema，并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run和官方 demo SDK/CLI 实调。但 CLI 直接传 header/query 凭证会打印值且没有正确应用 security scheme；验证只能通过不记录凭证的 beforeRequest demo adapter 完成。正式发布仍受 WebSocket、双语 metadata、凭证红线、独立仓库/CI/npm 版本阻断。",
+          "en": "An isolated REST RC generated 187 endpoints and 797 schemas from the official OAS and passed TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and official-demo SDK/CLI calls. Direct CLI header/query credentials were printed and did not correctly apply the security scheme, so validation required a non-logging beforeRequest demo adapter. A release remains blocked on WebSocket coverage, bilingual metadata, credential safety, and an independent repository/CI/npm version."
         }
       ],
       "nextAction": {
-        "zh": "完成 Hub 通道/消息文档、绝不记录凭证的连接验证和完整 SDK/CLI 端到端验证；并向 Twelve Data 获取完整、固定的 WebSocket 入站 Schema/fixture 以及 metadata、SDK 与外部展示/再分发许可。随后对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
-        "en": "Finish Hub channel/message documentation, connection validation that never records credentials, and complete SDK/CLI end-to-end verification; obtain complete pinned WebSocket inbound schemas/fixtures plus metadata, SDK, and external-display/redistribution permission from Twelve Data. Then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
+        "zh": "完成 Hub 通道/消息文档、绝不记录凭证的连接验证和完整 SDK/CLI 端到端验证；以可审核的供应商资料补齐完整、固定的 WebSocket 入站 Schema/fixture。随后对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
+        "en": "Finish Hub channel/message documentation, connection validation that never records credentials, and complete SDK/CLI end-to-end verification; use auditable supplier material to complete pinned WebSocket inbound schemas/fixtures. Then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
       },
       "verifiedAt": "2026-08-15"
     },

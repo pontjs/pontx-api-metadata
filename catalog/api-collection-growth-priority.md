@@ -72,9 +72,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
-| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 与 metadata/生成 SDK 再分发权仍未确认 | 继续重建七个 Endpoint，并获取 convert/usage 许可 fixture 与书面发布许可 |
-| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS，条款同时包含应用展示许可与产品/服务再分发限制 | 获取完整 OAS、三项成功 fixture 或授权测试密钥与 metadata/SDK 书面许可 |
-| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schemas；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；免费层禁止商业使用，外部展示/再分发取决于套餐或附加许可 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture 与发布许可 |
+| 9 | Open Exchange Rates API | 74 | 官方 v0.7 OAS 含七个 Endpoint，但为可变内嵌文档、0 个 component Schema、四个成功响应缺 Schema；2026-08-15 的官方逐页文档可重建五类 Schema，但 convert/usage 成功 payload 仍未确认。Pontx 仅以独立表述发布 metadata/客户端，不转发文档、数据或标识 | 继续重建七个 Endpoint，并获取 convert/usage 的可审核成功 fixture |
+| 10 | CurrencyBeacon REST API v1 | 72 | 官方页面列出五个只读 Endpoint，只有 latest/convert 有完整成功响应；2026-08-15 官方代码样例确认 historical/timeseries/currencies 的部分响应路径，但不是完整 Schema；没有完整 OAS。Pontx 仅以独立表述发布 metadata/客户端，不代理、缓存或再分发数据 | 获取完整 OAS、三项成功 fixture 或授权测试密钥 |
+| 11 | Twelve Data Forex API | 70 | 官方 REST OAS 含 187 个 Endpoint / 797 个 Schema；官方 SDK/支持文档已确认 WebSocket URL、四种出站事件和两种入站事件名，但没有完整入站 Schema。Pontx 已有 runtime、AsyncAPI 解析、类型生成、生成 stream client 与只读 CLI 基础，仍未完成 Hub 文档、凭证安全连接验证和完整 SDK/CLI E2E；市场数据仍由调用方按自己的套餐直连，Hub 不代理或再分发 | 完成 Hub/凭证安全/E2E 链路，并取得完整入站 Schema/fixture |
 
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
