@@ -1,0 +1,28 @@
+{
+  "display": {
+    "title": "Nager.Date public-holiday API",
+    "summary": "Look up supported countries, country information, annual or upcoming public holidays, today's holiday status, and the service version. The complete Community API v4 has six read-only endpoints; commercial use requires active sponsorship.",
+    "accent": "#0F766E"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://nagerholidays.com/openapi/community-v4.json",
+      "https://nagerholidays.com/scalar/#community-api-v4",
+      "https://nagerholidays.com/legal/termsofservice",
+      "https://github.com/nager/Nager.Date/tree/54958d527be004653906b98d5f7e7dbda019e7a1",
+      "https://raw.githubusercontent.com/nager/Nager.Date/54958d527be004653906b98d5f7e7dbda019e7a1/LICENSE",
+      "https://github.com/pontjs/nager-date/actions/runs/31886633330",
+      "https://www.npmjs.com/package/@pontx/nager-date/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "The complete boundary is all six GET endpoints in the supplier's Community API v4 OpenAPI document; it excludes the separately labelled Pro API and deprecated Community API v3. Terms permit private or non-profit projects and require active sponsorship for commercial use. Hub does not proxy, cache, aggregate, or display holiday data; callers must confirm their own entitlement before using the local SDK or CLI directly."
+  },
+  "pricing": {
+    "status": "contact",
+    "summary": "Community API use for private or non-profit projects is governed by upstream terms; commercial use requires active sponsorship. Contact the supplier for eligibility and pricing.",
+    "officialUrl": "https://nagerholidays.com/legal/termsofservice",
+    "verifiedAt": "2026-08-15"
+  }
+}

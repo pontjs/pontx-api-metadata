@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/nager-date",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/nager-date"
+  },
+  "cli": {
+    "name": "pontx-nager-date"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createNagerDateClient",
+      "identifier": "client",
+      "options": {}
+    },
+    "controllers": {
+      "countries": "countries",
+      "holidays": "holidays",
+      "iotHolidays": "iotHolidays",
+      "versions": "versions"
+    }
+  },
+  "examples": {
+    "typescript": "import { createNagerDateClient } from \"@pontx/nager-date\";\n\nconst client = createNagerDateClient();\nconst holidays = await client.holidays.listHolidaysByYear({\n  countryCode: \"US\",\n  year: 2026\n});",
+    "cli": "pnpm add --global @pontx/nager-date\n\npontx-nager-date call holidays listHolidaysByYear --countryCode US --year 2026 --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "0e8d6ddb4f71600f7526a77fb326168f8a72d7cb",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/nager-date",
+    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/31886633330"
+  },
+  "spec": {
+    "path": "products/nager-date/spec.pontx.json",
+    "sha256": "b1a75848422c367327ef4a1acc30ae1967eed463894e73dbafe04aa774b208d0",
+    "metadataCommit": "dd2a79e69838b7da68b56e98e6a4b9ed7f325722"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "formatVersion": 1,
+  "slug": "nager-date",
+  "name": "Nager.Date Community API v4",
+  "provider": "Nager.Date",
+  "category": "Productivity",
+  "featured": true,
+  "display": {
+    "title": "Nager.Date 公共节假日 API",
+    "summary": "查询支持国家、国家资料、年度或未来公共节假日、当天节假日状态与服务版本。完整 Community API v4 仅含六个只读 Endpoint；商业使用需要有效赞助。",
+    "accent": "#0F766E"
+  },
+  "legal": {
+    "license": "Nager.Date MIT source; Community API Terms of Service",
+    "attributionUrl": "https://nagerholidays.com/legal/termsofservice"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://nagerholidays.com/openapi/community-v4.json",
+      "https://nagerholidays.com/scalar/#community-api-v4",
+      "https://nagerholidays.com/legal/termsofservice",
+      "https://github.com/nager/Nager.Date/tree/54958d527be004653906b98d5f7e7dbda019e7a1",
+      "https://raw.githubusercontent.com/nager/Nager.Date/54958d527be004653906b98d5f7e7dbda019e7a1/LICENSE",
+      "https://github.com/pontjs/nager-date/actions/runs/31886633330",
+      "https://www.npmjs.com/package/@pontx/nager-date/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "完整边界为供应商 Community API v4 OpenAPI 文档中的全部六个 GET Endpoint；不包含单独标记的 Pro API 或已弃用的 Community API v3。条款允许私用或非营利项目，商业用途需要有效赞助；Hub 不代理、缓存、汇总或展示节假日数据，调用方应自行确认许可后通过本地 SDK/CLI 直连。"
+  },
+  "pricing": {
+    "status": "contact",
+    "summary": "Community API 的私用或非营利使用依据上游条款；商业使用需要有效赞助，具体资格和价格请联系供应商。",
+    "officialUrl": "https://nagerholidays.com/legal/termsofservice",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [],
+  "quickStart": {
+    "operationId": "listHolidaysByYear",
+    "requestExampleId": "default"
+  }
+}

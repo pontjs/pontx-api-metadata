@@ -1,0 +1,979 @@
+{
+  "apis": {
+    "countries/getCountry": {
+      "consumes": [],
+      "description": "Gets country names, region, and available land-border information for an ISO 3166-1 alpha-2 code.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getCountry",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/api/v4/Countries/{countryCode}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryInfoWithBordersDto"
+              }
+            }
+          },
+          "description": "Request succeeded.",
+          "schema": {
+            "$ref": "#/components/schemas/CountryInfoWithBordersDto"
+          }
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "The requested country or resource was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "Get country information",
+      "tags": [
+        "countries"
+      ]
+    },
+    "countries/listAvailableCountries": {
+      "consumes": [],
+      "description": "Returns the country and territory codes for which the Nager.Date Community API provides public-holiday data.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listAvailableCountries",
+      "parameters": [],
+      "path": "/api/v4/Countries/Available",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Available Countries Response field.",
+                "items": {
+                  "$ref": "#/components/schemas/CountryV4Dto"
+                },
+                "title": "listAvailableCountriesResponse data structure",
+                "type": "array"
+              }
+            }
+          },
+          "description": "Request succeeded.",
+          "schema": {
+            "description": "list Available Countries Response field.",
+            "items": {
+              "$ref": "#/components/schemas/CountryV4Dto"
+            },
+            "title": "listAvailableCountriesResponse data structure",
+            "type": "array"
+          }
+        }
+      },
+      "security": [],
+      "summary": "List supported countries",
+      "tags": [
+        "countries"
+      ]
+    },
+    "holidays/listHolidaysByYear": {
+      "consumes": [],
+      "description": "Returns public holidays for one country and year, including names, scope, subdivisions, and classifications.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listHolidaysByYear",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "year",
+          "required": true,
+          "schema": {
+            "default": 2026,
+            "description": "Gregorian year for the requested public holidays.",
+            "examples": [
+              2026
+            ],
+            "format": "int32",
+            "title": "year value",
+            "type": "integer"
+          }
+        }
+      ],
+      "path": "/api/v4/Holidays/{countryCode}/{year}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US",
+              "year": 2026
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Holidays By Year Response field.",
+                "items": {
+                  "$ref": "#/components/schemas/PublicHolidayV4Dto"
+                },
+                "title": "listHolidaysByYearResponse data structure",
+                "type": "array"
+              }
+            }
+          },
+          "description": "Request succeeded.",
+          "schema": {
+            "description": "list Holidays By Year Response field.",
+            "items": {
+              "$ref": "#/components/schemas/PublicHolidayV4Dto"
+            },
+            "title": "listHolidaysByYearResponse data structure",
+            "type": "array"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "Request parameters are invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "The requested country or resource was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "List public holidays for a year",
+      "tags": [
+        "holidays"
+      ]
+    },
+    "holidays/listUpcomingHolidays": {
+      "consumes": [],
+      "description": "Returns a country's public holidays in the next 365 days; the upstream service returns 204 when none are available.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listUpcomingHolidays",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/api/v4/Holidays/{countryCode}/Next",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Upcoming Holidays Response field.",
+                "items": {
+                  "$ref": "#/components/schemas/PublicHolidayV4Dto"
+                },
+                "title": "listUpcomingHolidaysResponse data structure",
+                "type": "array"
+              }
+            }
+          },
+          "description": "Request succeeded.",
+          "schema": {
+            "description": "list Upcoming Holidays Response field.",
+            "items": {
+              "$ref": "#/components/schemas/PublicHolidayV4Dto"
+            },
+            "title": "listUpcomingHolidaysResponse data structure",
+            "type": "array"
+          }
+        },
+        "204": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "Request succeeded."
+        }
+      },
+      "security": [],
+      "summary": "List upcoming public holidays",
+      "tags": [
+        "holidays"
+      ]
+    },
+    "iotHolidays/isTodayHoliday": {
+      "consumes": [],
+      "description": "Checks whether today is a public holiday for a country or ISO 3166-2 subdivision at UTC or the requested offset; 200 means yes and 204 means no.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "isTodayHoliday",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "isoCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 country code or ISO 3166-2 subdivision code.",
+            "examples": [
+              "US"
+            ],
+            "minLength": 2,
+            "title": "iso Code value",
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "offset",
+          "required": true,
+          "schema": {
+            "default": 0,
+            "description": "Whole-hour UTC offset, from -12 through 12.",
+            "examples": [
+              0
+            ],
+            "format": "int32",
+            "maximum": 12,
+            "minimum": -12,
+            "title": "offset value",
+            "type": "integer"
+          }
+        }
+      ],
+      "path": "/api/v4/IotHolidays/{isoCode}/IsToday/{offset}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "204",
+          "request": {
+            "headers": {},
+            "path": {
+              "isoCode": "US",
+              "offset": 0
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "Request succeeded."
+        },
+        "204": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "Request succeeded."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationProblemDetails"
+              }
+            }
+          },
+          "description": "Request parameters are invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ValidationProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "Check whether today is a public holiday",
+      "tags": [
+        "iotHolidays"
+      ]
+    },
+    "versions/getVersions": {
+      "consumes": [],
+      "description": "Returns the name and version of the Nager.Date implementation currently used by the upstream service.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API terms restrict use and require active sponsorship for commercial use; Pontx Hub does not proxy, cache, or aggregate holiday data. Use the local SDK or CLI directly only after confirming your own entitlement.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getVersions",
+      "parameters": [],
+      "path": "/api/v4/Versions",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionInfoDto"
+              }
+            }
+          },
+          "description": "Request succeeded.",
+          "schema": {
+            "$ref": "#/components/schemas/VersionInfoDto"
+          }
+        },
+        "500": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "The upstream service could not complete the request."
+        }
+      },
+      "security": [],
+      "summary": "Get service version",
+      "tags": [
+        "versions"
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "CountryInfoDto": {
+        "description": "Country names, region, and ISO code.",
+        "properties": {
+          "commonName": {
+            "description": "Commonly used country name.",
+            "examples": [
+              "United States"
+            ],
+            "title": "common Name value",
+            "type": "string"
+          },
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          },
+          "nativeName": {
+            "description": "Country name in a native language.",
+            "examples": [
+              "United States"
+            ],
+            "title": "native Name value",
+            "type": "string"
+          },
+          "officialName": {
+            "description": "Official country name.",
+            "examples": [
+              "United States of America"
+            ],
+            "title": "official Name value",
+            "type": "string"
+          },
+          "region": {
+            "description": "Country region.",
+            "examples": [
+              "Americas"
+            ],
+            "title": "region value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commonName",
+          "nativeName",
+          "officialName",
+          "countryCode",
+          "region"
+        ],
+        "title": "CountryInfoDto data structure",
+        "type": "object"
+      },
+      "CountryInfoWithBordersDto": {
+        "description": "Country information with available border data.",
+        "properties": {
+          "borders": {
+            "description": "Adjacent countries; may be null when border data is unavailable.",
+            "items": {
+              "$ref": "#/components/schemas/CountryInfoDto"
+            },
+            "nullable": true,
+            "title": "borders value",
+            "type": "array"
+          },
+          "commonName": {
+            "description": "Commonly used country name.",
+            "examples": [
+              "United States"
+            ],
+            "title": "common Name value",
+            "type": "string"
+          },
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          },
+          "nativeName": {
+            "description": "Country name in a native language.",
+            "examples": [
+              "United States"
+            ],
+            "title": "native Name value",
+            "type": "string"
+          },
+          "officialName": {
+            "description": "Official country name.",
+            "examples": [
+              "United States of America"
+            ],
+            "title": "official Name value",
+            "type": "string"
+          },
+          "region": {
+            "description": "Country region.",
+            "examples": [
+              "Americas"
+            ],
+            "title": "region value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commonName",
+          "nativeName",
+          "officialName",
+          "countryCode",
+          "region"
+        ],
+        "title": "CountryInfoWithBordersDto data structure",
+        "type": "object"
+      },
+      "CountryV4Dto": {
+        "description": "Country supported for public-holiday data.",
+        "properties": {
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name returned by the upstream service.",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "countryCode",
+          "name"
+        ],
+        "title": "CountryV4Dto data structure",
+        "type": "object"
+      },
+      "HolidayTypes": {
+        "description": "Public-holiday classification.",
+        "enum": [
+          "Public",
+          "Bank",
+          "School",
+          "Authorities",
+          "Optional",
+          "Observance"
+        ],
+        "enumValueTitles": {
+          "Authorities": "Holiday type: Authorities.",
+          "Bank": "Holiday type: Bank.",
+          "Observance": "Holiday type: Observance.",
+          "Optional": "Holiday type: Optional.",
+          "Public": "Holiday type: Public.",
+          "School": "Holiday type: School."
+        },
+        "examples": [
+          "Public"
+        ],
+        "format": "string",
+        "title": "HolidayTypes data structure",
+        "type": "string"
+      },
+      "ProblemDetails": {
+        "description": "Problem details returned by the upstream service.",
+        "properties": {
+          "detail": {
+            "description": "Problem detail; upstream may return null.",
+            "examples": [
+              "The requested country code is not available."
+            ],
+            "nullable": true,
+            "title": "detail value",
+            "type": "string"
+          },
+          "instance": {
+            "description": "Problem instance URI; upstream may return null.",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "instance value",
+            "type": "string"
+          },
+          "status": {
+            "description": "HTTP problem status; upstream may return null.",
+            "examples": [
+              404
+            ],
+            "format": "int32",
+            "nullable": true,
+            "title": "status value",
+            "type": "integer"
+          },
+          "title": {
+            "description": "Problem title; upstream may return null.",
+            "examples": [
+              "Not found"
+            ],
+            "nullable": true,
+            "title": "title value",
+            "type": "string"
+          },
+          "type": {
+            "description": "Problem-detail type URI; upstream may return null.",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "type value",
+            "type": "string"
+          }
+        },
+        "title": "ProblemDetails data structure",
+        "type": "object"
+      },
+      "PublicHolidayV4Dto": {
+        "description": "Public-holiday information.",
+        "properties": {
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code value",
+            "type": "string"
+          },
+          "date": {
+            "description": "Holiday date in ISO 8601 date format.",
+            "examples": [
+              "2026-01-01"
+            ],
+            "format": "date",
+            "title": "date value",
+            "type": "string"
+          },
+          "holidayTypes": {
+            "description": "Holiday classification list.",
+            "items": {
+              "$ref": "#/components/schemas/HolidayTypes"
+            },
+            "title": "holiday Types value",
+            "type": "array"
+          },
+          "name": {
+            "description": "Name returned by the upstream service.",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name value",
+            "type": "string"
+          },
+          "nationalHoliday": {
+            "description": "Whether the holiday applies across the whole country.",
+            "examples": [
+              true
+            ],
+            "title": "national Holiday value",
+            "type": "boolean"
+          },
+          "subdivisionCodes": {
+            "description": "ISO 3166-2 codes of applicable subdivisions; may be null for national holidays.",
+            "items": {
+              "description": "ISO 3166-2 codes of applicable subdivisions; may be null for national holidays.",
+              "examples": [
+                "subdivisionCodes-example"
+              ],
+              "title": "subdivision Codes value",
+              "type": "string"
+            },
+            "nullable": true,
+            "title": "subdivision Codes value",
+            "type": "array"
+          }
+        },
+        "required": [
+          "date",
+          "name",
+          "countryCode",
+          "holidayTypes"
+        ],
+        "title": "PublicHolidayV4Dto data structure",
+        "type": "object"
+      },
+      "ValidationProblemDetails": {
+        "description": "Problem details with field-level validation errors.",
+        "properties": {
+          "detail": {
+            "description": "Problem detail; upstream may return null.",
+            "examples": [
+              "The requested country code is not available."
+            ],
+            "nullable": true,
+            "title": "detail value",
+            "type": "string"
+          },
+          "errors": {
+            "additionalProperties": {
+              "description": "Validation errors returned by field.",
+              "items": {
+                "description": "Validation errors returned by field.",
+                "examples": [
+                  "errors-example"
+                ],
+                "title": "errors value",
+                "type": "string"
+              },
+              "title": "errors value",
+              "type": "array"
+            },
+            "description": "Validation errors returned by field.",
+            "title": "errors value",
+            "type": "object"
+          },
+          "instance": {
+            "description": "Problem instance URI; upstream may return null.",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "instance value",
+            "type": "string"
+          },
+          "status": {
+            "description": "HTTP problem status; upstream may return null.",
+            "examples": [
+              404
+            ],
+            "format": "int32",
+            "nullable": true,
+            "title": "status value",
+            "type": "integer"
+          },
+          "title": {
+            "description": "Problem title; upstream may return null.",
+            "examples": [
+              "Not found"
+            ],
+            "nullable": true,
+            "title": "title value",
+            "type": "string"
+          },
+          "type": {
+            "description": "Problem-detail type URI; upstream may return null.",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "type value",
+            "type": "string"
+          }
+        },
+        "title": "ValidationProblemDetails data structure",
+        "type": "object"
+      },
+      "VersionInfoDto": {
+        "description": "Service implementation version information.",
+        "properties": {
+          "name": {
+            "description": "Name returned by the upstream service.",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name value",
+            "type": "string"
+          },
+          "version": {
+            "description": "Nager.Date implementation version.",
+            "examples": [
+              "2.19.0"
+            ],
+            "title": "version value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ],
+        "title": "VersionInfoDto data structure",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {}
+  },
+  "externalDocs": {
+    "description": "Supplier Community API v4 reference.",
+    "url": "https://nagerholidays.com/scalar/#community-api-v4"
+  },
+  "info": {
+    "description": "The complete six read-only HTTPS endpoints of Nager.Date Community API v4. Commercial use requires active sponsorship; Pontx provides documentation and caller-local SDK/CLI only, and does not proxy, cache, or aggregate holiday data.",
+    "title": "Nager.Date Community API v4",
+    "version": "v4"
+  },
+  "name": "nager-date",
+  "pontx": "2.1",
+  "security": [],
+  "servers": [
+    {
+      "description": "Nager.Date Community API v4 HTTPS service.",
+      "id": "community-production",
+      "url": "https://nagerholidays.com"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": [
+    {
+      "description": "Country and territory information.",
+      "name": "countries"
+    },
+    {
+      "description": "Public-holiday lookups.",
+      "name": "holidays"
+    },
+    {
+      "description": "Holiday checks for automation workflows.",
+      "name": "iotHolidays"
+    },
+    {
+      "description": "Service-version information.",
+      "name": "versions"
+    }
+  ]
+}

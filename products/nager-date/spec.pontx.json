@@ -1,0 +1,979 @@
+{
+  "apis": {
+    "countries/getCountry": {
+      "consumes": [],
+      "description": "使用 ISO 3166-1 alpha-2 国家代码查询国家名称、地区和可用的陆地边界信息。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getCountry",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/api/v4/Countries/{countryCode}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryInfoWithBordersDto"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/CountryInfoWithBordersDto"
+          }
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "未找到指定国家或资源。",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "查询国家信息",
+      "tags": [
+        "countries"
+      ]
+    },
+    "countries/listAvailableCountries": {
+      "consumes": [],
+      "description": "返回 Nager.Date Community API 提供公共节假日数据的国家和地区代码。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listAvailableCountries",
+      "parameters": [],
+      "path": "/api/v4/Countries/Available",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Available Countries Response 字段。",
+                "items": {
+                  "$ref": "#/components/schemas/CountryV4Dto"
+                },
+                "title": "listAvailableCountriesResponse 数据结构",
+                "type": "array"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "description": "list Available Countries Response 字段。",
+            "items": {
+              "$ref": "#/components/schemas/CountryV4Dto"
+            },
+            "title": "listAvailableCountriesResponse 数据结构",
+            "type": "array"
+          }
+        }
+      },
+      "security": [],
+      "summary": "列出支持的国家",
+      "tags": [
+        "countries"
+      ]
+    },
+    "holidays/listHolidaysByYear": {
+      "consumes": [],
+      "description": "返回指定国家和年份的公共节假日，包括名称、适用范围、行政区和节假日类型。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listHolidaysByYear",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "year",
+          "required": true,
+          "schema": {
+            "default": 2026,
+            "description": "要查询公共节假日的公历年份。",
+            "examples": [
+              2026
+            ],
+            "format": "int32",
+            "title": "year 值",
+            "type": "integer"
+          }
+        }
+      ],
+      "path": "/api/v4/Holidays/{countryCode}/{year}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US",
+              "year": 2026
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Holidays By Year Response 字段。",
+                "items": {
+                  "$ref": "#/components/schemas/PublicHolidayV4Dto"
+                },
+                "title": "listHolidaysByYearResponse 数据结构",
+                "type": "array"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "description": "list Holidays By Year Response 字段。",
+            "items": {
+              "$ref": "#/components/schemas/PublicHolidayV4Dto"
+            },
+            "title": "listHolidaysByYearResponse 数据结构",
+            "type": "array"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "请求参数无效。",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          },
+          "description": "未找到指定国家或资源。",
+          "schema": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "查询年度公共节假日",
+      "tags": [
+        "holidays"
+      ]
+    },
+    "holidays/listUpcomingHolidays": {
+      "consumes": [],
+      "description": "返回指定国家未来 365 天内的公共节假日；没有结果时上游返回 204。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listUpcomingHolidays",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "countryCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/api/v4/Holidays/{countryCode}/Next",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "countryCode": "US"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "list Upcoming Holidays Response 字段。",
+                "items": {
+                  "$ref": "#/components/schemas/PublicHolidayV4Dto"
+                },
+                "title": "listUpcomingHolidaysResponse 数据结构",
+                "type": "array"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "description": "list Upcoming Holidays Response 字段。",
+            "items": {
+              "$ref": "#/components/schemas/PublicHolidayV4Dto"
+            },
+            "title": "listUpcomingHolidaysResponse 数据结构",
+            "type": "array"
+          }
+        },
+        "204": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "请求成功。"
+        }
+      },
+      "security": [],
+      "summary": "查询未来公共节假日",
+      "tags": [
+        "holidays"
+      ]
+    },
+    "iotHolidays/isTodayHoliday": {
+      "consumes": [],
+      "description": "按 UTC 或给定时区偏移检查国家或 ISO 3166-2 行政区今天是否为公共节假日；200 表示是，204 表示否。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "isTodayHoliday",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "isoCode",
+          "required": true,
+          "schema": {
+            "default": "us",
+            "description": "ISO 3166-1 alpha-2 国家代码，或 ISO 3166-2 行政区代码。",
+            "examples": [
+              "US"
+            ],
+            "minLength": 2,
+            "title": "iso Code 值",
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "offset",
+          "required": true,
+          "schema": {
+            "default": 0,
+            "description": "相对 UTC 的整点偏移，范围为 -12 至 12。",
+            "examples": [
+              0
+            ],
+            "format": "int32",
+            "maximum": 12,
+            "minimum": -12,
+            "title": "offset 值",
+            "type": "integer"
+          }
+        }
+      ],
+      "path": "/api/v4/IotHolidays/{isoCode}/IsToday/{offset}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "204",
+          "request": {
+            "headers": {},
+            "path": {
+              "isoCode": "US",
+              "offset": 0
+            },
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "请求成功。"
+        },
+        "204": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "请求成功。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationProblemDetails"
+              }
+            }
+          },
+          "description": "请求参数无效。",
+          "schema": {
+            "$ref": "#/components/schemas/ValidationProblemDetails"
+          }
+        }
+      },
+      "security": [],
+      "summary": "检查今天是否为公共节假日",
+      "tags": [
+        "iotHolidays"
+      ]
+    },
+    "versions/getVersions": {
+      "consumes": [],
+      "description": "返回上游服务当前使用的 Nager.Date 实现名称和版本。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://nagerholidays.com/openapi/community-v4.json",
+            "https://nagerholidays.com/legal/termsofservice"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Nager.Date Community API 条款限制其用途，商业使用需要有效赞助；Pontx Hub 不代理、缓存或聚合节假日数据。请由调用方在确认自身许可后使用本地 SDK 或 CLI 直连。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getVersions",
+      "parameters": [],
+      "path": "/api/v4/Versions",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://nagerholidays.com",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionInfoDto"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/VersionInfoDto"
+          }
+        },
+        "500": {
+          "content": {
+            "application/json": {}
+          },
+          "description": "上游服务未能完成请求。"
+        }
+      },
+      "security": [],
+      "summary": "查询服务版本",
+      "tags": [
+        "versions"
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "CountryInfoDto": {
+        "description": "国家的名称、地区和 ISO 代码。",
+        "properties": {
+          "commonName": {
+            "description": "国家的常用名称。",
+            "examples": [
+              "United States"
+            ],
+            "title": "common Name 值",
+            "type": "string"
+          },
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          },
+          "nativeName": {
+            "description": "国家以本地语言表示的名称。",
+            "examples": [
+              "United States"
+            ],
+            "title": "native Name 值",
+            "type": "string"
+          },
+          "officialName": {
+            "description": "国家的正式名称。",
+            "examples": [
+              "United States of America"
+            ],
+            "title": "official Name 值",
+            "type": "string"
+          },
+          "region": {
+            "description": "国家所属地区。",
+            "examples": [
+              "Americas"
+            ],
+            "title": "region 值",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commonName",
+          "nativeName",
+          "officialName",
+          "countryCode",
+          "region"
+        ],
+        "title": "CountryInfoDto 数据结构",
+        "type": "object"
+      },
+      "CountryInfoWithBordersDto": {
+        "description": "附带可用边界信息的国家资料。",
+        "properties": {
+          "borders": {
+            "description": "相邻国家列表；没有边界信息时可为空。",
+            "items": {
+              "$ref": "#/components/schemas/CountryInfoDto"
+            },
+            "nullable": true,
+            "title": "borders 值",
+            "type": "array"
+          },
+          "commonName": {
+            "description": "国家的常用名称。",
+            "examples": [
+              "United States"
+            ],
+            "title": "common Name 值",
+            "type": "string"
+          },
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          },
+          "nativeName": {
+            "description": "国家以本地语言表示的名称。",
+            "examples": [
+              "United States"
+            ],
+            "title": "native Name 值",
+            "type": "string"
+          },
+          "officialName": {
+            "description": "国家的正式名称。",
+            "examples": [
+              "United States of America"
+            ],
+            "title": "official Name 值",
+            "type": "string"
+          },
+          "region": {
+            "description": "国家所属地区。",
+            "examples": [
+              "Americas"
+            ],
+            "title": "region 值",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commonName",
+          "nativeName",
+          "officialName",
+          "countryCode",
+          "region"
+        ],
+        "title": "CountryInfoWithBordersDto 数据结构",
+        "type": "object"
+      },
+      "CountryV4Dto": {
+        "description": "支持公共节假日数据的国家。",
+        "properties": {
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          },
+          "name": {
+            "description": "上游返回的名称。",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name 值",
+            "type": "string"
+          }
+        },
+        "required": [
+          "countryCode",
+          "name"
+        ],
+        "title": "CountryV4Dto 数据结构",
+        "type": "object"
+      },
+      "HolidayTypes": {
+        "description": "公共节假日分类。",
+        "enum": [
+          "Public",
+          "Bank",
+          "School",
+          "Authorities",
+          "Optional",
+          "Observance"
+        ],
+        "enumValueTitles": {
+          "Authorities": "节假日类型：Authorities。",
+          "Bank": "节假日类型：Bank。",
+          "Observance": "节假日类型：Observance。",
+          "Optional": "节假日类型：Optional。",
+          "Public": "节假日类型：Public。",
+          "School": "节假日类型：School。"
+        },
+        "examples": [
+          "Public"
+        ],
+        "format": "string",
+        "title": "HolidayTypes 数据结构",
+        "type": "string"
+      },
+      "ProblemDetails": {
+        "description": "上游返回的问题详情。",
+        "properties": {
+          "detail": {
+            "description": "问题详情；上游可返回空值。",
+            "examples": [
+              "The requested country code is not available."
+            ],
+            "nullable": true,
+            "title": "detail 值",
+            "type": "string"
+          },
+          "instance": {
+            "description": "问题实例 URI；上游可返回空值。",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "instance 值",
+            "type": "string"
+          },
+          "status": {
+            "description": "HTTP 问题状态码；上游可返回空值。",
+            "examples": [
+              404
+            ],
+            "format": "int32",
+            "nullable": true,
+            "title": "status 值",
+            "type": "integer"
+          },
+          "title": {
+            "description": "问题标题；上游可返回空值。",
+            "examples": [
+              "Not found"
+            ],
+            "nullable": true,
+            "title": "title 值",
+            "type": "string"
+          },
+          "type": {
+            "description": "问题详情类型 URI；上游可返回空值。",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "type 值",
+            "type": "string"
+          }
+        },
+        "title": "ProblemDetails 数据结构",
+        "type": "object"
+      },
+      "PublicHolidayV4Dto": {
+        "description": "公共节假日资料。",
+        "properties": {
+          "countryCode": {
+            "description": "ISO 3166-1 alpha-2 国家代码。",
+            "examples": [
+              "US"
+            ],
+            "title": "country Code 值",
+            "type": "string"
+          },
+          "date": {
+            "description": "节假日日期，使用 ISO 8601 date 格式。",
+            "examples": [
+              "2026-01-01"
+            ],
+            "format": "date",
+            "title": "date 值",
+            "type": "string"
+          },
+          "holidayTypes": {
+            "description": "节假日分类列表。",
+            "items": {
+              "$ref": "#/components/schemas/HolidayTypes"
+            },
+            "title": "holiday Types 值",
+            "type": "array"
+          },
+          "name": {
+            "description": "上游返回的名称。",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name 值",
+            "type": "string"
+          },
+          "nationalHoliday": {
+            "description": "该节假日是否适用于整个国家。",
+            "examples": [
+              true
+            ],
+            "title": "national Holiday 值",
+            "type": "boolean"
+          },
+          "subdivisionCodes": {
+            "description": "适用行政区的 ISO 3166-2 代码；全国节假日时可为空。",
+            "items": {
+              "description": "适用行政区的 ISO 3166-2 代码；全国节假日时可为空。",
+              "examples": [
+                "subdivisionCodes-example"
+              ],
+              "title": "subdivision Codes 值",
+              "type": "string"
+            },
+            "nullable": true,
+            "title": "subdivision Codes 值",
+            "type": "array"
+          }
+        },
+        "required": [
+          "date",
+          "name",
+          "countryCode",
+          "holidayTypes"
+        ],
+        "title": "PublicHolidayV4Dto 数据结构",
+        "type": "object"
+      },
+      "ValidationProblemDetails": {
+        "description": "带字段验证错误的问题详情。",
+        "properties": {
+          "detail": {
+            "description": "问题详情；上游可返回空值。",
+            "examples": [
+              "The requested country code is not available."
+            ],
+            "nullable": true,
+            "title": "detail 值",
+            "type": "string"
+          },
+          "errors": {
+            "additionalProperties": {
+              "description": "按字段返回的验证错误。",
+              "items": {
+                "description": "按字段返回的验证错误。",
+                "examples": [
+                  "errors-example"
+                ],
+                "title": "errors 值",
+                "type": "string"
+              },
+              "title": "errors 值",
+              "type": "array"
+            },
+            "description": "按字段返回的验证错误。",
+            "title": "errors 值",
+            "type": "object"
+          },
+          "instance": {
+            "description": "问题实例 URI；上游可返回空值。",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "instance 值",
+            "type": "string"
+          },
+          "status": {
+            "description": "HTTP 问题状态码；上游可返回空值。",
+            "examples": [
+              404
+            ],
+            "format": "int32",
+            "nullable": true,
+            "title": "status 值",
+            "type": "integer"
+          },
+          "title": {
+            "description": "问题标题；上游可返回空值。",
+            "examples": [
+              "Not found"
+            ],
+            "nullable": true,
+            "title": "title 值",
+            "type": "string"
+          },
+          "type": {
+            "description": "问题详情类型 URI；上游可返回空值。",
+            "examples": [
+              "https://example.com/problems/not-found"
+            ],
+            "nullable": true,
+            "title": "type 值",
+            "type": "string"
+          }
+        },
+        "title": "ValidationProblemDetails 数据结构",
+        "type": "object"
+      },
+      "VersionInfoDto": {
+        "description": "服务实现版本资料。",
+        "properties": {
+          "name": {
+            "description": "上游返回的名称。",
+            "examples": [
+              "New Year's Day"
+            ],
+            "title": "name 值",
+            "type": "string"
+          },
+          "version": {
+            "description": "Nager.Date 实现版本。",
+            "examples": [
+              "2.19.0"
+            ],
+            "title": "version 值",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ],
+        "title": "VersionInfoDto 数据结构",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {}
+  },
+  "externalDocs": {
+    "description": "供应商 Community API v4 参考。",
+    "url": "https://nagerholidays.com/scalar/#community-api-v4"
+  },
+  "info": {
+    "description": "Nager.Date Community API v4 的完整六个只读 HTTPS Endpoint。商业使用需要有效赞助；Pontx 仅提供文档和调用方本地 SDK/CLI，不代理、缓存或聚合节假日数据。",
+    "title": "Nager.Date Community API v4",
+    "version": "v4"
+  },
+  "name": "nager-date",
+  "pontx": "2.1",
+  "security": [],
+  "servers": [
+    {
+      "description": "Nager.Date Community API v4 HTTPS 服务。",
+      "id": "community-production",
+      "url": "https://nagerholidays.com"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": [
+    {
+      "description": "国家与地区资料。",
+      "name": "countries"
+    },
+    {
+      "description": "公共节假日查询。",
+      "name": "holidays"
+    },
+    {
+      "description": "面向自动化状态检查的节假日查询。",
+      "name": "iotHolidays"
+    },
+    {
+      "description": "服务版本资料。",
+      "name": "versions"
+    }
+  ]
+}
