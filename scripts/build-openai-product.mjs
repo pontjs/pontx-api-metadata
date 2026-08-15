@@ -67,6 +67,54 @@ function camelIdentifier(value) {
   return /^[A-Za-z_$]/.test(identifier) ? identifier : `openai${identifier}`;
 }
 
+/**
+ * Convert an official dashed operationId into a valid, code-generation-safe
+ * camelCase identifier. OpenAI's official SDKs expose the same camelCase
+ * naming, so this keeps the SDK property path aligned with upstream while the
+ * stable CLI/Hub resource ID remains the operationId.
+ */
+function normalizeOperationId(operationId) {
+  if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(operationId)) return operationId;
+  const tokens = String(operationId).match(/[A-Za-z0-9]+/g) ?? ["openai"];
+  const identifier = tokens.map((token, index) => {
+    const normalized = token.toLowerCase();
+    return index === 0 ? normalized : `${normalized[0].toUpperCase()}${normalized.slice(1)}`;
+  }).join("");
+  return /^[A-Za-z_$]/.test(identifier) ? identifier : `openai${identifier}`;
+}
+
+/**
+ * Convert an official schema name into a valid, code-generation-safe
+ * identifier, preserving the upstream title casing.
+ */
+function normalizeSchemaName(name) {
+  if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name)) return name;
+  const tokens = String(name).match(/[A-Za-z0-9]+/g) ?? ["OpenaiSchema"];
+  const identifier = tokens.map((token, index) => {
+    const normalized = token.toLowerCase();
+    return index === 0 ? normalized : `${normalized[0].toUpperCase()}${normalized.slice(1)}`;
+  }).join("");
+  return /^[A-Za-z_$]/.test(identifier) ? identifier : `Openai${identifier}`;
+}
+
+/** Rewrite `$ref` pointers after a schema rename, including nested occurrences. */
+function rewriteSchemaRefs(value, rename) {
+  if (typeof value === "string") {
+    return value.replace(/#\/components\/schemas\/([A-Za-z0-9_\-]+)/g, (match, name) => {
+      const target = rename.get(name);
+      return target && target !== name ? `#/components/schemas/${target}` : match;
+    });
+  }
+  if (Array.isArray(value)) return value.map((entry) => rewriteSchemaRefs(entry, rename));
+  if (isRecord(value)) {
+    return Object.fromEntries(Object.entries(value).map(([key, child]) => [
+      key,
+      rewriteSchemaRefs(child, rename),
+    ]));
+  }
+  return value;
+}
+
 function localText(language, english, chinese) {
   return language === "zh-CN" ? chinese : english;
 }
@@ -409,6 +457,54 @@ const importedSchemas = Object.keys(imported.components?.schemas ?? {});
 if (importedApis.length !== 288 || importedSchemas.length !== 1421) {
   throw new Error(`Unexpected OpenAI source boundary: ${importedApis.length} Endpoints, ${importedSchemas.length} Schemas`);
 }
+
+// Normalize official dashed operationIds and schema names into valid,
+// code-generation-safe identifiers, and rewrite every `$ref` consistently.
+// The stable CLI/Hub resource ID remains the operationId (now camelCase,
+// matching OpenAI's own official SDK naming); only dashes are removed.
+const operationIdMap = new Map();
+for (const api of importedApis) {
+  const normalized = normalizeOperationId(api.operationId);
+  operationIdMap.set(api.operationId, normalized);
+}
+if (new Set(operationIdMap.values()).size !== operationIdMap.size) {
+  throw new Error("Operation ID normalization produced duplicate identifiers");
+}
+const schemaRename = new Map();
+for (const name of importedSchemas) {
+  const normalized = normalizeSchemaName(name);
+  schemaRename.set(name, normalized);
+}
+if (new Set(schemaRename.values()).size !== schemaRename.size) {
+  throw new Error("Schema name normalization produced duplicate identifiers");
+}
+for (const api of importedApis) {
+  api.operationId = operationIdMap.get(api.operationId) ?? api.operationId;
+  if (api.path) api.path = rewriteSchemaRefs(api.path, schemaRename);
+  if (api.parameters) api.parameters = rewriteSchemaRefs(api.parameters, schemaRename);
+  if (api.responses) api.responses = rewriteSchemaRefs(api.responses, schemaRename);
+  if (api.requestExamples) api.requestExamples = rewriteSchemaRefs(api.requestExamples, schemaRename);
+  if (api.sse) api.sse = rewriteSchemaRefs(api.sse, schemaRename);
+}
+imported.apis = Object.fromEntries(
+  Object.entries(imported.apis ?? {}).map(([key, api]) => [
+    key.split("/").map((part) => operationIdMap.get(part) ?? part).join("/"),
+    api,
+  ]),
+);
+imported.components.schemas = Object.fromEntries(
+  Object.entries(imported.components?.schemas ?? {}).map(([name, schema]) => [
+    schemaRename.get(name) ?? name,
+    rewriteSchemaRefs(schema, schemaRename),
+  ]),
+);
+const importedApisAfter = Object.values(imported.apis ?? {});
+const importedSchemasAfter = Object.keys(imported.components?.schemas ?? {});
+if (importedApisAfter.length !== 288 || importedSchemasAfter.length !== 1421) {
+  throw new Error(`Normalization changed the source boundary: ${importedApisAfter.length} Endpoints, ${importedSchemasAfter.length} Schemas`);
+}
+const normalizedOperationIdCount = [...operationIdMap.entries()].filter(([source, target]) => source !== target).length;
+const normalizedSchemaCount = [...schemaRename.entries()].filter(([source, target]) => source !== target).length;
 const methodCounts = Object.fromEntries(["GET", "POST", "DELETE"].map((method) => [
   method,
   importedApis.filter((api) => String(api.method).toUpperCase() === method).length,
@@ -595,7 +691,8 @@ const provenance = {
       sseEndpoints: sseCount,
     },
     transformations: [
-      "Preserved all imported Endpoint methods, paths, operation IDs, tags, security requirements, parameters, response statuses, media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      "Preserved all imported Endpoint methods, paths, tags, security requirements, parameters, response statuses, media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      `Normalized ${normalizedOperationIdCount} official dashed operationIds and ${normalizedSchemaCount} dashed Schema names to valid camelCase identifiers (matching OpenAI's own official SDK naming); every $ref was rewritten consistently and the mapping is deterministic.`,
       "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
       "Added one reviewed request outline per Endpoint. Required model, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
       "Applied direct-only execution policy to every OpenAI Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses.",
