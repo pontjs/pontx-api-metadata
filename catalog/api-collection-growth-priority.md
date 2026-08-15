@@ -68,7 +68,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 2 | WPS 365 OpenAPI | 90 | 官方称超过 1,000 个接口；事件订阅使用加密 HTTP callback，但无公开完整规范快照，许可与其余协议面待确认 | 获取官方规范或书面授权后做全产品盘点 |
 | 3 | MongoDB Atlas Administration API v2 | 88 | 335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type；但固定 OAS 的 `info.license` 是 CC BY-NC-SA 3.0 US，仓库 Apache-2.0 LICENSE 未解决 OAS 的非商用限制 | 取得 MongoDB 对 OAS/独立生成 SDK 的书面商用再分发澄清，或固定一个明确许可的 OAS 版本 |
 | 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
-| 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；SSE 指 server-side encryption，并非流式协议；但完整服务要求 SigV4、AWS JSON 1.0 与区域/FIPS/DualStack endpoint rules | 先实现并验证 Smithy→OAS、SigV4、AWS JSON 1.0 与 endpoint-rule runtime，再完成风险策略 |
+| 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；SSE 指 server-side encryption，并非流式协议。2026-08-15 复核官方文档确认实际为 AWS Query（GET 或表单 POST），`Action`/`Version` 在同一队列 URL 上选择 action；并非普通 JSON REST，现有 OAS path/method 模型无法无损表示 | 先实现并验证 Smithy→Pontx RPC、AWS Query、SigV4 与官方 endpoint-rule vectors，再完成风险策略 |
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
@@ -112,7 +112,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 ### 需先补齐 Pontx 协议能力
 
-1. Amazon SQS API：完整边界依赖 Smithy→OAS、SigV4、AWS JSON 1.0 与区域 endpoint-rule runtime；在这些能力有可复现的类型、SDK/CLI、预览和安全验证前不可裁剪上线。
+1. Amazon SQS API：完整边界依赖 Smithy→Pontx RPC（不伪造 REST path）、AWS Query、SigV4 与区域 endpoint-rule runtime；在这些能力有可复现的类型、SDK/CLI、预览和安全验证前不可裁剪上线。
 
 ### 需先取得供应商许可
 

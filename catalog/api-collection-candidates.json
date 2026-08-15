@@ -232,13 +232,13 @@
         "zh": "Amazon Simple Queue Service 当前官方 API 的 23 个 action、数据类型、错误、区域 Endpoint 与 SigV4 认证。",
         "en": "The current Amazon Simple Queue Service API with all 23 official actions, data types, errors, regional endpoints, and SigV4 authentication."
       },
-      "stage": "audit-required",
+      "stage": "protocol-blocked",
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
         "redistribution": "passed",
         "contract": "passed",
-        "transport": "passed",
+        "transport": "blocked",
         "risk": "pending",
         "sdkCli": "pending"
       },
@@ -253,10 +253,16 @@
       },
       "evidence": [
         { "kind": "docs", "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html" },
+        { "kind": "protocol", "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests-xml.html" },
         { "kind": "spec", "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/main/codegen/sdk-codegen/aws-models/sqs.json" },
         { "kind": "license", "url": "https://github.com/aws/aws-sdk-js-v3/blob/main/LICENSE" }
       ],
       "blockers": [
+        {
+          "gate": "transport",
+          "zh": "2026-08-15 已复核：SQS 实际使用 AWS Query（GET 查询或 application/x-www-form-urlencoded POST），每个 action 通过 Action 与 Version 参数复用同一队列 URL；它不是普通 JSON REST。当前 OAS 路径/方法模型不能无损表示同一物理请求位点上的 23 个 RPC action，且尚未有已验证的 AWS Query、SigV4 与 endpoint-rule runtime。",
+          "en": "Reverified on 2026-08-15: SQS uses AWS Query (GET query or application/x-www-form-urlencoded POST), with Action and Version selecting 23 RPC actions at the same queue URL; it is not ordinary JSON REST. The current OAS path/method model cannot losslessly represent those logical operations at one physical request target, and no verified AWS Query, SigV4, and endpoint-rule runtime exists yet."
+        },
         {
           "gate": "risk",
           "zh": "DeleteQueue、PurgeQueue、DeleteMessage 与权限变更等接口需高影响 mutation 策略；文档中的 SSE 缩写是 server-side encryption，不是 Server-Sent Events。",
@@ -269,10 +275,10 @@
         }
       ],
       "nextAction": {
-        "zh": "建立 Smithy→OpenAPI 的可复现转换，补齐双语说明、SigV4、区域服务器和 mutation 安全策略。",
-        "en": "Create a reproducible Smithy-to-OpenAPI conversion and complete bilingual prose, SigV4, regional servers, and mutation safety policy."
+        "zh": "先实现并测试 Smithy→Pontx RPC 契约（不伪造 REST path）、AWS Query 序列化、SigV4 与官方 endpoint-rule 向量；随后完成双语说明、逐 action mutation 策略和生成 SDK/CLI。",
+        "en": "First implement and test a Smithy-to-Pontx RPC contract (without fabricated REST paths), AWS Query serialization, SigV4, and the official endpoint-rule vectors; then complete bilingual prose, per-action mutation policy, and generated SDK/CLI."
       },
-      "verifiedAt": "2026-08-14"
+      "verifiedAt": "2026-08-15"
     },
     {
       "slug": "dropbox-sign",
