@@ -1,0 +1,48 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/notion",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/notion"
+  },
+  "cli": {
+    "name": "pontx-notion"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createNotionClient",
+      "identifier": "client",
+      "options": {
+        "auth": "NOTION_ACCESS_TOKEN"
+      }
+    },
+    "controllers": {
+      "databases": "databases",
+      "dataSources": "dataSources",
+      "pages": "pages",
+      "asyncTasks": "asyncTasks",
+      "blocks": "blocks",
+      "comments": "comments",
+      "fileUploads": "fileUploads",
+      "oAuth": "oAuth",
+      "users": "users",
+      "search": "search",
+      "views": "views",
+      "customEmojis": "customEmojis",
+      "meetingNotes": "meetingNotes"
+    }
+  },
+  "examples": {
+    "typescript": "import { createNotionClient } from \"@pontx/notion\";\n\nconst client = createNotionClient({ auth: process.env.NOTION_ACCESS_TOKEN });\nconst me = await client.users.getSelf();",
+    "cli": "pnpm add --global @pontx/notion\n\npontx-notion call users get-self --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "candidates/notion/spec.pontx.json",
+    "sha256": "d56290d5235f098f468b494c963486a1fee34c09a236dc45ee6a0a64bece99fd"
+  }
+}

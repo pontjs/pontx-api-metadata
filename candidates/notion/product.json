@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "slug": "notion",
+  "name": "Notion API",
+  "provider": "Notion",
+  "category": "Productivity",
+  "display": {
+    "title": "Notion 协作工作区 API",
+    "summary": "通过官方版本化 Notion API 管理页面、块、数据源/数据库、评论、文件上传、视图、用户与搜索，并支持 OAuth 与异步任务。完整边界为官方 OpenAPI 快照中的 49 个 Endpoint；工作区数据为私有用户内容，Pontx 不代理、缓存或聚合，调用方使用本地 SDK/CLI 直连。",
+    "accent": "#FFFFFF"
+  },
+  "legal": {
+    "license": "Notion Developer Terms; official SDK MIT (Notion Labs, Inc.)",
+    "attributionUrl": "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://developers.notion.com/openapi.json",
+      "https://developers.notion.com/reference/intro",
+      "https://developers.notion.com/reference/versioning",
+      "https://developers.notion.com/reference/request-limits",
+      "https://github.com/makenotion/notion-sdk-js",
+      "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "完整边界为官方文档站 openapi.json 快照（OpenAPI 3.1，Notion-Version 2026-03-11）中的 49 个 Endpoint；Undocumented 内部 API（tag=Internal）与独立 Admin API（独立 server /admin）不在本集合内。官方 OAS 为可变文档且无文件级许可证，因此仅一次性导入并保留 SHA 证据，不随仓库再分发。工作区数据是最终用户私有内容，Developer Terms 对集成方施加数据使用与隐私义务；Pontx Hub 不代理、缓存或聚合任何 Notion 工作区数据，调用方应自行确认条款与数据合规后通过本地 SDK/CLI 直连。"
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "API 使用随 Notion 订阅提供；每个连接平均每秒 3 个请求，并受工作区套餐共享配额限制（429 返回 rate_limited，遵循 Retry-After）。无独立 API 计费，但工作区套餐本身可能收费。",
+    "officialUrl": "https://developers.notion.com/reference/request-limits",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "bearerAuth",
+      "envVar": "NOTION_ACCESS_TOKEN",
+      "description": "内部连接令牌或个人访问令牌（Notion-Version 2026-03-11）；凭据仅保留在调用者当前浏览器会话或本地环境变量中。"
+    },
+    {
+      "schemeId": "basicAuth",
+      "usernameEnvVar": "NOTION_OAUTH_CLIENT_ID",
+      "passwordEnvVar": "NOTION_OAUTH_CLIENT_SECRET",
+      "description": "OAuth 公共连接客户端凭据，用于 /v1/oauth 端点；凭据仅保留在调用者当前浏览器会话或本地环境变量中。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "get-self",
+    "requestExampleId": "default"
+  }
+}
