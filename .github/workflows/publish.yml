@@ -114,9 +114,14 @@ jobs:
             exit 1
           fi
           echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+          verification_url="$deployment_url"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            verification_url="https://pontx.dev"
+          fi
+          echo "verification_url=$verification_url" >> "$GITHUB_OUTPUT"
 
       - name: Verify deployed homepage, API, Schema, Endpoint, and SDK pages
         run: |
           node metadata/scripts/verify-deployed-hub.mjs \
-            --base-url "${{ steps.deploy.outputs.deployment_url }}" \
+            --base-url "${{ steps.deploy.outputs.verification_url }}" \
             --catalog metadata/catalog/catalog.json
