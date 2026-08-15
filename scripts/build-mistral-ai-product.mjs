@@ -194,6 +194,12 @@ function copySchema(input, language, context = { kind: "field", name: "value" })
   output.description = context.kind === "schema"
     ? schemaDescription(context.name, language)
     : fieldDescription(context.name, language);
+  // OAS 3.1 `null` enum members are redundant when `nullable: true` is present;
+  // the code generator cannot render a `null` literal inside a union. Drop the
+  // member deterministically; nullability is preserved by the `nullable` flag.
+  if (Array.isArray(output.enum) && output.enum.includes(null)) {
+    output.enum = output.enum.filter((value) => value !== null);
+  }
   return output;
 }
 
@@ -745,6 +751,7 @@ const provenance = {
       `Normalized ${normalizedOperationIdCount} official snake_case operationIds and ${normalizedSchemaCount} Schema names to valid camelCase identifiers; every $ref was rewritten consistently and the mapping is deterministic and recorded.`,
       `Normalized ${fragmentNormalized.size} FastAPI doc-generation path keys by removing their #fragment suffix (for example "/v1/conversations#stream" -> "/v1/conversations" and "/v1/connectors/{connector_id}#id" -> "/v1/connectors/{connector_id}"); the wire paths are unchanged and the fragment-bearing operations keep distinct stable operationIds.`,
       "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
+      "Dropped the OAS 3.1 `null` enum member from nullable enum Schemas (only CompletionResponseStreamChoice.finish_reason); `nullable: true` preserves the null value, keeping the contract semantically identical and the generated union valid.",
       "Added one reviewed request outline per Endpoint. Required model, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
       "Applied direct-only execution policy to every Mistral Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses. The 11 SSE Endpoints keep the typed text/event-stream contract with unknownEventPolicy: preserve; the official event unions (conversation.response.started/done/error, message.output.delta, tool.execution.started/done, agent.handoff.started/done, function.call.delta for Agents conversations streaming) are documented in the product docs and skill evidence.",
     ],

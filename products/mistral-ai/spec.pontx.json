@@ -43832,8 +43832,7 @@
               "stop",
               "length",
               "error",
-              "tool_calls",
-              null
+              "tool_calls"
             ],
             "nullable": true,
             "title": "finish reason 值",
