@@ -115,10 +115,10 @@
       "stabilityNote": "无需鉴权的只读公共 API。v2 聚合多个中央银行数据源；合规场景应使用 providers 参数固定到所需的官方提供方。",
       "accent": "#16a085",
       "packageName": "@pontx/frankfurter-v2",
-      "sdkVersion": "0.1.1",
+      "sdkVersion": "0.1.2",
       "sdkStatus": "published",
       "sdkQuality": {
-        "testedVersion": "0.1.1",
+        "testedVersion": "0.1.2",
         "unitTests": {
           "passed": 3,
           "total": 3,
@@ -130,10 +130,10 @@
           "20",
           "22"
         ],
-        "sourceCommit": "3157f0f1b327123acabddcd8560039e5d570b485",
-        "testedAt": "2026-08-14",
+        "sourceCommit": "dc88d78e965e49595207651ff4e35686d5fb8de4",
+        "testedAt": "2026-08-15",
         "repositoryUrl": "https://github.com/pontjs/frankfurter-v2",
-        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31857302638"
+        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31858743202"
       },
       "cliName": "pontx-frankfurter-v2",
       "sdkExamples": {
@@ -314,10 +314,10 @@
       "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。",
       "accent": "#7c3aed",
       "packageName": "@pontx/massive",
-      "sdkVersion": "0.1.1",
+      "sdkVersion": "0.1.2",
       "sdkStatus": "published",
       "sdkQuality": {
-        "testedVersion": "0.1.1",
+        "testedVersion": "0.1.2",
         "unitTests": {
           "passed": 3,
           "total": 3,
@@ -329,10 +329,10 @@
           "20",
           "22"
         ],
-        "sourceCommit": "d5947e2cd85dda61f46c03154149d885dcb13d4f",
-        "testedAt": "2026-08-14",
+        "sourceCommit": "ec001566d0e69563170da0f7f0a7c96852115fc5",
+        "testedAt": "2026-08-15",
         "repositoryUrl": "https://github.com/pontjs/massive",
-        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31857296985"
+        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31858743353"
       },
       "cliName": "pontx-massive",
       "sdkExamples": {
