@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       '@pontx/spec':
-        specifier: 1.0.0-beta.5
-        version: 1.0.0-beta.5
+        specifier: 1.0.0-beta.6
+        version: 1.0.0-beta.6
 
 packages:
 
-  '@pontx/spec@1.0.0-beta.5':
-    resolution: {integrity: sha512-z44nDA6SuJxYdYBOFpKtsQ6yLMpA9AVQ1VR8QBRDkhjSd3MPvt8Ywb4X/uSViNSTICYmrV7eSz9q6yJ/N2tzYQ==}
+  '@pontx/spec@1.0.0-beta.6':
+    resolution: {integrity: sha512-KhH8XyuDC9KOW89wI4kamestTjTw45Rg76U1t4n71g3/22OVFm/NUJjAFkvrvqYND4hGkZjV5GH+i0MVtz09eg==}
 
   immer@10.2.0:
     resolution: {integrity: sha512-d/+XTN3zfODyjr89gM3mPq1WNX2B8pYsu7eORitdwyA2sBubnTl3laYlBk4sXY5FUa5qTZGBDPJICVbvqzjlbw==}
@@ -28,7 +28,7 @@ packages:
 
 snapshots:
 
-  '@pontx/spec@1.0.0-beta.5':
+  '@pontx/spec@1.0.0-beta.6':
     dependencies:
       immer: 10.2.0
       lodash: 4.18.1
