@@ -17,6 +17,7 @@
     "amazon-sqs",
     "pinhere",
     "nager-date",
-    "mongodb-atlas-admin"
+    "mongodb-atlas-admin",
+    "openai"
   ]
 }

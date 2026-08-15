@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "slug": "openai",
+  "name": "OpenAI API",
+  "provider": "OpenAI",
+  "category": "AI",
+  "featured": true,
+  "display": {
+    "title": "OpenAI API",
+    "summary": "覆盖固定 MIT 许可官方 revision 中全部 288 个 OpenAI Platform REST Endpoint（含类型化 SSE 流式与 Realtime 调用管理）。Hub 提供文档与独立 SDK/CLI，但不代理模型、账户或用量数据；调用方通过本地 API key 直连。",
+    "accent": "#10A37F"
+  },
+  "legal": {
+    "license": "MIT for the imported OpenAPI source; OpenAI Platform service, website, and trademark terms apply separately.",
+    "attributionUrl": "https://github.com/openai/openai-openapi/tree/2186421dca0cca7c1e67caa7739005e8b1ccc4dd"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/openapi.json",
+      "https://github.com/openai/openai-openapi/tree/2186421dca0cca7c1e67caa7739005e8b1ccc4dd",
+      "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/LICENSE",
+      "https://developers.openai.com/api/reference/overview",
+      "https://openai.com/policies/services-agreement/",
+      "https://openai.com/policies/usage-policies/"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "完整边界是固定 openai/openai-openapi revision 中 openapi.json 的 288 个 Endpoint（GET 122 / POST 123 / DELETE 43）和 1,421 个 Schema，其中 7 个 Endpoint 声明类型化 SSE 流式响应。MIT 适用于导入的规范源码；OpenAI Platform 服务使用、官网内容和商标分别受其自身条款约束。Hub 不代理 OpenAI 流量，SDK/CLI 仅使用调用方本地 API key；任何变更操作都必须先预览并获得显式确认。"
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "OpenAI Platform 的模型用量计费、套餐和账户资格由 OpenAI 的当前定价与服务条款决定；Pontx 不代售、转售或代表 OpenAI 报价。",
+    "officialUrl": "https://openai.com/api/pricing/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "ApiKeyAuth",
+      "envVar": "OPENAI_API_KEY",
+      "description": "OpenAI Platform API key。SDK/CLI 只从调用方本地环境读取，不能写入请求示例、日志或 Hub。",
+      "guide": {
+        "url": "https://platform.openai.com/docs/quickstart",
+        "title": "获取 OpenAI API key",
+        "steps": [
+          "在 OpenAI Platform 创建 API key，并按用途授予最低权限。",
+          "将 API key 仅放入调用方本地环境变量 OPENAI_API_KEY。",
+          "先用只读 Endpoint 生成脱敏预览，再执行请求。"
+        ]
+      }
+    },
+    {
+      "schemeId": "AdminApiKeyAuth",
+      "envVar": "OPENAI_ADMIN_API_KEY",
+      "description": "组织管理 Endpoint 所需的 admin API key。仅调用方本地使用，限制到所需最低权限；不得写入示例、日志或 Hub。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "listModels",
+    "requestExampleId": "default"
+  }
+}
