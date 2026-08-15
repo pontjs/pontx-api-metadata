@@ -25,10 +25,10 @@ function candidate(slug) {
 }
 
 const oxr = candidate("open-exchange-rates");
-assert(oxr.stage === "contract-in-progress" && oxr.gateStatus.redistribution === "passed"
-  && oxr.gateStatus.contract === "pending" && oxr.gateStatus.risk === "passed"
-  && oxr.gateStatus.sdkCli === "pending", "OXR independent-policy and contract gates drifted");
-assert(oxr.contractSource.sourceSha256 === "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84"
+assert(oxr.stage === "sdk-registry-visibility-blocked" && oxr.gateStatus.redistribution === "passed"
+  && oxr.gateStatus.contract === "passed" && oxr.gateStatus.risk === "passed"
+  && oxr.gateStatus.sdkCli === "blocked", "OXR independent-policy, contract, and registry gates drifted");
+assert(oxr.contractSource.sourceSha256 === "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e"
   && oxr.contractSource.observedOperations === 7 && oxr.contractSource.observedSchemas === 0,
 "OXR official embedded snapshot evidence drifted");
 assert(oxr.contractSource.qualityAudit.invalidCodegenOperationIds === 6
@@ -39,7 +39,8 @@ assert(oxr.contractSource.qualityAudit.invalidCodegenOperationIds === 6
 "OXR quality audit drifted");
 assert(oxr.contractSource.humanDocumentationAudit?.reverifiedAt === "2026-08-15"
   && oxr.contractSource.humanDocumentationAudit.schemasReconstructableFromOfficialPages?.length === 5
-  && oxr.contractSource.humanDocumentationAudit.remainingSuccessBodiesRequiringAuthorisedFixture?.join(",") === "convert"
+  && oxr.contractSource.humanDocumentationAudit.remainingSuccessBodiesRequiringAuthorisedFixture?.length === 0
+  && oxr.contractSource.humanDocumentationAudit.convertSuccessContract?.status === "passed"
   && oxr.contractSource.humanDocumentationAudit.authorisedFreePlanProbe?.successEndpoints?.join(",") === "latest,historical,currencies,usage"
   && oxr.contractSource.humanDocumentationAudit.authorisedFreePlanProbe?.planDeniedEndpoints?.join(",") === "time-series,convert,ohlc",
 "OXR page-level and authorised-free-plan evidence drifted");
@@ -51,6 +52,13 @@ assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchem
   && oxr.pontxProbe.anonymousCurrenciesSdkCall === "passed-173-currencies"
   && oxr.pontxProbe.publicationReady === false,
 "OXR derived generation probe drifted");
+assert(oxr.independentSdk?.sourceCommit === "53377dca8fed944cb0098138e4f340f1a548879e"
+  && oxr.independentSdk?.package === "@pontx/open-exchange-rates@0.1.0"
+  && oxr.independentSdk?.contract?.endpoints === 7
+  && oxr.independentSdk?.contract?.schemas === 17
+  && oxr.independentSdk?.registry?.anonymousLookup?.startsWith("404")
+  && oxr.independentSdk?.registry?.visibilityMutation?.startsWith("npm access set status=public returned 403"),
+"OXR SDK registry-visibility blocker evidence drifted");
 
 assert(catalog.products.includes("ecb-data-portal"), "admitted ECB must remain in products.json");
 assert(catalog.products.includes("twelve-data-forex"), "Twelve Data Forex must be admitted to the catalog");
@@ -175,4 +183,4 @@ assert(!Object.hasOwn(ecbProduct, "execution")
 const actualCandidates = new Set(registry.products.filter((slug) => expectedCandidates.has(slug)));
 assert(actualCandidates.size === expectedCandidates.size, "FX candidate set is incomplete");
 
-console.log("Verified the blocked OXR candidate and admitted Twelve Data Forex, CurrencyBeacon, and ECB products.");
+console.log("Verified the OXR registry-visibility blocker and admitted Twelve Data Forex, CurrencyBeacon, and ECB products.");

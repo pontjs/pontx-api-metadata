@@ -1,0 +1,40 @@
+{
+  "display": {
+    "title": "Mistral AI API",
+    "summary": "All 238 ApiKey-authenticated Mistral AI Platform REST endpoints from a fixed Apache-2.0-licensed official revision, including typed SSE streaming and Workflows. Hub provides documentation and an independent SDK/CLI, but never proxies model, account, or usage data; callers connect directly with local API keys.",
+    "accent": "#F5A623"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/openapi-public-doc.yaml",
+      "https://github.com/mistralai/platform-docs-public/tree/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d",
+      "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/LICENSE",
+      "https://docs.mistral.ai/api",
+      "https://mistral.ai/legal"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "The complete boundary is all 238 ApiKey-authenticated endpoints (GET 102 / POST 79 / DELETE 26 / PATCH 14 / PUT 17) and 756 schemas in openapi-public-doc.yaml at the fixed mistralai/platform-docs-public revision, of which 11 endpoints declare typed SSE streaming responses. The 50 endpoints requiring AdminApiKey (beta.admin.* workspace administration) or DashboardUserContextAuth (beta.users dashboard session) are outside the developer API boundary and explicitly excluded. Apache-2.0 applies to the imported specification source; Mistral AI service use, website content, and trademarks are governed separately. Hub does not proxy Mistral traffic; SDK/CLI credentials stay caller-local, and every mutation needs a preview and explicit confirmation."
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "Mistral AI Platform model usage billing, plans, and account eligibility are governed by Mistral AI's current pricing and service terms. Pontx neither resells the service nor quotes for Mistral AI.",
+    "officialUrl": "https://mistral.ai/pricing/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "ApiKey",
+      "description": "Mistral AI Platform API key. The SDK/CLI reads it only from the caller-local environment; it must never appear in request examples, logs, or Hub.",
+      "guide": {
+        "title": "Get a Mistral AI API key",
+        "steps": [
+          "Create an API key in the Mistral AI La Plateforme console with the least privilege required for the task.",
+          "Keep it only in the caller-local MISTRAL_API_KEY environment variable.",
+          "Generate a redacted preview with a read endpoint before executing a request."
+        ]
+      }
+    }
+  ]
+}

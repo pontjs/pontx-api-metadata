@@ -1,0 +1,37 @@
+{
+  "display": {
+    "title": "Notion collaborative workspace API",
+    "summary": "Manage pages, blocks, data sources/databases, comments, file uploads, views, users, and search through the official versioned Notion API, with OAuth and async tasks. The complete boundary is the 49 endpoints in the official OpenAPI snapshot; workspace data is private user content, so Pontx does not proxy, cache, or aggregate it and callers use the local SDK/CLI directly.",
+    "accent": "#FFFFFF"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://developers.notion.com/openapi.json",
+      "https://developers.notion.com/reference/intro",
+      "https://developers.notion.com/reference/versioning",
+      "https://developers.notion.com/reference/request-limits",
+      "https://github.com/makenotion/notion-sdk-js",
+      "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "The complete boundary is the 49 endpoints in the official docs-site openapi.json snapshot (OpenAPI 3.1, Notion-Version 2026-03-11); the undocumented internal API (tag=Internal) and the separate Admin API (separate /admin server) are not part of this collection. The official OAS is a mutable document with no file-level license, so it is imported once and its SHA is retained as evidence without redistributing the document. Workspace data is private End User content and the Developer Terms impose data-handling and privacy obligations on integrators; Pontx Hub does not proxy, cache, or aggregate any Notion workspace data, and callers must confirm their own terms and data-compliance posture before connecting directly via the local SDK/CLI."
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "API access is included with Notion subscriptions; each connection averages three requests per second and is also subject to the workspace plan shared quota (429 rate_limited responses carry Retry-After). There is no separate API billing, although the workspace plan itself may be paid.",
+    "officialUrl": "https://developers.notion.com/reference/request-limits",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "bearerAuth",
+      "description": "Internal connection token or personal access token (Notion-Version 2026-03-11); credentials live only in the caller’s current browser session or local environment."
+    },
+    {
+      "schemeId": "basicAuth",
+      "description": "OAuth public-connection client credentials for the /v1/oauth endpoints; credentials live only in the caller’s current browser session or local environment."
+    }
+  ]
+}

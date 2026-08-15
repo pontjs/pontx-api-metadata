@@ -1,0 +1,828 @@
+{
+  "apis": {
+    "capture/captureBatch": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "在一个请求内提交多个事件。整个请求体默认必须小于 20 MB；historical_migration 仅用于迁移。该请求会写入上游数据，Hub 不代发。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "该 Endpoint 使用调用方项目令牌，可能写入事件、人物或群组资料，或消耗功能开关配额。Pontx Hub 不保存凭据、不代理也不执行请求；请用本地 SDK/CLI 预览后显式确认。",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "captureBatch",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCaptureRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/BatchCaptureRequest"
+          }
+        }
+      ],
+      "path": "/batch/",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "batch": [
+                {
+                  "event": "checkout_completed",
+                  "properties": {
+                    "distinct_id": "user_123"
+                  }
+                }
+              ]
+            },
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "本地凭据的请求预览；执行前须由调用方显式确认。",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptResponse"
+              }
+            }
+          },
+          "description": "服务接收请求的状态；200 不保证事件最终摄入。",
+          "schema": {
+            "$ref": "#/components/schemas/ReceiptResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "批量采集事件",
+      "tags": [
+        "capture"
+      ]
+    },
+    "capture/captureEvent": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "提交一个事件。事件、distinct_id 和项目令牌必填；200 只表示服务接收了格式正确的请求，不保证最终摄入。该请求可更新人物或群组资料，Hub 不代发。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "该 Endpoint 使用调用方项目令牌，可能写入事件、人物或群组资料，或消耗功能开关配额。Pontx Hub 不保存凭据、不代理也不执行请求；请用本地 SDK/CLI 预览后显式确认。",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "captureEvent",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaptureEventRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CaptureEventRequest"
+          }
+        }
+      ],
+      "path": "/i/v0/e/",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "distinct_id": "user_123",
+              "event": "checkout_completed",
+              "properties": {
+                "plan": "pro"
+              }
+            },
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "本地凭据的请求预览；执行前须由调用方显式确认。",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptResponse"
+              }
+            }
+          },
+          "description": "服务接收请求的状态；200 不保证事件最终摄入。",
+          "schema": {
+            "$ref": "#/components/schemas/ReceiptResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "采集单个事件",
+      "tags": [
+        "capture"
+      ]
+    },
+    "flags/evaluateFlags": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "按项目令牌和 distinct_id 求值远程功能开关。支持群组、属性覆盖、评估上下文和配置响应；求值可能消耗配额并返回 quotaLimited，Hub 不代发。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/feature-flags-code-api.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/override-server-properties/api.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "该 Endpoint 使用调用方项目令牌，可能写入事件、人物或群组资料，或消耗功能开关配额。Pontx Hub 不保存凭据、不代理也不执行请求；请用本地 SDK/CLI 预览后显式确认。",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "evaluateFlags",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagEvaluationRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/FlagEvaluationRequest"
+          }
+        },
+        {
+          "in": "query",
+          "name": "config",
+          "required": false,
+          "schema": {
+            "description": "是否随功能开关结果返回客户端配置。",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          }
+        }
+      ],
+      "path": "/flags",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "distinct_id": "user_123",
+              "evaluation_contexts": [
+                "production"
+              ]
+            },
+            "headers": {},
+            "path": {},
+            "query": {
+              "config": true
+            }
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "本地凭据的请求预览；执行前须由调用方显式确认。",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagEvaluationResponse"
+              }
+            }
+          },
+          "description": "按项目令牌和 distinct_id 求值远程功能开关。支持群组、属性覆盖、评估上下文和配置响应；求值可能消耗配额并返回 quotaLimited，Hub 不代发。",
+          "schema": {
+            "$ref": "#/components/schemas/FlagEvaluationResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "面向调用方的错误说明。",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "求值运行时功能开关",
+      "tags": [
+        "flags"
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "additionalProperties": true,
+        "description": "面向调用方的错误说明。",
+        "properties": {
+          "attr": {
+            "description": "与验证错误关联的属性；没有关联属性时为 null。",
+            "examples": [
+              "project_id"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "code": {
+            "description": "机器可读错误码，例如 invalid_project、invalid_payload 或 invalid_api_key。",
+            "examples": [
+              "invalid_payload"
+            ],
+            "type": "string"
+          },
+          "detail": {
+            "description": "面向调用方的错误说明。",
+            "examples": [
+              "Malformed request data"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "错误类别。",
+            "examples": [
+              "validation_error"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "code",
+          "detail"
+        ],
+        "title": "面向调用方的错误说明。",
+        "type": "object"
+      },
+      "BatchCaptureRequest": {
+        "additionalProperties": true,
+        "description": "在一个请求内提交多个事件。整个请求体默认必须小于 20 MB；historical_migration 仅用于迁移。该请求会写入上游数据，Hub 不代发。",
+        "properties": {
+          "api_key": {
+            "description": "PostHog 项目令牌，只能从调用方本地配置注入。",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "batch": {
+            "description": "要采集的事件列表；请求体总大小默认不得超过 20 MB。",
+            "items": {
+              "$ref": "#/components/schemas/BatchEvent"
+            },
+            "minItems": 1,
+            "title": "要采集的事件列表；请求体总大小默认不得超过 20 MB。",
+            "type": "array"
+          },
+          "historical_migration": {
+            "description": "迁移历史数据时为 true；实时事件可省略或设为 false。",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "api_key",
+          "batch"
+        ],
+        "title": "批量采集事件",
+        "type": "object"
+      },
+      "BatchEvent": {
+        "additionalProperties": true,
+        "description": "提交一个事件。事件、distinct_id 和项目令牌必填；200 只表示服务接收了格式正确的请求，不保证最终摄入。该请求可更新人物或群组资料，Hub 不代发。",
+        "properties": {
+          "event": {
+            "description": "要采集的事件名称。",
+            "examples": [
+              "checkout_completed"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+            "title": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "可选的 ISO 8601 事件时间。",
+            "examples": [
+              "2026-08-16T12:00:00Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event"
+        ],
+        "title": "采集单个事件",
+        "type": "object"
+      },
+      "CaptureEventRequest": {
+        "additionalProperties": true,
+        "description": "提交一个事件。事件、distinct_id 和项目令牌必填；200 只表示服务接收了格式正确的请求，不保证最终摄入。该请求可更新人物或群组资料，Hub 不代发。",
+        "properties": {
+          "api_key": {
+            "description": "PostHog 项目令牌，只能从调用方本地配置注入。",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "distinct_id": {
+            "description": "事件或功能开关求值关联的用户 distinct ID；采集 API 最多保留前 200 个字符。",
+            "examples": [
+              "user_123"
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "event": {
+            "description": "要采集的事件名称。",
+            "examples": [
+              "checkout_completed"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+            "title": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "可选的 ISO 8601 事件时间。",
+            "examples": [
+              "2026-08-16T12:00:00Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "api_key",
+          "event",
+          "distinct_id"
+        ],
+        "title": "采集单个事件",
+        "type": "object"
+      },
+      "FlagEvaluation": {
+        "additionalProperties": true,
+        "description": "按项目令牌和 distinct_id 求值远程功能开关。支持群组、属性覆盖、评估上下文和配置响应；求值可能消耗配额并返回 quotaLimited，Hub 不代发。",
+        "properties": {
+          "enabled": {
+            "description": "是否为当前用户启用。",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "key": {
+            "description": "功能开关键。",
+            "examples": [
+              "new-checkout"
+            ],
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "description": "功能开关元数据。",
+            "properties": {
+              "id": {
+                "description": "功能开关元数据 ID。",
+                "examples": [
+                  1
+                ],
+                "type": "integer"
+              },
+              "payload": {
+                "description": "可选的功能开关 payload 字符串。",
+                "examples": [
+                  "{\"plan\":\"beta\"}"
+                ],
+                "type": "string"
+              },
+              "version": {
+                "description": "功能开关元数据版本。",
+                "examples": [
+                  1
+                ],
+                "type": "integer"
+              }
+            },
+            "title": "功能开关元数据。",
+            "type": "object"
+          },
+          "reason": {
+            "additionalProperties": true,
+            "description": "求值原因。",
+            "properties": {
+              "code": {
+                "description": "机器可读错误码，例如 invalid_project、invalid_payload 或 invalid_api_key。",
+                "examples": [
+                  "condition_match"
+                ],
+                "type": "string"
+              },
+              "condition_index": {
+                "description": "匹配或未匹配的条件组索引。",
+                "examples": [
+                  0
+                ],
+                "type": "integer"
+              },
+              "description": {
+                "description": "求值原因。",
+                "examples": [
+                  "Condition set 1 matched"
+                ],
+                "type": "string"
+              }
+            },
+            "title": "求值原因。",
+            "type": "object"
+          },
+          "variant": {
+            "description": "多变量功能开关的可选变体；holdout 用户可能使用 holdout-{id}。",
+            "examples": [
+              "control"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "enabled"
+        ],
+        "title": "求值运行时功能开关",
+        "type": "object"
+      },
+      "FlagEvaluationRequest": {
+        "additionalProperties": true,
+        "description": "按项目令牌和 distinct_id 求值远程功能开关。支持群组、属性覆盖、评估上下文和配置响应；求值可能消耗配额并返回 quotaLimited，Hub 不代发。",
+        "properties": {
+          "api_key": {
+            "description": "PostHog 项目令牌，只能从调用方本地配置注入。",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "distinct_id": {
+            "description": "事件或功能开关求值关联的用户 distinct ID；采集 API 最多保留前 200 个字符。",
+            "examples": [
+              "user_123"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "evaluation_contexts": {
+            "description": "可选的评估上下文标签；返回有匹配标签或无标签的功能开关。",
+            "items": {
+              "description": "可选的评估上下文标签；返回有匹配标签或无标签的功能开关。",
+              "examples": [
+                "production"
+              ],
+              "type": "string"
+            },
+            "title": "可选的评估上下文标签；返回有匹配标签或无标签的功能开关。",
+            "type": "array"
+          },
+          "evaluation_environments": {
+            "description": "遗留评估环境字段，保留以兼容旧调用方。",
+            "items": {
+              "description": "遗留评估环境字段，保留以兼容旧调用方。",
+              "examples": [
+                "production"
+              ],
+              "type": "string"
+            },
+            "title": "遗留评估环境字段，保留以兼容旧调用方。",
+            "type": "array"
+          },
+          "group_properties": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "description": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+              "title": "动态事件属性，可携带 $identify、$groupidentify、$groups、$process_person_profile 等官方事件属性。",
+              "type": "object"
+            },
+            "description": "可选的群组属性覆盖，按群组类型组织，仅用于本次求值。",
+            "title": "可选的群组属性覆盖，按群组类型组织，仅用于本次求值。",
+            "type": "object"
+          },
+          "groups": {
+            "additionalProperties": {
+              "description": "可选的群组类型到群组 ID 映射；群组功能开关需要该字段。",
+              "examples": [
+                "company_42"
+              ],
+              "type": "string"
+            },
+            "description": "可选的群组类型到群组 ID 映射；群组功能开关需要该字段。",
+            "title": "可选的群组类型到群组 ID 映射；群组功能开关需要该字段。",
+            "type": "object"
+          },
+          "person_properties": {
+            "additionalProperties": true,
+            "description": "可选的人物属性覆盖，仅用于本次功能开关求值。",
+            "title": "可选的人物属性覆盖，仅用于本次功能开关求值。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "api_key",
+          "distinct_id"
+        ],
+        "title": "求值运行时功能开关",
+        "type": "object"
+      },
+      "FlagEvaluationResponse": {
+        "additionalProperties": true,
+        "description": "按项目令牌和 distinct_id 求值远程功能开关。支持群组、属性覆盖、评估上下文和配置响应；求值可能消耗配额并返回 quotaLimited，Hub 不代发。",
+        "properties": {
+          "config": {
+            "additionalProperties": true,
+            "description": "PostHog 客户端配置；字段会随供应商演进。",
+            "title": "PostHog 客户端配置；字段会随供应商演进。",
+            "type": "object"
+          },
+          "errorsWhileComputingFlags": {
+            "description": "有功能开关无法计算时为 true，客户端应允许部分结果。",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          },
+          "flags": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FlagEvaluation"
+            },
+            "description": "以功能开关键为 key 的动态求值结果映射。",
+            "title": "以功能开关键为 key 的动态求值结果映射。",
+            "type": "object"
+          },
+          "isAuthenticated": {
+            "description": "上游响应报告的认证状态。",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          },
+          "quotaLimited": {
+            "description": "服务因配额暂时暂停的资源名称。",
+            "items": {
+              "description": "服务因配额暂时暂停的资源名称。",
+              "examples": [
+                "feature_flags"
+              ],
+              "type": "string"
+            },
+            "title": "服务因配额暂时暂停的资源名称。",
+            "type": "array"
+          },
+          "requestId": {
+            "description": "上游请求标识。",
+            "examples": [
+              "550e8400-e29b-41d4-a716-446655440000"
+            ],
+            "format": "uuid",
+            "type": "string"
+          },
+          "supportedCompression": {
+            "description": "服务器支持的压缩格式。",
+            "items": {
+              "description": "服务器支持的压缩格式。",
+              "examples": [
+                "gzip"
+              ],
+              "type": "string"
+            },
+            "title": "服务器支持的压缩格式。",
+            "type": "array"
+          },
+          "toolbarParams": {
+            "additionalProperties": true,
+            "description": "工具栏参数；字段会随供应商演进。",
+            "title": "工具栏参数；字段会随供应商演进。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "flags",
+          "errorsWhileComputingFlags",
+          "requestId"
+        ],
+        "title": "求值运行时功能开关",
+        "type": "object"
+      },
+      "ReceiptResponse": {
+        "additionalProperties": true,
+        "description": "服务接收请求的状态；200 不保证事件最终摄入。",
+        "properties": {
+          "status": {
+            "description": "服务接收请求的状态；200 不保证事件最终摄入。",
+            "examples": [
+              "Ok"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "采集单个事件",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "projectToken": {
+        "description": "PostHog 项目令牌，只能从调用方本地配置注入。",
+        "in": "header",
+        "name": "api_key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "PostHog 官方公开 API 文档（固定 MIT 文档 revision）。",
+    "url": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+  },
+  "info": {
+    "description": "PostHog 公开项目令牌运行时 API，仅包含事件采集、批量采集与功能开关求值：POST /i/v0/e/、POST /batch/、POST /flags?v=2。它不包含个人 API key 管理 API、/flags/definitions 本地求值、SSE/workflow API、静态资源或已弃用的 /capture、/engage、/decide。Hub 不接收令牌或代发请求。",
+    "title": "PostHog Runtime Capture and Flag Evaluation API",
+    "version": "7516256e3a9d"
+  },
+  "name": "posthog",
+  "pontx": "2.1",
+  "security": [],
+  "servers": [
+    {
+      "description": "PostHog US Cloud 公共项目令牌 API；EU Cloud 使用 eu.i.posthog.com，自托管实例使用自己的域名。",
+      "id": "us-cloud",
+      "url": "https://us.i.posthog.com"
+    },
+    {
+      "description": "PostHog EU Cloud 公共项目令牌 API。",
+      "id": "eu-cloud",
+      "url": "https://eu.i.posthog.com"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": [
+    {
+      "description": "事件采集与批量采集。",
+      "name": "capture"
+    },
+    {
+      "description": "运行时功能开关求值。",
+      "name": "flags"
+    }
+  ]
+}

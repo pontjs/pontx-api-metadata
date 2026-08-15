@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/sendbird-chat-platform",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/sendbird-chat-platform"
+  },
+  "cli": {
+    "name": "pontx-sendbird-chat-platform"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createSendbirdChatPlatformClient",
+      "identifier": "client",
+      "options": {
+        "apiToken": "SENDBIRD_API_TOKEN"
+      }
+    },
+    "controllers": {
+      "announcements": "announcements",
+      "bots": "bots",
+      "groupChannels": "groupChannels",
+      "messages": "messages",
+      "metadata": "metadata",
+      "moderation": "moderation",
+      "openChannels": "openChannels",
+      "statistics": "statistics",
+      "users": "users"
+    }
+  },
+  "examples": {
+    "typescript": "import { createSendbirdChatPlatformClient } from \"@pontx/sendbird-chat-platform\";\n\nconst client = createSendbirdChatPlatformClient({\n  appId: process.env.SENDBIRD_APP_ID,\n  apiToken: process.env.SENDBIRD_API_TOKEN,\n});\nconst user = await client.users.viewAUser({ userId: \"user_id_123\" });",
+    "cli": "pnpm add --global @pontx/sendbird-chat-platform\n\npontx-sendbird-chat-platform call users view-a-user --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/sendbird-chat-platform/spec.pontx.json",
+    "sha256": "6202d1a425a767912f313057940b8ff033b335d66819bfcb4fa8aceab78b31a9",
+    "metadataCommit": "67e86df51180cba36b64724233b2b0e8007c1be0"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "c5decd276a9564097302187a5371834ec914dbd5",
+    "testedAt": "2026-08-16",
+    "repositoryUrl": "https://github.com/pontjs/sendbird-chat-platform",
+    "workflowRunUrl": "https://github.com/pontjs/sendbird-chat-platform/actions/runs/31899208134"
+  }
+}

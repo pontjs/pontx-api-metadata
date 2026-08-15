@@ -137,6 +137,7 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 针对最终 registry artifact 和最终生产 catalog 执行同一份矩阵：
 
 - **网站/API**：中英文 API/Endpoint/Schema/SDK 页面、SSR、canonical/hreflang/sitemap、身份、auth、完整请求/响应和安全状态正确；
+- **Sitemap 规模**：从生产 `sitemap.xml` 发现每个 sitemap part，根 index 与每个 part 都返回 200；枚举本产品新增的全部中英文 API、Endpoint、Schema、SDK 和 Skill URL，逐个验证 200 且 HTML canonical 与该 URL 完全一致。不得因为产品页可打开就忽略 sitemap 500、单一 XML 超出平台响应限制或遗漏的分片；必要时先改为 sitemap index + 有界 URL-set 分片，再重复完整审计；
 - **精确发现**：生产 Hub API 和 freshly installed `pontx-hub` 能以 stable ID list/search/show/sdk/preview 该产品；
 - **语义发现**：至少一条中文和一条英文非品牌任务查询能在要求的 top-k 找到正确 API/Endpoint/Schema，并返回 `strategy`、`semanticVersion`、`match.mode`/`match.fields`；把这些查询加入持久化 relevance eval；
 - **产品包**：fresh install 的 `@pontx/<slug>` 与 `pontx-<slug>` 对 registry 版本再次通过代表性 SDK/CLI 路径；

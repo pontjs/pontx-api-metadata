@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "status": "admitted",
+  "canonicalSpec": "products/sendbird-chat-platform/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.1.0 (reconstructed)",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourceUrl": "https://github.com/sendbird/sendbird-platform-sdk-typescript",
+    "sourceRevision": "fccf6fa11117e15bd4dcdd89127407f0b46e7ce8",
+    "sourceVersion": "2.1.8",
+    "reconstructedOasSha256": "95edb5d71adfe71eb8ec159c59bb48f3a658d09a2de61a2a6e040d8393aa8e8c",
+    "observedAt": "2026-08-16",
+    "retained": "Sendbird publishes no OpenAPI document. The reconstructed OpenAPI 3.1 document is derived from the official generated SDK (openapi-generator output) at pinned revision fccf6fa11117e15bd4dcdd89127407f0b46e7ce8 and is retained in sources/sendbird-platform.oas.json as reproducible evidence; it is the deterministic output of scripts/reconstruct-sendbird-oas.mjs. The SDK repository declares Unlicense in the TypeScript package.json and MIT in the Java LICENSE.md; all Hub prose is independently authored."
+  },
+  "license": {
+    "status": "reviewed",
+    "sourceRepository": "https://github.com/sendbird/sendbird-platform-sdk-typescript",
+    "spdx": "Unlicense (TypeScript package.json; no LICENSE file in repository); MIT (Java SDK LICENSE.md, Copyright (c) 2022 Sendbird)",
+    "url": "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json",
+    "termsUrl": "https://sendbird.com/terms-of-service/",
+    "analysis": "The official generated SDK source is the machine-readable representation of the Platform API v3 wire contract. The TypeScript package.json declares the Unlicense (public-domain dedication) and the Java SDK ships an MIT LICENSE.md, both of which permit using, copying, modifying, and redistributing the SDK source including its interface contract types. The Sendbird Terms of Service govern use of the API service itself; the reconstructed contract is our own derived work written from the SDK interface (paths, methods, parameters, schema types) and does not redistribute official documentation prose, dashboard content, or SDK source code. The Sendbird name and product names are used descriptively; this project is not affiliated with or endorsed by Sendbird.",
+    "verdict": "An independently authored bilingual PontxSpec and a generated @pontx/sendbird-chat-platform SDK/CLI can be published with these boundaries: no redistribution of Sendbird documentation prose or SDK source, descriptive trademark use only, no implied official endorsement, no Hub proxying/caching/aggregation of application data, and caller-direct execution with the caller's own application credentials."
+  },
+  "terms": {
+    "url": "https://sendbird.com/terms-of-service/",
+    "verifiedAt": "2026-08-16",
+    "apiVersion": "Chat Platform API v3 (paths under /v3; SDK v2.1.8)",
+    "rateLimits": "Rate limits depend on the Sendbird application plan (typically per-application, often by MAU/DAU); consult the Sendbird pricing and docs for current limits.",
+    "hubPolicy": "Hub proxying, caching, aggregation, and application-data display are disabled for every endpoint. The local SDK/CLI connects directly only at the caller's direction with the caller's own application credentials, and callers remain responsible for Sendbird terms and data compliance."
+  },
+  "derivation": {
+    "boundary": "All 83 request methods (11 generated API classes) in the pinned official generated SDK fccf6fa11117e15bd4dcdd89127407f0b46e7ce8 (v2.1.8). Client realtime protocols (WebSocket/SSE events), Chat SDKs, and the Explinks connector abstraction are explicitly excluded.",
+    "method": "deterministic parse of the official generated TypeScript SDK (scripts/reconstruct-sendbird-oas.mjs) into OpenAPI 3.1, then one-time @pontx/spec importOpenAPI conversion followed by bilingual PontxSpec curation; methods, paths, api-token auth, parameters, response types, schemas, enums, and constraints are retained. The OAS is retained in sources/ as evidence.",
+    "paths": 50,
+    "endpoints": 83,
+    "schemas": 173,
+    "methods": {
+      "POST": 18,
+      "GET": 27,
+      "DELETE": 17,
+      "PUT": 21
+    },
+    "responseMediaTypes": [
+      "application/json"
+    ]
+  },
+  "riskReview": {
+    "classification": "server-side-management-api-with-private-application-data",
+    "hubProxyEnabled": false,
+    "mutations": 56,
+    "credentials": "Application API Token via the api-token header; modeled as environment variables only (SENDBIRD_API_TOKEN, SENDBIRD_APP_ID).",
+    "execution": "All Hub execution is disabled because this is a reconstructed contract and the API manages private application data (users, channels, messages, push tokens) with destructive write operations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation."
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/sendbird-chat-platform/spec.pontx.json",
+      "sha256": "6202d1a425a767912f313057940b8ff033b335d66819bfcb4fa8aceab78b31a9",
+      "endpoints": 83,
+      "schemas": 173
+    },
+    "en-US": {
+      "path": "products/sendbird-chat-platform/locales/en-US/spec.pontx.json",
+      "sha256": "857a8151e6cb2f0a5f2cc2ef04f3f695188b4380f59a860afb9a49c4b5de2e2a",
+      "endpoints": 83,
+      "schemas": 173
+    }
+  },
+  "quality": {
+    "staticScore50": 50,
+    "summary": ""
+  }
+}

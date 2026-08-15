@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-mistral-ai",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Which Mistral model should I use for summarization?",
+      "expected_output": "Retrieves current model and chat Endpoint facts through Pontx discovery, presents the model catalog read and a caller-local dry-run preview, and does not execute a paid call or invent model comparisons.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Send a chat completion with my key saying hello.",
+      "expected_output": "After explicit caller approval, previews the exact chat chatCompletionV1ChatCompletionsPost request with redacted prompt, confirms expected usage cost and content boundaries, then executes the unchanged request with its request-bound confirmation token and reports the non-empty business response.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Stream a conversation with the web-search agent.",
+      "expected_output": "Identifies the SSE Agents conversation stream Endpoint, explains that the one-shot CLI cannot buffer the stream, and guides the caller to the @pontx/mistral-ai SSE stream client with the caller-local key; does not execute a paid stream without explicit approval.",
+      "files": []
+    }
+  ]
+}

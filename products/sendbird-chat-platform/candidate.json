@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "slug": "sendbird-chat-platform",
+  "name": {
+    "zh": "Sendbird Chat Platform API v3",
+    "en": "Sendbird Chat Platform API v3"
+  },
+  "provider": "Sendbird",
+  "category": "Communication",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 7,
+    "score": 77
+  },
+  "boundary": {
+    "zh": "Sendbird Chat 服务端 Platform API v3；不包含客户端实时协议、Chat SDK 或 Explinks 连接器抽象。",
+    "en": "Sendbird Chat server-side Platform API v3 only; it excludes client realtime protocols, Chat SDKs, and the Explinks connector abstraction."
+  },
+  "stage": "contract-in-progress",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "passed",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "passed",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "source",
+      "url": "https://github.com/sendbird/sendbird-platform-sdk-typescript/tree/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json"
+    },
+    {
+      "kind": "docs",
+      "url": "https://sendbird.com/docs/chat/platform-api/v3/overview"
+    },
+    {
+      "kind": "docs",
+      "url": "https://sendbird.com/docs/chat/platform-api/v3/prepare-to-use-api"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/sendbird/sendbird-platform-sdk-java/blob/main/LICENSE.md"
+    },
+    {
+      "kind": "terms",
+      "url": "https://sendbird.com/terms-of-service/"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "sdkCli",
+      "zh": "官方生成 SDK（固定 revision）已作为契约源完成 83 Endpoint / 172 Schema 的重建并补齐许可/再分发与传输审计；尚待独立 SDK/CLI 的生成、测试、npm 发布与 registry 干净安装复验。",
+      "en": "The official generated SDK (pinned revision) served as the contract source for the reconstructed 83-Endpoint / 172-Schema contract, with license/redistribution and transport audits complete; the independent SDK/CLI still needs generation, testing, npm publication, and a clean registry install verification."
+    }
+  ],
+  "nextAction": {
+    "zh": "生成并发布 @pontx/sendbird-chat-platform 与 pontx-sendbird-chat-platform（Node 18/20/22 CI、contract verify、生成漂移、typecheck、单测、E2E、tarball fresh-install），随后 metadata 准入、Preview/Production 与生产验收。",
+    "en": "Generate and publish @pontx/sendbird-chat-platform and pontx-sendbird-chat-platform (Node 18/20/22 CI, contract verify, generation drift, typecheck, unit tests, E2E, tarball fresh-install), then metadata admission, Preview/Production, and production acceptance."
+  },
+  "verifiedAt": "2026-08-16"
+}

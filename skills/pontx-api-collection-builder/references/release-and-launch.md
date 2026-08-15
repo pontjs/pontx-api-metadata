@@ -87,6 +87,7 @@ SDK 版本和 metadata 必须原子一致。禁止先上线 `planned` 安装命�
 - SDK 页面只展示实际 registry package/version，安装和调用示例能在 clean install 运行；
 - Skills 页面只展示 same-commit registry 中的 published bundle；统一 Skill 与 `pontx-<slug>` 的关系、版本、安装命令和 API 返回一致；
 - canonical、hreflang、JSON-LD 与 sitemap 只包含 canonical 200 页面；
+- 产品目录扩容时，生产 `sitemap.xml` 及其每个分片必须返回 200；枚举该产品新增的所有中英文 API、Endpoint、Schema、SDK 和 Skill URL，逐项验证 HTTP 200 和与请求 URL 完全一致的 canonical。若完整目录让单一 sitemap 响应超过平台限制，先改为 sitemap index 与有界分片，不能以页面正常或抽样成功替代该审计；
 - 一个安全代表 Endpoint 的文档 → Playground → preview → 获准 read response 链路通过。
 
 ### 统一 CLI 与语义搜索

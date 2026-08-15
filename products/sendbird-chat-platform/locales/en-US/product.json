@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": "Sendbird Chat Platform server-side API v3",
+    "summary": "Manage users, group channels, open channels, messages, metadata, moderation, bots, and announcements through the official Sendbird Chat Platform API v3. The complete boundary is the 83 REST endpoints reconstructed from a pinned official generated SDK revision; client realtime protocols and Chat SDKs are not part of this collection. Application data is the caller's private content, so Pontx does not proxy, cache, or aggregate it and callers use the local SDK/CLI directly.",
+    "accent": "#FF4E4E"
+  },
+  "documentation": {
+    "status": "observed",
+    "evidence": [
+      "https://github.com/sendbird/sendbird-platform-sdk-typescript/tree/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8",
+      "https://sendbird.com/docs/chat/platform-api/v3/overview",
+      "https://sendbird.com/docs/chat/platform-api/v3/prepare-to-use-api",
+      "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json",
+      "https://github.com/sendbird/sendbird-platform-sdk-java/blob/main/LICENSE.md",
+      "https://sendbird.com/terms-of-service/"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "Sendbird publishes no OpenAPI document; this contract is deterministically reconstructed from the pinned official generated SDK revision fccf6fa11117e15bd4dcdd89127407f0b46e7ce8 (v2.1.8, openapi-generator output), covering all 83 REST/JSON request methods (11 API classes) and 124 models, reproducible via reconstruct-sendbird-oas.mjs. Documentation status is observed (from official source code), with per-endpoint evidence in spec.pontx.json metadata.documentation. The TypeScript SDK package.json declares Unlicense and the Java SDK is MIT; all Hub copy is independently authored and does not reproduce official documentation prose. Client realtime protocols (WebSocket/SSE events), Chat SDKs, and the Explinks connector abstraction are explicitly outside this collection."
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "The Sendbird Chat Platform API is included with Sendbird application plans; quotas and rate limits depend on the chosen plan (typically billed by MAU/DAU). Refer to the Sendbird pricing page for current details.",
+    "officialUrl": "https://sendbird.com/pricing",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "apiTokenAuth",
+      "description": "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment."
+    }
+  ]
+}

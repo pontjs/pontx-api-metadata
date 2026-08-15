@@ -16,24 +16,30 @@
     "zh": "Open Exchange Rates 官方 v0.7 JSON REST API，覆盖 latest、historical、currencies、time-series、convert、OHLC 与 usage 七个只读 Endpoint 及官方附加查询参数。",
     "en": "The official Open Exchange Rates v0.7 JSON REST API covering the seven read-only latest, historical, currencies, time-series, convert, OHLC, and usage endpoints plus officially documented query parameters."
   },
-  "stage": "contract-in-progress",
+  "stage": "sdk-registry-visibility-blocked",
   "admissionDecision": "not-approved",
+  "launchLedger": {
+    "claimedAt": "2026-08-15",
+    "owner": "Codex",
+    "currentStage": "Registry fresh-install verification",
+    "nextAction": "An @pontx scope administrator must make @pontx/open-exchange-rates@0.1.0 anonymously installable; then repeat registry fresh-install, metadata admission, Preview, Production, and production acceptance."
+  },
   "gateStatus": {
     "authority": "passed",
     "redistribution": "passed",
-    "contract": "pending",
+    "contract": "passed",
     "transport": "passed",
     "risk": "passed",
-    "sdkCli": "pending"
+    "sdkCli": "blocked"
   },
   "contractSource": {
     "kind": "mutable-readme-openapi",
     "url": "https://docs.openexchangerates.org/reference/latest-json",
-    "observedAt": "2026-08-14",
+    "observedAt": "2026-08-15",
     "mutableSource": true,
-    "license": "review-required",
+    "license": "terms-reviewed; independently authored metadata and SDK/CLI code only",
     "openapiVersion": "3.1.0",
-    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "sourceSha256": "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e",
     "extraction": "Official ReadMe page document.api.schema",
     "observedPaths": 7,
     "observedOperations": 7,
@@ -54,9 +60,12 @@
         "ohlc",
         "commonError"
       ],
-      "remainingSuccessBodiesRequiringAuthorisedFixture": [
-        "convert"
-      ],
+      "remainingSuccessBodiesRequiringAuthorisedFixture": [],
+      "convertSuccessContract": {
+        "status": "passed",
+        "evidence": "The official ReadMe document.api.schema embedded in /reference/convert includes a 200 application/json schema and a complete Result example with disclaimer, license, request, meta, and response.",
+        "verifiedAt": "2026-08-15"
+      },
       "knownPlanGatedEndpoints": [
         "time-series",
         "convert",
@@ -113,7 +122,7 @@
   "pontxProbe": {
     "toolVersion": "pontx@1.0.0-beta.3",
     "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
-    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "sourceSha256": "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e",
     "derivedProbeFixes": [
       "normalized the ReadMe colon date path to an OpenAPI path template",
       "replaced six hyphenated operationIds with code-generation-safe identifiers",
@@ -129,6 +138,32 @@
     "npmPackDryRun": "passed",
     "publicationReady": false,
     "observedAt": "2026-08-14"
+  },
+  "independentSdk": {
+    "repository": "https://github.com/pontjs/open-exchange-rates",
+    "sourceCommit": "53377dca8fed944cb0098138e4f340f1a548879e",
+    "package": "@pontx/open-exchange-rates@0.1.0",
+    "cli": "pontx-open-exchange-rates",
+    "contract": {
+      "metadataCommit": "c4ae4ae",
+      "specPath": "products/open-exchange-rates/spec.pontx.json",
+      "sha256": "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67",
+      "endpoints": 7,
+      "schemas": 17,
+      "untaggedRootMethods": 7
+    },
+    "quality": {
+      "local": "contract, generated-source, typecheck, 4/4 unit tests, ESM/CJS/declarations, CLI dry-run credential redaction, 2/2 built E2E, tarball fresh-install, and release gate passed",
+      "nodeCi": "https://github.com/pontjs/open-exchange-rates/actions/runs/31899513657",
+      "nodeVersions": [18, 20, 22]
+    },
+    "registry": {
+      "npmPublish": "npm publish --access public reported success on 2026-08-16",
+      "anonymousLookup": "404 Not Found for @pontx/open-exchange-rates@0.1.0",
+      "authenticatedAccessStatus": "public",
+      "visibilityMutation": "npm access set status=public returned 403 Forbidden",
+      "freshInstall": "blocked because the registry package cannot be resolved"
+    }
   },
   "evidence": [
     {
@@ -182,19 +217,14 @@
   ],
   "blockers": [
     {
-      "gate": "contract",
-      "zh": "2026-08-15 的授权免费套餐探针已取得 latest、historical、currencies 与 usage 的成功响应，并补齐 usage 的完整字段层次；逐页官方文档足以重建 standard-rates、currencies、time-series、OHLC 与 common-error。convert 仍为 Unlimited 套餐能力，免费 App ID 返回 403，官方页面只描述字段角色而未给出可审核的完整成功 payload。因此在不购买或升级套餐的边界内，convert 的成功 Schema、约束和成功请求示例仍不能准确收录。Hub 代理、缓存、持久化与响应展示保持关闭，调用方直接使用自己的 App ID。",
-      "en": "An authorised free-plan probe on 2026-08-15 obtained successful latest, historical, currencies, and usage responses, including the complete usage field hierarchy; official page evidence is sufficient to reconstruct standard-rates, currencies, time-series, OHLC, and common-error. Convert remains an Unlimited-plan capability: the free App ID returns 403 and the official page describes roles rather than an auditable full success payload. Without purchasing or upgrading, its success schema, constraints, and coherent success request cannot be recorded accurately. Hub proxying, caching, persistence, and response display remain disabled; callers use their own App ID directly."
-    },
-    {
       "gate": "sdkCli",
-      "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。usage 的来源缺口已由授权探针消除，但 convert 成功契约仍不可验证；在该 Endpoint 完整之前不得建立独立 SDK 仓库、CI 或 npm 版本。",
-      "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. The usage-source gap is now closed by the authorised probe, but the convert success contract remains unverifiable; an independent SDK repository, CI, or npm version must not be created until that Endpoint is complete."
+      "zh": "独立仓库 pontjs/open-exchange-rates 的 commit 53377dca 已完成 7 Endpoint / 17 Schema 的调用方直连 SDK/CLI，Node 18/20/22 CI、4/4 单元测试、2/2 built E2E、tarball fresh-install 与 release gate 均通过，npm publish --access public 也回显成功。但匿名和认证 registry 查询 @pontx/open-exchange-rates@0.1.0 均返回 404，干净安装无法开始；当前身份将包设为 public 时返回 403。没有真实 registry fresh-install 证据，不能准入目录。",
+      "en": "Commit 53377dca in pontjs/open-exchange-rates completes a caller-direct SDK/CLI for seven Endpoints and 17 Schemas; Node 18/20/22 CI, 4/4 unit tests, 2/2 built E2E tests, tarball fresh-install, and the release gate all pass, and npm publish --access public reported success. But anonymous and authenticated registry lookups for @pontx/open-exchange-rates@0.1.0 return 404, so a clean registry install cannot begin; setting the package public with the current identity returns 403. Without real registry fresh-install evidence, it cannot enter the catalog."
     }
   ],
   "nextAction": {
-    "zh": "在不升级套餐的限制下，等待可合法使用的 Unlimited App ID 或供应商公开/批准的 convert 成功 fixture；随后补齐 convert 的 Schema、约束和成功示例，复核全部七个 Endpoint，并以调用方直连、Hub 代理关闭模式生成、测试、发布 SDK/CLI。无需供应商 SDK 或 metadata 发布许可。",
-    "en": "Without upgrading a plan, wait for a lawfully usable Unlimited App ID or a public/supplier-approved convert success fixture; then complete convert's schema, constraints, and success example, re-audit all seven endpoints, and generate, test, and publish the caller-direct SDK/CLI with Hub proxying disabled. No supplier SDK or metadata publication permission is required."
+    "zh": "由拥有 @pontx scope package visibility 权限的 npm 管理员使 @pontx/open-exchange-rates@0.1.0 可匿名解析和安装；随后在全新目录完成 ESM/CJS/types、pontx-open-exchange-rates help/preview/安全路径的 registry fresh-install 复验，再准入 metadata、Preview、Production 与生产验收。",
+    "en": "An npm administrator with @pontx scope package-visibility permission must make @pontx/open-exchange-rates@0.1.0 anonymously resolvable and installable. Then repeat registry fresh-install checks for ESM/CJS/types and pontx-open-exchange-rates help/preview/safety paths, followed by metadata admission, Preview, Production, and production acceptance."
   },
-  "verifiedAt": "2026-08-15"
+  "verifiedAt": "2026-08-16"
 }

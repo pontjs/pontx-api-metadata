@@ -1,0 +1,38 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "openai",
+  "claims": [
+    {
+      "id": "paid-usage-model",
+      "claim": "OpenAI Platform bills per model usage, and prompts, completions, uploaded files, fine-tuning, and organization data can be sensitive.",
+      "summary": "The OpenAI API reference and Services Agreement describe a bearer-key-authenticated paid platform surface; prompts, completions, and organization data are user data.",
+      "sourceUrl": "https://developers.openai.com/api/reference/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "bearer-api-key",
+      "claim": "Keep `OPENAI_API_KEY` (or `OPENAI_ADMIN_API_KEY` for organization administration Endpoints) out of source, shell history, inputs, logs, and chat.",
+      "summary": "The fixed openai/openai-openapi revision declares ApiKeyAuth and AdminApiKeyAuth HTTP bearer security schemes.",
+      "sourceUrl": "https://github.com/openai/openai-openapi",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "typed-sse-streaming",
+      "claim": "Responses, Chat Completions, Images, and Audio Endpoints support typed Server-Sent Events.",
+      "summary": "The fixed official revision declares text/event-stream responses on seven Endpoints (createResponse, createChatCompletion, createSpeech, createTranscription, createImage, createImageEdit, beta_createResponse).",
+      "sourceUrl": "https://developers.openai.com/api/reference/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "hub-does-not-proxy",
+      "claim": "Hub discovery is not an execution path: OpenAI calls stay caller-local and are paid provider traffic.",
+      "summary": "The product PontxSpec declares direct-only execution for every Endpoint (metadata.execution.enabled=false).",
+      "sourceUrl": "https://raw.githubusercontent.com/openai/openai-openapi/2186421dca0cca7c1e67caa7739005e8b1ccc4dd/LICENSE",
+      "sourceType": "official-spec",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

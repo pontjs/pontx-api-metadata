@@ -18,6 +18,9 @@
     "pinhere",
     "nager-date",
     "mongodb-atlas-admin",
-    "openai"
+    "openai",
+    "notion",
+    "mistral-ai",
+    "sendbird-chat-platform"
   ]
 }

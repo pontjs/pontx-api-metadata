@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "slug": "notion",
+  "name": {
+    "zh": "Notion API",
+    "en": "Notion API"
+  },
+  "provider": "Notion",
+  "category": "Productivity",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 1,
+    "score": 92
+  },
+  "boundary": {
+    "zh": "Notion 当前版本化公共 API（Notion-Version 2026-03-11），覆盖页面、块、数据源/数据库、评论、文件上传、视图、用户、搜索、异步任务、OAuth 与 webhook 事件。完整边界为官方文档站 openapi.json 快照中的 49 个 Endpoint；Undocumented 内部 API（tag=Internal）与独立 Admin API（独立 /admin server）不进入本产品边界。",
+    "en": "The current versioned Notion public API (Notion-Version 2026-03-11) covering pages, blocks, data sources/databases, comments, file uploads, views, users, search, async tasks, OAuth, and webhook events. The complete boundary is the 49 endpoints in the official docs-site openapi.json snapshot; the undocumented internal API (tag=Internal) and the separate Admin API (separate /admin server) are not part of this product."
+  },
+  "stage": "contract-in-progress",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "passed",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "passed",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "openapi",
+    "url": "https://developers.notion.com/openapi.json",
+    "observedAt": "2026-08-16",
+    "license": "reviewed: mutable docs-site document with no file-level license; Notion Developer Terms 3.1(a) prohibits redistributing API materials, so the OAS is imported once and never retained (provenance records the pinned SHA-256)",
+    "openapiVersion": "3.1.0",
+    "observedPaths": 34,
+    "observedOperations": 49,
+    "observedSchemas": 523,
+    "apiVersion": "Notion-Version 2026-03-11",
+    "qualityAudit": {
+      "staticScore50": 49.81,
+      "contract": "8/8",
+      "description": "10/10",
+      "runtime": "5/5",
+      "i18n": "5/5 (validated; evaluator flags translated disabledReason as structural, same baseline as shipped products)",
+      "knownFindings": "leaf examples on nullable oneOf branches and a small set of const-only fields; request-examples bodies for create-database verified valid against curated schemas"
+    }
+  },
+  "evidence": [
+    {
+      "kind": "spec",
+      "url": "https://developers.notion.com/openapi.json"
+    },
+    {
+      "kind": "docs",
+      "url": "https://developers.notion.com/reference/intro"
+    },
+    {
+      "kind": "docs",
+      "url": "https://developers.notion.com/reference/versioning"
+    },
+    {
+      "kind": "docs",
+      "url": "https://developers.notion.com/reference/request-limits"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/makenotion/notion-sdk-js"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/makenotion/notion-sdk-js/blob/main/LICENSE"
+    },
+    {
+      "kind": "terms",
+      "url": "https://notion.notion.site/Developer-Terms-ba4131408d0844e08330da2cbb225c20"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "sdkCli",
+      "zh": "尚未生成、测试并发布 @pontx/notion 与 pontx-notion。完整候选契约已定型（49 Endpoint / 523 Schema，静态质量 49.81/50），下一步是在独立 SDK 仓库生成 SDK/CLI、通过 Node 18/20/22 CI 与 registry 复验，然后进入 metadata 准入、Preview、Production 与生产验收。",
+      "en": "@pontx/notion and pontx-notion have not been generated, tested, and published yet. The complete candidate contract is finalized (49 Endpoints / 523 Schemas, static quality 49.81/50); the next step is generating the SDK/CLI in a dedicated SDK repository, passing Node 18/20/22 CI and registry verification, then metadata admission, Preview, Production, and production acceptance."
+    }
+  ],
+  "nextAction": {
+    "zh": "在独立仓库生成 @pontx/notion SDK/CLI（从固定 PontxSpec 镜像生成），通过全部质量门与 registry 复验后发布；随后把 sdk.json 置为 published、将产品移入 products/ 与 catalog，走 Preview/Production 与生产验收。",
+    "en": "Generate the @pontx/notion SDK/CLI in a dedicated repository (generated from the pinned PontxSpec mirror), pass all quality gates and registry verification, publish it, then set sdk.json to published, move the product into products/ and the catalog, and run Preview/Production with production acceptance."
+  },
+  "verifiedAt": "2026-08-16"
+}
