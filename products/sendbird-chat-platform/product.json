@@ -37,14 +37,7 @@
     {
       "schemeId": "apiTokenAuth",
       "envVar": "SENDBIRD_API_TOKEN",
-      "description": "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；凭据仅保留在调用者当前浏览器会话或本地环境变量中。"
-    }
-  ],
-  "serverVariables": [
-    {
-      "name": "app_id",
-      "envVar": "SENDBIRD_APP_ID",
-      "description": "Sendbird 应用 ID，用于拼接基址 https://api-{app_id}.sendbird.com。"
+      "description": "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；基址 https://api-{app_id}.sendbird.com 的应用 ID 通过 SENDBIRD_APP_ID 提供。凭据仅保留在调用者当前浏览器会话或本地环境变量中。"
     }
   ],
   "quickStart": {

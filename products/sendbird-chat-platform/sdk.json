@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/sendbird-chat-platform",
     "version": "0.1.0",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/sendbird-chat-platform"
   },
   "cli": {
@@ -39,7 +39,26 @@
     "mode": "full"
   },
   "spec": {
-    "path": "candidates/sendbird-chat-platform/spec.pontx.json",
-    "sha256": "345c240cef7256744aa4ef936ca3efb47aecd0cab048622e515a4b676e5e4ea1"
+    "path": "products/sendbird-chat-platform/spec.pontx.json",
+    "sha256": "6202d1a425a767912f313057940b8ff033b335d66819bfcb4fa8aceab78b31a9",
+    "metadataCommit": "922e3a97661d9bede809409c1c9ceaacd08a7123"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "c5decd276a9564097302187a5371834ec914dbd5",
+    "testedAt": "2026-08-16",
+    "repositoryUrl": "https://github.com/pontjs/sendbird-chat-platform",
+    "workflowRunUrl": "https://github.com/pontjs/sendbird-chat-platform/actions/runs/31899208134"
   }
 }

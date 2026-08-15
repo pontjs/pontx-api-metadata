@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
-  "status": "candidate-contract-staged",
-  "canonicalSpec": "candidates/sendbird-chat-platform/spec.pontx.json",
+  "status": "admitted",
+  "canonicalSpec": "products/sendbird-chat-platform/spec.pontx.json",
   "import": {
     "format": "OpenAPI 3.1.0 (reconstructed)",
     "importer": "@pontx/spec importOpenAPI",
@@ -46,20 +46,21 @@
   },
   "riskReview": {
     "classification": "server-side-management-api-with-private-application-data",
+    "hubProxyEnabled": false,
     "mutations": 56,
     "credentials": "Application API Token via the api-token header; modeled as environment variables only (SENDBIRD_API_TOKEN, SENDBIRD_APP_ID).",
     "execution": "All Hub execution is disabled because this is a reconstructed contract and the API manages private application data (users, channels, messages, push tokens) with destructive write operations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation."
   },
   "outputs": {
     "zh-CN": {
-      "path": "candidates/sendbird-chat-platform/spec.pontx.json",
-      "sha256": "345c240cef7256744aa4ef936ca3efb47aecd0cab048622e515a4b676e5e4ea1",
+      "path": "products/sendbird-chat-platform/spec.pontx.json",
+      "sha256": "6202d1a425a767912f313057940b8ff033b335d66819bfcb4fa8aceab78b31a9",
       "endpoints": 83,
       "schemas": 173
     },
     "en-US": {
-      "path": "candidates/sendbird-chat-platform/locales/en-US/spec.pontx.json",
-      "sha256": "5580dee90b91ca85c796919718a659697326edf51e7465e454a8779f0ec7f06b",
+      "path": "products/sendbird-chat-platform/locales/en-US/spec.pontx.json",
+      "sha256": "857a8151e6cb2f0a5f2cc2ef04f3f695188b4380f59a860afb9a49c4b5de2e2a",
       "endpoints": 83,
       "schemas": 173
     }

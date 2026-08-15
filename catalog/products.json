@@ -20,6 +20,7 @@
     "mongodb-atlas-admin",
     "openai",
     "notion",
-    "mistral-ai"
+    "mistral-ai",
+    "sendbird-chat-platform"
   ]
 }
