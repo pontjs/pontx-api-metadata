@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "slug": "wps-365",
+  "name": "WPS 365 OpenAPI",
+  "provider": "Kingsoft Office",
+  "category": "Productivity",
+  "display": {
+    "title": "WPS 365 企业协作开放 API",
+    "summary": "通过 WPS 365 官方 OpenAPI（v7）管理通讯录与组织、云文档、多维表/智能表格、消息、会议、日历、邮件、待办、审批与事件订阅；官方机器契约为 open.wps.cn 发布的 OpenAPI 3.0.0（827 个 Endpoint / 3,119 个 Schema）。企业数据为私有业务数据，Pontx 不代理、缓存或聚合，调用方使用本地 SDK/CLI 直连。",
+    "accent": "#FFFFFF"
+  },
+  "legal": {
+    "license": "Official spec distributed via MIT-licensed @wps365-open/wps365 CLI; WPS Open Platform developer agreement governs API usage",
+    "attributionUrl": "https://www.npmjs.com/package/@wps365-open/wps365"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://open.wps.cn/v7/developer/cli_tools/specs/api-internal",
+      "https://open.wps.cn/v7/developer/cli_tools/specs/curated-internal",
+      "https://www.npmjs.com/package/@wps365-open/wps365",
+      "https://open.wps.cn/documents/app-integration-dev/guide/overview",
+      "https://open.wps.cn/documents/app-integration-dev/wps365/server/api-description/signature-description"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "完整边界为 open.wps.cn 发布的 Kingsoft Office Open APIs v7 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas），SHA-256 3a2dfe64...；该规范同时随官方 MIT CLI 包 @wps365-open/wps365@0.2.27 分发，字节可复现。规范本身无 operationId/tags/prose，本集合的稳定 operationId 以官方 curated.yaml 的 101 个命令 ID 为锚点、其余按 method+path 派生；tags 按路径模块分组；双语 prose 独立撰写并经官方文档核对。事件订阅为加密 HTTP callback；15 个 /v7/sse/* 端点使用 text/event-stream。"
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "WPS 365 API 调用随企业 WPS 365 订阅与开发者应用权限提供，多数接口按应用权限申请；部分 AI 能力（AIPPT、AI 问答、AI 提取、AI 翻译、AI 创作）有免费试用配额并在认证后提升。具体以 WPS 开放平台开发者后台为准。",
+    "officialUrl": "https://open.wps.cn/documents/app-integration-dev/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "app",
+      "envVar": "WPS365_APP_CLIENT_ID",
+      "secretEnvVar": "WPS365_APP_CLIENT_SECRET",
+      "description": "应用授权（client credentials）客户端 ID/Secret；通过环境变量注入，不写入日志或仓库。"
+    },
+    {
+      "schemeId": "delegated",
+      "envVar": "WPS365_USER_ACCESS_TOKEN",
+      "description": "用户授权访问令牌（authorization code 换取）；通过环境变量注入，不写入日志或仓库。"
+    }
+  ],
+  "quickStart": {
+    "operationId": "calendars/calendarList",
+    "requestExampleId": "default"
+  }
+}

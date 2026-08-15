@@ -1,0 +1,212 @@
+{
+  "modules": {
+    "users": "addressBook",
+    "depts": "addressBook",
+    "groups": "addressBook",
+    "contacts": "addressBook",
+    "companies": "addressBook",
+    "partners": "addressBook",
+    "org_dimensions": "addressBook",
+    "titles": "addressBook",
+    "domains": "addressBook",
+    "access": "addressBook",
+    "ecisaccountsync": "addressBook",
+    "calendars": "calendars",
+    "calendar_exchange_binds": "calendars",
+    "free_busy_list": "calendars",
+    "chats": "chats",
+    "messages": "chats",
+    "sync": "chats",
+    "meetings": "meetings",
+    "meeting_rooms": "meetings",
+    "meeting_room_levels": "meetings",
+    "meeting_room_tags": "meetings",
+    "meeting_room_banned_users": "meetings",
+    "meeting_room_privileged_users": "meetings",
+    "meeting_room_bookings": "meetings",
+    "meeting_room_settings": "meetings",
+    "meeting_reserves": "meetings",
+    "minutes": "meetings",
+    "mailboxes": "mail",
+    "public_mailboxes": "mail",
+    "user_mailboxes": "mail",
+    "mail_contacts": "mail",
+    "mail_groups": "mail",
+    "mail_archive": "mail",
+    "mail_migrations": "mail",
+    "mail_messages": "mail",
+    "mail_tasks": "mail",
+    "drives": "drive",
+    "files": "drive",
+    "deleted_files": "drive",
+    "second_deleted_files": "drive",
+    "links": "drive",
+    "opendocs": "drive",
+    "space": "drive",
+    "multipart_upload_tasks": "drive",
+    "kdocs": "drive",
+    "drive_freq": "drive",
+    "drive_latest": "drive",
+    "drive_star": "drive",
+    "drive_tasks": "drive",
+    "drive_label": "drive",
+    "drive_labels": "drive",
+    "documents": "documents",
+    "co": "documents",
+    "filetransfer": "filetransfer",
+    "wiki": "wiki",
+    "doclib": "doclib",
+    "doclibs": "doclib",
+    "sheets": "sheets",
+    "dbsheet": "dbsheet",
+    "airsheet": "airsheet",
+    "airpage": "airpage",
+    "low_code_app": "lowCodeApp",
+    "aiopen": "ai",
+    "aidocs": "ai",
+    "aippt": "ai",
+    "docqa": "ai",
+    "asr_tasks": "ai",
+    "longtask": "ai",
+    "sse": "ai",
+    "developer": "developer",
+    "devhub": "developer",
+    "apps": "developer",
+    "applications": "developer",
+    "app_badges": "developer",
+    "workbench_blocks": "developer",
+    "get_workbench_favorite_apps": "developer",
+    "create_workbench_favorite_app": "developer",
+    "remove_workbench_favorite_app": "developer",
+    "console_settings": "developer",
+    "oauth2": "developer",
+    "service_principals": "developer",
+    "event": "developer",
+    "tracking": "developer",
+    "privileges": "developer",
+    "privilege_functions": "developer",
+    "store": "store",
+    "subscription": "store",
+    "encrypted_docs": "security",
+    "confidential_docs": "security",
+    "tracesource": "security",
+    "tracesource_objects": "security",
+    "scanrules": "security",
+    "scantasks": "security",
+    "wordlibs": "security",
+    "file_classification_labels": "security",
+    "audit": "audit",
+    "audit_logs": "audit",
+    "audit_categories": "audit",
+    "attendance": "attendance",
+    "announce": "announce",
+    "workflow": "workflow",
+    "automation": "workflow",
+    "todo": "todo"
+  },
+  "coop": {
+    "airpage": "airpage",
+    "airsheet": "airsheet",
+    "dbsheet": "dbsheet",
+    "files": "drive",
+    "et": "sheets"
+  },
+  "tags": {
+    "addressBook": {
+      "zh": "企业用户、部门、用户组与组织架构管理，含通讯录可见性、组织维度、合作伙伴、职务与域名、管理员权限及账号同步。",
+      "en": "Manage enterprise users, departments, user groups and org structure, including contact visibility, org dimensions, partner companies, titles and domains, admin permissions, and account sync."
+    },
+    "calendars": {
+      "zh": "日历、日程、重复日程实例、参与者、日程会议室、日程纪要、忙闲查询及 Exchange 日历绑定。",
+      "en": "Calendars, events, recurring event instances, attendees, event meeting rooms, event minutes, free/busy lookup, and Exchange calendar bindings."
+    },
+    "chats": {
+      "zh": "IM 群会话、单聊与消息管理，含群成员、消息发送/撤回/更新、书签、资源上传及会话数据同步。",
+      "en": "IM group chats, direct chats and messages, including members, send/recall/update messages, bookmarks, resource uploads, and chat data sync."
+    },
+    "meetings": {
+      "zh": "在线会议、参会人、录制、纪要、会议室及其等级/标签/预订/白名单/黑名单/设置与预约管理。",
+      "en": "Online meetings, participants, recordings, minutes, meeting rooms with levels, tags, bookings, privileged/banned users and settings, plus room reservations."
+    },
+    "mail": {
+      "zh": "邮箱、公共邮箱、用户邮箱、邮件联系人、邮件组、邮件归档、邮件迁移与邮件搜索等邮件能力。",
+      "en": "Mailboxes, public and user mailboxes, mail contacts, mail groups, mail archiving, mail migration, and mail message search."
+    },
+    "drive": {
+      "zh": "云盘与文件管理：文件/文件夹增删改查、上传下载、权限、版本、分享链接、回收站、空间配额、文件标签及常用/最近/收藏等快捷文件。",
+      "en": "Drive and file management: file/folder CRUD, upload/download, permissions, versions, share links, recycle bin, quota, file labels, and frequent/recent/starred items."
+    },
+    "documents": {
+      "zh": "在线文档内容操作：评论、点赞、附件上传下载与文档导出。",
+      "en": "Online document content operations: comments, likes, attachments, and document export."
+    },
+    "filetransfer": {
+      "zh": "文件安全外发与传输：上传/下载、加密、预览、审批任务与外发任务管理。",
+      "en": "Secure file transfer and outbound delivery: upload/download, encryption, preview, approval and transfer tasks."
+    },
+    "wiki": {
+      "zh": "知识库（Wiki）管理：空间、成员、文档增删改查、移动复制与搜索。",
+      "en": "Wiki knowledge base: spaces, members, document CRUD, move/copy, and search."
+    },
+    "doclib": {
+      "zh": "文档库（DocLib）管理：文档库创建、设置、搜索、邀请链接与文件继承。",
+      "en": "Document library (DocLib): create, settings, search, invite links, and file inheritance."
+    },
+    "sheets": {
+      "zh": "电子表格（表格/ET）管理：工作表、区域数据、数据校验、筛选、保护范围与区域权限。",
+      "en": "Spreadsheet (ET) management: worksheets, range data, data validations, filters, protection ranges, and regional permissions."
+    },
+    "dbsheet": {
+      "zh": "多维表（DBase）管理：数据表、字段、记录、视图、表单、仪表盘、钩子与内容权限。",
+      "en": "Multi-dimensional table (DBase) management: sheets, fields, records, views, forms, dashboards, hooks, and content permissions."
+    },
+    "airsheet": {
+      "zh": "智能表格（AirSheet）管理：工作表、区域数据、筛选、数据校验、保护范围与导入。",
+      "en": "Smart spreadsheet (AirSheet) management: worksheets, range data, filters, data validations, protection ranges, and imports."
+    },
+    "airpage": {
+      "zh": "智能文档（AirPage）管理：块（Block）操作、导入导出与文档转换。",
+      "en": "Smart document (AirPage) management: block operations, import/export, and document conversion."
+    },
+    "lowCodeApp": {
+      "zh": "低代码应用实例管理：应用成员、数据表、字段与记录。",
+      "en": "Low-code app instances: app members, tables, fields, and records."
+    },
+    "ai": {
+      "zh": "AI 开放能力：AI 对话/问答、文档智能（AIDocs）、文档问答、AI 演示、语音转写、长任务及流式（SSE）推送。",
+      "en": "AI capabilities: AI chat/Q&A, document intelligence (AIDocs), document QA, AI slides, speech transcription, long-running tasks, and SSE streaming."
+    },
+    "developer": {
+      "zh": "开发者平台：应用管理、开发者中心、应用角标、工作台模块与收藏、控制台设置、OAuth 授权、服务主体、事件出口 IP、数据追踪与特权能力。",
+      "en": "Developer platform: app management, DevHub, app badges, workbench blocks/favorites, console settings, OAuth, service principals, event egress IPs, data tracking, and privilege capabilities."
+    },
+    "store": {
+      "zh": "应用商店与订阅：订单、许可分配与激活，以及订阅账号与发布内容管理。",
+      "en": "App store and subscriptions: orders, entitlement allocations and activation, plus subscription accounts and published contents."
+    },
+    "security": {
+      "zh": "安全与合规：加密文档、机密文档、文件密级标签、水印溯源、内容安全扫描规则/任务与词库。",
+      "en": "Security and compliance: encrypted/confidential documents, file classification labels, watermark traceability, content-scan rules/tasks, and word libraries."
+    },
+    "audit": {
+      "zh": "审计与合规：会话审计（群聊存档）、审计日志与审计分类。",
+      "en": "Auditing and compliance: chat auditing/archival, audit logs, and audit categories."
+    },
+    "attendance": {
+      "zh": "考勤管理：考勤组、打卡记录与审批记录。",
+      "en": "Attendance management: attendance groups, punch records, and approval records."
+    },
+    "announce": {
+      "zh": "企业公告管理：公告查询、附件下载与可见范围。",
+      "en": "Company announcements: query, attachment download, and visibility scopes."
+    },
+    "workflow": {
+      "zh": "审批流与自动化：审批定义、审批实例与文件自动化流程。",
+      "en": "Approval workflows and automation: approval definitions, approval instances, and file automation workflows."
+    },
+    "todo": {
+      "zh": "待办任务管理：个人任务、任务分类与任务状态。",
+      "en": "Todo and task management: personal tasks, task categories, and task statuses."
+    }
+  }
+}
