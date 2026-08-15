@@ -16,12 +16,18 @@
     "zh": "Open Exchange Rates 官方 v0.7 JSON REST API，覆盖 latest、historical、currencies、time-series、convert、OHLC 与 usage 七个只读 Endpoint 及官方附加查询参数。",
     "en": "The official Open Exchange Rates v0.7 JSON REST API covering the seven read-only latest, historical, currencies, time-series, convert, OHLC, and usage endpoints plus officially documented query parameters."
   },
-  "stage": "contract-in-progress",
+  "stage": "sdk-cli-in-progress",
   "admissionDecision": "not-approved",
+  "launchLedger": {
+    "claimedAt": "2026-08-15",
+    "owner": "Codex",
+    "currentStage": "SDK/CLI generation and release verification",
+    "nextAction": "Build the independent caller-direct @pontx/open-exchange-rates package and prove the registry artifact before catalog admission."
+  },
   "gateStatus": {
     "authority": "passed",
     "redistribution": "passed",
-    "contract": "pending",
+    "contract": "passed",
     "transport": "passed",
     "risk": "passed",
     "sdkCli": "pending"
@@ -29,11 +35,11 @@
   "contractSource": {
     "kind": "mutable-readme-openapi",
     "url": "https://docs.openexchangerates.org/reference/latest-json",
-    "observedAt": "2026-08-14",
+    "observedAt": "2026-08-15",
     "mutableSource": true,
-    "license": "review-required",
+    "license": "terms-reviewed; independently authored metadata and SDK/CLI code only",
     "openapiVersion": "3.1.0",
-    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "sourceSha256": "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e",
     "extraction": "Official ReadMe page document.api.schema",
     "observedPaths": 7,
     "observedOperations": 7,
@@ -54,9 +60,12 @@
         "ohlc",
         "commonError"
       ],
-      "remainingSuccessBodiesRequiringAuthorisedFixture": [
-        "convert"
-      ],
+      "remainingSuccessBodiesRequiringAuthorisedFixture": [],
+      "convertSuccessContract": {
+        "status": "passed",
+        "evidence": "The official ReadMe document.api.schema embedded in /reference/convert includes a 200 application/json schema and a complete Result example with disclaimer, license, request, meta, and response.",
+        "verifiedAt": "2026-08-15"
+      },
       "knownPlanGatedEndpoints": [
         "time-series",
         "convert",
@@ -113,7 +122,7 @@
   "pontxProbe": {
     "toolVersion": "pontx@1.0.0-beta.3",
     "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
-    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "sourceSha256": "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e",
     "derivedProbeFixes": [
       "normalized the ReadMe colon date path to an OpenAPI path template",
       "replaced six hyphenated operationIds with code-generation-safe identifiers",
@@ -182,19 +191,14 @@
   ],
   "blockers": [
     {
-      "gate": "contract",
-      "zh": "2026-08-15 的授权免费套餐探针已取得 latest、historical、currencies 与 usage 的成功响应，并补齐 usage 的完整字段层次；逐页官方文档足以重建 standard-rates、currencies、time-series、OHLC 与 common-error。convert 仍为 Unlimited 套餐能力，免费 App ID 返回 403，官方页面只描述字段角色而未给出可审核的完整成功 payload。因此在不购买或升级套餐的边界内，convert 的成功 Schema、约束和成功请求示例仍不能准确收录。Hub 代理、缓存、持久化与响应展示保持关闭，调用方直接使用自己的 App ID。",
-      "en": "An authorised free-plan probe on 2026-08-15 obtained successful latest, historical, currencies, and usage responses, including the complete usage field hierarchy; official page evidence is sufficient to reconstruct standard-rates, currencies, time-series, OHLC, and common-error. Convert remains an Unlimited-plan capability: the free App ID returns 403 and the official page describes roles rather than an auditable full success payload. Without purchasing or upgrading, its success schema, constraints, and coherent success request cannot be recorded accurately. Hub proxying, caching, persistence, and response display remain disabled; callers use their own App ID directly."
-    },
-    {
       "gate": "sdkCli",
-      "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。usage 的来源缺口已由授权探针消除，但 convert 成功契约仍不可验证；在该 Endpoint 完整之前不得建立独立 SDK 仓库、CI 或 npm 版本。",
-      "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. The usage-source gap is now closed by the authorised probe, but the convert success contract remains unverifiable; an independent SDK repository, CI, or npm version must not be created until that Endpoint is complete."
+      "zh": "完整双语 PontxSpec 已完成，但独立 @pontx/open-exchange-rates SDK 与 pontx-open-exchange-rates CLI 尚未完成生成、Node CI、npm 发布和 registry fresh-install 复验。按照准入顺序，在这些版本绑定证据完成前不得进入生产目录。",
+      "en": "The complete bilingual PontxSpec is ready, but the independent @pontx/open-exchange-rates SDK and pontx-open-exchange-rates CLI have not yet completed generation, Node CI, npm publication, and registry fresh-install verification. Admission remains blocked until that version-bound evidence exists."
     }
   ],
   "nextAction": {
-    "zh": "在不升级套餐的限制下，等待可合法使用的 Unlimited App ID 或供应商公开/批准的 convert 成功 fixture；随后补齐 convert 的 Schema、约束和成功示例，复核全部七个 Endpoint，并以调用方直连、Hub 代理关闭模式生成、测试、发布 SDK/CLI。无需供应商 SDK 或 metadata 发布许可。",
-    "en": "Without upgrading a plan, wait for a lawfully usable Unlimited App ID or a public/supplier-approved convert success fixture; then complete convert's schema, constraints, and success example, re-audit all seven endpoints, and generate, test, and publish the caller-direct SDK/CLI with Hub proxying disabled. No supplier SDK or metadata publication permission is required."
+    "zh": "已从官方公开 ReadMe machine contract 取得 convert 的完整 200 Schema 与示例，并完成 7 个 Endpoint 的双语 PontxSpec。下一步生成、测试、发布调用方直连且 Hub 代理关闭的独立 SDK/CLI；只有完成 registry fresh-install 复验后才准入目录。",
+    "en": "The public official ReadMe machine contract now supplies convert's complete 200 schema and example, and a bilingual seven-endpoint PontxSpec is complete. Next generate, test, and publish the caller-direct SDK/CLI with Hub proxying disabled; admit it to the catalog only after registry fresh-install verification."
   },
   "verifiedAt": "2026-08-15"
 }

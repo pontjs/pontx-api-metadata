@@ -1,0 +1,1785 @@
+{
+  "pontx": "2.1",
+  "name": "open-exchange-rates",
+  "style": "RESTFul",
+  "info": {
+    "title": "Open Exchange Rates API v0.7",
+    "version": "0.7",
+    "description": "Independently curated Open Exchange Rates v0.7 JSON REST contract covering all seven official read-only endpoints. Callers use their own App ID; subject to the terms, Hub does not proxy, cache, persist, or display responses."
+  },
+  "servers": [
+    {
+      "id": "open-exchange-rates-api",
+      "url": "https://openexchangerates.org/api",
+      "description": "Open Exchange Rates HTTPS API."
+    }
+  ],
+  "security": [
+    {
+      "appId": []
+    }
+  ],
+  "tags": [],
+  "components": {
+    "securitySchemes": {
+      "appId": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "app_id",
+        "description": "Caller-owned Open Exchange Rates App ID. Never include it in examples, logs, or persistent storage."
+      }
+    },
+    "schemas": {
+      "ApiError": {
+        "title": "API error",
+        "description": "Common JSON object used by the supplier for error responses.",
+        "type": "object",
+        "required": [
+          "error",
+          "status",
+          "message",
+          "description"
+        ],
+        "properties": {
+          "error": {
+            "type": "boolean",
+            "description": "Error marker.",
+            "examples": [
+              true
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "examples": [
+              401
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Machine-readable error code.",
+            "examples": [
+              "invalid_app_id"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Integration-facing error explanation.",
+            "examples": [
+              "Invalid App ID provided."
+            ]
+          }
+        }
+      },
+      "RateMap": {
+        "title": "Currency-rate map",
+        "description": "Dynamic object whose three-letter currency-code keys map to numeric rates.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "number",
+          "description": "Rate of this currency relative to the response base.",
+          "examples": [
+            0.92
+          ]
+        }
+      },
+      "StandardRatesResponse": {
+        "title": "Standard rates response",
+        "description": "Rates envelope shared by the latest and historical endpoints.",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "timestamp",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier terms link.",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier licence-information link.",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "UTC Unix timestamp in seconds.",
+            "examples": [
+              1449877801
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Three-letter base currency used by the response.",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap",
+            "description": "Rates indexed by currency code."
+          }
+        }
+      },
+      "CurrencyNamesResponse": {
+        "title": "Supported currencies response",
+        "description": "Dynamic object mapping available three-letter currency codes to full currency names.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string",
+          "description": "Full currency name.",
+          "examples": [
+            "Euro"
+          ]
+        }
+      },
+      "TimeSeriesRates": {
+        "title": "Rates by date",
+        "description": "Dynamic object whose ISO-date keys map to rates for each date.",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/RateMap",
+          "description": "Rate map for this UTC date."
+        }
+      },
+      "TimeSeriesResponse": {
+        "title": "Time-series response",
+        "description": "Rates envelope returned by day for a requested date range.",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "start_date",
+          "end_date",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier terms link.",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier licence-information link.",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "First date in the result range.",
+            "examples": [
+              "2024-01-01"
+            ]
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Last date in the result range.",
+            "examples": [
+              "2024-01-02"
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Three-letter base currency used by the response.",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/TimeSeriesRates",
+            "description": "Rates indexed by UTC date."
+          }
+        }
+      },
+      "ConversionRequest": {
+        "title": "Conversion request echo",
+        "description": "Conversion request parameters returned by the supplier.",
+        "type": "object",
+        "required": [
+          "query",
+          "amount",
+          "from",
+          "to"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Conversion path without the App ID.",
+            "examples": [
+              "/convert/100/USD/EUR"
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount to convert.",
+            "examples": [
+              100
+            ]
+          },
+          "from": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Source currency code.",
+            "examples": [
+              "USD"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Target currency code.",
+            "examples": [
+              "EUR"
+            ]
+          }
+        }
+      },
+      "ConversionMeta": {
+        "title": "Conversion metadata",
+        "description": "Rate and time used by the supplier for the calculation.",
+        "type": "object",
+        "required": [
+          "timestamp",
+          "rate"
+        ],
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "description": "UTC Unix timestamp used for the calculation.",
+            "examples": [
+              1449885661
+            ]
+          },
+          "rate": {
+            "type": "number",
+            "description": "Rate used for the conversion.",
+            "examples": [
+              0.92
+            ]
+          }
+        }
+      },
+      "ConversionResponse": {
+        "title": "Currency conversion response",
+        "description": "Supplier JSON response for a path-based currency conversion.",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "request",
+          "meta",
+          "response"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier terms link.",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier licence-information link.",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "request": {
+            "$ref": "#/components/schemas/ConversionRequest",
+            "description": "Request echo."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ConversionMeta",
+            "description": "Calculation metadata."
+          },
+          "response": {
+            "type": "number",
+            "description": "Converted numeric value.",
+            "examples": [
+              92
+            ]
+          }
+        }
+      },
+      "OhlcRate": {
+        "title": "OHLC rate",
+        "description": "Open, high, low, close, and average rates for one currency during the requested interval.",
+        "type": "object",
+        "required": [
+          "open",
+          "high",
+          "low",
+          "close",
+          "average"
+        ],
+        "properties": {
+          "open": {
+            "type": "number",
+            "description": "Opening rate.",
+            "examples": [
+              0.92
+            ]
+          },
+          "high": {
+            "type": "number",
+            "description": "Highest rate.",
+            "examples": [
+              0.93
+            ]
+          },
+          "low": {
+            "type": "number",
+            "description": "Lowest rate.",
+            "examples": [
+              0.91
+            ]
+          },
+          "close": {
+            "type": "number",
+            "description": "Closing rate.",
+            "examples": [
+              0.92
+            ]
+          },
+          "average": {
+            "type": "number",
+            "description": "Average rate.",
+            "examples": [
+              0.92
+            ]
+          }
+        }
+      },
+      "OhlcRates": {
+        "title": "OHLC rate map",
+        "description": "Dynamic object mapping currency codes to OHLC rate objects.",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/OhlcRate",
+          "description": "OHLC rates for this currency."
+        }
+      },
+      "OhlcResponse": {
+        "title": "OHLC response",
+        "description": "OHLC rates envelope for a requested start time and period.",
+        "type": "object",
+        "required": [
+          "disclaimer",
+          "license",
+          "start_time",
+          "end_time",
+          "base",
+          "rates"
+        ],
+        "properties": {
+          "disclaimer": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier terms link.",
+            "examples": [
+              "https://openexchangerates.org/terms/"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "format": "uri",
+            "description": "Supplier licence-information link.",
+            "examples": [
+              "https://openexchangerates.org/license/"
+            ]
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC start of the result interval.",
+            "examples": [
+              "2017-07-17T11:00:00Z"
+            ]
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC end of the result interval.",
+            "examples": [
+              "2017-07-17T11:29:59Z"
+            ]
+          },
+          "base": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Three-letter base currency used by the response.",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rates": {
+            "$ref": "#/components/schemas/OhlcRates",
+            "description": "OHLC rates indexed by currency code."
+          }
+        }
+      },
+      "PlanFeatures": {
+        "title": "Plan features",
+        "description": "Availability flags for API features on the current plan.",
+        "type": "object",
+        "properties": {
+          "base": {
+            "type": "boolean",
+            "description": "Whether the base parameter is available.",
+            "examples": [
+              true
+            ]
+          },
+          "symbols": {
+            "type": "boolean",
+            "description": "Whether the symbols parameter is available.",
+            "examples": [
+              true
+            ]
+          },
+          "experimental": {
+            "type": "boolean",
+            "description": "Whether experimental data is available.",
+            "examples": [
+              false
+            ]
+          },
+          "time-series": {
+            "type": "boolean",
+            "description": "Whether time series are available.",
+            "examples": [
+              true
+            ]
+          },
+          "convert": {
+            "type": "boolean",
+            "description": "Whether currency conversion is available.",
+            "examples": [
+              false
+            ]
+          }
+        }
+      },
+      "UsagePlan": {
+        "title": "Plan information",
+        "description": "Supplier-plan summary associated with the App ID.",
+        "type": "object",
+        "required": [
+          "name",
+          "quota",
+          "update_frequency",
+          "features"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Plan name.",
+            "examples": [
+              "Enterprise"
+            ]
+          },
+          "quota": {
+            "type": "string",
+            "description": "Plan quota description.",
+            "examples": [
+              "100,000 requests/month"
+            ]
+          },
+          "update_frequency": {
+            "type": "string",
+            "description": "Plan update-frequency description.",
+            "examples": [
+              "30-minute"
+            ]
+          },
+          "features": {
+            "$ref": "#/components/schemas/PlanFeatures",
+            "description": "Plan features."
+          }
+        }
+      },
+      "UsageStatistics": {
+        "title": "Usage statistics",
+        "description": "Request statistics for the current billing period.",
+        "type": "object",
+        "required": [
+          "requests",
+          "requests_quota",
+          "requests_remaining",
+          "days_elapsed",
+          "days_remaining",
+          "daily_average"
+        ],
+        "properties": {
+          "requests": {
+            "type": "integer",
+            "description": "Requests used.",
+            "examples": [
+              10
+            ]
+          },
+          "requests_quota": {
+            "type": "integer",
+            "description": "Plan request quota.",
+            "examples": [
+              1000
+            ]
+          },
+          "requests_remaining": {
+            "type": "integer",
+            "description": "Requests remaining.",
+            "examples": [
+              990
+            ]
+          },
+          "days_elapsed": {
+            "type": "integer",
+            "description": "Days elapsed in the current period.",
+            "examples": [
+              1
+            ]
+          },
+          "days_remaining": {
+            "type": "integer",
+            "description": "Days remaining in the current period.",
+            "examples": [
+              29
+            ]
+          },
+          "daily_average": {
+            "type": "integer",
+            "description": "Daily average requests for the current period.",
+            "examples": [
+              10
+            ]
+          }
+        }
+      },
+      "UsageData": {
+        "title": "Usage data",
+        "description": "App ID, status, plan, and usage statistics.",
+        "type": "object",
+        "required": [
+          "app_id",
+          "status",
+          "plan",
+          "usage"
+        ],
+        "properties": {
+          "app_id": {
+            "type": "string",
+            "description": "Caller App ID; response-only and no real value may be stored or displayed.",
+            "examples": [
+              "YOUR_APP_ID"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "App ID status.",
+            "examples": [
+              "active"
+            ]
+          },
+          "plan": {
+            "$ref": "#/components/schemas/UsagePlan",
+            "description": "Plan information."
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageStatistics",
+            "description": "Usage statistics."
+          }
+        }
+      },
+      "UsageResponse": {
+        "title": "Usage response",
+        "description": "Successful response of the usage endpoint.",
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP success status.",
+            "examples": [
+              200
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/UsageData",
+            "description": "Plan and usage data."
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "getLatestRates": {
+      "consumes": [],
+      "description": "Returns the latest rates available to the caller's plan.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "getLatestRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Optional three-letter base-currency code; the supplier uses USD when omitted.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated list of three-letter currency codes.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "Whether to include alternative, black-market, and digital-currency rates.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/latest.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StandardRatesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Get latest rates",
+      "tags": []
+    },
+    "getHistoricalRates": {
+      "consumes": [],
+      "description": "Returns the last published rates for a requested UTC date.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "getHistoricalRates",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "date",
+          "required": true,
+          "schema": {
+            "description": "UTC date to query.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Optional three-letter base-currency code; the supplier uses USD when omitted.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated list of three-letter currency codes.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "Whether to include alternative, black-market, and digital-currency rates.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/historical/{date}.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "date": "2024-01-01"
+            },
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StandardRatesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Get historical rates",
+      "tags": []
+    },
+    "listCurrencies": {
+      "consumes": [],
+      "description": "Returns supplier-available currency codes and full names.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "listCurrencies",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "Whether to include alternative currencies.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_inactive",
+          "required": false,
+          "schema": {
+            "description": "Whether to include historical or inactive currencies.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/currencies.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {}
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrencyNamesResponse"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "summary": "List supported currencies",
+      "tags": []
+    },
+    "getTimeSeries": {
+      "consumes": [],
+      "description": "Returns daily rates for a requested date range; availability is limited by the caller's plan.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "getTimeSeries",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start",
+          "required": true,
+          "schema": {
+            "description": "Time-series start date.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "required": true,
+          "schema": {
+            "description": "Time-series end date.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-02"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Optional three-letter base-currency code; the supplier uses USD when omitted.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated list of three-letter currency codes.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "show_alternative",
+          "required": false,
+          "schema": {
+            "description": "Whether to include alternative, black-market, and digital-currency rates.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/time-series.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "start": "2024-01-01",
+              "end": "2024-01-02",
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSeriesResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Get time-series rates",
+      "tags": []
+    },
+    "convertCurrency": {
+      "consumes": [],
+      "description": "Converts an amount from a source currency to a target currency at the latest available rate; only plans with this feature may call it.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "convertCurrency",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "value",
+          "required": true,
+          "schema": {
+            "description": "Numeric amount to convert.",
+            "type": "number",
+            "examples": [
+              100
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "Three-letter source-currency code.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "Three-letter target-currency code.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/convert/{value}/{from}/{to}",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "path": {
+              "value": 100,
+              "from": "USD",
+              "to": "EUR"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Convert a currency amount",
+      "tags": []
+    },
+    "getOhlc": {
+      "consumes": [],
+      "description": "Returns open, high, low, close, and average rates for a requested start time and period; availability is limited by the caller's plan.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "getOhlc",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start_time",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 UTC start time with seconds set to 00.",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2017-07-17T11:00:00Z"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "required": true,
+          "schema": {
+            "description": "OHLC period.",
+            "type": "string",
+            "examples": [
+              "30m"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Optional three-letter base-currency code; the supplier uses USD when omitted.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated list of three-letter currency codes.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}(?:,[A-Z]{3})*$",
+            "examples": [
+              "EUR,GBP"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/ohlc.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "start_time": "2017-07-17T11:00:00Z",
+              "period": "30m",
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OhlcResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Get OHLC rates",
+      "tags": []
+    },
+    "getUsage": {
+      "consumes": [],
+      "description": "Returns plan information and current usage statistics for the caller's App ID.",
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://docs.openexchangerates.org/reference/api-introduction",
+            "https://docs.openexchangerates.org/reference/latest-json",
+            "https://docs.openexchangerates.org/reference/historical-json",
+            "https://docs.openexchangerates.org/reference/currencies-json",
+            "https://docs.openexchangerates.org/reference/time-series-json",
+            "https://docs.openexchangerates.org/reference/convert",
+            "https://docs.openexchangerates.org/reference/ohlc-json",
+            "https://docs.openexchangerates.org/reference/usage-json",
+            "https://docs.openexchangerates.org/reference/errors"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Open Exchange Rates terms restrict reproducing, reselling, or providing supplier information. Pontx Hub does not proxy, cache, persist, or display responses; use your own App ID through the local SDK or CLI."
+        }
+      },
+      "method": "GET",
+      "operationId": "getUsage",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "prettyprint",
+          "required": false,
+          "schema": {
+            "description": "Whether to return debug-friendly formatted JSON.",
+            "type": "boolean",
+            "default": true,
+            "examples": [
+              false
+            ]
+          }
+        }
+      ],
+      "path": "/usage.json",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "prettyprint": false
+            }
+          },
+          "serverUrl": "https://openexchangerates.org/api",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The request succeeded.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsageResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The request parameters are invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "The App ID is missing or invalid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "The request was denied by an access restriction.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested route does not exist.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        },
+        "429": {
+          "description": "The caller exceeded plan permission or a service limit.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "appId": []
+        }
+      ],
+      "summary": "Get plan usage",
+      "tags": []
+    }
+  }
+}

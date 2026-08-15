@@ -1,0 +1,43 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/open-exchange-rates",
+    "version": "0.1.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/open-exchange-rates"
+  },
+  "cli": {
+    "name": "pontx-open-exchange-rates"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createOpenExchangeRatesClient",
+      "identifier": "client",
+      "options": {
+        "appId": "PONTX_OPEN_EXCHANGE_RATES_APP_ID"
+      }
+    },
+    "controllers": {},
+    "methodNames": {
+      "convertCurrency": "convertCurrency",
+      "getHistoricalRates": "getHistoricalRates",
+      "getLatestRates": "getLatestRates",
+      "getOhlc": "getOhlc",
+      "getTimeSeries": "getTimeSeries",
+      "getUsage": "getUsage",
+      "listCurrencies": "listCurrencies"
+    }
+  },
+  "examples": {
+    "typescript": "import { createOpenExchangeRatesClient } from \"@pontx/open-exchange-rates\";\n\nconst client = createOpenExchangeRatesClient({\n  appId: process.env.PONTX_OPEN_EXCHANGE_RATES_APP_ID\n});\nconst currencies = await client.listCurrencies({});",
+    "cli": "pnpm add --global @pontx/open-exchange-rates\n\npontx-open-exchange-rates call listCurrencies --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/open-exchange-rates/spec.pontx.json",
+    "sha256": "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67"
+  }
+}
