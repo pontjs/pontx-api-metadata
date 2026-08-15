@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-notion",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What is the title of my latest page in the product docs database?",
+      "expected_output": "Discovers the current search and data-source query endpoints through Pontx discovery, previews a narrow read with the caller's token, and returns the page title without caching workspace content.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Create a page in the product docs database with an example block.",
+      "expected_output": "Resolves the create-page contract, builds the parent/property/child-block payload from the current Schema, previews the exact mutation, and requires caller confirmation of the target database and payload before sending.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Let users connect their own Notion workspaces to our app.",
+      "expected_output": "Implements the public-connection OAuth flow with the caller's client credentials, keeps tokens as session or caller-owned secrets, never logs tokens or workspace content, and isolates each workspace's data to its authorized connection.",
+      "files": []
+    }
+  ]
+}
