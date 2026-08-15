@@ -20,7 +20,6 @@
     "xai-grok",
     "tencent-hunyuan",
     "iflytek-spark",
-    "baidu-qianfan",
-    "mistral-ai"
+    "baidu-qianfan"
   ]
 }

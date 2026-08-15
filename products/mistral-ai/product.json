@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "slug": "mistral-ai",
+  "name": "Mistral AI API",
+  "provider": "Mistral AI",
+  "category": "AI",
+  "featured": true,
+  "display": {
+    "title": "Mistral AI API",
+    "summary": "覆盖固定 Apache-2.0 许可官方 revision 中 ApiKey 认证的 238 个 Mistral AI Platform REST Endpoint（含类型化 SSE 流式与 Workflows）。Hub 提供文档与独立 SDK/CLI，但不代理模型、账户或用量数据；调用方通过本地 API key 直连。",
+    "accent": "#F5A623"
+  },
+  "legal": {
+    "license": "Apache-2.0 for the imported OpenAPI source; Mistral AI service, website, and trademark terms apply separately.",
+    "attributionUrl": "https://github.com/mistralai/platform-docs-public/tree/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/openapi-public-doc.yaml",
+      "https://github.com/mistralai/platform-docs-public/tree/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d",
+      "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/LICENSE",
+      "https://docs.mistral.ai/api",
+      "https://mistral.ai/legal"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "完整边界是固定 mistralai/platform-docs-public revision 的 openapi-public-doc.yaml 中 ApiKey 认证的 238 个 Endpoint（GET 102 / POST 79 / DELETE 26 / PATCH 14 / PUT 17）和 756 个 Schema，其中 11 个 Endpoint 声明类型化 SSE 流式响应。需要 AdminApiKey 的 beta.admin.* 工作区管理面与需要 DashboardUserContextAuth 的 beta.users 面板会话面共 50 个 Endpoint 不属于开发者 API 边界，明确排除。Apache-2.0 适用于导入的规范源码；Mistral AI 服务使用、官网内容和商标分别受其自身条款约束。Hub 不代理 Mistral 流量，SDK/CLI 仅使用调用方本地 API key；任何变更操作都必须先预览并获得显式确认。"
+  },
+  "pricing": {
+    "status": "paid",
+    "summary": "Mistral AI Platform 的模型用量计费、套餐和账户资格由 Mistral AI 的当前定价与服务条款决定；Pontx 不代售、转售或代表 Mistral AI 报价。",
+    "officialUrl": "https://mistral.ai/pricing/",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [
+    {
+      "schemeId": "ApiKey",
+      "envVar": "MISTRAL_API_KEY",
+      "description": "Mistral AI Platform API key。SDK/CLI 只从调用方本地环境读取，不能写入请求示例、日志或 Hub。",
+      "guide": {
+        "url": "https://console.mistral.ai/api-keys/",
+        "title": "获取 Mistral AI API key",
+        "steps": [
+          "在 Mistral AI La Plateforme 控制台创建 API key，并按用途授予最低权限。",
+          "将 API key 仅放入调用方本地环境变量 MISTRAL_API_KEY。",
+          "先用只读 Endpoint 生成脱敏预览，再执行请求。"
+        ]
+      }
+    }
+  ],
+  "quickStart": {
+    "operationId": "listModelsV1ModelsGet",
+    "requestExampleId": "default"
+  }
+}

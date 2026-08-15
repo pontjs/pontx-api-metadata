@@ -11,6 +11,10 @@ importers:
       '@pontx/spec':
         specifier: 1.0.0-beta.10
         version: 1.0.0-beta.10
+    devDependencies:
+      yaml:
+        specifier: 2.8.3
+        version: 2.8.3
 
 packages:
 
@@ -26,6 +30,11 @@ packages:
   oas-spec-ts@0.6.4:
     resolution: {integrity: sha512-MYBgT1EBMhRZjET+thtijhGHxexlK5+eugS0r37B4/FUEFYTbjKuZLLoPK7DkQAtuCm8/ZMUYbYswz15oN9XUA==}
 
+  yaml@2.8.3:
+    resolution: {integrity: sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
 snapshots:
 
   '@pontx/spec@1.0.0-beta.10':
@@ -39,3 +48,5 @@ snapshots:
   lodash@4.18.1: {}
 
   oas-spec-ts@0.6.4: {}
+
+  yaml@2.8.3: {}
