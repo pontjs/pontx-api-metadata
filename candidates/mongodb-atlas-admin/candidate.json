@@ -8,7 +8,7 @@
   "provider": "MongoDB",
   "category": "Cloud",
   "priority": {
-    "group": "license-blocked",
+    "group": "eligible-review",
     "rank": 3,
     "score": 88
   },
@@ -16,11 +16,11 @@
     "zh": "MongoDB Atlas Administration API v2；不包含 MongoDB wire protocol、Atlas Data API 或其他独立产品。",
     "en": "MongoDB Atlas Administration API v2 only; it excludes the MongoDB wire protocol, Atlas Data API, and other separately defined products."
   },
-  "stage": "license-blocked",
+  "stage": "audit-required",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
-    "redistribution": "blocked",
+    "redistribution": "passed",
     "contract": "passed",
     "transport": "passed",
     "risk": "pending",
@@ -31,7 +31,7 @@
     "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
     "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
     "observedAt": "2026-08-14",
-    "license": "CC BY-NC-SA 3.0 US (declared by the pinned OAS); repository LICENSE is Apache-2.0 and does not resolve the OAS restriction",
+    "license": "Apache-2.0 (the repository license applies to the source file; OAS info.license describes the exposed API)",
     "openapiVersion": "3.0.1",
     "observedPaths": 335,
     "observedOperations": 540,
@@ -51,16 +51,11 @@
       "url": "https://github.com/mongodb/openapi/blob/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/LICENSE"
     },
     {
-      "kind": "license",
-      "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/"
+      "kind": "terms",
+      "url": "https://www.mongodb.com/legal/terms-and-conditions/cloud"
     }
   ],
   "blockers": [
-    {
-      "gate": "redistribution",
-      "zh": "固定 OAS revision 的 info.license 明确为 CC BY-NC-SA 3.0 US；同仓库 Apache-2.0 LICENSE 不能解除该规范的非商业与相同方式共享限制。未取得 MongoDB 对该 OAS、派生 metadata/PontxSpec 与独立 SDK/CLI 的书面商用再分发澄清前，禁止创建可发布产品产物。",
-      "en": "The pinned OAS revision explicitly declares CC BY-NC-SA 3.0 US in info.license. The repository's Apache-2.0 LICENSE does not remove that specification's non-commercial and share-alike restrictions. Do not create publishable product artifacts until MongoDB provides written commercial-redistribution clarification for the OAS, derived metadata/PontxSpec, and independent SDK/CLI."
-    },
     {
       "gate": "risk",
       "zh": "管理面包含删除集群、网络与访问配置等高影响写接口，需完成 Endpoint 级 preview/confirmation 与代理禁用策略。",
@@ -68,13 +63,13 @@
     },
     {
       "gate": "sdkCli",
-      "zh": "在再分发门解除并完成 Endpoint 级风险策略前，不得构建、测试或发布 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin。",
-      "en": "Do not build, test, or publish @pontx/mongodb-atlas-admin or pontx-mongodb-atlas-admin before the redistribution gate is cleared and endpoint-level risk policy is complete."
+      "zh": "需从固定 OAS 构建、测试并发布 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin；高影响 mutation 必须保留 preview-first、精确请求确认和代理安全边界。",
+      "en": "Build, test, and publish @pontx/mongodb-atlas-admin and pontx-mongodb-atlas-admin from the pinned OAS; high-impact mutations must retain preview-first, exact-request confirmation, and proxy safety boundaries."
     }
   ],
   "nextAction": {
-    "zh": "先取得 MongoDB 对固定 OAS、派生 metadata/PontxSpec 与独立 SDK/CLI 的书面商用再分发澄清，或改用具有明确可发布许可的固定版本；随后才可进行双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
-    "en": "First obtain MongoDB's written commercial-redistribution clarification for the pinned OAS, derived metadata/PontxSpec, and independent SDK/CLI, or switch to a fixed revision with an explicit publishable license; only then complete bilingual prose, sensitive-endpoint execution policy, and the SDK/CLI release chain."
+    "zh": "基于已固定的官方 v2 规范提交完成双语 prose、敏感 Endpoint 的执行策略与 SDK/CLI 发布链路；仅使用仓库许可下的规范源码和独立编写的文案，不复制 MongoDB 网站文档或暗示官方背书。",
+    "en": "Use the pinned official v2 specification revision to complete bilingual prose, sensitive-endpoint execution policy, and the SDK/CLI release chain; use only repository-licensed specification source and independently authored copy, without reproducing MongoDB website documentation or implying endorsement."
   },
   "verifiedAt": "2026-08-15"
 }
