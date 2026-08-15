@@ -29,7 +29,7 @@
     "stabilityNote": "契约来自 AWS SDK for JavaScript v3 固定 revision 中的 Smithy 2.0 服务模型。SQS 是有状态消息系统；接收消息会改变可见性，写入、删除、清空、权限、标签和移动任务都可能影响生产队列。Hub 不执行或代理这些请求。"
   },
   "pricing": {
-    "status": "pay-as-you-go",
+    "status": "paid",
     "summary": "Amazon SQS 按请求和数据传输等 AWS 计费维度收费；免费套餐、区域价格、FIFO/高吞吐和相关 AWS 服务费用以官方定价页与账户账单为准。",
     "officialUrl": "https://aws.amazon.com/sqs/pricing/",
     "verifiedAt": "2026-08-15",
