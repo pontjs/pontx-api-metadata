@@ -7,7 +7,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "validate": "node scripts/validate-products.mjs && node scripts/verify-candidates.mjs && node scripts/verify-fx-candidates.mjs && node scripts/validate-product-skills.mjs",
+    "validate": "node scripts/validate-products.mjs && node scripts/verify-playground-policy.mjs && node scripts/verify-candidates.mjs && node scripts/verify-fx-candidates.mjs && node scripts/validate-product-skills.mjs",
     "test": "node scripts/test-sdk-quality.mjs && node scripts/test-hierarchy.mjs && node scripts/test-product-skills.mjs",
     "skills:build": "node scripts/generate-skill-registry.mjs",
     "skills:validate": "node scripts/validate-product-skills.mjs",

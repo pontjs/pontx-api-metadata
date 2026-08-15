@@ -1,19 +1,19 @@
 {
   "display": {
     "title": "Dropbox Sign eSignature API",
-    "summary": "Manage accounts, signature requests, templates, teams, bulk sends, file downloads, fax, and event callbacks through the complete Dropbox Sign v3 API; the Hub provides documentation and a local SDK/CLI only."
+    "summary": "Manage accounts, signature requests, templates, teams, bulk sends, file downloads, fax, and event callbacks through the complete Dropbox Sign v3 API, including one-off debugging requests from the web Playground with the current session's credentials."
   },
   "documentation": {
-    "stabilityNote": "Complete v3 contract pinned to an immutable revision of Dropbox Sign's official repository. The Hub does not proxy, cache, or store requests or responses; callers use their own credentials and remain responsible for approval and retention of signature, file, account, team, OAuth, webhook, and fax data."
+    "stabilityNote": "Complete v3 contract pinned to an immutable revision of Dropbox Sign's official repository. Hub relays one request only after an explicit caller action and does not cache, log, or persist requests or responses; mutations still require preview and confirmation. Callers use their own credentials and remain responsible for approval and retention of signature, file, account, team, OAuth, webhook, and fax data."
   },
   "credentials": [
     {
       "schemeId": "api_key",
-      "description": "Dropbox Sign API key used as the HTTP Basic username with an empty password; the credential remains in the caller's local environment."
+      "description": "Dropbox Sign API key used as the HTTP Basic username with an empty password; the credential remains only in the caller's current browser session."
     },
     {
       "schemeId": "oauth2",
-      "description": "Dropbox Sign OAuth access token supplied through a Bearer header and retained only in the caller's local environment."
+      "description": "Dropbox Sign OAuth access token supplied through a Bearer header and retained only in the caller's current browser session."
     }
   ]
 }

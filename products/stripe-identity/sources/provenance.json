@@ -6,9 +6,9 @@
     "format": "OpenAPI 3.0.0",
     "importer": "@pontx/spec importOpenAPI",
     "sourcePath": "products/stripe-identity/sources/openapi.json",
-    "sourceSha256": "b1aed14660a95361dfddc7250ba08331d2b16419dea4e0d0eb8645e83fcb9b1c",
+    "sourceSha256": "ee836614060d817f5d36a46596b173b71370b43259b53e7b739731e9a3101161",
     "localeInputSha256": {
-      "en-US": "2795c829cd0b411850a0828474fc6240b5fe1fec088b0cae816aaf267a3b8c52"
+      "en-US": "116f217919de1a92f65a1ec71abd85852a8c8dd14ea625d04207288577d1c06b"
     },
     "upstream": {
       "repository": "https://github.com/stripe/openapi",
@@ -50,7 +50,7 @@
       "Removed the four upstream GET requestBody declarations after asserting that each was an empty closed object; all meaningful GET inputs remain query/path parameters and no request field was removed.",
       "Promoted the optional inline related_person request object to a local component reference so TypeScript keeps the property optional while still requiring account and person whenever the object is supplied.",
       "Converted relative Stripe documentation links to absolute docs.stripe.com links.",
-      "Added safe request examples, immutable evidence, and a proxy-disabled reason to all eight Endpoints.",
+      "Added safe request examples and immutable evidence to all eight Endpoints; no Endpoint carries a policy-based execution disablement.",
       "Translated 131 unique official summaries and descriptions while preserving every wire identifier, constraint, enum, example, media type, security declaration, and array order."
     ],
     "method": "one-time @pontx/spec importOpenAPI conversion; PontxSpec is canonical after migration"
@@ -75,7 +75,7 @@
       "cliPolicy": "preview-first with exact request-bound confirmation"
     },
     "credentialPolicy": "STRIPE_SECRET_KEY remains in the caller environment and is never persisted or included in examples.",
-    "dataPolicy": "Hub serves documentation only and does not proxy, cache, log, or persist Stripe Identity requests or responses."
+    "dataPolicy": "Hub may relay one request only after an explicit caller action with a session-only caller credential. It does not cache, log, or persist Stripe Identity requests or responses; mutations require preview and a request-bound confirmation."
   },
   "evidence": {
     "urls": [
@@ -83,20 +83,21 @@
       "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE",
       "https://docs.stripe.com/identity",
       "https://stripe.com/identity",
-      "https://github.com/pontjs/stripe-identity/actions/runs/31858572852"
+      "https://github.com/pontjs/stripe-identity/actions/runs/31886381839",
+      "https://www.npmjs.com/package/@pontx/stripe-identity/v/0.1.2"
     ],
     "verifiedAt": "2026-08-15"
   },
   "outputs": {
     "zh-CN": {
       "path": "products/stripe-identity/spec.pontx.json",
-      "sha256": "926fbe95dab6796b8e4136c4d34c54694a176f6d6011d54de59baf40cb9f5412",
+      "sha256": "c403928ed5cc823a4efc0a6379912b2f03b77b8db2196022de08a99c6243863a",
       "endpoints": 8,
       "schemas": 35
     },
     "en-US": {
       "path": "products/stripe-identity/locales/en-US/spec.pontx.json",
-      "sha256": "06cd5559b318002e03c3ba80a1f7271706970f036e976140aea16ddc1ce2006c",
+      "sha256": "10fdd764e358d341df1cd095d202914adea96332308de1c48e1ad68ca523e60c",
       "endpoints": 8,
       "schemas": 35
     }
@@ -105,15 +106,22 @@
     "status": "published",
     "packageName": "@pontx/stripe-identity",
     "cliName": "pontx-stripe-identity",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "repositoryUrl": "https://github.com/pontjs/stripe-identity",
-    "sourceCommit": "2319bec517bb35b8d3512d1495f784193f178080",
+    "sourceCommit": "4500fe527793fb37f5d9ec0556979c12497570f1",
     "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/31858572852",
     "distIntegrity": "sha512-rL3rxckh2BtwLYPNYlge2wTbExSmTtZ1z1oCNTSd7ZviklllBlXkO/p1oQ6YgAVEbzRtJHu62Lh57HXi9DBu+w==",
     "requiredNodeVersions": [
       "18",
       "20",
       "22"
-    ]
+    ],
+    "registry": "https://registry.npmjs.org/@pontx/stripe-identity/0.1.2",
+    "integrity": "sha512-1UB9/kfX4C1ATXGxGTDYZ7zaWKsAnHwvCo6/ZDzRQCV5ylGlNpG4pmnVTkkHgf/27b6VtHDSLAGgkuteCNUNoA==",
+    "shasum": "e9e410b623d94b740c6c5f5d34799ca19288a58a",
+    "tarball": "https://registry.npmjs.org/@pontx/stripe-identity/-/stripe-identity-0.1.2.tgz",
+    "mergedCommit": "4500fe527793fb37f5d9ec0556979c12497570f1",
+    "workflowRun": "https://github.com/pontjs/stripe-identity/actions/runs/31886381839",
+    "verifiedAt": "2026-08-15"
   }
 }

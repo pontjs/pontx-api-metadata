@@ -7,7 +7,7 @@
   "featured": true,
   "display": {
     "title": "Amazon SQS 消息队列 API",
-    "summary": "Amazon Simple Queue Service 的完整 23 个官方 action；保留 AWS JSON 1.0、AWS Query 兼容性、SigV4 与区域 Endpoint 规则。Hub 提供文档和本地 SDK/CLI，不代理队列调用。",
+    "summary": "Amazon Simple Queue Service 的完整 23 个官方 action；保留 AWS JSON 1.0、AWS Query 兼容性、SigV4 与区域 Endpoint 规则。当前网页端尚无 AWS SigV4 与区域选择执行适配器，可使用本地 SDK/CLI 调用。",
     "accent": "#FF9900"
   },
   "legal": {
@@ -21,12 +21,12 @@
       "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html",
-      "https://github.com/pontjs/amazon-sqs/actions/runs/31873716805",
-      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.3"
+      "https://github.com/pontjs/amazon-sqs/actions/runs/31886381572",
+      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.4"
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
-    "stabilityNote": "契约来自 AWS SDK for JavaScript v3 固定 revision 中的 Smithy 2.0 服务模型。SQS 是有状态消息系统；接收消息会改变可见性，写入、删除、清空、权限、标签和移动任务都可能影响生产队列。Hub 不执行或代理这些请求。"
+    "stabilityNote": "契约来自 AWS SDK for JavaScript v3 固定 revision 中的 Smithy 2.0 服务模型。SQS 是有状态消息系统；接收消息会改变可见性，写入、删除、清空、权限、标签和移动任务都可能影响生产队列。当前网页端缺少 AWS SigV4、区域与 Endpoint 规则适配器，因此不能发起 SQS 请求；这不是 Endpoint 的策略性禁用。"
   },
   "pricing": {
     "status": "paid",

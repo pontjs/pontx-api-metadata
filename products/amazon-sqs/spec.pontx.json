@@ -464,10 +464,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -570,10 +566,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -687,10 +679,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -824,10 +812,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -948,10 +932,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1064,10 +1044,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1200,10 +1176,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1303,10 +1275,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1418,10 +1386,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1524,10 +1488,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1631,10 +1591,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1738,10 +1694,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1836,10 +1788,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -1942,10 +1890,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2051,10 +1995,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2207,10 +2147,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2311,10 +2247,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2466,10 +2398,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2650,10 +2578,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2774,10 +2698,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2881,10 +2801,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -2987,10 +2903,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {
@@ -3093,10 +3005,6 @@
             "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
           ],
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Amazon SQS 需要调用者自有的 AWS 凭证、SigV4 签名和区域感知的 Endpoint 选择。Hub 不代理、存储或执行队列请求；请先审阅本地 SDK 或 CLI 的预览后再调用。"
         }
       },
       "ext": {

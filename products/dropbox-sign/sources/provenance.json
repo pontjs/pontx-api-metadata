@@ -6,9 +6,9 @@
     "format": "OpenAPI 3.0.3",
     "importer": "@pontx/spec importOpenAPI",
     "sourcePath": "products/dropbox-sign/sources/openapi.json",
-    "sourceSha256": "0f5c78da0e785eb2ae5f5348ab3c6b0fec8007cb44e737a6c50cd28bc2321699",
+    "sourceSha256": "a4ecaf41696ab13e819850099f9577c0cb2cf4a72e64ac69eefd8eab29304e5a",
     "localeInputSha256": {
-      "en-US": "e8b22fdc515bd1f103df13fb47c5adcf73ebc254688a1524cdc8c1dbb5a34c7d"
+      "en-US": "764f3de37b2e843a6569ecab63920d6058a9bb233c6f7f86bf64bc7c692530fa"
     }
   },
   "evidence": {
@@ -17,9 +17,10 @@
       "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE",
       "https://developers.hellosign.com/api/api-reference-authentication",
       "https://developers.hellosign.com/docs/sdks/open-api/interacting-with-files",
-      "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+      "https://github.com/pontjs/dropbox-sign/actions/runs/31886381204",
+      "https://www.npmjs.com/package/@pontx/dropbox-sign/v/0.1.1"
     ],
-    "verifiedAt": "2026-08-14"
+    "verifiedAt": "2026-08-15"
   },
   "upstreamReview": {
     "version": 1,
@@ -156,8 +157,7 @@
       "pontxExtensions": {
         "operations": 73,
         "requestExamples": "Derived only from declared parameter examples/defaults; required provider state, sensitive values, and request bodies remain unresolved.",
-        "proxyEnabled": false,
-        "proxyPolicy": "All endpoints are permanently disabled in the Hub proxy. Direct SDK/CLI calls use caller-owned credentials; the CLI requires a request-bound, five-minute confirmation token for all mutations."
+        "proxyPolicy": "REST endpoints may be relayed only after an explicit caller action with session-only caller credentials. Hub does not cache, log, or persist requests or responses; all mutations require a request-bound confirmation."
       },
       "localization": {
         "structuralSource": "zh-CN",
@@ -193,13 +193,13 @@
   "outputs": {
     "zh-CN": {
       "path": "products/dropbox-sign/spec.pontx.json",
-      "sha256": "7ea116bf486a763ae44c1954cebd2509f425c7a23833da713e72346e0d8b3683",
+      "sha256": "73598863d6dfe208c544b1d9488f6acc2e1e28d509a9e9d5c20a60943dd9790c",
       "endpoints": 73,
       "schemas": 217
     },
     "en-US": {
       "path": "products/dropbox-sign/locales/en-US/spec.pontx.json",
-      "sha256": "d8defae851ce20e33e5cf6e21e0236ef3ff2c738f7e96b026dca3b9e9aa55de5",
+      "sha256": "5cd730bddd5576fd52dfcaab5cc54e0e28be809aa0482f41efbc5ac16cc3d7b7",
       "endpoints": 73,
       "schemas": 217
     }

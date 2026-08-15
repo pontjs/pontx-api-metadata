@@ -17031,10 +17031,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -17195,10 +17191,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -17367,10 +17359,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -17539,10 +17527,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -17715,10 +17699,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -17894,10 +17874,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -18052,10 +18028,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -18233,10 +18205,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -18411,10 +18379,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -18617,10 +18581,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -18822,10 +18782,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19024,10 +18980,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19227,10 +19179,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19426,10 +19374,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19596,10 +19540,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19781,10 +19721,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -19948,10 +19884,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -20139,10 +20071,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -20302,10 +20230,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -20502,10 +20426,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -20654,10 +20574,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -20836,10 +20752,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21012,10 +20924,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21208,10 +21116,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21401,10 +21305,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21591,10 +21491,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21781,10 +21677,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -21935,10 +21827,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -22132,10 +22020,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -22301,10 +22185,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -22485,10 +22365,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -22648,10 +22524,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -22840,10 +22712,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23033,10 +22901,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23235,10 +23099,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23425,10 +23285,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23592,10 +23448,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23756,10 +23608,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -23944,10 +23792,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24113,10 +23957,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24234,10 +24074,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24373,10 +24209,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24542,10 +24374,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24695,10 +24523,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -24846,10 +24670,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25040,10 +24860,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25215,10 +25031,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25409,10 +25221,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25593,10 +25401,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25784,10 +25588,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -25965,10 +25765,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -26165,10 +25961,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -26358,10 +26150,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -26524,10 +26312,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -26702,10 +26486,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -26865,10 +26645,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27013,10 +26789,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27212,10 +26984,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27378,10 +27146,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27543,10 +27307,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27709,10 +27469,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -27877,10 +27633,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -28203,10 +27955,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -28370,10 +28118,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -28520,10 +28264,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -28675,10 +28415,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -28860,10 +28596,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29027,10 +28759,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29185,10 +28913,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29328,10 +29052,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29489,10 +29209,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29653,10 +29369,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
@@ -29826,10 +29538,6 @@
             "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "Hub proxying is disabled for Dropbox Sign. Use caller-owned credentials in the local SDK or CLI; the CLI requires a request-bound, five-minute confirmation token for every mutation, and callers remain responsible for approval and data retention."
         }
       },
       "ext": {
