@@ -1,0 +1,35 @@
+{
+  "display": {
+    "title": "CurrencyBeacon exchange-rate API",
+    "summary": "Query latest, historical, conversion, time-series, and supported-currency data with caller-owned CurrencyBeacon credentials.",
+    "accent": "#0f766e"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://currencybeacon.com/api-documentation",
+      "https://currencybeacon.com/code-samples",
+      "https://currencybeacon.com/pricing",
+      "https://currencybeacon.com/terms",
+      "https://github.com/pontjs/currencybeacon-rest",
+      "https://github.com/pontjs/currencybeacon-rest/actions/runs/31867826366",
+      "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.1"
+    ],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
+    "stabilityNote": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers connect directly with their own credentials; Hub does not proxy, cache, persist, or display supplier responses."
+  },
+  "pricing": {
+    "status": "freemium",
+    "summary": "CurrencyBeacon offers free and paid plans; available data and quotas depend on the caller's current plan.",
+    "officialUrl": "https://currencybeacon.com/pricing",
+    "verifiedAt": "2026-08-15"
+  },
+  "credentials": [
+    {
+      "schemeId": "apiKey",
+      "envVar": "PONTX_CURRENCYBEACON_API_KEY",
+      "description": "CurrencyBeacon API key supplied by the caller; it must not be placed in request examples or persisted."
+    }
+  ]
+}

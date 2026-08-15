@@ -1,0 +1,87 @@
+{
+  "source": {
+    "documentationUrl": "https://currencybeacon.com/api-documentation",
+    "codeSamplesUrl": "https://currencybeacon.com/code-samples",
+    "observedAt": "2026-08-15",
+    "retained": "The supplier does not publish a complete retainable OAS. This product is independently curated from public documentation and authorised free-account read responses, and retains neither market data nor credentials."
+  },
+  "scope": {
+    "endpointCount": 5,
+    "operationIds": [
+      "getLatestRates",
+      "getHistoricalRates",
+      "convertCurrency",
+      "getTimeseries",
+      "listCurrencies"
+    ],
+    "includes": [
+      "latest",
+      "historical",
+      "convert",
+      "timeseries",
+      "currencies"
+    ],
+    "excludes": [
+      "CurrencyBeacon MCP server and every non-REST transport"
+    ]
+  },
+  "authenticatedReadEvidence": {
+    "observedAt": "2026-08-15",
+    "plan": "free",
+    "authentication": [
+      "api_key query",
+      "Bearer authorization header"
+    ],
+    "successShapes": {
+      "latest": [
+        "meta",
+        "response",
+        "date",
+        "base",
+        "rates"
+      ],
+      "historical": [
+        "meta",
+        "response",
+        "date",
+        "base",
+        "rates"
+      ],
+      "convert": [
+        "meta",
+        "response",
+        "timestamp",
+        "date",
+        "from",
+        "to",
+        "amount",
+        "value"
+      ],
+      "timeseries": [
+        "meta",
+        "response",
+        "YYYY-MM-DD dynamic keys"
+      ],
+      "currencies": [
+        "numeric-string dynamic keys"
+      ]
+    },
+    "errorShapes": {
+      "invalidDate": [
+        "meta",
+        "message",
+        "response"
+      ],
+      "invalidRange": [
+        "meta",
+        "message",
+        "response"
+      ],
+      "invalidCredential": [
+        "meta",
+        "response"
+      ]
+    },
+    "retainedData": false
+  }
+}

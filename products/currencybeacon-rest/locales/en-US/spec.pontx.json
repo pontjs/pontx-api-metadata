@@ -1,0 +1,1416 @@
+{
+  "apis": {
+    "convertCurrency": {
+      "consumes": [],
+      "description": "Converts an amount using current rates or rates for a specified historical date.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "convertCurrency",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "Three-letter code of the currency to convert from.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "Three-letter code of the target currency.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "amount",
+          "required": true,
+          "schema": {
+            "description": "Amount to convert.",
+            "examples": [
+              10
+            ],
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "Date used for a historical lookup or conversion, in YYYY-MM-DD format.",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/convert",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "amount": 10,
+              "from": "USD",
+              "to": "EUR"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionResponse"
+              }
+            }
+          },
+          "description": "Request succeeded and returns this Endpoint's JSON response."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The request parameters are invalid."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller credential is missing, invalid, or not activated."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller plan or permission does not allow this request."
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The requested Endpoint or resource does not exist."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller exceeded a service quota or rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The upstream service encountered an internal error."
+        }
+      },
+      "summary": "Convert a currency amount",
+      "tags": []
+    },
+    "getHistoricalRates": {
+      "consumes": [],
+      "description": "Returns rates for a specified historical date and can be limited by symbols.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getHistoricalRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "date",
+          "required": true,
+          "schema": {
+            "description": "Date used for a historical lookup or conversion, in YYYY-MM-DD format.",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated currency-code list used to limit returned rates.",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/historical",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "date": "2025-01-02",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HistoricalRatesResponse"
+              }
+            }
+          },
+          "description": "Request succeeded and returns this Endpoint's JSON response."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The request parameters are invalid."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller credential is missing, invalid, or not activated."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller plan or permission does not allow this request."
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The requested Endpoint or resource does not exist."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller exceeded a service quota or rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The upstream service encountered an internal error."
+        }
+      },
+      "summary": "Get historical exchange rates",
+      "tags": []
+    },
+    "getLatestRates": {
+      "consumes": [],
+      "description": "Returns currently available rates for a base currency and can be limited by symbols.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getLatestRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated currency-code list used to limit returned rates.",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/latest",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LatestRatesResponse"
+              }
+            }
+          },
+          "description": "Request succeeded and returns this Endpoint's JSON response."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The request parameters are invalid."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller credential is missing, invalid, or not activated."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller plan or permission does not allow this request."
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The requested Endpoint or resource does not exist."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller exceeded a service quota or rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The upstream service encountered an internal error."
+        }
+      },
+      "summary": "Get latest exchange rates",
+      "tags": []
+    },
+    "getTimeseries": {
+      "consumes": [],
+      "description": "Returns daily rates for a requested date range.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getTimeseries",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start_date",
+          "required": true,
+          "schema": {
+            "description": "Time-series start date in YYYY-MM-DD format.",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end_date",
+          "required": true,
+          "schema": {
+            "description": "Time-series end date in YYYY-MM-DD format; it must not precede the start date.",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "Optional comma-separated currency-code list used to limit returned rates.",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/timeseries",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "end_date": "2025-01-02",
+              "start_date": "2025-01-01",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeseriesResponse"
+              }
+            }
+          },
+          "description": "Request succeeded and returns this Endpoint's JSON response."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The request parameters are invalid."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller credential is missing, invalid, or not activated."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller plan or permission does not allow this request."
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The requested Endpoint or resource does not exist."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller exceeded a service quota or rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The upstream service encountered an internal error."
+        }
+      },
+      "summary": "Get an exchange-rate time series",
+      "tags": []
+    },
+    "listCurrencies": {
+      "consumes": [],
+      "description": "Returns a numeric-key map of available currencies with names, codes, precision, and display symbols.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listCurrencies",
+      "parameters": [],
+      "path": "/currencies",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {}
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "Reproducible read-only request",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrenciesResponse"
+              }
+            }
+          },
+          "description": "Request succeeded and returns this Endpoint's JSON response."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The request parameters are invalid."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller credential is missing, invalid, or not activated."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller plan or permission does not allow this request."
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The requested Endpoint or resource does not exist."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The caller exceeded a service quota or rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "The upstream service encountered an internal error."
+        }
+      },
+      "summary": "List supported currencies",
+      "tags": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConversionResponse": {
+        "additionalProperties": true,
+        "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+        "properties": {
+          "amount": {
+            "description": "Amount to convert.",
+            "examples": [
+              10
+            ],
+            "type": "number"
+          },
+          "date": {
+            "description": "Date used for a historical lookup or conversion, in YYYY-MM-DD format.",
+            "examples": [
+              "2026-08-15"
+            ],
+            "format": "date",
+            "type": "string"
+          },
+          "from": {
+            "description": "Three-letter code of the currency to convert from.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+            "properties": {
+              "amount": {
+                "description": "Amount to convert.",
+                "examples": [
+                  10
+                ],
+                "type": "number"
+              },
+              "date": {
+                "description": "Date used for a historical lookup or conversion, in YYYY-MM-DD format.",
+                "examples": [
+                  "2026-08-15"
+                ],
+                "format": "date",
+                "type": "string"
+              },
+              "from": {
+                "description": "Three-letter code of the currency to convert from.",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "timestamp": {
+                "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+                "examples": [
+                  1786770980
+                ],
+                "type": "integer"
+              },
+              "to": {
+                "description": "Three-letter code of the target currency.",
+                "examples": [
+                  "EUR"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "value": {
+                "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+                "examples": [
+                  8.6426828
+                ],
+                "type": "number"
+              }
+            },
+            "required": [
+              "timestamp",
+              "date",
+              "from",
+              "to",
+              "amount",
+              "value"
+            ],
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+            "examples": [
+              1786770980
+            ],
+            "type": "integer"
+          },
+          "to": {
+            "description": "Three-letter code of the target currency.",
+            "examples": [
+              "EUR"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "value": {
+            "description": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+            "examples": [
+              8.6426828
+            ],
+            "type": "number"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "timestamp",
+          "date",
+          "from",
+          "to",
+          "amount",
+          "value"
+        ],
+        "title": "Successful conversion response; the service returns both a response wrapper and its top-level fields.",
+        "type": "object"
+      },
+      "CurrenciesResponse": {
+        "additionalProperties": {
+          "additionalProperties": true,
+          "description": "One available-currency definition returned by the supplier.",
+          "properties": {
+            "code": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                "784"
+              ],
+              "pattern": "^[0-9]{1,3}$",
+              "type": "string"
+            },
+            "decimal_mark": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                "."
+              ],
+              "type": "string"
+            },
+            "id": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                1
+              ],
+              "minimum": 1,
+              "type": "integer"
+            },
+            "name": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                "UAE Dirham"
+              ],
+              "type": "string"
+            },
+            "precision": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                2
+              ],
+              "minimum": 0,
+              "type": "integer"
+            },
+            "short_code": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                "AED"
+              ],
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            "subunit": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                100
+              ],
+              "minimum": 0,
+              "type": "integer"
+            },
+            "symbol": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                "د.إ"
+              ],
+              "type": "string"
+            },
+            "symbol_first": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "thousands_separator": {
+              "description": "One available-currency definition returned by the supplier.",
+              "examples": [
+                ","
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "short_code",
+            "code",
+            "precision",
+            "subunit",
+            "symbol",
+            "symbol_first",
+            "decimal_mark",
+            "thousands_separator"
+          ],
+          "title": "One available-currency definition returned by the supplier.",
+          "type": "object"
+        },
+        "description": "Dynamic currency-definition map keyed by numeric strings; this is the JSON object actually returned by the supplier, not an array.",
+        "minProperties": 1,
+        "title": "Dynamic currency-definition map keyed by numeric strings; this is the JSON object actually returned by the supplier, not an array.",
+        "type": "object"
+      },
+      "Currency": {
+        "additionalProperties": true,
+        "description": "One available-currency definition returned by the supplier.",
+        "properties": {
+          "code": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              "784"
+            ],
+            "pattern": "^[0-9]{1,3}$",
+            "type": "string"
+          },
+          "decimal_mark": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              "."
+            ],
+            "type": "string"
+          },
+          "id": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              1
+            ],
+            "minimum": 1,
+            "type": "integer"
+          },
+          "name": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              "UAE Dirham"
+            ],
+            "type": "string"
+          },
+          "precision": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              2
+            ],
+            "minimum": 0,
+            "type": "integer"
+          },
+          "short_code": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              "AED"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "subunit": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              100
+            ],
+            "minimum": 0,
+            "type": "integer"
+          },
+          "symbol": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              "د.إ"
+            ],
+            "type": "string"
+          },
+          "symbol_first": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "thousands_separator": {
+            "description": "One available-currency definition returned by the supplier.",
+            "examples": [
+              ","
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "short_code",
+          "code",
+          "precision",
+          "subunit",
+          "symbol",
+          "symbol_first",
+          "decimal_mark",
+          "thousands_separator"
+        ],
+        "title": "One available-currency definition returned by the supplier.",
+        "type": "object"
+      },
+      "DateRateMap": {
+        "additionalProperties": {
+          "additionalProperties": {
+            "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+            "examples": [
+              0.86426828
+            ],
+            "type": "number"
+          },
+          "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+          "title": "Dynamic map with currency codes as keys and rate numbers as values.",
+          "type": "object"
+        },
+        "description": "Dynamic map with YYYY-MM-DD dates as keys and daily rate maps as values.",
+        "title": "Dynamic map with YYYY-MM-DD dates as keys and daily rate maps as values.",
+        "type": "object"
+      },
+      "ErrorMeta": {
+        "additionalProperties": true,
+        "description": "Error status and explanatory metadata returned by the service.",
+        "properties": {
+          "code": {
+            "description": "Error status and explanatory metadata returned by the service.",
+            "examples": [
+              400
+            ],
+            "type": "integer"
+          },
+          "disclaimer": {
+            "description": "Error status and explanatory metadata returned by the service.",
+            "examples": [
+              "Usage subject to terms: https://currencybeacon.com/terms"
+            ],
+            "type": "string"
+          },
+          "error_detail": {
+            "description": "Error status and explanatory metadata returned by the service.",
+            "examples": [
+              "Missing or invalid api credentials."
+            ],
+            "type": "string"
+          },
+          "error_type": {
+            "description": "Error status and explanatory metadata returned by the service.",
+            "examples": [
+              "auth failed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "Error status and explanatory metadata returned by the service.",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "additionalProperties": true,
+        "description": "Error response returned when the service cannot complete a request.",
+        "properties": {
+          "message": {
+            "description": "Error response returned when the service cannot complete a request.",
+            "examples": [
+              "Dates must use YYYY-MM-DD format."
+            ],
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ErrorMeta"
+          },
+          "response": {
+            "description": "Error response returned when the service cannot complete a request.",
+            "examples": [
+              []
+            ],
+            "items": {
+              "description": "Error response returned when the service cannot complete a request.",
+              "examples": [
+                ""
+              ],
+              "type": "string"
+            },
+            "maxItems": 0,
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "response"
+        ],
+        "title": "Error response returned when the service cannot complete a request.",
+        "type": "object"
+      },
+      "HistoricalRatesResponse": {
+        "additionalProperties": true,
+        "description": "Successful historical-rates response; the service returns both a response wrapper and its top-level fields.",
+        "properties": {
+          "base": {
+            "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "date": {
+            "description": "Successful historical-rates response; the service returns both a response wrapper and its top-level fields.",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "Successful historical-rates response; the service returns both a response wrapper and its top-level fields.",
+            "properties": {
+              "base": {
+                "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "date": {
+                "description": "Successful historical-rates response; the service returns both a response wrapper and its top-level fields.",
+                "examples": [
+                  "2025-01-02"
+                ],
+                "format": "date",
+                "type": "string"
+              },
+              "rates": {
+                "$ref": "#/components/schemas/RateMap"
+              }
+            },
+            "required": [
+              "date",
+              "base",
+              "rates"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "date",
+          "base",
+          "rates"
+        ],
+        "title": "Successful historical-rates response; the service returns both a response wrapper and its top-level fields.",
+        "type": "object"
+      },
+      "LatestRatesResponse": {
+        "additionalProperties": true,
+        "description": "Successful latest-rates response; the service returns both a response wrapper and its top-level fields.",
+        "properties": {
+          "base": {
+            "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "date": {
+            "description": "Successful latest-rates response; the service returns both a response wrapper and its top-level fields.",
+            "examples": [
+              "2026-08-15T05:16:21Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "Successful latest-rates response; the service returns both a response wrapper and its top-level fields.",
+            "properties": {
+              "base": {
+                "description": "Three-letter base currency code; the service defaults to USD when it is omitted.",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "date": {
+                "description": "Successful latest-rates response; the service returns both a response wrapper and its top-level fields.",
+                "examples": [
+                  "2026-08-15T05:16:21Z"
+                ],
+                "format": "date-time",
+                "type": "string"
+              },
+              "rates": {
+                "$ref": "#/components/schemas/RateMap"
+              }
+            },
+            "required": [
+              "date",
+              "base",
+              "rates"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "date",
+          "base",
+          "rates"
+        ],
+        "title": "Successful latest-rates response; the service returns both a response wrapper and its top-level fields.",
+        "type": "object"
+      },
+      "RateMap": {
+        "additionalProperties": {
+          "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+          "examples": [
+            0.86426828
+          ],
+          "type": "number"
+        },
+        "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+        "title": "Dynamic map with currency codes as keys and rate numbers as values.",
+        "type": "object"
+      },
+      "SuccessMeta": {
+        "additionalProperties": true,
+        "description": "Status and disclaimer metadata returned by the service.",
+        "properties": {
+          "code": {
+            "const": 200,
+            "description": "Status and disclaimer metadata returned by the service.",
+            "examples": [
+              200
+            ],
+            "type": "integer"
+          },
+          "disclaimer": {
+            "description": "Status and disclaimer metadata returned by the service.",
+            "examples": [
+              "Usage subject to terms: https://currencybeacon.com/terms"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "disclaimer"
+        ],
+        "title": "Status and disclaimer metadata returned by the service.",
+        "type": "object"
+      },
+      "TimeseriesResponse": {
+        "additionalProperties": {
+          "additionalProperties": {
+            "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+            "examples": [
+              0.86426828
+            ],
+            "type": "number"
+          },
+          "description": "Dynamic map with currency codes as keys and rate numbers as values.",
+          "title": "Dynamic map with currency codes as keys and rate numbers as values.",
+          "type": "object"
+        },
+        "description": "Successful time-series response; the service returns both a response wrapper and top-level date keys.",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "response": {
+            "$ref": "#/components/schemas/DateRateMap"
+          }
+        },
+        "required": [
+          "meta",
+          "response"
+        ],
+        "title": "Successful time-series response; the service returns both a response wrapper and top-level date keys.",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "apiKey": {
+        "description": "CurrencyBeacon API key supplied by the caller; it must not be placed in request examples or persisted.",
+        "in": "query",
+        "name": "api_key",
+        "type": "apiKey"
+      },
+      "bearerAuth": {
+        "description": "CurrencyBeacon API key supplied by the caller through the Bearer Authorization header; it must not be placed in request examples or persisted.",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "CurrencyBeacon official API documentation.",
+    "url": "https://currencybeacon.com/api-documentation"
+  },
+  "info": {
+    "description": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers connect directly with their own credentials; Hub does not proxy, cache, persist, or display supplier responses.",
+    "title": "CurrencyBeacon REST API v1",
+    "version": "1.0.0"
+  },
+  "name": "currencybeacon-rest",
+  "pontx": "2.1",
+  "security": [
+    {
+      "apiKey": []
+    },
+    {
+      "bearerAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "CurrencyBeacon v1 HTTPS API.",
+      "id": "currencybeacon-api",
+      "url": "https://api.currencybeacon.com/v1"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": []
+}

@@ -1,0 +1,1416 @@
+{
+  "apis": {
+    "convertCurrency": {
+      "consumes": [],
+      "description": "使用当前或指定历史日期的汇率换算金额。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "convertCurrency",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "待换算货币的三字母代码。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "目标货币的三字母代码。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "amount",
+          "required": true,
+          "schema": {
+            "description": "待换算的金额。",
+            "examples": [
+              10
+            ],
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "历史查询或换算使用的日期，格式为 YYYY-MM-DD。",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/convert",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "amount": 10,
+              "from": "USD",
+              "to": "EUR"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionResponse"
+              }
+            }
+          },
+          "description": "请求成功，返回该 Endpoint 定义的 JSON 响应。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求参数无效。"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方凭据缺失、无效或尚未激活。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方套餐或权限不允许此请求。"
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求的 Endpoint 或资源不存在。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方超过服务调用额度或速率限制。"
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "上游服务发生内部错误。"
+        }
+      },
+      "summary": "换算货币金额",
+      "tags": []
+    },
+    "getHistoricalRates": {
+      "consumes": [],
+      "description": "返回指定日期的历史汇率，可按 symbols 限制返回货币。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getHistoricalRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "date",
+          "required": true,
+          "schema": {
+            "description": "历史查询或换算使用的日期，格式为 YYYY-MM-DD。",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的逗号分隔货币代码列表，用于限制返回汇率。",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/historical",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "date": "2025-01-02",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HistoricalRatesResponse"
+              }
+            }
+          },
+          "description": "请求成功，返回该 Endpoint 定义的 JSON 响应。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求参数无效。"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方凭据缺失、无效或尚未激活。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方套餐或权限不允许此请求。"
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求的 Endpoint 或资源不存在。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方超过服务调用额度或速率限制。"
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "上游服务发生内部错误。"
+        }
+      },
+      "summary": "查询历史汇率",
+      "tags": []
+    },
+    "getLatestRates": {
+      "consumes": [],
+      "description": "按基准货币返回当前可用汇率，可按 symbols 限制返回货币。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getLatestRates",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的逗号分隔货币代码列表，用于限制返回汇率。",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/latest",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LatestRatesResponse"
+              }
+            }
+          },
+          "description": "请求成功，返回该 Endpoint 定义的 JSON 响应。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求参数无效。"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方凭据缺失、无效或尚未激活。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方套餐或权限不允许此请求。"
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求的 Endpoint 或资源不存在。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方超过服务调用额度或速率限制。"
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "上游服务发生内部错误。"
+        }
+      },
+      "summary": "查询最新汇率",
+      "tags": []
+    },
+    "getTimeseries": {
+      "consumes": [],
+      "description": "返回给定日期范围内的每日汇率。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "getTimeseries",
+      "parameters": [
+        {
+          "in": "query",
+          "name": "start_date",
+          "required": true,
+          "schema": {
+            "description": "时间序列起始日期，格式为 YYYY-MM-DD。",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end_date",
+          "required": true,
+          "schema": {
+            "description": "时间序列结束日期，格式为 YYYY-MM-DD，且不得早于起始日期。",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "可选的逗号分隔货币代码列表，用于限制返回汇率。",
+            "examples": [
+              "EUR,GBP"
+            ],
+            "pattern": "^[A-Za-z0-9]+(?:,[A-Za-z0-9]+)*$",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/timeseries",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {
+              "base": "USD",
+              "end_date": "2025-01-02",
+              "start_date": "2025-01-01",
+              "symbols": "EUR,GBP"
+            }
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeseriesResponse"
+              }
+            }
+          },
+          "description": "请求成功，返回该 Endpoint 定义的 JSON 响应。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求参数无效。"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方凭据缺失、无效或尚未激活。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方套餐或权限不允许此请求。"
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求的 Endpoint 或资源不存在。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方超过服务调用额度或速率限制。"
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "上游服务发生内部错误。"
+        }
+      },
+      "summary": "查询汇率时间序列",
+      "tags": []
+    },
+    "listCurrencies": {
+      "consumes": [],
+      "description": "返回可用货币的数字 key 映射及其名称、代码、精度和显示符号。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://currencybeacon.com/api-documentation",
+            "https://currencybeacon.com/code-samples"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "listCurrencies",
+      "parameters": [],
+      "path": "/currencies",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {},
+            "query": {}
+          },
+          "serverUrl": "https://api.currencybeacon.com/v1",
+          "summary": "可复现的只读请求",
+          "verifiedAt": "2026-08-15"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrenciesResponse"
+              }
+            }
+          },
+          "description": "请求成功，返回该 Endpoint 定义的 JSON 响应。"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求参数无效。"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方凭据缺失、无效或尚未激活。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方套餐或权限不允许此请求。"
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "请求的 Endpoint 或资源不存在。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "调用方超过服务调用额度或速率限制。"
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          },
+          "description": "上游服务发生内部错误。"
+        }
+      },
+      "summary": "列出支持的货币",
+      "tags": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConversionResponse": {
+        "additionalProperties": true,
+        "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+        "properties": {
+          "amount": {
+            "description": "待换算的金额。",
+            "examples": [
+              10
+            ],
+            "type": "number"
+          },
+          "date": {
+            "description": "历史查询或换算使用的日期，格式为 YYYY-MM-DD。",
+            "examples": [
+              "2026-08-15"
+            ],
+            "format": "date",
+            "type": "string"
+          },
+          "from": {
+            "description": "待换算货币的三字母代码。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+            "properties": {
+              "amount": {
+                "description": "待换算的金额。",
+                "examples": [
+                  10
+                ],
+                "type": "number"
+              },
+              "date": {
+                "description": "历史查询或换算使用的日期，格式为 YYYY-MM-DD。",
+                "examples": [
+                  "2026-08-15"
+                ],
+                "format": "date",
+                "type": "string"
+              },
+              "from": {
+                "description": "待换算货币的三字母代码。",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "timestamp": {
+                "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+                "examples": [
+                  1786770980
+                ],
+                "type": "integer"
+              },
+              "to": {
+                "description": "目标货币的三字母代码。",
+                "examples": [
+                  "EUR"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "value": {
+                "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+                "examples": [
+                  8.6426828
+                ],
+                "type": "number"
+              }
+            },
+            "required": [
+              "timestamp",
+              "date",
+              "from",
+              "to",
+              "amount",
+              "value"
+            ],
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+            "examples": [
+              1786770980
+            ],
+            "type": "integer"
+          },
+          "to": {
+            "description": "目标货币的三字母代码。",
+            "examples": [
+              "EUR"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "value": {
+            "description": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+            "examples": [
+              8.6426828
+            ],
+            "type": "number"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "timestamp",
+          "date",
+          "from",
+          "to",
+          "amount",
+          "value"
+        ],
+        "title": "货币换算成功响应；服务同时返回 response 包装与其顶层字段。",
+        "type": "object"
+      },
+      "CurrenciesResponse": {
+        "additionalProperties": {
+          "additionalProperties": true,
+          "description": "供应商列出的一个可用货币定义。",
+          "properties": {
+            "code": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                "784"
+              ],
+              "pattern": "^[0-9]{1,3}$",
+              "type": "string"
+            },
+            "decimal_mark": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                "."
+              ],
+              "type": "string"
+            },
+            "id": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                1
+              ],
+              "minimum": 1,
+              "type": "integer"
+            },
+            "name": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                "UAE Dirham"
+              ],
+              "type": "string"
+            },
+            "precision": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                2
+              ],
+              "minimum": 0,
+              "type": "integer"
+            },
+            "short_code": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                "AED"
+              ],
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            "subunit": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                100
+              ],
+              "minimum": 0,
+              "type": "integer"
+            },
+            "symbol": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                "د.إ"
+              ],
+              "type": "string"
+            },
+            "symbol_first": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "thousands_separator": {
+              "description": "供应商列出的一个可用货币定义。",
+              "examples": [
+                ","
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "short_code",
+            "code",
+            "precision",
+            "subunit",
+            "symbol",
+            "symbol_first",
+            "decimal_mark",
+            "thousands_separator"
+          ],
+          "title": "供应商列出的一个可用货币定义。",
+          "type": "object"
+        },
+        "description": "以数字字符串为 key 的货币定义动态映射；这是供应商实际返回的 JSON 对象，而非数组。",
+        "minProperties": 1,
+        "title": "以数字字符串为 key 的货币定义动态映射；这是供应商实际返回的 JSON 对象，而非数组。",
+        "type": "object"
+      },
+      "Currency": {
+        "additionalProperties": true,
+        "description": "供应商列出的一个可用货币定义。",
+        "properties": {
+          "code": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              "784"
+            ],
+            "pattern": "^[0-9]{1,3}$",
+            "type": "string"
+          },
+          "decimal_mark": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              "."
+            ],
+            "type": "string"
+          },
+          "id": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              1
+            ],
+            "minimum": 1,
+            "type": "integer"
+          },
+          "name": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              "UAE Dirham"
+            ],
+            "type": "string"
+          },
+          "precision": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              2
+            ],
+            "minimum": 0,
+            "type": "integer"
+          },
+          "short_code": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              "AED"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "subunit": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              100
+            ],
+            "minimum": 0,
+            "type": "integer"
+          },
+          "symbol": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              "د.إ"
+            ],
+            "type": "string"
+          },
+          "symbol_first": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "thousands_separator": {
+            "description": "供应商列出的一个可用货币定义。",
+            "examples": [
+              ","
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "short_code",
+          "code",
+          "precision",
+          "subunit",
+          "symbol",
+          "symbol_first",
+          "decimal_mark",
+          "thousands_separator"
+        ],
+        "title": "供应商列出的一个可用货币定义。",
+        "type": "object"
+      },
+      "DateRateMap": {
+        "additionalProperties": {
+          "additionalProperties": {
+            "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+            "examples": [
+              0.86426828
+            ],
+            "type": "number"
+          },
+          "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+          "title": "以货币代码为 key、汇率数值为 value 的动态映射。",
+          "type": "object"
+        },
+        "description": "以 YYYY-MM-DD 日期为 key、当日汇率映射为 value 的动态映射。",
+        "title": "以 YYYY-MM-DD 日期为 key、当日汇率映射为 value 的动态映射。",
+        "type": "object"
+      },
+      "ErrorMeta": {
+        "additionalProperties": true,
+        "description": "服务返回的错误状态与说明元数据。",
+        "properties": {
+          "code": {
+            "description": "服务返回的错误状态与说明元数据。",
+            "examples": [
+              400
+            ],
+            "type": "integer"
+          },
+          "disclaimer": {
+            "description": "服务返回的错误状态与说明元数据。",
+            "examples": [
+              "Usage subject to terms: https://currencybeacon.com/terms"
+            ],
+            "type": "string"
+          },
+          "error_detail": {
+            "description": "服务返回的错误状态与说明元数据。",
+            "examples": [
+              "Missing or invalid api credentials."
+            ],
+            "type": "string"
+          },
+          "error_type": {
+            "description": "服务返回的错误状态与说明元数据。",
+            "examples": [
+              "auth failed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "服务返回的错误状态与说明元数据。",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "additionalProperties": true,
+        "description": "服务未能完成请求时返回的错误响应。",
+        "properties": {
+          "message": {
+            "description": "服务未能完成请求时返回的错误响应。",
+            "examples": [
+              "Dates must use YYYY-MM-DD format."
+            ],
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ErrorMeta"
+          },
+          "response": {
+            "description": "服务未能完成请求时返回的错误响应。",
+            "examples": [
+              []
+            ],
+            "items": {
+              "description": "服务未能完成请求时返回的错误响应。",
+              "examples": [
+                ""
+              ],
+              "type": "string"
+            },
+            "maxItems": 0,
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "response"
+        ],
+        "title": "服务未能完成请求时返回的错误响应。",
+        "type": "object"
+      },
+      "HistoricalRatesResponse": {
+        "additionalProperties": true,
+        "description": "历史汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+        "properties": {
+          "base": {
+            "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "date": {
+            "description": "历史汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+            "examples": [
+              "2025-01-02"
+            ],
+            "format": "date",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "历史汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+            "properties": {
+              "base": {
+                "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "date": {
+                "description": "历史汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+                "examples": [
+                  "2025-01-02"
+                ],
+                "format": "date",
+                "type": "string"
+              },
+              "rates": {
+                "$ref": "#/components/schemas/RateMap"
+              }
+            },
+            "required": [
+              "date",
+              "base",
+              "rates"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "date",
+          "base",
+          "rates"
+        ],
+        "title": "历史汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+        "type": "object"
+      },
+      "LatestRatesResponse": {
+        "additionalProperties": true,
+        "description": "最新汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+        "properties": {
+          "base": {
+            "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+            "examples": [
+              "USD"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
+          },
+          "date": {
+            "description": "最新汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+            "examples": [
+              "2026-08-15T05:16:21Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "rates": {
+            "$ref": "#/components/schemas/RateMap"
+          },
+          "response": {
+            "additionalProperties": true,
+            "description": "最新汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+            "properties": {
+              "base": {
+                "description": "基准货币的三字母代码；未提供时服务默认使用 USD。",
+                "examples": [
+                  "USD"
+                ],
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              "date": {
+                "description": "最新汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+                "examples": [
+                  "2026-08-15T05:16:21Z"
+                ],
+                "format": "date-time",
+                "type": "string"
+              },
+              "rates": {
+                "$ref": "#/components/schemas/RateMap"
+              }
+            },
+            "required": [
+              "date",
+              "base",
+              "rates"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "meta",
+          "response",
+          "date",
+          "base",
+          "rates"
+        ],
+        "title": "最新汇率成功响应；服务同时返回 response 包装与其顶层字段。",
+        "type": "object"
+      },
+      "RateMap": {
+        "additionalProperties": {
+          "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+          "examples": [
+            0.86426828
+          ],
+          "type": "number"
+        },
+        "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+        "title": "以货币代码为 key、汇率数值为 value 的动态映射。",
+        "type": "object"
+      },
+      "SuccessMeta": {
+        "additionalProperties": true,
+        "description": "服务返回的状态与免责声明元数据。",
+        "properties": {
+          "code": {
+            "const": 200,
+            "description": "服务返回的状态与免责声明元数据。",
+            "examples": [
+              200
+            ],
+            "type": "integer"
+          },
+          "disclaimer": {
+            "description": "服务返回的状态与免责声明元数据。",
+            "examples": [
+              "Usage subject to terms: https://currencybeacon.com/terms"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "disclaimer"
+        ],
+        "title": "服务返回的状态与免责声明元数据。",
+        "type": "object"
+      },
+      "TimeseriesResponse": {
+        "additionalProperties": {
+          "additionalProperties": {
+            "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+            "examples": [
+              0.86426828
+            ],
+            "type": "number"
+          },
+          "description": "以货币代码为 key、汇率数值为 value 的动态映射。",
+          "title": "以货币代码为 key、汇率数值为 value 的动态映射。",
+          "type": "object"
+        },
+        "description": "时间序列成功响应；服务同时返回 response 包装与其顶层日期键。",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/SuccessMeta"
+          },
+          "response": {
+            "$ref": "#/components/schemas/DateRateMap"
+          }
+        },
+        "required": [
+          "meta",
+          "response"
+        ],
+        "title": "时间序列成功响应；服务同时返回 response 包装与其顶层日期键。",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "apiKey": {
+        "description": "调用方提供的 CurrencyBeacon API key；不得写入请求示例或持久化。",
+        "in": "query",
+        "name": "api_key",
+        "type": "apiKey"
+      },
+      "bearerAuth": {
+        "description": "调用方通过 Bearer Authorization header 提供的 CurrencyBeacon API key；不得写入请求示例或持久化。",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "CurrencyBeacon 官方 API 文档。",
+    "url": "https://currencybeacon.com/api-documentation"
+  },
+  "info": {
+    "description": "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据直连服务；Hub 不代理、缓存、持久化或展示供应商响应。",
+    "title": "CurrencyBeacon REST API v1",
+    "version": "1.0.0"
+  },
+  "name": "currencybeacon-rest",
+  "pontx": "2.1",
+  "security": [
+    {
+      "apiKey": []
+    },
+    {
+      "bearerAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "CurrencyBeacon v1 HTTPS API。",
+      "id": "currencybeacon-api",
+      "url": "https://api.currencybeacon.com/v1"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": []
+}
