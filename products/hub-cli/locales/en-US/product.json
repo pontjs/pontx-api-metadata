@@ -1,0 +1,13 @@
+{
+  "display": {
+    "title": "Pontx Hub Discovery API",
+    "summary": "Pontx's public, unauthenticated discovery API for API products, Endpoints, Schemas, SDK metadata, and published Agent Skills. Account, AI, OAuth token-exchange, and Playground-execution routes are not part of this public API."
+  },
+  "documentation": {
+    "stabilityNote": "This product is strictly limited to the read-only discovery and Skill-distribution API published by Pontx Hub. It does not present browser same-origin Playground/OAuth helpers, cookie-based account APIs, the AI Agent API, or internal cron routes as third-party Open APIs."
+  },
+  "pricing": {
+    "summary": "The public discovery and Skill-download API currently requires no API key, OAuth token, or paid plan. Callers must still follow the site's reasonable-use expectations and response cache headers."
+  },
+  "credentials": []
+}
