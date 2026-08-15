@@ -11,6 +11,8 @@ The source-of-truth catalog for [Pontx Hub](https://pontx.dev). It stores approv
 - Dida365 Open API — task and project management
 - Massive Stock Market Data API — official stock trades, aggregates, snapshots, and reference data
 - Dropbox Sign v3 API — signatures, templates, teams, files, fax, and event callbacks
+- ECB Data Portal SDMX API — public European Central Bank statistics and structural metadata
+- Stripe Identity API — verification sessions and reports; documentation and local SDK/CLI only
 
 Only collections that pass the SDK publication and redistribution gate remain
 in the catalog. See
@@ -19,6 +21,9 @@ the current decisions, provider evidence, package-only restrictions, and
 re-entry rule. Massive remains an official API collection, but Hub proxying and
 market-data redistribution are disabled; callers use their own account and API
 key directly from the SDK or CLI.
+Stripe Identity is similarly documentation-only in the Hub: all eight
+Endpoints remain proxy-disabled because identity documents, selfies, identity
+numbers, contact data, verification results, and client secrets are sensitive.
 
 ## Candidate API products
 
