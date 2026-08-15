@@ -41,7 +41,7 @@ List current local Endpoints and preview exact input before any direct call:
 
 ```bash
 pnpm exec pontx-mongodb-atlas-admin list apis
-pnpm exec pontx-mongodb-atlas-admin preview organizations listOrgs --input '{}'
+pnpm exec pontx-mongodb-atlas-admin call organizations listOrgs --dry-run
 ```
 
 Every mutation must be previewed with redacted input and then receive explicit
@@ -51,7 +51,7 @@ unchanged input with its request-bound confirmation token:
 
 ```bash
 pnpm exec pontx-mongodb-atlas-admin call <controller> <Endpoint> \
-  --input '<verified-json>' --confirm '<preview-confirmation-token>'
+  <required-options> --confirm '<preview-confirmation-token>'
 ```
 
 If the target, input, credential scope, or intended effect changes, discard the

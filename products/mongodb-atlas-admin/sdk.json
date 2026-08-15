@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/mongodb-atlas-admin",
     "version": "0.1.0",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/mongodb-atlas-admin"
   },
   "cli": {
@@ -82,13 +82,32 @@
   },
   "examples": {
     "typescript": "import { createMongoDbAtlasAdminClient } from \"@pontx/mongodb-atlas-admin\";\n\nconst client = createMongoDbAtlasAdminClient();\nconst organizations = await client.organizations.listOrgs({});",
-    "cli": "pnpm add --global @pontx/mongodb-atlas-admin\n\npontx-mongodb-atlas-admin preview organizations listOrgs --input '{}'"
+    "cli": "pnpm add --global @pontx/mongodb-atlas-admin\n\npontx-mongodb-atlas-admin call organizations listOrgs --dry-run"
   },
   "coverage": {
     "mode": "full"
   },
   "spec": {
     "path": "products/mongodb-atlas-admin/spec.pontx.json",
-    "sha256": "d0f3ecce1133da55b320701ac24c091ec81f9bc8051817732a03a28cbef00ec5"
+    "sha256": "d0f3ecce1133da55b320701ac24c091ec81f9bc8051817732a03a28cbef00ec5",
+    "metadataCommit": "8bd9128f25e92191072624212626540d68d543e1"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "30539888cf6795b3a67f7cf948bbb84d19527ebf",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/mongodb-atlas-admin",
+    "workflowRunUrl": "https://github.com/pontjs/mongodb-atlas-admin/actions/runs/31891578691"
   }
 }
