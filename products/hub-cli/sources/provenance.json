@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "product": "Pontx Hub Discovery API",
+  "boundary": {
+    "zh": "Pontx Hub 在 /openapi.json 发布的无鉴权、只读发现和 Skill 分发接口；不包括账户、AI、Playground 执行、OAuth 辅助或内部路由。",
+    "en": "The unauthenticated, read-only discovery and Skill-distribution routes that Pontx Hub publishes at /openapi.json; account, AI, Playground execution, OAuth-helper, and internal routes are excluded."
+  },
+  "sources": [
+    {
+      "kind": "official-openapi",
+      "url": "https://pontx.dev/openapi.json",
+      "openapi": "3.1.0",
+      "infoVersion": "2.2.0",
+      "sha256": "bafc9f5df52f49bcf25e2ccc0e4398690f55938d3d6dcd6f222de1ca52a2fe35",
+      "observedAt": "2026-08-16"
+    },
+    {
+      "kind": "official-source",
+      "repository": "https://github.com/pontjs/pontx-hub",
+      "revision": "b5d1cf241ad020c29f4dce38dae8d517084d41da",
+      "paths": [
+        "app/routes/openapi.ts",
+        "app/api/hub-api.server.ts"
+      ],
+      "license": "MIT"
+    }
+  ],
+  "authDecision": {
+    "current": "none",
+    "zh": "所有已收录 Endpoint 均可匿名读取。受账户身份或服务端预算保护的路由尚未形成第三方授权服务器/资源服务器契约，因此保持私有，不能通过现有网站 Cookie 或 GitHub 登录令牌调用。",
+    "en": "Every admitted Endpoint is anonymously readable. Routes protected by an account identity or a server-side budget do not yet have a third-party authorization-server/resource-server contract, so they remain private and cannot be called with an existing website cookie or GitHub sign-in token."
+  }
+}

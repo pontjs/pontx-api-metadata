@@ -1,0 +1,1024 @@
+{
+  "pontx": "2.1",
+  "name": "hub-cli",
+  "style": "RESTFul",
+  "info": {
+    "title": "Pontx Hub 发现 API",
+    "version": "2.3.0",
+    "description": "Pontx Hub 公开、无鉴权的只读发现 API。它提供 API 产品、Endpoint、Schema、SDK 和已发布 Agent Skill 的查询与下载；账户、AI、Playground 执行、OAuth 辅助和内部接口不属于本契约。"
+  },
+  "servers": [
+    {
+      "id": "production",
+      "url": "https://pontx.dev",
+      "description": "Pontx Hub 生产站点。"
+    }
+  ],
+  "apis": {
+    "catalog/listCatalog": {
+      "operationId": "listCatalog",
+      "summary": "列出 API 目录",
+      "description": "返回兼容 v1 客户端的已收录 API 概要列表。优先使用 v2 产品目录以获得 metadataRevision 和更清晰的资源边界。",
+      "method": "GET",
+      "path": "/api/v1/catalog",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "已收录 API 的 v1 概要列表。",
+          "schema": { "$ref": "#/components/schemas/V1CatalogEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/V1CatalogEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取当前目录",
+          "request": { "path": {}, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/getHubSkill": {
+      "operationId": "getHubSkill",
+      "summary": "下载通用 Hub Skill",
+      "description": "返回兼容 v1 客户端的 Pontx Hub 通用 Agent Skill 文件映射。新接入应优先使用 v1 Skills 目录和单个 bundle 接口，以便校验版本与内容哈希。",
+      "method": "GET",
+      "path": "/api/v1/skill",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "通用 Skill 的 v1 文件映射。",
+          "schema": { "$ref": "#/components/schemas/LegacySkillEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LegacySkillEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取通用 Skill bundle",
+          "request": { "path": {}, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/listSkills": {
+      "operationId": "listSkills",
+      "summary": "列出已发布 Skill",
+      "description": "列出通用 Skill 和与当前 metadata 同一版本的已发布产品 Skill，不返回文件内容。",
+      "method": "GET",
+      "path": "/api/v1/skills",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "可安装 Skill 的摘要与文件哈希。",
+          "schema": { "$ref": "#/components/schemas/SkillListEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SkillListEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "查询产品 Skill 目录",
+          "request": { "path": {}, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/getSkill": {
+      "operationId": "getSkill",
+      "summary": "下载一个已验证 Skill",
+      "description": "按名称返回一个通用或已发布产品 Skill 的 UTF-8 文件、每个文件哈希和 bundle 内容哈希。安装前必须校验这些哈希。",
+      "method": "GET",
+      "path": "/api/v1/skills/{name}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "Skill 的稳定名称。", "examples": ["pontx-hub"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "已验证 Skill 的完整可安装文件。",
+          "schema": { "$ref": "#/components/schemas/SkillBundleEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SkillBundleEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 Skill。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "下载通用 Skill",
+          "request": { "path": { "name": "pontx-hub" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSpec": {
+      "operationId": "getApiSpec",
+      "summary": "读取一个 API 产品",
+      "description": "返回兼容 v1 客户端的完整 API 概要。需要分层、可缓存的 v2 metadata 时应使用 getFullProductMetadata。",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v1 API 产品详情。",
+          "schema": { "$ref": "#/components/schemas/V1ApiEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/V1ApiEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 API。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取 API 产品详情",
+          "request": { "path": { "slug": "frankfurter-v2" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiEndpoint": {
+      "operationId": "getApiEndpoint",
+      "summary": "读取一个 API Endpoint",
+      "description": "返回兼容 v1 客户端的一个 Endpoint 详情及所属 API 概要。",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/operations/{operationSlug}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        },
+        {
+          "name": "operationSlug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "Endpoint slug。", "examples": ["get-latest-rates"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v1 Endpoint 详情。",
+          "schema": { "$ref": "#/components/schemas/V1EndpointEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/V1EndpointEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 Endpoint。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取汇率 Endpoint",
+          "request": { "path": { "slug": "frankfurter-v2", "operationSlug": "get-latest-rates" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSdk": {
+      "operationId": "getApiSdk",
+      "summary": "读取已发布 SDK 信息",
+      "description": "返回 API 的 npm 包、版本、可选产品 CLI、运行时和规范哈希信息。",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/sdk",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "SDK 版本和安装信息。",
+          "schema": { "$ref": "#/components/schemas/V1SdkEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/V1SdkEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 API 的 SDK 信息。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取 API SDK 信息",
+          "request": { "path": { "slug": "frankfurter-v2" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiPricing": {
+      "operationId": "getApiPricing",
+      "summary": "读取 API 定价资料",
+      "description": "返回经审核的 API 定价概要；资料不存在时会明确返回 unknown 状态，而不是推断费用。",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/pricing",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "经审核的定价或 unknown 状态。",
+          "schema": { "$ref": "#/components/schemas/PricingEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PricingEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 API。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取 API 定价资料",
+          "request": { "path": { "slug": "frankfurter-v2" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/listProducts": {
+      "operationId": "listProducts",
+      "summary": "列出 v2 API 产品",
+      "description": "返回轻量产品身份、Endpoint/Schema 数量、鉴权类型和 SDK 状态，不包含请求、响应或 Schema 详情。",
+      "method": "GET",
+      "path": "/api/v2/products",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "带精确 metadataRevision 的 v2 产品目录。",
+          "schema": { "$ref": "#/components/schemas/ProductListEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductListEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取当前 v2 产品目录",
+          "request": { "path": {}, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getProductSummary": {
+      "operationId": "getProductSummary",
+      "summary": "读取一个产品概要和资源目录",
+      "description": "返回产品元数据、Endpoint 和 Schema 的导航级摘要；不返回完整请求、响应或 Schema 图。",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "带资源目录的产品概要。",
+          "schema": { "$ref": "#/components/schemas/ProductSummaryEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductSummaryEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该产品。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取产品资源目录",
+          "request": { "path": { "slug": "frankfurter-v2" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getEndpointMetadata": {
+      "operationId": "getEndpointMetadata",
+      "summary": "读取一个 Endpoint 的完整 metadata",
+      "description": "返回选择的 Endpoint、紧凑产品目录和该 Endpoint 所需的本地化 PontxSpec Schema 闭包。",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/endpoints/{endpointSlug}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        },
+        {
+          "name": "endpointSlug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "Endpoint slug。", "examples": ["get-latest-rates"] }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "string", "enum": ["en", "zh"], "default": "en", "description": "返回文本的语言。" }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "本地化 Endpoint 和可传递 Schema 闭包。",
+          "schema": { "$ref": "#/components/schemas/EndpointDetailEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EndpointDetailEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 Endpoint。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        },
+        "422": {
+          "description": "locale 无效。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取英文 Endpoint metadata",
+          "request": { "path": { "slug": "frankfurter-v2", "endpointSlug": "get-latest-rates" }, "query": { "locale": "en" }, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getSchemaMetadata": {
+      "operationId": "getSchemaMetadata",
+      "summary": "读取一个 Schema 的完整 metadata",
+      "description": "返回选择的 Schema、紧凑产品目录和该 Schema 所需的本地化 PontxSpec Schema 闭包。",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/schemas/{schemaName}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        },
+        {
+          "name": "schemaName",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "Schema 的稳定名称。", "examples": ["LatestResponse"] }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "string", "enum": ["en", "zh"], "default": "en", "description": "返回文本的语言。" }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "本地化 Schema 和可传递 Schema 闭包。",
+          "schema": { "$ref": "#/components/schemas/SchemaDetailEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaDetailEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 Schema。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        },
+        "422": {
+          "description": "locale 无效。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取英文 Schema metadata",
+          "request": { "path": { "slug": "frankfurter-v2", "schemaName": "LatestResponse" }, "query": { "locale": "en" }, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getFullProductMetadata": {
+      "operationId": "getFullProductMetadata",
+      "summary": "读取一个产品的完整 metadata",
+      "description": "返回所选语言的完整产品记录和完整 PontxSpec；适合 Agent、离线索引和批量工具，不适合仅需要导航的页面。",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/metadata",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "string", "enum": ["en", "zh"], "default": "en", "description": "返回文本的语言。" }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "完整本地化产品 metadata 和 PontxSpec。",
+          "schema": { "$ref": "#/components/schemas/FullProductMetadataEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FullProductMetadataEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该产品。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        },
+        "422": {
+          "description": "locale 无效。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取英文完整产品 metadata",
+          "request": { "path": { "slug": "frankfurter-v2" }, "query": { "locale": "en" }, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "search/searchApiCatalog": {
+      "operationId": "searchApiCatalog",
+      "summary": "搜索 API、Endpoint 和 Schema",
+      "description": "以确定性的双语混合语义策略搜索 API 产品、Endpoint、输入、输出和 Schema，并返回稳定资源 ID 与命中来源。",
+      "method": "GET",
+      "path": "/api/v2/search",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "q",
+          "in": "query",
+          "required": true,
+          "schema": { "type": "string", "minLength": 1, "description": "非空自然语言或标识符查询。", "examples": ["find an API Schema"] }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "string", "enum": ["en", "zh"], "default": "en", "description": "搜索结果文本的语言。" }
+        },
+        {
+          "name": "types",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "string", "description": "以逗号分隔的 api、endpoint 或 schema 类型。", "examples": ["schema"] }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 30, "description": "返回条数上限。" }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "required": false,
+          "schema": { "type": "integer", "minimum": 0, "default": 0, "description": "结果偏移量。" }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "带策略、版本和命中来源的排序搜索结果。",
+          "schema": { "$ref": "#/components/schemas/SearchEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SearchEnvelope" } } }
+        },
+        "422": {
+          "description": "查询参数无效。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "搜索 Schema",
+          "request": { "path": {}, "query": { "q": "find an API Schema", "locale": "en", "types": "schema", "limit": 10, "offset": 0 }, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSchema": {
+      "operationId": "getApiSchema",
+      "summary": "读取一个 API Schema",
+      "description": "返回兼容 v2 客户端的 API 概要和一个完整 Schema。需要可传递 Schema 闭包时应使用 getSchemaMetadata。",
+      "method": "GET",
+      "path": "/api/v2/specs/{slug}/schemas/{schemaName}",
+      "consumes": [],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "API 产品 slug。", "examples": ["frankfurter-v2"] }
+        },
+        {
+          "name": "schemaName",
+          "in": "path",
+          "required": true,
+          "schema": { "type": "string", "description": "Schema 的稳定名称。", "examples": ["LatestResponse"] }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v2 API 概要和完整 Schema。",
+          "schema": { "$ref": "#/components/schemas/V2SchemaEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/V2SchemaEnvelope" } } }
+        },
+        "404": {
+          "description": "未找到该 Schema。",
+          "schema": { "$ref": "#/components/schemas/ErrorEnvelope" },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorEnvelope" } } }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "读取 API Schema",
+          "request": { "path": { "slug": "frankfurter-v2", "schemaName": "LatestResponse" }, "query": {}, "headers": {} },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {
+      "ErrorEnvelope": {
+        "title": "错误响应",
+        "description": "公开 Hub API 的机器可读错误对象。requestId 用于关联支持请求，不能视为认证凭证。",
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "requestId"],
+            "properties": {
+              "code": { "type": "string", "description": "稳定错误代码。", "examples": ["not_found"] },
+              "message": { "type": "string", "description": "面向调用方的错误说明。" },
+              "requestId": { "type": "string", "description": "服务端生成的请求关联 ID。" }
+            }
+          }
+        }
+      },
+      "LocalizedText": {
+        "title": "双语文本",
+        "description": "同一字段的中文和英文文本。",
+        "type": "object",
+        "required": ["zh", "en"],
+        "properties": {
+          "zh": { "type": "string", "description": "中文文本。" },
+          "en": { "type": "string", "description": "英文文本。" }
+        }
+      },
+      "SdkSummary": {
+        "title": "SDK 摘要",
+        "description": "一个 API 的 npm SDK 和可选产品 CLI 状态。",
+        "type": "object",
+        "required": ["packageName", "sdkVersion", "sdkStatus"],
+        "properties": {
+          "packageName": { "type": "string", "description": "npm 包名。" },
+          "sdkVersion": { "type": "string", "description": "声明的 SDK 版本。" },
+          "sdkStatus": { "type": "string", "enum": ["planned", "published"], "description": "SDK 发布状态。" },
+          "cliName": { "type": "string", "description": "可选产品 CLI 名称。" }
+        }
+      },
+      "ProductSummary": {
+        "title": "API 产品摘要",
+        "description": "目录与 metadata 资源共享的 API 产品身份和计数。",
+        "type": "object",
+        "required": ["id", "slug", "name", "provider", "title", "summary", "endpointCount", "schemaCount", "authTypes", "sdk"],
+        "properties": {
+          "id": { "type": "string", "description": "稳定资源 ID，格式为 api:<slug>。" },
+          "slug": { "type": "string", "description": "稳定产品 slug。" },
+          "name": { "type": "string", "description": "API 名称。" },
+          "provider": { "type": "string", "description": "API 提供方名称。" },
+          "category": { "type": "string", "description": "目录分类。" },
+          "title": { "$ref": "#/components/schemas/LocalizedText" },
+          "summary": { "$ref": "#/components/schemas/LocalizedText" },
+          "endpointCount": { "type": "integer", "minimum": 0, "description": "Endpoint 数量。" },
+          "schemaCount": { "type": "integer", "minimum": 0, "description": "Schema 数量。" },
+          "defaultEndpointSlug": { "type": "string", "description": "默认 Endpoint slug。" },
+          "authTypes": { "type": "array", "items": { "type": "string" }, "description": "该 API 声明的鉴权类型。" },
+          "sdk": { "$ref": "#/components/schemas/SdkSummary" }
+        },
+        "additionalProperties": true
+      },
+      "EndpointSummary": {
+        "title": "Endpoint 摘要",
+        "description": "导航级 Endpoint 身份和传输信息。",
+        "type": "object",
+        "required": ["id", "slug", "operationId", "style", "tag", "title"],
+        "properties": {
+          "id": { "type": "string", "description": "稳定资源 ID，格式为 endpoint:<api>/<endpoint>。" },
+          "slug": { "type": "string", "description": "稳定 Endpoint slug。" },
+          "operationId": { "type": "string", "description": "PontxSpec operationId。" },
+          "style": { "type": "string", "description": "传输风格。" },
+          "tag": { "type": "string", "description": "PontxSpec tag；未分组 Endpoint 可为空字符串。" },
+          "method": { "type": "string", "description": "HTTP 方法。" },
+          "path": { "type": "string", "description": "服务器相对路径。" },
+          "title": { "$ref": "#/components/schemas/LocalizedText" },
+          "deprecated": { "type": "boolean", "description": "是否已弃用。" }
+        },
+        "additionalProperties": true
+      },
+      "SchemaSummary": {
+        "title": "Schema 摘要",
+        "description": "导航级 Schema 身份和形状信息。",
+        "type": "object",
+        "required": ["id", "name", "title", "type", "propertyCount"],
+        "properties": {
+          "id": { "type": "string", "description": "稳定资源 ID，格式为 schema:<api>/<name>。" },
+          "name": { "type": "string", "description": "稳定 Schema 名称。" },
+          "title": { "$ref": "#/components/schemas/LocalizedText" },
+          "type": { "type": "string", "description": "JSON Schema 主类型。" },
+          "propertyCount": { "type": "integer", "minimum": 0, "description": "直接属性数量。" }
+        },
+        "additionalProperties": true
+      },
+      "ProductListEnvelope": {
+        "title": "产品目录响应",
+        "description": "带 metadataRevision 的 v2 产品目录。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"], "description": "资源协议版本。" },
+          "metadataRevision": { "type": "string", "description": "生成响应的 metadata Git revision。" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/ProductSummary" }, "description": "产品摘要数组。" }
+        }
+      },
+      "ProductSummaryEnvelope": {
+        "title": "产品资源目录响应",
+        "description": "一个产品及其导航级 Endpoint、Schema 摘要。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "metadataRevision": { "type": "string" },
+          "data": {
+            "type": "object",
+            "required": ["id", "slug", "endpointCount", "schemaCount", "endpoints", "schemas"],
+            "properties": {
+              "id": { "type": "string" },
+              "slug": { "type": "string" },
+              "endpointCount": { "type": "integer", "minimum": 0 },
+              "schemaCount": { "type": "integer", "minimum": 0 },
+              "endpoints": { "type": "array", "items": { "$ref": "#/components/schemas/EndpointSummary" } },
+              "schemas": { "type": "array", "items": { "$ref": "#/components/schemas/SchemaSummary" } }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "EndpointDetailEnvelope": {
+        "title": "Endpoint metadata 响应",
+        "description": "一个本地化 Endpoint 与它所需的 PontxSpec Schema 闭包。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "metadataRevision": { "type": "string" },
+          "data": {
+            "type": "object",
+            "required": ["locale", "product", "endpoint", "pontxSpec"],
+            "properties": {
+              "locale": { "type": "string", "enum": ["en", "zh"] },
+              "product": { "$ref": "#/components/schemas/ProductSummary" },
+              "endpoint": { "type": "object", "description": "完整 Endpoint metadata。", "additionalProperties": true },
+              "pontxSpec": { "type": "object", "description": "Schema 闭包的 PontxSpec 片段。", "additionalProperties": true }
+            }
+          }
+        }
+      },
+      "SchemaDetailEnvelope": {
+        "title": "Schema metadata 响应",
+        "description": "一个本地化 Schema 与它所需的 PontxSpec Schema 闭包。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "metadataRevision": { "type": "string" },
+          "data": {
+            "type": "object",
+            "required": ["locale", "product", "schema", "pontxSpec"],
+            "properties": {
+              "locale": { "type": "string", "enum": ["en", "zh"] },
+              "product": { "$ref": "#/components/schemas/ProductSummary" },
+              "schema": { "type": "object", "description": "完整 Schema metadata。", "additionalProperties": true },
+              "pontxSpec": { "type": "object", "description": "Schema 闭包的 PontxSpec 片段。", "additionalProperties": true }
+            }
+          }
+        }
+      },
+      "FullProductMetadataEnvelope": {
+        "title": "完整产品 metadata 响应",
+        "description": "一个产品的完整本地化元数据和完整 PontxSpec。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "metadataRevision": { "type": "string" },
+          "data": {
+            "type": "object",
+            "required": ["locale", "product", "pontxSpec"],
+            "properties": {
+              "locale": { "type": "string", "enum": ["en", "zh"] },
+              "product": { "type": "object", "additionalProperties": true },
+              "pontxSpec": { "type": "object", "additionalProperties": true }
+            }
+          }
+        }
+      },
+      "SearchEnvelope": {
+        "title": "搜索响应",
+        "description": "v2 全局搜索的确定性策略、分页信息与命中来源。",
+        "type": "object",
+        "required": ["version", "metadataRevision", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "metadataRevision": { "type": "string" },
+          "data": {
+            "type": "object",
+            "required": ["strategy", "semanticVersion", "query", "locale", "total", "offset", "limit", "counts", "items"],
+            "properties": {
+              "strategy": { "type": "string", "description": "搜索策略标识。" },
+              "semanticVersion": { "type": "string", "description": "语义策略版本。" },
+              "query": { "type": "string", "description": "归一化后的查询。" },
+              "locale": { "type": "string", "enum": ["en", "zh"] },
+              "total": { "type": "integer", "minimum": 0 },
+              "offset": { "type": "integer", "minimum": 0 },
+              "limit": { "type": "integer", "minimum": 1 },
+              "counts": { "type": "object", "additionalProperties": { "type": "integer" } },
+              "items": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+            }
+          }
+        }
+      },
+      "SkillFileSummary": {
+        "title": "Skill 文件摘要",
+        "description": "可安装文件的安全相对路径和 SHA-256。",
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "description": "Skill 目录内的安全相对路径。", "examples": ["SKILL.md"] },
+          "sha256": { "type": "string", "description": "UTF-8 文件内容的 SHA-256。" }
+        }
+      },
+      "SkillSummary": {
+        "title": "Skill 摘要",
+        "description": "一个可安装的通用或产品 Skill 的版本和完整性摘要。",
+        "type": "object",
+        "required": ["name", "version", "description", "license", "contentHash", "files"],
+        "properties": {
+          "name": { "type": "string", "description": "稳定 Skill 名称。" },
+          "apiSlug": { "type": "string", "description": "产品 Skill 对应的 API slug；通用 Skill 不返回该字段。" },
+          "version": { "type": "string", "description": "不可变 SemVer 版本。" },
+          "description": { "type": "string", "description": "Skill 的简短触发说明。" },
+          "license": { "type": "string", "description": "Skill bundle 许可证。" },
+          "contentHash": { "type": "string", "description": "按排序文件路径和内容计算的 bundle SHA-256。" },
+          "files": { "type": "array", "items": { "$ref": "#/components/schemas/SkillFileSummary" } }
+        }
+      },
+      "SkillListEnvelope": {
+        "title": "Skill 目录响应",
+        "description": "通用 Skill 和已发布产品 Skill 的摘要列表。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/SkillSummary" } }
+        }
+      },
+      "SkillBundle": {
+        "title": "Skill bundle",
+        "description": "带内容的已验证可安装 Skill。",
+        "type": "object",
+        "required": ["name", "version", "description", "license", "contentHash", "files"],
+        "properties": {
+          "name": { "type": "string" },
+          "apiSlug": { "type": "string" },
+          "version": { "type": "string" },
+          "description": { "type": "string" },
+          "license": { "type": "string" },
+          "contentHash": { "type": "string" },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["path", "sha256", "content"],
+              "properties": {
+                "path": { "type": "string" },
+                "sha256": { "type": "string" },
+                "content": { "type": "string", "description": "UTF-8 文件内容。" }
+              }
+            }
+          }
+        }
+      },
+      "SkillBundleEnvelope": {
+        "title": "Skill 下载响应",
+        "description": "一个可安装 Skill bundle 的 v1 包装。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": { "$ref": "#/components/schemas/SkillBundle" }
+        }
+      },
+      "LegacySkillEnvelope": {
+        "title": "旧版通用 Skill 响应",
+        "description": "兼容旧客户端的通用 Skill 文件映射。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": {
+            "type": "object",
+            "required": ["name", "version", "files"],
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "files": { "type": "object", "additionalProperties": { "type": "string" } }
+            }
+          }
+        }
+      },
+      "V1CatalogEnvelope": {
+        "title": "v1 API 目录响应",
+        "description": "兼容客户端使用的 API 概要列表。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/ProductSummary" } }
+        }
+      },
+      "V1ApiEnvelope": {
+        "title": "v1 API 详情响应",
+        "description": "兼容客户端使用的完整 API 详情。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "V1EndpointEnvelope": {
+        "title": "v1 Endpoint 详情响应",
+        "description": "兼容客户端使用的 API 概要和完整 Endpoint。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": {
+            "type": "object",
+            "required": ["api", "operation"],
+            "properties": {
+              "api": { "type": "object", "additionalProperties": true },
+              "operation": { "type": "object", "additionalProperties": true }
+            }
+          }
+        }
+      },
+      "V1SdkEnvelope": {
+        "title": "v1 SDK 详情响应",
+        "description": "API SDK 包和规范绑定信息。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": {
+            "type": "object",
+            "required": ["apiSlug", "packageName", "version", "status", "runtime", "moduleFormats", "specSha256"],
+            "properties": {
+              "apiSlug": { "type": "string" },
+              "packageName": { "type": "string" },
+              "version": { "type": "string" },
+              "status": { "type": "string", "enum": ["planned", "published"] },
+              "cliName": { "type": "string" },
+              "install": { "type": "string" },
+              "runtime": { "type": "string" },
+              "moduleFormats": { "type": "array", "items": { "type": "string" } },
+              "specSha256": { "type": "string" }
+            }
+          }
+        }
+      },
+      "PricingEnvelope": {
+        "title": "定价资料响应",
+        "description": "经审核的 API 定价资料或明确的 unknown 状态。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v1"] },
+          "data": {
+            "type": "object",
+            "required": ["status", "summary"],
+            "properties": {
+              "status": { "type": "string", "enum": ["free", "freemium", "paid", "contact", "unknown"] },
+              "summary": { "$ref": "#/components/schemas/LocalizedText" },
+              "officialUrl": { "type": "string" },
+              "verifiedAt": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "V2SchemaEnvelope": {
+        "title": "v2 Schema 详情响应",
+        "description": "兼容客户端使用的 API 概要和完整 Schema。",
+        "type": "object",
+        "required": ["version", "data"],
+        "properties": {
+          "version": { "type": "string", "enum": ["v2"] },
+          "data": {
+            "type": "object",
+            "required": ["api", "schema"],
+            "properties": {
+              "api": { "type": "object", "additionalProperties": true },
+              "schema": { "type": "object", "additionalProperties": true }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2118 @@
+{
+  "pontx": "2.1",
+  "name": "hub-cli",
+  "style": "RESTFul",
+  "info": {
+    "title": "Pontx Hub Discovery API",
+    "version": "2.3.0",
+    "description": "Pontx Hub’s public, unauthenticated, read-only discovery API. It provides API product, Endpoint, Schema, SDK, and published Agent Skill lookup and download; account, AI, Playground execution, OAuth helper, and internal routes are outside this contract."
+  },
+  "servers": [
+    {
+      "id": "production",
+      "url": "https://pontx.dev",
+      "description": "Pontx Hub production site."
+    }
+  ],
+  "apis": {
+    "catalog/listCatalog": {
+      "operationId": "listCatalog",
+      "summary": "List the API catalog",
+      "description": "Returns curated API summaries compatible with v1 clients. Prefer the v2 product directory for metadataRevision and clearer resource boundaries.",
+      "method": "GET",
+      "path": "/api/v1/catalog",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "v1 summaries for curated APIs.",
+          "schema": {
+            "$ref": "#/components/schemas/V1CatalogEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V1CatalogEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read the current catalog",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/getHubSkill": {
+      "operationId": "getHubSkill",
+      "summary": "Download the universal Hub Skill",
+      "description": "Returns the Pontx Hub universal Agent Skill file map for v1 clients. New integrations should prefer the v1 Skills directory and individual bundle endpoint to verify version and content hashes.",
+      "method": "GET",
+      "path": "/api/v1/skill",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "The universal Skill v1 file map.",
+          "schema": {
+            "$ref": "#/components/schemas/LegacySkillEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LegacySkillEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read the universal Skill bundle",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/listSkills": {
+      "operationId": "listSkills",
+      "summary": "List published Skills",
+      "description": "Lists the universal Skill and product Skills published from the same metadata revision, without file contents.",
+      "method": "GET",
+      "path": "/api/v1/skills",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Installable Skill summaries and file hashes.",
+          "schema": {
+            "$ref": "#/components/schemas/SkillListEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SkillListEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "List the product Skill directory",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "skills/getSkill": {
+      "operationId": "getSkill",
+      "summary": "Download a verified Skill",
+      "description": "Returns UTF-8 files, per-file hashes, and the bundle content hash for one universal or published product Skill. Verify these hashes before installation.",
+      "method": "GET",
+      "path": "/api/v1/skills/{name}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The stable Skill name.",
+            "examples": [
+              "pontx-hub"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Complete installable files for a verified Skill.",
+          "schema": {
+            "$ref": "#/components/schemas/SkillBundleEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SkillBundleEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested Skill was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Download the universal Skill",
+          "request": {
+            "path": {
+              "name": "pontx-hub"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSpec": {
+      "operationId": "getApiSpec",
+      "summary": "Get an API product",
+      "description": "Returns the complete API summary compatible with v1 clients. Use getFullProductMetadata for layered, cacheable v2 metadata.",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v1 API product detail.",
+          "schema": {
+            "$ref": "#/components/schemas/V1ApiEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V1ApiEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested API was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read API product detail",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiEndpoint": {
+      "operationId": "getApiEndpoint",
+      "summary": "Get an API Endpoint",
+      "description": "Returns one Endpoint detail and its API summary for v1 clients.",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/operations/{operationSlug}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        },
+        {
+          "name": "operationSlug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Endpoint slug。",
+            "examples": [
+              "get-latest-rates"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v1 Endpoint detail.",
+          "schema": {
+            "$ref": "#/components/schemas/V1EndpointEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V1EndpointEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested Endpoint was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read an exchange-rate Endpoint",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2",
+              "operationSlug": "get-latest-rates"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSdk": {
+      "operationId": "getApiSdk",
+      "summary": "Get published SDK metadata",
+      "description": "Returns an API’s npm package, version, optional product CLI, runtime, and specification hash.",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/sdk",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "SDK version and installation information.",
+          "schema": {
+            "$ref": "#/components/schemas/V1SdkEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V1SdkEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "SDK metadata for the requested API was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read API SDK metadata",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiPricing": {
+      "operationId": "getApiPricing",
+      "summary": "Read API pricing metadata",
+      "description": "Returns reviewed API pricing metadata; it explicitly returns unknown when no material is available instead of inferring a price.",
+      "method": "GET",
+      "path": "/api/v1/specs/{slug}/pricing",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Reviewed pricing or an explicit unknown state.",
+          "schema": {
+            "$ref": "#/components/schemas/PricingEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PricingEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested API was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read API pricing metadata",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/listProducts": {
+      "operationId": "listProducts",
+      "summary": "List v2 API products",
+      "description": "Returns lightweight product identity, Endpoint/Schema counts, authentication types, and SDK status without request, response, or Schema details.",
+      "method": "GET",
+      "path": "/api/v2/products",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "v2 product directory with the exact metadataRevision.",
+          "schema": {
+            "$ref": "#/components/schemas/ProductListEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductListEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read the current v2 product directory",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getProductSummary": {
+      "operationId": "getProductSummary",
+      "summary": "Get a product summary and resource directory",
+      "description": "Returns product metadata plus navigation-sized Endpoint and Schema summaries; it omits complete request, response, and Schema graphs.",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Product summary with its resource directory.",
+          "schema": {
+            "$ref": "#/components/schemas/ProductSummaryEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductSummaryEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested product was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read a product resource directory",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getEndpointMetadata": {
+      "operationId": "getEndpointMetadata",
+      "summary": "Get complete metadata for one Endpoint",
+      "description": "Returns the selected Endpoint, compact product directory, and localized PontxSpec Schema closure it requires.",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/endpoints/{endpointSlug}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        },
+        {
+          "name": "endpointSlug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Endpoint slug。",
+            "examples": [
+              "get-latest-rates"
+            ]
+          }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "en",
+              "zh"
+            ],
+            "default": "en",
+            "description": "Language of returned text."
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Localized Endpoint and transitive Schema closure.",
+          "schema": {
+            "$ref": "#/components/schemas/EndpointDetailEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndpointDetailEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested Endpoint was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "The locale is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read English Endpoint metadata",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2",
+              "endpointSlug": "get-latest-rates"
+            },
+            "query": {
+              "locale": "en"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getSchemaMetadata": {
+      "operationId": "getSchemaMetadata",
+      "summary": "Get complete metadata for one Schema",
+      "description": "Returns the selected Schema, compact product directory, and localized PontxSpec Schema closure it requires.",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/schemas/{schemaName}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        },
+        {
+          "name": "schemaName",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The stable Schema name.",
+            "examples": [
+              "LatestResponse"
+            ]
+          }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "en",
+              "zh"
+            ],
+            "default": "en",
+            "description": "Language of returned text."
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Localized Schema and transitive Schema closure.",
+          "schema": {
+            "$ref": "#/components/schemas/SchemaDetailEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaDetailEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "See the canonical API documentation for this field.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "The locale is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read English Schema metadata",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2",
+              "schemaName": "LatestResponse"
+            },
+            "query": {
+              "locale": "en"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "products/getFullProductMetadata": {
+      "operationId": "getFullProductMetadata",
+      "summary": "Get complete product metadata",
+      "description": "Returns the complete product record and PontxSpec in the selected locale; it is intended for agents, offline indexing, and bulk tools rather than navigation-only pages.",
+      "method": "GET",
+      "path": "/api/v2/products/{slug}/metadata",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "en",
+              "zh"
+            ],
+            "default": "en",
+            "description": "Language of returned text."
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Complete localized product metadata and PontxSpec.",
+          "schema": {
+            "$ref": "#/components/schemas/FullProductMetadataEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FullProductMetadataEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "The requested product was not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "The locale is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read complete English product metadata",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2"
+            },
+            "query": {
+              "locale": "en"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "search/searchApiCatalog": {
+      "operationId": "searchApiCatalog",
+      "summary": "Search APIs, Endpoints, and Schemas",
+      "description": "Searches API products, Endpoints, inputs, outputs, and Schemas with a deterministic bilingual hybrid-semantic strategy, returning stable resource IDs and match provenance.",
+      "method": "GET",
+      "path": "/api/v2/search",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "q",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A non-empty natural-language or identifier query.",
+            "examples": [
+              "find an API Schema"
+            ]
+          }
+        },
+        {
+          "name": "locale",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "en",
+              "zh"
+            ],
+            "default": "en",
+            "description": "Language of search-result text."
+          }
+        },
+        {
+          "name": "types",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "Comma-separated api, endpoint, or schema resource types.",
+            "examples": [
+              "schema"
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 30,
+            "description": "Maximum result count."
+          }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Result offset."
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Ranked search results with strategy, version, and match provenance.",
+          "schema": {
+            "$ref": "#/components/schemas/SearchEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchEnvelope"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "Query parameters are invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Search for a Schema",
+          "request": {
+            "path": {},
+            "query": {
+              "q": "find an API Schema",
+              "locale": "en",
+              "types": "schema",
+              "limit": 10,
+              "offset": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    },
+    "legacy/getApiSchema": {
+      "operationId": "getApiSchema",
+      "summary": "Get an API Schema",
+      "description": "Returns an API summary and one complete Schema for v2 clients. Use getSchemaMetadata when a transitive Schema closure is needed.",
+      "method": "GET",
+      "path": "/api/v2/specs/{slug}/schemas/{schemaName}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The API product slug.",
+            "examples": [
+              "frankfurter-v2"
+            ]
+          }
+        },
+        {
+          "name": "schemaName",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "The stable Schema name.",
+            "examples": [
+              "LatestResponse"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "v2 API summary and complete Schema.",
+          "schema": {
+            "$ref": "#/components/schemas/V2SchemaEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/V2SchemaEnvelope"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "See the canonical API documentation for this field.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorEnvelope"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorEnvelope"
+              }
+            }
+          }
+        }
+      },
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "summary": "Read an API Schema",
+          "request": {
+            "path": {
+              "slug": "frankfurter-v2",
+              "schemaName": "LatestResponse"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "verifiedAt": "2026-08-16"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {
+      "ErrorEnvelope": {
+        "title": "Error response",
+        "description": "Machine-readable error object for the public Hub API. requestId correlates support requests and is not an authentication credential.",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Stable error code.",
+                "examples": [
+                  "not_found"
+                ]
+              },
+              "message": {
+                "type": "string",
+                "description": "Caller-facing error explanation."
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Server-generated request correlation ID."
+              }
+            }
+          }
+        }
+      },
+      "LocalizedText": {
+        "title": "Localized text",
+        "description": "Chinese and English text for the same field.",
+        "type": "object",
+        "required": [
+          "zh",
+          "en"
+        ],
+        "properties": {
+          "zh": {
+            "type": "string",
+            "description": "Chinese text."
+          },
+          "en": {
+            "type": "string",
+            "description": "English text."
+          }
+        }
+      },
+      "SdkSummary": {
+        "title": "SDK summary",
+        "description": "npm SDK and optional product CLI status for one API.",
+        "type": "object",
+        "required": [
+          "packageName",
+          "sdkVersion",
+          "sdkStatus"
+        ],
+        "properties": {
+          "packageName": {
+            "type": "string",
+            "description": "npm package name."
+          },
+          "sdkVersion": {
+            "type": "string",
+            "description": "Declared SDK version."
+          },
+          "sdkStatus": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "published"
+            ],
+            "description": "SDK publication status."
+          },
+          "cliName": {
+            "type": "string",
+            "description": "Optional product CLI name."
+          }
+        }
+      },
+      "ProductSummary": {
+        "title": "API product summary",
+        "description": "API product identity and counts shared by directory and metadata resources.",
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "provider",
+          "title",
+          "summary",
+          "endpointCount",
+          "schemaCount",
+          "authTypes",
+          "sdk"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable resource ID in api:<slug> form."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Stable product slug."
+          },
+          "name": {
+            "type": "string",
+            "description": "API name."
+          },
+          "provider": {
+            "type": "string",
+            "description": "API provider name."
+          },
+          "category": {
+            "type": "string",
+            "description": "Directory category."
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "endpointCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Endpoint count."
+          },
+          "schemaCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Schema count."
+          },
+          "defaultEndpointSlug": {
+            "type": "string",
+            "description": "Default Endpoint slug."
+          },
+          "authTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Authentication types declared by this API."
+          },
+          "sdk": {
+            "$ref": "#/components/schemas/SdkSummary"
+          }
+        },
+        "additionalProperties": true
+      },
+      "EndpointSummary": {
+        "title": "Endpoint summary",
+        "description": "Navigation-sized Endpoint identity and transport metadata.",
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "operationId",
+          "style",
+          "tag",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable resource ID in endpoint:<api>/<endpoint> form."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Stable Endpoint slug."
+          },
+          "operationId": {
+            "type": "string",
+            "description": "PontxSpec operationId。"
+          },
+          "style": {
+            "type": "string",
+            "description": "Transport style."
+          },
+          "tag": {
+            "type": "string",
+            "description": "PontxSpec tag; ungrouped Endpoints can use an empty string."
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method."
+          },
+          "path": {
+            "type": "string",
+            "description": "Server-relative path."
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the resource is deprecated."
+          }
+        },
+        "additionalProperties": true
+      },
+      "SchemaSummary": {
+        "title": "Schema summary",
+        "description": "Navigation-sized Schema identity and shape metadata.",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "title",
+          "type",
+          "propertyCount"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable resource ID in schema:<api>/<name> form."
+          },
+          "name": {
+            "type": "string",
+            "description": "See the canonical API documentation for this field."
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "type": {
+            "type": "string",
+            "description": "Primary JSON Schema type."
+          },
+          "propertyCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Direct property count."
+          }
+        },
+        "additionalProperties": true
+      },
+      "ProductListEnvelope": {
+        "title": "Product directory response",
+        "description": "v2 product directory with metadataRevision.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ],
+            "description": "Resource protocol version."
+          },
+          "metadataRevision": {
+            "type": "string",
+            "description": "Metadata Git revision that produced the response."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSummary"
+            },
+            "description": "Product summary array."
+          }
+        }
+      },
+      "ProductSummaryEnvelope": {
+        "title": "Product resource directory response",
+        "description": "One product and its navigation-sized Endpoint and Schema summaries.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "metadataRevision": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "id",
+              "slug",
+              "endpointCount",
+              "schemaCount",
+              "endpoints",
+              "schemas"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "endpointCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "schemaCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "endpoints": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EndpointSummary"
+                }
+              },
+              "schemas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SchemaSummary"
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "EndpointDetailEnvelope": {
+        "title": "Endpoint metadata response",
+        "description": "One localized Endpoint and its required PontxSpec Schema closure.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "metadataRevision": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "locale",
+              "product",
+              "endpoint",
+              "pontxSpec"
+            ],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "zh"
+                ]
+              },
+              "product": {
+                "$ref": "#/components/schemas/ProductSummary"
+              },
+              "endpoint": {
+                "type": "object",
+                "description": "Complete Endpoint metadata.",
+                "additionalProperties": true
+              },
+              "pontxSpec": {
+                "type": "object",
+                "description": "PontxSpec fragment containing the Schema closure.",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      },
+      "SchemaDetailEnvelope": {
+        "title": "Schema metadata response",
+        "description": "One localized Schema and its required PontxSpec Schema closure.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "metadataRevision": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "locale",
+              "product",
+              "schema",
+              "pontxSpec"
+            ],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "zh"
+                ]
+              },
+              "product": {
+                "$ref": "#/components/schemas/ProductSummary"
+              },
+              "schema": {
+                "type": "object",
+                "description": "Complete Schema metadata.",
+                "additionalProperties": true
+              },
+              "pontxSpec": {
+                "type": "object",
+                "description": "PontxSpec fragment containing the Schema closure.",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      },
+      "FullProductMetadataEnvelope": {
+        "title": "Complete product metadata response",
+        "description": "Complete localized metadata and PontxSpec for one product.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "metadataRevision": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "locale",
+              "product",
+              "pontxSpec"
+            ],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "zh"
+                ]
+              },
+              "product": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "pontxSpec": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      },
+      "SearchEnvelope": {
+        "title": "Search response",
+        "description": "Deterministic strategy, pagination, and match provenance for v2 global search.",
+        "type": "object",
+        "required": [
+          "version",
+          "metadataRevision",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "metadataRevision": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "strategy",
+              "semanticVersion",
+              "query",
+              "locale",
+              "total",
+              "offset",
+              "limit",
+              "counts",
+              "items"
+            ],
+            "properties": {
+              "strategy": {
+                "type": "string",
+                "description": "Search strategy identifier."
+              },
+              "semanticVersion": {
+                "type": "string",
+                "description": "Semantic strategy version."
+              },
+              "query": {
+                "type": "string",
+                "description": "Normalized query."
+              },
+              "locale": {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "zh"
+                ]
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "counts": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "SkillFileSummary": {
+        "title": "Skill file summary",
+        "description": "Safe relative path and SHA-256 for an installable file.",
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Safe relative path inside the Skill directory.",
+            "examples": [
+              "SKILL.md"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "description": "SHA-256 of the UTF-8 file content."
+          }
+        }
+      },
+      "SkillSummary": {
+        "title": "Skill summary",
+        "description": "Version and integrity summary for one installable universal or product Skill.",
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "description",
+          "license",
+          "contentHash",
+          "files"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Stable Skill name."
+          },
+          "apiSlug": {
+            "type": "string",
+            "description": "API slug for a product Skill; the universal Skill does not return this field."
+          },
+          "version": {
+            "type": "string",
+            "description": "Immutable SemVer version."
+          },
+          "description": {
+            "type": "string",
+            "description": "Short Skill trigger description."
+          },
+          "license": {
+            "type": "string",
+            "description": "Skill bundle license."
+          },
+          "contentHash": {
+            "type": "string",
+            "description": "Bundle SHA-256 computed from sorted file paths and contents."
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillFileSummary"
+            }
+          }
+        }
+      },
+      "SkillListEnvelope": {
+        "title": "Skill directory response",
+        "description": "Summary list of the universal Skill and published product Skills.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillSummary"
+            }
+          }
+        }
+      },
+      "SkillBundle": {
+        "title": "Skill bundle",
+        "description": "Verified installable Skill with file contents.",
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "description",
+          "license",
+          "contentHash",
+          "files"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "apiSlug": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "contentHash": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "path",
+                "sha256",
+                "content"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "UTF-8 file content."
+                }
+              }
+            }
+          }
+        }
+      },
+      "SkillBundleEnvelope": {
+        "title": "Skill download response",
+        "description": "v1 envelope for an installable Skill bundle.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/SkillBundle"
+          }
+        }
+      },
+      "LegacySkillEnvelope": {
+        "title": "Legacy universal Skill response",
+        "description": "Universal Skill file map for legacy clients.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "name",
+              "version",
+              "files"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "files": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "V1CatalogEnvelope": {
+        "title": "v1 API catalog response",
+        "description": "API summary list for compatible clients.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSummary"
+            }
+          }
+        }
+      },
+      "V1ApiEnvelope": {
+        "title": "v1 API detail response",
+        "description": "Complete API detail for compatible clients.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "V1EndpointEnvelope": {
+        "title": "v1 Endpoint detail response",
+        "description": "API summary and complete Endpoint for compatible clients.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "api",
+              "operation"
+            ],
+            "properties": {
+              "api": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "operation": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      },
+      "V1SdkEnvelope": {
+        "title": "v1 SDK detail response",
+        "description": "API SDK package and specification-binding metadata.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "apiSlug",
+              "packageName",
+              "version",
+              "status",
+              "runtime",
+              "moduleFormats",
+              "specSha256"
+            ],
+            "properties": {
+              "apiSlug": {
+                "type": "string"
+              },
+              "packageName": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "planned",
+                  "published"
+                ]
+              },
+              "cliName": {
+                "type": "string"
+              },
+              "install": {
+                "type": "string"
+              },
+              "runtime": {
+                "type": "string"
+              },
+              "moduleFormats": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "specSha256": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "PricingEnvelope": {
+        "title": "Pricing metadata response",
+        "description": "Reviewed API pricing metadata or an explicit unknown state.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "status",
+              "summary"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "free",
+                  "freemium",
+                  "paid",
+                  "contact",
+                  "unknown"
+                ]
+              },
+              "summary": {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              "officialUrl": {
+                "type": "string"
+              },
+              "verifiedAt": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "V2SchemaEnvelope": {
+        "title": "v2 Schema detail response",
+        "description": "API summary and complete Schema for compatible clients.",
+        "type": "object",
+        "required": [
+          "version",
+          "data"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "v2"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "api",
+              "schema"
+            ],
+            "properties": {
+              "api": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

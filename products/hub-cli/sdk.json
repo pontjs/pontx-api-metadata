@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/hub-cli",
+    "version": "0.2.1",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/pontx-hub-cli"
+  },
+  "cli": {
+    "name": "pontx-hub"
+  },
+  "contract": {
+    "client": {
+      "kind": "named",
+      "identifier": "HubClient"
+    },
+    "controllers": {}
+  },
+  "examples": {
+    "typescript": "import { HubClient } from \"@pontx/hub-cli\";\n\nconst hub = new HubClient();\nconst products = await hub.listProducts();\nconst search = await hub.search(\"find an API Schema\", {\n  locale: \"en\",\n  types: [\"schema\"]\n});",
+    "cli": "pnpm add --global @pontx/hub-cli\n\npontx-hub search \"find an API Schema\" --type schema --json"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/hub-cli/spec.pontx.json",
+    "sha256": "be46b33d8404c2277481960169509691c2e3e72cfa8932ae4f278867cb122138"
+  }
+}

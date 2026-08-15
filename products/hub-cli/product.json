@@ -1,0 +1,39 @@
+{
+  "formatVersion": 1,
+  "slug": "hub-cli",
+  "name": "Pontx Hub Discovery API",
+  "provider": "Pontx",
+  "category": "Developer Tools",
+  "featured": true,
+  "display": {
+    "title": "Pontx Hub 发现 API",
+    "summary": "Pontx 网站公开、无需鉴权的发现 API：查询 API 产品、Endpoint、Schema、SDK 元数据与已发布的 Agent Skill。账户、AI、OAuth 令牌交换和 Playground 执行接口不是此公开 API 的一部分。",
+    "accent": "#0F766E"
+  },
+  "legal": {
+    "license": "MIT",
+    "attributionUrl": "https://github.com/pontjs/pontx-hub"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://pontx.dev/openapi.json",
+      "https://github.com/pontjs/pontx-hub/blob/b5d1cf241ad020c29f4dce38dae8d517084d41da/app/routes/openapi.ts",
+      "https://github.com/pontjs/pontx-hub/blob/b5d1cf241ad020c29f4dce38dae8d517084d41da/app/api/hub-api.server.ts"
+    ],
+    "verifiedAt": "2026-08-16",
+    "contentUpdatedAt": "2026-08-16",
+    "stabilityNote": "本产品的边界严格等于 Pontx Hub 对外发布的只读发现与 Skill 分发 API。它不把浏览器同源的 Playground/OAuth 辅助接口、账户 Cookie API、AI Agent API 或内部 cron 接口包装成可供第三方调用的 Open API。"
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "公开发现和 Skill 下载接口目前不要求 API key、OAuth token 或付费计划。调用方仍须遵守网站的合理使用和缓存响应头。",
+    "officialUrl": "https://pontx.dev/openapi.json",
+    "verifiedAt": "2026-08-16"
+  },
+  "credentials": [],
+  "quickStart": {
+    "operationId": "listProducts",
+    "requestExampleId": "default"
+  }
+}
