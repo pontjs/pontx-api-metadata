@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-wps-365",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List the files in our shared drive, but do not change anything.",
+      "expected_output": "Resolves the current drive/driveFileList Endpoint and its drive_id/parent_id path inputs through Pontx discovery, previews the exact read with the caller's own WPS365 tokens, and returns only the requested file identifiers and names without caching enterprise data or broadening the read.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Send a message to the #launch chat.",
+      "expected_output": "Resolves the current chat message-create Endpoint (chats/messagescreate) and its chat_id and body inputs, shows a complete request preview (path, body, message type), requires explicit confirmation before the POST mutation, and keeps the caller's WPS365 credentials local and unlogged.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Create a calendar event for the launch on Friday at 10:00.",
+      "expected_output": "Resolves calendars/calendarEventCreate, builds the title, start, end, and timezone fields from the current Schema, previews the exact POST, and stops for explicit confirmation before sending; a change to timezone or attendees triggers a fresh preview.",
+      "files": []
+    }
+  ]
+}
