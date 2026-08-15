@@ -2,8 +2,9 @@
 
 > 状态：候选路线图，不代表已批准收录。证据快照：2026-08-15（Asia/Shanghai）。
 
-本文件决定调查和制作顺序；24 个产品的结构化 intake、权威证据、门槛状态与下一步维护在
-[`api-collection-candidates.json`](./api-collection-candidates.json)。正式 Hub catalog 仍只包含
+本文件决定调查和制作顺序；当前 19 个产品的结构化 intake、权威证据、门槛状态与下一步维护在
+[`candidates/products.json`](../candidates/products.json) 和各个
+`candidates/<slug>/candidate.json`。正式 Hub catalog 仍只包含
 `catalog/products.json` 中通过全部准入门槛且拥有完整分级产品目录的集合。
 
 ## 目标
@@ -29,7 +30,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 - Open Exchange Rates 候选按官方 v0.7 的七个 JSON REST Endpoint 定界。
 - Twelve Data Forex 已正式收录完整的 Forex REST 与 WebSocket 产品面；实时入站字段明确为免费账户观测契约，不伪称为供应商发布的 Schema。
 - Stripe Identity 只在供应商明确的 Identity 子产品边界内单独合规审查，不扩展成完整支付集合。
-- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive、ECB Data Portal、Twelve Data Forex、Dropbox Sign 和 Stripe Identity；已准入产品在账本中保留持续治理状态，其余候选不进入正式目录。
+- 当前 catalog 已有 Frankfurter v1、Frankfurter v2、Dida365、Massive、ECB Data Portal、Twelve Data Forex、CurrencyBeacon、Dropbox Sign、Stripe Identity 和 Amazon SQS；已准入产品在账本中保留持续治理状态，其余候选不进入正式目录。
 
 ## 不可绕过的准入门槛
 
@@ -68,7 +69,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 2 | WPS 365 OpenAPI | 90 | 官方称超过 1,000 个接口；事件订阅使用加密 HTTP callback，但无公开完整规范快照，许可与其余协议面待确认 | 获取官方规范或书面授权后做全产品盘点 |
 | 3 | MongoDB Atlas Administration API v2 | 88 | 335 paths / 540 operations / 1,145 Schemas，未发现 SSE media type；但固定 OAS 的 `info.license` 是 CC BY-NC-SA 3.0 US，仓库 Apache-2.0 LICENSE 未解决 OAS 的非商用限制 | 取得 MongoDB 对 OAS/独立生成 SDK 的书面商用再分发澄清，或固定一个明确许可的 OAS 版本 |
 | 4 | PostHog Public API | 86 | 官方托管 OAS 3.1 为可变来源；观测到 1,314 paths / 1,863 operations / 3,403 Schemas，含多个 SSE Endpoint | 固定可再分发的不可变完整快照；整集协议暂缓并复核混合许可 |
-| 5 | Amazon SQS API | 84 | 官方 Apache-2.0 Smithy 模型完整列出 23 actions；SSE 指 server-side encryption，并非流式协议。2026-08-15 复核：官方文档提供 AWS Query（GET 或表单 POST），而固定模型同时声明 AWS JSON 1.0、AWS Query compatibility、SigV4 和端点规则；并非普通 JSON REST，现有 OAS path/method 模型无法无损表示 | 先实现并验证 Smithy→Pontx RPC、AWS JSON 1.0、AWS Query compatibility、SigV4 与官方 endpoint-rule vectors，再完成风险策略 |
+| 5 | Amazon SQS API | 84 | 已正式准入：官方 Apache-2.0 Smithy 模型完整列出 23 个 RPC actions / 114 个 Schemas；AWS JSON 1.0、AWS Query compatibility、SigV4 与区域 endpoint-rule 保持为 RPC 语义，未伪造为 JSON REST。`@pontx/amazon-sqs@0.1.3`、独立 CLI、fresh-install、Node 20/22 CI 与生产 Hub 验证均已通过 | 持续复核固定 Smithy source、AWS 协议/端点规则、风险策略和 npm fresh-install |
 | 6 | Dropbox Sign API | 80 | 已正式准入：固定官方 OAS 覆盖 67 paths / 73 operations / 217 Schemas；双语、风险、SDK/CLI 与发布证据全部通过 | 持续监控上游 OAS、安全公告、npm fresh-install 与 Node.js 兼容矩阵 |
 | 7 | Sendbird Chat Platform API v3 | 77 | 官方 REST/JSON 文档与声明 Unlicense 的生成 SDK 可用；完整上游 OAS 与文档 prose 再分发条件未确认 | 获取生成源并完成全协议/Endpoint 对账 |
 | 8 | ECB Data Portal SDMX API | 76 | 已正式准入：基于 ECB 当前文档独立重建 8 个 GET path variants / 12 个 Schemas；`@pontx/ecb-data-portal@0.1.0`、fresh-install、限定只读实调和 Node 18/20/22 CI 全部通过 | 持续复核 ECB 文档、复用条款、内容协商、状态码和 Node.js 兼容性 |
@@ -110,9 +111,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 ## 当前实施队列
 
-### 需先补齐 Pontx 协议能力
+### 已完成（持续治理）
 
-1. Amazon SQS API：完整边界依赖 Smithy→Pontx RPC（不伪造 REST path）、AWS JSON 1.0、AWS Query compatibility、SigV4 与区域 endpoint-rule runtime；在这些能力有可复现的类型、SDK/CLI、预览和安全验证前不可裁剪上线。
+1. Amazon SQS API：已以 Smithy→Pontx RPC（不伪造 REST path）、AWS JSON 1.0、AWS Query compatibility、SigV4 与区域 endpoint-rule runtime 完成全量 23-action 产品、双语文档、风险策略、SDK/CLI 和生产验证；后续只做来源、协议、风险和 npm 产物复核。
 
 ### 需先取得供应商许可
 
@@ -125,13 +126,12 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 2. Sendbird Chat Platform API v3
 3. WPS 365 OpenAPI
 4. Open Exchange Rates API
-5. CurrencyBeacon REST API v1
 
 ### 暂缓
 
 - PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
 - 12 个 AI/LLM 集合：协议门阻断。
-- Stripe Identity：隐私与合规门阻断。
+- Stripe Identity：已正式准入；因隐私与合规边界，Hub 执行持续保持关闭。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。
 
 ## 维护规则
