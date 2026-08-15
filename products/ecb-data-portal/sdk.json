@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/ecb-data-portal",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/ecb-data-portal"
+  },
+  "cli": {
+    "name": "pontx-ecb-data-portal"
+  },
+  "contract": {
+    "client": {
+      "kind": "named",
+      "identifier": "ecbDataPortalClient"
+    },
+    "controllers": {
+      "Data": "data",
+      "Metadata": "metadata",
+      "Validation": "validation"
+    }
+  },
+  "examples": {
+    "typescript": "import ecbDataPortalClient from \"@pontx/ecb-data-portal\";\n\nconst result = await ecbDataPortalClient.data.getDataBySeriesKey(\n  \"EXR\",\n  \"M.USD.EUR.SP00.A\",\n  { lastNObservations: 1, format: \"jsondata\" }\n);",
+    "cli": "pnpm add --global @pontx/ecb-data-portal\n\npontx-ecb-data-portal call data getDataBySeriesKey --flowRef EXR --key M.USD.EUR.SP00.A --lastNObservations 1 --format jsondata --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 3,
+      "total": 3,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "533ef4716cca0b66b50bb7a810f84504a4008f46",
+    "testedAt": "2026-08-14",
+    "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
+    "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599"
+  },
+  "spec": {
+    "path": "products/ecb-data-portal/spec.pontx.json",
+    "sha256": "d64b37c23b87d5e90c79f34417aa81435c036f98740db7cc36a493ea1f4298e9",
+    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
+  }
+}

@@ -1,0 +1,1972 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "title": "Massive 错误响应",
+        "type": "object",
+        "description": "Massive 因认证、授权、参数、限流或服务问题无法完成请求时返回的错误信息。",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "机器可读的请求状态。",
+            "examples": [
+              "ERROR"
+            ]
+          },
+          "error": {
+            "type": "string",
+            "description": "简短的错误类别或消息。",
+            "examples": [
+              "API Key was not provided"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "额外的用户可读错误详情。"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "由服务器分配的请求标识符，用于支持和诊断。"
+          }
+        },
+        "additionalProperties": true
+      },
+      "AggregateBar": {
+        "title": "OHLC 聚合行情柱",
+        "type": "object",
+        "description": "由一个时间窗口内符合条件的成交构建的开盘、最高、最低、收盘、成交量与成交笔数行情柱。",
+        "required": [
+          "c",
+          "h",
+          "l",
+          "o",
+          "t",
+          "v"
+        ],
+        "properties": {
+          "T": {
+            "type": "string",
+            "description": "交易所股票代码；通常出现在上一交易日响应中。",
+            "examples": [
+              "AAPL"
+            ]
+          },
+          "c": {
+            "type": "number",
+            "description": "收盘价。",
+            "examples": [
+              115.97
+            ]
+          },
+          "h": {
+            "type": "number",
+            "description": "最高价。",
+            "examples": [
+              117.59
+            ]
+          },
+          "l": {
+            "type": "number",
+            "description": "最低价。",
+            "examples": [
+              114.13
+            ]
+          },
+          "n": {
+            "type": "integer",
+            "description": "聚合时间窗口内的成交笔数。",
+            "examples": [
+              2
+            ]
+          },
+          "o": {
+            "type": "number",
+            "description": "开盘价。",
+            "examples": [
+              115.55
+            ]
+          },
+          "otc": {
+            "type": "boolean",
+            "description": "场外交易（OTC）聚合行情时为 true；为 false 时省略。"
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以毫秒级 Unix 时间戳表示的时间窗口起始时间。",
+            "examples": [
+              1605042000000
+            ]
+          },
+          "v": {
+            "type": "number",
+            "description": "成交量。",
+            "examples": [
+              131704427
+            ]
+          },
+          "vw": {
+            "type": "number",
+            "description": "成交量加权平均价。",
+            "examples": [
+              116.3058
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "AggregateResponse": {
+        "title": "聚合行情响应",
+        "type": "object",
+        "description": "包含股票代码、复权标记、查询及结果数量、OHLC 行情柱，并可携带下一页地址的响应。",
+        "required": [
+          "ticker",
+          "queryCount",
+          "resultsCount",
+          "status"
+        ],
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "交易所股票代码。",
+            "examples": [
+              "AAPL"
+            ]
+          },
+          "adjusted": {
+            "type": "boolean",
+            "description": "价格是否按股票拆分进行复权。",
+            "examples": [
+              true
+            ]
+          },
+          "queryCount": {
+            "type": "integer",
+            "description": "查询的分钟级或日级基础聚合记录数量。",
+            "examples": [
+              1
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "description": "由服务器分配的请求标识符。",
+            "examples": [
+              "6a7e466379af0a71039d60cc78e72282"
+            ]
+          },
+          "resultsCount": {
+            "type": "integer",
+            "description": "返回的结果行情柱数量。",
+            "examples": [
+              1
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "请求状态。",
+            "examples": [
+              "OK"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "description": "包含所请求数据的结果数组。",
+            "items": {
+              "$ref": "#/components/schemas/AggregateBar"
+            }
+          },
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "下一页的绝对 URL（如有）。仍可能需要提供身份验证信息。",
+            "examples": [
+              "https://api.massive.com/v2/aggs/ticker/AAPL/range/1/day/1578114000000/2020-01-10?cursor=bGltaXQ9MiZzb3J0PWFzYw"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "LastTrade": {
+        "title": "最新成交记录",
+        "type": "object",
+        "description": "Massive 行情源中的最新股票成交，包含价格、股数、交易所、成交条件、序列号和纳秒时间戳。",
+        "required": [
+          "T",
+          "ds",
+          "i",
+          "p",
+          "q",
+          "t",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "T": {
+            "type": "string",
+            "description": "交易所股票代码。",
+            "examples": [
+              "AAPL"
+            ]
+          },
+          "c": {
+            "type": "array",
+            "description": "成交条件代码。",
+            "items": {
+              "type": "integer",
+              "examples": [
+                37
+              ]
+            },
+            "examples": [
+              [
+                37
+              ]
+            ]
+          },
+          "ds": {
+            "type": "string",
+            "description": "包含小数部分的成交数量，以十进制字符串编码。",
+            "examples": [
+              "25.0"
+            ]
+          },
+          "e": {
+            "type": "integer",
+            "description": "成交更正标识。"
+          },
+          "f": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以纳秒级 Unix 时间戳表示的交易报告设施（TRF）接收时间。",
+            "examples": [
+              1617901342969796400
+            ]
+          },
+          "i": {
+            "type": "string",
+            "description": "成交标识符，在每个股票代码、交易所与 TRF 组合中唯一。",
+            "examples": [
+              "118749"
+            ]
+          },
+          "p": {
+            "type": "number",
+            "description": "每整股价格。",
+            "examples": [
+              129.8473
+            ]
+          },
+          "q": {
+            "type": "integer",
+            "format": "int64",
+            "description": "该股票代码递增的事件序列号；序列中可能存在间隔。",
+            "examples": [
+              3135876
+            ]
+          },
+          "r": {
+            "type": "integer",
+            "description": "交易报告设施（TRF）标识符。",
+            "examples": [
+              202
+            ]
+          },
+          "s": {
+            "type": "number",
+            "description": "以股数表示的成交数量。",
+            "examples": [
+              25
+            ]
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以纳秒级 Unix 时间戳表示的证券信息处理器（SIP）接收时间。",
+            "examples": [
+              1617901342969834000
+            ]
+          },
+          "x": {
+            "type": "integer",
+            "description": "交易所标识符；可通过 Massive 交易所参考数据解析。",
+            "examples": [
+              4
+            ]
+          },
+          "y": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以纳秒级 Unix 时间戳表示的参与方或交易所事件时间。",
+            "examples": [
+              1617901342968000000
+            ]
+          },
+          "z": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ],
+            "description": "上市行情带：1=A（NYSE），2=B（NYSE Arca/NYSE American），3=C（Nasdaq）。",
+            "examples": [
+              3
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "LastTradeResponse": {
+        "title": "最新成交响应",
+        "type": "object",
+        "description": "包含请求标识、状态和最新成交记录的响应。",
+        "required": [
+          "request_id",
+          "status"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "由服务器分配的请求标识符。",
+            "examples": [
+              "f05562305bd26ced64b98ed68b3c5d96"
+            ]
+          },
+          "results": {
+            "$ref": "#/components/schemas/LastTrade"
+          },
+          "status": {
+            "type": "string",
+            "description": "请求状态。",
+            "examples": [
+              "OK"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotSession": {
+        "title": "交易时段快照",
+        "type": "object",
+        "description": "当前交易日的价格变化、早盘/常规/盘后变化、OHLC、成交量、VWAP 与更新时间；字段取决于资产类别和订阅权限。",
+        "properties": {
+          "change": {
+            "type": "number",
+            "description": "交易时段的绝对价格变动。",
+            "examples": [
+              2.588
+            ]
+          },
+          "change_percent": {
+            "type": "number",
+            "description": "交易时段的百分比变动。",
+            "examples": [
+              1.492
+            ]
+          },
+          "early_trading_change": {
+            "type": "number",
+            "examples": [
+              0
+            ]
+          },
+          "early_trading_change_percent": {
+            "type": "number",
+            "examples": [
+              0
+            ]
+          },
+          "regular_trading_change": {
+            "type": "number",
+            "examples": [
+              2.01
+            ]
+          },
+          "regular_trading_change_percent": {
+            "type": "number",
+            "examples": [
+              1.159
+            ]
+          },
+          "late_trading_change": {
+            "type": "number",
+            "examples": [
+              0.578
+            ]
+          },
+          "late_trading_change_percent": {
+            "type": "number",
+            "examples": [
+              0.329
+            ]
+          },
+          "close": {
+            "type": "number",
+            "examples": [
+              175.51
+            ]
+          },
+          "high": {
+            "type": "number",
+            "examples": [
+              176.63
+            ]
+          },
+          "low": {
+            "type": "number",
+            "examples": [
+              175.02
+            ]
+          },
+          "open": {
+            "type": "number",
+            "examples": [
+              176.04
+            ]
+          },
+          "volume": {
+            "type": "number",
+            "examples": [
+              46632535
+            ]
+          },
+          "previous_close": {
+            "type": "number",
+            "examples": [
+              173.5
+            ]
+          },
+          "price": {
+            "type": "number",
+            "examples": [
+              176.0883
+            ]
+          },
+          "vwap": {
+            "type": "number",
+            "examples": [
+              175.8562
+            ]
+          },
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以纳秒级 Unix 时间戳表示的最后更新时间。",
+            "examples": [
+              1753833601079793200
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotQuote": {
+        "title": "最新报价快照",
+        "type": "object",
+        "description": "最新买卖报价、数量、交易所、数据时效标签与纳秒更新时间。",
+        "properties": {
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "纳秒级 Unix 时间戳。",
+            "examples": [
+              1753833599239197400
+            ]
+          },
+          "timeframe": {
+            "type": "string",
+            "description": "数据时效性标签。",
+            "examples": [
+              "REAL-TIME"
+            ]
+          },
+          "ask": {
+            "type": "number",
+            "examples": [
+              176.09
+            ]
+          },
+          "ask_size": {
+            "type": "number",
+            "examples": [
+              3
+            ]
+          },
+          "ask_exchange": {
+            "type": "integer",
+            "examples": [
+              12
+            ]
+          },
+          "bid": {
+            "type": "number",
+            "examples": [
+              176.05
+            ]
+          },
+          "bid_size": {
+            "type": "number",
+            "examples": [
+              1
+            ]
+          },
+          "bid_exchange": {
+            "type": "integer",
+            "examples": [
+              12
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotTrade": {
+        "title": "最新成交快照",
+        "type": "object",
+        "description": "统一快照中的最新成交价格、数量、交易所、成交条件与数据时效。",
+        "properties": {
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "纳秒级 Unix 时间戳。",
+            "examples": [
+              1753833599213779700
+            ]
+          },
+          "timeframe": {
+            "type": "string",
+            "examples": [
+              "REAL-TIME"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "examples": [
+              "593866"
+            ]
+          },
+          "price": {
+            "type": "number",
+            "examples": [
+              176.0883
+            ]
+          },
+          "size": {
+            "type": "number",
+            "examples": [
+              48
+            ]
+          },
+          "exchange": {
+            "type": "integer",
+            "examples": [
+              4
+            ]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "examples": [
+                12
+              ]
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "SnapshotMinuteBar": {
+        "title": "最新分钟行情柱",
+        "type": "object",
+        "description": "统一快照中的最近一分钟 OHLC、成交量、成交笔数、VWAP 与更新时间。",
+        "properties": {
+          "close": {
+            "type": "number",
+            "examples": [
+              176.08
+            ]
+          },
+          "high": {
+            "type": "number",
+            "examples": [
+              176.1
+            ]
+          },
+          "low": {
+            "type": "number",
+            "examples": [
+              176.04
+            ]
+          },
+          "open": {
+            "type": "number",
+            "examples": [
+              176.04
+            ]
+          },
+          "transactions": {
+            "type": "integer",
+            "examples": [
+              133
+            ]
+          },
+          "volume": {
+            "type": "number",
+            "examples": [
+              25313
+            ]
+          },
+          "vwap": {
+            "type": "number",
+            "examples": [
+              176.0761
+            ]
+          },
+          "last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "纳秒级 Unix 时间戳。",
+            "examples": [
+              1753833601079793200
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "UnifiedSnapshot": {
+        "title": "统一市场快照",
+        "type": "object",
+        "description": "股票、期权、外汇、加密货币或指数的统一快照；可包含交易时段、最新报价、最新成交、分钟行情及受套餐限制的 FMV。",
+        "required": [
+          "ticker"
+        ],
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "资产的股票代码符号。",
+            "examples": [
+              "NVDA"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "合约名称。",
+            "examples": [
+              "Nvidia Corp"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "crypto",
+              "fx",
+              "indices",
+              "options",
+              "stocks"
+            ],
+            "description": "此股票代码的资产类别。",
+            "examples": [
+              "stocks"
+            ]
+          },
+          "market_status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "closed",
+              "early_trading",
+              "regular_trading",
+              "late_trading"
+            ],
+            "description": "交易此股票代码的市场状态。股票、期权、加密货币和外汇快照的可能值为 open、closed、early_trading 或 late_trading；指数快照的可能值为 regular_trading、closed、early_trading 和 late_trading。",
+            "examples": [
+              "closed"
+            ]
+          },
+          "error": {
+            "type": "string",
+            "description": "此股票代码对应的错误类别。",
+            "examples": [
+              "NOT_FOUND"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "此股票代码对应的错误详情。",
+            "examples": [
+              "Ticker not found."
+            ]
+          },
+          "fmv": {
+            "type": "number",
+            "description": "Massive 公允市场价值（FMV）；仅限符合条件的 Business 订阅方案。",
+            "examples": [
+              0.05
+            ]
+          },
+          "fmv_last_updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "以纳秒级 Unix 时间戳表示的 FMV 计算时间。",
+            "examples": [
+              1636573458757383400
+            ]
+          },
+          "session": {
+            "$ref": "#/components/schemas/SnapshotSession"
+          },
+          "last_quote": {
+            "$ref": "#/components/schemas/SnapshotQuote"
+          },
+          "last_trade": {
+            "$ref": "#/components/schemas/SnapshotTrade"
+          },
+          "last_minute": {
+            "$ref": "#/components/schemas/SnapshotMinuteBar"
+          }
+        },
+        "additionalProperties": true
+      },
+      "UnifiedSnapshotResponse": {
+        "title": "统一市场快照响应",
+        "type": "object",
+        "description": "包含跨资产快照列表、请求状态和可选下一页地址的分页响应。",
+        "required": [
+          "request_id",
+          "status"
+        ],
+        "properties": {
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "下一页的绝对 URL（如有）。"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "examples": [
+              "cef2c957341a8e50b6455a7b8ef9702e"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "description": "包含所请求数据的结果数组。",
+            "items": {
+              "$ref": "#/components/schemas/UnifiedSnapshot"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "本次请求响应的状态。",
+            "examples": [
+              "OK"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "Ticker": {
+        "title": "Massive 标的代码",
+        "type": "object",
+        "description": "Massive 支持的证券或资产代码及其名称、市场、地区、币种、交易所、标识符和活跃状态。",
+        "required": [
+          "ticker",
+          "name"
+        ],
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "description": "该资产在查询日期是否处于活跃交易状态。",
+            "examples": [
+              true
+            ]
+          },
+          "base_currency_name": {
+            "type": "string",
+            "description": "此资产计价所对应货币的名称。"
+          },
+          "base_currency_symbol": {
+            "type": "string",
+            "description": "计价对象货币的 ISO 4217 代码。"
+          },
+          "cik": {
+            "type": "string",
+            "description": "此股票代码的 CIK 编号。",
+            "examples": [
+              "0001090872"
+            ]
+          },
+          "composite_figi": {
+            "type": "string",
+            "description": "此股票代码的复合 OpenFIGI 编号。",
+            "examples": [
+              "BBG000BWQYZ5"
+            ]
+          },
+          "currency_name": {
+            "type": "string",
+            "description": "此资产交易所用货币的名称。",
+            "examples": [
+              "usd"
+            ]
+          },
+          "currency_symbol": {
+            "type": "string",
+            "description": "交易货币的 ISO 4217 代码。"
+          },
+          "delisted_utc": {
+            "type": "string",
+            "format": "date-time",
+            "description": "此资产最后交易的日期。"
+          },
+          "last_updated_utc": {
+            "type": "string",
+            "format": "date-time",
+            "description": "这些信息准确截至此时间。",
+            "examples": [
+              "2021-04-25T00:00:00Z"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "global",
+              "us"
+            ],
+            "description": "资产所属地区。",
+            "examples": [
+              "us"
+            ]
+          },
+          "market": {
+            "type": "string",
+            "enum": [
+              "crypto",
+              "fx",
+              "indices",
+              "otc",
+              "stocks"
+            ],
+            "description": "资产的市场类型。",
+            "examples": [
+              "stocks"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "资产名称。对于股票/权益证券，这是公司的注册名称；对于加密货币/外汇，这是货币或币对名称。",
+            "examples": [
+              "Agilent Technologies Inc."
+            ]
+          },
+          "primary_exchange": {
+            "type": "string",
+            "description": "主要交易所的 ISO 10383 市场标识码（MIC）。",
+            "examples": [
+              "XNYS"
+            ]
+          },
+          "share_class_figi": {
+            "type": "string",
+            "description": "此股票代码的股类 OpenFIGI 编号。",
+            "examples": [
+              "BBG001SCTQY4"
+            ]
+          },
+          "ticker": {
+            "type": "string",
+            "description": "此项目交易使用的交易所代码。",
+            "examples": [
+              "A"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "Massive 股票代码类型。",
+            "examples": [
+              "CS"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "TickerListResponse": {
+        "title": "标的代码列表响应",
+        "type": "object",
+        "description": "匹配筛选条件的标的代码分页列表，包含数量、请求标识和下一页地址。",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "本次请求的结果总数。",
+            "examples": [
+              1
+            ]
+          },
+          "next_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "下一页的绝对 URL（如有）。",
+            "examples": [
+              "https://api.massive.com/v3/reference/tickers?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "examples": [
+              "e70013d92930de90e089dc8fa098888e"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "description": "与查询匹配的股票代码数组。注意：虽然可以按 CUSIP 查询，但出于法律原因，响应不会返回 CUSIP。",
+            "items": {
+              "$ref": "#/components/schemas/Ticker"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "本次请求响应的状态。",
+            "examples": [
+              "OK"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "Address": {
+        "title": "公司地址",
+        "type": "object",
+        "description": "标的所属公司的总部地址，包括街道、城市、州和邮政编码。",
+        "properties": {
+          "address1": {
+            "type": "string",
+            "examples": [
+              "One Apple Park Way"
+            ]
+          },
+          "address2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string",
+            "examples": [
+              "Cupertino"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "examples": [
+              "CA"
+            ]
+          },
+          "postal_code": {
+            "type": "string",
+            "examples": [
+              "95014"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "Branding": {
+        "title": "品牌资源",
+        "type": "object",
+        "description": "公司图标和徽标地址；下载这些资源时可能仍需提供 Massive API 密钥。",
+        "properties": {
+          "icon_url": {
+            "type": "string",
+            "format": "uri",
+            "examples": [
+              "https://api.massive.com/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_icon.png"
+            ]
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri",
+            "examples": [
+              "https://api.massive.com/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_logo.svg"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "TickerDetails": {
+        "title": "标的详细资料",
+        "description": "单个标的的基础资料、公司说明、行业分类、标准标识符、市值、股份、员工、地址和品牌资源。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Ticker"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "address": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "branding": {
+                "$ref": "#/components/schemas/Branding"
+              },
+              "description": {
+                "type": "string",
+                "description": "公司及其业务或产品的说明。",
+                "examples": [
+                  "Apple designs a wide variety of consumer electronic devices, including smartphones (iPhone), tablets (iPad), PCs (Mac), smartwatches (Apple Watch), AirPods, and TV boxes (Apple TV), among others."
+                ]
+              },
+              "homepage_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "公司网站主页的 URL。",
+                "examples": [
+                  "https://www.apple.com"
+                ]
+              },
+              "list_date": {
+                "type": "string",
+                "format": "date",
+                "description": "该代码首次公开上市的日期，格式为 YYYY-MM-DD。",
+                "examples": [
+                  "1980-12-12"
+                ]
+              },
+              "market_cap": {
+                "type": "number",
+                "description": "该股票代码的最近收盘价乘以加权流通股数。",
+                "examples": [
+                  2771126040150
+                ]
+              },
+              "phone_number": {
+                "type": "string",
+                "description": "此股票代码背后公司的电话号码。",
+                "examples": [
+                  "(408) 996-1010"
+                ]
+              },
+              "round_lot": {
+                "type": "number",
+                "description": "该证券的整手交易单位大小。",
+                "examples": [
+                  100
+                ]
+              },
+              "share_class_shares_outstanding": {
+                "type": "number",
+                "description": "该特定股类记录的流通股数量。",
+                "examples": [
+                  16406400000
+                ]
+              },
+              "sic_code": {
+                "type": "string",
+                "description": "此股票代码的标准行业分类（SIC）代码。",
+                "examples": [
+                  "3571"
+                ]
+              },
+              "sic_description": {
+                "type": "string",
+                "description": "此股票代码 SIC 代码的说明。",
+                "examples": [
+                  "ELECTRONIC COMPUTERS"
+                ]
+              },
+              "ticker_root": {
+                "type": "string",
+                "description": "指定股票代码的根代码。例如，BRK.A 的根代码是 BRK。",
+                "examples": [
+                  "AAPL"
+                ]
+              },
+              "ticker_suffix": {
+                "type": "string",
+                "description": "指定股票代码的后缀。例如，BRK.A 的后缀是 A。"
+              },
+              "total_employees": {
+                "type": "number",
+                "description": "公司的大致员工人数。",
+                "examples": [
+                  154000
+                ]
+              },
+              "weighted_shares_outstanding": {
+                "type": "number",
+                "description": "假设其他股类的所有股份均转换为此股类后计算的流通股数。",
+                "examples": [
+                  16334371000
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      },
+      "TickerDetailsResponse": {
+        "title": "标的详细资料响应",
+        "type": "object",
+        "description": "包含请求状态、请求标识和单个标的详细资料的响应。",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "本次请求的结果总数。",
+            "examples": [
+              1
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "description": "服务器分配的请求 ID。",
+            "examples": [
+              "31d59dda-80e5-4721-8496-d0d32a654afe"
+            ]
+          },
+          "results": {
+            "$ref": "#/components/schemas/TickerDetails"
+          },
+          "status": {
+            "type": "string",
+            "description": "本次请求响应的状态。",
+            "examples": [
+              "OK"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "API key"
+      }
+    }
+  },
+  "apis": {
+    "getLastTrade": {
+      "summary": "获取最新成交",
+      "operationId": "getLastTrade",
+      "consumes": [],
+      "description": "返回指定股票最近一笔可用成交。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v2/last/trade/{stocksTicker}",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/LastTradeResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LastTradeResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "stocksTicker",
+          "required": true,
+          "schema": {
+            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "type": "string",
+            "examples": [
+              "AAPL"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "stocksTicker": "AAPL"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/trades-quotes/last-trade"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方文档收录的接口；可用性取决于账户的市场数据订阅方案。"
+        }
+      }
+    },
+    "getPreviousClose": {
+      "summary": "获取前一交易日行情",
+      "operationId": "getPreviousClose",
+      "consumes": [],
+      "description": "返回指定股票前一交易日的聚合行情。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v2/aggs/ticker/{stocksTicker}/prev",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/AggregateResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AggregateResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "stocksTicker",
+          "required": true,
+          "schema": {
+            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "type": "string",
+            "examples": [
+              "AAPL"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "adjusted",
+          "required": false,
+          "schema": {
+            "description": "返回按股票拆分复权后的结果",
+            "type": "boolean",
+            "default": true,
+            "examples": [
+              true
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "stocksTicker": "AAPL"
+            },
+            "query": {
+              "adjusted": true
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/aggregates/previous-day-bar"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方文档收录的聚合行情接口。"
+        }
+      }
+    },
+    "getAggregateBars": {
+      "summary": "获取自定义周期 K 线",
+      "operationId": "getAggregateBars",
+      "consumes": [],
+      "description": "按时间范围和周期查询聚合行情。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/AggregateResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AggregateResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "stocksTicker",
+          "required": true,
+          "schema": {
+            "description": "区分大小写的股票代码，例如 `AAPL`。",
+            "type": "string",
+            "examples": [
+              "AAPL"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "multiplier",
+          "required": true,
+          "schema": {
+            "description": "时间跨度倍数",
+            "type": "integer",
+            "minimum": 1,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "timespan",
+          "required": true,
+          "schema": {
+            "description": "行情柱时间单位",
+            "type": "string",
+            "enum": [
+              "minute",
+              "hour",
+              "day",
+              "week",
+              "month",
+              "quarter",
+              "year"
+            ],
+            "examples": [
+              "minute"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "`YYYY-MM-DD` 格式的起始日期或毫秒级 Unix 时间戳。",
+            "type": "string",
+            "examples": [
+              "2025-01-02"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "`YYYY-MM-DD` 格式的结束日期或毫秒级 Unix 时间戳。",
+            "type": "string",
+            "examples": [
+              "2025-01-31"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "adjusted",
+          "required": false,
+          "schema": {
+            "description": "结果是否按股票拆分进行复权。",
+            "type": "boolean",
+            "default": true,
+            "examples": [
+              true
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "description": "按行情柱的起始时间戳排序。",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "default": "asc",
+            "examples": [
+              "asc"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "description": "为构建结果而查询的基础聚合记录的最大数量。",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50000,
+            "default": 5000,
+            "examples": [
+              5000
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "stocksTicker": "AAPL",
+              "multiplier": 1,
+              "timespan": "minute",
+              "from": "2025-01-02",
+              "to": "2025-01-31"
+            },
+            "query": {
+              "adjusted": true,
+              "sort": "asc",
+              "limit": 5000
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方文档收录的聚合行情接口。"
+        }
+      }
+    },
+    "getMarketSnapshot": {
+      "summary": "获取市场快照",
+      "operationId": "getMarketSnapshot",
+      "consumes": [],
+      "description": "返回一个或多个股票的市场快照。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v3/snapshot",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/UnifiedSnapshotResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnifiedSnapshotResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "ticker.any_of",
+          "required": false,
+          "schema": {
+            "description": "以逗号分隔的股票代码",
+            "type": "string",
+            "examples": [
+              "AAPL"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": false,
+          "schema": {
+            "description": "按资产类别筛选。",
+            "type": "string",
+            "enum": [
+              "crypto",
+              "fx",
+              "indices",
+              "options",
+              "stocks"
+            ],
+            "examples": [
+              "stocks"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "order",
+          "required": false,
+          "schema": {
+            "description": "使用选定的排序字段对结果排序。",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "description": "最大结果数量",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250,
+            "default": 10,
+            "examples": [
+              10
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "description": "用于结果排序的字段。",
+            "type": "string",
+            "enum": [
+              "ticker"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "limit": 10
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/snapshots/unified-snapshot"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方统一市场快照接口；返回字段和数据时效性因资产类别订阅方案而异。"
+        }
+      }
+    },
+    "listTickers": {
+      "summary": "搜索证券代码",
+      "operationId": "listTickers",
+      "consumes": [],
+      "description": "列出并筛选 Massive 支持的证券。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v3/reference/tickers",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/TickerListResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TickerListResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "ticker",
+          "required": false,
+          "schema": {
+            "description": "股票代码筛选条件",
+            "type": "string",
+            "examples": [
+              "A"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": false,
+          "schema": {
+            "description": "来自股票代码类型接口的代码类型。",
+            "type": "string",
+            "examples": [
+              "CS"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "market",
+          "required": false,
+          "schema": {
+            "description": "市场筛选条件",
+            "type": "string",
+            "enum": [
+              "stocks",
+              "crypto",
+              "fx",
+              "otc",
+              "indices"
+            ],
+            "examples": [
+              "stocks"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "exchange",
+          "required": false,
+          "schema": {
+            "description": "主要交易所的市场标识码（MIC），例如 `XNAS`。",
+            "type": "string",
+            "examples": [
+              "XNAS"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "cusip",
+          "required": false,
+          "schema": {
+            "description": "要查询的 CUSIP。CUSIP 可用作筛选条件，但出于法律原因不会在结果中返回。",
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "cik",
+          "required": false,
+          "schema": {
+            "description": "美国证券交易委员会（SEC）中央索引键（CIK）。",
+            "type": "string",
+            "examples": [
+              "0001090872"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2025-01-31"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "search",
+          "required": false,
+          "schema": {
+            "description": "用于匹配股票代码和公司名称的搜索文本。",
+            "type": "string",
+            "examples": [
+              "Apple"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "active",
+          "required": false,
+          "schema": {
+            "description": "上市状态筛选条件",
+            "type": "boolean",
+            "default": true,
+            "examples": [
+              true
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "order",
+          "required": false,
+          "schema": {
+            "description": "使用选定的排序字段对结果排序。",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "description": "每页结果的最大数量。",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 100,
+            "examples": [
+              100
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "description": "用于排序的字段。",
+            "type": "string",
+            "enum": [
+              "ticker",
+              "name",
+              "market",
+              "locale",
+              "primary_exchange",
+              "currency_symbol"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "active": true,
+              "limit": 100
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/tickers/all-tickers"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方参考数据接口。"
+        }
+      }
+    },
+    "getTickerDetails": {
+      "summary": "获取证券资料",
+      "operationId": "getTickerDetails",
+      "consumes": [],
+      "description": "返回证券代码的参考资料。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v3/reference/tickers/{ticker}",
+      "responses": {
+        "200": {
+          "description": "成功响应",
+          "schema": {
+            "$ref": "#/components/schemas/TickerDetailsResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TickerDetailsResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "请求因身份验证、权限校验、参数验证、速率限制或服务器错误而失败。",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "ticker",
+          "required": true,
+          "schema": {
+            "description": "股票代码",
+            "type": "string",
+            "examples": [
+              "AAPL"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "`YYYY-MM-DD` 格式的时点日期；默认为最新可用日期。",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2025-01-31"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "ticker": "AAPL"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://massive.com/docs/rest/stocks/tickers/ticker-overview"
+          ],
+          "verifiedAt": "2026-08-10",
+          "stabilityNote": "官方参考数据接口。"
+        }
+      }
+    }
+  },
+  "name": "massive",
+  "servers": [
+    {
+      "id": "massive",
+      "url": "https://api.massive.com",
+      "description": "Massive 官方生产环境 REST API"
+    }
+  ],
+  "info": {
+    "title": "Massive 股票市场数据 API",
+    "version": "2026-08-10",
+    "description": "经过整理的只读 Massive 股票市场 REST API，涵盖报价、聚合行情、市场快照和股票代码参考数据。Massive 原名 Polygon.io；接口访问权限、数据时效性和历史数据范围因订阅方案而异。",
+    "license": {
+      "name": "Proprietary"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,1097 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "schemas": {
+      "ExchangeRateResponse": {
+        "title": "汇率响应",
+        "type": "object",
+        "description": "指定日期的汇率与换算金额。",
+        "required": [
+          "amount",
+          "base",
+          "date",
+          "rates"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "用于换算的金额",
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "examples": [
+              1
+            ]
+          },
+          "base": {
+            "type": "string",
+            "description": "基准货币代码（ISO 4217）",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "EUR"
+            ]
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "ISO 8601 格式的汇率日期",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2026-01-23"
+            ]
+          },
+          "rates": {
+            "type": "object",
+            "description": "以键值对表示的汇率（货币代码对应汇率）",
+            "additionalProperties": {
+              "type": "number",
+              "format": "double",
+              "description": "货币代码对应的汇率值",
+              "examples": [
+                1.91
+              ]
+            },
+            "examples": [
+              {
+                "USD": 1.0445,
+                "GBP": 0.8342,
+                "JPY": 161.23,
+                "CHF": 0.9234,
+                "AUD": 1.6111
+              }
+            ]
+          }
+        }
+      },
+      "TimeSeriesResponse": {
+        "title": "汇率时间序列响应",
+        "type": "object",
+        "description": "指定日期区间内的每日汇率集合。",
+        "required": [
+          "amount",
+          "base",
+          "start_date",
+          "end_date",
+          "rates"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "用于换算的金额",
+            "minimum": 0,
+            "examples": [
+              1
+            ]
+          },
+          "base": {
+            "type": "string",
+            "description": "基准货币代码（ISO 4217）",
+            "pattern": "^[A-Z]{3}$",
+            "examples": [
+              "EUR"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "时间序列的起始日期",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2023-12-29"
+            ]
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "时间序列的结束日期",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2024-01-31"
+            ]
+          },
+          "rates": {
+            "type": "object",
+            "description": "按日期组织的汇率",
+            "additionalProperties": {
+              "type": "object",
+              "description": "指定日期的汇率",
+              "additionalProperties": {
+                "type": "number",
+                "format": "double",
+                "description": "指定日期下货币代码对应的汇率值",
+                "examples": [
+                  1.91
+                ]
+              }
+            },
+            "examples": [
+              {
+                "2024-01-01": {
+                  "USD": 1.1047,
+                  "GBP": 0.8692
+                },
+                "2024-01-02": {
+                  "USD": 1.1023,
+                  "GBP": 0.8671
+                }
+              }
+            ]
+          }
+        }
+      },
+      "CurrenciesResponse": {
+        "title": "货币列表响应",
+        "type": "object",
+        "description": "货币代码与货币名称的映射。",
+        "additionalProperties": {
+          "type": "string",
+          "description": "货币的完整名称",
+          "examples": [
+            "Australian Dollar"
+          ]
+        },
+        "examples": [
+          {
+            "EUR": "Euro",
+            "USD": "United States Dollar",
+            "GBP": "British Pound",
+            "JPY": "Japanese Yen",
+            "AUD": "Australian Dollar"
+          }
+        ]
+      },
+      "Error": {
+        "title": "错误响应",
+        "type": "object",
+        "description": "接口未找到汇率数据时返回的错误消息。",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "服务返回的错误消息",
+            "examples": [
+              "not found"
+            ]
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AmountParam": {
+        "name": "amount",
+        "in": "query",
+        "description": "要换算的金额（默认为 1）",
+        "required": false,
+        "schema": {
+          "type": "number",
+          "format": "double",
+          "default": 1,
+          "minimum": 0,
+          "exclusiveMinimum": true,
+          "example": 1
+        }
+      },
+      "BaseParam": {
+        "name": "base",
+        "in": "query",
+        "description": "基准货币代码（三位 ISO 4217 代码）",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "default": "EUR",
+          "example": "EUR"
+        }
+      },
+      "SymbolsParam": {
+        "name": "symbols",
+        "in": "query",
+        "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+        },
+        "style": "form",
+        "explode": false
+      }
+    }
+  },
+  "apis": {
+    "exchangeRates/getLatestRates": {
+      "summary": "获取最新汇率",
+      "operationId": "getLatestRates",
+      "consumes": [],
+      "description": "返回最近一个有效参考日的汇率。",
+      "tags": [
+        "Exchange Rates"
+      ],
+      "method": "GET",
+      "path": "/latest",
+      "responses": {
+        "200": {
+          "description": "成功返回汇率",
+          "schema": {
+            "$ref": "#/components/schemas/ExchangeRateResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExchangeRateResponse"
+              },
+              "examples": {
+                "default": {
+                  "summary": "默认以 EUR 为基准的最新汇率",
+                  "value": {
+                    "amount": 1,
+                    "base": "EUR",
+                    "date": "2026-01-23",
+                    "rates": {
+                      "USD": 1.1742,
+                      "GBP": 0.8681,
+                      "JPY": 185.71
+                    }
+                  }
+                },
+                "customAmount": {
+                  "summary": "将 100 EUR 换算为 USD 和 GBP",
+                  "value": {
+                    "amount": 100,
+                    "base": "EUR",
+                    "date": "2026-01-23",
+                    "rates": {
+                      "USD": 117.42,
+                      "GBP": 86.81
+                    }
+                  }
+                },
+                "differentBase": {
+                  "summary": "以 USD 为基准的最新汇率",
+                  "value": {
+                    "amount": 1,
+                    "base": "USD",
+                    "date": "2026-01-23",
+                    "rates": {
+                      "EUR": 0.85164,
+                      "GBP": 0.73931,
+                      "JPY": 158.16
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "未找到汇率，例如指定的货币不受支持",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              },
+              "examples": {
+                "invalidCurrency": {
+                  "summary": "无效的货币代码",
+                  "value": {
+                    "message": "not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "无法处理查询参数，例如金额为零、负数或非数字",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              },
+              "example": {
+                "message": "invalid amount"
+              }
+            }
+          }
+        }
+      },
+      "deprecated": true,
+      "parameters": [
+        {
+          "in": "query",
+          "name": "amount",
+          "required": false,
+          "schema": {
+            "description": "要换算的金额（默认为 1）",
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "examples": [
+              100
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "default": "EUR",
+            "enum": [
+              "AUD",
+              "BRL",
+              "CAD",
+              "CHF",
+              "CNY",
+              "CZK",
+              "DKK",
+              "EUR",
+              "GBP",
+              "HKD",
+              "HUF",
+              "IDR",
+              "ILS",
+              "INR",
+              "ISK",
+              "JPY",
+              "KRW",
+              "MXN",
+              "MYR",
+              "NOK",
+              "NZD",
+              "PHP",
+              "PLN",
+              "RON",
+              "SEK",
+              "SGD",
+              "THB",
+              "TRY",
+              "USD",
+              "ZAR"
+            ],
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "以逗号分隔的货币代码列表，用于限制响应范围。\n如未指定，则返回所有可用货币。\n",
+            "style": "form",
+            "explode": false,
+            "type": "string",
+            "pattern": "^[A-Z]{3}(,[A-Z]{3})*$",
+            "examples": [
+              "USD,GBP,JPY"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "amount": 100,
+              "base": "USD"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "exchangeRates/getHistoricalRates": {
+      "summary": "获取历史汇率",
+      "operationId": "getHistoricalRates",
+      "consumes": [],
+      "description": "返回指定参考日期的汇率。",
+      "tags": [
+        "Exchange Rates"
+      ],
+      "method": "GET",
+      "path": "/{date}",
+      "responses": {
+        "200": {
+          "description": "成功返回历史汇率",
+          "schema": {
+            "$ref": "#/components/schemas/ExchangeRateResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExchangeRateResponse"
+              },
+              "examples": {
+                "historical": {
+                  "summary": "指定日期的历史汇率",
+                  "value": {
+                    "amount": 1,
+                    "base": "EUR",
+                    "date": "2024-01-15",
+                    "rates": {
+                      "USD": 1.0945,
+                      "GBP": 0.86075,
+                      "JPY": 159.67
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "指定日期没有可用数据",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              },
+              "examples": {
+                "invalidDate": {
+                  "value": {
+                    "message": "invalid date"
+                  }
+                },
+                "invalidAmount": {
+                  "value": {
+                    "message": "invalid amount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deprecated": true,
+      "parameters": [
+        {
+          "in": "path",
+          "name": "date",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 格式的日期（YYYY-MM-DD）",
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2024-01-15"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "amount",
+          "required": false,
+          "schema": {
+            "description": "要换算的金额（默认为 1）",
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "default": "EUR",
+            "enum": [
+              "AUD",
+              "BRL",
+              "CAD",
+              "CHF",
+              "CNY",
+              "CZK",
+              "DKK",
+              "EUR",
+              "GBP",
+              "HKD",
+              "HUF",
+              "IDR",
+              "ILS",
+              "INR",
+              "ISK",
+              "JPY",
+              "KRW",
+              "MXN",
+              "MYR",
+              "NOK",
+              "NZD",
+              "PHP",
+              "PLN",
+              "RON",
+              "SEK",
+              "SGD",
+              "THB",
+              "TRY",
+              "USD",
+              "ZAR"
+            ],
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+            "style": "form",
+            "explode": false,
+            "type": "string",
+            "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "date": "2024-01-15"
+            },
+            "query": {
+              "amount": 1,
+              "base": "EUR"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "exchangeRates/getOpenEndedTimeSeriesRates": {
+      "summary": "获取开放结束日期的汇率时间序列",
+      "operationId": "getOpenEndedTimeSeriesRates",
+      "consumes": [],
+      "description": "从指定起始日期返回到最近有效参考日的每日汇率时间序列。",
+      "tags": [
+        "Exchange Rates"
+      ],
+      "method": "GET",
+      "path": "/{start_date}..",
+      "responses": {
+        "200": {
+          "description": "成功返回从请求起始日期到最新观测值的汇率",
+          "schema": {
+            "$ref": "#/components/schemas/TimeSeriesResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSeriesResponse"
+              },
+              "example": {
+                "amount": 1,
+                "base": "EUR",
+                "start_date": "2026-07-31",
+                "end_date": "2026-08-07",
+                "rates": {
+                  "2026-07-31": {
+                    "USD": 1.1485
+                  },
+                  "2026-08-03": {
+                    "USD": 1.1535
+                  },
+                  "2026-08-07": {
+                    "USD": 1.1535
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "指定起始日期没有可用数据",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      },
+      "deprecated": true,
+      "parameters": [
+        {
+          "in": "path",
+          "name": "start_date",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2026-08-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "amount",
+          "required": false,
+          "schema": {
+            "description": "要换算的金额（默认为 1）",
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "default": "EUR",
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+            "style": "form",
+            "explode": false,
+            "type": "string",
+            "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "start_date": "2026-08-01"
+            },
+            "query": {
+              "amount": 1,
+              "base": "EUR"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "exchangeRates/getTimeSeriesRates": {
+      "summary": "获取汇率时间序列",
+      "operationId": "getTimeSeriesRates",
+      "consumes": [],
+      "description": "返回指定日期区间内的汇率变化。",
+      "tags": [
+        "Exchange Rates"
+      ],
+      "method": "GET",
+      "path": "/{start_date}..{end_date}",
+      "responses": {
+        "200": {
+          "description": "成功返回时间序列汇率",
+          "schema": {
+            "$ref": "#/components/schemas/TimeSeriesResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeSeriesResponse"
+              },
+              "examples": {
+                "timeSeries": {
+                  "summary": "指定日期范围的时间序列",
+                  "value": {
+                    "amount": 1,
+                    "base": "EUR",
+                    "start_date": "2023-12-29",
+                    "end_date": "2024-01-05",
+                    "rates": {
+                      "2023-12-29": {
+                        "USD": 1.105,
+                        "GBP": 0.86905
+                      },
+                      "2024-01-02": {
+                        "USD": 1.0956,
+                        "GBP": 0.86645
+                      },
+                      "2024-01-03": {
+                        "USD": 1.0919,
+                        "GBP": 0.8647
+                      },
+                      "2024-01-04": {
+                        "USD": 1.0953,
+                        "GBP": 0.86278
+                      },
+                      "2024-01-05": {
+                        "USD": 1.0921,
+                        "GBP": 0.8621
+                      }
+                    }
+                  }
+                },
+                "openEnded": {
+                  "summary": "开放结束日期的时间序列（从 start_date 到最新日期）",
+                  "value": {
+                    "amount": 1,
+                    "base": "EUR",
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-31",
+                    "rates": {
+                      "2024-12-01": {
+                        "USD": 1.0523,
+                        "GBP": 0.8312
+                      },
+                      "2024-12-02": {
+                        "USD": 1.0534,
+                        "GBP": 0.8321
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "指定日期范围没有可用数据",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "无法处理日期或查询参数，例如日历日期或金额无效",
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      },
+      "deprecated": true,
+      "parameters": [
+        {
+          "in": "path",
+          "name": "start_date",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 格式的起始日期（YYYY-MM-DD）",
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "end_date",
+          "required": true,
+          "schema": {
+            "description": "ISO 8601 格式的结束日期（YYYY-MM-DD）。\n可使用 \"start_date..\" 格式省略结束日期，以获取从 start_date 起的所有汇率。\n",
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2024-01-31"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "amount",
+          "required": false,
+          "schema": {
+            "description": "要换算的金额（默认为 1）",
+            "type": "number",
+            "format": "double",
+            "default": 1,
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "基准货币代码（三位 ISO 4217 代码）",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "default": "EUR",
+            "enum": [
+              "AUD",
+              "BRL",
+              "CAD",
+              "CHF",
+              "CNY",
+              "CZK",
+              "DKK",
+              "EUR",
+              "GBP",
+              "HKD",
+              "HUF",
+              "IDR",
+              "ILS",
+              "INR",
+              "ISK",
+              "JPY",
+              "KRW",
+              "MXN",
+              "MYR",
+              "NOK",
+              "NZD",
+              "PHP",
+              "PLN",
+              "RON",
+              "SEK",
+              "SGD",
+              "THB",
+              "TRY",
+              "USD",
+              "ZAR"
+            ],
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "symbols",
+          "required": false,
+          "schema": {
+            "description": "以逗号分隔的货币代码列表，用于限制响应范围",
+            "style": "form",
+            "explode": false,
+            "type": "string",
+            "pattern": "^[A-Z]{3}(,[A-Z]{3})*$"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "start_date": "2024-01-01",
+              "end_date": "2024-01-31"
+            },
+            "query": {
+              "amount": 1,
+              "base": "EUR"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "currencies/getCurrencies": {
+      "summary": "获取支持的货币",
+      "operationId": "getCurrencies",
+      "consumes": [],
+      "description": "返回可用于汇率查询的货币代码与名称。",
+      "tags": [
+        "Currencies"
+      ],
+      "method": "GET",
+      "path": "/currencies",
+      "responses": {
+        "200": {
+          "description": "成功返回受支持的货币列表",
+          "schema": {
+            "$ref": "#/components/schemas/CurrenciesResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrenciesResponse"
+              },
+              "examples": {
+                "currencies": {
+                  "summary": "所有受支持货币的列表",
+                  "value": {
+                    "AUD": "Australian Dollar",
+                    "BRL": "Brazilian Real",
+                    "CAD": "Canadian Dollar",
+                    "CHF": "Swiss Franc",
+                    "CNY": "Chinese Renminbi Yuan",
+                    "CZK": "Czech Koruna",
+                    "DKK": "Danish Krone",
+                    "EUR": "Euro",
+                    "GBP": "British Pound",
+                    "HKD": "Hong Kong Dollar",
+                    "HUF": "Hungarian Forint",
+                    "IDR": "Indonesian Rupiah",
+                    "ILS": "Israeli New Shekel",
+                    "INR": "Indian Rupee",
+                    "ISK": "Icelandic Króna",
+                    "JPY": "Japanese Yen",
+                    "KRW": "South Korean Won",
+                    "MXN": "Mexican Peso",
+                    "MYR": "Malaysian Ringgit",
+                    "NOK": "Norwegian Krone",
+                    "NZD": "New Zealand Dollar",
+                    "PHP": "Philippine Peso",
+                    "PLN": "Polish Złoty",
+                    "RON": "Romanian Leu",
+                    "SEK": "Swedish Krona",
+                    "SGD": "Singapore Dollar",
+                    "THB": "Thai Baht",
+                    "TRY": "Turkish Lira",
+                    "USD": "United States Dollar",
+                    "ZAR": "South African Rand"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deprecated": true,
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    }
+  },
+  "name": "frankfurter",
+  "servers": [
+    {
+      "id": "default",
+      "url": "https://api.frankfurter.dev/v1",
+      "description": "生产服务器"
+    }
+  ],
+  "info": {
+    "title": "Frankfurter API 汇率服务",
+    "version": "1.0.0",
+    "description": "Frankfurter v1 是一个免费、开源的 API，用于获取当前及历史外汇参考汇率。它无需 API 密钥，支持查询最近工作日汇率、历史汇率、时间序列、按货币筛选以及金额换算。v1 已由 v2 取代，但根据官方文档仍将继续可用。汇率通常在工作日的欧洲中部时间 16:00 左右更新；日期以 UTC 存储，当新汇率发布后，当日查询结果可能发生变化。\n",
+    "contact": {
+      "name": "Frankfurter API",
+      "url": "https://frankfurter.dev"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/lineofflight/frankfurter/blob/main/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "Frankfurter API 官方文档",
+    "url": "https://frankfurter.dev"
+  },
+  "tags": [
+    {
+      "name": "exchangeRates",
+      "description": "用于获取货币汇率的接口"
+    },
+    {
+      "name": "currencies",
+      "description": "用于列出受支持货币的接口"
+    }
+  ]
+}

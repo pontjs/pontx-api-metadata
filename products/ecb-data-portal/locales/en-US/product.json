@@ -1,0 +1,12 @@
+{
+  "display": {
+    "title": "European Central Bank Data Portal SDMX API",
+    "summary": "Query the European Central Bank's public SDMX 2.1 statistical data, structural metadata, and structure-specific XML schemas, including complete path variants, content negotiation, and 12 searchable schemas."
+  },
+  "documentation": {
+    "stabilityNote": "A complete anonymous read-only SDMX 2.1 REST contract independently reconstructed from current official ECB help pages. Hub does not proxy requests or responses; the SDK and CLI call the ECB public HTTPS service directly."
+  },
+  "pricing": {
+    "summary": "The ECB API help pages do not publish a separate per-call price. The anonymous read-only service in this collection requires no API key; use and reuse remain subject to the ECB website information reuse terms."
+  }
+}

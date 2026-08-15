@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/stripe-identity",
+    "version": "0.1.1",
+    "status": "published",
+    "repository": "https://github.com/pontjs/stripe-identity"
+  },
+  "cli": {
+    "name": "pontx-stripe-identity"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createStripeIdentityClient",
+      "identifier": "client",
+      "options": {
+        "secretKey": "STRIPE_SECRET_KEY"
+      }
+    },
+    "controllers": {}
+  },
+  "examples": {
+    "typescript": "import { createStripeIdentityClient } from \"@pontx/stripe-identity\";\n\nconst client = createStripeIdentityClient({\n  secretKey: process.env.STRIPE_SECRET_KEY!\n});\nconst sessions = await client.getIdentityVerificationSessions({ limit: 10 });",
+    "cli": "pnpm add --global @pontx/stripe-identity\n\npontx-stripe-identity call getIdentityVerificationSessions --limit 10 --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 5,
+      "total": 5,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "2319bec517bb35b8d3512d1495f784193f178080",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/stripe-identity",
+    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/31858572852"
+  },
+  "spec": {
+    "path": "products/stripe-identity/spec.pontx.json",
+    "sha256": "926fbe95dab6796b8e4136c4d34c54694a176f6d6011d54de59baf40cb9f5412",
+    "metadataCommit": "c8ae699632e5bd5e6db427f688c8ed6b36229bb7"
+  }
+}

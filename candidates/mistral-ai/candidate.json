@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "slug": "mistral-ai",
+  "name": {
+    "zh": "Mistral AI API",
+    "en": "Mistral AI API"
+  },
+  "provider": "Mistral AI",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 12,
+    "score": 78
+  },
+  "boundary": {
+    "zh": "Mistral AI Platform 当前公开的完整 API 产品面，包括 Chat、Agents、OCR、音频、Batch、Files、Models 与 Workflows。",
+    "en": "The complete current Mistral AI Platform API surface, including Chat, Agents, OCR, audio, Batch, Files, Models, and Workflows."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://docs.mistral.ai/api"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://docs.mistral.ai/api/endpoint/audio/transcriptions"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/mistralai/client-ts"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/mistralai/client-ts/blob/main/LICENSE"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "Chat/Agent 流式方法、音频转录和 Workflow 事件包含 SSE；整集暂缓。",
+      "en": "Chat/Agent streaming methods, audio transcription, and Workflow events include SSE; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 支持后获取或固定官方 SDK 生成所用 OpenAPI，并复核 Beta/GA 边界。",
+    "en": "After SSE support lands, obtain or pin the OpenAPI used to generate the official SDK and re-check beta/GA boundaries."
+  },
+  "verifiedAt": "2026-08-14"
+}

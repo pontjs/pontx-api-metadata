@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "slug": "iflytek-spark",
+  "name": {
+    "zh": "讯飞星火 API",
+    "en": "iFLYTEK Spark API"
+  },
+  "provider": "iFLYTEK",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 10,
+    "score": 80
+  },
+  "boundary": {
+    "zh": "讯飞开放平台星火供应商级 API 产品面，包括通用模型、知识库、工作流、批处理与微调能力。",
+    "en": "The supplier-level iFLYTEK Spark API surface across general models, knowledge bases, workflows, batch processing, and fine-tuning."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "protocol",
+      "url": "https://www.xfyun.cn/doc/spark/Web.html"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://www.xfyun.cn/doc/spark/ChatDoc-API.html"
+    },
+    {
+      "kind": "docs",
+      "url": "https://www.xfyun.cn/doc/spark/BatchAPI.html"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "通用模型使用 WebSocket，知识库问答使用 HTTP/SSE，工作流也有流式 HTTP；整集暂缓。",
+      "en": "General models use WebSocket, knowledge-base chat uses HTTP/SSE, and workflows also use streaming HTTP; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 WebSocket 与 SSE 契约均支持后重做完整产品盘点。",
+    "en": "Redo the complete product inventory after both WebSocket and SSE contracts are supported."
+  },
+  "verifiedAt": "2026-08-14"
+}

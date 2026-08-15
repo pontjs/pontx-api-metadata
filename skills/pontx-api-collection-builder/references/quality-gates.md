@@ -29,12 +29,12 @@
 
 参考 [Google AIP-180 Backwards compatibility](https://google.aip.dev/180) 和 [AIP-185 API Versioning](https://google.aip.dev/185)。它们是兼容性思考框架；上游真实契约仍是本集合的事实来源。
 
-## G2：OpenAPI 契约完整性
+## G2：PontxSpec 契约完整性
 
-对每个 Endpoint 检查：
+对每个 Endpoint 检查适用于其 `style` 的契约字段：
 
 - 唯一、稳定、适合代码生成的 `operationId`；
-- path 参数必填且模板一一对应；
+- RESTFul 的 path 参数必填且与 path 模板一一对应；非 REST style 的调用标识、输入/输出契约不得被强行映射成 HTTP path；
 - 参数/请求体位置、序列化、类型、格式、约束、默认值、枚举与示例完整；
 - 每个真实成功/错误状态、media type、response headers 和 Schema 均有记录；
 - 分页、游标、异步状态、速率限制、重试条件和错误恢复有证据时均被表达；
@@ -42,7 +42,7 @@
 - 安全要求与 `components.securitySchemes` 对齐；公共 Endpoint 不被误标为必需鉴权，受保护 Endpoint 不被误标为匿名；
 - 示例不只是“看起来合理”，而是能通过对应 Schema 和约束。
 
-OpenAPI 的规范基线见 [OpenAPI Specification 3.1.2](https://spec.openapis.org/oas/v3.1.2.html)。仓库验证器通过不代表规范语义自动正确；结构校验、语义审查和证据核对缺一不可。
+PontxSpec 必须显式声明 `pontx` 与 `style`；只有 RESTFul 强制 `method/path`。若上游是 OAS2/OAS3，只能用正式导入器一次性转换并逐项审查，后续构建不得读取 OAS。非 REST style 至少必须可加载、被稳定 ID 索引并保留输入/输出/安全字段；没有执行适配器时不能伪装成 HTTP Playground。仓库验证器通过不代表规范语义自动正确；结构校验、语义审查和证据核对缺一不可。
 
 ## G3：HTTP 与执行安全
 
@@ -58,7 +58,7 @@ OpenAPI 的规范基线见 [OpenAPI Specification 3.1.2](https://spec.openapis.o
 ## G4：国际化一致性
 
 - `zh-CN` 是唯一结构基线；locale 使用 BCP 47 标识。
-- localized OAS 只改 approved prose，结构、顺序、示例、安全和执行策略完全相同。
+- localized PontxSpec 只改 approved prose，结构、顺序、示例、安全和执行策略完全相同。
 - 产品、Endpoint、参数、响应、Schema/property、enum 和 auth prose 在所有发布 locale 中有用且完整。
 - 翻译保留 API 专有名词、约束和强弱语气，不把 required、may、deprecated 等语义翻错。
 - 运行 locale 单元测试和 JSON Pointer 级差异检查。
@@ -67,11 +67,13 @@ OpenAPI 的规范基线见 [OpenAPI Specification 3.1.2](https://spec.openapis.o
 
 ## G5：完整性与可复现构建
 
-- approved hash 与最终审阅字节一致。
-- `catalog/catalog.json` 只由编译器生成并提交。
-- locale test/lint、catalog build、spec verify 和 `git diff --check` 全部通过。
-- 连续两次构建结果一致。
-- 生成 catalog 能追溯到 source entry 与 OAS，且数量、身份和图关系合理。
+- `catalog/products.json` 只含版本、locale 和正式产品 slug。
+- 每个产品的概要、PontxSpec、SDK、locale 与 provenance 只存在自己的目录。
+- `product.json` 不含 server/security/API/Schema，`sdk.json` 不含 API 详情；候选只在 `candidates/<slug>/`，不在正式清单中。
+- 不存在 `catalog/source.json`、`catalog/catalog.json` 或集中 locale catalog；`sources/openapi.json` 即使存在也不被构建、Hub、SDK 生成或搜索读取。
+- SDK hash 与最终 PontxSpec 原始字节一致，并固定路径和 metadata commit。
+- locale 同构、层级验证、SDK 质量验证和 `git diff --check` 全部通过。
+- Hub 从同一精确 commit 读取全部分级文件，任一文件、hash 或 locale 校验失败即停止构建，数量、身份和图关系合理。
 
 hash 失配、生成物过期或非确定性构建均为 `BLOCKER`。
 
@@ -87,13 +89,14 @@ hash 失配、生成物过期或非确定性构建均为 `BLOCKER`。
 
 ## G7：SDK 与产品 CLI 契约保真
 
-- 独立产品仓库从最终已审 OAS 生成 `@pontx/<slug>` 和同包 `pontx-<slug>`，生成物可复现且无手改漂移。
+- 独立产品仓库从固定 commit 的 canonical PontxSpec 生成 `@pontx/<slug>` 和同包 `pontx-<slug>`，生成物可复现且无手改漂移。
+- SDK 仓库镜像的规范原始字节、路径、metadata commit 与 `sdk.json` 完全一致；CI 重算 SHA-256，拒绝独立编辑镜像和 canonical OAS 副本。
 - SDK 保留真实 server path、参数序列化、auth、请求/响应类型、媒体类型、错误和二进制语义。
-- Controller 只来自 Endpoint 显式 OAS tags；未 tagged Endpoint 保持 client 根调用，不合成或保留 `common`/`default` Controller 或别名。
+- Controller 只来自 Endpoint 显式 PontxSpec tags；未 tagged Endpoint 保持 client 根调用，不合成 `common`/`default` Controller；旧分组访问只能单独声明为兼容别名，不能成为 stable Endpoint ID。
 - strict typecheck、ESM、CommonJS、声明和 CLI build 通过；unit tests 100% 通过且 0 skipped。
 - built-package E2E 覆盖代表性 SDK 请求、产品 CLI help/preview/call、凭证脱敏、server path 和产品特有媒体/错误路径。
 - mutation 在未确认、请求变化或确认过期时不会发出；mutation/付费/用户数据不通过生产实调验证。
-- SDK/CLI 暴露的类型或请求构造缺口回流修复 OAS/metadata，随后重新生成和重跑 G2–G7。
+- SDK/CLI 暴露的类型或请求构造缺口回流修复 canonical PontxSpec 或通用 generator，随后重新生成和重跑 G2–G7。
 
 生成代码与已审契约不一致、凭证可泄漏、mutation 可绕过或关键 E2E 失败均为 `BLOCKER`。只通过本地 build 而没有 built-package E2E 是 `MAJOR`。
 
@@ -110,9 +113,9 @@ tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 
 
 ## G9：Metadata 准入与分阶段上线
 
-- 只有 G8 registry 复验通过后，metadata 才设置 `sdkStatus=published` 并写入真实 package/version/CLI/quality 证据。
+- 只有 G8 registry 复验通过后，metadata 才在该产品 `sdk.json` 设置 `package.status: "published"` 并写入真实 package/version/CLI/quality 证据。
 - SDK/CLI 示例与 registry 产物的真实导出、Controller/root 路径和参数完全一致。
-- metadata 全部门与 Hub tests、typecheck、production build、SDK registry verification、搜索/SSR/Schema/Playground/snippet/AI tool eval 通过。
+- metadata 全部门与 Hub tests、typecheck、production build、SDK registry verification、搜索/SSR/Schema/snippet/AI tool eval 通过；RESTFul 产品验证 Playground，非 REST 产品验证没有适配器时的明确 disabled 状态。
 - 公共 catalog/Hub HTTP/CLI contract 变化遵循 consumer-first；动态 catalog 已足够时不为新增产品发布无意义的统一 CLI 版本。
 - `develop` 的 Preview Ready 且完成中英文浏览器审查后，才提升 `main`；Production workflow/deployment 必须实际 Ready。
 - SDK、必要消费者、metadata、Preview 和 Production 的 commit/run/deployment 证据写入同一 launch ledger。
@@ -121,7 +124,7 @@ tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 
 
 ## G10：生产发现、语义检索与助手调用
 
-- 生产 Hub API、zh/en API/Endpoint/Schema/SDK 页面加载最终 catalog，稳定 ID、SSR、canonical/hreflang/sitemap 和 SDK 版本正确。
+- 生产 Hub API、zh/en API/Endpoint/Schema/SDK 页面从最终分级数据加载，稳定 ID、SSR、canonical/hreflang/sitemap 和 SDK 版本正确。
 - fresh-installed 统一 `pontx-hub` CLI 能 list/search/show/sdk/preview 该产品和代表 Endpoint/Schema。
 - 至少一条中文和一条英文非品牌任务查询在要求 top-k 返回正确资源，并暴露 `strategy`、`semanticVersion`、`match.mode` 与 `match.fields`；查询进入持久化 relevance eval。
 - AI deterministic eval 覆盖 search → resource/auth → SDK/CLI → prepare，且 credential 不进入模型/tool input。

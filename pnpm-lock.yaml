@@ -1,0 +1,41 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@pontx/spec':
+        specifier: 1.0.0-beta.5
+        version: 1.0.0-beta.5
+
+packages:
+
+  '@pontx/spec@1.0.0-beta.5':
+    resolution: {integrity: sha512-z44nDA6SuJxYdYBOFpKtsQ6yLMpA9AVQ1VR8QBRDkhjSd3MPvt8Ywb4X/uSViNSTICYmrV7eSz9q6yJ/N2tzYQ==}
+
+  immer@10.2.0:
+    resolution: {integrity: sha512-d/+XTN3zfODyjr89gM3mPq1WNX2B8pYsu7eORitdwyA2sBubnTl3laYlBk4sXY5FUa5qTZGBDPJICVbvqzjlbw==}
+
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
+
+  oas-spec-ts@0.6.4:
+    resolution: {integrity: sha512-MYBgT1EBMhRZjET+thtijhGHxexlK5+eugS0r37B4/FUEFYTbjKuZLLoPK7DkQAtuCm8/ZMUYbYswz15oN9XUA==}
+
+snapshots:
+
+  '@pontx/spec@1.0.0-beta.5':
+    dependencies:
+      immer: 10.2.0
+      lodash: 4.18.1
+      oas-spec-ts: 0.6.4
+
+  immer@10.2.0: {}
+
+  lodash@4.18.1: {}
+
+  oas-spec-ts@0.6.4: {}

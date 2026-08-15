@@ -1,0 +1,6 @@
+{
+  "formatVersion": 1,
+  "defaultLocale": "zh-CN",
+  "locales": ["en-US"],
+  "products": ["rpc-minimal"]
+}

@@ -1,0 +1,3005 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "auth-scheme",
+        "description": "Bearer HTTP authentication. Allowed headers-- Authorization: Bearer <api_key>",
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "basicAuth": {
+        "description": "Basic HTTP authentication. Allowed headers-- Authorization: Basic <api_key> | Authorization: Basic <base64 hash of `api_key:`>",
+        "scheme": "basic",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "gelato_document_report": {
+        "description": "证件检查结果。",
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/address"
+              }
+            ],
+            "description": "证件上显示的地址。",
+            "nullable": true
+          },
+          "dob": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_data_document_report_date_of_birth"
+              }
+            ],
+            "description": "证件上显示的出生日期。",
+            "nullable": true
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_document_report_error"
+              }
+            ],
+            "description": "验证错误详情；当状态为 `unverified` 时存在。",
+            "nullable": true
+          },
+          "expiration_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_data_document_report_expiration_date"
+              }
+            ],
+            "description": "证件有效期。",
+            "nullable": true
+          },
+          "files": {
+            "description": "包含此证件图像的 [File](https://docs.stripe.com/api/files) ID 数组。",
+            "items": {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "first_name": {
+            "description": "证件上显示的名。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "issued_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_data_document_report_issued_date"
+              }
+            ],
+            "description": "证件签发日期。",
+            "nullable": true
+          },
+          "issuing_country": {
+            "description": "证件签发国家或地区。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "last_name": {
+            "description": "证件上显示的姓。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "number": {
+            "description": "证件号码。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "sex": {
+            "description": "证件中人员的性别。",
+            "enum": [
+              "[redacted]",
+              "female",
+              "male",
+              "unknown"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "description": "此 `document` 检查的状态。",
+            "enum": [
+              "unverified",
+              "verified"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "type": {
+            "description": "证件类型。",
+            "enum": [
+              "driving_license",
+              "id_card",
+              "passport"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "unparsed_place_of_birth": {
+            "description": "证件上显示的出生地。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "unparsed_sex": {
+            "description": "证件上显示的性别原文。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "GelatoDocumentReport",
+        "type": "object",
+        "x-expandableFields": [
+          "address",
+          "dob",
+          "error",
+          "expiration_date",
+          "issued_date"
+        ]
+      },
+      "gelato_email_report": {
+        "description": "电子邮件检查结果。",
+        "properties": {
+          "email": {
+            "description": "要验证的电子邮箱。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_email_report_error"
+              }
+            ],
+            "description": "验证错误详情；当状态为 `unverified` 时存在。",
+            "nullable": true
+          },
+          "status": {
+            "description": "此 `email` 检查的状态。",
+            "enum": [
+              "unverified",
+              "verified"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "GelatoEmailReport",
+        "type": "object",
+        "x-expandableFields": [
+          "error"
+        ]
+      },
+      "gelato_id_number_report": {
+        "description": "身份号码检查结果。",
+        "properties": {
+          "dob": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_data_id_number_report_date"
+              }
+            ],
+            "description": "出生日期。",
+            "nullable": true
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_id_number_report_error"
+              }
+            ],
+            "description": "验证错误详情；当状态为 `unverified` 时存在。",
+            "nullable": true
+          },
+          "first_name": {
+            "description": "名。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "id_number": {
+            "description": "身份号码。当 `id_number_type` 为 `us_ssn` 时，仅返回末 4 位。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "id_number_type": {
+            "description": "身份号码类型。",
+            "enum": [
+              "br_cpf",
+              "sg_nric",
+              "us_ssn"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "last_name": {
+            "description": "姓。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "description": "此 `id_number` 检查的状态。",
+            "enum": [
+              "unverified",
+              "verified"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "GelatoIdNumberReport",
+        "type": "object",
+        "x-expandableFields": [
+          "dob",
+          "error"
+        ]
+      },
+      "gelato_verification_report_options": {
+        "properties": {
+          "document": {
+            "$ref": "#/components/schemas/gelato_report_document_options"
+          },
+          "id_number": {
+            "$ref": "#/components/schemas/gelato_report_id_number_options"
+          }
+        },
+        "title": "GelatoVerificationReportOptions",
+        "type": "object",
+        "x-expandableFields": [
+          "document",
+          "id_number"
+        ]
+      },
+      "gelato_phone_report": {
+        "description": "电话号码检查结果。",
+        "properties": {
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_phone_report_error"
+              }
+            ],
+            "description": "验证错误详情；当状态为 `unverified` 时存在。",
+            "nullable": true
+          },
+          "phone": {
+            "description": "要验证的电话号码。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "description": "此 `phone` 检查的状态。",
+            "enum": [
+              "unverified",
+              "verified"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "GelatoPhoneReport",
+        "type": "object",
+        "x-expandableFields": [
+          "error"
+        ]
+      },
+      "gelato_selfie_report": {
+        "description": "自拍检查结果。",
+        "properties": {
+          "document": {
+            "description": "保存本次检查所用身份证件图像的 [File](https://docs.stripe.com/api/files) ID。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_selfie_report_error"
+              }
+            ],
+            "description": "验证错误详情；当状态为 `unverified` 时存在。",
+            "nullable": true
+          },
+          "selfie": {
+            "description": "保存本次检查所用自拍图像的 [File](https://docs.stripe.com/api/files) ID。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "description": "此 `selfie` 检查的状态。",
+            "enum": [
+              "unverified",
+              "verified"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "GelatoSelfieReport",
+        "type": "object",
+        "x-expandableFields": [
+          "error"
+        ]
+      },
+      "gelato_session_last_error": {
+        "description": "显示最近一次 VerificationSession 错误。",
+        "properties": {
+          "code": {
+            "description": "说明验证或用户会话失败原因的简短机器可读字符串。",
+            "enum": [
+              "abandoned",
+              "consent_declined",
+              "country_not_supported",
+              "device_not_supported",
+              "document_expired",
+              "document_type_not_supported",
+              "document_unverified_other",
+              "email_unverified_other",
+              "email_verification_declined",
+              "id_number_insufficient_document_data",
+              "id_number_mismatch",
+              "id_number_unverified_other",
+              "phone_unverified_other",
+              "phone_verification_declined",
+              "selfie_document_missing_photo",
+              "selfie_face_mismatch",
+              "selfie_manipulated",
+              "selfie_unverified_other",
+              "under_supported_age"
+            ],
+            "nullable": true,
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "reason": {
+            "description": "说明验证或用户会话失败原因的消息。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoSessionLastError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_verification_session_options": {
+        "properties": {
+          "document": {
+            "$ref": "#/components/schemas/gelato_session_document_options"
+          },
+          "email": {
+            "$ref": "#/components/schemas/gelato_session_email_options"
+          },
+          "id_number": {
+            "$ref": "#/components/schemas/gelato_session_id_number_options"
+          },
+          "matching": {
+            "$ref": "#/components/schemas/gelato_session_matching_options"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/gelato_session_phone_options"
+          }
+        },
+        "title": "GelatoVerificationSessionOptions",
+        "type": "object",
+        "x-expandableFields": [
+          "document",
+          "email",
+          "id_number",
+          "matching",
+          "phone"
+        ]
+      },
+      "gelato_provided_details": {
+        "properties": {
+          "email": {
+            "description": "被验证用户的电子邮箱。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "phone": {
+            "description": "被验证用户的电话号码。",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        "title": "GelatoProvidedDetails",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "verification_session_redaction": {
+        "properties": {
+          "status": {
+            "description": "指示此对象及其关联对象是否已被编辑。",
+            "enum": [
+              "processing",
+              "redacted",
+              "validated"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "verification_session_redaction",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_related_person": {
+        "properties": {
+          "account": {
+            "description": "引用相关 Person 资源所关联 Account 的令牌。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "person": {
+            "description": "引用相关 Person 资源的令牌。",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "account",
+          "person"
+        ],
+        "title": "GelatoRelatedPerson",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_verified_outputs": {
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/address"
+              }
+            ],
+            "description": "用户已验证的地址。",
+            "nullable": true
+          },
+          "dob": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_data_verified_outputs_date"
+              }
+            ],
+            "description": "用户已验证的出生日期。",
+            "nullable": true
+          },
+          "email": {
+            "description": "用户已验证的电子邮箱。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "first_name": {
+            "description": "用户已验证的名。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "id_number": {
+            "description": "用户已验证的身份号码。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "id_number_type": {
+            "description": "用户已验证的身份号码类型。",
+            "enum": [
+              "br_cpf",
+              "sg_nric",
+              "us_ssn"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "last_name": {
+            "description": "用户已验证的姓。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "phone": {
+            "description": "用户已验证的电话号码。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "sex": {
+            "description": "用户已验证的性别。",
+            "enum": [
+              "[redacted]",
+              "female",
+              "male",
+              "unknown"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "unparsed_place_of_birth": {
+            "description": "用户已验证的、与证件原文一致的出生地。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "unparsed_sex": {
+            "description": "用户已验证的、与证件原文一致的性别。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoVerifiedOutputs",
+        "type": "object",
+        "x-expandableFields": [
+          "address",
+          "dob"
+        ]
+      },
+      "address": {
+        "properties": {
+          "city": {
+            "description": "城市、行政区、郊区、城镇或村庄。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "description": "两字母国家或地区代码（[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)）。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "line1": {
+            "description": "地址第一行，例如街道、邮政信箱或公司名称。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "line2": {
+            "description": "地址第二行，例如公寓、套房、单元或建筑。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "邮政编码。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "state": {
+            "description": "州、县、省或地区（[ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)）。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "Address",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_data_document_report_date_of_birth": {
+        "description": "时间点。",
+        "properties": {
+          "day": {
+            "description": "1 到 31 之间的日数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "month": {
+            "description": "1 到 12 之间的月数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "year": {
+            "description": "四位数年份。",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "title": "GelatoDataDocumentReportDateOfBirth",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_document_report_error": {
+        "properties": {
+          "code": {
+            "description": "说明验证失败原因的简短机器可读字符串。",
+            "enum": [
+              "document_expired",
+              "document_type_not_supported",
+              "document_unverified_other"
+            ],
+            "nullable": true,
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "reason": {
+            "description": "说明失败原因的可读消息；这些消息可以显示给用户。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoDocumentReportError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_data_document_report_expiration_date": {
+        "description": "时间点。",
+        "properties": {
+          "day": {
+            "description": "1 到 31 之间的日数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "month": {
+            "description": "1 到 12 之间的月数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "year": {
+            "description": "四位数年份。",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "title": "GelatoDataDocumentReportExpirationDate",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_data_document_report_issued_date": {
+        "description": "时间点。",
+        "properties": {
+          "day": {
+            "description": "1 到 31 之间的日数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "month": {
+            "description": "1 到 12 之间的月数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "year": {
+            "description": "四位数年份。",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "title": "GelatoDataDocumentReportIssuedDate",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_email_report_error": {
+        "properties": {
+          "code": {
+            "description": "说明验证失败原因的简短机器可读字符串。",
+            "enum": [
+              "email_unverified_other",
+              "email_verification_declined"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "reason": {
+            "description": "说明失败原因的可读消息；这些消息可以显示给用户。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoEmailReportError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_data_id_number_report_date": {
+        "description": "时间点。",
+        "properties": {
+          "day": {
+            "description": "1 到 31 之间的日数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "month": {
+            "description": "1 到 12 之间的月数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "year": {
+            "description": "四位数年份。",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "title": "GelatoDataIdNumberReportDate",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_id_number_report_error": {
+        "properties": {
+          "code": {
+            "description": "说明验证失败原因的简短机器可读字符串。",
+            "enum": [
+              "id_number_insufficient_document_data",
+              "id_number_mismatch",
+              "id_number_unverified_other"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "reason": {
+            "description": "说明失败原因的可读消息；这些消息可以显示给用户。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoIdNumberReportError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_report_document_options": {
+        "properties": {
+          "allowed_types": {
+            "description": "允许的身份证件类型字符串数组。如果提供的证件不在允许范围内，验证检查将以 `document_type_not_allowed` 错误码失败。",
+            "items": {
+              "enum": [
+                "driving_license",
+                "id_card",
+                "passport"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "require_id_number": {
+            "description": "收集身份号码，并使用从证件提取的姓名和出生日期执行[身份号码检查](https://docs.stripe.com/identity/verification-checks?type=id-number)。",
+            "type": "boolean"
+          },
+          "require_live_capture": {
+            "description": "禁用图像上传；身份证件图像必须使用设备摄像头拍摄。",
+            "type": "boolean"
+          },
+          "require_matching_selfie": {
+            "description": "拍摄人脸图像并执行[自拍检查](https://docs.stripe.com/identity/verification-checks?type=selfie)，比较带照片的身份证件与用户面部照片。[了解更多](https://docs.stripe.com/identity/selfie)。",
+            "type": "boolean"
+          }
+        },
+        "title": "GelatoReportDocumentOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_report_id_number_options": {
+        "properties": {},
+        "title": "GelatoReportIdNumberOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_phone_report_error": {
+        "properties": {
+          "code": {
+            "description": "说明验证失败原因的简短机器可读字符串。",
+            "enum": [
+              "phone_unverified_other",
+              "phone_verification_declined"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "reason": {
+            "description": "说明失败原因的可读消息；这些消息可以显示给用户。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoPhoneReportError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_selfie_report_error": {
+        "properties": {
+          "code": {
+            "description": "说明验证失败原因的简短机器可读字符串。",
+            "enum": [
+              "selfie_document_missing_photo",
+              "selfie_face_mismatch",
+              "selfie_manipulated",
+              "selfie_unverified_other"
+            ],
+            "nullable": true,
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "reason": {
+            "description": "说明失败原因的可读消息；这些消息可以显示给用户。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "title": "GelatoSelfieReportError",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_session_document_options": {
+        "properties": {
+          "allowed_types": {
+            "description": "允许的身份证件类型字符串数组。如果提供的证件不在允许范围内，验证检查将以 `document_type_not_allowed` 错误码失败。",
+            "items": {
+              "enum": [
+                "driving_license",
+                "id_card",
+                "passport"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "require_id_number": {
+            "description": "收集身份号码，并使用从证件提取的姓名和出生日期执行[身份号码检查](https://docs.stripe.com/identity/verification-checks?type=id-number)。",
+            "type": "boolean"
+          },
+          "require_live_capture": {
+            "description": "禁用图像上传；身份证件图像必须使用设备摄像头拍摄。",
+            "type": "boolean"
+          },
+          "require_matching_selfie": {
+            "description": "拍摄人脸图像并执行[自拍检查](https://docs.stripe.com/identity/verification-checks?type=selfie)，比较带照片的身份证件与用户面部照片。[了解更多](https://docs.stripe.com/identity/selfie)。",
+            "type": "boolean"
+          }
+        },
+        "title": "GelatoSessionDocumentOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_session_email_options": {
+        "properties": {
+          "require_verification": {
+            "description": "请求对 `provided_details.email` 进行一次性密码验证。",
+            "type": "boolean"
+          }
+        },
+        "title": "GelatoSessionEmailOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_session_id_number_options": {
+        "properties": {},
+        "title": "GelatoSessionIdNumberOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_session_matching_options": {
+        "properties": {
+          "dob": {
+            "description": "要应用的出生日期匹配策略严格程度。",
+            "enum": [
+              "none",
+              "similar"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "要应用的姓名匹配策略严格程度。",
+            "enum": [
+              "none",
+              "similar"
+            ],
+            "type": "string"
+          }
+        },
+        "title": "GelatoSessionMatchingOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_session_phone_options": {
+        "properties": {
+          "require_verification": {
+            "description": "请求对 `provided_details.phone` 进行一次性密码验证。",
+            "type": "boolean"
+          }
+        },
+        "title": "GelatoSessionPhoneOptions",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "gelato_data_verified_outputs_date": {
+        "description": "时间点。",
+        "properties": {
+          "day": {
+            "description": "1 到 31 之间的日数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "month": {
+            "description": "1 到 12 之间的月数值。",
+            "nullable": true,
+            "type": "integer"
+          },
+          "year": {
+            "description": "四位数年份。",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "title": "GelatoDataVerifiedOutputsDate",
+        "type": "object",
+        "x-expandableFields": []
+      },
+      "stripe_identity_verification_report": {
+        "description": "VerificationReport 是一次收集并验证用户数据尝试的结果。执行哪些验证检查由 `type` 和 `options` 参数决定；每项检查的结果位于对应的 `document`、`id_number`、`selfie` 子资源中。\n\n每个 VerificationReport 都包含所收集用户数据的副本，以及可通过 [FileUpload](https://docs.stripe.com/api/files) API 访问所收集图像的引用 ID。请使用 [VerificationSession](https://docs.stripe.com/api/identity/verification_sessions) API 配置并创建 VerificationReport。\n\n相关指南：[访问验证结果](https://docs.stripe.com/identity/verification-sessions#results)。",
+        "properties": {
+          "client_reference_id": {
+            "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "created": {
+            "description": "对象创建时间，以 Unix 纪元起的秒数表示。",
+            "format": "unix-time",
+            "type": "integer"
+          },
+          "document": {
+            "$ref": "#/components/schemas/gelato_document_report"
+          },
+          "email": {
+            "$ref": "#/components/schemas/gelato_email_report"
+          },
+          "id": {
+            "description": "对象的唯一标识符。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "id_number": {
+            "$ref": "#/components/schemas/gelato_id_number_report"
+          },
+          "livemode": {
+            "description": "对象存在于实时模式时为 `true`；存在于测试模式时为 `false`。",
+            "type": "boolean"
+          },
+          "object": {
+            "description": "表示对象类型的字符串。同一类型的对象具有相同值。",
+            "enum": [
+              "identity.verification_report"
+            ],
+            "type": "string"
+          },
+          "options": {
+            "$ref": "#/components/schemas/gelato_verification_report_options"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/gelato_phone_report"
+          },
+          "selfie": {
+            "$ref": "#/components/schemas/gelato_selfie_report"
+          },
+          "type": {
+            "description": "报告类型。",
+            "enum": [
+              "document",
+              "id_number",
+              "verification_flow"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "verification_flow": {
+            "description": "Dashboard 中验证流程的配置令牌。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "verification_session": {
+            "description": "创建此报告的 VerificationSession ID。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "created",
+          "id",
+          "livemode",
+          "object",
+          "type"
+        ],
+        "title": "GelatoVerificationReport",
+        "type": "object",
+        "x-expandableFields": [
+          "document",
+          "email",
+          "id_number",
+          "options",
+          "phone",
+          "selfie"
+        ],
+        "x-resourceId": "identity.verification_report"
+      },
+      "stripe_identity_verification_session": {
+        "description": "VerificationSession 引导你收集并验证用户身份，其中包含验证类型和要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)等信息。系统中的每次验证只应创建一个 VerificationSession。\n\nVerificationSession 在验证流程中会经历[多个状态](https://docs.stripe.com/identity/how-sessions-work)。验证检查完成后，会话中包含用户的已验证数据。\n\n相关指南：[Verification Sessions API](https://docs.stripe.com/identity/verification-sessions)。",
+        "properties": {
+          "client_reference_id": {
+            "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "client_secret": {
+            "description": "Stripe.js 用于在应用内[显示验证弹窗](https://docs.stripe.com/js/identity/modal)的短期客户端密钥。该密钥 24 小时后过期且只能使用一次。不要存储或记录它，不要嵌入 URL，也不要暴露给被验证用户以外的任何人。包含该密钥的页面必须启用 TLS。参见[将客户端密钥传递到前端](https://docs.stripe.com/identity/verification-sessions#client-secret)。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "created": {
+            "description": "对象创建时间，以 Unix 纪元起的秒数表示。",
+            "format": "unix-time",
+            "type": "integer"
+          },
+          "id": {
+            "description": "对象的唯一标识符。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_session_last_error"
+              }
+            ],
+            "description": "如果存在，表示处理验证时最后遇到的错误。",
+            "nullable": true
+          },
+          "last_verification_report": {
+            "anyOf": [
+              {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/stripe_identity_verification_report"
+              }
+            ],
+            "description": "最近一次 VerificationReport 的 ID。[了解如何访问详细验证结果](https://docs.stripe.com/identity/verification-sessions#results)。",
+            "nullable": true,
+            "x-expansionResources": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/stripe_identity_verification_report"
+                }
+              ]
+            }
+          },
+          "livemode": {
+            "description": "对象存在于实时模式时为 `true`；存在于测试模式时为 `false`。",
+            "type": "boolean"
+          },
+          "metadata": {
+            "additionalProperties": {
+              "maxLength": 500,
+              "type": "string"
+            },
+            "description": "可附加到对象上的一组[键值对](https://docs.stripe.com/api/metadata)，适合以结构化形式保存对象的附加信息。",
+            "type": "object"
+          },
+          "object": {
+            "description": "表示对象类型的字符串。同一类型的对象具有相同值。",
+            "enum": [
+              "identity.verification_session"
+            ],
+            "type": "string"
+          },
+          "options": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_verification_session_options"
+              }
+            ],
+            "description": "会话验证检查的一组选项。",
+            "nullable": true
+          },
+          "provided_details": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_provided_details"
+              }
+            ],
+            "description": "被验证用户提供的详细信息。这些信息可能会向用户显示。",
+            "nullable": true
+          },
+          "redaction": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/verification_session_redaction"
+              }
+            ],
+            "description": "此 VerificationSession 的编辑状态。会话未被编辑时该字段为 null。",
+            "nullable": true
+          },
+          "related_customer": {
+            "description": "客户 ID。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "related_customer_account": {
+            "description": "代表客户的 Account ID。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "related_person": {
+            "$ref": "#/components/schemas/gelato_related_person"
+          },
+          "status": {
+            "description": "此 VerificationSession 的状态。[了解会话生命周期](https://docs.stripe.com/identity/how-sessions-work)。",
+            "enum": [
+              "canceled",
+              "processing",
+              "requires_input",
+              "verified"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)类型。",
+            "enum": [
+              "document",
+              "id_number",
+              "verification_flow"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          },
+          "url": {
+            "description": "用于将用户重定向到 Stripe 并提交身份信息的短期 URL。该 URL 48 小时后过期且只能使用一次。不要存储或记录它，不要通过电子邮件发送，也不要暴露给被验证用户以外的任何人。参见[验证身份证件](https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=redirect)。",
+            "maxLength": 5000,
+            "nullable": true,
+            "type": "string"
+          },
+          "verification_flow": {
+            "description": "Dashboard 中验证流程的配置令牌。",
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "verified_outputs": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/gelato_verified_outputs"
+              }
+            ],
+            "description": "用户的已验证数据。",
+            "nullable": true
+          }
+        },
+        "required": [
+          "created",
+          "id",
+          "livemode",
+          "metadata",
+          "object",
+          "status",
+          "type"
+        ],
+        "title": "GelatoVerificationSession",
+        "type": "object",
+        "x-expandableFields": [
+          "last_error",
+          "last_verification_report",
+          "options",
+          "provided_details",
+          "redaction",
+          "related_person",
+          "verified_outputs"
+        ],
+        "x-resourceId": "identity.verification_session"
+      },
+      "stripe_identity_related_person_param": {
+        "description": "引用 Person 资源及其关联账户的令牌。",
+        "properties": {
+          "account": {
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "person": {
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "account",
+          "person"
+        ],
+        "title": "related_person_param",
+        "type": "object"
+      },
+      "stripe_error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "description": "Stripe API 错误响应。",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/stripe_api_error"
+          }
+        }
+      },
+      "stripe_api_error": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": true,
+        "description": "Stripe Identity 请求的通用错误详情；保留 Identity 相关公共字段，并允许 Stripe 返回其他附加字段。",
+        "properties": {
+          "code": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "可供程序处理的 Stripe 错误码。"
+          },
+          "doc_url": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "与错误码相关的官方文档 URL。"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 40000,
+            "description": "说明错误详情的可读消息。"
+          },
+          "param": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "发生参数错误时，与错误相关的参数名。"
+          },
+          "request_log_url": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Stripe Dashboard 中对应请求日志的 URL。"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "api_error",
+              "card_error",
+              "idempotency_error",
+              "invalid_request_error"
+            ],
+            "description": "Stripe 返回的错误类型。"
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "getIdentityVerificationReports": {
+      "summary": "列出验证报告",
+      "operationId": "getIdentityVerificationReports",
+      "consumes": [],
+      "description": "列出所有验证报告。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v1/identity/verification_reports",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/stripe_identity_verification_report"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "如果此列表之后还有可获取的下一页条目，则为 true。",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "表示对象类型的字符串。同一类型的对象具有相同值；此处始终为 `list`。",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "可访问此列表的 URL。",
+                "maxLength": 5000,
+                "pattern": "^/v1/identity/verification_reports",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "GelatoVerificationReportList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "data": {
+                    "items": {
+                      "$ref": "#/components/schemas/stripe_identity_verification_report"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "如果此列表之后还有可获取的下一页条目，则为 true。",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "表示对象类型的字符串。同一类型的对象具有相同值；此处始终为 `list`。",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "可访问此列表的 URL。",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/identity/verification_reports",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "GelatoVerificationReportList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "client_reference_id",
+          "required": false,
+          "schema": {
+            "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "created",
+          "required": false,
+          "schema": {
+            "description": "仅返回在指定日期区间内创建的 VerificationReport。",
+            "explode": true,
+            "style": "deepObject",
+            "anyOf": [
+              {
+                "properties": {
+                  "gt": {
+                    "type": "integer"
+                  },
+                  "gte": {
+                    "type": "integer"
+                  },
+                  "lt": {
+                    "type": "integer"
+                  },
+                  "lte": {
+                    "type": "integer"
+                  }
+                },
+                "title": "range_query_specs",
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "ending_before",
+          "required": false,
+          "schema": {
+            "description": "分页游标。`ending_before` 是用于确定列表位置的对象 ID。例如，列表请求返回 100 个对象且第一个为 `obj_bar` 时，后续请求可传入 `ending_before=obj_bar` 获取上一页。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "expand",
+          "required": false,
+          "schema": {
+            "description": "指定需要在响应中展开的字段。",
+            "explode": true,
+            "style": "deepObject",
+            "items": {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "description": "限制返回对象的数量。取值范围为 1 到 100，默认值为 10。",
+            "style": "form",
+            "type": "integer"
+          }
+        },
+        {
+          "in": "query",
+          "name": "starting_after",
+          "required": false,
+          "schema": {
+            "description": "分页游标。`starting_after` 是用于确定列表位置的对象 ID。例如，列表请求返回 100 个对象且最后一个为 `obj_foo` 时，后续请求可传入 `starting_after=obj_foo` 获取下一页。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": false,
+          "schema": {
+            "description": "仅返回此类型的 VerificationReport。",
+            "style": "form",
+            "enum": [
+              "document",
+              "id_number"
+            ],
+            "type": "string",
+            "x-stripeBypassValidation": true
+          }
+        },
+        {
+          "in": "query",
+          "name": "verification_session",
+          "required": false,
+          "schema": {
+            "description": "仅返回由此 VerificationSession ID 创建的 VerificationReport；也允许提供 VerificationIntent ID。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {
+              "limit": 10
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "GetIdentityVerificationReports"
+      }
+    },
+    "getIdentityVerificationReportsReport": {
+      "summary": "获取验证报告",
+      "operationId": "getIdentityVerificationReportsReport",
+      "consumes": [],
+      "description": "获取已有的 VerificationReport。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v1/identity/verification_reports/{report}",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_report"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_report"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "expand",
+          "required": false,
+          "schema": {
+            "description": "指定需要在响应中展开的字段。",
+            "explode": true,
+            "style": "deepObject",
+            "items": {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        {
+          "in": "path",
+          "name": "report",
+          "required": true,
+          "schema": {
+            "style": "simple",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "report",
+              "source": {
+                "kind": "operation",
+                "operationId": "getIdentityVerificationReports"
+              }
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "GetIdentityVerificationReportsReport"
+      }
+    },
+    "getIdentityVerificationSessions": {
+      "summary": "列出验证会话",
+      "operationId": "getIdentityVerificationSessions",
+      "consumes": [],
+      "description": "返回 VerificationSession 列表。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v1/identity/verification_sessions",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/stripe_identity_verification_session"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "如果此列表之后还有可获取的下一页条目，则为 true。",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "表示对象类型的字符串。同一类型的对象具有相同值；此处始终为 `list`。",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "可访问此列表的 URL。",
+                "maxLength": 5000,
+                "pattern": "^/v1/identity/verification_sessions",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "GelatoVerificationSessionList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "data": {
+                    "items": {
+                      "$ref": "#/components/schemas/stripe_identity_verification_session"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "如果此列表之后还有可获取的下一页条目，则为 true。",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "表示对象类型的字符串。同一类型的对象具有相同值；此处始终为 `list`。",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "可访问此列表的 URL。",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/identity/verification_sessions",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "GelatoVerificationSessionList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "client_reference_id",
+          "required": false,
+          "schema": {
+            "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "created",
+          "required": false,
+          "schema": {
+            "description": "仅返回在指定日期区间内创建的 VerificationSession。",
+            "explode": true,
+            "style": "deepObject",
+            "anyOf": [
+              {
+                "properties": {
+                  "gt": {
+                    "type": "integer"
+                  },
+                  "gte": {
+                    "type": "integer"
+                  },
+                  "lt": {
+                    "type": "integer"
+                  },
+                  "lte": {
+                    "type": "integer"
+                  }
+                },
+                "title": "range_query_specs",
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "ending_before",
+          "required": false,
+          "schema": {
+            "description": "分页游标。`ending_before` 是用于确定列表位置的对象 ID。例如，列表请求返回 100 个对象且第一个为 `obj_bar` 时，后续请求可传入 `ending_before=obj_bar` 获取上一页。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "expand",
+          "required": false,
+          "schema": {
+            "description": "指定需要在响应中展开的字段。",
+            "explode": true,
+            "style": "deepObject",
+            "items": {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "description": "限制返回对象的数量。取值范围为 1 到 100，默认值为 10。",
+            "style": "form",
+            "type": "integer"
+          }
+        },
+        {
+          "in": "query",
+          "name": "related_customer",
+          "required": false,
+          "schema": {
+            "description": "客户 ID。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "related_customer_account",
+          "required": false,
+          "schema": {
+            "description": "代表客户的 Account ID。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "starting_after",
+          "required": false,
+          "schema": {
+            "description": "分页游标。`starting_after` 是用于确定列表位置的对象 ID。例如，列表请求返回 100 个对象且最后一个为 `obj_foo` 时，后续请求可传入 `starting_after=obj_foo` 获取下一页。",
+            "style": "form",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "status",
+          "required": false,
+          "schema": {
+            "description": "仅返回具有此状态的 VerificationSession。[了解会话生命周期](https://docs.stripe.com/identity/how-sessions-work)。",
+            "style": "form",
+            "enum": [
+              "canceled",
+              "processing",
+              "requires_input",
+              "verified"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {
+              "limit": 10
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "GetIdentityVerificationSessions"
+      }
+    },
+    "postIdentityVerificationSessions": {
+      "summary": "创建验证会话",
+      "operationId": "postIdentityVerificationSessions",
+      "consumes": [
+        "application/x-www-form-urlencoded"
+      ],
+      "description": "创建 VerificationSession 对象。\n\n创建 VerificationSession 后，请使用会话的 `client_secret` 显示验证弹窗，或将用户跳转到会话的 `url`。\n\n如果 API Key 处于测试模式，验证检查不会真正处理，但其他流程会按实时模式执行。\n\n相关指南：[验证用户的身份证件](https://docs.stripe.com/identity/verify-identity-documents)",
+      "tags": [],
+      "method": "POST",
+      "path": "/v1/identity/verification_sessions",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_session"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_session"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "client_reference_id": {
+                "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "expand": {
+                "description": "指定需要在响应中展开的字段。",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "可附加到对象上的一组[键值对](https://docs.stripe.com/api/metadata)，适合以结构化形式保存对象的附加信息。提交空值可删除单个键；向 `metadata` 提交空值可删除全部键。",
+                "type": "object"
+              },
+              "options": {
+                "description": "会话验证检查的一组选项。",
+                "properties": {
+                  "document": {
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "allowed_types": {
+                            "items": {
+                              "enum": [
+                                "driving_license",
+                                "id_card",
+                                "passport"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "require_id_number": {
+                            "type": "boolean"
+                          },
+                          "require_live_capture": {
+                            "type": "boolean"
+                          },
+                          "require_matching_selfie": {
+                            "type": "boolean"
+                          }
+                        },
+                        "title": "document_options",
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "title": "session_options_param",
+                "type": "object"
+              },
+              "provided_details": {
+                "description": "被验证用户提供的详细信息。这些信息可能会向用户显示。",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "title": "provided_details_param",
+                "type": "object"
+              },
+              "related_customer": {
+                "description": "客户 ID。",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "related_customer_account": {
+                "description": "代表客户的 Account ID。",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "related_person": {
+                "$ref": "#/components/schemas/stripe_identity_related_person_param"
+              },
+              "return_url": {
+                "description": "用户完成验证流程后将跳转到的 URL。",
+                "type": "string"
+              },
+              "type": {
+                "description": "要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)类型。未传 `verification_flow` 时必须提供 `type`。",
+                "enum": [
+                  "document",
+                  "id_number"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "verification_flow": {
+                "description": "Dashboard 中验证流程的 ID。参见 https://docs.stripe.com/identity/verification-flows。",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {
+                "expand": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "metadata": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "options": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "provided_details": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "related_person": {
+                  "explode": true,
+                  "style": "deepObject"
+                }
+              },
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "client_reference_id": {
+                    "description": "用于关联该用户的字符串。可填写客户 ID、会话 ID 或类似标识，以便将本次验证与内部系统中的记录对应起来。",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "expand": {
+                    "description": "指定需要在响应中展开的字段。",
+                    "items": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "可附加到对象上的一组[键值对](https://docs.stripe.com/api/metadata)，适合以结构化形式保存对象的附加信息。提交空值可删除单个键；向 `metadata` 提交空值可删除全部键。",
+                    "type": "object"
+                  },
+                  "options": {
+                    "description": "会话验证检查的一组选项。",
+                    "properties": {
+                      "document": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "allowed_types": {
+                                "items": {
+                                  "enum": [
+                                    "driving_license",
+                                    "id_card",
+                                    "passport"
+                                  ],
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "require_id_number": {
+                                "type": "boolean"
+                              },
+                              "require_live_capture": {
+                                "type": "boolean"
+                              },
+                              "require_matching_selfie": {
+                                "type": "boolean"
+                              }
+                            },
+                            "title": "document_options",
+                            "type": "object"
+                          },
+                          {
+                            "enum": [
+                              ""
+                            ],
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "title": "session_options_param",
+                    "type": "object"
+                  },
+                  "provided_details": {
+                    "description": "被验证用户提供的详细信息。这些信息可能会向用户显示。",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      }
+                    },
+                    "title": "provided_details_param",
+                    "type": "object"
+                  },
+                  "related_customer": {
+                    "description": "客户 ID。",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "related_customer_account": {
+                    "description": "代表客户的 Account ID。",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "related_person": {
+                    "$ref": "#/components/schemas/stripe_identity_related_person_param"
+                  },
+                  "return_url": {
+                    "description": "用户完成验证流程后将跳转到的 URL。",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)类型。未传 `verification_flow` 时必须提供 `type`。",
+                    "enum": [
+                      "document",
+                      "id_number"
+                    ],
+                    "type": "string",
+                    "x-stripeBypassValidation": true
+                  },
+                  "verification_flow": {
+                    "description": "Dashboard 中验证流程的 ID。参见 https://docs.stripe.com/identity/verification-flows。",
+                    "maxLength": 5000,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "type": "document"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "PostIdentityVerificationSessions"
+      }
+    },
+    "getIdentityVerificationSessionsSession": {
+      "summary": "获取验证会话",
+      "operationId": "getIdentityVerificationSessionsSession",
+      "consumes": [],
+      "description": "获取此前创建的 VerificationSession 详情。\n\n当会话状态为 `requires_input` 时，可通过此接口获取有效的 `client_secret` 或 `url`，以允许用户重新提交。",
+      "tags": [],
+      "method": "GET",
+      "path": "/v1/identity/verification_sessions/{session}",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_session"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_session"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "expand",
+          "required": false,
+          "schema": {
+            "description": "指定需要在响应中展开的字段。",
+            "explode": true,
+            "style": "deepObject",
+            "items": {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        {
+          "in": "path",
+          "name": "session",
+          "required": true,
+          "schema": {
+            "style": "simple",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "session",
+              "source": {
+                "kind": "operation",
+                "operationId": "postIdentityVerificationSessions"
+              }
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "GetIdentityVerificationSessionsSession"
+      }
+    },
+    "postIdentityVerificationSessionsSession": {
+      "summary": "更新验证会话",
+      "operationId": "postIdentityVerificationSessionsSession",
+      "consumes": [
+        "application/x-www-form-urlencoded"
+      ],
+      "description": "更新 VerificationSession 对象。\n\n当会话状态为 `requires_input` 时，可通过此接口更新验证检查和选项。",
+      "tags": [],
+      "method": "POST",
+      "path": "/v1/identity/verification_sessions/{session}",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_session"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_session"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "session",
+          "required": true,
+          "schema": {
+            "style": "simple",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "expand": {
+                "description": "指定需要在响应中展开的字段。",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "可附加到对象上的一组[键值对](https://docs.stripe.com/api/metadata)，适合以结构化形式保存对象的附加信息。提交空值可删除单个键；向 `metadata` 提交空值可删除全部键。",
+                "type": "object"
+              },
+              "options": {
+                "description": "会话验证检查的一组选项。",
+                "properties": {
+                  "document": {
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "allowed_types": {
+                            "items": {
+                              "enum": [
+                                "driving_license",
+                                "id_card",
+                                "passport"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "require_id_number": {
+                            "type": "boolean"
+                          },
+                          "require_live_capture": {
+                            "type": "boolean"
+                          },
+                          "require_matching_selfie": {
+                            "type": "boolean"
+                          }
+                        },
+                        "title": "document_options",
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "title": "session_options_param",
+                "type": "object"
+              },
+              "provided_details": {
+                "description": "被验证用户提供的详细信息。这些信息可能会向用户显示。",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "title": "provided_details_param",
+                "type": "object"
+              },
+              "type": {
+                "description": "要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)类型。",
+                "enum": [
+                  "document",
+                  "id_number"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              }
+            },
+            "type": "object"
+          },
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {
+                "expand": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "metadata": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "options": {
+                  "explode": true,
+                  "style": "deepObject"
+                },
+                "provided_details": {
+                  "explode": true,
+                  "style": "deepObject"
+                }
+              },
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "expand": {
+                    "description": "指定需要在响应中展开的字段。",
+                    "items": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "可附加到对象上的一组[键值对](https://docs.stripe.com/api/metadata)，适合以结构化形式保存对象的附加信息。提交空值可删除单个键；向 `metadata` 提交空值可删除全部键。",
+                    "type": "object"
+                  },
+                  "options": {
+                    "description": "会话验证检查的一组选项。",
+                    "properties": {
+                      "document": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "allowed_types": {
+                                "items": {
+                                  "enum": [
+                                    "driving_license",
+                                    "id_card",
+                                    "passport"
+                                  ],
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "require_id_number": {
+                                "type": "boolean"
+                              },
+                              "require_live_capture": {
+                                "type": "boolean"
+                              },
+                              "require_matching_selfie": {
+                                "type": "boolean"
+                              }
+                            },
+                            "title": "document_options",
+                            "type": "object"
+                          },
+                          {
+                            "enum": [
+                              ""
+                            ],
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "title": "session_options_param",
+                    "type": "object"
+                  },
+                  "provided_details": {
+                    "description": "被验证用户提供的详细信息。这些信息可能会向用户显示。",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      }
+                    },
+                    "title": "provided_details_param",
+                    "type": "object"
+                  },
+                  "type": {
+                    "description": "要执行的[验证检查](https://docs.stripe.com/identity/verification-checks)类型。",
+                    "enum": [
+                      "document",
+                      "id_number"
+                    ],
+                    "type": "string",
+                    "x-stripeBypassValidation": true
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "type": "document"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "session",
+              "source": {
+                "kind": "operation",
+                "operationId": "postIdentityVerificationSessions"
+              }
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "PostIdentityVerificationSessionsSession"
+      }
+    },
+    "postIdentityVerificationSessionsSessionCancel": {
+      "summary": "取消验证会话",
+      "operationId": "postIdentityVerificationSessionsSessionCancel",
+      "consumes": [
+        "application/x-www-form-urlencoded"
+      ],
+      "description": "当 VerificationSession 处于 `requires_input` [状态](https://docs.stripe.com/identity/how-sessions-work)时，可以取消。\n\n取消后将禁止未来的提交尝试，且无法撤销。[了解更多](https://docs.stripe.com/identity/verification-sessions#cancel)。",
+      "tags": [],
+      "method": "POST",
+      "path": "/v1/identity/verification_sessions/{session}/cancel",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_session"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_session"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "session",
+          "required": true,
+          "schema": {
+            "style": "simple",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "expand": {
+                "description": "指定需要在响应中展开的字段。",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {
+                "expand": {
+                  "explode": true,
+                  "style": "deepObject"
+                }
+              },
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "expand": {
+                    "description": "指定需要在响应中展开的字段。",
+                    "items": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "session",
+              "source": {
+                "kind": "operation",
+                "operationId": "postIdentityVerificationSessions"
+              }
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "PostIdentityVerificationSessionsSessionCancel"
+      }
+    },
+    "postIdentityVerificationSessionsSessionRedact": {
+      "summary": "编辑验证会话",
+      "operationId": "postIdentityVerificationSessionsSessionRedact",
+      "consumes": [
+        "application/x-www-form-urlencoded"
+      ],
+      "description": "编辑 VerificationSession，以从 Stripe 删除所有已收集的信息。此操作会编辑 VerificationSession 及其所有关联对象，包括 VerificationReport、Event 和请求日志等。\n\nVerificationSession 处于 `requires_input` 或 `verified` [状态](https://docs.stripe.com/identity/how-sessions-work)时可以编辑；编辑处于 `requires_action` 状态的会话会自动取消该会话。\n\n编辑过程最长可能需要四天。处理期间，VerificationSession 的 `redaction.status` 为 `processing`；完成后将变为 `redacted`，并发出 `identity.verification_session.redacted` 事件。\n\n编辑操作不可逆。编辑后的对象仍可通过 Stripe API 访问，但包含个人数据的字段会替换为 `[redacted]` 或类似占位符，`metadata` 字段也会被清除。编辑后的对象不能再更新或用于任何用途。\n\n[了解更多](https://docs.stripe.com/identity/verification-sessions#redact)。",
+      "tags": [],
+      "method": "POST",
+      "path": "/v1/identity/verification_sessions/{session}/redact",
+      "responses": {
+        "200": {
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_identity_verification_session"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_identity_verification_session"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "错误响应。",
+          "schema": {
+            "$ref": "#/components/schemas/stripe_error"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/stripe_error"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "session",
+          "required": true,
+          "schema": {
+            "style": "simple",
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "expand": {
+                "description": "指定需要在响应中展开的字段。",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {
+                "expand": {
+                  "explode": true,
+                  "style": "deepObject"
+                }
+              },
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "expand": {
+                    "description": "指定需要在响应中展开的字段。",
+                    "items": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "summary": "Reviewed local SDK/CLI request",
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "session",
+              "source": {
+                "kind": "operation",
+                "operationId": "postIdentityVerificationSessions"
+              }
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+            "https://docs.stripe.com/identity",
+            "https://docs.stripe.com/api/identity",
+            "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+          ],
+          "verifiedAt": "2026-08-15"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "包含身份证件、自拍、身份号码、电子邮箱、电话号码和验证结果等高敏感个人数据；Hub 禁止代理，请仅在受控本地环境中使用自己的 Stripe 密钥调用。"
+        }
+      },
+      "ext": {
+        "x-pontx-upstream-operation-id": "PostIdentityVerificationSessionsSessionRedact"
+      }
+    }
+  },
+  "name": "stripe-identity",
+  "servers": [
+    {
+      "id": "stripe-identity",
+      "url": "https://api.stripe.com",
+      "description": "Stripe 官方 API 入口"
+    }
+  ],
+  "info": {
+    "title": "Stripe Identity 身份验证 API",
+    "description": "创建、查询、更新、取消和编辑 Stripe Identity 验证会话，并查询验证报告。所有请求均由本地 SDK/CLI 直接发送到 Stripe；Pontx Hub 不代理或保存身份数据。",
+    "version": "2026-07-29.dahlia",
+    "termsOfService": "https://stripe.com/us/terms/",
+    "contact": {
+      "email": "dev-platform@stripe.com",
+      "name": "Stripe Dev Platform Team",
+      "url": "https://stripe.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {
+      "basicAuth": []
+    }
+  ],
+  "externalDocs": {
+    "description": "Stripe Identity 官方文档",
+    "url": "https://docs.stripe.com/identity"
+  },
+  "tags": []
+}

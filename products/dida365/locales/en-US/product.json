@@ -1,0 +1,26 @@
+{
+  "display": {
+    "title": "Dida365 Open API",
+    "summary": "Use OAuth 2.0 to manage Dida365 projects, tasks, comments, tags, focus records, countdowns, habits, and check-ins."
+  },
+  "documentation": {
+    "stabilityNote": "Official OAuth 2.0 API. Reads and writes require user authorization and are limited by the tasks:read and tasks:write scopes."
+  },
+  "pricing": {
+    "summary": "The official developer site does not publish separate Open API pricing; eligibility and subscription benefits remain subject to the Dida365 account page and official terms."
+  },
+  "credentials": [
+    {
+      "schemeId": "OAuth2",
+      "description": "Dida365 OAuth 2.0 access token with tasks:read / tasks:write scopes. Enter it only in your own session.",
+      "guide": {
+        "title": "Create credentials in the Dida365 Developer Center",
+        "steps": [
+          "Sign in to the Developer Center and create a New App.",
+          "Paste the callback URL shown by Pontx Hub into the app's OAuth Redirect URL.",
+          "Save the app, then copy its Client ID and Client Secret into the fields below."
+        ]
+      }
+    }
+  ]
+}

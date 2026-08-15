@@ -1,0 +1,5732 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "parameters": {
+      "ProjectId": {
+        "name": "projectId",
+        "in": "path",
+        "required": true,
+        "description": "项目 ID",
+        "schema": {
+          "type": "string"
+        },
+        "example": "6226ff9877acee87727f6bca"
+      },
+      "TaskId": {
+        "name": "taskId",
+        "in": "path",
+        "required": true,
+        "description": "任务 ID",
+        "schema": {
+          "type": "string"
+        },
+        "example": "63b7bebb91c0a5474805fcd4"
+      },
+      "FocusId": {
+        "name": "focusId",
+        "in": "path",
+        "required": true,
+        "description": "专注记录 ID",
+        "schema": {
+          "type": "string"
+        },
+        "example": "focus-1"
+      },
+      "FocusType": {
+        "name": "type",
+        "in": "query",
+        "required": true,
+        "description": "专注类型：0 表示番茄专注，1 表示正向计时",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [
+            0,
+            1
+          ],
+          "x-enum-descriptions": [
+            "番茄专注",
+            "正向计时"
+          ]
+        },
+        "example": 0
+      },
+      "HabitId": {
+        "name": "habitId",
+        "in": "path",
+        "required": true,
+        "description": "习惯 ID",
+        "schema": {
+          "type": "string"
+        },
+        "example": "habit-1"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "滴答清单 OAuth 2.0 授权码流程。API 请求将由此获得的访问令牌用作 Bearer 令牌。",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://dida365.com/oauth/authorize",
+            "tokenUrl": "https://dida365.com/oauth/token",
+            "scopes": {
+              "tasks:read": "读取任务和项目",
+              "tasks:write": "创建、更新、完成和删除任务及项目"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "TaskMoveRequest": {
+        "title": "移动任务请求",
+        "description": "指定任务、来源项目和目标项目的移动请求。",
+        "type": "object",
+        "required": [
+          "fromProjectId",
+          "toProjectId",
+          "taskId"
+        ],
+        "properties": {
+          "fromProjectId": {
+            "type": "string",
+            "description": "来源项目 ID",
+            "examples": [
+              "69a850ef1c20d2030e148fdd"
+            ]
+          },
+          "toProjectId": {
+            "type": "string",
+            "description": "目标项目 ID",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          },
+          "taskId": {
+            "type": "string",
+            "description": "任务 ID",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      },
+      "TaskMoveResult": {
+        "title": "任务移动结果",
+        "description": "任务移动后的任务 ID 与实体标签。",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "已移动任务的 ID",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "移动后的新实体标签",
+            "examples": [
+              "43p2zso1"
+            ]
+          }
+        }
+      },
+      "CompletedTaskFilter": {
+        "title": "已完成任务筛选条件",
+        "description": "用于限定项目和完成时间范围的查询条件。",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "description": "项目标识符列表",
+            "items": {
+              "type": "string",
+              "description": "项目标识符",
+              "examples": [
+                "69a850f41c20d2030e148fdf"
+              ]
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "包含边界的 completedTime 下限",
+            "examples": [
+              "2026-04-01T00:00:00+0800"
+            ]
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "包含边界的 completedTime 上限",
+            "examples": [
+              "2026-04-30T23:59:59+0800"
+            ]
+          }
+        }
+      },
+      "TaskFilter": {
+        "title": "任务组合筛选条件",
+        "description": "按项目、时间、优先级、标签和状态筛选任务的条件。",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "description": "筛选属于指定项目 ID 的任务",
+            "items": {
+              "type": "string",
+              "description": "项目标识符",
+              "examples": [
+                "69a850f41c20d2030e148fdf"
+              ]
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "筛选 startDate 大于或等于此值的任务",
+            "examples": [
+              "2026-03-01T00:58:20.000+0000"
+            ]
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "筛选 startDate 小于或等于此值的任务",
+            "examples": [
+              "2026-03-06T10:58:20.000+0000"
+            ]
+          },
+          "priority": {
+            "type": "array",
+            "description": "0 表示无优先级，1 表示低，3 表示中，5 表示高",
+            "items": {
+              "type": "integer",
+              "description": "任务优先级",
+              "enum": [
+                0,
+                1,
+                3,
+                5
+              ],
+              "examples": [
+                0
+              ],
+              "enumValueTitles": {
+                "0": "无",
+                "1": "低",
+                "3": "中",
+                "5": "高"
+              }
+            }
+          },
+          "tag": {
+            "type": "array",
+            "description": "任务必须包含所有指定标签",
+            "items": {
+              "type": "string",
+              "description": "任务标签",
+              "examples": [
+                "urgent"
+              ]
+            }
+          },
+          "status": {
+            "type": "array",
+            "description": "按任务当前状态码筛选；0 表示未完成，2 表示已完成",
+            "items": {
+              "type": "integer",
+              "description": "任务状态码",
+              "enum": [
+                0,
+                2
+              ],
+              "examples": [
+                0
+              ],
+              "enumValueTitles": {
+                "0": "未完成",
+                "2": "已完成"
+              }
+            }
+          }
+        }
+      },
+      "OpenComment": {
+        "title": "任务评论",
+        "type": "object",
+        "description": "任务下的评论内容及创建、修改时间。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "评论标识符",
+            "examples": [
+              "comment-1"
+            ]
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "用户 ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "评论文本",
+            "examples": [
+              "Comment text"
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0000"
+            ]
+          },
+          "replyCommentId": {
+            "type": "string",
+            "description": "所回复评论的标识符"
+          },
+          "replyUserId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "所回复用户的 ID"
+          }
+        }
+      },
+      "OpenProjectGroup": {
+        "title": "项目分组",
+        "description": "用于组织多个项目的分组及其排序信息。",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "项目分组标识符",
+            "examples": [
+              "group-1"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "项目分组名称",
+            "examples": [
+              "Group Name"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值",
+            "examples": [
+              0
+            ]
+          },
+          "showAll": {
+            "type": "boolean",
+            "description": "是否显示分组中的所有项目",
+            "examples": [
+              true
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "项目分组视图模式",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "列表",
+              "kanban": "看板",
+              "timeline": "时间线"
+            }
+          }
+        }
+      },
+      "ProjectGroupCreate": {
+        "title": "创建项目分组请求",
+        "description": "创建项目分组时提交的名称。",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "项目分组名称，最多 64 个字符",
+            "examples": [
+              "Group Name"
+            ]
+          }
+        }
+      },
+      "ProjectGroupUpdate": {
+        "title": "更新项目分组请求",
+        "description": "更新项目分组名称时提交的数据。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "项目分组名称，最多 64 个字符",
+            "examples": [
+              "New Group Name"
+            ]
+          }
+        }
+      },
+      "ColumnCreate": {
+        "title": "创建看板列请求",
+        "description": "在项目看板中创建列时提交的名称。",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "看板列名称，最多 1000 个字符",
+            "examples": [
+              "Column Name"
+            ]
+          }
+        }
+      },
+      "ColumnUpdate": {
+        "title": "更新看板列请求",
+        "description": "修改项目看板列名称时提交的数据。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "看板列名称，最多 1000 个字符",
+            "examples": [
+              "New Column Name"
+            ]
+          }
+        }
+      },
+      "OpenTag": {
+        "title": "任务标签",
+        "description": "任务分类标签的名称、显示文字和排序信息。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "标签名称",
+            "examples": [
+              "work"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "标签显示文字",
+            "examples": [
+              "work"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值",
+            "examples": [
+              0
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "标签颜色",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "parent": {
+            "type": "string",
+            "description": "父标签名称"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "标签归属类型：1 表示个人，2 表示团队",
+            "enum": [
+              1,
+              2
+            ],
+            "examples": [
+              1
+            ],
+            "enumValueTitles": {
+              "1": "个人",
+              "2": "团队"
+            }
+          }
+        }
+      },
+      "TagCreate": {
+        "title": "创建任务标签请求",
+        "description": "创建标签时提交的规范化名称和显示文字。",
+        "type": "object",
+        "required": [
+          "name",
+          "label"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "去除首尾空格后的小写标签名称",
+            "examples": [
+              "urgent"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "显示标签，其小写形式与 name 一致",
+            "examples": [
+              "urgent"
+            ]
+          }
+        }
+      },
+      "OpenPomodoroTaskBrief": {
+        "title": "专注关联事项摘要",
+        "description": "专注记录所关联任务、习惯或计时器的简要信息。",
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "任务 ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "任务标题"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "习惯 ID"
+          },
+          "timerId": {
+            "type": "string",
+            "description": "计时器 ID"
+          },
+          "timerName": {
+            "type": "string",
+            "description": "计时器名称"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "任务专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "任务专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          }
+        }
+      },
+      "OpenFocus": {
+        "title": "专注记录",
+        "type": "object",
+        "description": "一次番茄专注或正向计时的时间、状态和关联事项。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "专注记录的唯一 ID",
+            "examples": [
+              "focus-1"
+            ]
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "用户 ID"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 表示番茄专注，1 表示正向计时",
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "番茄专注",
+              "1": "正向计时"
+            }
+          },
+          "taskId": {
+            "type": "string",
+            "description": "任务 ID",
+            "examples": [
+              "task-1"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "description": "专注备注",
+            "examples": [
+              "Deep work"
+            ]
+          },
+          "tasks": {
+            "type": "array",
+            "description": "关联任务摘要列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenPomodoroTaskBrief"
+            }
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "番茄专注状态",
+            "examples": [
+              2
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "暂停时长（秒）",
+            "examples": [
+              0
+            ]
+          },
+          "adjustTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "调整时间（秒）",
+            "examples": [
+              0
+            ]
+          },
+          "added": {
+            "type": "boolean",
+            "description": "记录是否已添加",
+            "examples": [
+              true
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "etimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实体时间戳",
+            "examples": [
+              1712453100000
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "实体标签",
+            "examples": [
+              "focus-etag"
+            ]
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "专注时长",
+            "examples": [
+              1500
+            ]
+          },
+          "relationType": {
+            "type": "array",
+            "description": "关联类型列表",
+            "items": {
+              "type": "integer",
+              "description": "关联类型",
+              "examples": [
+                0
+              ]
+            }
+          }
+        }
+      },
+      "FocusCreate": {
+        "title": "创建专注记录请求",
+        "description": "记录专注类型、起止时间、时长和关联任务的数据。",
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 表示番茄专注，1 表示正向计时",
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "番茄专注",
+              "1": "正向计时"
+            }
+          },
+          "taskId": {
+            "type": "string",
+            "description": "任务 ID",
+            "examples": [
+              "task-1"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "专注备注，最多 5000 个字符",
+            "examples": [
+              "Deep work"
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "专注开始时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "专注结束时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "暂停时长（秒）",
+            "examples": [
+              0
+            ]
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "专注时长",
+            "examples": [
+              1500
+            ]
+          },
+          "relationType": {
+            "type": "array",
+            "description": "关联类型列表",
+            "items": {
+              "type": "integer",
+              "description": "关联类型",
+              "examples": [
+                0
+              ]
+            }
+          }
+        }
+      },
+      "OpenCountdown": {
+        "title": "倒数日",
+        "description": "倒数日的目标日期、重复规则、提醒和显示设置。",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "倒数日标识符",
+            "examples": [
+              "countdown-1"
+            ]
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "倒数日类型",
+            "examples": [
+              0
+            ]
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "图标资源"
+          },
+          "color": {
+            "type": "string",
+            "description": "倒数日颜色",
+            "examples": [
+              "#4D8CF5"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "倒数日名称",
+            "examples": [
+              "Birthday"
+            ]
+          },
+          "date": {
+            "type": "integer",
+            "format": "int32",
+            "description": "日期，格式为 YYYYMMDD",
+            "examples": [
+              20260407
+            ]
+          },
+          "ignoreYear": {
+            "type": "boolean",
+            "description": "是否忽略年份"
+          },
+          "showCalendarType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "显示日历类型"
+          },
+          "reminders": {
+            "type": "array",
+            "description": "提醒列表",
+            "items": {
+              "type": "string",
+              "description": "提醒"
+            }
+          },
+          "annoyingAlert": {
+            "type": "integer",
+            "format": "int32",
+            "description": "强提醒设置"
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "重复规则",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "倒数日状态"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值",
+            "examples": [
+              0
+            ]
+          },
+          "style": {
+            "type": "string",
+            "description": "样式"
+          },
+          "styleColor": {
+            "type": "array",
+            "description": "样式颜色列表",
+            "items": {
+              "type": "string",
+              "description": "样式颜色"
+            }
+          },
+          "dateDisplayFormat": {
+            "type": "string",
+            "description": "日期显示格式"
+          },
+          "timerMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "计时器模式"
+          },
+          "showAge": {
+            "type": "boolean",
+            "description": "是否显示年龄"
+          },
+          "daysOption": {
+            "type": "integer",
+            "format": "int32",
+            "description": "天数选项"
+          },
+          "showRemark": {
+            "type": "boolean",
+            "description": "是否显示备注"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2024-01-01T00:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2024-01-08T00:00:00+0000"
+            ]
+          }
+        }
+      },
+      "HabitWritable": {
+        "title": "习惯可编辑字段",
+        "description": "习惯目标、频率、提醒、记录和展示设置的公共字段。",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "习惯名称",
+            "examples": [
+              "Read"
+            ]
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "习惯图标资源",
+            "examples": [
+              "habit_reading"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "习惯颜色",
+            "examples": [
+              "#4D8CF5"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "习惯排序值",
+            "examples": [
+              12345
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "习惯状态",
+            "examples": [
+              0
+            ]
+          },
+          "encouragement": {
+            "type": "string",
+            "description": "习惯鼓励语",
+            "examples": [
+              "Keep going"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "习惯类型",
+            "examples": [
+              "Boolean"
+            ]
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "description": "习惯目标",
+            "examples": [
+              1
+            ]
+          },
+          "step": {
+            "type": "number",
+            "format": "double",
+            "description": "习惯步进值",
+            "examples": [
+              1
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "description": "习惯单位",
+            "examples": [
+              "Count"
+            ]
+          },
+          "repeatRule": {
+            "type": "string",
+            "description": "习惯重复规则",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "习惯提醒列表",
+            "items": {
+              "type": "string",
+              "description": "习惯提醒"
+            }
+          },
+          "recordEnable": {
+            "type": "boolean",
+            "description": "是否启用记录",
+            "examples": [
+              false
+            ]
+          },
+          "sectionId": {
+            "type": "string",
+            "description": "习惯分区标识符",
+            "examples": [
+              "section-1"
+            ]
+          },
+          "targetDays": {
+            "type": "integer",
+            "format": "int32",
+            "description": "目标天数",
+            "examples": [
+              0
+            ]
+          },
+          "targetStartDate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "目标开始日期，格式为 YYYYMMDD",
+            "examples": [
+              20240101
+            ]
+          },
+          "completedCycles": {
+            "type": "integer",
+            "format": "int32",
+            "description": "已完成周期数",
+            "examples": [
+              12
+            ]
+          },
+          "exDates": {
+            "type": "array",
+            "description": "排除日期列表",
+            "items": {
+              "type": "string",
+              "description": "排除日期"
+            }
+          },
+          "style": {
+            "type": "integer",
+            "format": "int32",
+            "description": "习惯样式",
+            "examples": [
+              0
+            ]
+          }
+        }
+      },
+      "HabitCreate": {
+        "title": "创建习惯请求",
+        "description": "创建习惯时提交的名称、目标和重复设置。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ]
+          }
+        ]
+      },
+      "HabitUpdate": {
+        "title": "更新习惯请求",
+        "description": "修改习惯目标、频率、提醒或展示设置的数据。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          }
+        ]
+      },
+      "OpenHabit": {
+        "title": "习惯",
+        "description": "习惯的目标、重复规则、累计打卡和状态信息。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "习惯唯一 ID",
+                "examples": [
+                  "habit-1"
+                ]
+              },
+              "totalCheckIns": {
+                "type": "integer",
+                "format": "int32",
+                "description": "累计打卡次数",
+                "examples": [
+                  12
+                ]
+              },
+              "createdTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-01T00:00:00+0000"
+                ]
+              },
+              "modifiedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-08T00:00:00+0000"
+                ]
+              },
+              "archivedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "归档时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-08T00:00:00+0000"
+                ]
+              },
+              "etag": {
+                "type": "string",
+                "description": "习惯实体标签",
+                "examples": [
+                  "habit-etag"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OpenHabitCheckinData": {
+        "title": "单次习惯打卡数据",
+        "description": "某一天习惯打卡的日期、数值、目标和状态。",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "打卡 ID"
+          },
+          "stamp": {
+            "type": "integer",
+            "format": "int32",
+            "description": "日期标记，格式为 YYYYMMDD",
+            "examples": [
+              20260407
+            ]
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "打卡时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "opTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "操作时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "打卡值，默认为 1.0",
+            "default": 1,
+            "examples": [
+              1
+            ]
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "description": "打卡目标，默认为 1.0",
+            "default": 1,
+            "examples": [
+              1
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "打卡状态"
+          }
+        }
+      },
+      "HabitCheckInUpsert": {
+        "title": "写入习惯打卡请求",
+        "description": "创建或更新指定日期习惯打卡时提交的数据。",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OpenHabitCheckinData"
+          },
+          {
+            "type": "object",
+            "required": [
+              "stamp"
+            ]
+          }
+        ]
+      },
+      "OpenHabitCheckin": {
+        "title": "习惯打卡记录集",
+        "description": "某项习惯按年份组织的多条打卡记录。",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "打卡记录文档 ID"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "习惯 ID",
+            "examples": [
+              "habit-1"
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "打卡记录实体标签"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "description": "年份",
+            "examples": [
+              2026
+            ]
+          },
+          "checkins": {
+            "type": "array",
+            "description": "打卡条目列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabitCheckinData"
+            }
+          }
+        }
+      },
+      "ChecklistItem": {
+        "title": "检查项",
+        "type": "object",
+        "description": "任务检查清单中的子任务。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "子任务 ID",
+            "examples": [
+              "6435074647fd2e6387145f20"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "子任务标题",
+            "examples": [
+              "Item Title"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "子任务完成状态",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "正常",
+              "1": "已完成"
+            }
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "子任务完成时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "全天",
+            "examples": [
+              false
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "子任务排序值",
+            "examples": [
+              234444
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "子任务开始日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "子任务时区",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          }
+        }
+      },
+      "Task": {
+        "title": "任务",
+        "type": "object",
+        "description": "滴答清单中的任务或检查清单。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "任务 ID",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "任务所属项目 ID",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "任务标题",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "全天",
+            "examples": [
+              true
+            ]
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "任务完成时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "任务内容",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "任务检查清单描述",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "任务截止日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "任务的子任务",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItem"
+            }
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "任务优先级",
+            "enum": [
+              0,
+              1,
+              3,
+              5
+            ],
+            "examples": [
+              1
+            ],
+            "enumValueTitles": {
+              "0": "无",
+              "1": "低",
+              "3": "中",
+              "5": "高"
+            }
+          },
+          "reminders": {
+            "type": "array",
+            "description": "提醒触发器列表",
+            "items": {
+              "type": "string",
+              "description": "提醒触发器",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            },
+            "examples": [
+              [
+                "TRIGGER:P0DT9H0M0S",
+                "TRIGGER:PT0S"
+              ]
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "分配给任务的标签",
+            "items": {
+              "type": "string",
+              "description": "任务标签",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "任务重复规则",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "任务排序值",
+            "examples": [
+              12345
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "开始日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "任务完成状态",
+            "enum": [
+              0,
+              2
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "正常",
+              "2": "已完成"
+            }
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "任务时区",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "description": "任务类型",
+            "enum": [
+              "TEXT",
+              "NOTE",
+              "CHECKLIST"
+            ],
+            "examples": [
+              "CHECKLIST"
+            ],
+            "enumValueTitles": {
+              "TEXT": "文本任务",
+              "NOTE": "笔记",
+              "CHECKLIST": "清单"
+            }
+          }
+        }
+      },
+      "TaskCreate": {
+        "title": "创建任务请求",
+        "type": "object",
+        "description": "创建新任务时提交的数据结构。",
+        "required": [
+          "title",
+          "projectId"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "任务标题",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "项目 ID",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "任务内容",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "检查清单描述",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "全天",
+            "examples": [
+              true
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "开始日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "截止日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "指定时间所使用的时区",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "任务专属提醒列表",
+            "items": {
+              "type": "string",
+              "description": "任务专属提醒",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "分配给任务的标签",
+            "items": {
+              "type": "string",
+              "description": "任务标签",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "任务重复规则",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "任务优先级，默认为 0",
+            "examples": [
+              1
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "任务排序值",
+            "examples": [
+              12345
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "子任务列表",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "TaskUpdate": {
+        "title": "更新任务请求",
+        "type": "object",
+        "description": "更新已有任务时提交的数据结构。",
+        "required": [
+          "id",
+          "projectId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "任务 ID",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "项目 ID",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "任务标题",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "任务内容",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "检查清单描述",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "全天",
+            "examples": [
+              true
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "开始日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "截止日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "指定时间所使用的时区",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "任务专属提醒列表",
+            "items": {
+              "type": "string",
+              "description": "任务专属提醒",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "分配给任务的标签",
+            "items": {
+              "type": "string",
+              "description": "任务标签",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "任务重复规则",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "任务优先级，默认为普通",
+            "examples": [
+              1
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "任务排序值",
+            "examples": [
+              12345
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "子任务列表",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "ChecklistItemCreate": {
+        "title": "创建检查项请求",
+        "type": "object",
+        "description": "创建或更新任务检查项的数据结构。",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "子任务标题",
+            "examples": [
+              "Subtask Title"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "开始日期和时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "全天",
+            "examples": [
+              false
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "子任务排序值",
+            "examples": [
+              12345
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "指定开始时间所使用的时区",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "子任务完成状态",
+            "examples": [
+              1
+            ]
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "完成时间，格式为 yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          }
+        }
+      },
+      "Project": {
+        "title": "项目",
+        "type": "object",
+        "description": "代表任务列表或笔记集合的项目。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "项目 ID",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "项目名称",
+            "examples": [
+              "project name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "项目颜色",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值",
+            "examples": [
+              0
+            ]
+          },
+          "closed": {
+            "type": "boolean",
+            "description": "项目已关闭",
+            "examples": [
+              false
+            ]
+          },
+          "groupId": {
+            "type": "string",
+            "description": "项目分组 ID",
+            "examples": [
+              "6436176a47fd2e05f26ef56e"
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "视图模式",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "列表",
+              "kanban": "看板",
+              "timeline": "时间线"
+            }
+          },
+          "permission": {
+            "type": "string",
+            "description": "用户对项目的权限级别",
+            "enum": [
+              "read",
+              "write",
+              "comment"
+            ],
+            "examples": [
+              "write"
+            ],
+            "enumValueTitles": {
+              "read": "读取",
+              "write": "写入",
+              "comment": "评论"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "项目类型",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "任务项目",
+              "NOTE": "笔记项目"
+            }
+          }
+        }
+      },
+      "ProjectCreate": {
+        "title": "创建项目请求",
+        "type": "object",
+        "description": "创建新项目时提交的数据结构。",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "项目名称",
+            "examples": [
+              "project name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "项目颜色",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "项目排序值",
+            "examples": [
+              0
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "视图模式",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "列表",
+              "kanban": "看板",
+              "timeline": "时间线"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "项目类型",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "任务项目",
+              "NOTE": "笔记项目"
+            }
+          }
+        }
+      },
+      "ProjectUpdate": {
+        "title": "更新项目请求",
+        "type": "object",
+        "description": "更新已有项目时提交的数据结构。",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "项目名称",
+            "examples": [
+              "Project Name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "项目颜色",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值，默认为 0",
+            "examples": [
+              0
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "视图模式",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "列表",
+              "kanban": "看板",
+              "timeline": "时间线"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "项目类型",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "任务项目",
+              "NOTE": "笔记项目"
+            }
+          }
+        }
+      },
+      "Column": {
+        "title": "看板列",
+        "type": "object",
+        "description": "项目看板视图中的列。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "看板列 ID",
+            "examples": [
+              "column-1"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "项目 ID",
+            "examples": [
+              "project-1"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "看板列名称",
+            "examples": [
+              "Column Name"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "排序值",
+            "examples": [
+              0
+            ]
+          }
+        }
+      },
+      "ProjectData": {
+        "title": "项目数据",
+        "type": "object",
+        "description": "包含项目信息、任务与看板列的聚合数据。",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "description": "项目信息"
+          },
+          "tasks": {
+            "type": "array",
+            "description": "项目下未完成的任务",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "columns": {
+            "type": "array",
+            "description": "项目下的看板列",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "task/getTaskByProjectIdAndTaskId": {
+      "summary": "获取指定任务",
+      "operationId": "getTaskByProjectIdAndTaskId",
+      "consumes": [],
+      "description": "根据项目 ID 和任务 ID 返回一个任务，包含 dueDate 等任务字段。",
+      "tags": [
+        "task"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "请求的任务，包含 dueDate 及其他已记录的任务字段",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/deleteTask": {
+      "summary": "删除任务",
+      "operationId": "deleteTask",
+      "consumes": [],
+      "description": "删除指定项目中的任务。",
+      "tags": [
+        "task"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "成功"
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/createTask": {
+      "summary": "创建任务",
+      "operationId": "createTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "创建一个新的任务。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TaskCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "title": "example",
+              "startDate": "2019-11-13T03:00:00+0000",
+              "dueDate": "2019-11-13T03:00:00+0000",
+              "tags": [
+                "work",
+                "urgent"
+              ]
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "body",
+              "name": "/projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/updateTask": {
+      "summary": "更新任务",
+      "operationId": "updateTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "更新已有任务的内容。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TaskUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "startDate": "2019-11-13T03:00:00+0000",
+              "dueDate": "2019-11-13T03:00:00+0000",
+              "tags": [
+                "work",
+                "urgent"
+              ]
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/id",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/completeTask": {
+      "summary": "完成任务",
+      "operationId": "completeTask",
+      "consumes": [],
+      "description": "将指定任务标记为完成。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
+      "responses": {
+        "200": {
+          "description": "成功"
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/moveTask": {
+      "summary": "移动任务到其他项目",
+      "operationId": "moveTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "将指定任务从来源项目移动到目标项目，并返回移动结果。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/move",
+      "responses": {
+        "200": {
+          "description": "移动结果",
+          "schema": {
+            "type": "array",
+            "description": "任务移动结果列表，包含任务标识符和新的 ETag",
+            "items": {
+              "$ref": "#/components/schemas/TaskMoveResult"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "任务移动结果列表，包含任务标识符和新的 ETag",
+                "items": {
+                  "$ref": "#/components/schemas/TaskMoveResult"
+                }
+              },
+              "example": [
+                {
+                  "id": "69a850f8b9061f374d54a046",
+                  "etag": "43p2zso1"
+                }
+              ]
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "type": "array",
+            "description": "任务移动操作列表",
+            "items": {
+              "$ref": "#/components/schemas/TaskMoveRequest"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "任务移动操作列表",
+                "items": {
+                  "$ref": "#/components/schemas/TaskMoveRequest"
+                }
+              },
+              "example": [
+                {
+                  "fromProjectId": "69a850ef1c20d2030e148fdd",
+                  "toProjectId": "69a850f41c20d2030e148fdf",
+                  "taskId": "69a850f8b9061f374d54a046"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": [
+              {}
+            ]
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "body",
+              "name": "/0/fromProjectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/0/toProjectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/0/taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/listCompletedTasks": {
+      "summary": "查询已完成任务",
+      "operationId": "listCompletedTasks",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "按项目和完成时间范围查询已完成的任务。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/completed",
+      "responses": {
+        "200": {
+          "description": "已完成任务",
+          "schema": {
+            "type": "array",
+            "description": "指定项目和时间范围内的已完成任务列表",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "指定项目和时间范围内的已完成任务列表",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/CompletedTaskFilter"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletedTaskFilter"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "task/filterTasks": {
+      "summary": "筛选任务",
+      "operationId": "filterTasks",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "按项目、开始时间、优先级、标签和状态组合筛选任务。",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/filter",
+      "responses": {
+        "200": {
+          "description": "匹配的任务",
+          "schema": {
+            "type": "array",
+            "description": "符合筛选条件的任务列表",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "符合筛选条件的任务列表",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TaskFilter"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskFilter"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/getUserProjects": {
+      "summary": "获取项目列表",
+      "operationId": "getUserProjects",
+      "consumes": [],
+      "description": "获取当前用户的项目列表。",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "type": "array",
+            "description": "用户项目列表",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "用户项目列表",
+                "items": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/createProject": {
+      "summary": "创建项目",
+      "operationId": "createProject",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "创建一个新的项目。",
+      "tags": [
+        "project"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "example",
+              "color": "#F18181",
+              "viewMode": "list",
+              "kind": "TASK"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/getProjectById": {
+      "summary": "获取项目",
+      "operationId": "getProjectById",
+      "consumes": [],
+      "description": "根据项目 ID 获取项目。",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/deleteProject": {
+      "summary": "删除项目",
+      "operationId": "deleteProject",
+      "consumes": [],
+      "description": "删除指定项目。",
+      "tags": [
+        "project"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "成功"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/updateProject": {
+      "summary": "更新项目",
+      "operationId": "updateProject",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "更新已有项目的内容。",
+      "tags": [
+        "project"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "viewMode": "list",
+              "kind": "TASK"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/getProjectWithData": {
+      "summary": "获取项目及数据",
+      "operationId": "getProjectWithData",
+      "consumes": [],
+      "description": "获取项目、任务和相关数据。",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/data",
+      "responses": {
+        "200": {
+          "description": "成功",
+          "schema": {
+            "$ref": "#/components/schemas/ProjectData"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectData"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/getTaskComments": {
+      "summary": "获取任务评论",
+      "operationId": "getTaskComments",
+      "consumes": [],
+      "description": "读取指定项目任务下的评论列表。",
+      "tags": [
+        "comment"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comments",
+      "responses": {
+        "200": {
+          "description": "任务评论",
+          "schema": {
+            "type": "array",
+            "description": "任务评论列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenComment"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "任务评论列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenComment"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/addTaskComment": {
+      "summary": "添加任务评论",
+      "operationId": "addTaskComment",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "在指定项目任务下发布一条评论，不创建或修改任务本身。",
+      "tags": [
+        "comment"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment",
+      "responses": {
+        "200": {
+          "description": "已创建的评论",
+          "schema": {
+            "$ref": "#/components/schemas/OpenComment"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenComment"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "description": "新增任务评论请求",
+            "required": [
+              "title"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "评论内容",
+                "examples": [
+                  "Looks good"
+                ]
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "新增任务评论请求",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "评论内容",
+                    "examples": [
+                      "Looks good"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "title": "Looks good"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/deleteTaskComment": {
+      "summary": "删除任务评论",
+      "operationId": "deleteTaskComment",
+      "consumes": [],
+      "description": "删除指定任务下的一条评论。",
+      "tags": [
+        "comment"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment/{id}",
+      "responses": {
+        "200": {
+          "description": "评论已删除"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "任务 ID",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "description": "评论 ID",
+            "type": "string",
+            "examples": [
+              "comment-1"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "path",
+              "name": "id",
+              "source": {
+                "kind": "operation",
+                "operationId": "getTaskComments"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "projectGroup/getProjectGroups": {
+      "summary": "获取项目分组",
+      "operationId": "getProjectGroups",
+      "consumes": [],
+      "description": "获取当前用户的项目分组列表。",
+      "tags": [
+        "project group"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/group",
+      "responses": {
+        "200": {
+          "description": "项目分组",
+          "schema": {
+            "type": "array",
+            "description": "项目分组列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenProjectGroup"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "项目分组列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenProjectGroup"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "projectGroup/createProjectGroup": {
+      "summary": "创建项目分组",
+      "operationId": "createProjectGroup",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "创建用于组织项目的分组。",
+      "tags": [
+        "project group"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/group",
+      "responses": {
+        "200": {
+          "description": "已创建的项目分组",
+          "schema": {
+            "$ref": "#/components/schemas/OpenProjectGroup"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenProjectGroup"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectGroupCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupCreate"
+              },
+              "example": {
+                "name": "Group Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Group Name"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "projectGroup/deleteProjectGroup": {
+      "summary": "删除项目分组",
+      "operationId": "deleteProjectGroup",
+      "consumes": [],
+      "description": "删除指定的项目分组。",
+      "tags": [
+        "project group"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "responses": {
+        "200": {
+          "description": "项目分组已删除"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectGroupId",
+          "required": true,
+          "schema": {
+            "description": "项目分组 ID",
+            "type": "string",
+            "examples": [
+              "group-1"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectGroupId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectGroups"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "projectGroup/updateProjectGroup": {
+      "summary": "更新项目分组",
+      "operationId": "updateProjectGroup",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "修改指定项目分组的名称。",
+      "tags": [
+        "project group"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "responses": {
+        "200": {
+          "description": "已更新的项目分组",
+          "schema": {
+            "$ref": "#/components/schemas/OpenProjectGroup"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenProjectGroup"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectGroupId",
+          "required": true,
+          "schema": {
+            "description": "项目分组 ID",
+            "type": "string",
+            "examples": [
+              "group-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectGroupUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupUpdate"
+              },
+              "example": {
+                "name": "New Group Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "New Group Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectGroupId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectGroups"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/getColumns": {
+      "summary": "获取项目看板列",
+      "operationId": "getColumns",
+      "consumes": [],
+      "description": "获取指定项目中的看板列。",
+      "tags": [
+        "column"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/column",
+      "responses": {
+        "200": {
+          "description": "项目看板列",
+          "schema": {
+            "type": "array",
+            "description": "指定项目的看板列列表",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "指定项目的看板列列表",
+                "items": {
+                  "$ref": "#/components/schemas/Column"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/createColumn": {
+      "summary": "创建项目看板列",
+      "operationId": "createColumn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "在指定项目的看板中创建一列。",
+      "tags": [
+        "column"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/column",
+      "responses": {
+        "200": {
+          "description": "已创建的看板列",
+          "schema": {
+            "$ref": "#/components/schemas/Column"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Column"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ColumnCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnCreate"
+              },
+              "example": {
+                "name": "Column Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Column Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/updateColumn": {
+      "summary": "更新项目看板列",
+      "operationId": "updateColumn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "修改指定项目看板列的名称。",
+      "tags": [
+        "column"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/column/{columnId}",
+      "responses": {
+        "200": {
+          "description": "已更新的看板列",
+          "schema": {
+            "$ref": "#/components/schemas/Column"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Column"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "项目 ID",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "columnId",
+          "required": true,
+          "schema": {
+            "description": "看板列 ID",
+            "type": "string",
+            "examples": [
+              "column-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ColumnUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnUpdate"
+              },
+              "example": {
+                "name": "New Column Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "New Column Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "columnId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getColumns"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tag/getTags": {
+      "summary": "获取任务标签",
+      "operationId": "getTags",
+      "consumes": [],
+      "description": "获取当前用户可用于任务分类的标签。",
+      "tags": [
+        "tag"
+      ],
+      "method": "GET",
+      "path": "/open/v1/tag",
+      "responses": {
+        "200": {
+          "description": "标签",
+          "schema": {
+            "type": "array",
+            "description": "任务标签列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenTag"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "任务标签列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenTag"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "tag/createTag": {
+      "summary": "新建标签",
+      "operationId": "createTag",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "添加一个用于分类和筛选的标签。",
+      "tags": [
+        "tag"
+      ],
+      "method": "POST",
+      "path": "/open/v1/tag",
+      "responses": {
+        "200": {
+          "description": "已创建的标签",
+          "schema": {
+            "$ref": "#/components/schemas/OpenTag"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenTag"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TagCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagCreate"
+              },
+              "example": {
+                "name": "urgent",
+                "label": "urgent"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "urgent",
+              "label": "urgent"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "focus/getFocusById": {
+      "summary": "获取专注记录",
+      "operationId": "getFocusById",
+      "consumes": [],
+      "description": "按专注记录 ID 和类型读取一条番茄专注或正向计时记录。",
+      "tags": [
+        "focus"
+      ],
+      "method": "GET",
+      "path": "/open/v1/focus/{focusId}",
+      "responses": {
+        "200": {
+          "description": "专注记录",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              },
+              "example": {
+                "id": "focus-1",
+                "type": 0,
+                "taskId": "task-1",
+                "note": "Deep work",
+                "status": 2,
+                "startTime": "2026-04-07T09:00:00+0800",
+                "endTime": "2026-04-07T09:25:00+0800",
+                "duration": 1500
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "focusId",
+          "required": true,
+          "schema": {
+            "description": "专注记录 ID",
+            "type": "string",
+            "examples": [
+              "focus-1"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "专注类型：0 表示番茄专注，1 表示正向计时",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "番茄专注",
+              "1": "正向计时"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "focusId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getFocusesByTimeRange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "focus/deleteFocus": {
+      "summary": "删除专注记录",
+      "operationId": "deleteFocus",
+      "consumes": [],
+      "description": "删除指定的番茄专注或正向计时记录。",
+      "tags": [
+        "focus"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/focus/{focusId}",
+      "responses": {
+        "200": {
+          "description": "已删除的专注记录",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              },
+              "example": {
+                "id": "focus-1",
+                "type": 0
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "focusId",
+          "required": true,
+          "schema": {
+            "description": "专注记录 ID",
+            "type": "string",
+            "examples": [
+              "focus-1"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "专注类型：0 表示番茄专注，1 表示正向计时",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "番茄专注",
+              "1": "正向计时"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "focusId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getFocusesByTimeRange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "focus/getFocusesByTimeRange": {
+      "summary": "查询时间范围内的专注记录",
+      "operationId": "getFocusesByTimeRange",
+      "consumes": [],
+      "description": "按起止时间和专注类型查询专注记录，查询区间最长三十天。",
+      "tags": [
+        "focus"
+      ],
+      "method": "GET",
+      "path": "/open/v1/focus",
+      "responses": {
+        "200": {
+          "description": "专注记录",
+          "schema": {
+            "type": "array",
+            "description": "指定时间范围和专注类型的专注记录列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenFocus"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "指定时间范围和专注类型的专注记录列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenFocus"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "范围开始时间",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2026-04-01T00:00:00+0800"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "范围结束时间",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2026-04-02T00:00:00+0800"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "专注类型：0 表示番茄专注，1 表示正向计时",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "番茄专注",
+              "1": "正向计时"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "from": "2026-04-01T00:00:00+0800",
+              "to": "2026-04-02T00:00:00+0800",
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "focus/createFocus": {
+      "summary": "创建专注记录",
+      "operationId": "createFocus",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "记录一次番茄专注或正向计时，可关联已有任务。",
+      "tags": [
+        "focus"
+      ],
+      "method": "POST",
+      "path": "/open/v1/focus",
+      "responses": {
+        "200": {
+          "description": "已创建的专注记录",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/FocusCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusCreate"
+              },
+              "example": {
+                "type": 0,
+                "taskId": "task-1",
+                "startTime": "2026-04-07T09:00:00+0800",
+                "endTime": "2026-04-07T09:25:00+0800",
+                "duration": 1500
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "type": 0,
+              "startTime": "2026-04-07T09:00:00+0800",
+              "endTime": "2026-04-07T09:25:00+0800",
+              "duration": 1500
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "countdown/getCountdowns": {
+      "summary": "获取倒数日列表",
+      "operationId": "getCountdowns",
+      "consumes": [],
+      "description": "获取当前用户配置的倒数日及其日期、提醒和显示设置。",
+      "tags": [
+        "countdown"
+      ],
+      "method": "GET",
+      "path": "/open/v1/countdown",
+      "responses": {
+        "200": {
+          "description": "倒数日",
+          "schema": {
+            "type": "array",
+            "description": "倒数日列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenCountdown"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "倒数日列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenCountdown"
+                }
+              },
+              "example": [
+                {
+                  "id": "countdown-1",
+                  "type": 0,
+                  "name": "Birthday",
+                  "date": 20260407,
+                  "color": "#4D8CF5",
+                  "reminders": [],
+                  "sortOrder": 0
+                }
+              ]
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/getHabitCheckIns": {
+      "summary": "查询习惯打卡记录",
+      "operationId": "getHabitCheckIns",
+      "consumes": [],
+      "description": "按习惯 ID 列表和日期范围查询习惯打卡记录。",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit/checkins",
+      "responses": {
+        "200": {
+          "description": "习惯打卡文档",
+          "schema": {
+            "type": "array",
+            "description": "指定习惯和日期范围的习惯打卡文档列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabitCheckin"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "指定习惯和日期范围的习惯打卡文档列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenHabitCheckin"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "habitIds",
+          "required": true,
+          "schema": {
+            "description": "以逗号分隔的习惯 ID",
+            "type": "string",
+            "pattern": "^[^,]+(,[^,]+)*$",
+            "examples": [
+              "habit-1,habit-2"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "开始日期标记，格式为 YYYYMMDD",
+            "type": "integer",
+            "format": "int32",
+            "examples": [
+              20260401
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "结束日期标记，格式为 YYYYMMDD",
+            "type": "integer",
+            "format": "int32",
+            "examples": [
+              20260407
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "from": 20260401,
+              "to": 20260407
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "query",
+              "name": "habitIds",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/getHabits": {
+      "summary": "获取习惯列表",
+      "operationId": "getHabits",
+      "consumes": [],
+      "description": "获取当前用户的全部习惯及其目标和重复规则。",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit",
+      "responses": {
+        "200": {
+          "description": "习惯",
+          "schema": {
+            "type": "array",
+            "description": "用户的全部习惯列表",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabit"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "用户的全部习惯列表",
+                "items": {
+                  "$ref": "#/components/schemas/OpenHabit"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/createHabit": {
+      "summary": "创建习惯",
+      "operationId": "createHabit",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "创建一项带目标、频率和提醒设置的习惯。",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit",
+      "responses": {
+        "200": {
+          "description": "已创建的习惯",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCreate"
+              },
+              "example": {
+                "name": "Read",
+                "iconRes": "habit_reading",
+                "color": "#4D8CF5",
+                "type": "Boolean",
+                "goal": 1,
+                "step": 1,
+                "unit": "Count",
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+                "recordEnable": false
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Read",
+              "iconRes": "habit_reading",
+              "color": "#4D8CF5",
+              "type": "Boolean",
+              "goal": 1,
+              "step": 1,
+              "unit": "Count",
+              "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+              "recordEnable": false
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/getHabitById": {
+      "summary": "获取指定习惯",
+      "operationId": "getHabitById",
+      "consumes": [],
+      "description": "根据习惯 ID 获取目标、重复规则和累计打卡信息。",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit/{habitId}",
+      "responses": {
+        "200": {
+          "description": "习惯",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "习惯 ID",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/updateHabit": {
+      "summary": "更新习惯",
+      "operationId": "updateHabit",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "修改指定习惯的目标、频率、提醒或展示设置。",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit/{habitId}",
+      "responses": {
+        "200": {
+          "description": "已更新的习惯",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "习惯 ID",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitUpdate"
+              },
+              "example": {
+                "name": "Read more",
+                "goal": 2,
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Read more",
+              "goal": 2,
+              "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/upsertHabitCheckIn": {
+      "summary": "写入习惯打卡",
+      "operationId": "upsertHabitCheckIn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "为指定习惯创建或更新某个日期的打卡数值与状态。",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit/{habitId}/checkin",
+      "responses": {
+        "200": {
+          "description": "已更新的打卡文档",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabitCheckin"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabitCheckin"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "已创建，无响应内容"
+        },
+        "401": {
+          "description": "未授权"
+        },
+        "403": {
+          "description": "禁止访问"
+        },
+        "404": {
+          "description": "未找到"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "习惯 ID",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitCheckInUpsert"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCheckInUpsert"
+              },
+              "example": {
+                "stamp": 20260407,
+                "value": 1,
+                "goal": 1
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "stamp": 20260407,
+              "value": 1,
+              "goal": 1
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "name": "dida365",
+  "servers": [
+    {
+      "id": "default",
+      "url": "https://api.dida365.com",
+      "description": "生产环境服务器"
+    }
+  ],
+  "info": {
+    "title": "滴答清单开放 API",
+    "description": "滴答清单开放 API 提供经过身份验证的任务、项目、项目分组、看板列、标签、评论、专注记录、倒数日和习惯访问能力。请在滴答清单开发者中心注册应用，使用 OAuth 2.0 授权码流程，并通过 `Authorization: Bearer <access_token>` 发送访问令牌。变更接口需要 `tasks:write` 权限范围，只读接口需要 `tasks:read` 权限范围。",
+    "version": "1.0.0",
+    "contact": {
+      "email": "support@dida365.com"
+    }
+  },
+  "security": [
+    {
+      "OAuth2": []
+    }
+  ],
+  "externalDocs": {
+    "description": "滴答清单开放 API 官方文档",
+    "url": "https://developer.dida365.com/docs#/openapi"
+  },
+  "tags": [
+    {
+      "name": "task",
+      "description": "任务管理接口"
+    },
+    {
+      "name": "project",
+      "description": "项目管理接口"
+    },
+    {
+      "name": "comment",
+      "description": "任务评论接口"
+    },
+    {
+      "name": "projectGroup",
+      "description": "项目分组接口"
+    },
+    {
+      "name": "column",
+      "description": "看板列接口"
+    },
+    {
+      "name": "tag",
+      "description": "任务标签接口"
+    },
+    {
+      "name": "focus",
+      "description": "番茄专注和正向计时记录接口"
+    },
+    {
+      "name": "countdown",
+      "description": "倒数日查询接口"
+    },
+    {
+      "name": "habit",
+      "description": "习惯和习惯打卡接口"
+    }
+  ]
+}

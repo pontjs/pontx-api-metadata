@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "slug": "gemini",
+  "name": {
+    "zh": "Gemini API",
+    "en": "Gemini API"
+  },
+  "provider": "Google",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 4,
+    "score": 91
+  },
+  "boundary": {
+    "zh": "Google AI for Developers 的完整 Gemini API，包括 Interactions、内容生成、Live、批处理、Embedding、文件与生成式媒体能力。",
+    "en": "The complete Gemini API from Google AI for Developers, including Interactions, content generation, Live, batch, embeddings, files, and generative media."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://ai.google.dev/api"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://ai.google.dev/gemini-api/docs/streaming"
+    },
+    {
+      "kind": "terms",
+      "url": "https://ai.google.dev/gemini-api/terms"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "streamGenerateContent 与 Interactions 使用 SSE，Live API 使用双向实时协议；整集暂缓。",
+      "en": "streamGenerateContent and Interactions use SSE, while the Live API uses a bidirectional realtime protocol; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 与双向实时协议均有完整契约支持后重审。",
+    "en": "Re-review only after complete contract support exists for both SSE and bidirectional realtime transports."
+  },
+  "verifiedAt": "2026-08-14"
+}

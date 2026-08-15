@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "slug": "openai",
+  "name": {
+    "zh": "OpenAI API",
+    "en": "OpenAI API"
+  },
+  "provider": "OpenAI",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 1,
+    "score": 96
+  },
+  "boundary": {
+    "zh": "OpenAI Platform 当前公开 REST、流式与实时 API 的完整供应商产品面。",
+    "en": "The complete current OpenAI Platform product surface across public REST, streaming, and realtime APIs."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://platform.openai.com/docs/api-reference"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://platform.openai.com/docs/api-reference/responses-streaming"
+    },
+    {
+      "kind": "terms",
+      "url": "https://openai.com/policies/services-agreement/"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "Responses、图像、音频等产品面包含 Server-Sent Events，另有 Realtime 协议；整集暂缓。",
+      "en": "The Responses, image, audio, and other surfaces include Server-Sent Events, with an additional Realtime protocol; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "等待 Pontx 完整支持并验证 SSE/Realtime 契约后重审。",
+    "en": "Re-review after Pontx fully supports and validates SSE and Realtime contracts."
+  },
+  "verifiedAt": "2026-08-14"
+}

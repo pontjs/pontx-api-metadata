@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/frankfurter",
+    "version": "0.1.1",
+    "status": "published",
+    "repository": "https://github.com/pontjs/currency-exchange"
+  },
+  "cli": {
+    "name": "pontx-frankfurter"
+  },
+  "contract": {
+    "client": {
+      "kind": "named",
+      "identifier": "currencyExchangeClient"
+    },
+    "controllers": {
+      "Exchange Rates": "exchangeRates",
+      "Currencies": "Currencies"
+    }
+  },
+  "examples": {
+    "typescript": "import { currencyExchangeClient } from \"@pontx/frankfurter\";\n\nconst result = await currencyExchangeClient.exchangeRates.getLatestRates({\n  base: \"USD\",\n  symbols: \"JPY,CNY\"\n});",
+    "cli": "pnpm add --global @pontx/frankfurter\n\npontx-frankfurter call exchangeRates.getLatestRates --base USD --symbols JPY,CNY --dry-run"
+  },
+  "coverage": {
+    "mode": "partial",
+    "endpointIds": [
+      "getLatestRates",
+      "getHistoricalRates",
+      "getTimeSeriesRates",
+      "getCurrencies"
+    ]
+  },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 2,
+      "total": 2,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "6dfb19aa960fb320cceafdb896ccdec25d77266f",
+    "testedAt": "2026-08-14",
+    "repositoryUrl": "https://github.com/pontjs/currency-exchange",
+    "workflowRunUrl": "https://github.com/pontjs/currency-exchange/actions/runs/31776799667"
+  },
+  "spec": {
+    "path": "products/frankfurter/spec.pontx.json",
+    "sha256": "7988444cbe75deab71b9e8a8a365859c834d41926ef1a4689d1b30d86e962fa5",
+    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
+  }
+}

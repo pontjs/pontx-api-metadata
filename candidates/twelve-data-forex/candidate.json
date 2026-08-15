@@ -1,0 +1,182 @@
+{
+  "formatVersion": 1,
+  "slug": "twelve-data-forex",
+  "name": {
+    "zh": "Twelve Data Forex API",
+    "en": "Twelve Data Forex API"
+  },
+  "provider": "Twelve Data",
+  "category": "Finance",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 11,
+    "score": 70
+  },
+  "boundary": {
+    "zh": "Twelve Data 官方 Forex 产品面，包含 REST 实时/历史汇率、换算、时间序列、技术指标以及 WebSocket 实时报价；不把 REST 子集裁剪成完整产品。",
+    "en": "The official Twelve Data Forex product surface across REST realtime/historical rates, conversion, time series, technical indicators, and WebSocket realtime quotes; the REST subset is not presented as the complete product."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "official-rest-openapi",
+    "url": "https://api.twelvedata.com/doc/swagger/openapi.json",
+    "observedAt": "2026-08-14",
+    "mutableSource": true,
+    "license": "review-required",
+    "openapiVersion": "3.1.0",
+    "upstreamVersion": "0.0.1",
+    "sourceSha256": "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c",
+    "sourceBytes": 3446907,
+    "observedPaths": 187,
+    "observedOperations": 187,
+    "observedOperationIds": 187,
+    "observedSchemas": 797,
+    "qualityAudit": {
+      "duplicateOperationIds": 0,
+      "pathTemplateMismatches": 0,
+      "missingSuccessSchemas": 0,
+      "missing4xxOrDefaultResponses": 0,
+      "missingPontxRequestExamples": 187
+    }
+  },
+  "websocketAudit": {
+    "reverifiedAt": "2026-08-15",
+    "officialConnectionUrl": "wss://ws.twelvedata.com/v1/quotes/price?apikey={apiKey}",
+    "outboundActionsConfirmedByOfficialSdk": [
+      "subscribe",
+      "unsubscribe",
+      "reset",
+      "heartbeat"
+    ],
+    "subscribeRequestFields": [
+      "action",
+      "params.symbols"
+    ],
+    "documentedInboundEventNames": [
+      "subscribe-status",
+      "price"
+    ],
+    "completeInboundEventSchemasPublished": [],
+    "missingCompleteInboundEventSchemas": [
+      "subscribe-status",
+      "price"
+    ],
+    "officialPythonSdk": {
+      "url": "https://github.com/twelvedata/twelvedata-python",
+      "license": "MIT",
+      "commit": "3d53d271a450c50b2199722b5d2db7b92e213d3b",
+      "confirms": [
+        "connection-url",
+        "subscribe-symbols-csv",
+        "unsubscribe-symbols-csv",
+        "reset",
+        "heartbeat"
+      ]
+    },
+    "pontxProgress": {
+      "runtimeCommit": "7b1e60f0de6cbfe4874b476bc237f2d4c628b839",
+      "asyncapiCommit": "0f6a32e61f993bfb1c37373ef95efd79465c181f",
+      "generatedClientCommit": "1ef0a829c785422b06e9fa0d76fff244de8446cb",
+      "implemented": [
+        "injected-WebSocket-runtime",
+        "AsyncAPI-3.x-parser",
+        "stream-operation-type-generation",
+        "generated-stream-client",
+        "read-only-list-streams-cli"
+      ],
+      "remaining": [
+        "provider-complete-inbound-schemas",
+        "Hub-channel-and-message-rendering",
+        "credential-safe-connection-validation",
+        "complete-stream-sdk-cli-e2e"
+      ]
+    }
+  },
+  "pontxProbe": {
+    "toolVersion": "pontx@1.0.0-beta.3",
+    "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
+    "sourceSha256": "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c",
+    "generatedOperations": 187,
+    "generatedSchemas": 797,
+    "typescriptCheck": "passed",
+    "esmCjsDeclarationsBuild": "passed",
+    "declarationBytes": 1160000,
+    "cliBuild": "passed",
+    "sdkDemoPriceCall": "passed",
+    "cliDemoPriceDryRunAndCall": "passed-with-sdk-beforeRequest-demo-adapter",
+    "npmPackDryRun": "passed",
+    "credentialFinding": "Direct CLI --header and undeclared --apikey inputs were printed and did not authenticate the request; a real release must inject a redacted environment credential in the SDK CLI adapter.",
+    "publicationReady": false,
+    "observedAt": "2026-08-14"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://twelvedata.com/forex"
+    },
+    {
+      "kind": "docs",
+      "url": "https://twelvedata.com/docs"
+    },
+    {
+      "kind": "spec",
+      "url": "https://api.twelvedata.com/doc/swagger/openapi.json"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/twelvedata/twelvedata-node"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://twelvedata.com/docs#websocket"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://support.twelvedata.com/en/articles/5620516-how-to-stream-the-data"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/twelvedata/twelvedata-python"
+    },
+    {
+      "kind": "terms",
+      "url": "https://twelvedata.com/terms"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方 Forex 产品明确包含 WebSocket 实时报价。Pontx 已实现注入式 WebSocket runtime、AsyncAPI 3.x 解析、流式类型生成、生成的流式客户端和只读 list streams CLI；生成客户端要求调用方显式提供 URL 与 socket factory，导入时不连接且不生成凭证。Hub 通道/消息文档、凭证安全连接验证和完整 SDK/CLI 端到端验证仍未完成；同时供应商尚未公开两类入站事件的完整 Schema。按协议原子性规则整集仍暂缓。",
+      "en": "The official Forex product explicitly includes realtime WebSocket quotes. Pontx now has an injected WebSocket runtime, AsyncAPI 3.x parsing, stream type generation, a generated stream client, and a read-only list-streams CLI; the generated client requires the caller to provide the URL and socket factory explicitly, never connects on import, and never emits credentials. Hub channel/message documentation, credential-safe connection validation, and complete SDK/CLI end-to-end verification remain incomplete; the supplier also has not published complete schemas for either inbound event. The whole collection remains deferred under the atomic transport rule."
+    },
+    {
+      "gate": "redistribution",
+      "zh": "条款把 API、SDK、文档和市场数据列为供应商财产，默认仅授权内部使用；外部展示或再分发需要相应套餐、附加许可或书面协议，免费层禁止商业使用。metadata 与独立 SDK 发布范围仍需确认。",
+      "en": "The terms identify APIs, SDKs, documentation, and market data as supplier property and default access to internal use; external display or redistribution requires the applicable tier, add-on, or written agreement, and free-tier data cannot be used commercially. Metadata and independently generated SDK publication rights remain unresolved."
+    },
+    {
+      "gate": "contract",
+      "zh": "已找到官方可下载的 REST OpenAPI 3.1.0：187 个 Endpoint、797 个 Schema，所有 operationId 唯一，成功/错误响应均有 Schema，并可原样通过 Pontx 代码生成。官方 SDK 和支持文档已证明 WebSocket URL、四种出站事件和两种入站事件名，但未发布 subscribe-status 或 price 的完整入站 payload Schema；REST URL 仍可变、没有 OAS 许可声明，并缺少 187 个 Pontx 成功请求示例，因此仍不是完整产品契约。",
+      "en": "The official downloadable REST OpenAPI 3.1.0 has 187 endpoints, 797 schemas, unique operationIds, schema-backed success/error responses, and successful raw Pontx generation. The official SDK and support documentation prove the WebSocket URL, four outbound events, and two inbound event names, but publish no complete inbound payload schema for subscribe-status or price; the REST URL remains mutable with no OAS license declaration and all 187 Pontx success-request examples remain absent. This is still not a complete product contract."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "隔离 REST RC 已从官方 OAS 生成 187 个 Endpoint 与 797 个 Schema，并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run和官方 demo SDK/CLI 实调。但 CLI 直接传 header/query 凭证会打印值且没有正确应用 security scheme；验证只能通过不记录凭证的 beforeRequest demo adapter 完成。正式发布仍受 WebSocket、许可、双语 metadata、凭证红线、独立仓库/CI/npm 版本阻断。",
+      "en": "An isolated REST RC generated 187 endpoints and 797 schemas from the official OAS and passed TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and official-demo SDK/CLI calls. Direct CLI header/query credentials were printed and did not correctly apply the security scheme, so validation required a non-logging beforeRequest demo adapter. A release remains blocked on WebSocket coverage, licensing, bilingual metadata, credential safety, and an independent repository/CI/npm version."
+    }
+  ],
+  "nextAction": {
+    "zh": "完成 Hub 通道/消息文档、绝不记录凭证的连接验证和完整 SDK/CLI 端到端验证；并向 Twelve Data 获取完整、固定的 WebSocket 入站 Schema/fixture 以及 metadata、SDK 与外部展示/再分发许可。随后对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
+    "en": "Finish Hub channel/message documentation, connection validation that never records credentials, and complete SDK/CLI end-to-end verification; obtain complete pinned WebSocket inbound schemas/fixtures plus metadata, SDK, and external-display/redistribution permission from Twelve Data. Then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
+  },
+  "verifiedAt": "2026-08-15"
+}

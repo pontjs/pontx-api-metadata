@@ -4,11 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registry = JSON.parse(
-  fs.readFileSync(path.join(root, "catalog/api-collection-candidates.json"), "utf8")
+  fs.readFileSync(path.join(root, "candidates/products.json"), "utf8")
 );
-const catalog = JSON.parse(fs.readFileSync(path.join(root, "catalog/source.json"), "utf8"));
+const catalog = JSON.parse(fs.readFileSync(path.join(root, "catalog/products.json"), "utf8"));
 const expected = new Set([
-  "ecb-data-portal", "open-exchange-rates", "currencybeacon-rest", "twelve-data-forex"
+  "open-exchange-rates", "currencybeacon-rest", "twelve-data-forex"
 ]);
 
 function assert(condition, message) {
@@ -16,44 +16,31 @@ function assert(condition, message) {
 }
 
 function product(slug) {
-  const result = registry.products.find((product) => product.slug === slug);
-  assert(result, `${slug}: candidate record is missing`);
-  return result;
+  assert(registry.products.includes(slug), `${slug}: candidate record is missing`);
+  return JSON.parse(fs.readFileSync(
+    path.join(root, "candidates", slug, "candidate.json"),
+    "utf8"
+  ));
 }
 
 function candidate(slug) {
   const result = product(slug);
   assert(result.admissionDecision === "not-approved", `${slug}: candidate must remain pre-admission`);
-  assert(!catalog.apis.some((api) => api.slug === slug), `${slug}: blocked candidate entered catalog`);
+  assert(!catalog.products.includes(slug), `${slug}: blocked candidate entered catalog`);
   return result;
 }
 
-const ecb = product("ecb-data-portal");
-assert(ecb.admissionDecision === "approved" && ecb.stage === "admitted",
-  "ECB must be formally admitted after SDK/CLI publication");
-assert(catalog.apis.some((api) => api.slug === "ecb-data-portal"),
-  "admitted ECB must enter catalog/source.json");
-assert(ecb.gateStatus.redistribution === "passed" && ecb.gateStatus.contract === "passed" &&
-  ecb.gateStatus.transport === "passed" && ecb.gateStatus.risk === "passed" &&
-  ecb.gateStatus.sdkCli === "passed",
-"ECB must retain all passed admission gates");
-assert(ecb.contractSource.kind === "independent-official-docs-reconstruction" &&
-  ecb.contractSource.observedOperations === 8 && ecb.contractSource.observedSchemas === 12,
-"ECB reconstructed-contract counts drifted");
-assert(ecb.pontxProbe.generatedOperations === 8 && ecb.pontxProbe.generatedSchemas === 12 &&
-  ecb.pontxProbe.unitTests === "passed-3-of-3" &&
-  ecb.pontxProbe.e2eTests === "passed-3-of-3" &&
-  ecb.pontxProbe.sdkLiveChecks === "passed" &&
-  ecb.pontxProbe.cliDryRunAndLiveCall === "passed" &&
-  ecb.pontxProbe.publicationReady === true,
-"ECB published SDK/CLI proof drifted");
+assert(catalog.products.includes("ecb-data-portal"), "admitted ECB must remain in products.json");
+const ecb = JSON.parse(fs.readFileSync(
+  path.join(root, "products/ecb-data-portal/spec.pontx.json"),
+  "utf8"
+));
+assert(Object.keys(ecb.apis).length === 8 && Object.keys(ecb.components.schemas).length === 12,
+  "ECB PontxSpec counts drifted");
 
 const oxr = candidate("open-exchange-rates");
-assert(oxr.gateStatus.redistribution === "passed" && oxr.gateStatus.contract === "pending" &&
+assert(oxr.gateStatus.redistribution === "pending" && oxr.gateStatus.contract === "pending" &&
   oxr.gateStatus.sdkCli === "pending", "OXR unresolved gates drifted");
-assert(oxr.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  oxr.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"OXR independent implementation and no-data-relay boundary must remain explicit");
 assert(oxr.contractSource.sourceSha256 ===
   "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84" &&
   oxr.contractSource.observedOperations === 7 && oxr.contractSource.observedSchemas === 0,
@@ -74,12 +61,9 @@ assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchem
 "OXR derived generation probe drifted");
 
 const currencyBeacon = candidate("currencybeacon-rest");
-assert(currencyBeacon.gateStatus.redistribution === "passed" &&
+assert(currencyBeacon.gateStatus.redistribution === "pending" &&
   currencyBeacon.gateStatus.contract === "pending" &&
   currencyBeacon.gateStatus.sdkCli === "pending", "CurrencyBeacon unresolved gates drifted");
-assert(currencyBeacon.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  currencyBeacon.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"CurrencyBeacon independent implementation and no-data-relay boundary must remain explicit");
 assert(currencyBeacon.contractSource.observedOperations === 5 &&
   currencyBeacon.contractSource.documentedCompleteSuccessExamples === 2 &&
   currencyBeacon.contractSource.observedAnonymousError.httpStatus === 401,
@@ -97,11 +81,8 @@ assert(currencyBeacon.pontxProbe.status === "not-run-contract-blocked" &&
 const twelve = candidate("twelve-data-forex");
 assert(twelve.stage === "protocol-blocked" && twelve.gateStatus.transport === "blocked",
   "Twelve Data Forex must remain atomically blocked until its complete WebSocket contract and client path are validated");
-assert(twelve.gateStatus.redistribution === "passed",
-  "Twelve Data must distinguish independently authored client publication from prohibited data redistribution");
-assert(twelve.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  twelve.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"Twelve Data independent implementation and no-data-relay boundary must remain explicit");
+assert(twelve.gateStatus.redistribution === "pending",
+  "Twelve Data redistribution gate must remain unresolved without supplier permission");
 assert(twelve.contractSource.sourceSha256 ===
   "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c" &&
   twelve.contractSource.observedOperations === 187 && twelve.contractSource.observedSchemas === 797,
@@ -141,8 +122,8 @@ assert(twelve.websocketAudit.officialPythonSdk?.commit ===
 "Twelve Data partial Pontx support and remaining contract work must stay explicit");
 
 const actual = new Set(
-  registry.products.filter((product) => expected.has(product.slug)).map((product) => product.slug)
+  registry.products.filter((slug) => expected.has(slug))
 );
 assert(actual.size === expected.size, "FX candidate set is incomplete");
 
-console.log("Verified FX candidates: ECB admission-ready contract, OXR/CurrencyBeacon evidence, and Twelve partial WebSocket evidence");
+console.log("Verified FX candidates and the admitted ECB PontxSpec boundary.");

@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/dropbox-sign",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/dropbox-sign"
+  },
+  "cli": {
+    "name": "pontx-dropbox-sign"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createDropboxSignClient",
+      "identifier": "client",
+      "options": {
+        "apiKey": "DROPBOX_SIGN_API_KEY",
+        "accessToken": "DROPBOX_SIGN_ACCESS_TOKEN"
+      }
+    },
+    "controllers": {
+      "Account": "account",
+      "Signature Request": "signatureRequest",
+      "Template": "template",
+      "Bulk Send Job": "bulkSendJob",
+      "Report": "report",
+      "Team": "team",
+      "Unclaimed Draft": "unclaimedDraft",
+      "Embedded": "embedded",
+      "Api App": "apiApp",
+      "OAuth": "oAuth",
+      "Fax Line": "faxLine",
+      "Fax": "fax"
+    }
+  },
+  "examples": {
+    "typescript": "import { createDropboxSignClient } from \"@pontx/dropbox-sign\";\n\nconst client = createDropboxSignClient({\n  apiKey: process.env.DROPBOX_SIGN_API_KEY!\n});\nconst result = await client.signatureRequest.signatureRequestList({\n  page: 1,\n  page_size: 20\n});",
+    "cli": "pnpm add --global @pontx/dropbox-sign\n\npontx-dropbox-sign call signatureRequest.signatureRequestList --page 1 --page_size 20 --dry-run"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 5,
+      "total": 5,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "343d58e277d24337b39290b9c14282579b1adeb7",
+    "testedAt": "2026-08-14",
+    "repositoryUrl": "https://github.com/pontjs/dropbox-sign",
+    "workflowRunUrl": "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+  },
+  "spec": {
+    "path": "products/dropbox-sign/spec.pontx.json",
+    "sha256": "7ea116bf486a763ae44c1954cebd2509f425c7a23833da713e72346e0d8b3683",
+    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
+  }
+}

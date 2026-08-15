@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "slug": "massive",
+  "name": "Massive Stock Market Data API",
+  "provider": "Massive.com (formerly Polygon.io)",
+  "category": "Finance",
+  "featured": true,
+  "display": {
+    "title": "Massive 股票市场数据 API",
+    "summary": "使用 Massive API Key 查询美股最新成交、OHLC 聚合、统一市场快照与证券参考资料；可用性取决于数据套餐。",
+    "accent": "#7c3aed"
+  },
+  "legal": {
+    "license": "Proprietary",
+    "attributionUrl": "https://massive.com/docs/rest/stocks/overview"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://massive.com/docs/rest/stocks/overview",
+      "https://github.com/massive-com/client-js",
+      "https://massive.com/legal/market-data-terms-of-service"
+    ],
+    "verifiedAt": "2026-08-14",
+    "contentUpdatedAt": "2026-08-14",
+    "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。"
+  },
+  "pricing": {
+    "status": "freemium",
+    "summary": "个人股票数据方案含 $0/月 Basic，以及 $29、$79、$199/月的付费档；商业使用另有商业方案。",
+    "officialUrl": "https://massive.com/pricing?product=stocks",
+    "verifiedAt": "2026-08-14",
+    "currency": "USD",
+    "startingPrice": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "每月"
+    },
+    "freeTier": "Stocks Basic 为 $0/月，5 次 API 调用/分钟，含 2 年历史数据和日终数据。",
+    "billingUnit": "每月"
+  },
+  "credentials": [
+    {
+      "schemeId": "BearerAuth",
+      "envVar": "MASSIVE_API_KEY",
+      "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。"
+    }
+  ],
+  "execution": {
+    "hubProxyEnabled": false
+  },
+  "quickStart": {
+    "operationId": "getPreviousClose",
+    "requestExampleId": "default"
+  }
+}

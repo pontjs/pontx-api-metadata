@@ -1,0 +1,50 @@
+{
+  "formatVersion": 1,
+  "slug": "dropbox-sign",
+  "name": "Dropbox Sign API",
+  "provider": "Dropbox Sign",
+  "category": "Productivity",
+  "featured": true,
+  "display": {
+    "title": "Dropbox Sign 电子签名 API",
+    "summary": "通过完整的 Dropbox Sign v3 API 管理账户、签名请求、模板、团队、批量发送、文件下载、传真和事件回调；Hub 仅提供文档与本地 SDK/CLI。",
+    "accent": "#0061ff"
+  },
+  "legal": {
+    "license": "Apache-2.0",
+    "attributionUrl": "https://github.com/hellosign/hellosign-openapi/tree/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://raw.githubusercontent.com/hellosign/hellosign-openapi/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/openapi-fern.yaml",
+      "https://github.com/hellosign/hellosign-openapi/blob/f0c7887f2f56fb7a082b5db78a09856df2cb6ccf/LICENSE",
+      "https://developers.hellosign.com/api/api-reference-authentication",
+      "https://developers.hellosign.com/docs/sdks/open-api/interacting-with-files",
+      "https://github.com/pontjs/dropbox-sign/actions/runs/31808469061"
+    ],
+    "verifiedAt": "2026-08-14",
+    "contentUpdatedAt": "2026-08-14",
+    "stabilityNote": "基于 Dropbox Sign 官方仓库固定 revision 的完整 v3 契约。Hub 不代理、缓存或保存请求与响应；调用者须使用自己的凭据并负责签署、文件、账户、团队、OAuth、webhook 与传真数据的审批和保留。"
+  },
+  "credentials": [
+    {
+      "schemeId": "api_key",
+      "usernameEnvVar": "DROPBOX_SIGN_API_KEY",
+      "passwordEnvVar": "DROPBOX_SIGN_API_PASSWORD",
+      "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者本地环境中。"
+    },
+    {
+      "schemeId": "oauth2",
+      "envVar": "DROPBOX_SIGN_ACCESS_TOKEN",
+      "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者本地环境中。"
+    }
+  ],
+  "execution": {
+    "hubProxyEnabled": false
+  },
+  "quickStart": {
+    "operationId": "signatureRequestList",
+    "requestExampleId": "default"
+  }
+}

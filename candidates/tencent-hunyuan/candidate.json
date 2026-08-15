@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "tencent-hunyuan",
+  "name": {
+    "zh": "腾讯混元 API",
+    "en": "Tencent Hunyuan API"
+  },
+  "provider": "Tencent Cloud",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 9,
+    "score": 82
+  },
+  "boundary": {
+    "zh": "腾讯云混元供应商级 API 产品面，包括生文、生图、Embedding、Token 计数及控制台相关接口。",
+    "en": "The supplier-level Tencent Cloud Hunyuan API surface, including text, image, embeddings, token counting, and console APIs."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://cloud.tencent.com/document/product/1729/"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://cloud.tencent.com/document/product/1729/105701"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "OpenAI 兼容接口及原生混元接口包含流式输出，完整协议面尚未通过 SSE/实时筛查；整集暂缓。",
+      "en": "The OpenAI-compatible and native Hunyuan surfaces include streaming output and have not passed the complete SSE/realtime audit; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "先确认 TokenHub 迁移后的最终产品边界与全部流式协议，再重审。",
+    "en": "First confirm the post-TokenHub-migration product boundary and every streaming protocol, then re-review."
+  },
+  "verifiedAt": "2026-08-14"
+}

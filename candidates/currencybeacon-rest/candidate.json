@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "slug": "currencybeacon-rest",
+  "name": {
+    "zh": "CurrencyBeacon REST API v1",
+    "en": "CurrencyBeacon REST API v1"
+  },
+  "provider": "CurrencyBeacon",
+  "category": "Finance",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 10,
+    "score": 72
+  },
+  "boundary": {
+    "zh": "CurrencyBeacon 官方 v1 REST API，覆盖 latest、historical、convert、timeseries 与 currencies 五个只读 Endpoint；供应商另行提供的 MCP server 不并入 REST 集合。",
+    "en": "The official CurrencyBeacon v1 REST API covering the five read-only latest, historical, convert, timeseries, and currencies endpoints; the separately offered MCP server is not merged into this REST collection."
+  },
+  "stage": "audit-required",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "passed",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "mutable-documentation",
+    "url": "https://currencybeacon.com/api-documentation",
+    "observedAt": "2026-08-14",
+    "mutableSource": true,
+    "license": "review-required",
+    "documentedVersion": "1.0.0",
+    "observedPaths": 5,
+    "observedOperations": 5,
+    "documentedCompleteSuccessExamples": 2,
+    "documentedErrorStatuses": [
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "observedAnonymousError": {
+      "method": "GET",
+      "path": "/v1/currencies",
+      "httpStatus": 401,
+      "bodyEnvelope": [
+        "meta.code",
+        "meta.error_type",
+        "meta.error_detail",
+        "response"
+      ]
+    },
+    "humanDocumentationAudit": {
+      "reverifiedAt": "2026-08-15",
+      "documentedAuthentication": [
+        "api_key-query",
+        "bearer-header"
+      ],
+      "responseFieldPathEvidence": {
+        "historical": [
+          "response.rates"
+        ],
+        "timeseries": [
+          "response.rates"
+        ],
+        "currencies": [
+          "response"
+        ]
+      },
+      "requestParameterEvidence": {
+        "timeseries": [
+          "api_key",
+          "base",
+          "symbols",
+          "start_date",
+          "end_date"
+        ]
+      },
+      "missingCompleteSuccessSchemas": [
+        "historical",
+        "timeseries",
+        "currencies"
+      ]
+    }
+  },
+  "pontxProbe": {
+    "status": "not-run-contract-blocked",
+    "requestShapesDocumented": 5,
+    "completeSuccessSchemasDocumented": 2,
+    "reason": "Generating a five-method SDK would require invented historical, timeseries, and currencies response schemas and would violate the complete-contract gate.",
+    "thirdPartyDiscovery": "The APIs.io link now points to a changed API Evangelist repository with split third-party specs and no identifiable LICENSE; it is not authoritative contract evidence.",
+    "publicationReady": false,
+    "observedAt": "2026-08-14"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://currencybeacon.com/api-documentation"
+    },
+    {
+      "kind": "docs",
+      "url": "https://currencybeacon.com/code-samples"
+    },
+    {
+      "kind": "terms",
+      "url": "https://currencybeacon.com/terms"
+    },
+    {
+      "kind": "terms",
+      "url": "https://currencybeacon.com/pricing"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "redistribution",
+      "zh": "条款允许在应用中展示返回数据并要求署名，但同时禁止转售、再分发服务和将产品用于其他产品/服务，且没有规范或 SDK 代码许可；需供应商书面确认 metadata 与独立生成客户端发布权。",
+      "en": "The terms allow returned data to be reproduced in applications with attribution, but also prohibit reselling, service redistribution, and use of the product within other products/services, with no specification or SDK-code license; supplier confirmation is required for metadata and independently generated client publication."
+    },
+    {
+      "gate": "contract",
+      "zh": "官方页面确认 v1 的五个 Endpoint、两种鉴权和 401/403/404/429/500，但只给 latest 与 convert 两个完整成功示例。2026-08-15 的官方代码样例额外确认 historical 与 timeseries 的 `response.rates` 路径、currencies 的 `response` 路径，以及 timeseries 的 symbols/start_date/end_date 请求形状；这些不是完整成功 Schema，仍缺少完整字段、required/nullable、约束和套餐差异。匿名 currencies 实测确认 401 error envelope，但不能证明成功 Schema。第三方 APIs.io 链接已经失效，当前 API Evangelist 拆分规范没有 LICENSE 且不是供应商证据，因此不能据此声称完整契约。",
+      "en": "The official pages confirm five v1 endpoints, two authentication methods, and 401/403/404/429/500 statuses, but provide complete success examples only for latest and convert. Official code samples re-audited on 2026-08-15 additionally confirm the `response.rates` paths for historical and timeseries, the `response` path for currencies, and the timeseries symbols/start_date/end_date request shape; these are not complete success Schemas and still omit the full fields, required/nullable semantics, constraints, and plan differences. An anonymous currencies check confirms the 401 error envelope but not its success schema. The third-party APIs.io link is stale, while the current split API Evangelist specs have no LICENSE and are not supplier evidence, so they cannot establish a complete contract."
+    },
+    {
+      "gate": "risk",
+      "zh": "条款要求署名并限制缓存返回数据超过八小时；正式 SDK 与 Hub 必须把凭证留在调用方，并默认禁用代理、缓存与数据持久化。",
+      "en": "The terms require attribution and limit caching returned data beyond eight hours; a formal SDK and Hub integration must keep credentials caller-side and disable proxying, caching, and data persistence by default."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "按质量门停止了代码生成：若现在生成五方法 SDK，historical、timeseries 和 currencies 的返回值只能是 any 或臆造 Schema，无法满足用户要求的完整契约。还需解决 CLI 对 api_key/Bearer 凭证的环境注入与脱敏，再建立独立仓库、CI 和 npm 版本。",
+      "en": "Code generation was intentionally stopped at the quality gate: a five-method SDK would expose historical, timeseries, and currencies as any or depend on invented schemas, contrary to the requested complete contract. Environment-only, redacted api_key/Bearer handling must also be solved before an independent repository, CI, and npm version can exist."
+    }
+  ],
+  "nextAction": {
+    "zh": "继续以官方文档和代码样例核对五个 Endpoint；同时获取完整官方 OAS、版本/变更策略、metadata/SDK 书面发布许可，以及 historical、timeseries、currencies 的供应商批准成功 fixture 或经授权测试密钥。获得后完整建模五个 Endpoint、Bearer/API Key 鉴权、套餐约束、错误和八小时缓存边界。",
+    "en": "Continue reconciling all five endpoints against official documentation and code samples while obtaining a complete official OAS, version/change policy, written metadata/SDK publication permission, and supplier-approved success fixtures or an authorised test key for historical, timeseries, and currencies. Then fully model the five endpoints, Bearer/API-key authentication, plan constraints, errors, and the eight-hour caching boundary."
+  },
+  "verifiedAt": "2026-08-14"
+}

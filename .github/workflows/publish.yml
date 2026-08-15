@@ -25,37 +25,25 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
 
-      - name: Test locale lint rules
-        run: node scripts/test-locales.mjs
+      - name: Install validation dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Test SDK quality evidence rules
-        run: node scripts/test-sdk-quality.mjs
+      - name: Test metadata contracts
+        run: pnpm test
 
-      - name: Verify candidate API metadata
-        run: node scripts/verify-candidates.mjs
-
-      - name: Verify Dropbox Sign admitted contract
-        run: node scripts/verify-dropbox-sign-candidate.mjs
-
-      - name: Verify Stripe Identity admitted contract
-        run: node scripts/verify-stripe-identity.mjs
-
-      - name: Lint localized specifications
-        run: node scripts/lint-locales.mjs
-
-      - name: Rebuild catalog
-        run: node scripts/build-catalog.mjs
-
-      - name: Verify approved specifications
-        run: node scripts/verify-specs.mjs
-
-      - name: Check generated catalog is committed
-        run: git diff --exit-code -- catalog/catalog.json
+      - name: Validate product hierarchy
+        run: pnpm validate
 
   deploy:
     if: github.event_name == 'push'
@@ -91,7 +79,8 @@ jobs:
       - name: Deploy Pontx Hub
         id: deploy
         env:
-          METADATA_REPO_RAW_URL: https://raw.githubusercontent.com/pontjs/pontx-api-metadata/${{ github.ref_name }}
+          METADATA_REPO_RAW_URL: https://raw.githubusercontent.com/pontjs/pontx-api-metadata/${{ github.sha }}
+          METADATA_REPO_COMMIT: ${{ github.sha }}
         run: |
           if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
             echo "Vercel deployment secrets are not configured."
@@ -107,13 +96,13 @@ jobs:
             --token "$VERCEL_TOKEN" \
             --scope pontjs \
             --build-env "METADATA_REPO_RAW_URL=$METADATA_REPO_RAW_URL" \
+            --build-env "METADATA_REPO_COMMIT=$METADATA_REPO_COMMIT" \
             "${target[@]}")
           deployment_url=$(printf '%s\n' "$deployment_url" | grep -Eo 'https://[^[:space:]]+' | tail -n 1)
           if [ -z "$deployment_url" ]; then
             echo "Vercel did not return a deployment URL."
             exit 1
           fi
-          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
           verification_url="$deployment_url"
           if [ "${{ github.ref_name }}" = "main" ]; then
             verification_url="https://pontx.dev"
@@ -124,4 +113,4 @@ jobs:
         run: |
           node metadata/scripts/verify-deployed-hub.mjs \
             --base-url "${{ steps.deploy.outputs.verification_url }}" \
-            --catalog metadata/catalog/catalog.json
+            --metadata-root metadata

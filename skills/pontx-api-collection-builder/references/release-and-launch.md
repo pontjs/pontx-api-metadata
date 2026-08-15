@@ -9,10 +9,10 @@
 - SDK package：`@pontx/<slug>`；
 - 同包产品 CLI binary：`pontx-<slug>`；
 - 统一目录 CLI：`@pontx/hub-cli` / `pontx-hub`，通常通过动态 catalog 自动获得新产品，不因每次新增产品而发版；
-- metadata：只在产品包已发布并从 registry 复验后声明 `sdkStatus=published`；
-- Hub：消费 metadata、提供网站/API/搜索/Playground/Agent Skill/助手，不代替 SDK 仓库发包。
+- metadata：只在产品包已发布并从 registry 复验后，于该产品 `sdk.json` 声明 `package.status: "published"`；SDK 规范来源必须是固定 metadata commit 的 `products/<slug>/spec.pontx.json` 原始字节；
+- Hub：从同一精确 metadata commit 的产品分片消费 metadata、提供网站/API/搜索/Playground/Agent Skill/助手，不代替 SDK 仓库发包。
 
-冻结的 `@pontx/api-*` 不再发布。未 tagged Endpoint 直接挂在 client 根；只有显式 OAS tags 生成 Controller。CLI/Hub stable resource ID 与 SDK property path 是不同合同，不能互相推导或用 `common`/`default` 伪造。
+冻结的 `@pontx/api-*` 不再发布。未 tagged Endpoint 直接挂在 client 根；只有显式 PontxSpec tags 生成 Controller。CLI/Hub stable resource ID 与 SDK property path 是不同合同，不能互相推导或用 `common`/`default` 伪造。
 
 ## 2. SDK/CLI 标准验证
 
@@ -67,10 +67,10 @@
 推荐顺序：
 
 1. 先发布并 registry-verify 通用 Pontx 依赖（若本产品需要新 generator/runtime 能力）；
-2. 提交产品 SDK，等待目标 Node CI；
+2. 镜像固定 metadata commit 的 `spec.pontx.json` 到产品 SDK，验证路径/SHA/生成漂移后提交产品 SDK，等待目标 Node CI；
 3. 发布并 registry-verify `@pontx/<slug>` / `pontx-<slug>`；
-4. 将真实 package/version/quality、双语 OAS、hash、执行策略和真实示例一起写入 metadata；
-5. metadata 与本地 Hub consumer 全部门通过；公共响应变化时先发布兼容的 Hub/Hub CLI consumer；
+4. 将真实 package/version/quality、双语同构 PontxSpec、原始字节 hash、固定 metadata commit、执行策略和真实示例一起写入分级 metadata；
+5. metadata 层级验证与本地 Hub consumer 全部门通过；Hub 只读取 `catalog/products.json` 和产品分片，不读取任何 OAS 或聚合 catalog；公共响应变化时先发布兼容的 Hub/Hub CLI consumer；
 6. metadata `develop` → Preview Ready → Agent Browser 中英文审查；
 7. metadata `main` → Production Ready → 精确部署 URL/ID 和 production catalog 复核；
 8. 运行生产验收矩阵，失败则修 owning repo 并重复受影响阶段。

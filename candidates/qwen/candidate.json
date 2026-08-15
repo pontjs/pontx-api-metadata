@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "qwen",
+  "name": {
+    "zh": "Qwen API",
+    "en": "Qwen API"
+  },
+  "provider": "Alibaba Cloud Model Studio",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 2,
+    "score": 94
+  },
+  "boundary": {
+    "zh": "阿里云百炼提供的 Qwen 供应商级 API 产品面，模型版本不拆分为独立集合。",
+    "en": "The supplier-level Qwen API surface provided by Alibaba Cloud Model Studio; model versions are not split into separate collections."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://help.aliyun.com/zh/model-studio/stream"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方流式输出基于 SSE，且部分 Qwen 模型只支持流式调用；整集暂缓。",
+      "en": "Official streaming uses SSE, and some Qwen models are streaming-only; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "实现 SSE 后重新盘点百炼原生协议、OpenAI 兼容协议、区域与模型边界。",
+    "en": "After SSE support lands, re-inventory native Model Studio, OpenAI-compatible, regional, and model boundaries."
+  },
+  "verifiedAt": "2026-08-14"
+}

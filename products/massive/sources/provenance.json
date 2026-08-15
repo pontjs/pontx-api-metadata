@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "status": "approved",
+  "canonicalSpec": "products/massive/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.0.3",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourcePath": "products/massive/sources/openapi.json",
+    "sourceSha256": "9841b003b5e4a7aa81f6e704ed06b643d78bc1b67a57437297139505bb9d21b2",
+    "localeInputSha256": {
+      "en-US": "ebcb721c8749ac1cd6bdf9d267ad8b4c988bee64476a66b4b21f6c8d6a476149"
+    }
+  },
+  "evidence": {
+    "urls": [
+      "https://massive.com/docs/rest/stocks/overview",
+      "https://github.com/massive-com/client-js",
+      "https://massive.com/legal/market-data-terms-of-service"
+    ],
+    "verifiedAt": "2026-08-14"
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/massive/spec.pontx.json",
+      "sha256": "41f387db4a836a850115486392d659c5d53e0cef2cdc04710bfa945517aa154c",
+      "endpoints": 6,
+      "schemas": 17
+    },
+    "en-US": {
+      "path": "products/massive/locales/en-US/spec.pontx.json",
+      "sha256": "07016ce4ff470341cf3df75ae02b08cdbb749eb35d28226d3369aa1e376c0933",
+      "endpoints": 6,
+      "schemas": 17
+    }
+  }
+}

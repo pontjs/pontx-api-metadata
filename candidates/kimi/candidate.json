@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "kimi",
+  "name": {
+    "zh": "Kimi API",
+    "en": "Kimi API"
+  },
+  "provider": "Moonshot AI",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 6,
+    "score": 86
+  },
+  "boundary": {
+    "zh": "Kimi 开放平台当前供应商级 API 产品面，Kimi K3、K2.x 与 moonshot-v1 等模型不拆分为集合。",
+    "en": "The current supplier-level Kimi Open Platform API surface; Kimi K3, K2.x, moonshot-v1, and other models are not split into separate collections."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://platform.kimi.com/docs/api/chat"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://platform.kimi.com/docs/api/chat#流式输出-streaming"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方 Chat API 的 stream=true 以 SSE 和 data: [DONE] 返回；整集暂缓。",
+      "en": "The official Chat API returns stream=true responses as SSE terminated by data: [DONE]; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 支持后重新固定模型、思考模式与工具调用契约。",
+    "en": "After SSE support lands, re-pin model, thinking-mode, and tool-call contracts."
+  },
+  "verifiedAt": "2026-08-14"
+}

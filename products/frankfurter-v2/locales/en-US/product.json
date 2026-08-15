@@ -1,0 +1,13 @@
+{
+  "display": {
+    "title": "Frankfurter v2 exchange-rate API",
+    "summary": "Query rates from 84 central banks across 201 currencies back to 1948 without an API key, with provider filtering and attribution, time-series downsampling, and streaming output."
+  },
+  "documentation": {
+    "stabilityNote": "Read-only public API without authentication. v2 blends multiple central-bank sources; compliance use cases should pin the required official source with the providers parameter."
+  },
+  "pricing": {
+    "summary": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse.",
+    "freeTier": "No API key and no API-call fee."
+  }
+}

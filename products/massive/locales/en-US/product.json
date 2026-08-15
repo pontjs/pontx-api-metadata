@@ -1,0 +1,21 @@
+{
+  "display": {
+    "title": "Massive stock market data API",
+    "summary": "Use a Massive API key to query U.S. stock trades, OHLC aggregates, unified snapshots, and ticker reference data; availability depends on the data plan."
+  },
+  "documentation": {
+    "stabilityNote": "Officially documented. Callers must use their own Massive account, API key, and market-data entitlements. Hub does not proxy, cache, or redistribute responses."
+  },
+  "pricing": {
+    "summary": "Individual stock-data plans include Basic at $0/month and paid tiers at $29, $79, and $199/month; business use has separate plans.",
+    "freeTier": "Stocks Basic is $0/month with 5 API calls per minute, two years of history, and end-of-day data.",
+    "billingUnit": "month",
+    "startingPriceUnit": "month"
+  },
+  "credentials": [
+    {
+      "schemeId": "BearerAuth",
+      "description": "Massive API key supplied through a Bearer header and retained only in the caller session."
+    }
+  ]
+}

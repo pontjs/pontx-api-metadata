@@ -1,0 +1,3327 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "parameters": {
+      "flowRef": {
+        "name": "flowRef",
+        "in": "path",
+        "required": true,
+        "description": "Dataflow reference: a flow ID, or comma-separated agency ID, flow ID, and version.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[^/,]+(?:,[^/,]+(?:,[^/,]+)?)?$",
+          "example": "EXR"
+        }
+      },
+      "key": {
+        "name": "key",
+        "in": "path",
+        "required": true,
+        "description": "Series key in DSD dimension order; dot-separated, with empty wildcard segments and `+` for OR.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_+-]*(?:\\.[A-Za-z0-9_+-]*)*$",
+          "example": "M.USD.EUR.SP00.A"
+        }
+      },
+      "startPeriod": {
+        "name": "startPeriod",
+        "in": "query",
+        "required": false,
+        "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+        "schema": {
+          "type": "string",
+          "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+          "example": "2024-01"
+        }
+      },
+      "endPeriod": {
+        "name": "endPeriod",
+        "in": "query",
+        "required": false,
+        "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+        "schema": {
+          "type": "string",
+          "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+          "example": "2024-01"
+        }
+      },
+      "updatedAfter": {
+        "name": "updatedAfter",
+        "in": "query",
+        "required": false,
+        "description": "Return the latest values added, revised, or deleted after this ISO 8601 timestamp.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-01-01T00:00:00Z"
+        }
+      },
+      "firstNObservations": {
+        "name": "firstNObservations",
+        "in": "query",
+        "required": false,
+        "description": "Maximum observations returned per matching time series, starting at the first observation.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "lastNObservations": {
+        "name": "lastNObservations",
+        "in": "query",
+        "required": false,
+        "description": "Maximum observations returned per matching time series, counting backward from the latest observation.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "dataDetail": {
+        "name": "detail",
+        "in": "query",
+        "required": false,
+        "description": "Amount of data detail returned.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "full",
+            "dataonly",
+            "serieskeysonly",
+            "nodata"
+          ],
+          "default": "full",
+          "example": "full"
+        }
+      },
+      "includeHistory": {
+        "name": "includeHistory",
+        "in": "query",
+        "required": false,
+        "description": "Whether to include historical versions of matching data.",
+        "schema": {
+          "type": "boolean",
+          "default": false,
+          "example": false
+        }
+      },
+      "format": {
+        "name": "format",
+        "in": "query",
+        "required": false,
+        "description": "Response format; it can also be selected through the Accept header.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "csvdata",
+            "jsondata",
+            "structurespecificdata",
+            "genericdata"
+          ],
+          "default": "genericdata",
+          "example": "jsondata"
+        }
+      },
+      "ifModifiedSince": {
+        "name": "If-Modified-Since",
+        "in": "header",
+        "required": false,
+        "description": "HTTP conditional-request timestamp. The service returns 304 when data has not changed.",
+        "schema": {
+          "type": "string",
+          "format": "http-date",
+          "example": "Mon, 01 Jan 2024 00:00:00 GMT"
+        }
+      },
+      "dataAccept": {
+        "name": "Accept",
+        "in": "header",
+        "required": false,
+        "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/vnd.sdmx.genericdata+xml;version=2.1",
+            "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+            "application/vnd.sdmx.data+json;version=1.0.0-wd",
+            "text/csv",
+            "application/vnd.ecb.data+csv;version=1.0.0",
+            "application/json",
+            "application/xml"
+          ],
+          "example": "application/vnd.sdmx.data+json;version=1.0.0-wd"
+        }
+      },
+      "metadataAccept": {
+        "name": "Accept",
+        "in": "header",
+        "required": false,
+        "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/vnd.sdmx.structure+xml;version=2.1",
+            "application/xml"
+          ],
+          "example": "application/vnd.sdmx.structure+xml;version=2.1"
+        }
+      },
+      "acceptEncoding": {
+        "name": "Accept-Encoding",
+        "in": "header",
+        "required": false,
+        "description": "Requests a compressed response, for example gzip.",
+        "schema": {
+          "type": "string",
+          "example": "gzip"
+        }
+      },
+      "resource": {
+        "name": "resource",
+        "in": "path",
+        "required": true,
+        "description": "SDMX structural-metadata artefact type.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "datastructure",
+            "metadatastructure",
+            "categoryscheme",
+            "Conceptscheme",
+            "codelist",
+            "hierarchicalcodelist",
+            "organisationscheme",
+            "agencyscheme",
+            "dataproviderscheme",
+            "dataconsumerscheme",
+            "organisationunitscheme",
+            "dataflow",
+            "metadataflow",
+            "reportingtaxonomy",
+            "provisionagreement",
+            "structureset",
+            "process",
+            "categorisation",
+            "contentconstraint",
+            "attachmentconstraint",
+            "structure"
+          ],
+          "example": "dataflow"
+        }
+      },
+      "agencyID": {
+        "name": "agencyID",
+        "in": "path",
+        "required": true,
+        "description": "Identifier of the SDMX agency maintaining the artefact.",
+        "schema": {
+          "type": "string",
+          "example": "ECB"
+        }
+      },
+      "resourceID": {
+        "name": "resourceID",
+        "in": "path",
+        "required": true,
+        "description": "SDMX artefact identifier.",
+        "schema": {
+          "type": "string",
+          "example": "EXR"
+        }
+      },
+      "version": {
+        "name": "version",
+        "in": "path",
+        "required": true,
+        "description": "SDMX artefact version.",
+        "schema": {
+          "type": "string",
+          "example": "1.0"
+        }
+      },
+      "metadataDetail": {
+        "name": "detail",
+        "in": "query",
+        "required": false,
+        "description": "Structural metadata detail level.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "full",
+            "allstubs",
+            "referencestubs"
+          ],
+          "default": "full",
+          "example": "allstubs"
+        }
+      },
+      "references": {
+        "name": "references",
+        "in": "query",
+        "required": false,
+        "description": "Includes or excludes related artefacts; a concrete resource type is also accepted.",
+        "schema": {
+          "type": "string",
+          "default": "none",
+          "example": "none"
+        }
+      },
+      "context": {
+        "name": "context",
+        "in": "path",
+        "required": true,
+        "description": "SDMX constraint context used to generate the XML Schema.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "datastructure",
+            "dataflow",
+            "provisionagreement"
+          ],
+          "example": "datastructure"
+        }
+      }
+    },
+    "schemas": {
+      "SdmxDataMessage": {
+        "type": "object",
+        "title": "SDMX data message",
+        "description": "An SDMX-JSON 1.0.0-wd data message. The schema models the top-level, structure, dimension, attribute, series, and observation relationships declared by ECB content negotiation and verified in a bounded live response; dynamic Series keys and observation indexes are represented as maps.",
+        "required": [
+          "header",
+          "dataSets",
+          "structure"
+        ],
+        "properties": {
+          "header": {
+            "$ref": "#/components/schemas/SdmxHeader"
+          },
+          "dataSets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxDataSet"
+            }
+          },
+          "structure": {
+            "$ref": "#/components/schemas/SdmxStructure"
+          }
+        }
+      },
+      "SdmxHeader": {
+        "type": "object",
+        "title": "SDMX message header",
+        "description": "SDMX message header.",
+        "required": [
+          "id",
+          "test",
+          "prepared",
+          "sender"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "examples": [
+              "b8cdb8e9-3de8-41f7-a83e-c6e475a6e7ab"
+            ]
+          },
+          "test": {
+            "type": "boolean",
+            "examples": [
+              false
+            ]
+          },
+          "prepared": {
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2026-08-14T16:23:35.250+02:00"
+            ]
+          },
+          "sender": {
+            "$ref": "#/components/schemas/SdmxSender"
+          }
+        }
+      },
+      "SdmxSender": {
+        "type": "object",
+        "title": "SDMX sender",
+        "description": "Message sender.",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        }
+      },
+      "SdmxLink": {
+        "type": "object",
+        "title": "SDMX resource link",
+        "description": "Link to a related SDMX resource.",
+        "required": [
+          "rel",
+          "href"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "examples": [
+              "Exchange Rates"
+            ]
+          },
+          "rel": {
+            "type": "string",
+            "examples": [
+              "dataflow"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "examples": [
+              "https://data-api.ecb.europa.eu/service/dataflow/ECB/EXR/1.0"
+            ]
+          }
+        }
+      },
+      "SdmxStructure": {
+        "type": "object",
+        "title": "SDMX data structure",
+        "description": "SDMX data structure describing dimensions, attributes, and their value dictionaries.",
+        "required": [
+          "dimensions",
+          "attributes"
+        ],
+        "properties": {
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxLink"
+            }
+          },
+          "name": {
+            "type": "string",
+            "examples": [
+              "Exchange Rates"
+            ]
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/SdmxComponentGroups"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/SdmxComponentGroups"
+          }
+        }
+      },
+      "SdmxComponentGroups": {
+        "type": "object",
+        "title": "SDMX component groups",
+        "required": [
+          "series",
+          "observation"
+        ],
+        "properties": {
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponent"
+            }
+          },
+          "observation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponent"
+            }
+          }
+        }
+      },
+      "SdmxComponent": {
+        "type": "object",
+        "title": "SDMX dimension or attribute",
+        "description": "An SDMX dimension or attribute definition.",
+        "required": [
+          "id",
+          "name",
+          "values"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "examples": [
+              "FREQ"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "examples": [
+              "Frequency"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "nullable": true,
+            "examples": [
+              "time"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SdmxComponentValue"
+            }
+          }
+        }
+      },
+      "SdmxComponentValue": {
+        "type": "object",
+        "title": "SDMX component value",
+        "description": "A value-dictionary entry for an SDMX dimension or attribute.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "examples": [
+              "M"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "examples": [
+              "Monthly"
+            ]
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "examples": [
+              "2024-01-01T00:00:00.000+01:00"
+            ]
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "examples": [
+              "2024-01-31T23:59:59.999+01:00"
+            ]
+          }
+        }
+      },
+      "SdmxDataSet": {
+        "type": "object",
+        "title": "SDMX dataset",
+        "description": "An SDMX dataset whose Series keys are dynamic map keys.",
+        "required": [
+          "action",
+          "series"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "examples": [
+              "Replace"
+            ]
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "examples": [
+              "2026-08-14T16:23:35.250+02:00"
+            ]
+          },
+          "series": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SdmxSeries"
+            }
+          }
+        }
+      },
+      "SdmxSeries": {
+        "type": "object",
+        "title": "SDMX time series",
+        "description": "One matching time series and its observations.",
+        "properties": {
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "observations": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SdmxObservationTuple"
+            }
+          }
+        }
+      },
+      "SdmxObservationTuple": {
+        "type": "array",
+        "title": "SDMX observation tuple",
+        "description": "Tuple containing an observation value and attribute indexes.",
+        "minItems": 1,
+        "items": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "examples": [
+          [
+            1.0905136363636,
+            0,
+            0,
+            null,
+            null
+          ]
+        ]
+      },
+      "ErrorBody": {
+        "type": "string",
+        "title": "ECB error response",
+        "description": "ECB does not declare a stable error-body schema; the SDK preserves an error body as a string."
+      }
+    }
+  },
+  "apis": {
+    "data/getDataByFlow": {
+      "summary": "Get data by dataflow",
+      "operationId": "getDataByFlow",
+      "consumes": [],
+      "description": "Returns data from a dataflow. This variant omits the Series key and can therefore match many time series; callers should bound the response with date, detail, or observation-count parameters.",
+      "tags": [
+        "Data"
+      ],
+      "method": "GET",
+      "path": "/data/{flowRef}",
+      "responses": {
+        "200": {
+          "description": "Successful request; the representation is selected by the format query parameter or Accept header.",
+          "schema": {
+            "$ref": "#/components/schemas/SdmxDataMessage"
+          },
+          "content": {
+            "application/vnd.sdmx.data+json;version=1.0.0-wd": {
+              "schema": {
+                "$ref": "#/components/schemas/SdmxDataMessage"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SdmxDataMessage"
+              }
+            },
+            "text/csv": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.ecb.data+csv;version=1.0.0": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.sdmx.genericdata+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.sdmx.structurespecificdata+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "304": {
+          "description": "No change since the If-Modified-Since value; the response has no body."
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "flowRef",
+          "required": true,
+          "schema": {
+            "description": "Dataflow reference: a flow ID, or comma-separated agency ID, flow ID, and version.",
+            "type": "string",
+            "pattern": "^[^/,]+(?:,[^/,]+(?:,[^/,]+)?)?$",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "startPeriod",
+          "required": false,
+          "schema": {
+            "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+            "type": "string",
+            "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+            "examples": [
+              "2024-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "endPeriod",
+          "required": false,
+          "schema": {
+            "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+            "type": "string",
+            "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+            "examples": [
+              "2024-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "updatedAfter",
+          "required": false,
+          "schema": {
+            "description": "Return the latest values added, revised, or deleted after this ISO 8601 timestamp.",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2024-01-01T00:00:00Z"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "firstNObservations",
+          "required": false,
+          "schema": {
+            "description": "Maximum observations returned per matching time series, starting at the first observation.",
+            "type": "integer",
+            "minimum": 1,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "lastNObservations",
+          "required": false,
+          "schema": {
+            "description": "Maximum observations returned per matching time series, counting backward from the latest observation.",
+            "type": "integer",
+            "minimum": 1,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Amount of data detail returned.",
+            "type": "string",
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ],
+            "default": "full",
+            "examples": [
+              "full"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "includeHistory",
+          "required": false,
+          "schema": {
+            "description": "Whether to include historical versions of matching data.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "format",
+          "required": false,
+          "schema": {
+            "description": "Response format; it can also be selected through the Accept header.",
+            "type": "string",
+            "enum": [
+              "csvdata",
+              "jsondata",
+              "structurespecificdata",
+              "genericdata"
+            ],
+            "default": "genericdata",
+            "examples": [
+              "jsondata"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Modified-Since",
+          "required": false,
+          "schema": {
+            "description": "HTTP conditional-request timestamp. The service returns 304 when data has not changed.",
+            "type": "string",
+            "format": "http-date",
+            "examples": [
+              "Mon, 01 Jan 2024 00:00:00 GMT"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.genericdata+xml;version=2.1",
+              "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+              "application/vnd.sdmx.data+json;version=1.0.0-wd",
+              "text/csv",
+              "application/vnd.ecb.data+csv;version=1.0.0",
+              "application/json",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.data+json;version=1.0.0-wd"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.data+json;version=1.0.0-wd",
+        "application/json",
+        "text/csv",
+        "application/vnd.ecb.data+csv;version=1.0.0",
+        "application/vnd.sdmx.genericdata+xml;version=2.1",
+        "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+        "application/xml",
+        "text/plain"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "flowRef": "EXR"
+            },
+            "query": {
+              "lastNObservations": 1,
+              "detail": "serieskeysonly",
+              "format": "jsondata"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "data/getDataBySeriesKey": {
+      "summary": "Get data by dataflow and Series key",
+      "operationId": "getDataBySeriesKey",
+      "consumes": [],
+      "description": "Returns time series matching a Series key within a dataflow. The key follows DSD dimension order with dot separators; an empty segment is a wildcard and `+` is OR. Bound response size with date or observation-count parameters.",
+      "tags": [
+        "Data"
+      ],
+      "method": "GET",
+      "path": "/data/{flowRef}/{key}",
+      "responses": {
+        "200": {
+          "description": "Successful request; the representation is selected by the format query parameter or Accept header.",
+          "schema": {
+            "$ref": "#/components/schemas/SdmxDataMessage"
+          },
+          "content": {
+            "application/vnd.sdmx.data+json;version=1.0.0-wd": {
+              "schema": {
+                "$ref": "#/components/schemas/SdmxDataMessage"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SdmxDataMessage"
+              }
+            },
+            "text/csv": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.ecb.data+csv;version=1.0.0": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.sdmx.genericdata+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/vnd.sdmx.structurespecificdata+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "304": {
+          "description": "No change since the If-Modified-Since value; the response has no body."
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "flowRef",
+          "required": true,
+          "schema": {
+            "description": "Dataflow reference: a flow ID, or comma-separated agency ID, flow ID, and version.",
+            "type": "string",
+            "pattern": "^[^/,]+(?:,[^/,]+(?:,[^/,]+)?)?$",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "key",
+          "required": true,
+          "schema": {
+            "description": "Series key in DSD dimension order; dot-separated, with empty wildcard segments and `+` for OR.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_+-]*(?:\\.[A-Za-z0-9_+-]*)*$",
+            "examples": [
+              "M.USD.EUR.SP00.A"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "startPeriod",
+          "required": false,
+          "schema": {
+            "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+            "type": "string",
+            "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+            "examples": [
+              "2024-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "endPeriod",
+          "required": false,
+          "schema": {
+            "description": "An ISO 8601 or SDMX reporting period: annual, semi-annual, quarterly, monthly, weekly, or daily.",
+            "type": "string",
+            "pattern": "^\\d{4}(?:-S[1-2]|-Q[1-4]|-\\d{2}(?:-\\d{2})?|-[Ww]\\d{2})?$",
+            "examples": [
+              "2024-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "updatedAfter",
+          "required": false,
+          "schema": {
+            "description": "Return the latest values added, revised, or deleted after this ISO 8601 timestamp.",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2024-01-01T00:00:00Z"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "firstNObservations",
+          "required": false,
+          "schema": {
+            "description": "Maximum observations returned per matching time series, starting at the first observation.",
+            "type": "integer",
+            "minimum": 1,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "lastNObservations",
+          "required": false,
+          "schema": {
+            "description": "Maximum observations returned per matching time series, counting backward from the latest observation.",
+            "type": "integer",
+            "minimum": 1,
+            "examples": [
+              1
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Amount of data detail returned.",
+            "type": "string",
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ],
+            "default": "full",
+            "examples": [
+              "full"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "includeHistory",
+          "required": false,
+          "schema": {
+            "description": "Whether to include historical versions of matching data.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "format",
+          "required": false,
+          "schema": {
+            "description": "Response format; it can also be selected through the Accept header.",
+            "type": "string",
+            "enum": [
+              "csvdata",
+              "jsondata",
+              "structurespecificdata",
+              "genericdata"
+            ],
+            "default": "genericdata",
+            "examples": [
+              "jsondata"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Modified-Since",
+          "required": false,
+          "schema": {
+            "description": "HTTP conditional-request timestamp. The service returns 304 when data has not changed.",
+            "type": "string",
+            "format": "http-date",
+            "examples": [
+              "Mon, 01 Jan 2024 00:00:00 GMT"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.genericdata+xml;version=2.1",
+              "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+              "application/vnd.sdmx.data+json;version=1.0.0-wd",
+              "text/csv",
+              "application/vnd.ecb.data+csv;version=1.0.0",
+              "application/json",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.data+json;version=1.0.0-wd"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.data+json;version=1.0.0-wd",
+        "application/json",
+        "text/csv",
+        "application/vnd.ecb.data+csv;version=1.0.0",
+        "application/vnd.sdmx.genericdata+xml;version=2.1",
+        "application/vnd.sdmx.structurespecificdata+xml;version=2.1",
+        "application/xml",
+        "text/plain"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "flowRef": "EXR",
+              "key": "M.USD.EUR.SP00.A"
+            },
+            "query": {
+              "startPeriod": "2024-01",
+              "endPeriod": "2024-01",
+              "format": "jsondata"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "metadata/listMetadata": {
+      "summary": "List a structural metadata type",
+      "operationId": "listMetadata",
+      "consumes": [],
+      "description": "Returns all available structural metadata for an SDMX artefact type.",
+      "tags": [
+        "Metadata"
+      ],
+      "method": "GET",
+      "path": "/{resource}",
+      "responses": {
+        "200": {
+          "description": "Structural metadata XML.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.structure+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "resource",
+          "required": true,
+          "schema": {
+            "description": "SDMX structural-metadata artefact type.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "metadatastructure",
+              "categoryscheme",
+              "Conceptscheme",
+              "codelist",
+              "hierarchicalcodelist",
+              "organisationscheme",
+              "agencyscheme",
+              "dataproviderscheme",
+              "dataconsumerscheme",
+              "organisationunitscheme",
+              "dataflow",
+              "metadataflow",
+              "reportingtaxonomy",
+              "provisionagreement",
+              "structureset",
+              "process",
+              "categorisation",
+              "contentconstraint",
+              "attachmentconstraint",
+              "structure"
+            ],
+            "examples": [
+              "dataflow"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Structural metadata detail level.",
+            "type": "string",
+            "enum": [
+              "full",
+              "allstubs",
+              "referencestubs"
+            ],
+            "default": "full",
+            "examples": [
+              "allstubs"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "references",
+          "required": false,
+          "schema": {
+            "description": "Includes or excludes related artefacts; a concrete resource type is also accepted.",
+            "type": "string",
+            "default": "none",
+            "examples": [
+              "none"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.structure+xml;version=2.1",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.structure+xml;version=2.1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.structure+xml;version=2.1",
+        "application/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "resource": "dataflow"
+            },
+            "query": {
+              "detail": "allstubs",
+              "references": "none"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "metadata/listMetadataByAgency": {
+      "summary": "List structural metadata by maintainer",
+      "operationId": "listMetadataByAgency",
+      "consumes": [],
+      "description": "Returns structural metadata of one type maintained by a specified SDMX agency.",
+      "tags": [
+        "Metadata"
+      ],
+      "method": "GET",
+      "path": "/{resource}/{agencyID}",
+      "responses": {
+        "200": {
+          "description": "Structural metadata XML.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.structure+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "resource",
+          "required": true,
+          "schema": {
+            "description": "SDMX structural-metadata artefact type.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "metadatastructure",
+              "categoryscheme",
+              "Conceptscheme",
+              "codelist",
+              "hierarchicalcodelist",
+              "organisationscheme",
+              "agencyscheme",
+              "dataproviderscheme",
+              "dataconsumerscheme",
+              "organisationunitscheme",
+              "dataflow",
+              "metadataflow",
+              "reportingtaxonomy",
+              "provisionagreement",
+              "structureset",
+              "process",
+              "categorisation",
+              "contentconstraint",
+              "attachmentconstraint",
+              "structure"
+            ],
+            "examples": [
+              "dataflow"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "agencyID",
+          "required": true,
+          "schema": {
+            "description": "Identifier of the SDMX agency maintaining the artefact.",
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Structural metadata detail level.",
+            "type": "string",
+            "enum": [
+              "full",
+              "allstubs",
+              "referencestubs"
+            ],
+            "default": "full",
+            "examples": [
+              "allstubs"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "references",
+          "required": false,
+          "schema": {
+            "description": "Includes or excludes related artefacts; a concrete resource type is also accepted.",
+            "type": "string",
+            "default": "none",
+            "examples": [
+              "none"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.structure+xml;version=2.1",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.structure+xml;version=2.1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.structure+xml;version=2.1",
+        "application/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "resource": "dataflow",
+              "agencyID": "ECB"
+            },
+            "query": {
+              "detail": "allstubs",
+              "references": "none"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "metadata/getMetadataArtefact": {
+      "summary": "Get a structural metadata artefact",
+      "operationId": "getMetadataArtefact",
+      "consumes": [],
+      "description": "Returns the latest structural metadata version for a maintainer and resource identifier.",
+      "tags": [
+        "Metadata"
+      ],
+      "method": "GET",
+      "path": "/{resource}/{agencyID}/{resourceID}",
+      "responses": {
+        "200": {
+          "description": "Structural metadata XML.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.structure+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "resource",
+          "required": true,
+          "schema": {
+            "description": "SDMX structural-metadata artefact type.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "metadatastructure",
+              "categoryscheme",
+              "Conceptscheme",
+              "codelist",
+              "hierarchicalcodelist",
+              "organisationscheme",
+              "agencyscheme",
+              "dataproviderscheme",
+              "dataconsumerscheme",
+              "organisationunitscheme",
+              "dataflow",
+              "metadataflow",
+              "reportingtaxonomy",
+              "provisionagreement",
+              "structureset",
+              "process",
+              "categorisation",
+              "contentconstraint",
+              "attachmentconstraint",
+              "structure"
+            ],
+            "examples": [
+              "dataflow"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "agencyID",
+          "required": true,
+          "schema": {
+            "description": "Identifier of the SDMX agency maintaining the artefact.",
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "resourceID",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact identifier.",
+            "type": "string",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Structural metadata detail level.",
+            "type": "string",
+            "enum": [
+              "full",
+              "allstubs",
+              "referencestubs"
+            ],
+            "default": "full",
+            "examples": [
+              "allstubs"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "references",
+          "required": false,
+          "schema": {
+            "description": "Includes or excludes related artefacts; a concrete resource type is also accepted.",
+            "type": "string",
+            "default": "none",
+            "examples": [
+              "none"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.structure+xml;version=2.1",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.structure+xml;version=2.1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.structure+xml;version=2.1",
+        "application/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "resource": "dataflow",
+              "agencyID": "ECB",
+              "resourceID": "EXR"
+            },
+            "query": {
+              "detail": "allstubs",
+              "references": "none"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "metadata/getVersionedMetadataArtefact": {
+      "summary": "Get a versioned structural metadata artefact",
+      "operationId": "getVersionedMetadataArtefact",
+      "consumes": [],
+      "description": "Returns structural metadata for a maintainer, resource identifier, and version.",
+      "tags": [
+        "Metadata"
+      ],
+      "method": "GET",
+      "path": "/{resource}/{agencyID}/{resourceID}/{version}",
+      "responses": {
+        "200": {
+          "description": "Structural metadata XML.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.structure+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "resource",
+          "required": true,
+          "schema": {
+            "description": "SDMX structural-metadata artefact type.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "metadatastructure",
+              "categoryscheme",
+              "Conceptscheme",
+              "codelist",
+              "hierarchicalcodelist",
+              "organisationscheme",
+              "agencyscheme",
+              "dataproviderscheme",
+              "dataconsumerscheme",
+              "organisationunitscheme",
+              "dataflow",
+              "metadataflow",
+              "reportingtaxonomy",
+              "provisionagreement",
+              "structureset",
+              "process",
+              "categorisation",
+              "contentconstraint",
+              "attachmentconstraint",
+              "structure"
+            ],
+            "examples": [
+              "dataflow"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "agencyID",
+          "required": true,
+          "schema": {
+            "description": "Identifier of the SDMX agency maintaining the artefact.",
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "resourceID",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact identifier.",
+            "type": "string",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact version.",
+            "type": "string",
+            "examples": [
+              "1.0"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "detail",
+          "required": false,
+          "schema": {
+            "description": "Structural metadata detail level.",
+            "type": "string",
+            "enum": [
+              "full",
+              "allstubs",
+              "referencestubs"
+            ],
+            "default": "full",
+            "examples": [
+              "allstubs"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "references",
+          "required": false,
+          "schema": {
+            "description": "Includes or excludes related artefacts; a concrete resource type is also accepted.",
+            "type": "string",
+            "default": "none",
+            "examples": [
+              "none"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept",
+          "required": false,
+          "schema": {
+            "description": "Selects the response representation. The ECB recommends versioned, specific media types.",
+            "type": "string",
+            "enum": [
+              "application/vnd.sdmx.structure+xml;version=2.1",
+              "application/xml"
+            ],
+            "examples": [
+              "application/vnd.sdmx.structure+xml;version=2.1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.structure+xml;version=2.1",
+        "application/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "resource": "dataflow",
+              "agencyID": "ECB",
+              "resourceID": "EXR",
+              "version": "1.0"
+            },
+            "query": {
+              "detail": "allstubs",
+              "references": "none"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "validation/getStructureSpecificSchema": {
+      "summary": "Get the latest structure-specific data XML Schema",
+      "operationId": "getStructureSpecificSchema",
+      "consumes": [],
+      "description": "Generates the latest Structure Specific Data XML Schema for a context, maintainer, and resource identifier.",
+      "tags": [
+        "Validation"
+      ],
+      "method": "GET",
+      "path": "/schema/{context}/{agencyID}/{resourceID}",
+      "responses": {
+        "200": {
+          "description": "XML Schema for validating Structure Specific Data messages.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.schema+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "context",
+          "required": true,
+          "schema": {
+            "description": "SDMX constraint context used to generate the XML Schema.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "dataflow",
+              "provisionagreement"
+            ],
+            "examples": [
+              "datastructure"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "agencyID",
+          "required": true,
+          "schema": {
+            "description": "Identifier of the SDMX agency maintaining the artefact.",
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "resourceID",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact identifier.",
+            "type": "string",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.schema+xml;version=2.1",
+        "application/xml",
+        "text/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "context": "datastructure",
+              "agencyID": "ECB",
+              "resourceID": "ECB_EXR1"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    },
+    "validation/getVersionedStructureSpecificSchema": {
+      "summary": "Get a versioned structure-specific data XML Schema",
+      "operationId": "getVersionedStructureSpecificSchema",
+      "consumes": [],
+      "description": "Generates a Structure Specific Data XML Schema for a context, maintainer, resource identifier, and version.",
+      "tags": [
+        "Validation"
+      ],
+      "method": "GET",
+      "path": "/schema/{context}/{agencyID}/{resourceID}/{version}",
+      "responses": {
+        "200": {
+          "description": "XML Schema for validating Structure Specific Data messages.",
+          "schema": {
+            "type": "string"
+          },
+          "content": {
+            "application/vnd.sdmx.schema+xml;version=2.1": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The query parameters contain a syntax or semantic error.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No result matched the query.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "406": {
+          "description": "The requested representation is not supported.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal ECB service error occurred.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "501": {
+          "description": "The request uses SDMX REST functionality not implemented by the ECB service.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The ECB service is temporarily unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorBody"
+          },
+          "content": {
+            "text/plain": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorBody"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "context",
+          "required": true,
+          "schema": {
+            "description": "SDMX constraint context used to generate the XML Schema.",
+            "type": "string",
+            "enum": [
+              "datastructure",
+              "dataflow",
+              "provisionagreement"
+            ],
+            "examples": [
+              "datastructure"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "agencyID",
+          "required": true,
+          "schema": {
+            "description": "Identifier of the SDMX agency maintaining the artefact.",
+            "type": "string",
+            "examples": [
+              "ECB"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "resourceID",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact identifier.",
+            "type": "string",
+            "examples": [
+              "EXR"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "required": true,
+          "schema": {
+            "description": "SDMX artefact version.",
+            "type": "string",
+            "examples": [
+              "1.0"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Accept-Encoding",
+          "required": false,
+          "schema": {
+            "description": "Requests a compressed response, for example gzip.",
+            "type": "string",
+            "examples": [
+              "gzip"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/vnd.sdmx.schema+xml;version=2.1",
+        "application/xml",
+        "text/xml",
+        "text/plain",
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "context": "datastructure",
+              "agencyID": "ECB",
+              "resourceID": "ECB_EXR1",
+              "version": "1.0"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "documentation": {
+          "status": "official",
+          "evidence": [
+            "https://data.ecb.europa.eu/help/api/data",
+            "https://data.ecb.europa.eu/help/api/metadata",
+            "https://data.ecb.europa.eu/help/api/schemas",
+            "https://data.ecb.europa.eu/help/api/content-negotiation",
+            "https://data.ecb.europa.eu/help/api/status-codes"
+          ],
+          "verifiedAt": "2026-08-14"
+        },
+        "execution": {
+          "enabled": false,
+          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
+        }
+      }
+    }
+  },
+  "name": "ecb-data-portal",
+  "servers": [
+    {
+      "id": "ecb-data-portal",
+      "url": "https://data-api.ecb.europa.eu/service"
+    }
+  ],
+  "info": {
+    "title": "ECB Data Portal SDMX API",
+    "description": "The anonymous, read-only SDMX 2.1 REST service for the European Central Bank Data Portal. The contract covers the three official resource families for statistical data, structural metadata, and structure-specific XML schemas, with separate path variants where the service permits omitted identifiers or versions. Data responses support SDMX-JSON, CSV, ECB pivot-table CSV, SDMX-ML 2.1 Generic Data, and Structure Specific Data.",
+    "version": "2026-08-14",
+    "termsOfService": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+    "license": {
+      "name": "ECB website information reuse terms",
+      "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
+    },
+    "contact": {
+      "url": "https://data.ecb.europa.eu/help/contact-us"
+    }
+  },
+  "tags": [
+    {
+      "name": "data",
+      "description": "Statistical data query endpoints"
+    },
+    {
+      "name": "metadata",
+      "description": "SDMX structural metadata query endpoints"
+    },
+    {
+      "name": "validation",
+      "description": "Structure-specific data XML Schema query endpoints"
+    }
+  ]
+}

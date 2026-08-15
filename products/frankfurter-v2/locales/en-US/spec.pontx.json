@@ -1,0 +1,1204 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "parameters": {
+      "date": {
+        "name": "date",
+        "in": "query",
+        "description": "Specific date (YYYY-MM-DD). Cannot be combined with from/to.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2024-01-15"
+        }
+      },
+      "from": {
+        "name": "from",
+        "in": "query",
+        "description": "Start of date range (YYYY-MM-DD)",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2024-01-01"
+        }
+      },
+      "to": {
+        "name": "to",
+        "in": "query",
+        "description": "End of date range (YYYY-MM-DD). Defaults to today.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2024-01-31"
+        }
+      },
+      "base": {
+        "name": "base",
+        "in": "query",
+        "description": "Base currency (default: EUR)",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "default": "EUR",
+          "example": "USD"
+        }
+      },
+      "quotes": {
+        "name": "quotes",
+        "in": "query",
+        "description": "Comma-separated list of quote currencies to include",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "USD,GBP,JPY"
+        }
+      },
+      "providers": {
+        "name": "providers",
+        "in": "query",
+        "description": "Comma-separated list of data providers to include",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "ECB,TCMB"
+        }
+      },
+      "group": {
+        "name": "group",
+        "in": "query",
+        "description": "Downsample rates by time period. Only applies to date ranges.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "week",
+            "month"
+          ],
+          "x-enum-descriptions": [
+            "Weekly",
+            "Monthly"
+          ],
+          "example": "month"
+        }
+      },
+      "expand": {
+        "name": "expand",
+        "in": "query",
+        "description": "Comma-separated list of optional fields to include per record. Currently supports `providers`, which adds an array of `{ key, date, rate }` objects per record showing each provider's individual observation date and rate. Outliers excluded from the blend (and providers whose rate was overridden by a currency peg) are flagged with `excluded: true`. The field is omitted on synthesized peg rows where no provider published the quote. In CSV output, the `providers` column is encoded as `KEY:RATE` pairs joined by `|`, with a trailing `*` on excluded entries (e.g. `ECB:0.92|FED:1.50*`).",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "providers"
+          ],
+          "x-enum-descriptions": [
+            "Expand per-provider rates"
+          ],
+          "example": "providers"
+        }
+      }
+    },
+    "schemas": {
+      "Rate": {
+        "title": "Rate record",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the rate",
+            "examples": [
+              "2024-01-15"
+            ]
+          },
+          "base": {
+            "type": "string",
+            "description": "Base currency code",
+            "examples": [
+              "EUR"
+            ]
+          },
+          "quote": {
+            "type": "string",
+            "description": "Quote currency code",
+            "examples": [
+              "USD"
+            ]
+          },
+          "rate": {
+            "type": "number",
+            "description": "Exchange rate value",
+            "exclusiveMinimum": 0,
+            "examples": [
+              1.089
+            ]
+          },
+          "providers": {
+            "type": "array",
+            "description": "Per-provider rates for this pair. Present only when `expand=providers` is set. Each entry has the provider's observation date and published rate (rebased to the row's base). Entries with `excluded: true` did not contribute to the blended `rate` — either flagged as outliers by the consensus filter, or overridden by a currency peg. Omitted on synthesized peg rows where no provider published the quote.",
+            "items": {
+              "type": "object",
+              "description": "Each entry has the provider's observation date and published rate (rebased to the row's base).",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "Provider key",
+                  "examples": [
+                    "BAM"
+                  ]
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Provider observation date used for this entry",
+                  "examples": [
+                    "2026-08-10"
+                  ]
+                },
+                "rate": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Provider's rate, rebased to the row's base",
+                  "examples": [
+                    3.6731
+                  ]
+                },
+                "excluded": {
+                  "type": "boolean",
+                  "description": "Present and true when this entry did not contribute to the blended rate",
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "required": [
+                "key",
+                "date",
+                "rate"
+              ]
+            }
+          }
+        },
+        "required": [
+          "date",
+          "base",
+          "quote",
+          "rate"
+        ]
+      },
+      "Currency": {
+        "title": "Currency summary",
+        "type": "object",
+        "properties": {
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 currency code",
+            "examples": [
+              "EUR"
+            ]
+          },
+          "iso_numeric": {
+            "type": "string",
+            "description": "ISO 4217 numeric code",
+            "nullable": true,
+            "examples": [
+              "978"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Full currency name",
+            "examples": [
+              "Euro"
+            ]
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Currency symbol",
+            "nullable": true,
+            "examples": [
+              "€"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Earliest available date",
+            "nullable": true,
+            "examples": [
+              "1999-01-04"
+            ]
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Latest available date",
+            "nullable": true,
+            "examples": [
+              "2026-03-17"
+            ]
+          }
+        },
+        "required": [
+          "iso_code",
+          "name"
+        ]
+      },
+      "CurrencyDetail": {
+        "title": "Currency details",
+        "type": "object",
+        "properties": {
+          "iso_code": {
+            "type": "string",
+            "description": "ISO 4217 currency code",
+            "examples": [
+              "USD"
+            ]
+          },
+          "iso_numeric": {
+            "type": "string",
+            "description": "ISO 4217 numeric code",
+            "nullable": true,
+            "examples": [
+              "840"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Full currency name",
+            "examples": [
+              "United States Dollar"
+            ]
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Currency symbol",
+            "nullable": true,
+            "examples": [
+              "$"
+            ]
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Provider keys that publish this currency",
+              "examples": [
+                "ECB"
+              ]
+            },
+            "description": "Provider keys that publish this currency"
+          },
+          "peg": {
+            "type": "object",
+            "properties": {
+              "base": {
+                "type": "string"
+              },
+              "rate": {
+                "type": "number"
+              },
+              "authority": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "description": "Peg metadata, present only for pegged currencies"
+          }
+        },
+        "required": [
+          "iso_code",
+          "name"
+        ]
+      },
+      "Provider": {
+        "title": "Exchange-rate data provider",
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Provider identifier",
+            "examples": [
+              "ECB"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Full provider name",
+            "examples": [
+              "European Central Bank"
+            ]
+          },
+          "country_code": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code",
+            "nullable": true,
+            "examples": [
+              "EU"
+            ]
+          },
+          "rate_type": {
+            "type": "string",
+            "description": "Official rate type as used by the source",
+            "nullable": true,
+            "examples": [
+              "reference"
+            ]
+          },
+          "pivot_currency": {
+            "type": "string",
+            "description": "Base currency for published rates",
+            "nullable": true,
+            "examples": [
+              "EUR"
+            ]
+          },
+          "data_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the data source",
+            "nullable": true,
+            "examples": [
+              "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+            ]
+          },
+          "terms_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to terms of use",
+            "nullable": true,
+            "examples": [
+              "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Earliest available date",
+            "nullable": true,
+            "examples": [
+              "1999-01-04"
+            ]
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Latest available date",
+            "nullable": true,
+            "examples": [
+              "2026-03-17"
+            ]
+          },
+          "publish_cadence": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "daily",
+                  "weekly",
+                  "monthly"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How often the provider publishes rates. Determines the unit of publishes_missed: a count of days, ISO weeks, or calendar months. Null for historical-only providers with no scheduled cadence.",
+            "examples": [
+              "daily"
+            ]
+          },
+          "publishes_missed": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of expected publishes missed since end_date, in units of publish_cadence. For daily providers, counts scheduled publish days strictly between end_date and today. For weekly and monthly providers, counts ISO weeks or calendar months between the latest imported bucket and the bucket whose publish window has already started. Null when the provider has no scheduled cadence or no imported data.",
+            "examples": [
+              0
+            ],
+            "nullable": true
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Currency codes covered by this provider",
+              "examples": [
+                "USD"
+              ]
+            },
+            "description": "Currency codes covered by this provider"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "currencies"
+        ]
+      }
+    },
+    "responses": {
+      "UnprocessableEntity": {
+        "description": "Invalid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "Invalid request",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No data found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "No data found",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "getRates": {
+      "summary": "Get exchange rates",
+      "operationId": "getRates",
+      "consumes": [],
+      "description": "Returns exchange rates blended across providers. Without date params, returns the latest rates. Each record is a single currency pair. The response includes an identity record for the base currency (base equals quote, rate 1), subject to the quotes filter like any other record. Daily date ranges of any length are served, including full history. Limit: requests using `providers` or `expand=providers` recompute the blend per date, so at daily granularity they return 422 for ranges longer than 5 years. With `providers` naming at most 5 providers, a `quotes` list of at most 5 currencies lifts the cap; without `providers`, `expand=providers` ranges compute every currency regardless of `quotes`, so aggregate with `group=week` or `group=month`, add `providers`, or split the range into shorter requests.",
+      "tags": [],
+      "method": "GET",
+      "path": "/rates",
+      "responses": {
+        "200": {
+          "description": "Exchange rates",
+          "schema": {
+            "type": "array",
+            "description": "Exchange rates",
+            "items": {
+              "$ref": "#/components/schemas/Rate"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "Exchange rates",
+                "items": {
+                  "$ref": "#/components/schemas/Rate"
+                }
+              },
+              "example": [
+                {
+                  "date": "2024-01-15",
+                  "base": "EUR",
+                  "quote": "EUR",
+                  "rate": 1
+                },
+                {
+                  "date": "2024-01-15",
+                  "base": "EUR",
+                  "quote": "GBP",
+                  "rate": 0.8623
+                },
+                {
+                  "date": "2024-01-15",
+                  "base": "EUR",
+                  "quote": "USD",
+                  "rate": 1.089
+                }
+              ]
+            },
+            "application/x-ndjson": {
+              "schema": {
+                "type": "string",
+                "description": "NDJSON stream of Rate objects, one JSON object per line"
+              },
+              "example": "{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"USD\", \"rate\": 1.089 }\n{ \"date\": \"2024-01-15\", \"base\": \"EUR\", \"quote\": \"GBP\", \"rate\": 0.8623 }\n"
+            }
+          }
+        },
+        "404": {
+          "description": "No data found",
+          "schema": {
+            "type": "object",
+            "description": "No data found",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "No data found",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "Invalid request",
+          "schema": {
+            "type": "object",
+            "description": "Invalid request",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Invalid request",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+          "schema": {
+            "type": "object",
+            "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "Specific date (YYYY-MM-DD). Cannot be combined with from/to.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-15"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "from",
+          "required": false,
+          "schema": {
+            "description": "Start of date range (YYYY-MM-DD)",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-01"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": false,
+          "schema": {
+            "description": "End of date range (YYYY-MM-DD). Defaults to today.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-31"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "base",
+          "required": false,
+          "schema": {
+            "description": "Base currency (default: EUR)",
+            "type": "string",
+            "default": "EUR",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "quotes",
+          "required": false,
+          "schema": {
+            "description": "Comma-separated list of quote currencies to include",
+            "type": "string",
+            "examples": [
+              "USD,GBP,JPY"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "providers",
+          "required": false,
+          "schema": {
+            "description": "Comma-separated list of data providers to include",
+            "type": "string",
+            "examples": [
+              "ECB,TCMB"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "group",
+          "required": false,
+          "schema": {
+            "description": "Downsample rates by time period. Only applies to date ranges.",
+            "type": "string",
+            "enum": [
+              "week",
+              "month"
+            ],
+            "examples": [
+              "month"
+            ],
+            "enumValueTitles": {
+              "week": "Weekly",
+              "month": "Monthly"
+            }
+          }
+        },
+        {
+          "in": "query",
+          "name": "expand",
+          "required": false,
+          "schema": {
+            "description": "Comma-separated list of optional fields to include per record. Currently supports `providers`, which adds an array of `{ key, date, rate }` objects per record showing each provider's individual observation date and rate. Outliers excluded from the blend (and providers whose rate was overridden by a currency peg) are flagged with `excluded: true`. The field is omitted on synthesized peg rows where no provider published the quote. In CSV output, the `providers` column is encoded as `KEY:RATE` pairs joined by `|`, with a trailing `*` on excluded entries (e.g. `ECB:0.92|FED:1.50*`).",
+            "type": "string",
+            "enum": [
+              "providers"
+            ],
+            "examples": [
+              "providers"
+            ],
+            "enumValueTitles": {
+              "providers": "Expand per-provider rates"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json",
+        "application/x-ndjson"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "base": "USD"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "getRate": {
+      "summary": "Get a single exchange rate pair",
+      "operationId": "getRate",
+      "consumes": [],
+      "description": "Returns the blended exchange rate for a single currency pair. Without a date param, returns the latest rate. A same-currency pair returns the identity rate of 1.",
+      "tags": [],
+      "method": "GET",
+      "path": "/rate/{base}/{quote}",
+      "responses": {
+        "200": {
+          "description": "Exchange rate",
+          "schema": {
+            "$ref": "#/components/schemas/Rate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rate"
+              },
+              "example": {
+                "date": "2026-03-25",
+                "base": "EUR",
+                "quote": "USD",
+                "rate": 1.1568
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No data found",
+          "schema": {
+            "type": "object",
+            "description": "No data found",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "No data found",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "Invalid request",
+          "schema": {
+            "type": "object",
+            "description": "Invalid request",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Invalid request",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+          "schema": {
+            "type": "object",
+            "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The request deadline expired before the response could be computed. Retry with a narrower request: filter with quotes, aggregate with group, or split the range into shorter requests.",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "base",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Base currency code",
+            "examples": [
+              "EUR"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "quote",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Quote currency code",
+            "examples": [
+              "USD"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "date",
+          "required": false,
+          "schema": {
+            "description": "Specific date (YYYY-MM-DD). Cannot be combined with from/to.",
+            "type": "string",
+            "format": "date",
+            "examples": [
+              "2024-01-15"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "providers",
+          "required": false,
+          "schema": {
+            "description": "Comma-separated list of data providers to include",
+            "type": "string",
+            "examples": [
+              "ECB,TCMB"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "base": "EUR",
+              "quote": "USD"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "getCurrency": {
+      "summary": "Get a single currency",
+      "operationId": "getCurrency",
+      "consumes": [],
+      "description": "Returns details for a single currency, including provider information or peg metadata.",
+      "tags": [],
+      "method": "GET",
+      "path": "/currency/{code}",
+      "responses": {
+        "200": {
+          "description": "Currency details",
+          "schema": {
+            "$ref": "#/components/schemas/CurrencyDetail"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrencyDetail"
+              },
+              "example": {
+                "iso_code": "USD",
+                "iso_numeric": "840",
+                "name": "United States Dollar",
+                "symbol": "$",
+                "providers": [
+                  "ECB",
+                  "BOC",
+                  "FED"
+                ]
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No data found",
+          "schema": {
+            "type": "object",
+            "description": "No data found",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "No data found",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "code",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "ISO 4217 currency code",
+            "examples": [
+              "USD"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "code": "USD"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "getCurrencies": {
+      "summary": "Get available currencies",
+      "operationId": "getCurrencies",
+      "consumes": [],
+      "description": "Returns available currencies with their names and date ranges. By default, only active currencies are included.",
+      "tags": [],
+      "method": "GET",
+      "path": "/currencies",
+      "responses": {
+        "200": {
+          "description": "Available currencies",
+          "schema": {
+            "type": "array",
+            "description": "Available currencies",
+            "items": {
+              "$ref": "#/components/schemas/Currency"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "Available currencies",
+                "items": {
+                  "$ref": "#/components/schemas/Currency"
+                }
+              },
+              "example": [
+                {
+                  "iso_code": "EUR",
+                  "iso_numeric": "978",
+                  "name": "Euro",
+                  "symbol": "€",
+                  "start_date": "1999-01-04",
+                  "end_date": "2026-03-17"
+                },
+                {
+                  "iso_code": "USD",
+                  "iso_numeric": "840",
+                  "name": "United States Dollar",
+                  "symbol": "$",
+                  "start_date": "1999-01-04",
+                  "end_date": "2026-03-17"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "schema": {
+            "description": "Set to 'all' to include legacy currencies",
+            "type": "string",
+            "enum": [
+              "all"
+            ],
+            "examples": [
+              "all"
+            ],
+            "enumValueTitles": {
+              "all": "Include legacy currencies"
+            }
+          }
+        },
+        {
+          "in": "query",
+          "name": "providers",
+          "required": false,
+          "schema": {
+            "description": "Comma-separated list of data providers to include",
+            "type": "string",
+            "examples": [
+              "ECB,TCMB"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "getProviders": {
+      "summary": "Get available data providers",
+      "operationId": "getProviders",
+      "consumes": [],
+      "description": "Returns available exchange rate data providers with their base currency.",
+      "tags": [],
+      "method": "GET",
+      "path": "/providers",
+      "responses": {
+        "200": {
+          "description": "Available providers",
+          "schema": {
+            "type": "array",
+            "description": "Available providers",
+            "items": {
+              "$ref": "#/components/schemas/Provider"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "Available providers",
+                "items": {
+                  "$ref": "#/components/schemas/Provider"
+                }
+              },
+              "example": [
+                {
+                  "key": "ECB",
+                  "name": "European Central Bank",
+                  "country_code": "EU",
+                  "rate_type": "reference",
+                  "pivot_currency": "EUR",
+                  "data_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+                  "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+                  "start_date": "1999-01-04",
+                  "end_date": "2026-03-17",
+                  "currencies": [
+                    "USD",
+                    "GBP"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    }
+  },
+  "name": "frankfurter-v2",
+  "servers": [
+    {
+      "id": "default",
+      "url": "https://api.frankfurter.dev/v2"
+    }
+  ],
+  "info": {
+    "title": "Frankfurter API",
+    "description": "Frankfurter is an open-source API for current and historical foreign exchange rates published by central banks.",
+    "version": "2.1.1",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/lineofflight/frankfurter/blob/main/LICENSE"
+    },
+    "contact": {
+      "url": "https://github.com/lineofflight/frankfurter/issues"
+    }
+  },
+  "tags": []
+}

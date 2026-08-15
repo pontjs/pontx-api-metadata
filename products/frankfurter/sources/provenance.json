@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "status": "approved",
+  "canonicalSpec": "products/frankfurter/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.0.3",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourcePath": "products/frankfurter/sources/openapi.json",
+    "sourceSha256": "8181a8068e2cda017c5317768c33396cd424d1571cfb5bff7ea0bd5b4223a041",
+    "localeInputSha256": {
+      "en-US": "8d8db9a84e05ece0ab6b63a08f27a22500c3a69e15a349231b796ee4440cf11b"
+    }
+  },
+  "evidence": {
+    "urls": [
+      "https://frankfurter.dev/v1/",
+      "https://api.frankfurter.dev/v1/openapi.json",
+      "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
+    ],
+    "verifiedAt": "2026-08-10"
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/frankfurter/spec.pontx.json",
+      "sha256": "7988444cbe75deab71b9e8a8a365859c834d41926ef1a4689d1b30d86e962fa5",
+      "endpoints": 5,
+      "schemas": 4
+    },
+    "en-US": {
+      "path": "products/frankfurter/locales/en-US/spec.pontx.json",
+      "sha256": "c78395c0295d9549ecf4180691f35728a3c8e3bf40dc8c95200093fa6a8aba46",
+      "endpoints": 5,
+      "schemas": 4
+    }
+  }
+}
