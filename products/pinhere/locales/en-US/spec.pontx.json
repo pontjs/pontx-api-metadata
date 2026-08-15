@@ -1,0 +1,6017 @@
+{
+  "pontx": "2.1",
+  "name": "pinhere",
+  "style": "RESTFul",
+  "info": {
+    "title": "Pinhere API",
+    "version": "1.0.0",
+    "description": "Pinhere API for projects, origins, issues, screenshots, webhooks, PATs, and browser-extension OAuth. Every endpoint handles private data or persistent changes, so public Pontx Hub proxy execution is disabled."
+  },
+  "servers": [
+    {
+      "id": "production",
+      "url": "https://pinhere.dev/api/v1",
+      "description": "Pinhere production API."
+    }
+  ],
+  "tags": [
+    {
+      "name": "projects",
+      "description": "Projects and origin assignments."
+    },
+    {
+      "name": "issues",
+      "description": "Issue content and AI processing lifecycle."
+    },
+    {
+      "name": "attachments",
+      "description": "Private screenshot upload and download."
+    },
+    {
+      "name": "webhooks",
+      "description": "issue.created webhooks and delivery diagnostics."
+    },
+    {
+      "name": "tokens",
+      "description": "Automation PATs managed by a website session."
+    },
+    {
+      "name": "oauth",
+      "description": "OAuth 2.0 PKCE authorization and token rotation for the Chrome extension."
+    }
+  ],
+  "apis": {
+    "projects/listProjects": {
+      "operationId": "listProjects",
+      "summary": "List projects",
+      "description": "Lists all projects owned by the current account.",
+      "method": "GET",
+      "path": "/projects",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Project list.",
+          "schema": {
+            "type": "object",
+            "description": "Project list.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Project"
+                },
+                "description": "Project list."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Project list.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "description": "Project list."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "projects/createProject": {
+      "operationId": "createProject",
+      "summary": "Create project",
+      "description": "Creates a personal project with up to 50 origins.",
+      "method": "POST",
+      "path": "/projects",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Project created.",
+          "schema": {
+            "type": "object",
+            "description": "Created project.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Project",
+                "description": "Created project."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Created project.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Project",
+                    "description": "Created project."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "An origin is already assigned to another project.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-project-create"
+            },
+            "body": {
+              "name": "Checkout",
+              "description": "Checkout experience issues",
+              "origins": [
+                "https://shop.example.com"
+              ]
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "projects/getProject": {
+      "operationId": "getProject",
+      "summary": "Get project",
+      "description": "Gets a project, its origins, and concurrency-control version.",
+      "method": "GET",
+      "path": "/projects/{projectId}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Project details.",
+          "schema": {
+            "type": "object",
+            "description": "Project details.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProjectWithOrigins",
+                "description": "Project details."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Project details.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProjectWithOrigins",
+                    "description": "Project details."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Project not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "projects/updateProject": {
+      "operationId": "updateProject",
+      "summary": "Update project",
+      "description": "Updates a project name or description using If-Match.",
+      "method": "PATCH",
+      "path": "/projects/{projectId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Project updated.",
+          "schema": {
+            "type": "object",
+            "description": "Updated project.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Project",
+                "description": "Updated project."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Updated project.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Project",
+                    "description": "Updated project."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "If-Match is missing or the version conflicts.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-project-update"
+            },
+            "body": {
+              "name": "Checkout v2"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "projects/deleteProject": {
+      "operationId": "deleteProject",
+      "summary": "Delete project",
+      "description": "Deletes a project and its issues, history, and screenshots.",
+      "method": "DELETE",
+      "path": "/projects/{projectId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Project deleted."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint deletes, revokes, or changes persistent resources and related data and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "projects/addProjectOrigin": {
+      "operationId": "addProjectOrigin",
+      "summary": "Add project origin",
+      "description": "Adds a normalized origin and increments the project version.",
+      "method": "POST",
+      "path": "/projects/{projectId}/origins",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OriginInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OriginInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Origin added.",
+          "schema": {
+            "type": "object",
+            "description": "Origin addition result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OriginResult",
+                "description": "Origin addition result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Origin addition result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OriginResult",
+                    "description": "Origin addition result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Origin already assigned.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-origin-add"
+            },
+            "body": {
+              "origin": "https://shop.example.com/checkout"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "projects/deleteProjectOrigin": {
+      "operationId": "deleteProjectOrigin",
+      "summary": "Delete project origin",
+      "description": "Removes a URL-encoded origin from a project.",
+      "method": "DELETE",
+      "path": "/projects/{projectId}/origins/{encodedOrigin}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "encodedOrigin",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "URL-encoded normalized origin.",
+            "examples": [
+              "https%3A%2F%2Fshop.example.com"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Origin removed or already absent."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "projectId": "prj_example",
+              "encodedOrigin": "https%3A%2F%2Fshop.example.com"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint deletes, revokes, or changes persistent resources and related data and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "projects/resolveProject": {
+      "operationId": "resolveProject",
+      "summary": "Resolve project by URL",
+      "description": "Matches only the page URL scheme, host, and port.",
+      "method": "GET",
+      "path": "/projects/resolve",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uri",
+            "description": "Current page URL.",
+            "examples": [
+              "https://shop.example.com/checkout?step=payment"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Matched project or null.",
+          "schema": {
+            "type": "object",
+            "description": "Project resolution result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ResolveProjectResult",
+                "description": "Project resolution result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Project resolution result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ResolveProjectResult",
+                    "description": "Project resolution result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "projects"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "projects:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        },
+        {
+          "extensionOAuth": [
+            "projects:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "url": "https://shop.example.com/checkout?step=payment"
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "issues/listIssues": {
+      "operationId": "listIssues",
+      "summary": "List issues",
+      "description": "Cursor-paginates issues with project, status, and update-time filters, up to 100 items.",
+      "method": "GET",
+      "path": "/issues",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "cursor",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "Base64url time cursor returned by the previous page.",
+            "examples": [
+              "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Items per page; defaults to 50.",
+            "examples": [
+              50
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "projectId",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "Filter by project.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "status",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/IssueStatus"
+          }
+        },
+        {
+          "in": "query",
+          "name": "updatedAfter",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Return only issues updated after this time.",
+            "examples": [
+              "2026-08-15T00:00:00.000Z"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-None-Match",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "description": "List cache ETag; returns 304 when matched.",
+            "examples": [
+              "example-etag"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue page.",
+          "schema": {
+            "type": "object",
+            "description": "Paginated issue response.",
+            "required": [
+              "data",
+              "meta"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Issue"
+                },
+                "description": "Resource list."
+              },
+              "meta": {
+                "type": "object",
+                "description": "Pagination metadata.",
+                "required": [
+                  "nextCursor"
+                ],
+                "properties": {
+                  "nextCursor": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Next-page cursor, or null when there is no next page.",
+                    "examples": [
+                      "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Paginated issue response.",
+                "required": [
+                  "data",
+                  "meta"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Issue"
+                    },
+                    "description": "Resource list."
+                  },
+                  "meta": {
+                    "type": "object",
+                    "description": "Pagination metadata.",
+                    "required": [
+                      "nextCursor"
+                    ],
+                    "properties": {
+                      "nextCursor": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Next-page cursor, or null when there is no next page.",
+                        "examples": [
+                          "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "304": {
+          "description": "ETag matched; content not modified."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "projectId": "prj_example",
+              "status": "open",
+              "limit": 50
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "issues/createIssue": {
+      "operationId": "createIssue",
+      "summary": "Create issue",
+      "description": "Creates an issue and its issue.created outbox event in one transaction.",
+      "method": "POST",
+      "path": "/issues",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/IssueInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Issue created.",
+          "schema": {
+            "type": "object",
+            "description": "Created issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Created issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Created issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Created issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Page origin does not match the project, or the screenshot is already used.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "extensionOAuth": [
+            "issues:create"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-create"
+            },
+            "body": {
+              "projectId": "prj_example",
+              "title": "Checkout button does not submit",
+              "description": "Clicking the button leaves the page unchanged.",
+              "pageUrl": "https://shop.example.com/checkout",
+              "dom": {
+                "cssSelector": "#checkout-button",
+                "xpath": "//*[@id='checkout-button']",
+                "tagName": "BUTTON",
+                "attributes": {
+                  "id": "checkout-button",
+                  "type": "submit"
+                },
+                "text": "Submit order",
+                "outerHTML": "<button id=\"checkout-button\" type=\"submit\">Submit order</button>",
+                "viewport": {
+                  "width": 1440,
+                  "height": 900,
+                  "devicePixelRatio": 2
+                },
+                "boundingRect": {
+                  "x": 1040,
+                  "y": 720,
+                  "width": 180,
+                  "height": 44
+                }
+              },
+              "attachmentId": "att_example",
+              "source": "extension"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/getIssue": {
+      "operationId": "getIssue",
+      "summary": "Get issue",
+      "description": "Gets DOM, screenshot path, target, and state context.",
+      "method": "GET",
+      "path": "/issues/{issueId}",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Complete issue context.",
+          "schema": {
+            "type": "object",
+            "description": "Issue details.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IssueDetail",
+                "description": "Issue details."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Issue details.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/IssueDetail",
+                    "description": "Issue details."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Issue not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "issues/updateIssue": {
+      "operationId": "updateIssue",
+      "summary": "Update issue",
+      "description": "Updates an issue title or description using If-Match.",
+      "method": "PATCH",
+      "path": "/issues/{issueId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/IssueUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue updated.",
+          "schema": {
+            "type": "object",
+            "description": "Updated issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Updated issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Updated issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Updated issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "If-Match is missing or the version conflicts.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-issue-update"
+            },
+            "body": {
+              "title": "Checkout submit is unresponsive"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/deleteIssue": {
+      "operationId": "deleteIssue",
+      "summary": "Delete issue",
+      "description": "Deletes an issue, its history, and its screenshot.",
+      "method": "DELETE",
+      "path": "/issues/{issueId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Issue deleted."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint deletes, revokes, or changes persistent resources and related data and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "issues/listIssueEvents": {
+      "operationId": "listIssueEvents",
+      "summary": "List issue events",
+      "description": "Returns issue audit events in chronological order.",
+      "method": "GET",
+      "path": "/issues/{issueId}/events",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue event list.",
+          "schema": {
+            "type": "object",
+            "description": "Issue event list.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IssueEvent"
+                },
+                "description": "Issue event list."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Issue event list.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/IssueEvent"
+                    },
+                    "description": "Issue event list."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "issues/claimIssue": {
+      "operationId": "claimIssue",
+      "summary": "Claim issue atomically",
+      "description": "Atomically claims an open issue for one caller.",
+      "method": "POST",
+      "path": "/issues/{issueId}/claim",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue claimed.",
+          "schema": {
+            "type": "object",
+            "description": "Claimed issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Claimed issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Claimed issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Claimed issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Issue is already claimed.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-claim"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/claimNextIssue": {
+      "operationId": "claimNextIssue",
+      "summary": "Claim next issue",
+      "description": "Atomically claims the oldest open issue in a project, or returns null.",
+      "method": "POST",
+      "path": "/issues/claim-next",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClaimNextInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimNextInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Claimed issue or null.",
+          "schema": {
+            "type": "object",
+            "description": "Claim result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ClaimNextResult",
+                "description": "Claim result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Claim result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ClaimNextResult",
+                    "description": "Claim result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-claim-next"
+            },
+            "body": {
+              "projectId": "prj_example"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/releaseIssue": {
+      "operationId": "releaseIssue",
+      "summary": "Release issue",
+      "description": "The claiming credential or website account returns an in-progress issue to open.",
+      "method": "POST",
+      "path": "/issues/{issueId}/release",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ReleaseInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue released.",
+          "schema": {
+            "type": "object",
+            "description": "Released issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Released issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Released issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Released issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "Caller is not the claimant.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Issue state is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-release"
+            },
+            "body": {
+              "reason": "Blocked by an unavailable dependency."
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/completeIssue": {
+      "operationId": "completeIssue",
+      "summary": "Complete issue",
+      "description": "The claiming credential or website account records completion and a summary.",
+      "method": "POST",
+      "path": "/issues/{issueId}/complete",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CompleteInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue completed.",
+          "schema": {
+            "type": "object",
+            "description": "Completed issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Completed issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Completed issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Completed issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "Caller is not the claimant.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Issue state is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-complete"
+            },
+            "body": {
+              "summary": "Added a submit handler and regression test."
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "issues/reopenIssue": {
+      "operationId": "reopenIssue",
+      "summary": "Reopen issue",
+      "description": "Returns a completed issue to open.",
+      "method": "POST",
+      "path": "/issues/{issueId}/reopen",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "issueId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Issue reopened.",
+          "schema": {
+            "type": "object",
+            "description": "Reopened issue.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Issue",
+                "description": "Reopened issue."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Reopened issue.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Issue",
+                    "description": "Reopened issue."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Only completed issues can be reopened.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "issues"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "issueId": "iss_example"
+            },
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-issue-reopen"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "attachments/createAttachment": {
+      "operationId": "createAttachment",
+      "summary": "Upload screenshot",
+      "description": "Uploads a PNG, JPEG, or WebP up to 2 MiB to private storage.",
+      "method": "POST",
+      "path": "/attachments",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/AttachmentInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachmentInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Screenshot stored privately.",
+          "schema": {
+            "type": "object",
+            "description": "Screenshot metadata.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Attachment",
+                "description": "Screenshot metadata."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Screenshot metadata.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Attachment",
+                    "description": "Screenshot metadata."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "413": {
+          "description": "Screenshot exceeds 2 MiB.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "attachments"
+      ],
+      "security": [
+        {
+          "extensionOAuth": [
+            "attachments:write"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {
+              "Idempotency-Key": "example-attachment"
+            },
+            "body": {
+              "fileName": "checkout.webp",
+              "contentType": "image/webp",
+              "base64": "UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAUAmJaQAA3AA/v89WAAAAA=="
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "attachments/downloadAttachment": {
+      "operationId": "downloadAttachment",
+      "summary": "Download screenshot",
+      "description": "Streams a private screenshot after authorization.",
+      "method": "GET",
+      "path": "/attachments/{attachmentId}",
+      "consumes": [],
+      "produces": [
+        "image/png",
+        "image/jpeg",
+        "image/webp"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "attachmentId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Screenshot ID.",
+            "examples": [
+              "att_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "PNG, JPEG, or WebP screenshot bytes.",
+          "schema": {
+            "type": "string",
+            "format": "binary",
+            "description": "Private screenshot bytes.",
+            "examples": [
+              "UklGRiQAAABXRUJQ"
+            ]
+          },
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "PNG screenshot bytes."
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "JPEG screenshot bytes."
+              }
+            },
+            "image/webp": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "WebP screenshot bytes."
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Screenshot not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "503": {
+          "description": "Screenshot storage unavailable.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "attachments"
+      ],
+      "security": [
+        {
+          "pinherePat": [
+            "issues:read"
+          ]
+        },
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "attachmentId": "att_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "webhooks/listWebhooks": {
+      "operationId": "listWebhooks",
+      "summary": "List webhooks",
+      "description": "Lists webhooks for the current account without signing secrets.",
+      "method": "GET",
+      "path": "/webhooks",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Webhook list.",
+          "schema": {
+            "type": "object",
+            "description": "Webhook list.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Webhook"
+                },
+                "description": "Webhook list."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Webhook list.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Webhook"
+                    },
+                    "description": "Webhook list."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "webhooks/createWebhook": {
+      "operationId": "createWebhook",
+      "summary": "Create webhook",
+      "description": "Creates a public HTTPS webhook that receives issue.created events.",
+      "method": "POST",
+      "path": "/webhooks",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/WebhookInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Webhook and one-time secret.",
+          "schema": {
+            "type": "object",
+            "description": "Webhook creation result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/WebhookWithSecret",
+                "description": "Webhook creation result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Webhook creation result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/WebhookWithSecret",
+                    "description": "Webhook creation result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "URL failed public HTTPS/SSRF validation.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Issue automation",
+              "url": "https://hooks.example.com/pinhere",
+              "projectId": "prj_example"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates, rotates, or returns a one-time credential. Pontx Hub does not proxy it and its result must not be logged. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "webhooks/updateWebhook": {
+      "operationId": "updateWebhook",
+      "summary": "Update webhook",
+      "description": "Updates a webhook name, URL, or enabled state using If-Match.",
+      "method": "PATCH",
+      "path": "/webhooks/{webhookId}",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "Idempotency-Key",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200,
+            "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+            "examples": [
+              "example-idempotency-key"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/WebhookUpdateInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookUpdateInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Webhook updated.",
+          "schema": {
+            "type": "object",
+            "description": "Updated webhook.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Webhook",
+                "description": "Updated webhook."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Updated webhook.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/Webhook",
+                    "description": "Updated webhook."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "412": {
+          "description": "If-Match is missing or the version conflicts.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "URL failed public HTTPS/SSRF validation.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1",
+              "Idempotency-Key": "example-webhook-update"
+            },
+            "body": {
+              "enabled": false
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates a persistent state change and is not proxied by Pontx Hub. The CLI must preview first and execute with caller-owned credentials only after explicit confirmation."
+        }
+      }
+    },
+    "webhooks/deleteWebhook": {
+      "operationId": "deleteWebhook",
+      "summary": "Delete webhook",
+      "description": "Deletes a webhook and its delivery records.",
+      "method": "DELETE",
+      "path": "/webhooks/{webhookId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "header",
+          "name": "If-Match",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Must match the ETag derived from the resource version.",
+            "examples": [
+              "1"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Webhook deleted."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {
+              "If-Match": "1"
+            }
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint deletes, revokes, or changes persistent resources and related data and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "webhooks/rotateWebhookSecret": {
+      "operationId": "rotateWebhookSecret",
+      "summary": "Rotate webhook secret",
+      "description": "Immediately rotates the webhook signing secret and increments its version.",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/rotate-secret",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Returns a new one-time secret.",
+          "schema": {
+            "type": "object",
+            "description": "New webhook secret.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SecretResult",
+                "description": "New webhook secret."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "New webhook secret.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/SecretResult",
+                    "description": "New webhook secret."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates, rotates, or returns a one-time credential. Pontx Hub does not proxy it and its result must not be logged. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "webhooks/testWebhook": {
+      "operationId": "testWebhook",
+      "summary": "Test webhook",
+      "description": "Creates a test delivery and immediately attempts to send it to the external URL.",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/test",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "202": {
+          "description": "Test delivery created and attempted.",
+          "schema": {
+            "type": "object",
+            "description": "Test delivery reference.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/DeliveryReference",
+                "description": "Test delivery reference."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Test delivery reference.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/DeliveryReference",
+                    "description": "Test delivery reference."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "202"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint initiates or retries delivery to an external webhook and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "webhooks/listWebhookDeliveries": {
+      "operationId": "listWebhookDeliveries",
+      "summary": "List webhook deliveries",
+      "description": "Returns the 100 most recent webhook deliveries with restricted error diagnostics.",
+      "method": "GET",
+      "path": "/webhooks/{webhookId}/deliveries",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Delivery record list.",
+          "schema": {
+            "type": "object",
+            "description": "Delivery record list.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WebhookDelivery"
+                },
+                "description": "Delivery record list."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Delivery record list.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WebhookDelivery"
+                    },
+                    "description": "Delivery record list."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "webhooks/retryWebhookDelivery": {
+      "operationId": "retryWebhookDelivery",
+      "summary": "Retry webhook delivery",
+      "description": "Returns a delivery to pending and retries it in the background.",
+      "method": "POST",
+      "path": "/webhooks/{webhookId}/deliveries/{deliveryId}/retry",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "webhookId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "deliveryId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Delivery ID.",
+            "examples": [
+              "whd_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "202": {
+          "description": "Delivery queued.",
+          "schema": {
+            "type": "object",
+            "description": "Retry delivery reference.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/DeliveryReference",
+                "description": "Retry delivery reference."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Retry delivery reference.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/DeliveryReference",
+                    "description": "Retry delivery reference."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Delivery not found.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "webhooks"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "webhookId": "whk_example",
+              "deliveryId": "whd_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "202"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint initiates or retries delivery to an external webhook and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "tokens/listApiTokens": {
+      "operationId": "listApiTokens",
+      "summary": "List API tokens",
+      "description": "Lists current token metadata without plaintext PATs.",
+      "method": "GET",
+      "path": "/tokens",
+      "consumes": [],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Token metadata list.",
+          "schema": {
+            "type": "object",
+            "description": "Token metadata list.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ApiToken"
+                },
+                "description": "Token metadata list."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Token metadata list.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ApiToken"
+                    },
+                    "description": "Token metadata list."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "Responses contain private account resources, issue text, DOM context, screenshots, token metadata, or delivery diagnostics. Pontx Hub does not proxy execution; use caller-owned credentials only in a controlled local environment."
+        }
+      }
+    },
+    "tokens/createApiToken": {
+      "operationId": "createApiToken",
+      "summary": "Create API token",
+      "description": "Creates a ph_pat_ PAT returned once with fixed projects:read, issues:read, and issues:write scopes.",
+      "method": "POST",
+      "path": "/tokens",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ApiTokenInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiTokenInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Token metadata and one-time PAT.",
+          "schema": {
+            "type": "object",
+            "description": "API token creation result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ApiTokenWithSecret",
+                "description": "API token creation result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "API token creation result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ApiTokenWithSecret",
+                    "description": "API token creation result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Checkout repair agent",
+              "expiresAt": "2026-09-15T08:00:00.000Z"
+            }
+          },
+          "expectedStatus": "201"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates, rotates, or returns a one-time credential. Pontx Hub does not proxy it and its result must not be logged. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "tokens/revokeApiToken": {
+      "operationId": "revokeApiToken",
+      "summary": "Revoke API token",
+      "description": "Immediately revokes the specified PAT.",
+      "method": "DELETE",
+      "path": "/tokens/{tokenId}",
+      "consumes": [],
+      "produces": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "tokenId",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "description": "Token ID.",
+            "examples": [
+              "pat_example"
+            ]
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Token revoked or already absent."
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "tokens"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {
+              "tokenId": "pat_example"
+            },
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "204"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint deletes, revokes, or changes persistent resources and related data and is not proxied by Pontx Hub. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "oauth/authorizeExtension": {
+      "operationId": "authorizeExtension",
+      "summary": "Authorize browser extension",
+      "description": "A website session issues a five-minute one-time PKCE code for an allowed chromiumapp.org callback.",
+      "method": "POST",
+      "path": "/oauth/extension/authorize",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OAuthAuthorizeInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthAuthorizeInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Callback URL containing a one-time authorization code.",
+          "schema": {
+            "type": "object",
+            "description": "Extension authorization result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OAuthAuthorizeResult",
+                "description": "Extension authorization result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Extension authorization result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OAuthAuthorizeResult",
+                    "description": "Extension authorization result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "Callback URL is not allowed.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "oauth"
+      ],
+      "security": [
+        {
+          "websiteSession": []
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "redirectUri": "https://example.chromiumapp.org/callback",
+              "codeChallenge": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint creates, rotates, or returns a one-time credential. Pontx Hub does not proxy it and its result must not be logged. The CLI must preview first and require explicit confirmation."
+        }
+      }
+    },
+    "oauth/exchangeOAuthToken": {
+      "operationId": "exchangeOAuthToken",
+      "summary": "Exchange OAuth token",
+      "description": "Exchanges an authorization code with PKCE or rotates a refresh token; access tokens last 15 minutes and refresh tokens 30 days.",
+      "method": "POST",
+      "path": "/oauth/token",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/OAuthTokenInput"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthTokenInput"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Access and refresh tokens.",
+          "schema": {
+            "type": "object",
+            "description": "OAuth token result.",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/OAuthTokenResult",
+                "description": "OAuth token result."
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "OAuth token result.",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/OAuthTokenResult",
+                    "description": "OAuth token result."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Authorization code, verifier, or refresh token is invalid.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "Standard error response.",
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "oauth"
+      ],
+      "security": [],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "grantType": "authorization_code",
+              "code": "redacted-example-code",
+              "redirectUri": "https://example.chromiumapp.org/callback",
+              "codeVerifier": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      },
+      "metadata": {
+        "execution": {
+          "enabled": false,
+          "disabledReason": "This endpoint exchanges and returns OAuth access and refresh tokens. Pontx Hub does not proxy it; credentials must remain in the caller environment and must not be logged."
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "websiteSession": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Cookie",
+        "description": "Pinhere website session cookie for same-origin browser requests only; never copy it to a CLI, Hub, or logs."
+      },
+      "pinherePat": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "ph_pat_*",
+        "description": "Caller-held Pinhere PAT with fixed projects:read, issues:read, and issues:write scopes."
+      },
+      "extensionOAuth": {
+        "type": "oauth2",
+        "description": "OAuth 2.0 Authorization Code + PKCE for the Chrome extension.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://pinhere.dev/extension-authorize",
+            "tokenUrl": "https://pinhere.dev/api/v1/oauth/token",
+            "scopes": {
+              "projects:read": "Read projects and resolve a project by page URL.",
+              "issues:create": "Create issues.",
+              "attachments:write": "Upload screenshots."
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "ProjectId": {
+        "in": "path",
+        "name": "projectId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Project ID.",
+          "examples": [
+            "prj_example"
+          ]
+        }
+      },
+      "IssueId": {
+        "in": "path",
+        "name": "issueId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Issue ID.",
+          "examples": [
+            "iss_example"
+          ]
+        }
+      },
+      "AttachmentId": {
+        "in": "path",
+        "name": "attachmentId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Screenshot ID.",
+          "examples": [
+            "att_example"
+          ]
+        }
+      },
+      "WebhookId": {
+        "in": "path",
+        "name": "webhookId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Webhook ID.",
+          "examples": [
+            "whk_example"
+          ]
+        }
+      },
+      "DeliveryId": {
+        "in": "path",
+        "name": "deliveryId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Delivery ID.",
+          "examples": [
+            "whd_example"
+          ]
+        }
+      },
+      "TokenId": {
+        "in": "path",
+        "name": "tokenId",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Token ID.",
+          "examples": [
+            "pat_example"
+          ]
+        }
+      },
+      "IfMatch": {
+        "in": "header",
+        "name": "If-Match",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "Must match the ETag derived from the resource version.",
+          "examples": [
+            "1"
+          ]
+        }
+      },
+      "IfNoneMatch": {
+        "in": "header",
+        "name": "If-None-Match",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "description": "List cache ETag; returns 304 when matched.",
+          "examples": [
+            "example-etag"
+          ]
+        }
+      },
+      "IdempotencyKey": {
+        "in": "header",
+        "name": "Idempotency-Key",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 200,
+          "description": "Retained for 24 hours per account and endpoint; reuse with a different request returns 409.",
+          "examples": [
+            "example-idempotency-key"
+          ]
+        }
+      },
+      "Cursor": {
+        "in": "query",
+        "name": "cursor",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "description": "Base64url time cursor returned by the previous page.",
+          "examples": [
+            "MjAyNi0wOC0xNVQwODowMDowMC4wMDBa"
+          ]
+        }
+      },
+      "Limit": {
+        "in": "query",
+        "name": "limit",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Items per page; defaults to 50.",
+          "examples": [
+            50
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "title": "Error response",
+        "description": "Stable error envelope used by failed requests.",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "description": "Error details.",
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Machine-readable error code.",
+                "examples": [
+                  "validation_error"
+                ]
+              },
+              "message": {
+                "type": "string",
+                "description": "Caller-facing error message.",
+                "examples": [
+                  "The request is invalid"
+                ]
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Request identifier for troubleshooting.",
+                "examples": [
+                  "req_example"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Project": {
+        "title": "Project",
+        "description": "A Pinhere project owned by the current account.",
+        "type": "object",
+        "required": [
+          "id",
+          "userId",
+          "name",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "Project owner ID.",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Project name.",
+            "examples": [
+              "Checkout"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Project description.",
+            "examples": [
+              "Checkout experience issues"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Resource version used by ETag and If-Match.",
+            "examples": [
+              1
+            ]
+          }
+        }
+      },
+      "ProjectWithOrigins": {
+        "title": "Project details",
+        "description": "A project and its normalized origins.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Project"
+          },
+          {
+            "type": "object",
+            "description": "Project-origin extension fields.",
+            "required": [
+              "origins"
+            ],
+            "properties": {
+              "origins": {
+                "type": "array",
+                "maxItems": 50,
+                "description": "Normalized origins assigned to the project.",
+                "items": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Normalized origin.",
+                  "examples": [
+                    "https://shop.example.com"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ProjectInput": {
+        "title": "Create project input",
+        "description": "Creates a project with optional origins.",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Project name after trimming surrounding whitespace.",
+            "examples": [
+              "Checkout"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Project description; defaults to an empty string.",
+            "examples": [
+              "Checkout experience issues"
+            ]
+          },
+          "origins": {
+            "type": "array",
+            "maxItems": 50,
+            "description": "Page origins to assign to the project.",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL containing scheme, host, and optional port.",
+              "examples": [
+                "https://shop.example.com"
+              ]
+            }
+          }
+        }
+      },
+      "ProjectUpdateInput": {
+        "title": "Update project input",
+        "description": "Optionally updates a project name or description.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "New project name.",
+            "examples": [
+              "Checkout v2"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "New project description.",
+            "examples": [
+              "Updated checkout issues"
+            ]
+          }
+        }
+      },
+      "OriginInput": {
+        "title": "Origin input",
+        "description": "Origin to add to a project.",
+        "type": "object",
+        "required": [
+          "origin"
+        ],
+        "properties": {
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL normalized by scheme, host, and port.",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          }
+        }
+      },
+      "OriginResult": {
+        "title": "Origin result",
+        "description": "Added origin and new project version.",
+        "type": "object",
+        "required": [
+          "origin",
+          "projectVersion"
+        ],
+        "properties": {
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "Normalized origin.",
+            "examples": [
+              "https://shop.example.com"
+            ]
+          },
+          "projectVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Project version after the addition.",
+            "examples": [
+              2
+            ]
+          }
+        }
+      },
+      "ResolveProjectResult": {
+        "title": "Project resolution result",
+        "description": "Matched project and normalized origin.",
+        "type": "object",
+        "required": [
+          "project",
+          "origin"
+        ],
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "nullable": true,
+            "description": "Matched project, or null when no project matches."
+          },
+          "origin": {
+            "type": "string",
+            "format": "uri",
+            "description": "Normalized origin extracted from the page URL.",
+            "examples": [
+              "https://shop.example.com"
+            ]
+          }
+        }
+      },
+      "DomContext": {
+        "title": "DOM context",
+        "description": "Sanitized target-element context captured by the browser extension.",
+        "type": "object",
+        "required": [
+          "cssSelector",
+          "xpath",
+          "tagName",
+          "attributes",
+          "text",
+          "outerHTML",
+          "viewport",
+          "boundingRect"
+        ],
+        "properties": {
+          "cssSelector": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "CSS selector for the target element.",
+            "examples": [
+              "#checkout-button"
+            ]
+          },
+          "xpath": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "XPath for the target element.",
+            "examples": [
+              "//*[@id='checkout-button']"
+            ]
+          },
+          "tagName": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Uppercase HTML tag name.",
+            "examples": [
+              "BUTTON"
+            ]
+          },
+          "attributes": {
+            "type": "object",
+            "description": "Sanitized element attributes, each limited to 2,000 characters.",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 2000,
+              "description": "Attribute value.",
+              "examples": [
+                "checkout-button"
+              ]
+            }
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Target element text.",
+            "examples": [
+              "Submit order"
+            ]
+          },
+          "outerHTML": {
+            "type": "string",
+            "maxLength": 30000,
+            "description": "Sanitized target element HTML.",
+            "examples": [
+              "<button id=\"checkout-button\">Submit order</button>"
+            ]
+          },
+          "viewport": {
+            "type": "object",
+            "description": "Viewport at capture time.",
+            "required": [
+              "width",
+              "height",
+              "devicePixelRatio"
+            ],
+            "properties": {
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "Width in CSS pixels.",
+                "examples": [
+                  1440
+                ]
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "Height in CSS pixels.",
+                "examples": [
+                  900
+                ]
+              },
+              "devicePixelRatio": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 8,
+                "description": "Device pixel ratio.",
+                "examples": [
+                  2
+                ]
+              }
+            }
+          },
+          "boundingRect": {
+            "type": "object",
+            "description": "Element rectangle relative to the viewport.",
+            "required": [
+              "x",
+              "y",
+              "width",
+              "height"
+            ],
+            "properties": {
+              "x": {
+                "type": "number",
+                "description": "Left coordinate.",
+                "examples": [
+                  1040
+                ]
+              },
+              "y": {
+                "type": "number",
+                "description": "Top coordinate.",
+                "examples": [
+                  720
+                ]
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Rectangle width.",
+                "examples": [
+                  180
+                ]
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Rectangle height.",
+                "examples": [
+                  44
+                ]
+              }
+            }
+          }
+        }
+      },
+      "IssueStatus": {
+        "title": "Issue status",
+        "description": "Fixed states in the issue lifecycle.",
+        "type": "string",
+        "enum": [
+          "open",
+          "in_progress",
+          "done"
+        ],
+        "enumValueTitles": {
+          "open": "Open",
+          "in_progress": "In progress",
+          "done": "Done"
+        },
+        "examples": [
+          "open"
+        ]
+      },
+      "IssueSource": {
+        "title": "Issue source",
+        "description": "Caller source that created the issue.",
+        "type": "string",
+        "enum": [
+          "extension",
+          "web",
+          "api"
+        ],
+        "enumValueTitles": {
+          "extension": "Browser extension",
+          "web": "Website",
+          "api": "API"
+        },
+        "examples": [
+          "extension"
+        ]
+      },
+      "Issue": {
+        "title": "Issue",
+        "description": "Private issue containing page context and processing state.",
+        "type": "object",
+        "required": [
+          "id",
+          "userId",
+          "projectId",
+          "title",
+          "description",
+          "pageUrl",
+          "dom",
+          "status",
+          "source",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "Issue owner ID.",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Owning project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Issue title.",
+            "examples": [
+              "Checkout button does not submit"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "Issue description.",
+            "examples": [
+              "Clicking the button leaves the page unchanged."
+            ]
+          },
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Page URL after sensitive query parameters are removed.",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          },
+          "dom": {
+            "$ref": "#/components/schemas/DomContext"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IssueStatus"
+          },
+          "source": {
+            "$ref": "#/components/schemas/IssueSource"
+          },
+          "attachmentId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Associated screenshot ID.",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "claimedByTokenId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Credential or account identifier of the current claimant.",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "claimedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Claim time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Completion time.",
+            "examples": [
+              "2026-08-15T09:00:00.000Z"
+            ]
+          },
+          "completionSummary": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 10000,
+            "description": "Completion summary.",
+            "examples": [
+              "Added a submit handler and regression test."
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Resource version used for concurrency control.",
+            "examples": [
+              2
+            ]
+          }
+        }
+      },
+      "IssueDetail": {
+        "title": "Issue details",
+        "description": "Issue and authenticated screenshot download path.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Issue"
+          },
+          {
+            "type": "object",
+            "description": "Issue-detail extension fields.",
+            "required": [
+              "screenshotUrl"
+            ],
+            "properties": {
+              "screenshotUrl": {
+                "type": "string",
+                "nullable": true,
+                "description": "Relative download path for the associated screenshot, or null.",
+                "examples": [
+                  "/api/v1/attachments/att_example"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "IssueInput": {
+        "title": "Create issue input",
+        "description": "Complete issue context submitted by the extension, website, or API.",
+        "type": "object",
+        "required": [
+          "projectId",
+          "title",
+          "description",
+          "pageUrl",
+          "dom"
+        ],
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "Project ID to which the page origin is assigned.",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Issue title.",
+            "examples": [
+              "Checkout button does not submit"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "Issue description.",
+            "examples": [
+              "Clicking the button leaves the page unchanged."
+            ]
+          },
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Page URL where the issue occurred.",
+            "examples": [
+              "https://shop.example.com/checkout"
+            ]
+          },
+          "dom": {
+            "$ref": "#/components/schemas/DomContext"
+          },
+          "attachmentId": {
+            "type": "string",
+            "description": "ID of an unbound private screenshot.",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/IssueSource"
+          }
+        }
+      },
+      "IssueUpdateInput": {
+        "title": "Update issue input",
+        "description": "Optionally updates an issue title or description.",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "New issue title.",
+            "examples": [
+              "Checkout submit is unresponsive"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "description": "New issue description.",
+            "examples": [
+              "The button remains enabled but no request is sent."
+            ]
+          }
+        }
+      },
+      "IssueEvent": {
+        "title": "Issue event",
+        "description": "Audit event for issue state or content changes.",
+        "type": "object",
+        "required": [
+          "id",
+          "issueId",
+          "userId",
+          "actorType",
+          "type",
+          "data",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Event ID.",
+            "examples": [
+              "evt_example"
+            ]
+          },
+          "issueId": {
+            "type": "string",
+            "description": "Issue ID.",
+            "examples": [
+              "iss_example"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "description": "Account ID.",
+            "examples": [
+              "usr_example"
+            ]
+          },
+          "actorType": {
+            "type": "string",
+            "description": "Actor type.",
+            "enum": [
+              "user",
+              "api_token",
+              "extension"
+            ],
+            "enumValueTitles": {
+              "user": "Website user",
+              "api_token": "API token",
+              "extension": "Browser extension"
+            },
+            "examples": [
+              "api_token"
+            ]
+          },
+          "actorId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Actor identifier.",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "Event type.",
+            "examples": [
+              "issue.claimed"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "description": "Event-specific structured data.",
+            "additionalProperties": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Event time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          }
+        }
+      },
+      "ClaimNextInput": {
+        "title": "Claim-next input",
+        "description": "Selects the project from which to claim an issue.",
+        "type": "object",
+        "required": [
+          "projectId"
+        ],
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "Project ID.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      },
+      "ClaimNextResult": {
+        "title": "Claim-next result",
+        "description": "Atomically claimed issue, or null when no open issue remains.",
+        "type": "object",
+        "required": [
+          "issue"
+        ],
+        "properties": {
+          "issue": {
+            "$ref": "#/components/schemas/Issue",
+            "nullable": true,
+            "description": "Claimed issue or null."
+          }
+        }
+      },
+      "ReleaseInput": {
+        "title": "Release issue input",
+        "description": "Optionally records why the issue is released.",
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Release reason.",
+            "examples": [
+              "Blocked by an unavailable dependency."
+            ]
+          }
+        }
+      },
+      "CompleteInput": {
+        "title": "Complete issue input",
+        "description": "Records a summary of the completed work.",
+        "type": "object",
+        "required": [
+          "summary"
+        ],
+        "properties": {
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000,
+            "description": "Completion summary.",
+            "examples": [
+              "Added a submit handler and regression test."
+            ]
+          }
+        }
+      },
+      "AttachmentInput": {
+        "title": "Screenshot upload input",
+        "description": "Base64 PNG, JPEG, or WebP data limited to 2 MiB.",
+        "type": "object",
+        "required": [
+          "fileName",
+          "contentType",
+          "base64"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Display-safe file name.",
+            "examples": [
+              "checkout.webp"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Allowed image media type.",
+            "enum": [
+              "image/png",
+              "image/jpeg",
+              "image/webp"
+            ],
+            "enumValueTitles": {
+              "image/png": "PNG",
+              "image/jpeg": "JPEG",
+              "image/webp": "WebP"
+            },
+            "examples": [
+              "image/webp"
+            ]
+          },
+          "base64": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "description": "Image bytes as raw Base64 or a data URL; must not be logged.",
+            "examples": [
+              "UklGRiQAAABXRUJQ"
+            ]
+          }
+        }
+      },
+      "Attachment": {
+        "title": "Screenshot metadata",
+        "description": "Metadata for a privately stored screenshot.",
+        "type": "object",
+        "required": [
+          "id",
+          "fileName",
+          "contentType",
+          "byteSize"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Screenshot ID.",
+            "examples": [
+              "att_example"
+            ]
+          },
+          "fileName": {
+            "type": "string",
+            "description": "File name.",
+            "examples": [
+              "checkout.webp"
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Image media type.",
+            "examples": [
+              "image/webp"
+            ]
+          },
+          "byteSize": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2097152,
+            "description": "Decoded byte count.",
+            "examples": [
+              128000
+            ]
+          }
+        }
+      },
+      "Webhook": {
+        "title": "Webhook",
+        "description": "HTTPS webhook receiving issue.created events.",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url",
+          "enabled",
+          "createdAt",
+          "updatedAt",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional project filter.",
+            "examples": [
+              "prj_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Display name.",
+            "examples": [
+              "Issue automation"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Public HTTPS URL that passes SSRF validation.",
+            "examples": [
+              "https://hooks.example.com/pinhere"
+            ]
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether new deliveries are enabled.",
+            "examples": [
+              true
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Resource version used by If-Match.",
+            "examples": [
+              1
+            ]
+          }
+        }
+      },
+      "WebhookInput": {
+        "title": "Create webhook input",
+        "description": "Creates an account-level or project-level webhook.",
+        "type": "object",
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Display name.",
+            "examples": [
+              "Issue automation"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Public HTTPS delivery URL.",
+            "examples": [
+              "https://hooks.example.com/pinhere"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Optional project filter.",
+            "examples": [
+              "prj_example"
+            ]
+          }
+        }
+      },
+      "WebhookUpdateInput": {
+        "title": "Update webhook input",
+        "description": "Optionally updates the name, URL, or enabled state.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "New display name.",
+            "examples": [
+              "Issue automation v2"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "New public HTTPS URL.",
+            "examples": [
+              "https://hooks.example.com/pinhere-v2"
+            ]
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "New enabled state.",
+            "examples": [
+              false
+            ]
+          }
+        }
+      },
+      "WebhookWithSecret": {
+        "title": "Webhook creation result",
+        "description": "New webhook and its one-time signing secret.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          {
+            "type": "object",
+            "description": "One-time secret extension field.",
+            "required": [
+              "secret"
+            ],
+            "properties": {
+              "secret": {
+                "type": "string",
+                "description": "One-time signing secret; must not be logged.",
+                "examples": [
+                  "redacted-not-a-secret"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "SecretResult": {
+        "title": "Secret result",
+        "description": "New one-time webhook secret.",
+        "type": "object",
+        "required": [
+          "secret"
+        ],
+        "properties": {
+          "secret": {
+            "type": "string",
+            "description": "One-time signing secret that must not be logged.",
+            "examples": [
+              "redacted-not-a-secret"
+            ]
+          }
+        }
+      },
+      "DeliveryReference": {
+        "title": "Delivery reference",
+        "description": "Created or queued webhook delivery.",
+        "type": "object",
+        "required": [
+          "deliveryId"
+        ],
+        "properties": {
+          "deliveryId": {
+            "type": "string",
+            "description": "Delivery ID.",
+            "examples": [
+              "whd_example"
+            ]
+          }
+        }
+      },
+      "WebhookDelivery": {
+        "title": "Webhook delivery",
+        "description": "Webhook delivery state and restricted diagnostics.",
+        "type": "object",
+        "required": [
+          "id",
+          "webhookId",
+          "eventId",
+          "eventType",
+          "payload",
+          "status",
+          "attempt",
+          "nextAttemptAt",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Delivery ID.",
+            "examples": [
+              "whd_example"
+            ]
+          },
+          "webhookId": {
+            "type": "string",
+            "description": "Webhook ID.",
+            "examples": [
+              "whk_example"
+            ]
+          },
+          "eventId": {
+            "type": "string",
+            "description": "Event ID.",
+            "examples": [
+              "whe_example"
+            ]
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Currently fixed to issue.created.",
+            "enum": [
+              "issue.created"
+            ],
+            "enumValueTitles": {
+              "issue.created": "Issue created"
+            },
+            "examples": [
+              "issue.created"
+            ]
+          },
+          "payload": {
+            "type": "object",
+            "description": "Delivery payload, which may contain private issue identifiers.",
+            "additionalProperties": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Delivery status.",
+            "enum": [
+              "pending",
+              "delivered",
+              "failed"
+            ],
+            "enumValueTitles": {
+              "pending": "Pending",
+              "delivered": "Delivered",
+              "failed": "Failed"
+            },
+            "examples": [
+              "pending"
+            ]
+          },
+          "attempt": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Attempt count.",
+            "examples": [
+              0
+            ]
+          },
+          "nextAttemptAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Next attempt time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "responseStatus": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Target server status code.",
+            "examples": [
+              202
+            ]
+          },
+          "responseBody": {
+            "type": "string",
+            "nullable": true,
+            "description": "Restricted response summary.",
+            "examples": [
+              "accepted"
+            ]
+          },
+          "lastError": {
+            "type": "string",
+            "nullable": true,
+            "description": "Last error summary.",
+            "examples": [
+              "connection timeout"
+            ]
+          },
+          "deliveredAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Successful delivery time.",
+            "examples": [
+              "2026-08-15T08:05:03.000Z"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update time.",
+            "examples": [
+              "2026-08-15T08:05:03.000Z"
+            ]
+          }
+        }
+      },
+      "ApiToken": {
+        "title": "API token metadata",
+        "description": "Automation credential metadata without the plaintext PAT.",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "prefix",
+          "scopes",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Token ID.",
+            "examples": [
+              "pat_example"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Token name.",
+            "examples": [
+              "Checkout repair agent"
+            ]
+          },
+          "prefix": {
+            "type": "string",
+            "description": "Safe identification prefix, not usable for authentication.",
+            "examples": [
+              "ph_pat_redacted"
+            ]
+          },
+          "scopes": {
+            "type": "array",
+            "description": "Fixed automation scopes.",
+            "items": {
+              "type": "string",
+              "description": "Scope name.",
+              "enum": [
+                "projects:read",
+                "issues:read",
+                "issues:write"
+              ],
+              "enumValueTitles": {
+                "projects:read": "Read projects",
+                "issues:read": "Read issues",
+                "issues:write": "Process issues"
+              },
+              "examples": [
+                "issues:write"
+              ]
+            }
+          },
+          "lastUsedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Last use time.",
+            "examples": [
+              "2026-08-15T08:05:00.000Z"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Expiration time, or null for no expiration.",
+            "examples": [
+              "2026-09-15T08:00:00.000Z"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation time.",
+            "examples": [
+              "2026-08-15T08:00:00.000Z"
+            ]
+          }
+        }
+      },
+      "ApiTokenInput": {
+        "title": "Create API token input",
+        "description": "Creates a PAT with fixed automation scopes.",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Token name.",
+            "examples": [
+              "Checkout repair agent"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Optional expiration time.",
+            "examples": [
+              "2026-09-15T08:00:00.000Z"
+            ]
+          }
+        }
+      },
+      "ApiTokenWithSecret": {
+        "title": "API token creation result",
+        "description": "Token metadata and one-time plaintext PAT.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiToken"
+          },
+          {
+            "type": "object",
+            "description": "One-time PAT extension field.",
+            "required": [
+              "token"
+            ],
+            "properties": {
+              "token": {
+                "type": "string",
+                "pattern": "^ph_pat_",
+                "description": "One-time PAT; must not be logged.",
+                "examples": [
+                  "ph_pat_<redacted>"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OAuthAuthorizeInput": {
+        "title": "Extension authorization input",
+        "description": "Website session issues a one-time PKCE authorization code to a Chrome extension.",
+        "type": "object",
+        "required": [
+          "redirectUri",
+          "codeChallenge"
+        ],
+        "properties": {
+          "redirectUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS chromiumapp.org extension callback URL.",
+            "examples": [
+              "https://example.chromiumapp.org/callback"
+            ]
+          },
+          "codeChallenge": {
+            "type": "string",
+            "minLength": 43,
+            "maxLength": 128,
+            "description": "Base64url SHA-256 PKCE challenge.",
+            "examples": [
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        }
+      },
+      "OAuthAuthorizeResult": {
+        "title": "Extension authorization result",
+        "description": "Extension callback URL containing a one-time authorization code.",
+        "type": "object",
+        "required": [
+          "redirectUrl"
+        ],
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Callback URL to open immediately and never log.",
+            "examples": [
+              "https://example.chromiumapp.org/callback?code=redacted"
+            ]
+          }
+        }
+      },
+      "OAuthTokenInput": {
+        "title": "OAuth token exchange input",
+        "description": "Uses an authorization code with PKCE verifier or rotates a refresh token.",
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Authorization-code exchange.",
+            "required": [
+              "grantType",
+              "code",
+              "redirectUri",
+              "codeVerifier"
+            ],
+            "properties": {
+              "grantType": {
+                "type": "string",
+                "const": "authorization_code",
+                "description": "Authorization-code grant.",
+                "examples": [
+                  "authorization_code"
+                ]
+              },
+              "code": {
+                "type": "string",
+                "description": "Authorization code valid for five minutes and one use.",
+                "examples": [
+                  "redacted-example-code"
+                ]
+              },
+              "redirectUri": {
+                "type": "string",
+                "format": "uri",
+                "description": "Callback URL that must exactly match the authorization request.",
+                "examples": [
+                  "https://example.chromiumapp.org/callback"
+                ]
+              },
+              "codeVerifier": {
+                "type": "string",
+                "minLength": 43,
+                "maxLength": 128,
+                "description": "PKCE verifier matching the challenge.",
+                "examples": [
+                  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Refresh-token rotation.",
+            "required": [
+              "grantType",
+              "refreshToken"
+            ],
+            "properties": {
+              "grantType": {
+                "type": "string",
+                "const": "refresh_token",
+                "description": "Refresh-token grant.",
+                "examples": [
+                  "refresh_token"
+                ]
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "Valid unrotated refresh token; must not be logged.",
+                "examples": [
+                  "redacted-refresh-token"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OAuthTokenResult": {
+        "title": "OAuth token result",
+        "description": "Extension access and refresh credentials.",
+        "type": "object",
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "expiresIn",
+          "tokenType",
+          "scopes"
+        ],
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Bearer token valid for 15 minutes; must not be logged.",
+            "examples": [
+              "redacted-access-token"
+            ]
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Rotating refresh token; must not be logged.",
+            "examples": [
+              "redacted-refresh-token"
+            ]
+          },
+          "expiresIn": {
+            "type": "integer",
+            "const": 900,
+            "description": "Access-token lifetime in seconds.",
+            "examples": [
+              900
+            ]
+          },
+          "tokenType": {
+            "type": "string",
+            "const": "Bearer",
+            "description": "Authentication scheme.",
+            "examples": [
+              "Bearer"
+            ]
+          },
+          "scopes": {
+            "type": "array",
+            "description": "Fixed extension scopes.",
+            "items": {
+              "type": "string",
+              "description": "Scope name.",
+              "enum": [
+                "projects:read",
+                "issues:create",
+                "attachments:write"
+              ],
+              "enumValueTitles": {
+                "projects:read": "Read projects",
+                "issues:create": "Create issues",
+                "attachments:write": "Upload screenshots"
+              },
+              "examples": [
+                "issues:create"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

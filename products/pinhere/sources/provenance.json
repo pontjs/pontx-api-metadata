@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "status": "release-blocked",
+  "canonicalSpec": "products/pinhere/spec.pontx.json",
+  "source": {
+    "kind": "product-owned-pontx-spec",
+    "repository": "https://github.com/jasonHzq/pinhere",
+    "revision": "576e6f7160b5bb04d5856620def23c6bd3b25082",
+    "file": "apps/web/specs/spec.pontx.json",
+    "url": "https://raw.githubusercontent.com/jasonHzq/pinhere/576e6f7160b5bb04d5856620def23c6bd3b25082/apps/web/specs/spec.pontx.json",
+    "sha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f",
+    "locale": {
+      "path": "apps/web/specs/locales/en-US/spec.pontx.json",
+      "sha256": "db99f81bbff96908e0c6fd0a8021219b161b82a27edd0f24c91d575ef557f3f2"
+    },
+    "license": "MIT"
+  },
+  "license": {
+    "status": "reviewed",
+    "spdx": "MIT",
+    "url": "https://github.com/jasonHzq/pinhere/blob/576e6f7160b5bb04d5856620def23c6bd3b25082/LICENSE",
+    "sha256": "916e1bea2aacb1255b477ddf13c534799e089a85afba09919b093c454178cbfb",
+    "localCopy": "products/pinhere/sources/LICENSE.pinhere",
+    "notice": "products/pinhere/sources/ATTRIBUTION.md"
+  },
+  "derivation": {
+    "boundary": "Every one of the 34 Endpoint declarations and all 36 Schema declarations in Pinhere's product-owned v1 PontxSpec; no Endpoint is omitted.",
+    "method": "byte-for-byte source preservation; PontxSpec is the canonical provider contract",
+    "endpoints": 34,
+    "schemas": 36,
+    "locales": [
+      "zh-CN",
+      "en-US"
+    ]
+  },
+  "riskReview": {
+    "classification": "private-issue-tracking-and-browser-extension",
+    "hubProxyEnabled": false,
+    "proxyDisabledOperations": 34,
+    "readRisk": "Read responses can contain private project resources, issue text, DOM context, screenshots, Token metadata, and Webhook delivery diagnostics.",
+    "mutationRisk": "POST, PATCH, and DELETE Endpoint calls can create, change, delete, claim, complete, reopen, rotate, revoke, or send Pinhere resources and external Webhook deliveries.",
+    "credentialPolicy": "PATs, website session cookies, OAuth authorization codes, OAuth tokens, refresh tokens, and code verifiers remain in the caller-owned local environment. Hub cannot receive, store, log, proxy, or execute them.",
+    "executionPolicy": "The local CLI previews every call, redacts sensitive values, and requires a request-bound confirmation token before any non-dry-run call. Production Hub renders disabled execution for every Pinhere Endpoint."
+  },
+  "canonicalDiscovery": {
+    "url": "https://pinhere.dev/.well-known/pontx.json",
+    "status": "pending-dns-verification",
+    "requiredSha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f"
+  },
+  "releaseBlockedBy": [
+    "Canonical pinhere.dev DNS and discovery bytes have not yet been verified."
+  ],
+  "outputs": {
+    "zh-CN": {
+      "path": "products/pinhere/spec.pontx.json",
+      "sha256": "2a5f9d5796eefc683428b72d676dedc75f85e02b7b97f8de8c7942e66256ab5f",
+      "endpoints": 34,
+      "schemas": 36
+    },
+    "en-US": {
+      "path": "products/pinhere/locales/en-US/spec.pontx.json",
+      "sha256": "db99f81bbff96908e0c6fd0a8021219b161b82a27edd0f24c91d575ef557f3f2",
+      "endpoints": 34,
+      "schemas": 36
+    }
+  }
+}
