@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-ecb-data-portal",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Using Pontx, retrieve the latest monthly ECB USD/EUR observation for a TypeScript service. Show the safe request first.",
+      "expected_output": "Discovers the live Pontx contract, confirms DSD order, previews a one-observation bounded request, distinguishes preview from direct execution, and avoids calling the value real-time.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Design an incremental importer for one ECB dataset that survives revisions, deletions, and partial failures.",
+      "expected_output": "Uses a bounded backfill and successful checkpoint, applies updated additions/revisions/deletions atomically, and does not invent pagination.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Explain how to check whether portal code EXR.D.USD+JPY.EUR.SP00.A exists without downloading observations.",
+      "expected_output": "Splits flowRef from the DSD-ordered key, validates codes, uses the series-only availability mode, and interprets no match narrowly.",
+      "files": []
+    }
+  ]
+}

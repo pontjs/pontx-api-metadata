@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "massive",
+  "claims": [
+    {
+      "id": "plan-entitlements",
+      "claim": "Plan tiers differ in history, recency, request allowance, and dataset access; a valid key is not universal entitlement.",
+      "summary": "Official pricing and stock documentation distinguish plan-specific availability, history depth, recency, and request capabilities.",
+      "sourceUrl": "https://massive.com/pricing?product=stocks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "transport-choice",
+      "claim": "Massive recommends Flat Files for bulk history and WebSockets for continuous live streams.",
+      "summary": "The official REST quickstart distinguishes on-demand REST, bulk Flat Files, and continuous WebSocket access.",
+      "sourceUrl": "https://massive.com/docs/rest",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "market-time",
+      "claim": "Interpret U.S. stock sessions in `America/New_York`; interpret returned Unix timestamps as UTC using the unit in the current Schema.",
+      "summary": "The official stock overview defines Eastern Time sessions and UTC timestamp semantics.",
+      "sourceUrl": "https://massive.com/docs/rest/stocks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "missing-bars",
+      "claim": "An aggregate interval with no qualifying trade can be absent.",
+      "summary": "Official custom-bar guidance states that no aggregate is produced when no qualifying trade occurred.",
+      "sourceUrl": "https://massive.com/knowledge-base/article/how-does-polygon-deal-with-minutes-where-no-trades-occurred",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "pagination",
+      "claim": "Follow `next_url` until it is absent, but accept a continuation only on the approved Massive API host.",
+      "summary": "Official Endpoint documentation uses next_url continuation; host validation is the credential-safe integration boundary for following it.",
+      "sourceUrl": "https://massive.com/docs/rest/stocks/trades-quotes/quotes.md",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "market-data-rights",
+      "claim": "Personal or non-professional access does not grant commercial redistribution, public-display, non-display, or derived-work rights.",
+      "summary": "Official market-data terms separate subscriber classification and prohibit unlicensed commercial, redistribution, display, and derived uses.",
+      "sourceUrl": "https://massive.com/legal/market-data-terms-of-service",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

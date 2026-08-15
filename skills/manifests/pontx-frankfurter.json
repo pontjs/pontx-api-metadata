@@ -1,0 +1,12 @@
+{
+  "formatVersion": 1,
+  "name": "pontx-frankfurter",
+  "apiSlug": "frankfurter",
+  "version": "1.0.0",
+  "license": "MIT-0",
+  "status": "published",
+
+  "files": [
+    "SKILL.md"
+  ]
+}

@@ -45,6 +45,9 @@ jobs:
       - name: Validate product hierarchy
         run: pnpm validate
 
+      - name: Verify deterministic product Skill registry
+        run: pnpm skills:validate
+
   deploy:
     if: github.event_name == 'push'
     needs: validate

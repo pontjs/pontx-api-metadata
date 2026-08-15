@@ -70,10 +70,11 @@
 2. 镜像固定 metadata commit 的 `spec.pontx.json` 到产品 SDK，验证路径/SHA/生成漂移后提交产品 SDK，等待目标 Node CI；
 3. 发布并 registry-verify `@pontx/<slug>` / `pontx-<slug>`；
 4. 将真实 package/version/quality、双语同构 PontxSpec、原始字节 hash、固定 metadata commit、执行策略和真实示例一起写入分级 metadata；
-5. metadata 层级验证与本地 Hub consumer 全部门通过；Hub 只读取 `catalog/products.json` 和产品分片，不读取任何 OAS 或聚合 catalog；公共响应变化时先发布兼容的 Hub/Hub CLI consumer；
-6. metadata `develop` → Preview Ready → Agent Browser 中英文审查；
-7. metadata `main` → Production Ready → 精确部署 URL/ID 和 production catalog 复核；
-8. 运行生产验收矩阵，失败则修 owning repo 并重复受影响阶段。
+5. 编写 evidence-backed `pontx-<slug>` 产品 Skill，保持 draft 直至静态/独立 Agent 门通过，生成 registry 并验证 skills.sh/ClawHub dry-run；
+6. metadata 层级验证与本地 Hub consumer 全部门通过；Hub 只读取 `catalog/products.json`、产品分片和 same-commit Skill registry，不读取任何 OAS 或聚合 catalog；公共响应变化时先发布兼容的 Hub/Hub CLI consumer；
+7. metadata `develop` → Preview Ready → Agent Browser 中英文审查；
+8. metadata `main` → Production Ready → 精确部署 URL/ID、production catalog 与产品 Skill 复核；
+9. 发布产品 Skill exact SemVer，运行 skills.sh/ClawHub/Hub 安装和生产验收矩阵，失败则修 owning repo 并重复受影响阶段。
 
 SDK 版本和 metadata 必须原子一致。禁止先上线 `planned` 安装命令、先写不存在的版本、或把本地 source 导出路径当作 registry API。
 
@@ -84,6 +85,7 @@ SDK 版本和 metadata 必须原子一致。禁止先上线 `planned` 安装命�
 - 生产 catalog/API detail 暴露稳定 `api:<slug>`，Endpoint/Schema 数量和 metadata 一致；
 - zh/en 页面 SSR 含真实标题、请求/响应/Schema，语言切换保留资源；
 - SDK 页面只展示实际 registry package/version，安装和调用示例能在 clean install 运行；
+- Skills 页面只展示 same-commit registry 中的 published bundle；统一 Skill 与 `pontx-<slug>` 的关系、版本、安装命令和 API 返回一致；
 - canonical、hreflang、JSON-LD 与 sitemap 只包含 canonical 200 页面；
 - 一个安全代表 Endpoint 的文档 → Playground → preview → 获准 read response 链路通过。
 

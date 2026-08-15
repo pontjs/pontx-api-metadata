@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "dropbox-sign",
+  "claims": [
+    {
+      "id": "app-approval",
+      "claim": "Embedded and OAuth integrations require app approval before production, while non-embedded integrations do not require app approval.",
+      "summary": "The official app-approval guide defines which integration types need approval before production.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/app-approval/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "test-mode",
+      "claim": "Test-mode signature requests are non-binding and watermarked but remain visible to requester and signer accounts.",
+      "summary": "Official testing guidance documents non-binding, watermarked requests and their visibility to account participants.",
+      "sourceUrl": "https://developers.hellosign.com/docs/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "template-fields",
+      "claim": "For templates, supplied custom-field names must match the template's merge-field names.",
+      "summary": "The official template guide documents merge fields and errors caused by mismatched custom-field names.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/pre-filled-document-data/templates",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-transport",
+      "claim": "Dropbox Sign callbacks normally arrive over HTTPS as `multipart/form-data` with the event payload in the `json` field.",
+      "summary": "The official callback walkthrough defines HTTPS transport and multipart event JSON delivery.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-ordering",
+      "claim": "Callbacks can be duplicated or arrive out of order, and signed completion is separate from final-file readiness.",
+      "summary": "The official callback glossary documents duplicates, non-sequential delivery, and the downloadable event after all-signed.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/callbacks-events",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "file-input",
+      "claim": "OpenAPI-based SDK uploads require binary input rather than a local pathname.",
+      "summary": "The official OpenAPI SDK file guide describes binary upload values and dedicated download representations.",
+      "sourceUrl": "https://developers.hellosign.com/docs/sdks/open-api/interacting-with-files",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

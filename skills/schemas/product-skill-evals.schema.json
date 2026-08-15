@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pontx.dev/schemas/product-skill-evals.schema.json",
+  "title": "Pontx product Skill smoke evals",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["skill_name", "evals"],
+  "properties": {
+    "skill_name": { "type": "string", "pattern": "^pontx-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "evals": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "prompt", "expected_output", "files"],
+        "properties": {
+          "id": { "type": ["integer", "string"] },
+          "prompt": { "type": "string", "minLength": 1 },
+          "expected_output": { "type": "string", "minLength": 1 },
+          "files": { "type": "array", "maxItems": 0 }
+        }
+      }
+    }
+  }
+}

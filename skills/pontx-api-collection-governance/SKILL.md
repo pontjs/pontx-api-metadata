@@ -1,6 +1,6 @@
 ---
 name: pontx-api-collection-governance
-description: Govern existing Pontx API products through evidence freshness, PontxSpec completeness, compatibility, deprecation, locale parity, execution safety, SDK evidence, hierarchical product isolation, and staged remediation. Use when asked to audit, govern, clean up, detect drift, standardize, deprecate, refresh, score, or batch-fix pontx-api-metadata, including requests that mention catalog.json/source.json/OpenAPI migration or metadata directory restructuring. Use the builder skill for onboarding one new API.
+description: Govern existing Pontx API products through evidence freshness, PontxSpec completeness, compatibility, deprecation, locale parity, execution safety, SDK evidence, product-Skill evidence/distribution drift, hierarchical product isolation, and staged remediation. Use when asked to audit, govern, clean up, detect drift, standardize, deprecate, refresh, score, or batch-fix pontx-api-metadata, including requests that mention catalog.json/source.json/OpenAPI migration or metadata directory restructuring. Use the builder skill for onboarding one new API.
 ---
 
 # Pontx API Collection Governance
@@ -16,7 +16,7 @@ description: Govern existing Pontx API products through evidence freshness, Pont
 
 ## 1. 建立分母与组合清单
 
-报告 API、Endpoint、Schema、locale 总数，并为每个产品记录 slug、提供方、style、证据/许可/验证日期、服务器/安全、执行策略、SDK 包/版本/覆盖/规范路径 + SHA + metadata commit、deprecated 数和消费者依赖。明确报告产品清单只承担索引而非详情，并检查 `product.json`、`spec.pontx.json`、`sdk.json` 的字段归属没有串位。
+报告 API、Endpoint、Schema、locale 和产品 Skill 总数，并为每个产品记录 slug、提供方、style、证据/许可/验证日期、服务器/安全、执行策略、SDK 包/版本/覆盖/规范路径 + SHA + metadata commit、产品 Skill status/version/hash/claim freshness/分发状态、deprecated 数和消费者依赖。明确报告产品清单只承担索引而非详情，并检查 `product.json`、`spec.pontx.json`、`sdk.json` 的字段归属没有串位。
 
 同时检查隔离性：正式目录必须与产品 slug 清单完全一致；候选不得进入正式清单；产品详情、Endpoint、Schema 和 SDK 质量不得泄漏进 `catalog/products.json`。
 
@@ -58,6 +58,7 @@ RESTFul 额外核验 method/path 和 HTTP 语义。RPC/GraphQL 等其他 style �
 - locale 只改 prose，示例/安全/服务器/执行语义不可变。
 - SDK published 状态必须匹配 registry、source commit、CI、Node 矩阵和 E2E；full/partial 覆盖准确；规范路径/hash/metadata commit 一致。SDK 仓库只能镜像固定 commit 的 canonical `spec.pontx.json`，CI 要重算原始字节 SHA-256 并拒绝独立修改或 canonical OAS 副本。
 - Hub 从同一精确 commit 同步产品文件，公共 API/URL/search ID 保持兼容。
+- 产品 Skill 只保留 metadata 之外的集成决策与实践；逐 claim 复核官方 HTTPS 证据及其与当前 product/PontxSpec/SDK 的一致性，检查 SemVer、紧凑预算、registry hash、独立 Agent 结论、skills.sh 与 ClawHub。缺失/非法 registry 必须整体隐藏产品 Skill，不能部分接受。
 
 ## 7. 整改波次
 

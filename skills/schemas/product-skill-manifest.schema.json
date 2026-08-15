@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pontx.dev/schemas/product-skill-manifest.schema.json",
+  "title": "Pontx product Skill manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "name", "apiSlug", "version", "license", "status", "files"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "name": { "type": "string", "pattern": "^pontx-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "apiSlug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+    "license": { "const": "MIT-0" },
+    "status": { "enum": ["draft", "published"] },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "prefixItems": [{ "const": "SKILL.md" }],
+      "items": {
+        "type": "string",
+        "pattern": "^(?:SKILL\\.md|references/[a-z0-9]+(?:-[a-z0-9]+)*\\.md)$"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "ecb-data-portal",
+  "claims": [
+    {
+      "id": "series-key-construction",
+      "claim": "The API series key follows DSD dimension order, uses dots between dimensions, empty segments for wildcards, and plus signs for alternative values.",
+      "summary": "The official data API guide defines DSD-ordered series keys, wildcard segments, and alternatives within a dimension.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "frequency-periods",
+      "claim": "Reporting-period syntax depends on the selected series frequency.",
+      "summary": "The ECB documents distinct annual, semi-annual, quarterly, monthly, weekly, and daily period syntax.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "observation-limits",
+      "claim": "Observation limits apply to every matching series and are not cursor pagination; partition a large job by non-overlapping keys or periods.",
+      "summary": "The official API defines first/last observation limits per series and exposes no cursor; partitioning is the bounded integration consequence.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "availability",
+      "claim": "`serieskeysonly` can enumerate matching series without returning observations.",
+      "summary": "The official detail option returns matching time-series identities while excluding observations and attributes.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "incremental-updates",
+      "claim": "Apply additions, revisions, and deletions rather than treating a response as append-only.",
+      "summary": "The official updatedAfter guidance defines changed observations to include additions, revisions, and deletions.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "statistical-meaning",
+      "claim": "Preserve series metadata so observations retain their statistical meaning.",
+      "summary": "The official overview explains that observations gain meaning from their concepts, dimensions, attributes, and DSD context.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

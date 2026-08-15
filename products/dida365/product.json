@@ -20,9 +20,9 @@
       "https://developer.dida365.com/docs#/openapi",
       "https://developer.dida365.com/docs/openapi.md"
     ],
-    "verifiedAt": "2026-08-10",
-    "contentUpdatedAt": "2026-08-10",
-    "stabilityNote": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。"
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-13",
+    "stabilityNote": "官方 OAuth 2.0 API；授权码交换使用 HTTP Basic 客户端认证，API 请求使用 Bearer 访问令牌，具体能力受 tasks:read / tasks:write scope 限制。"
   },
   "pricing": {
     "status": "unknown",
@@ -34,7 +34,7 @@
     {
       "schemeId": "OAuth2",
       "envVar": "DIDA365_ACCESS_TOKEN",
-      "tokenEndpointAuthMethod": "client_secret_post",
+      "tokenEndpointAuthMethod": "client_secret_basic",
       "pkce": "unsupported",
       "description": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
       "guide": {

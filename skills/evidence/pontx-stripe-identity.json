@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "stripe-identity",
+  "claims": [
+    {
+      "id": "session-reuse",
+      "claim": "Reuse one VerificationSession for the same verification flow and provide an idempotency key when creating it.",
+      "summary": "Stripe recommends retaining and reusing a session and using an application-derived idempotency key to prevent duplicates.",
+      "sourceUrl": "https://docs.stripe.com/identity/verification-sessions",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "client-secret",
+      "claim": "Return only the client secret to the same authenticated user over TLS.",
+      "summary": "Stripe requires server-side session creation and warns that the single-use client secret must not be stored, logged, embedded in URLs, or shared.",
+      "sourceUrl": "https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=modal",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhook-integrity",
+      "claim": "Verify `Stripe-Signature` against the untouched raw request body before parsing or trusting an event.",
+      "summary": "Stripe requires the unmodified request body for signature verification before an event is trusted.",
+      "sourceUrl": "https://docs.stripe.com/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "sensitive-results",
+      "claim": "Retrieve only necessary verification data and use a restricted server-side key for sensitive results when Stripe requires it.",
+      "summary": "Stripe recommends minimum necessary PII and restricted or IP-restricted keys for more sensitive result fields.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "sensitive-images",
+      "claim": "Avoid copying document or face images.",
+      "summary": "Stripe identifies collected images as highly sensitive and recommends avoiding copies and using short-lived access when justified.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "redaction",
+      "claim": "Redaction is irreversible and asynchronous and affects related reports, events, logs, metadata, and collected files.",
+      "summary": "Stripe documents an asynchronous processing-to-redacted lifecycle that erases or redacts associated sensitive data and cannot be reversed.",
+      "sourceUrl": "https://docs.stripe.com/api/identity/verification_sessions/redact",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

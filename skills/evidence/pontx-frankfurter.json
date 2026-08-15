@@ -1,0 +1,38 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "frankfurter",
+  "claims": [
+    {
+      "id": "v1-lifecycle",
+      "claim": "Frankfurter v1 is superseded by v2 but remains available.",
+      "summary": "The official v1 documentation identifies v2 as its successor while committing to keep v1 running.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "migration-contract",
+      "claim": "V1 returns a nested `rates` object, while v2 returns flat arrays.",
+      "summary": "The provider's official LLM documentation explicitly distinguishes the nested v1 response from v2 flat arrays.",
+      "sourceUrl": "https://frankfurter.dev/llms.txt",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "utc-working-days",
+      "claim": "V1 dates are interpreted in UTC, and latest means the latest available working day rather than the user's current calendar day.",
+      "summary": "The official v1 guide documents UTC date storage, publication timing, and latest-working-day behavior.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "target-filtering",
+      "claim": "Filtering target currencies makes a v1 time-series response smaller and faster.",
+      "summary": "The official time-series guide recommends limiting target currencies to reduce response size and processing.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

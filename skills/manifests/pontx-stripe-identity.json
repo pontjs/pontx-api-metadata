@@ -1,0 +1,11 @@
+{
+  "formatVersion": 1,
+  "name": "pontx-stripe-identity",
+  "apiSlug": "stripe-identity",
+  "version": "1.0.0",
+  "license": "MIT-0",
+  "status": "published",
+  "files": [
+    "SKILL.md"
+  ]
+}

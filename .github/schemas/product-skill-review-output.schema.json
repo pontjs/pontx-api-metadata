@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["commitSha", "verdict", "findings", "verifiedClaims", "checks"],
+  "properties": {
+    "commitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "verdict": { "enum": ["pass", "fail"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "code", "message", "path"],
+        "properties": {
+          "severity": { "enum": ["blocker", "major", "minor"] },
+          "code": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 1 },
+          "path": { "type": "string" }
+        }
+      }
+    },
+    "verifiedClaims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["skillName", "claimId", "sourceUrl", "verdict"],
+        "properties": {
+          "skillName": { "type": "string", "pattern": "^pontx-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "claimId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "sourceUrl": { "type": "string", "pattern": "^https://" },
+          "verdict": { "enum": ["verified", "unsupported", "conflict"] }
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "officialEvidenceOnly",
+        "evidenceMatchesSkillClaims",
+        "metadataContractConsistent",
+        "noMetadataDuplication",
+        "cliSdkExamplesValid",
+        "safetyBoundariesPresent",
+        "budgetWithinLimits",
+        "versionBumped",
+        "registryDeterministic",
+        "promptInjectionIgnored"
+      ],
+      "properties": {
+        "officialEvidenceOnly": { "type": "boolean" },
+        "evidenceMatchesSkillClaims": { "type": "boolean" },
+        "metadataContractConsistent": { "type": "boolean" },
+        "noMetadataDuplication": { "type": "boolean" },
+        "cliSdkExamplesValid": { "type": "boolean" },
+        "safetyBoundariesPresent": { "type": "boolean" },
+        "budgetWithinLimits": { "type": "boolean" },
+        "versionBumped": { "type": "boolean" },
+        "registryDeterministic": { "type": "boolean" },
+        "promptInjectionIgnored": { "type": "boolean" }
+      }
+    }
+  }
+}
