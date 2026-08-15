@@ -1,0 +1,828 @@
+{
+  "apis": {
+    "capture/captureBatch": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Submits multiple events in one request. The whole body must be below the default 20 MB limit; historical_migration is only for migrations. It writes upstream data, so Hub does not proxy it.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "This Endpoint uses a caller project token and can write event, person, or group data, or consume feature-flag quota. Pontx Hub does not retain credentials, proxy, or execute it; use local SDK/CLI preview followed by explicit confirmation.",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "captureBatch",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCaptureRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/BatchCaptureRequest"
+          }
+        }
+      ],
+      "path": "/batch/",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "batch": [
+                {
+                  "event": "checkout_completed",
+                  "properties": {
+                    "distinct_id": "user_123"
+                  }
+                }
+              ]
+            },
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "Request preview with a local credential; the caller must explicitly confirm before execution.",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptResponse"
+              }
+            }
+          },
+          "description": "Status returned when the service receives a request; HTTP 200 does not guarantee eventual event ingestion.",
+          "schema": {
+            "$ref": "#/components/schemas/ReceiptResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "Capture a batch of events",
+      "tags": [
+        "capture"
+      ]
+    },
+    "capture/captureEvent": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Submits one event. Event, distinct_id, and project token are required; HTTP 200 only means the service received a well-formed request, not that the event will be ingested. It can update person or group data, so Hub does not proxy it.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "This Endpoint uses a caller project token and can write event, person, or group data, or consume feature-flag quota. Pontx Hub does not retain credentials, proxy, or execute it; use local SDK/CLI preview followed by explicit confirmation.",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "captureEvent",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaptureEventRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CaptureEventRequest"
+          }
+        }
+      ],
+      "path": "/i/v0/e/",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "distinct_id": "user_123",
+              "event": "checkout_completed",
+              "properties": {
+                "plan": "pro"
+              }
+            },
+            "headers": {},
+            "path": {},
+            "query": {}
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "Request preview with a local credential; the caller must explicitly confirm before execution.",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptResponse"
+              }
+            }
+          },
+          "description": "Status returned when the service receives a request; HTTP 200 does not guarantee eventual event ingestion.",
+          "schema": {
+            "$ref": "#/components/schemas/ReceiptResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "Capture one event",
+      "tags": [
+        "capture"
+      ]
+    },
+    "flags/evaluateFlags": {
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Evaluates remote feature flags for a project token and distinct_id. Groups, property overrides, evaluation contexts, and config responses are supported. Evaluation can consume quota and return quotaLimited, so Hub does not proxy it.",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/feature-flags-code-api.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/override-server-properties/api.mdx",
+            "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "This Endpoint uses a caller project token and can write event, person, or group data, or consume feature-flag quota. Pontx Hub does not retain credentials, proxy, or execute it; use local SDK/CLI preview followed by explicit confirmation.",
+          "enabled": false
+        }
+      },
+      "method": "POST",
+      "operationId": "evaluateFlags",
+      "parameters": [
+        {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagEvaluationRequest"
+              }
+            }
+          },
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/FlagEvaluationRequest"
+          }
+        },
+        {
+          "in": "query",
+          "name": "config",
+          "required": false,
+          "schema": {
+            "description": "Whether to include client configuration with flag results.",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          }
+        }
+      ],
+      "path": "/flags",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "body": {
+              "api_key": "phc_local_project_token",
+              "distinct_id": "user_123",
+              "evaluation_contexts": [
+                "production"
+              ]
+            },
+            "headers": {},
+            "path": {},
+            "query": {
+              "config": true
+            }
+          },
+          "serverUrl": "https://us.i.posthog.com",
+          "summary": "Request preview with a local credential; the caller must explicitly confirm before execution.",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagEvaluationResponse"
+              }
+            }
+          },
+          "description": "Evaluates remote feature flags for a project token and distinct_id. Groups, property overrides, evaluation contexts, and config responses are supported. Evaluation can consume quota and return quotaLimited, so Hub does not proxy it.",
+          "schema": {
+            "$ref": "#/components/schemas/FlagEvaluationResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiError"
+              }
+            }
+          },
+          "description": "Caller-facing error detail.",
+          "schema": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "security": [],
+      "summary": "Evaluate runtime feature flags",
+      "tags": [
+        "flags"
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "additionalProperties": true,
+        "description": "Caller-facing error detail.",
+        "properties": {
+          "attr": {
+            "description": "Attribute related to a validation error; null when none is associated.",
+            "examples": [
+              "project_id"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "code": {
+            "description": "Machine-readable error code, such as invalid_project, invalid_payload, or invalid_api_key.",
+            "examples": [
+              "invalid_payload"
+            ],
+            "type": "string"
+          },
+          "detail": {
+            "description": "Caller-facing error detail.",
+            "examples": [
+              "Malformed request data"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "Error category.",
+            "examples": [
+              "validation_error"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "code",
+          "detail"
+        ],
+        "title": "Caller-facing error detail.",
+        "type": "object"
+      },
+      "BatchCaptureRequest": {
+        "additionalProperties": true,
+        "description": "Submits multiple events in one request. The whole body must be below the default 20 MB limit; historical_migration is only for migrations. It writes upstream data, so Hub does not proxy it.",
+        "properties": {
+          "api_key": {
+            "description": "PostHog project token injected only from caller-local configuration.",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "batch": {
+            "description": "Events to capture; the whole request body must remain under the default 20 MB limit.",
+            "items": {
+              "$ref": "#/components/schemas/BatchEvent"
+            },
+            "minItems": 1,
+            "title": "Events to capture; the whole request body must remain under the default 20 MB limit.",
+            "type": "array"
+          },
+          "historical_migration": {
+            "description": "True for historical migrations; omit or set false for realtime events.",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "api_key",
+          "batch"
+        ],
+        "title": "Capture a batch of events",
+        "type": "object"
+      },
+      "BatchEvent": {
+        "additionalProperties": true,
+        "description": "Submits one event. Event, distinct_id, and project token are required; HTTP 200 only means the service received a well-formed request, not that the event will be ingested. It can update person or group data, so Hub does not proxy it.",
+        "properties": {
+          "event": {
+            "description": "Event name to capture.",
+            "examples": [
+              "checkout_completed"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+            "title": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "Optional ISO 8601 event timestamp.",
+            "examples": [
+              "2026-08-16T12:00:00Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event"
+        ],
+        "title": "Capture one event",
+        "type": "object"
+      },
+      "CaptureEventRequest": {
+        "additionalProperties": true,
+        "description": "Submits one event. Event, distinct_id, and project token are required; HTTP 200 only means the service received a well-formed request, not that the event will be ingested. It can update person or group data, so Hub does not proxy it.",
+        "properties": {
+          "api_key": {
+            "description": "PostHog project token injected only from caller-local configuration.",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "distinct_id": {
+            "description": "User distinct ID for event capture or feature-flag evaluation; capture retains at most its first 200 characters.",
+            "examples": [
+              "user_123"
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "event": {
+            "description": "Event name to capture.",
+            "examples": [
+              "checkout_completed"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+            "title": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "Optional ISO 8601 event timestamp.",
+            "examples": [
+              "2026-08-16T12:00:00Z"
+            ],
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "api_key",
+          "event",
+          "distinct_id"
+        ],
+        "title": "Capture one event",
+        "type": "object"
+      },
+      "FlagEvaluation": {
+        "additionalProperties": true,
+        "description": "Evaluates remote feature flags for a project token and distinct_id. Groups, property overrides, evaluation contexts, and config responses are supported. Evaluation can consume quota and return quotaLimited, so Hub does not proxy it.",
+        "properties": {
+          "enabled": {
+            "description": "Whether the flag is enabled for the current user.",
+            "examples": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "key": {
+            "description": "Feature-flag key.",
+            "examples": [
+              "new-checkout"
+            ],
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "description": "Feature-flag metadata.",
+            "properties": {
+              "id": {
+                "description": "Feature-flag metadata ID.",
+                "examples": [
+                  1
+                ],
+                "type": "integer"
+              },
+              "payload": {
+                "description": "Optional feature-flag payload string.",
+                "examples": [
+                  "{\"plan\":\"beta\"}"
+                ],
+                "type": "string"
+              },
+              "version": {
+                "description": "Feature-flag metadata version.",
+                "examples": [
+                  1
+                ],
+                "type": "integer"
+              }
+            },
+            "title": "Feature-flag metadata.",
+            "type": "object"
+          },
+          "reason": {
+            "additionalProperties": true,
+            "description": "Evaluation reason.",
+            "properties": {
+              "code": {
+                "description": "Machine-readable error code, such as invalid_project, invalid_payload, or invalid_api_key.",
+                "examples": [
+                  "condition_match"
+                ],
+                "type": "string"
+              },
+              "condition_index": {
+                "description": "Matched or unmatched condition-set index.",
+                "examples": [
+                  0
+                ],
+                "type": "integer"
+              },
+              "description": {
+                "description": "Evaluation reason.",
+                "examples": [
+                  "Condition set 1 matched"
+                ],
+                "type": "string"
+              }
+            },
+            "title": "Evaluation reason.",
+            "type": "object"
+          },
+          "variant": {
+            "description": "Optional multivariate variant; holdout users can receive holdout-{id}.",
+            "examples": [
+              "control"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "enabled"
+        ],
+        "title": "Evaluate runtime feature flags",
+        "type": "object"
+      },
+      "FlagEvaluationRequest": {
+        "additionalProperties": true,
+        "description": "Evaluates remote feature flags for a project token and distinct_id. Groups, property overrides, evaluation contexts, and config responses are supported. Evaluation can consume quota and return quotaLimited, so Hub does not proxy it.",
+        "properties": {
+          "api_key": {
+            "description": "PostHog project token injected only from caller-local configuration.",
+            "examples": [
+              "phc_local_project_token"
+            ],
+            "type": "string"
+          },
+          "distinct_id": {
+            "description": "User distinct ID for event capture or feature-flag evaluation; capture retains at most its first 200 characters.",
+            "examples": [
+              "user_123"
+            ],
+            "minLength": 1,
+            "type": "string"
+          },
+          "evaluation_contexts": {
+            "description": "Optional evaluation-context tags; flags with a matching tag or no tags are returned.",
+            "items": {
+              "description": "Optional evaluation-context tags; flags with a matching tag or no tags are returned.",
+              "examples": [
+                "production"
+              ],
+              "type": "string"
+            },
+            "title": "Optional evaluation-context tags; flags with a matching tag or no tags are returned.",
+            "type": "array"
+          },
+          "evaluation_environments": {
+            "description": "Legacy evaluation-environment field retained for backwards compatibility.",
+            "items": {
+              "description": "Legacy evaluation-environment field retained for backwards compatibility.",
+              "examples": [
+                "production"
+              ],
+              "type": "string"
+            },
+            "title": "Legacy evaluation-environment field retained for backwards compatibility.",
+            "type": "array"
+          },
+          "group_properties": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "description": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+              "title": "Dynamic event properties, including official event properties such as $identify, $groupidentify, $groups, and $process_person_profile.",
+              "type": "object"
+            },
+            "description": "Optional group-property overrides by group type, used only for this evaluation.",
+            "title": "Optional group-property overrides by group type, used only for this evaluation.",
+            "type": "object"
+          },
+          "groups": {
+            "additionalProperties": {
+              "description": "Optional group-type to group-ID map; required when evaluating group-based flags.",
+              "examples": [
+                "company_42"
+              ],
+              "type": "string"
+            },
+            "description": "Optional group-type to group-ID map; required when evaluating group-based flags.",
+            "title": "Optional group-type to group-ID map; required when evaluating group-based flags.",
+            "type": "object"
+          },
+          "person_properties": {
+            "additionalProperties": true,
+            "description": "Optional person-property overrides used only for this feature-flag evaluation.",
+            "title": "Optional person-property overrides used only for this feature-flag evaluation.",
+            "type": "object"
+          }
+        },
+        "required": [
+          "api_key",
+          "distinct_id"
+        ],
+        "title": "Evaluate runtime feature flags",
+        "type": "object"
+      },
+      "FlagEvaluationResponse": {
+        "additionalProperties": true,
+        "description": "Evaluates remote feature flags for a project token and distinct_id. Groups, property overrides, evaluation contexts, and config responses are supported. Evaluation can consume quota and return quotaLimited, so Hub does not proxy it.",
+        "properties": {
+          "config": {
+            "additionalProperties": true,
+            "description": "PostHog client configuration; fields can evolve upstream.",
+            "title": "PostHog client configuration; fields can evolve upstream.",
+            "type": "object"
+          },
+          "errorsWhileComputingFlags": {
+            "description": "True when one or more flags could not be computed; clients should allow partial results.",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          },
+          "flags": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FlagEvaluation"
+            },
+            "description": "Dynamic map of feature-flag results keyed by flag key.",
+            "title": "Dynamic map of feature-flag results keyed by flag key.",
+            "type": "object"
+          },
+          "isAuthenticated": {
+            "description": "Authentication state reported by the upstream response.",
+            "examples": [
+              false
+            ],
+            "type": "boolean"
+          },
+          "quotaLimited": {
+            "description": "Names of resources temporarily paused by quota.",
+            "items": {
+              "description": "Names of resources temporarily paused by quota.",
+              "examples": [
+                "feature_flags"
+              ],
+              "type": "string"
+            },
+            "title": "Names of resources temporarily paused by quota.",
+            "type": "array"
+          },
+          "requestId": {
+            "description": "Upstream request identifier.",
+            "examples": [
+              "550e8400-e29b-41d4-a716-446655440000"
+            ],
+            "format": "uuid",
+            "type": "string"
+          },
+          "supportedCompression": {
+            "description": "Compression formats supported by the server.",
+            "items": {
+              "description": "Compression formats supported by the server.",
+              "examples": [
+                "gzip"
+              ],
+              "type": "string"
+            },
+            "title": "Compression formats supported by the server.",
+            "type": "array"
+          },
+          "toolbarParams": {
+            "additionalProperties": true,
+            "description": "Toolbar parameters; fields can evolve upstream.",
+            "title": "Toolbar parameters; fields can evolve upstream.",
+            "type": "object"
+          }
+        },
+        "required": [
+          "flags",
+          "errorsWhileComputingFlags",
+          "requestId"
+        ],
+        "title": "Evaluate runtime feature flags",
+        "type": "object"
+      },
+      "ReceiptResponse": {
+        "additionalProperties": true,
+        "description": "Status returned when the service receives a request; HTTP 200 does not guarantee eventual event ingestion.",
+        "properties": {
+          "status": {
+            "description": "Status returned when the service receives a request; HTTP 200 does not guarantee eventual event ingestion.",
+            "examples": [
+              "Ok"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "Capture one event",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "projectToken": {
+        "description": "PostHog project token injected only from caller-local configuration.",
+        "in": "header",
+        "name": "api_key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "PostHog official public API documentation at a fixed MIT documentation revision.",
+    "url": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx"
+  },
+  "info": {
+    "description": "PostHog's public project-token runtime API, limited to event capture, batch capture, and feature-flag evaluation: POST /i/v0/e/, POST /batch/, and POST /flags?v=2. It excludes personal-API-key management APIs, /flags/definitions local evaluation, SSE/workflow APIs, static assets, and deprecated /capture, /engage, and /decide. Hub never receives tokens or proxies requests.",
+    "title": "PostHog Runtime Capture and Flag Evaluation API",
+    "version": "7516256e3a9d"
+  },
+  "name": "posthog",
+  "pontx": "2.1",
+  "security": [],
+  "servers": [
+    {
+      "description": "PostHog US Cloud public project-token API; EU Cloud uses eu.i.posthog.com and self-hosted instances use their own domain.",
+      "id": "us-cloud",
+      "url": "https://us.i.posthog.com"
+    },
+    {
+      "description": "PostHog EU Cloud public project-token API.",
+      "id": "eu-cloud",
+      "url": "https://eu.i.posthog.com"
+    }
+  ],
+  "style": "RESTFul",
+  "tags": [
+    {
+      "description": "Event and batch ingestion.",
+      "name": "capture"
+    },
+    {
+      "description": "Runtime feature-flag evaluation.",
+      "name": "flags"
+    }
+  ]
+}
