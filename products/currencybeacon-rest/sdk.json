@@ -18,7 +18,14 @@
         "apiKey": "PONTX_CURRENCYBEACON_API_KEY"
       }
     },
-    "controllers": {}
+    "controllers": {},
+    "methodNames": {
+      "convertCurrency": "convert",
+      "getHistoricalRates": "historical",
+      "getLatestRates": "latest",
+      "getTimeseries": "timeseries",
+      "listCurrencies": "currencies"
+    }
   },
   "examples": {
     "typescript": "import { createCurrencyBeaconClient } from \"@pontx/currencybeacon-rest\";\n\nconst client = createCurrencyBeaconClient({\n  apiKey: process.env.PONTX_CURRENCYBEACON_API_KEY!\n});\nconst result = await client.latest({ base: \"USD\", symbols: \"EUR,GBP\" });",

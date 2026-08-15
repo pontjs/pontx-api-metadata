@@ -122,6 +122,13 @@ assert(currencyBeaconProduct.execution.hubProxyEnabled === false
   && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
   && currencyBeaconSdk.package.version === "0.1.1"
   && currencyBeaconSdk.coverage.mode === "full"
+  && JSON.stringify(currencyBeaconSdk.contract.methodNames) === JSON.stringify({
+    convertCurrency: "convert",
+    getHistoricalRates: "historical",
+    getLatestRates: "latest",
+    getTimeseries: "timeseries",
+    listCurrencies: "currencies",
+  })
   && currencyBeaconSdk.spec.sha256 === "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f",
 "CurrencyBeacon product safety and SDK contract drifted");
 assert(currencyBeaconProvenance.scope.endpointCount === 5
