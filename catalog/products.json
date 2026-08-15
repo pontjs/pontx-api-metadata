@@ -19,6 +19,7 @@
     "nager-date",
     "mongodb-atlas-admin",
     "openai",
-    "notion"
+    "notion",
+    "mistral-ai"
   ]
 }

@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "source": {
+    "repository": "https://github.com/mistralai/platform-docs-public/tree/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d",
+    "revision": "2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d",
+    "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/openapi-public-doc.yaml",
+    "sha256": "61436a496404607a7c27f7d2d45989bc51bd699d2106690fd6cc76a3a6c9b692",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/2ca5afeebb3ee0e675575d1ac60f3c138d2c4a3d/LICENSE",
+      "sha256": "0dde14aea85e489115f33e916d946aca1d7cee1551431479609dee0a47e251aa"
+    },
+    "observedAt": "2026-08-16",
+    "importMethod": "one-time @pontx/spec importOpenAPI conversion; generated PontxSpec is canonical after import",
+    "boundary": {
+      "endpoints": 238,
+      "schemas": 756,
+      "methods": {
+        "GET": 102,
+        "POST": 79,
+        "PUT": 17,
+        "PATCH": 14,
+        "DELETE": 26
+      },
+      "sseEndpoints": 11,
+      "excludedEndpoints": 50,
+      "excludedReason": "50 Endpoints require AdminApiKey (beta.admin.* workspace administration) or DashboardUserContextAuth (beta.users dashboard session); they manage accounts, credentials, billing, and audit data and are outside the developer API key boundary."
+    },
+    "transformations": [
+      "Preserved all imported developer-API Endpoint methods, paths, tags, security requirements, parameters, response statuses (including error statuses), media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      "Excluded 50 Endpoints whose effective security requires AdminApiKey (beta.admin.*: users, workspaces, api-keys, billing, audit-logs, user-groups, SCIM, analytics) or DashboardUserContextAuth (beta.users: /users/me, /users/me/organizations, /users/me/workspaces); only the ApiKey security scheme remains.",
+      "Normalized 238 official snake_case operationIds and 0 Schema names to valid camelCase identifiers; every $ref was rewritten consistently and the mapping is deterministic and recorded.",
+      "Normalized 6 FastAPI doc-generation path keys by removing their #fragment suffix (for example \"/v1/conversations#stream\" -> \"/v1/conversations\" and \"/v1/connectors/{connector_id}#id\" -> \"/v1/connectors/{connector_id}\"); the wire paths are unchanged and the fragment-bearing operations keep distinct stable operationIds.",
+      "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
+      "Dropped the OAS 3.1 `null` enum member from nullable enum Schemas (only CompletionResponseStreamChoice.finish_reason); `nullable: true` preserves the null value, keeping the contract semantically identical and the generated union valid.",
+      "Added one reviewed request outline per Endpoint. Required model, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
+      "Applied direct-only execution policy to every Mistral Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses. The 11 SSE Endpoints keep the typed text/event-stream contract with unknownEventPolicy: preserve; the official event unions (conversation.response.started/done/error, message.output.delta, tool.execution.started/done, agent.handoff.started/done, function.call.delta for Agents conversations streaming) are documented in the product docs and skill evidence."
+    ]
+  },
+  "legalReview": {
+    "sourceLicense": "The fixed mistralai/platform-docs-public repository revision and its Apache-2.0 LICENSE cover the imported openapi-public-doc.yaml source file; the LICENSE is retained in this product's sources directory.",
+    "serviceBoundary": "Mistral AI Platform use remains governed by Mistral AI's terms and pricing; this package neither resells nor sublicenses the service.",
+    "websiteBoundary": "Product prose is independently authored. Mistral AI website documentation (docs.mistral.ai) is used only as linked evidence and is not copied as page content.",
+    "trademarkBoundary": "Mistral AI is used descriptively to identify interoperability. Pontx is independently branded and does not claim endorsement."
+  },
+  "riskReview": {
+    "classification": "paid-ai-platform-with-user-data",
+    "hubProxyEnabled": false,
+    "readEndpoints": 102,
+    "mutations": {
+      "count": 136,
+      "methods": {
+        "POST": 79,
+        "PUT": 17,
+        "PATCH": 14,
+        "DELETE": 26
+      }
+    },
+    "credentialPolicy": "Mistral AI API keys remain in the caller environment only. No credential appears in generated examples, Hub, logs, provenance, or SDK output.",
+    "executionPolicy": "Hub execution is disabled for all Mistral traffic. The local CLI previews every call, redacts sensitive values, and requires exact request-bound explicit confirmation before every mutation; paid inference calls are never issued for verification.",
+    "sensitiveAreas": [
+      "model prompts and completions",
+      "workflow definitions, executions, and logs",
+      "files and uploaded content",
+      "organization resources, agents, and libraries",
+      "usage, observability, and audit data"
+    ]
+  }
+}
