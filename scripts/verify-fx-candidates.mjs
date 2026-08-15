@@ -110,10 +110,11 @@ const currencyBeaconQuality = evaluatePontxQuality({
   locales: { "en-US": currencyBeaconEnglishContract },
 });
 assert(createHash("sha256").update(currencyBeaconContractBytes).digest("hex")
-  === "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f"
+  === "a8177a8f8d814a03760dc3fdae83927ad7adf91a6eeb84b48b990cb47b03a029"
   && Object.keys(currencyBeaconContract.apis).length === 5
   && Object.keys(currencyBeaconContract.components.schemas).length === 11
-  && Object.values(currencyBeaconContract.apis).every((api) => api.tags.length === 0),
+  && Object.values(currencyBeaconContract.apis).every((api) => api.tags.length === 0
+    && api.method === "GET" && api.metadata?.execution?.enabled !== false),
 "CurrencyBeacon product scope or untagged Endpoint contract drifted");
 assert(currencyBeaconQuality.score === 100 && currencyBeaconQuality.grade === "A"
   && currencyBeaconQuality.findings.length === 0
@@ -122,7 +123,7 @@ assert(currencyBeaconQuality.score === 100 && currencyBeaconQuality.grade === "A
 assert(!Object.hasOwn(currencyBeaconProduct, "execution")
   && currencyBeaconProduct.credentials?.[0]?.envVar === "PONTX_CURRENCYBEACON_API_KEY"
   && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
-  && currencyBeaconSdk.package.version === "0.1.1"
+  && currencyBeaconSdk.package.version === "0.1.2"
   && currencyBeaconSdk.coverage.mode === "full"
   && JSON.stringify(currencyBeaconSdk.contract.methodNames) === JSON.stringify({
     convertCurrency: "convert",
@@ -131,7 +132,7 @@ assert(!Object.hasOwn(currencyBeaconProduct, "execution")
     getTimeseries: "timeseries",
     listCurrencies: "currencies",
   })
-  && currencyBeaconSdk.spec.sha256 === "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f",
+  && currencyBeaconSdk.spec.sha256 === "a8177a8f8d814a03760dc3fdae83927ad7adf91a6eeb84b48b990cb47b03a029",
 "CurrencyBeacon product safety and SDK contract drifted");
 assert(currencyBeaconProvenance.scope.endpointCount === 5
   && currencyBeaconProvenance.authenticatedReadEvidence.plan === "free"
@@ -139,7 +140,39 @@ assert(currencyBeaconProvenance.scope.endpointCount === 5
   && currencyBeaconProvenance.authenticatedReadEvidence.successShapes.currencies?.[0] === "numeric-string dynamic keys",
 "CurrencyBeacon authenticated read evidence drifted");
 
+const ecbRoot = path.join(root, "products/ecb-data-portal");
+const ecbContractBytes = fs.readFileSync(path.join(ecbRoot, "spec.pontx.json"));
+const ecbContract = JSON.parse(ecbContractBytes.toString("utf8"));
+const ecbEnglishContract = JSON.parse(fs.readFileSync(
+  path.join(ecbRoot, "locales/en-US/spec.pontx.json"),
+));
+const ecbProduct = JSON.parse(fs.readFileSync(path.join(ecbRoot, "product.json"), "utf8"));
+const ecbSdk = JSON.parse(fs.readFileSync(path.join(ecbRoot, "sdk.json"), "utf8"));
+const ecbProvenance = JSON.parse(fs.readFileSync(path.join(ecbRoot, "sources/provenance.json"), "utf8"));
+const ecbQuality = evaluatePontxQuality({
+  spec: ecbContract,
+  locales: { "en-US": ecbEnglishContract },
+});
+assert(createHash("sha256").update(ecbContractBytes).digest("hex")
+  === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f"
+  && Object.keys(ecbContract.apis).length === 8
+  && Object.keys(ecbContract.components.schemas).length === 12
+  && Object.values(ecbContract.apis).every((api) => api.method === "GET"
+    && api.metadata?.execution?.enabled !== false),
+"ECB scope or safe read Playground contract drifted");
+assert(ecbQuality.grade === "A" && ecbQuality.criticals.length === 0
+  && validatePontxSpecLocale(ecbContract, ecbEnglishContract).valid,
+"ECB product must retain bilingual locale parity and a static-quality A grade");
+assert(!Object.hasOwn(ecbProduct, "execution")
+  && ecbProduct.credentials.length === 0
+  && ecbSdk.package.name === "@pontx/ecb-data-portal"
+  && ecbSdk.package.version === "0.1.1"
+  && ecbSdk.coverage.mode === "full"
+  && ecbSdk.spec.sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f"
+  && ecbProvenance.outputs["zh-CN"].sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f",
+"ECB product safety and SDK contract drifted");
+
 const actualCandidates = new Set(registry.products.filter((slug) => expectedCandidates.has(slug)));
 assert(actualCandidates.size === expectedCandidates.size, "FX candidate set is incomplete");
 
-console.log("Verified the blocked OXR candidate and admitted Twelve Data Forex and CurrencyBeacon products.");
+console.log("Verified the blocked OXR candidate and admitted Twelve Data Forex, CurrencyBeacon, and ECB products.");
