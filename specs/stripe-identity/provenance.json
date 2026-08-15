@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "slug": "stripe-identity",
+  "status": "approved",
+  "verifiedAt": "2026-08-15",
+  "source": {
+    "repository": "https://github.com/stripe/openapi",
+    "revision": "325f3b157f7250f2a5d228b870d77bb63fc7e54c",
+    "file": "openapi/spec3.json",
+    "url": "https://raw.githubusercontent.com/stripe/openapi/325f3b157f7250f2a5d228b870d77bb63fc7e54c/openapi/spec3.json",
+    "sha256": "3653ad45bbec54fcbe461c541c908355b715018bdf455a0e11b27bedb2cbdee5",
+    "bytes": 7967776,
+    "openapiVersion": "3.0.0",
+    "apiVersion": "2026-07-29.dahlia"
+  },
+  "license": {
+    "status": "reviewed",
+    "spdx": "MIT",
+    "url": "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE",
+    "sha256": "8c1ce883f4eee7b531e0b7872dbfc72d410ced87dfff9501305de05ca8d203e5",
+    "localCopy": "specs/stripe-identity/LICENSE.stripe-openapi",
+    "notice": "specs/stripe-identity/ATTRIBUTION.md"
+  },
+  "derivation": {
+    "script": "scripts/import-stripe-identity.mjs",
+    "boundary": "Every official path beginning with /v1/identity/; no Stripe Identity path is omitted.",
+    "paths": 6,
+    "operations": 8,
+    "upstreamIdentitySchemas": 32,
+    "outputSchemas": 35,
+    "requestMediaTypes": [
+      "application/x-www-form-urlencoded"
+    ],
+    "responseMediaTypes": [
+      "application/json"
+    ],
+    "normalizations": [
+      "Selected the complete Stripe Identity path prefix from the pinned official monolithic contract.",
+      "Retained the transitive closure of every non-error Schema referenced by those paths.",
+      "Projected the shared Stripe error envelope to six Identity-relevant public fields and kept additionalProperties=true, avoiding unrelated payments and billing Schema expansion without rejecting provider additions.",
+      "Renamed the two upstream component identifiers containing dots to TypeScript-safe internal component identifiers and rewrote only their local references; wire field names, paths, media types, and payload shapes are unchanged.",
+      "Lower-camel-cased the eight upstream operationId values for the flat TypeScript client and retained each exact source value in x-pontx-upstream-operation-id; HTTP methods, paths, parameters, and payloads are unchanged.",
+      "Removed the four upstream GET requestBody declarations after asserting that each was an empty closed object; all meaningful GET inputs remain query/path parameters and no request field was removed.",
+      "Promoted the optional inline related_person request object to a local component reference so TypeScript keeps the property optional while still requiring account and person whenever the object is supplied.",
+      "Converted relative Stripe documentation links to absolute docs.stripe.com links.",
+      "Added safe request examples, immutable evidence, and a proxy-disabled reason to all eight Endpoints.",
+      "Translated 131 unique official summaries and descriptions while preserving every wire identifier, constraint, enum, example, media type, security declaration, and array order."
+    ]
+  },
+  "riskReview": {
+    "classification": "high-sensitivity-identity",
+    "hubProxyEnabled": false,
+    "proxyDisabledOperations": 8,
+    "sensitiveData": [
+      "identity document images",
+      "selfie images",
+      "identity numbers",
+      "date of birth",
+      "address",
+      "email",
+      "phone",
+      "verification results",
+      "single-use client secrets and redirect URLs"
+    ],
+    "mutations": {
+      "postOperations": 4,
+      "cancelIsIrreversible": true,
+      "redactionIsIrreversible": true,
+      "cliPolicy": "preview-first with exact request-bound confirmation"
+    },
+    "credentialPolicy": "STRIPE_SECRET_KEY remains in the caller environment and is never persisted or included in examples.",
+    "dataPolicy": "Hub serves documentation only and does not proxy, cache, log, or persist Stripe Identity requests or responses."
+  },
+  "outputs": {
+    "zh-CN": {
+      "file": "specs/stripe-identity/openapi.json",
+      "sha256": "b1aed14660a95361dfddc7250ba08331d2b16419dea4e0d0eb8645e83fcb9b1c"
+    },
+    "en-US": {
+      "file": "specs/stripe-identity/locales/en-US/openapi.json",
+      "sha256": "2795c829cd0b411850a0828474fc6240b5fe1fec088b0cae816aaf267a3b8c52"
+    }
+  },
+  "sdk": {
+    "status": "published",
+    "packageName": "@pontx/stripe-identity",
+    "cliName": "pontx-stripe-identity",
+    "version": "0.1.1",
+    "repositoryUrl": "https://github.com/pontjs/stripe-identity",
+    "sourceCommit": "2319bec517bb35b8d3512d1495f784193f178080",
+    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/31858572852",
+    "distIntegrity": "sha512-rL3rxckh2BtwLYPNYlge2wTbExSmTtZ1z1oCNTSd7ZviklllBlXkO/p1oQ6YgAVEbzRtJHu62Lh57HXi9DBu+w==",
+    "requiredNodeVersions": [
+      "18",
+      "20",
+      "22"
+    ]
+  }
+}

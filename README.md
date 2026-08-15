@@ -37,6 +37,7 @@ Run the candidate gate whenever the roadmap or intake evidence changes:
 ```bash
 node scripts/verify-candidates.mjs
 node scripts/verify-dropbox-sign-candidate.mjs
+node scripts/verify-stripe-identity.mjs
 node scripts/verify-ecb-data-portal-candidate.mjs
 node scripts/verify-fx-candidates.mjs
 ```
@@ -96,6 +97,7 @@ Product-level Chinese copy and non-prose configuration live in
 ```bash
 node scripts/test-locales.mjs
 node scripts/verify-candidates.mjs
+node scripts/verify-stripe-identity.mjs
 node scripts/lint-locales.mjs
 node scripts/build-catalog.mjs
 node scripts/verify-specs.mjs
