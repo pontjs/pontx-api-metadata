@@ -642,7 +642,7 @@ const sdk = {
   package: {
     name: "@pontx/openai",
     version: "0.1.0",
-    status: "planned",
+    status: "published",
     repository: "https://github.com/pontjs/openai",
   },
   cli: { name: "pontx-openai" },
@@ -662,12 +662,27 @@ const sdk = {
   },
   examples: {
     typescript: "import { createOpenAiClient } from \"@pontx/openai\";\n\nconst client = createOpenAiClient();\nconst models = await client.models.listModels();",
-    cli: "pnpm add --global @pontx/openai\n\npontx-openai preview models listModels",
+    cli: "pnpm add --global @pontx/openai\n\npontx-openai call models listModels --dry-run",
   },
   coverage: { mode: "full" },
+  quality: {
+    testedVersion: "0.1.0",
+    unitTests: {
+      passed: 4,
+      total: 4,
+      skipped: 0,
+    },
+    e2eStatus: "passed",
+    nodeVersions: ["18", "20", "22"],
+    sourceCommit: "f5036814eb2233778b6c4c22e75f897ee30f10df",
+    testedAt: "2026-08-16",
+    repositoryUrl: "https://github.com/pontjs/openai",
+    workflowRunUrl: "https://github.com/pontjs/openai/actions/runs/31893519355",
+  },
   spec: {
     path: "products/openai/spec.pontx.json",
     sha256: sha256(zhBytes),
+    metadataCommit: "3a415bf4358cf353176b82aa4171eede3a4d41f7",
   },
 };
 const provenance = {
