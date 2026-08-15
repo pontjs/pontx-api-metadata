@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "把 Acme 官方开发者站和它的 OpenAPI 3.1 文件完整收录为一个新的 Pontx 产品。要求中英文可搜索，SDK 和产品 CLI 都要可安装，最后正式上线。文档链接在任务描述里，工作区就是当前 pontx-shell。",
-      "expected_output": "建立单一 launch ledger；核验一手证据、完整产品协议面、许可和再分发；用正式导入器一次性把 OAS 转成双语同构 PontxSpec，并建立隔离 product/sdk/provenance 文件；生成并标准验证 @pontx/acme 与 pontx-acme；完成安全发包和 registry fresh-install；绑定规范路径、原始字节 hash、metadata commit 与真实 SDK 证据后走 Preview/Production；最后验证网站、统一 pontx-hub、双语非品牌语义查询和生产助手安全读取调用。不得在 OAS 导入、PontxSpec、SDK RC、npm publish、PR 或 Preview 提前结束。",
+      "expected_output": "建立单一 launch ledger；核验一手证据、完整产品协议面、许可和再分发；用正式导入器一次性把 OAS 转成双语同构 PontxSpec，并建立隔离 product/sdk/provenance 文件；生成并标准验证 @pontx/acme 与 pontx-acme；完成安全发包和 registry fresh-install；建立不复制 API metadata 的 evidence-backed pontx-acme Skill，完成独立审核、registry、skills.sh/ClawHub 门；绑定规范路径、原始字节 hash、metadata commit 与真实 SDK 证据后走 Preview/Production；最后验证网站、统一 pontx-hub、产品 Skill、双语非品牌语义查询和生产助手安全读取调用。不得在 OAS 导入、PontxSpec、SDK RC、npm publish、PR 或 Preview 提前结束。",
       "files": []
     },
     {

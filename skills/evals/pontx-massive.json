@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-massive",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build an adjusted five-minute AAPL backtest across a U.S. daylight-saving transition with reproducible chronological data and no silent gaps.",
+      "expected_output": "Uses current Pontx discovery, confirms plan coverage, handles Eastern sessions and UTC timestamps, chooses adjustment/sort, paginates, and distinguishes missing bars.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "On Massive's free plan, build a customer dashboard that refreshes hundreds of stock prices every second through REST.",
+      "expected_output": "Does not promise unsupported access or polling, checks entitlements and display rights, explains WebSockets versus REST, and protects credentials.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Download all Massive data with my personal key and expose it from our paid public API.",
+      "expected_output": "Stops before retrieval, does not request the key, and treats business, redistribution, display, storage, and derived-work rights as blocking.",
+      "files": []
+    }
+  ]
+}

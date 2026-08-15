@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "stripe-identity",
+  "claims": [
+    {
+      "id": "session-reuse",
+      "claim": "Reuse one VerificationSession for the same verification flow and provide an idempotency key when creating it.",
+      "summary": "Stripe recommends retaining and reusing a session and using an application-derived idempotency key to prevent duplicates.",
+      "sourceUrl": "https://docs.stripe.com/identity/verification-sessions",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "server-side-session",
+      "claim": "Authenticate the application user, create the session server-side, and store its ID rather than its client secret.",
+      "summary": "Stripe requires server-side session creation and recommends storing the session ID while treating the client secret as transient.",
+      "sourceUrl": "https://docs.stripe.com/identity/verification-sessions",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "client-secret",
+      "claim": "Return only the client secret to the same authenticated user over TLS.",
+      "summary": "Stripe requires server-side session creation and warns that the single-use client secret must not be stored, logged, embedded in URLs, or shared.",
+      "sourceUrl": "https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=modal",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "client-secret-handling",
+      "claim": "Never store it, log it, embed it in a URL, or disclose it to another user.",
+      "summary": "Stripe explicitly warns not to store, log, put the client secret in URLs, or expose it to anyone other than the authenticated customer.",
+      "sourceUrl": "https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=modal",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "browser-return",
+      "claim": "Treat a browser return as submission, not proof of verification; advance business state from verified server-side state.",
+      "summary": "Stripe labels the client completion as submission and documents a later processing state whose verified result should drive application actions.",
+      "sourceUrl": "https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=modal",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "requires-input-retry",
+      "claim": "For `requires_input`, show safe corrective guidance and retrieve the same session for a fresh client secret or URL.",
+      "summary": "Stripe documents retrying the same session from requires_input and retrieving a fresh client secret or hosted verification URL.",
+      "sourceUrl": "https://docs.stripe.com/identity/verification-sessions",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "avoid-new-retry-session",
+      "claim": "Do not create a new retry session without a product reason.",
+      "summary": "Stripe recommends reusing the original VerificationSession for the same verification attempt rather than creating duplicate sessions.",
+      "sourceUrl": "https://docs.stripe.com/identity/verification-sessions",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhook-integrity",
+      "claim": "Verify `Stripe-Signature` against the untouched raw request body before parsing or trusting an event.",
+      "summary": "Stripe requires the unmodified request body for signature verification before an event is trusted.",
+      "sourceUrl": "https://docs.stripe.com/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhook-delivery",
+      "claim": "Deduplicate event IDs, tolerate delivery reordering, make business actions idempotent, and retrieve the latest session when current state matters.",
+      "summary": "Stripe documents duplicate and unordered webhook delivery and recommends idempotent handling and retrieving current object state when needed.",
+      "sourceUrl": "https://docs.stripe.com/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhook-acknowledgement",
+      "claim": "Queue nontrivial work and acknowledge a valid event promptly.",
+      "summary": "Stripe recommends returning a successful response quickly before complex logic that can delay acknowledgement.",
+      "sourceUrl": "https://docs.stripe.com/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "webhook-secret-isolation",
+      "claim": "Keep webhook signing secrets separate from API keys.",
+      "summary": "Stripe documents endpoint signing secrets as distinct credentials used specifically to verify webhook signatures.",
+      "sourceUrl": "https://docs.stripe.com/webhooks",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "sensitive-results",
+      "claim": "Retrieve only necessary verification data and use a restricted server-side key for sensitive results when Stripe requires it.",
+      "summary": "Stripe recommends minimum necessary PII and restricted or IP-restricted keys for more sensitive result fields.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "dashboard-access",
+      "claim": "Prefer controlled Dashboard access when programmatic retrieval is unnecessary.",
+      "summary": "Stripe recommends Dashboard access as a controlled alternative to programmatically retrieving sensitive Identity results.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "sensitive-images",
+      "claim": "Avoid copying document or face images.",
+      "summary": "Stripe identifies collected images as highly sensitive and recommends avoiding copies and using short-lived access when justified.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "short-lived-file-link",
+      "claim": "If access is justified, use a short-lived FileLink and remove downstream copies under the declared retention policy.",
+      "summary": "Stripe recommends short-lived FileLinks for collected images, avoiding copies, and deleting retained images when their purpose is complete.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "redaction",
+      "claim": "Redaction is irreversible and asynchronous and affects related reports, events, logs, metadata, and collected files.",
+      "summary": "Stripe documents an asynchronous processing-to-redacted lifecycle that erases or redacts associated sensitive data and cannot be reversed.",
+      "sourceUrl": "https://docs.stripe.com/api/identity/verification_sessions/redact",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "cancellation",
+      "claim": "Cancellation prevents later submission and cannot be undone.",
+      "summary": "The official cancellation API states that a canceled session cannot be submitted or verified and cancellation cannot be undone.",
+      "sourceUrl": "https://docs.stripe.com/api/identity/verification_sessions/cancel",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

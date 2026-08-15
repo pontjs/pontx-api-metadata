@@ -21,9 +21,6 @@
     "contentUpdatedAt": "2026-08-15"
   },
   "credentials": [],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "getItem",
     "requestExampleId": "default"

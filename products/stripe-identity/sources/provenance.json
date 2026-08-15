@@ -57,8 +57,6 @@
   },
   "riskReview": {
     "classification": "high-sensitivity-identity",
-    "hubProxyEnabled": false,
-    "proxyDisabledOperations": 8,
     "sensitiveData": [
       "identity document images",
       "selfie images",

@@ -362,7 +362,6 @@ function product(language) {
       officialUrl: "https://currencybeacon.com/pricing", verifiedAt,
     },
     credentials: [{ schemeId: "apiKey", envVar: "PONTX_CURRENCYBEACON_API_KEY", description: text.security }],
-    execution: { hubProxyEnabled: false },
     quickStart: { operationId: "getLatestRates", requestExampleId: "default" },
   };
 }

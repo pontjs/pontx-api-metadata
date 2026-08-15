@@ -119,6 +119,8 @@ tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 
 - 公共 catalog/Hub HTTP/CLI contract 变化遵循 consumer-first；动态 catalog 已足够时不为新增产品发布无意义的统一 CLI 版本。
 - `develop` 的 Preview Ready 且完成中英文浏览器审查后，才提升 `main`；Production workflow/deployment 必须实际 Ready。
 - SDK、必要消费者、metadata、Preview 和 Production 的 commit/run/deployment 证据写入同一 launch ledger。
+- 为产品建立 `pontx-<slug>` Skill：安装目录不得混入 manifest/evidence/evals；正文保持英文、紧凑且不复制 Endpoint/Schema/参数/auth 元数据。每个提供商事实逐字关联一年内复核的一手 HTTPS 证据，并与当前 product/PontxSpec/SDK 一致。
+- 新 Skill 从 `1.0.0` 起，installed bytes 改动必须升 SemVer；只有 `published` 进入确定性 `skills/registry.json`。静态校验、全新只读 Codex claim 审核、skills.sh 干净安装与 ClawHub dry-run/publish 均通过；无审核/市场密钥是明确外部 blocker，不能旁路。
 
 先标 published、生产 metadata 指向不存在/不匹配的包、Preview 未审直接提升、消费者未兼容或 Production 未 Ready 均为 `BLOCKER`。PR、merge、source fix 或 Preview 本身不是完成状态。
 
@@ -131,6 +133,7 @@ tarball 只在本地可用、依赖未发布、registry 版本不可复现、CI 
 - 生产登录态助手从自然语言任务选中正确产品并完成 catalog-approved preview；客户端用 session-only credential 完成一条获准的安全 read，首个响应非空且满足关键 Schema。
 - mutation 只验证 preview 和未变请求确认边界；任意 URL、未批准 server、私网、危险 header、凭证日志和未确认 mutation 仍被拒绝。
 - 使用 Agent Browser 或当前工作区指定的浏览器工具验证真实生产 UI、网络和控制台，而不是只用直接 HTTP。
+- 生产 Hub 能从同一 metadata commit 发现并安装统一 Skill 与目标 `pontx-<slug>` Skill；产品 Skill 页面/CLI 入口与市场 bundle 的 version/hash 一致。
 
 精确产品名可搜到但非品牌意图不可发现是 `MAJOR`。统一 CLI 不接受产品、助手无法准确 prepare、没有任何合法安全的助手 read 调用路径、凭证进入模型或生产安全边界失效是 `BLOCKER`。
 

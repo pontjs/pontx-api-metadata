@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-frankfurter-v2",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert a USD invoice dated 2026-03-31 into EUR using the ECB reference rate. Show the Pontx preview first and never fall back to a blend.",
+      "expected_output": "Uses live Pontx search/show/sdk facts, pins the requested provider and date, previews first, preserves observation-date semantics, and performs decimal-safe conversion locally.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Add an approximate EUR display price for a USD cart total without hardcoding a package version or Endpoint signature.",
+      "expected_output": "Recognizes the display use case, confirms the blend, resolves current SDK facts, keeps the amount local, and reports the observation date.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Design a memory-bounded twelve-year monthly GBP/USD history import with provider attribution and a fallback for rejected ranges.",
+      "expected_output": "Inspects live grouping and streaming support, narrows providers and quotes, splits ranges while preserving attribution, and verifies dates and ordering.",
+      "files": []
+    }
+  ]
+}

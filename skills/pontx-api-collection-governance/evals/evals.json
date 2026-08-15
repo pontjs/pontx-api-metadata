@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "只读审计当前 pontx-api-metadata 里的所有 API 集合，给我一个质量评分和治理优先级，不要改任何文件。",
-      "expected_output": "先声明审计模式并保护工作树；运行只读的分级验证与测试；报告明确分母、逐 API 证据/新鲜度/PontxSpec/安全/兼容性/国际化/SDK/消费者评分，blocker 优先于总分，且不产生源文件改动。",
+      "expected_output": "先声明审计模式并保护工作树；运行只读的分级验证与测试；报告明确分母、逐 API 证据/新鲜度/PontxSpec/安全/兼容性/国际化/SDK/产品 Skill claim/版本/hash/分发/消费者评分，blocker 优先于总分，且不产生源文件改动。",
       "files": []
     },
     {

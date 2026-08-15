@@ -18,17 +18,7 @@
         "apiKey": "MASSIVE_API_KEY"
       }
     },
-    "controllers": {},
-    "compatibilityAliases": {
-      "common": [
-        "getLastTrade",
-        "getPreviousClose",
-        "getAggregateBars",
-        "getMarketSnapshot",
-        "listTickers",
-        "getTickerDetails"
-      ]
-    }
+    "controllers": {}
   },
   "examples": {
     "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.getPreviousClose(\"AAPL\", {});",

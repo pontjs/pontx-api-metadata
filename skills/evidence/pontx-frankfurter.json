@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "frankfurter",
+  "claims": [
+    {
+      "id": "v1-lifecycle",
+      "claim": "Frankfurter v1 is superseded by v2 but remains available.",
+      "summary": "The official v1 documentation identifies v2 as its successor while committing to keep v1 running.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "v2-capability-routing",
+      "claim": "Prefer `pontx-frankfurter-v2` for new work that needs provider selection, attribution, broader history, grouping, or streaming.",
+      "summary": "The official v2 guide documents provider selection and attribution, broader history, time grouping, and streaming representations.",
+      "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "utc-working-days",
+      "claim": "V1 dates are interpreted in UTC, and latest means the latest available working day rather than the user's current calendar day.",
+      "summary": "The official v1 guide documents UTC date storage, publication timing, and latest-working-day behavior.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "reproducible-date",
+      "claim": "Use an explicit completed date rather than `today` for a reproducible report.",
+      "summary": "The official v1 guide explains that a request for today can change when new reference rates are published, while completed dates are stable for reproducible retrieval.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "target-filtering",
+      "claim": "Filtering target currencies makes a v1 time-series response smaller and faster.",
+      "summary": "The official time-series guide recommends limiting target currencies to reduce response size and processing.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "reference-rates",
+      "claim": "Describe the values as reference exchange rates, not guaranteed execution or settlement prices.",
+      "summary": "Frankfurter documents daily exchange-rate data from central banks; the Skill preserves the distinction between reference data and executable market quotes.",
+      "sourceUrl": "https://frankfurter.dev/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "local-conversion",
+      "claim": "Perform amount conversion in application code.",
+      "summary": "The official v1 guide demonstrates retrieving a rate and applying it to an amount in the caller's application.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}
