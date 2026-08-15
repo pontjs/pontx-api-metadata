@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "snapshotDate": "2026-08-14",
+  "snapshotDate": "2026-08-15",
   "sourceRoadmap": "catalog/api-collection-growth-priority.md",
   "admissionPolicy": {
     "zh": "候选记录不是正式收录。只有权威来源、许可与再分发、完整契约、传输协议、安全审查以及 SDK/CLI 发布六个门槛全部通过后，产品才可进入 catalog/source.json。完整产品边界包含 SSE 或其他当前不支持的实时协议时，整集暂缓，不得裁剪发布。",
@@ -702,6 +702,27 @@
           "missingPontxRequestExamples": 187
         }
       },
+      "websocketAudit": {
+        "reverifiedAt": "2026-08-15",
+        "officialConnectionUrl": "wss://ws.twelvedata.com/v1/quotes/price?apikey={apiKey}",
+        "outboundActionsConfirmedByOfficialSdk": ["subscribe", "unsubscribe", "reset", "heartbeat"],
+        "subscribeRequestFields": ["action", "params.symbols"],
+        "documentedInboundEventNames": ["subscribe-status", "price"],
+        "completeInboundEventSchemasPublished": [],
+        "missingCompleteInboundEventSchemas": ["subscribe-status", "price"],
+        "officialPythonSdk": {
+          "url": "https://github.com/twelvedata/twelvedata-python",
+          "license": "MIT",
+          "commit": "3d53d271a450c50b2199722b5d2db7b92e213d3b",
+          "confirms": ["connection-url", "subscribe-symbols-csv", "unsubscribe-symbols-csv", "reset", "heartbeat"]
+        },
+        "pontxProgress": {
+          "runtimeCommit": "7b1e60f0de6cbfe4874b476bc237f2d4c628b839",
+          "asyncapiCommit": "0f6a32e61f993bfb1c37373ef95efd79465c181f",
+          "implemented": ["injected-WebSocket-runtime", "AsyncAPI-3.x-parser", "stream-operation-type-generation", "read-only-list-streams-cli"],
+          "remaining": ["provider-complete-inbound-schemas", "generated-stream-client-binding", "Hub-channel-and-message-rendering", "credential-safe-connection-validation"]
+        }
+      },
       "pontxProbe": {
         "toolVersion": "pontx@1.0.0-beta.3",
         "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
@@ -725,13 +746,15 @@
         { "kind": "spec", "url": "https://api.twelvedata.com/doc/swagger/openapi.json" },
         { "kind": "source", "url": "https://github.com/twelvedata/twelvedata-node" },
         { "kind": "protocol", "url": "https://twelvedata.com/docs#websocket" },
+        { "kind": "protocol", "url": "https://support.twelvedata.com/en/articles/5620516-how-to-stream-the-data" },
+        { "kind": "source", "url": "https://github.com/twelvedata/twelvedata-python" },
         { "kind": "terms", "url": "https://twelvedata.com/terms" }
       ],
       "blockers": [
         {
           "gate": "transport",
-          "zh": "官方 Forex 产品明确包含 WebSocket 实时报价，当前 Pontx 尚未支持并验证 WebSocket 契约、生成、文档与运行时；按协议原子性规则整集暂缓。",
-          "en": "The official Forex product explicitly includes realtime WebSocket quotes, while Pontx has not yet implemented and validated WebSocket contracts, generation, documentation, and runtime behavior; the whole collection is deferred under the atomic transport rule."
+          "zh": "官方 Forex 产品明确包含 WebSocket 实时报价。Pontx 已实现注入式 WebSocket runtime、AsyncAPI 3.x 解析、流式类型生成和只读 list streams CLI，但尚未完成生成的流式客户端绑定、Hub 通道/消息文档和凭证安全连接验证；同时供应商尚未公开两类入站事件的完整 Schema。按协议原子性规则整集仍暂缓。",
+          "en": "The official Forex product explicitly includes realtime WebSocket quotes. Pontx now has an injected WebSocket runtime, AsyncAPI 3.x parsing, stream type generation, and a read-only list-streams CLI, but generated stream-client bindings, Hub channel/message documentation, and credential-safe connection validation remain incomplete; the supplier also has not published complete schemas for either inbound event. The whole collection remains deferred under the atomic transport rule."
         },
         {
           "gate": "redistribution",
@@ -740,8 +763,8 @@
         },
         {
           "gate": "contract",
-          "zh": "已找到官方可下载的 REST OpenAPI 3.1.0：187 个 Endpoint、797 个 Schema，所有 operationId 唯一，成功/错误响应均有 Schema，并可原样通过 Pontx 代码生成；但它没有覆盖 Forex 产品的 WebSocket 面、URL 可变、没有 OAS 许可声明，且缺少 187 个 Pontx 成功请求示例，因此仍不是完整产品契约。",
-          "en": "The official downloadable REST OpenAPI 3.1.0 has been found: 187 endpoints, 797 schemas, unique operationIds, schema-backed success/error responses, and successful raw Pontx generation. It still omits the Forex product's WebSocket surface, comes from a mutable URL with no OAS license declaration, and lacks all 187 Pontx successful request examples, so it is not yet the complete product contract."
+          "zh": "已找到官方可下载的 REST OpenAPI 3.1.0：187 个 Endpoint、797 个 Schema，所有 operationId 唯一，成功/错误响应均有 Schema，并可原样通过 Pontx 代码生成。官方 SDK 和支持文档已证明 WebSocket URL、四种出站事件和两种入站事件名，但未发布 subscribe-status 或 price 的完整入站 payload Schema；REST URL 仍可变、没有 OAS 许可声明，并缺少 187 个 Pontx 成功请求示例，因此仍不是完整产品契约。",
+          "en": "The official downloadable REST OpenAPI 3.1.0 has 187 endpoints, 797 schemas, unique operationIds, schema-backed success/error responses, and successful raw Pontx generation. The official SDK and support documentation prove the WebSocket URL, four outbound events, and two inbound event names, but publish no complete inbound payload schema for subscribe-status or price; the REST URL remains mutable with no OAS license declaration and all 187 Pontx success-request examples remain absent. This is still not a complete product contract."
         },
         {
           "gate": "sdkCli",
@@ -750,10 +773,10 @@
         }
       ],
       "nextAction": {
-        "zh": "先实现 Pontx WebSocket/AsyncAPI 全链路并向 Twelve Data 获取完整固定契约及发布/外部展示许可，再对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
-        "en": "First implement the full Pontx WebSocket/AsyncAPI path and obtain a complete pinned contract plus publication/external-display permission from Twelve Data; then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
+        "zh": "继续完成 Pontx 的生成流式客户端绑定、Hub 通道/消息文档和不记录凭证的连接验证；并向 Twelve Data 获取完整、固定的 WebSocket 入站 Schema/fixture 以及 metadata、SDK 与外部展示/再分发许可。随后对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
+        "en": "Finish Pontx generated stream-client bindings, Hub channel/message documentation, and connection validation that never records credentials; obtain complete pinned WebSocket inbound schemas/fixtures plus metadata, SDK, and external-display/redistribution permission from Twelve Data. Then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
       },
-      "verifiedAt": "2026-08-14"
+      "verifiedAt": "2026-08-15"
     },
     {
       "slug": "openai",
