@@ -7,7 +7,7 @@
   "featured": true,
   "display": {
     "title": "CurrencyBeacon 汇率 API",
-    "summary": "查询最新、历史、换算、时间序列与支持货币数据；调用方以自己的 CurrencyBeacon 凭据直连服务。",
+    "summary": "查询最新、历史、换算、时间序列与支持货币数据；在浏览器会话中使用自己的 CurrencyBeacon 凭据调试。",
     "accent": "#0f766e"
   },
   "legal": {
@@ -27,7 +27,7 @@
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
-    "stabilityNote": "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据直连服务；Hub 不代理、缓存、持久化或展示供应商响应。"
+    "stabilityNote": "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据；Hub 仅在用户明确执行后转发该次请求，不缓存或持久化响应。"
   },
   "pricing": {
     "status": "freemium",

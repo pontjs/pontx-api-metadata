@@ -11,11 +11,9 @@ const codeSamplesUrl = "https://currencybeacon.com/code-samples";
 const sdkRepositoryUrl = "https://github.com/pontjs/currencybeacon-rest";
 const sdkWorkflowRunUrl = "https://github.com/pontjs/currencybeacon-rest/actions/runs/31867826366";
 const sdkPackageUrl = "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.1";
-const executionDisabled = "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.";
-
 const copy = {
   zh: {
-    info: "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据直连服务；Hub 不代理、缓存、持久化或展示供应商响应。",
+    info: "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据；Hub 仅在用户明确执行后转发该次请求，不缓存或持久化响应。",
     server: "CurrencyBeacon v1 HTTPS API。",
     security: "调用方提供的 CurrencyBeacon API key；不得写入请求示例或持久化。",
     bearer: "调用方通过 Bearer Authorization header 提供的 CurrencyBeacon API key；不得写入请求示例或持久化。",
@@ -59,7 +57,7 @@ const copy = {
     sourceNote: "供应商未发布可保留的完整 OAS；本产品以公开文档和经授权的免费账户只读响应独立整理，不保留市场数据或凭据。",
   },
   en: {
-    info: "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers connect directly with their own credentials; Hub does not proxy, cache, persist, or display supplier responses.",
+    info: "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers use their own credentials; Hub forwards a request only after explicit user execution and does not cache or persist responses.",
     server: "CurrencyBeacon v1 HTTPS API.",
     security: "CurrencyBeacon API key supplied by the caller; it must not be placed in request examples or persisted.",
     bearer: "CurrencyBeacon API key supplied by the caller through the Bearer Authorization header; it must not be placed in request examples or persisted.",
@@ -268,10 +266,6 @@ function endpoint({ text, apiKey, path, operationId, summary, description, param
     },
     metadata: {
       documentation: { status: "official", evidence: [documentationUrl, codeSamplesUrl], verifiedAt },
-      execution: {
-        enabled: false,
-        disabledReason: executionDisabled,
-      },
     },
   }];
 }
@@ -339,8 +333,8 @@ function product(language) {
     display: {
       title: language === "zh" ? "CurrencyBeacon 汇率 API" : "CurrencyBeacon exchange-rate API",
       summary: language === "zh"
-        ? "查询最新、历史、换算、时间序列与支持货币数据；调用方以自己的 CurrencyBeacon 凭据直连服务。"
-        : "Query latest, historical, conversion, time-series, and supported-currency data with caller-owned CurrencyBeacon credentials.",
+        ? "查询最新、历史、换算、时间序列与支持货币数据；在浏览器会话中使用自己的 CurrencyBeacon 凭据调试。"
+        : "Query latest, historical, conversion, time-series, and supported-currency data with caller-owned CurrencyBeacon credentials in the browser session.",
       accent: "#0f766e",
     },
     legal: { license: "CurrencyBeacon Terms of Service", attributionUrl: "https://currencybeacon.com/terms" },

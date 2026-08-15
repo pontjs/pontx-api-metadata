@@ -6,9 +6,9 @@
     "format": "OpenAPI 3.1.2",
     "importer": "@pontx/spec importOpenAPI",
     "sourcePath": "products/ecb-data-portal/sources/openapi.json",
-    "sourceSha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06",
+    "sourceSha256": "27dd6968ac3ceb78e06f43cd6a6e8218663f9adc20a8cce2b9ba7ab93c598ed4",
     "localeInputSha256": {
-      "en-US": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
+      "en-US": "74d3c20a5c1a1d2d83075033d11bcb38472e24f73fcda6bd1dbadc95754b6aae"
     }
   },
   "evidence": {
@@ -148,7 +148,7 @@
         "bounded live data call"
       ],
       "publicationReady": true,
-      "limitation": "The published package intentionally calls the ECB public anonymous read-only service directly; Hub proxying remains disabled."
+      "limitation": "The published package calls the ECB public anonymous read-only service directly; Hub can independently forward the same bounded request only after explicit user execution."
     },
     "publication": {
       "packageName": "@pontx/ecb-data-portal",
@@ -163,24 +163,24 @@
     "outputs": {
       "zh-CN": {
         "file": "specs/ecb-data-portal/openapi.json",
-        "sha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06"
+        "sha256": "27dd6968ac3ceb78e06f43cd6a6e8218663f9adc20a8cce2b9ba7ab93c598ed4"
       },
       "en-US": {
         "file": "specs/ecb-data-portal/locales/en-US/openapi.json",
-        "sha256": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
+        "sha256": "74d3c20a5c1a1d2d83075033d11bcb38472e24f73fcda6bd1dbadc95754b6aae"
       }
     }
   },
   "outputs": {
     "zh-CN": {
       "path": "products/ecb-data-portal/spec.pontx.json",
-      "sha256": "d64b37c23b87d5e90c79f34417aa81435c036f98740db7cc36a493ea1f4298e9",
+      "sha256": "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f",
       "endpoints": 8,
       "schemas": 12
     },
     "en-US": {
       "path": "products/ecb-data-portal/locales/en-US/spec.pontx.json",
-      "sha256": "23f989238019d297162b2583160773f3b68cc67aac6a74d8dc75a172e2322e1f",
+      "sha256": "c0aa6e77426f4846745064f0974cd874432c4790f2b143d59607544715833d0c",
       "endpoints": 8,
       "schemas": 12
     }
