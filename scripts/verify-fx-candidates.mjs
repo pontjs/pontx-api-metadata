@@ -39,11 +39,8 @@ assert(Object.keys(ecb.apis).length === 8 && Object.keys(ecb.components.schemas)
   "ECB PontxSpec counts drifted");
 
 const oxr = candidate("open-exchange-rates");
-assert(oxr.gateStatus.redistribution === "passed" && oxr.gateStatus.contract === "pending" &&
+assert(oxr.gateStatus.redistribution === "pending" && oxr.gateStatus.contract === "pending" &&
   oxr.gateStatus.sdkCli === "pending", "OXR unresolved gates drifted");
-assert(oxr.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  oxr.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"OXR independent implementation and no-data-relay boundary must remain explicit");
 assert(oxr.contractSource.sourceSha256 ===
   "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84" &&
   oxr.contractSource.observedOperations === 7 && oxr.contractSource.observedSchemas === 0,
@@ -64,12 +61,9 @@ assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchem
 "OXR derived generation probe drifted");
 
 const currencyBeacon = candidate("currencybeacon-rest");
-assert(currencyBeacon.gateStatus.redistribution === "passed" &&
+assert(currencyBeacon.gateStatus.redistribution === "pending" &&
   currencyBeacon.gateStatus.contract === "pending" &&
   currencyBeacon.gateStatus.sdkCli === "pending", "CurrencyBeacon unresolved gates drifted");
-assert(currencyBeacon.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  currencyBeacon.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"CurrencyBeacon independent implementation and no-data-relay boundary must remain explicit");
 assert(currencyBeacon.contractSource.observedOperations === 5 &&
   currencyBeacon.contractSource.documentedCompleteSuccessExamples === 2 &&
   currencyBeacon.contractSource.observedAnonymousError.httpStatus === 401,
@@ -87,11 +81,8 @@ assert(currencyBeacon.pontxProbe.status === "not-run-contract-blocked" &&
 const twelve = candidate("twelve-data-forex");
 assert(twelve.stage === "protocol-blocked" && twelve.gateStatus.transport === "blocked",
   "Twelve Data Forex must remain atomically blocked until its complete WebSocket contract and client path are validated");
-assert(twelve.gateStatus.redistribution === "passed",
-  "Twelve Data must distinguish independently authored client publication from prohibited data redistribution");
-assert(twelve.contractSource.independentImplementationPolicy?.reviewedAt === "2026-08-15" &&
-  twelve.contractSource.independentImplementationPolicy.dataHandling.includes("does not proxy"),
-"Twelve Data independent implementation and no-data-relay boundary must remain explicit");
+assert(twelve.gateStatus.redistribution === "pending",
+  "Twelve Data redistribution gate must remain unresolved without supplier permission");
 assert(twelve.contractSource.sourceSha256 ===
   "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c" &&
   twelve.contractSource.observedOperations === 187 && twelve.contractSource.observedSchemas === 797,
