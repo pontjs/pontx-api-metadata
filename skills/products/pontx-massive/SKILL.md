@@ -26,9 +26,10 @@ streams. Do not design a high-frequency REST polling loop for streaming work.
 
 ## Preserve market-time semantics
 
-- Interpret U.S. stock sessions in `America/New_York`; interpret returned Unix
-  timestamps as UTC using the unit in the current Schema. Use an IANA time-zone
-  library rather than a fixed offset across daylight-saving transitions.
+- Treat Massive's U.S. stock aggregate intervals as Eastern Time (ET).
+  Interpret returned Unix timestamps as UTC using the unit in the current
+  Schema. Implement ET with the `America/New_York` IANA zone rather than a fixed
+  offset across daylight-saving transitions.
 - Make adjusted versus unadjusted history an explicit decision. Never combine
   series with different adjustment policies silently.
 - An aggregate interval with no qualifying trade can be absent. Do not invent a

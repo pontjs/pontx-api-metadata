@@ -14,15 +14,23 @@
       "id": "transport-choice",
       "claim": "Massive recommends Flat Files for bulk history and WebSockets for continuous live streams.",
       "summary": "The official REST quickstart distinguishes on-demand REST, bulk Flat Files, and continuous WebSocket access.",
-      "sourceUrl": "https://massive.com/docs/rest",
+      "sourceUrl": "https://massive.com/docs/rest/quickstart?format=markdown",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
     {
-      "id": "market-time",
-      "claim": "Interpret U.S. stock sessions in `America/New_York`; interpret returned Unix timestamps as UTC using the unit in the current Schema.",
-      "summary": "The official stock overview defines Eastern Time sessions and UTC timestamp semantics.",
-      "sourceUrl": "https://massive.com/docs/rest/stocks",
+      "id": "aggregate-time-zone",
+      "claim": "Treat Massive's U.S. stock aggregate intervals as Eastern Time (ET).",
+      "summary": "The official stock aggregate documentation defines custom bar intervals in Eastern Time.",
+      "sourceUrl": "https://massive.com/docs/rest/stocks/aggregates/custom-bars.md",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "timestamp-time-zone",
+      "claim": "Interpret returned Unix timestamps as UTC using the unit in the current Schema.",
+      "summary": "The official timestamp guidance states that Massive returns Unix timestamps in UTC/GMT; field units remain contract-specific.",
+      "sourceUrl": "https://massive.com/knowledge-base/article/what-timezone-are-massives-timestamps-in",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     },
