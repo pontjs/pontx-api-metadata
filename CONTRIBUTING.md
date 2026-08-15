@@ -86,4 +86,4 @@ The hierarchy test fixes the current production baseline at 7 products, 142 Endp
 
 ## Deployment setup
 
-Repository administrators configure `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. The workflow deploys Hub with `METADATA_REPO_RAW_URL` and `METADATA_REPO_COMMIT` pinned to the pushed Git SHA, never to a moving branch reference.
+Repository administrators configure `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. The workflow deploys Hub with `METADATA_REPO_RAW_URL` and `METADATA_REPO_COMMIT` pinned to the pushed Git SHA, never to a moving branch reference. After a verified Production deployment, it also updates the Hub project's Production `METADATA_REPO_COMMIT`; this keeps later Hub Git deployments on the same latest validated metadata commit instead of silently reverting to an older catalog or Skill registry.
