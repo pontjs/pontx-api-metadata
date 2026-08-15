@@ -1012,6 +1012,7 @@ const provenance = {
   },
   riskReview: {
     classification: "private-workspace-content-with-integration-terms",
+    hubProxyEnabled: false,
     mutations: 25,
     credentials: "Bearer tokens (internal connection / PAT) and OAuth client credentials; modeled as environment variables only.",
     execution: "All Hub execution is disabled because workspace content is private End User data and the Developer Terms impose integrator data-handling obligations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation.",
