@@ -28,8 +28,8 @@
     },
     {
       "id": "attribution-and-pegs",
-      "claim": "When attribution is requested, retain contributor and exclusion information; a peg-derived row may not have provider attribution.",
-      "summary": "The official v2 guide documents contributor and excluded-provider fields and explains that currency-peg rows can be derived without provider attribution.",
+      "claim": "When attribution is requested, retain contributor information; a peg-derived row may not have provider attribution.",
+      "summary": "The official v2 guide documents contributing-provider keys and explains that currency-peg rows omit provider attribution because their rates come from the peg.",
       "sourceUrl": "https://frankfurter.dev/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"

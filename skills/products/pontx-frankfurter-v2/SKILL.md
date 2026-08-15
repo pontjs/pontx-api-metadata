@@ -46,7 +46,7 @@ Never silently replace a missing provider-specific observation with the blend.
 A pinned provider can publish on a different cadence, so its latest observation
 can lag the blended result. Report the returned observation date and do not
 relabel it as today's rate. When attribution is requested, retain contributor
-and exclusion information; a peg-derived row may not have provider attribution.
+information; a peg-derived row may not have provider attribution.
 
 ## Integrate deliberately
 
