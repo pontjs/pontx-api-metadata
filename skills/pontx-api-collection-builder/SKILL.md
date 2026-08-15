@@ -21,6 +21,8 @@ description: >-
 
 读取并执行 [references/quality-gates.md](references/quality-gates.md) 的 G0–G10；进入 SDK、发包或上线阶段前，再完整读取 [references/release-and-launch.md](references/release-and-launch.md)。早期门失败时继续修复或明确阻断，不用后续页面、包或部署掩盖问题。
 
+一次信息核对、澄清问答、候选登记、PR、局部测试或 Preview 都只是过程事件，不是任务终点。用户在过程中质疑一个判断或询问窄问题时，先给出有证据的答复、修正错误前提，并在同一产品生命周期中继续推进；除非已经达到阶段 6，或本技能定义的真实外部 blocker 已经穷尽安全恢复路径，否则不得把一次中间答复写成完成/停止。
+
 ## 开始前
 
 1. 定位工作区和 `pontx-api-metadata`，读取根 `AGENTS.md`、跨仓库架构/契约/变更路由/发布 runbook、动态 `api-hub-plan.md`、目标仓库 README/package scripts/本地说明。
@@ -42,6 +44,12 @@ description: >-
 - metadata、SDK、Preview、Production、生产验收的当前状态与下一动作。
 
 同一上游 API 的不兼容主版本通常使用独立集合。完整产品含 Pontx 尚未支持的必要协议时，整集暂缓，不通过删除 SSE/WebSocket 等能力伪装完整。
+
+### 许可证判定顺序
+
+把 **源码/规范文件**、**被暴露 API 或 Cloud 服务**、**网站文档**、**商标** 视为独立权利面。先检查固定上游 revision 中该文件和仓库的实际 license/notice；只有它明确覆盖该文件且没有相反文件级声明时，才能据此批准该输入的复制、转换和再分发。OAS `info.license` 与 `termsOfService` 是被描述 API 的元数据，不自动授予或撤销 OpenAPI 文档本身的版权许可；不能单凭它们把仓库中的 Apache/MIT 规范源码误判为不可再分发，也不能反过来把它们忽略为 API 使用限制。
+
+网站条款通常约束网站 prose、图片和下载内容，Cloud 条款约束服务使用、凭证、转售和配额，商标规则约束名称、logo 与背书表述。保留许可证/NOTICE，独立撰写 Hub 文案、链接权威来源、避免复制网站内容和暗示官方背书。文件许可证、文件级 notices 或服务条款出现不可化解冲突时才升级为 G0 blocker，并记录冲突、已检查证据和解除条件；不要以不确定性或单个元数据字段替代这种区分。
 
 ## 阶段 1：迭代建立权威、完整契约
 
@@ -140,6 +148,8 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 ## 持续推进与阻断规则
 
 - 任务默认终点是阶段 6，不在“metadata 已写”“SDK RC 可 build”“npm 已发”“Preview 可见”处主动结束。
+- 候选登记、证据审计、许可证问答、源码修正、PR 创建、CI 排队、局部验证和用户的中途追问都不是终止条件。它们必须留下 ledger 记录并回到当前阶段的下一项可执行工作；状态更新使用 commentary，不得把未完成的产品交付伪装成最终答复。
+- 用户质疑许可证、协议或风险判断时，重新检查一手来源并修正不成立的 blocker；一旦修正后仍有可执行阶段，立即继续，不要求用户重复“继续”“完成”或重新授权同一产品生命周期。
 - 只有权威证据、许可/书面授权、必要协议能力、凭证/权限、registry/CI/部署外部拒绝等真实 blocker 才能中止。先穷尽安全恢复步骤，再记录失败阶段、已完成证据、确切外部错误和解除条件。
 - 不用“后续可做”隐藏本次范围内仍未完成的发布或生产验收；launch ledger 必须始终显示当前阶段和下一动作。
 - 上线后将证据 freshness、上游 drift、SDK registry install、语义 relevance 和安全调用 canary 交给治理/巡检流程，避免产品再次退化。
