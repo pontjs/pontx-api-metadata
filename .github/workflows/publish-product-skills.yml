@@ -166,7 +166,9 @@ jobs:
             local_paths="${{ runner.temp }}/local-${SKILL_NAME}-paths.txt"
             remote_paths="${{ runner.temp }}/remote-${SKILL_NAME}-paths.txt"
             jq -r '.files[]' "$manifest" | LC_ALL=C sort > "$local_paths"
-            jq -r '.version.files[].path' "$remote_json" | LC_ALL=C sort > "$remote_paths"
+            # ClawHub may append its generated marketplace card after scanning.
+            jq -r '.version.files[].path | select(. != "skill-card.md")' \
+              "$remote_json" | LC_ALL=C sort > "$remote_paths"
             diff -u "$local_paths" "$remote_paths"
             while IFS= read -r relative_path; do
               local_sha=$(sha256sum "$SKILL_PATH/$relative_path" | cut -d' ' -f1)
@@ -250,7 +252,9 @@ jobs:
             local_paths="${{ runner.temp }}/local-${SKILL_NAME}-paths.txt"
             remote_paths="${{ runner.temp }}/remote-${SKILL_NAME}-paths.txt"
             jq -r '.files[]' "$manifest" | LC_ALL=C sort > "$local_paths"
-            jq -r '.version.files[].path' "$remote_json" | LC_ALL=C sort > "$remote_paths"
+            # ClawHub may append its generated marketplace card after scanning.
+            jq -r '.version.files[].path | select(. != "skill-card.md")' \
+              "$remote_json" | LC_ALL=C sort > "$remote_paths"
             diff -u "$local_paths" "$remote_paths"
             while IFS= read -r relative_path; do
               local_sha=$(sha256sum "$SKILL_PATH/$relative_path" | cut -d' ' -f1)
