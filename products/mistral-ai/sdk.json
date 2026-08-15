@@ -53,7 +53,6 @@
       "ocr": "ocr",
       "workflows": "workflows",
       "workflows.deployments": "workflowsDeployments",
-      "workflows.events": "workflowsEvents",
       "workflows.executions": "workflowsExecutions",
       "workflows.metrics": "workflowsMetrics",
       "workflows.runs": "workflowsRuns",
@@ -301,7 +300,7 @@
     }
   },
   "examples": {
-    "typescript": "import { createMistralAiClient } from \"@pontx/mistral-ai\";\n\nconst client = createMistralAiClient();\nconst models = await client.models.listModelsV1ModelsGet();",
+    "typescript": "import { createMistralAiClient } from \"@pontx/mistral-ai\";\n\nconst client = createMistralAiClient();\nconst models = await client.models.listModelsV1ModelsGet({});",
     "cli": "pnpm add --global @pontx/mistral-ai\n\npontx-mistral-ai call models listModelsV1ModelsGet --dry-run"
   },
   "coverage": {

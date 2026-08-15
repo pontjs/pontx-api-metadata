@@ -584,7 +584,13 @@ const en = buildSpec(imported, "en-US");
 const zhBytes = Buffer.from(`${JSON.stringify(PontxSpec.reOrder(zh), null, 2)}\n`);
 const enBytes = Buffer.from(`${JSON.stringify(PontxSpec.reOrder(en), null, 2)}\n`);
 const tags = [...new Set(finalApis.flatMap((api) => api.tags ?? []))].sort();
-const controllerEntries = tags.map((tag) => [tag, camelIdentifier(tag)]);
+// Controllers come only from each Endpoint's first explicit tag (the tag that
+// drives the generated client controller). Secondary tags stay declared on the
+// Endpoint but never create controllers, matching the generated SDK exactly.
+const controllerTags = [...new Set(
+  finalApis.map((api) => api.tags?.[0]).filter(Boolean),
+)].sort();
+const controllerEntries = controllerTags.map((tag) => [tag, camelIdentifier(tag)]);
 if (new Set(controllerEntries.map(([, property]) => property)).size !== controllerEntries.length) {
   throw new Error("Mistral tag-to-controller mapping is not collision free");
 }
@@ -714,7 +720,7 @@ const sdk = {
     ),
   },
   examples: {
-    typescript: "import { createMistralAiClient } from \"@pontx/mistral-ai\";\n\nconst client = createMistralAiClient();\nconst models = await client.models.listModelsV1ModelsGet();",
+    typescript: "import { createMistralAiClient } from \"@pontx/mistral-ai\";\n\nconst client = createMistralAiClient();\nconst models = await client.models.listModelsV1ModelsGet({});",
     cli: "pnpm add --global @pontx/mistral-ai\n\npontx-mistral-ai call models listModelsV1ModelsGet --dry-run",
   },
   coverage: { mode: "full" },
