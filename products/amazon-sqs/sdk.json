@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/amazon-sqs",
-    "version": "0.1.1",
+    "version": "0.1.3",
     "status": "published",
     "repository": "https://github.com/pontjs/amazon-sqs"
   },
@@ -16,7 +16,32 @@
       "identifier": "client",
       "options": {}
     },
-    "controllers": {}
+    "controllers": {},
+    "methodNames": {
+      "AddPermission": "addPermission",
+      "CancelMessageMoveTask": "cancelMessageMoveTask",
+      "ChangeMessageVisibility": "changeMessageVisibility",
+      "ChangeMessageVisibilityBatch": "changeMessageVisibilityBatch",
+      "CreateQueue": "createQueue",
+      "DeleteMessage": "deleteMessage",
+      "DeleteMessageBatch": "deleteMessageBatch",
+      "DeleteQueue": "deleteQueue",
+      "GetQueueAttributes": "getQueueAttributes",
+      "GetQueueUrl": "getQueueUrl",
+      "ListDeadLetterSourceQueues": "listDeadLetterSourceQueues",
+      "ListMessageMoveTasks": "listMessageMoveTasks",
+      "ListQueues": "listQueues",
+      "ListQueueTags": "listQueueTags",
+      "PurgeQueue": "purgeQueue",
+      "ReceiveMessage": "receiveMessage",
+      "RemovePermission": "removePermission",
+      "SendMessage": "sendMessage",
+      "SendMessageBatch": "sendMessageBatch",
+      "SetQueueAttributes": "setQueueAttributes",
+      "StartMessageMoveTask": "startMessageMoveTask",
+      "TagQueue": "tagQueue",
+      "UntagQueue": "untagQueue"
+    }
   },
   "examples": {
     "typescript": "import { createAmazonSqsClient } from \"@pontx/amazon-sqs\";\n\nconst client = createAmazonSqsClient({ region: process.env.AWS_REGION });\nconst queues = await client.listQueues({});",
@@ -26,7 +51,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.3",
     "unitTests": {
       "passed": 6,
       "total": 6,
@@ -37,10 +62,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "3c0e040f83173b096677a54d8450c877656862a4",
+    "sourceCommit": "9dcca9f357afff4593b88e000061d265641c880a",
     "testedAt": "2026-08-15",
     "repositoryUrl": "https://github.com/pontjs/amazon-sqs",
-    "workflowRunUrl": "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674"
+    "workflowRunUrl": "https://github.com/pontjs/amazon-sqs/actions/runs/31873716805"
   },
   "spec": {
     "path": "products/amazon-sqs/spec.pontx.json",

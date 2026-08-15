@@ -109,14 +109,14 @@
   },
   "sdk": {
     "package": "@pontx/amazon-sqs",
-    "version": "0.1.1",
-    "registry": "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.1",
-    "integrity": "sha512-G2QPOpFbf9JDPpb20dqqBr3ER3kbAa4uJtPWUQCP2h3HYxxCvrJ4BBvLuj07vnzzEbSEIxKxf8ZK3eGqbogCxg==",
-    "shasum": "f303b11f5bc986497efbfbdff7013652bbb36819",
+    "version": "0.1.3",
+    "registry": "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.3",
+    "integrity": "sha512-GTgGkzX/pnuYK5PYdbS/WrRcNwy28hdvmFRvE2Tis5X3PR3gio5EiMJ8VwJOrVSwThjljUnRClIzzUTIbrZuQA==",
+    "shasum": "6553c125bdaafb3484d4e1276ea93f78fb9d9474",
     "repository": "https://github.com/pontjs/amazon-sqs",
-    "sourceCommit": "3c0e040f83173b096677a54d8450c877656862a4",
-    "mergedCommit": "707f4c0d4a305bbbece0f2d4e1959d3ff0e275f3",
-    "workflowRun": "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674",
+    "sourceCommit": "9dcca9f357afff4593b88e000061d265641c880a",
+    "mergedCommit": "70030288af4cfae77d44f87afb25d1d799661801",
+    "workflowRun": "https://github.com/pontjs/amazon-sqs/actions/runs/31873716805",
     "nodeVersions": [
       "20",
       "22"

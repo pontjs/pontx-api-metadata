@@ -10,8 +10,8 @@
       "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html",
-      "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674",
-      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.1"
+      "https://github.com/pontjs/amazon-sqs/actions/runs/31873716805",
+      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.3"
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",

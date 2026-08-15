@@ -46,26 +46,51 @@ assert.equal(sha256(licenseBytes), licenseHash, "vendored license hash must be i
 assert.equal(sdk.spec.sha256, sha256(zhBytes), "SDK must bind canonical PontxSpec raw bytes");
 assert.equal(sdk.package.status, "published", "SDK must be published before catalog admission");
 assert.equal(sdk.package.name, "@pontx/amazon-sqs");
-assert.equal(sdk.package.version, "0.1.1");
+assert.equal(sdk.package.version, "0.1.3");
+assert.deepEqual(sdk.contract?.methodNames, {
+  AddPermission: "addPermission",
+  CancelMessageMoveTask: "cancelMessageMoveTask",
+  ChangeMessageVisibility: "changeMessageVisibility",
+  ChangeMessageVisibilityBatch: "changeMessageVisibilityBatch",
+  CreateQueue: "createQueue",
+  DeleteMessage: "deleteMessage",
+  DeleteMessageBatch: "deleteMessageBatch",
+  DeleteQueue: "deleteQueue",
+  GetQueueAttributes: "getQueueAttributes",
+  GetQueueUrl: "getQueueUrl",
+  ListDeadLetterSourceQueues: "listDeadLetterSourceQueues",
+  ListMessageMoveTasks: "listMessageMoveTasks",
+  ListQueues: "listQueues",
+  ListQueueTags: "listQueueTags",
+  PurgeQueue: "purgeQueue",
+  ReceiveMessage: "receiveMessage",
+  RemovePermission: "removePermission",
+  SendMessage: "sendMessage",
+  SendMessageBatch: "sendMessageBatch",
+  SetQueueAttributes: "setQueueAttributes",
+  StartMessageMoveTask: "startMessageMoveTask",
+  TagQueue: "tagQueue",
+  UntagQueue: "untagQueue",
+});
 assert.equal(sdk.quality?.testedVersion, sdk.package.version);
 assert.deepEqual(sdk.quality?.unitTests, { passed: 6, total: 6, skipped: 0 });
 assert.equal(sdk.quality?.e2eStatus, "passed");
 assert.deepEqual(sdk.quality?.nodeVersions, ["20", "22"]);
-assert.equal(sdk.quality?.sourceCommit, "3c0e040f83173b096677a54d8450c877656862a4");
+assert.equal(sdk.quality?.sourceCommit, "9dcca9f357afff4593b88e000061d265641c880a");
 assert.equal(sdk.spec.metadataCommit, "d24224857ed1c87e7ba92ba333742d980e44c977");
 assert.equal(provenance.import.sourceSha256, sourceHash);
 assert.equal(provenance.license.sha256, licenseHash);
 assert.equal(provenance.status, "published");
 assert.deepEqual(provenance.sdk, {
   package: "@pontx/amazon-sqs",
-  version: "0.1.1",
-  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.1",
-  integrity: "sha512-G2QPOpFbf9JDPpb20dqqBr3ER3kbAa4uJtPWUQCP2h3HYxxCvrJ4BBvLuj07vnzzEbSEIxKxf8ZK3eGqbogCxg==",
-  shasum: "f303b11f5bc986497efbfbdff7013652bbb36819",
+  version: "0.1.3",
+  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.3",
+  integrity: "sha512-GTgGkzX/pnuYK5PYdbS/WrRcNwy28hdvmFRvE2Tis5X3PR3gio5EiMJ8VwJOrVSwThjljUnRClIzzUTIbrZuQA==",
+  shasum: "6553c125bdaafb3484d4e1276ea93f78fb9d9474",
   repository: "https://github.com/pontjs/amazon-sqs",
-  sourceCommit: "3c0e040f83173b096677a54d8450c877656862a4",
-  mergedCommit: "707f4c0d4a305bbbece0f2d4e1959d3ff0e275f3",
-  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674",
+  sourceCommit: "9dcca9f357afff4593b88e000061d265641c880a",
+  mergedCommit: "70030288af4cfae77d44f87afb25d1d799661801",
+  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/31873716805",
   nodeVersions: ["20", "22"],
   verifiedAt: "2026-08-15",
 });
