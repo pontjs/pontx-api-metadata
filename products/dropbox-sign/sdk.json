@@ -62,6 +62,6 @@
   "spec": {
     "path": "products/dropbox-sign/spec.pontx.json",
     "sha256": "7ea116bf486a763ae44c1954cebd2509f425c7a23833da713e72346e0d8b3683",
-    "metadataCommit": null
+    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
   }
 }

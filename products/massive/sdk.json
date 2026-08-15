@@ -58,6 +58,6 @@
   "spec": {
     "path": "products/massive/spec.pontx.json",
     "sha256": "41f387db4a836a850115486392d659c5d53e0cef2cdc04710bfa945517aa154c",
-    "metadataCommit": null
+    "metadataCommit": "7b1f516e9057193bcd825eb5708f695bc2cf91e0"
   }
 }
