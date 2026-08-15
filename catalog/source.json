@@ -98,9 +98,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/frankfurter-v2/openapi.json",
-      "approvedSha256": "54160e0127410f3c8f785f02ca59af3fe83fc4d3e107013eb41ac794e1960c08",
+      "approvedSha256": "e460ccd7559b44409605dda5cf3c63453532d2ad15c4b77e1e2fb0c9484423df",
       "approvedLocaleSha256": {
-        "en-US": "28a0ffdca15c3df14b56fb40bd009a0ec99f754446814635e17e55796c950538"
+        "en-US": "920bef2b64e49e73255837ddba3406bf59408d77bb5ec7deb59d4d1de6b706f8"
       },
       "license": "MIT",
       "attributionUrl": "https://frankfurter.dev/",
@@ -115,13 +115,13 @@
       "stabilityNote": "无需鉴权的只读公共 API。v2 聚合多个中央银行数据源；合规场景应使用 providers 参数固定到所需的官方提供方。",
       "accent": "#16a085",
       "packageName": "@pontx/frankfurter-v2",
-      "sdkVersion": "0.1.0",
+      "sdkVersion": "0.1.1",
       "sdkStatus": "published",
       "sdkQuality": {
-        "testedVersion": "0.1.0",
+        "testedVersion": "0.1.1",
         "unitTests": {
-          "passed": 2,
-          "total": 2,
+          "passed": 3,
+          "total": 3,
           "skipped": 0
         },
         "e2eStatus": "passed",
@@ -130,15 +130,15 @@
           "20",
           "22"
         ],
-        "sourceCommit": "30ea842a5347fb47eb1d769bd7b516c4349624ed",
+        "sourceCommit": "3157f0f1b327123acabddcd8560039e5d570b485",
         "testedAt": "2026-08-14",
         "repositoryUrl": "https://github.com/pontjs/frankfurter-v2",
-        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31776800115"
+        "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31857302638"
       },
       "cliName": "pontx-frankfurter-v2",
       "sdkExamples": {
-        "typescript": "import { frankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.common.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
-        "cli": "pnpm add --global @pontx/frankfurter-v2\n\npontx-frankfurter-v2 call common.getRate --base EUR --quote USD --dry-run"
+        "typescript": "import { frankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
+        "cli": "pnpm add --global @pontx/frankfurter-v2\n\npontx-frankfurter-v2 call getRates --base EUR --quotes USD --dry-run"
       },
       "sdkContract": {
         "client": {
@@ -146,7 +146,7 @@
           "identifier": "frankfurterV2Client"
         },
         "controllers": {
-          "default": "common"
+          "default": null
         },
         "operations": [
           "getRates",
@@ -297,9 +297,9 @@
       "category": "Finance",
       "featured": true,
       "specFile": "specs/massive/openapi.json",
-      "approvedSha256": "18216b00e9d89248c825c56b52e0ddae2010f358706c0684f0f22160591976e6",
+      "approvedSha256": "9841b003b5e4a7aa81f6e704ed06b643d78bc1b67a57437297139505bb9d21b2",
       "approvedLocaleSha256": {
-        "en-US": "fd5a7013fbd1bc56f3ff54b6157cd46f95c2f254418188d7590e50ee30960ada"
+        "en-US": "ebcb721c8749ac1cd6bdf9d267ad8b4c988bee64476a66b4b21f6c8d6a476149"
       },
       "license": "Proprietary",
       "attributionUrl": "https://massive.com/docs/rest/stocks/overview",
@@ -314,13 +314,13 @@
       "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。",
       "accent": "#7c3aed",
       "packageName": "@pontx/massive",
-      "sdkVersion": "0.1.0",
+      "sdkVersion": "0.1.1",
       "sdkStatus": "published",
       "sdkQuality": {
-        "testedVersion": "0.1.0",
+        "testedVersion": "0.1.1",
         "unitTests": {
-          "passed": 2,
-          "total": 2,
+          "passed": 3,
+          "total": 3,
           "skipped": 0
         },
         "e2eStatus": "passed",
@@ -329,15 +329,15 @@
           "20",
           "22"
         ],
-        "sourceCommit": "8fb7b84e36cce1d75468df3fd64ea27b7178ec66",
+        "sourceCommit": "d5947e2cd85dda61f46c03154149d885dcb13d4f",
         "testedAt": "2026-08-14",
         "repositoryUrl": "https://github.com/pontjs/massive",
-        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31776799929"
+        "workflowRunUrl": "https://github.com/pontjs/massive/actions/runs/31857296985"
       },
       "cliName": "pontx-massive",
       "sdkExamples": {
-        "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.common.getPreviousClose(\"AAPL\", {});",
-        "cli": "pnpm add --global @pontx/massive\n\npontx-massive call common.getPreviousClose --stocksTicker AAPL --dry-run"
+        "typescript": "import { createMassiveClient } from \"@pontx/massive\";\n\nconst client = createMassiveClient({\n  apiKey: process.env.MASSIVE_API_KEY!\n});\nconst result = await client.getPreviousClose(\"AAPL\", {});",
+        "cli": "pnpm add --global @pontx/massive\n\npontx-massive call getPreviousClose --stocksTicker AAPL --dry-run"
       },
       "sdkContract": {
         "client": {
@@ -349,7 +349,7 @@
           }
         },
         "controllers": {
-          "default": "common"
+          "default": null
         },
         "operations": [
           "getLastTrade",

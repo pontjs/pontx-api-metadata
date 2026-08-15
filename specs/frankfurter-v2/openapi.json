@@ -17,7 +17,6 @@
       "url": "https://api.frankfurter.dev/v2"
     }
   ],
-  "tags": [{ "name": "common", "description": "汇率、货币与数据提供方接口" }],
   "paths": {
     "/rates": {
       "get": {
