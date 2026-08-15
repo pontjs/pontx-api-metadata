@@ -1,7 +1,7 @@
 ---
 name: pontx-api-collection-builder
 description: >-
-  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual PontxSpec, isolated product/SDK metadata, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, npm publication, catalog admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at imported OAS evidence, a PontxSpec file, local SDK release candidate, npm publish, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
+  Onboard or substantially extend a Pontx API product through the complete production lifecycle: authoritative evidence research, complete bilingual PontxSpec, isolated product/SDK metadata, generated @pontx/{slug} SDK plus pontx-{slug} CLI, safety and package validation, product-index admission, Hub Preview/Production rollout, universal CLI and semantic-search discovery, and AI-assistant request preparation/execution verification. Use this skill whenever a user asks to add, onboard, curate, import, reconstruct, publish, launch, or “完整收录/上线” an API/API 集合/接口集合/开放平台 for Pontx Hub, even if they mention only metadata or “收录这个 API”; do not stop at imported OAS evidence, a PontxSpec file, local SDK release candidate, a release request, PR, or Preview deployment. Do not use it merely to call an API that is already cataloged.
 ---
 
 # Pontx API Collection Builder
@@ -13,7 +13,7 @@ description: >-
 只有以下结果同时成立，才报告“产品上线完成”：
 
 1. 产品完整边界内的 API 契约有权威证据、许可/再分发依据、双语内容和明确安全策略；
-2. `@pontx/<slug>` SDK 与同包 `pontx-<slug>` CLI 从该契约生成，通过标准质量门并已在 npm 发布；
+2. `@pontx/<slug>` SDK 与同包 `pontx-<slug>` CLI 从该契约生成并通过标准质量门；若要求发布，必须经 operator 的独立 npm 发布流程与 registry 复验，不能由 metadata CI 或普通贡献者代发；
 3. metadata 绑定真实 registry 版本、SDK 源 commit 和 CI 证据，经 Preview 审查后进入 Production；
 4. 生产网站、公共 Hub API、统一 `pontx-hub` CLI、非品牌中英文语义查询和 AI 助手都能发现该产品；
 5. 助手能把自然语言任务变成 catalog-approved 请求，经既有 preview/credential/confirmation 边界完成至少一条获准的安全读取调用。若许可或代理策略不允许任何受控调用，产品可交付文档和本地 SDK/CLI，但不能把本 skill 的“完整助手调用闭环”标为通过。
@@ -58,13 +58,24 @@ description: >-
 
 ## 阶段 2：构建双语分级 metadata
 
-为产品创建 `products/<slug>/`，其中 `product.json` 保存产品概要，`spec.pontx.json` 是 `zh-CN` 结构源，`sdk.json` 保存包与质量证据，`locales/<locale>/` 保存产品译文和同构 PontxSpec，`sources/` 只保存 provenance 与可选上游证据。只有 slug 列表进入 `catalog/products.json`，禁止重新生成聚合 Catalog。
+为产品创建以下隔离目录，不能把任一产品的详情回填到集中式 JSON：
 
-PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operationId`、显式 tags、参数和约束、所有请求/响应媒体、完整 Schema 图、HTTPS server、安全方案、请求示例及 Endpoint 证据/执行元数据。只有 `RESTFul` Endpoint 强制 `method/path`；RPC 等其他 style 不伪造 HTTP 字段。
+```text
+catalog/products.json
+products/<slug>/product.json
+products/<slug>/spec.pontx.json
+products/<slug>/sdk.json
+products/<slug>/locales/<locale>/{product.json,spec.pontx.json}
+products/<slug>/sources/{provenance.json,openapi.json?}
+```
+
+`catalog/products.json` 只能有格式版本、默认 locale、发布 locale 和有序正式 slug，绝不含产品详情、Endpoint、Schema、SDK 或质量字段。`product.json` 只保存概要、展示、法律归因、定价、凭证指引、执行策略和 Quick Start；server、安全方案、API、Schema 和请求示例只归 `spec.pontx.json`。`sdk.json` 只保存 npm/CLI、contract、coverage、示例、质量证据及规范路径/hash/commit。候选只能放在 `candidates/<slug>/`，只有正式 slug 才能进入 Hub。`sources/openapi.json` 可按许可保留，但构建、SDK 生成、Hub 同步、搜索和验证不得读取它；不得创建 `catalog/source.json`、`catalog/catalog.json` 或集中 locale catalog。
+
+PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operationId`、显式 tags、参数和约束、所有请求/响应媒体、完整 Schema 图、HTTPS server（如适用）、安全方案、请求示例及 Endpoint 证据/执行元数据。只有 `RESTFul` Endpoint 强制 `method/path`；RPC 等其他 style 不伪造 HTTP 字段。新增非 REST 产品时，至少验证它能被加载、locale 同构校验、Hub 同步和搜索索引；没有专用执行适配器时，Hub 必须明确禁用 Playground，而不是把它转换成伪 HTTP 请求。
 
 若权威输入是 OAS2/OAS3，使用正式 `@pontx/spec importOpenAPI` 一次性导入，逐 Endpoint/Schema 对比 operationId、显式 tags、约束、全部响应、媒体类型、安全和 `x-pontx-*`，之后构建与维护不得读取 OAS。locale PontxSpec 只能翻译批准的 prose；标识、顺序、约束、示例、安全和执行策略必须与中文源一致。
 
-先审最终 PontxSpec 字节，再把其原始字节 SHA-256、规范路径和包含该字节的 metadata commit 写入 `sdk.json`。运行 `pnpm test`、`pnpm validate` 和 diff 检查；检查分级源中产品、Endpoint、请求、每个响应与 Schema 图数量和身份。
+先审最终 PontxSpec 字节，再把其原始字节 SHA-256、规范路径和包含该字节的 metadata commit 写入 `sdk.json`。运行 `pnpm test`、`pnpm validate` 和 diff 检查；检查分级源中产品、Endpoint、请求、每个响应与 Schema 图数量和身份。不要以“生成 Catalog”作为验证步骤：层级验证器必须直接验证清单、文件、hash、同构和隔离性。
 
 ## 阶段 3：从契约构建 SDK 与产品 CLI
 
@@ -73,6 +84,7 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 包必须：
 
 - 固定规范/provenance、上游版本/hash/license/notice，生成物可复现并有 drift check；
+- 将固定 metadata commit 的 `products/<slug>/spec.pontx.json` 原始字节镜像到 SDK 仓库；CI 必须重算 SHA-256，并拒绝独立编辑镜像或任何 canonical OAS 副本；
 - 使用已发布的精确 Pontx runtime/generator 版本和冻结 lockfile；
 - 输出 Node 支持矩阵要求的 ESM、CommonJS、声明和 CLI；
 - 只从环境/调用方配置读取凭证并始终脱敏；
@@ -84,9 +96,9 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 
 ## 阶段 4：安全发包与 registry 复验
 
-在发布前固定 SDK 源 commit，并要求目标 Node 矩阵 CI 全绿。`prepublishOnly` 或等价 release gate 必须拒绝：未发布的依赖、范围依赖、本地 `link:`/`file:`/`workspace:`、override、缺失/漂移 lockfile、生成漂移、失败/跳过测试、缺失 notice 或意外包文件。
+在发布前固定 SDK 源 commit，并要求目标 Node 矩阵 CI 全绿。`prepublishOnly` 或等价 release gate 必须拒绝：未发布的依赖、范围依赖、本地 `link:`/`file:`/`workspace:`、override、缺失/漂移 lockfile、镜像规范 hash 或生成漂移、失败/跳过测试、缺失 notice 或意外包文件。
 
-确认 npm 身份/scope、包名和目标版本，检查版本尚未占用，再按独立 SDK 仓库的 operator release 流程发布 public 包。发布后不要只看 `npm publish` 退出码：从 registry 查询精确版本，在全新临时目录安装，验证 ESM/CJS/types、产品 CLI `--help`、代表性 preview、凭证脱敏、mutation guard，并在许可和授权允许时完成一条安全只读调用。记录 package/version、完整源 commit、CI run、pack 摘要和 registry 复验。
+确认 npm 身份/scope、包名和目标版本，检查版本尚未占用，再由 operator 按独立 SDK 仓库的 release 流程发布 public 包；metadata CI、Hub CI 和普通贡献者绝不能代发。发布后不要只看 `npm publish` 退出码：从 registry 查询精确版本，在全新临时目录安装，验证 ESM/CJS/types、产品 CLI `--help`、代表性 preview、凭证脱敏、mutation guard，并在许可和授权允许时完成一条安全只读调用。记录 package/version、完整源 commit、CI run、pack 摘要和 registry 复验。
 
 只有 registry 复验全部通过，metadata 才能在该产品的 `sdk.json` 设置 `package.status: "published"`；发包失败或版本事实不一致时继续修复，不能先标 published。
 
@@ -94,7 +106,7 @@ PontxSpec 必须显式声明 `pontx` 与 `style`，完整表达稳定 `operation
 
 把实际 npm 版本、包/CLI 名、源 commit、CI URL、Node 矩阵、unit/E2E 结果和验证日期回写 metadata 的当前质量证据字段；SDK/CLI 示例必须与 registry 产物的真实导出、Controller 和参数一致。
 
-重新运行 metadata 全部门和 Hub 本地消费者门，至少包括 Hub tests、typecheck、production build、SDK registry verification，以及该产品的搜索、SSR、Schema、Playground/preview、snippet 和 AI tool eval。新产品通常不需要发布新版统一 Hub CLI；只有公共 Hub HTTP/CLI 合同变化时才按 consumer-first 顺序修改并发布 `@pontx/hub-cli`。
+重新运行 metadata 全部门和 Hub 本地消费者门，至少包括 Hub tests、typecheck、production build、SDK registry verification，以及该产品的搜索、SSR、Schema、snippet 和 AI tool eval；RESTFul 产品再验证 Playground/preview，其他 style 没有执行适配器时验证明确的 disabled 状态。Hub 必须从同一精确 metadata commit 的所有产品分片加载，任一文件/校验失败都中止构建。新产品通常不需要发布新版统一 Hub CLI；只有公共 Hub HTTP/CLI 合同变化时才按 consumer-first 顺序修改并发布 `@pontx/hub-cli`。
 
 按仓库 runbook：
 

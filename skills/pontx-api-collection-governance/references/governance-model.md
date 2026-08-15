@@ -35,7 +35,7 @@
 | 安全与执行 | 20 | auth 真实、无秘密、精确 allowlist、mutation 确认、风险与数据边界清楚 |
 | 兼容性与生命周期 | 15 | 稳定身份、版本分离、弃用/迁移完整、无未说明 breaking drift |
 | 国际化 | 10 | 所有 locale 同构，关键 prose 完整且语义一致 |
-| 消费者与可复现性 | 10 | 分级加载和 hash 确定，Hub/CLI 接受，SDK 状态真实，关键资源可发现 |
+| 消费者与可复现性 | 10 | 分级加载和 hash 确定，Hub/CLI 接受，SDK 镜像与规范字节一致，关键资源可发现 |
 
 计算：`总分 = Σ(维度分 / 5 × 权重)`。
 
@@ -65,7 +65,7 @@
 
 ## 5. 标准与安全基线
 
-- PontxSpec 2.1：metadata、Hub、CLI 与 SDK 的唯一规范；OAS 只作为一次性导入格式或证据。
+- PontxSpec 2.1：metadata、Hub、CLI 与 SDK 的唯一规范；OAS 只作为一次性导入格式或 `sources/` 证据。`catalog/products.json` 只索引 slug，产品文件分级隔离，任何集中 Catalog/OAS 构建链都是治理缺陷。
 - [OpenAPI Specification 3.1.2](https://spec.openapis.org/oas/v3.1.2.html)：审核 REST 上游证据时使用的对象语义基线。
 - [RFC 9110 HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html#name-methods)：safe、idempotent、method 和 status 语义。
 - [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457.html)：仅在上游采用时核验标准错误结构，并防止错误详情泄露内部信息。

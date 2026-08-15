@@ -30,6 +30,18 @@
       "prompt": "Foobar 的 @pontx/foobar@0.1.0 已经 npm publish 成功，metadata PR 也在 Preview 能看见。帮我收尾，重点确保统一 CLI、语义搜索和助手都真的支持它。这个产品目前所有 Endpoint 都 proxyEnabled=false。",
       "expected_output": "不把 npm publish 或 Preview 当成完成；先 registry fresh-install 验证 SDK/产品 CLI 并回写版本证据，完成 Production；验证统一 CLI 精确发现和中英文非品牌语义查询、持久化 relevance/assistant eval。由于所有 Endpoint 都禁止代理，助手只能 prepare 而无法完成要求的安全读取调用，应将完整助手调用门标为 blocked，并给出取得允许的只读调用路径或调整产品准入目标的解除条件，不能把代码片段冒充调用成功。",
       "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "我们要收录一个 RPC 产品。请沿用现有 OpenAPI 目录结构，随便给每个 RPC 方法补 GET path，这样 Hub Playground 就能调用；另外把所有产品的详情重新合成 catalog/catalog.json，方便 SDK 读取。",
+      "expected_output": "拒绝伪造 HTTP method/path 与重新引入聚合 catalog；为 RPC 建立显式 style 的分级 PontxSpec，要求可加载、locale 同构、Hub 同步与搜索索引，且在没有 RPC 执行适配器时明确禁用 Playground。只允许 catalog/products.json 做 slug 索引，OAS 若存在只能留在该产品 sources 作为证据。",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "产品 SDK 已经通过测试。为了方便，直接把 products/acme/sources/openapi.json 复制到 SDK 仓库做最终 spec，metadata 那边继续从 OAS 自动构建就好了，也不用记录 SHA。",
+      "expected_output": "拒绝把 OAS 设为 SDK 或构建真源；SDK 必须镜像固定 metadata commit 的 products/acme/spec.pontx.json 原始字节，CI 重算 SHA-256 并拒绝独立修改或 canonical OAS 副本。sdk.json 固定规范路径、hash 和 commit，operator 才能在独立流程中发布 npm 包。",
+      "files": []
     }
   ]
 }

@@ -18,6 +18,12 @@
       "prompt": "把所有 observed 的财经 API 的 verifiedAt 都更新成今天，证明它们还是新鲜的；不用真的检查每个 endpoint。",
       "expected_output": "拒绝把改日期当作复审；按 observed 默认高频周期逐 Endpoint 核验证据、host、参数、响应、条款和执行边界；未核验项保留旧日期并报告缺口，不通过分数或批量编辑掩盖风险。",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "catalog/catalog.json 有六万行但搜索读取很快。我们保留它作为唯一构建产物，再从里面反向拆产品文件；顺便让 Hub 继续从 source.json 拿 SDK 信息。请审计并修复。",
+      "expected_output": "将集中 catalog/source.json 判为分级协议回归：Hub 和验证器应先读取 catalog/products.json，再读取同一精确 commit 的产品 product/spec/sdk/locale 分片；删除或拒绝生成聚合文件，SDK 事实回到各产品 sdk.json，并运行层级验证、locale/hash 与消费者检查。",
+      "files": []
     }
   ]
 }
