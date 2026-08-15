@@ -62,8 +62,8 @@
   "blockers": [
     {
       "gate": "transport",
-      "zh": "Pontx 已具备 typed SSE 基础能力，但 metadata 当前依赖的已发布 spec 版本尚未升级；官方 schema 中实际 stream 路由仅以 string 表示响应，尚无可审核的事件联合、错误和终止语义。",
-      "en": "Pontx now has typed-SSE foundations, but metadata has not yet adopted the released spec version; the official schema represents its actual stream routes only as strings, without an auditable event union, error contract, or termination semantics."
+      "zh": "metadata 已升级到已发布的 typed SSE spec 版本，但官方 schema 中实际 stream 路由仍仅以 string 表示响应；固定的 MIT 源码已补充重连、保活和终止行为，尚无可审核的完整业务事件联合及每个事件的 Schema。",
+      "en": "Metadata now uses the released typed-SSE spec version, but the official schema still represents its actual stream routes only as strings. Pinned MIT source adds reconnect, keepalive, and termination behavior, but an auditable complete business-event union and schema for every event are still missing."
     },
     {
       "gate": "redistribution",
