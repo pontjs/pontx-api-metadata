@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "status": "metadata-commit-pending",
+  "status": "published",
   "canonicalSpec": "products/pinhere/spec.pontx.json",
   "source": {
     "kind": "product-owned-pontx-spec",
@@ -50,9 +50,7 @@
     "deploymentId": "dpl_9yHVQLmAYKQJfHAVvgDtf4izcKDE",
     "verifiedAt": "2026-08-15"
   },
-  "releaseBlockedBy": [
-    "The published SDK must pin this exact metadata commit before catalog deployment."
-  ],
+  "releaseBlockedBy": [],
   "outputs": {
     "zh-CN": {
       "path": "products/pinhere/spec.pontx.json",

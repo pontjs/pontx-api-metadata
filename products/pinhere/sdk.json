@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/pinhere",
     "version": "0.1.0",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/pinhere"
   },
   "cli": {
@@ -55,6 +55,7 @@
   },
   "spec": {
     "path": "products/pinhere/spec.pontx.json",
-    "sha256": "132d1988e36f4ecc186822b3c8a567ad30e270322d8772208675ab466a5ebe26"
+    "sha256": "132d1988e36f4ecc186822b3c8a567ad30e270322d8772208675ab466a5ebe26",
+    "metadataCommit": "b102549ecbbbd18383d1a53e891eefae5ceae944"
   }
 }

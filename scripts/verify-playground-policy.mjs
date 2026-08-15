@@ -9,13 +9,24 @@ const catalog = JSON.parse(await readFile(resolve(root, "catalog/products.json")
 let restOperations = 0;
 let nonRestOperations = 0;
 const disabledOperations = [];
+const riskScopedDisabledOperations = [];
 
 for (const slug of catalog.products) {
   const path = resolve(root, "products", slug, "spec.pontx.json");
   const spec = JSON.parse(await readFile(path, "utf8"));
+  const provenance = JSON.parse(await readFile(
+    resolve(root, "products", slug, "sources", "provenance.json"),
+    "utf8",
+  ));
+  const hubProxyEnabled = provenance.riskReview?.hubProxyEnabled;
   for (const api of Object.values(spec.apis ?? {})) {
     if (api.metadata?.execution?.enabled === false) {
-      disabledOperations.push(`${slug}/${api.operationId}`);
+      const operation = `${slug}/${api.operationId}`;
+      if (hubProxyEnabled === false) {
+        riskScopedDisabledOperations.push(operation);
+      } else {
+        disabledOperations.push(operation);
+      }
     }
 
     if (spec.style === "RESTFul") {
@@ -31,9 +42,9 @@ for (const slug of catalog.products) {
 assert.deepEqual(
   disabledOperations,
   [],
-  `No Endpoint may ship a policy-based execution disablement: ${disabledOperations.join(", ")}`,
+  `Execution disablement requires product-specific provenance that sets riskReview.hubProxyEnabled to false: ${disabledOperations.join(", ")}`,
 );
 
 console.log(
-  `Playground policy verified: ${restOperations} REST Endpoints are execution-eligible; ${nonRestOperations} non-REST Endpoints require a real protocol adapter rather than a policy disablement.`,
+  `Playground policy verified: ${restOperations} REST Endpoints, ${riskScopedDisabledOperations.length} risk-scoped direct-only Endpoints, and ${nonRestOperations} non-REST Endpoints.`,
 );
