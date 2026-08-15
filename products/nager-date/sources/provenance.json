@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "status": "staged-for-sdk-release",
+  "canonicalSpec": "products/nager-date/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.1.1",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourceUrl": "https://nagerholidays.com/openapi/community-v4.json",
+    "sourceSha256": "105d4805f426663e21ceecfd865015f247c6d6e9ba4a696630fd524386c6179a",
+    "observedAt": "2026-08-15",
+    "retained": "The supplier OpenAPI is used only as one-time import evidence and is not stored locally because no redistribution licence for the document was supplied. PontxSpec is canonical after this curation."
+  },
+  "license": {
+    "status": "reviewed",
+    "sourceRepository": "https://github.com/nager/Nager.Date/tree/54958d527be004653906b98d5f7e7dbda019e7a1",
+    "spdx": "MIT",
+    "url": "https://raw.githubusercontent.com/nager/Nager.Date/54958d527be004653906b98d5f7e7dbda019e7a1/LICENSE",
+    "sha256": "c3395894541167f40ec38bfa4fbe8f13f0e8347cf728f2425a1fde80d0a2b031",
+    "localCopy": "products/nager-date/sources/LICENSE.nager-date",
+    "notice": "products/nager-date/sources/ATTRIBUTION.md",
+    "scope": "The MIT file governs the Nager.Date repository source. The hosted Community API is governed separately by its Terms of Service."
+  },
+  "terms": {
+    "url": "https://nagerholidays.com/legal/termsofservice",
+    "verifiedAt": "2026-08-15",
+    "commercialUse": "The Terms of Service state that private or non-profit projects may use the Web API and that commercial purposes require active sponsorship.",
+    "hubPolicy": "Hub proxying, caching, aggregation, and holiday-data display are disabled for every endpoint. The local SDK/CLI connects directly only at the caller's direction and entitlement."
+  },
+  "derivation": {
+    "boundary": "All six endpoints in the official Community API v4 OpenAPI document; the separately labelled Pro API and deprecated Community API v3 are excluded.",
+    "method": "one-time @pontx/spec importOpenAPI conversion followed by a source-free, bilingual PontxSpec curation; methods, paths, parameters, response statuses, media types, schemas, nullable fields, enums, and constraints are retained.",
+    "paths": 6,
+    "endpoints": 6,
+    "schemas": 8,
+    "methods": {
+      "GET": 6
+    },
+    "responseMediaTypes": [
+      "application/json"
+    ]
+  },
+  "riskReview": {
+    "classification": "public-holiday-data-with-commercial-use-terms",
+    "mutations": 0,
+    "credentials": "None required by the Community API v4 contract.",
+    "execution": "All Hub execution is disabled because the provider terms restrict use and Hub must not operate a holiday-data portal or proxy. The package exposes caller-direct reads only."
+  },
+  "observations": {
+    "verifiedAt": "2026-08-15",
+    "requests": [
+      {
+        "operationId": "getCountry",
+        "method": "GET",
+        "path": "/api/v4/Countries/US",
+        "status": 200,
+        "responseShape": "object: borders, commonName, countryCode, nativeName, officialName, region"
+      },
+      {
+        "operationId": "listAvailableCountries",
+        "method": "GET",
+        "path": "/api/v4/Countries/Available",
+        "status": 200,
+        "responseShape": "array entries: countryCode, name"
+      },
+      {
+        "operationId": "listHolidaysByYear",
+        "method": "GET",
+        "path": "/api/v4/Holidays/US/2026",
+        "status": 200,
+        "responseShape": "array entries: countryCode, date, holidayTypes, name, nationalHoliday, subdivisionCodes"
+      },
+      {
+        "operationId": "listUpcomingHolidays",
+        "method": "GET",
+        "path": "/api/v4/Holidays/US/Next",
+        "status": 200,
+        "responseShape": "array entries: countryCode, date, holidayTypes, name, nationalHoliday, subdivisionCodes"
+      },
+      {
+        "operationId": "isTodayHoliday",
+        "method": "GET",
+        "path": "/api/v4/IotHolidays/US/IsToday/0",
+        "status": 204,
+        "responseShape": "empty documented success response"
+      },
+      {
+        "operationId": "getVersions",
+        "method": "GET",
+        "path": "/api/v4/Versions",
+        "status": 200,
+        "responseShape": "object: name, version"
+      }
+    ]
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/nager-date/spec.pontx.json",
+      "sha256": "b1a75848422c367327ef4a1acc30ae1967eed463894e73dbafe04aa774b208d0",
+      "endpoints": 6,
+      "schemas": 8
+    },
+    "en-US": {
+      "path": "products/nager-date/locales/en-US/spec.pontx.json",
+      "sha256": "62efce9e0f15a47ecddb5b222b14248fc02fee142f6ab9b875e523406ca83dcb",
+      "endpoints": 6,
+      "schemas": 8
+    }
+  }
+}

@@ -15,6 +15,7 @@
     "dropbox-sign",
     "stripe-identity",
     "amazon-sqs",
-    "pinhere"
+    "pinhere",
+    "nager-date"
   ]
 }
