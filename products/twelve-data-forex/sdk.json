@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/twelve-data-forex",
     "version": "0.1.1",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/twelve-data-forex"
   },
   "cli": {
@@ -32,8 +32,27 @@
   "coverage": {
     "mode": "full"
   },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "528a39a0d1fe79f7cbbeeab377f81ffafa7ed93e",
+    "testedAt": "2026-08-15",
+    "repositoryUrl": "https://github.com/pontjs/twelve-data-forex",
+    "workflowRunUrl": "https://github.com/pontjs/twelve-data-forex/actions/runs/31865571367"
+  },
   "spec": {
     "path": "products/twelve-data-forex/spec.pontx.json",
-    "sha256": "5705b5bff48cd1b4736d29ca59c132a545339ae9e56879173cc46017a2190d6b"
+    "sha256": "5705b5bff48cd1b4736d29ca59c132a545339ae9e56879173cc46017a2190d6b",
+    "metadataCommit": "9ea0b154db124e2157c1d862dcfddb1bae9ba35d"
   }
 }
