@@ -14,6 +14,6 @@
     "skills:test": "node scripts/test-product-skills.mjs"
   },
   "dependencies": {
-    "@pontx/spec": "1.0.0-beta.6"
+    "@pontx/spec": "1.0.0-beta.9"
   }
 }
