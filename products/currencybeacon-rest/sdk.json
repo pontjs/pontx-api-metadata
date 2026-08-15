@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/currencybeacon-rest",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/currencybeacon-rest"
   },
@@ -35,7 +35,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.2",
     "unitTests": {
       "passed": 4,
       "total": 4,
@@ -47,14 +47,14 @@
       "20",
       "22"
     ],
-    "sourceCommit": "3038697cff341ccfe0c8af5e548a95fccf784c44",
+    "sourceCommit": "b6abdb9f4c2dca26caf8b6181712b01bfc13cb7b",
     "testedAt": "2026-08-15",
     "repositoryUrl": "https://github.com/pontjs/currencybeacon-rest",
-    "workflowRunUrl": "https://github.com/pontjs/currencybeacon-rest/actions/runs/31867826366"
+    "workflowRunUrl": "https://github.com/pontjs/currencybeacon-rest/actions/runs/31883583108"
   },
   "spec": {
     "path": "products/currencybeacon-rest/spec.pontx.json",
-    "sha256": "fbc9fa51b59489b6aec95c11c146918d4e6f5c2047318d731a92d150de29159f",
-    "metadataCommit": "4dde24119458a7ab59a73bcd7279dc3bef887d73"
+    "sha256": "a8177a8f8d814a03760dc3fdae83927ad7adf91a6eeb84b48b990cb47b03a029",
+    "metadataCommit": "4837b15263274bbb6892529b884c86508c2432d8"
   }
 }

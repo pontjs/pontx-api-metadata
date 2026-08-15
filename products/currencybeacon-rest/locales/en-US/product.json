@@ -1,7 +1,7 @@
 {
   "display": {
     "title": "CurrencyBeacon exchange-rate API",
-    "summary": "Query latest, historical, conversion, time-series, and supported-currency data with caller-owned CurrencyBeacon credentials.",
+    "summary": "Query latest, historical, conversion, time-series, and supported-currency data with caller-owned CurrencyBeacon credentials in the browser session.",
     "accent": "#0f766e"
   },
   "documentation": {
@@ -12,12 +12,12 @@
       "https://currencybeacon.com/pricing",
       "https://currencybeacon.com/terms",
       "https://github.com/pontjs/currencybeacon-rest",
-      "https://github.com/pontjs/currencybeacon-rest/actions/runs/31867826366",
-      "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.1"
+      "https://github.com/pontjs/currencybeacon-rest/actions/runs/31883583108",
+      "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.2"
     ],
     "verifiedAt": "2026-08-15",
     "contentUpdatedAt": "2026-08-15",
-    "stabilityNote": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers connect directly with their own credentials; Hub does not proxy, cache, persist, or display supplier responses."
+    "stabilityNote": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers use their own credentials; Hub forwards a request only after explicit user execution and does not cache or persist responses."
   },
   "pricing": {
     "status": "freemium",

@@ -25,11 +25,11 @@
       "https://data.ecb.europa.eu/help/api/status-codes",
       "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
       "https://github.com/pontjs/ecb-data-portal",
-      "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
-      "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.0"
+      "https://github.com/pontjs/ecb-data-portal/actions/runs/31883583163",
+      "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.1"
     ],
-    "verifiedAt": "2026-08-14",
-    "contentUpdatedAt": "2026-08-14",
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15",
     "stabilityNote": "基于 ECB 当前官方帮助页独立重建的完整匿名只读 SDMX 2.1 REST 契约；Hub 在调用者明确执行时转发该次请求，不缓存或持久化响应。SDK 与 CLI 也可直接访问 ECB 公共 HTTPS 服务。"
   },
   "pricing": {

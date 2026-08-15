@@ -1014,10 +1014,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -1445,10 +1441,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -1748,10 +1740,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -2064,10 +2052,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -2393,10 +2377,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -2735,10 +2715,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -3002,10 +2978,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     },
@@ -3282,10 +3254,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "公共匿名 ECB Endpoint 由 SDK 与 CLI 直接调用；Hub 有意不代理。"
         }
       }
     }

@@ -11,10 +11,6 @@
           ],
           "status": "official",
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
-          "enabled": false
         }
       },
       "method": "GET",
@@ -180,10 +176,6 @@
           ],
           "status": "official",
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
-          "enabled": false
         }
       },
       "method": "GET",
@@ -336,10 +328,6 @@
           ],
           "status": "official",
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
-          "enabled": false
         }
       },
       "method": "GET",
@@ -477,10 +465,6 @@
           ],
           "status": "official",
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
-          "enabled": false
         }
       },
       "method": "GET",
@@ -648,10 +632,6 @@
           ],
           "status": "official",
           "verifiedAt": "2026-08-15"
-        },
-        "execution": {
-          "disabledReason": "Hub 不代理 CurrencyBeacon 请求；Hub does not proxy CurrencyBeacon requests. 请使用调用方自己的凭据通过本地 SDK 或 CLI 直接调用。 Use caller-owned credentials through the local SDK or CLI for direct calls.",
-          "enabled": false
         }
       },
       "method": "GET",
@@ -1390,7 +1370,7 @@
     "url": "https://currencybeacon.com/api-documentation"
   },
   "info": {
-    "description": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers connect directly with their own credentials; Hub does not proxy, cache, persist, or display supplier responses.",
+    "description": "Independently curated CurrencyBeacon v1 read-only REST contract covering the supplier's published latest, historical, convert, timeseries, and currencies endpoints. Callers use their own credentials; Hub forwards a request only after explicit user execution and does not cache or persist responses.",
     "title": "CurrencyBeacon REST API v1",
     "version": "1.0.0"
   },

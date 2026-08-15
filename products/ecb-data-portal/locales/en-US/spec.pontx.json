@@ -1014,10 +1014,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -1445,10 +1441,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -1748,10 +1740,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -2064,10 +2052,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -2393,10 +2377,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -2735,10 +2715,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -3002,10 +2978,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     },
@@ -3282,10 +3254,6 @@
             "https://data.ecb.europa.eu/help/api/status-codes"
           ],
           "verifiedAt": "2026-08-14"
-        },
-        "execution": {
-          "enabled": false,
-          "disabledReason": "The public anonymous ECB endpoint is called directly by the SDK and CLI; Hub proxying is intentionally disabled."
         }
       }
     }
