@@ -658,7 +658,7 @@ const sdk = {
       kind: "factory",
       factory: "createSendbirdChatPlatformClient",
       identifier: "client",
-      options: { appId: "SENDBIRD_APP_ID", apiToken: "SENDBIRD_API_TOKEN" },
+      options: { apiToken: "SENDBIRD_API_TOKEN" },
     },
     controllers: Object.fromEntries(Object.entries(tagSlug).map(([k, v]) => [v, v])),
   },

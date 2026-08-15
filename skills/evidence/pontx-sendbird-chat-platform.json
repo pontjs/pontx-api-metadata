@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "sendbird-chat-platform",
+  "claims": [
+    {
+      "id": "official-generated-sdk-contract",
+      "claim": "Sendbird publishes no OpenAPI document; the contract is deterministically reconstructed from the pinned official generated SDK",
+      "summary": "The official SDK repository is the machine-readable representation of the Platform API v3 wire contract (83 REST/JSON request methods over 11 generated API classes); the reconstructed OpenAPI 3.1 document is retained as evidence in the metadata repository and is reproducible via scripts/reconstruct-sendbird-oas.mjs.",
+      "sourceUrl": "https://github.com/sendbird/sendbird-platform-sdk-typescript/tree/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8",
+      "sourceType": "official-sdk",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "server-side-rest-json-boundary",
+      "claim": "The client connects directly to `https://api-{app_id}.sendbird.com` with the caller's own application credentials",
+      "summary": "The SDK base server configuration uses https://api-{app_id}.sendbird.com with /v3 path prefixes and api-token header authentication; the official overview describes the Platform API as a REST/JSON server-side API.",
+      "sourceUrl": "https://sendbird.com/docs/chat/platform-api/v3/overview",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "api-token-authentication",
+      "claim": "Every request requires the caller's Sendbird application ID (base-URL host) and Application API Token (`api-token` header).",
+      "summary": "All 83 generated SDK request methods set the api-token (or Api-Token) header; the reconstructed contract models this as an apiKey security scheme and the SDK/CLI attach the header only when SENDBIRD_API_TOKEN or the apiToken option is configured.",
+      "sourceUrl": "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts",
+      "sourceType": "official-sdk",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "unlicense-mit-sdk-license",
+      "claim": "all Hub copy is independently authored.",
+      "summary": "The TypeScript package.json declares the Unlicense and the Java SDK ships an MIT LICENSE.md (Copyright (c) 2022 Sendbird), permitting use of the SDK interface contract; the metadata product does not redistribute official documentation prose or SDK source.",
+      "sourceUrl": "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/package.json",
+      "sourceType": "official-sdk",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "caller-direct-mutations",
+      "claim": "Pontx Hub does not proxy, cache, or aggregate Sendbird application data.",
+      "summary": "The product provenance sets riskReview.hubProxyEnabled=false and every endpoint disables Hub execution; the SDK/CLI connect directly at the caller's direction with the caller's own application credentials, and the product Skill instructs preview-first mutation confirmation.",
+      "sourceUrl": "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/provenance.json",
+      "sourceType": "official-sdk",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}

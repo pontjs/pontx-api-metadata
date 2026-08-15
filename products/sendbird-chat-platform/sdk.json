@@ -15,7 +15,6 @@
       "factory": "createSendbirdChatPlatformClient",
       "identifier": "client",
       "options": {
-        "appId": "SENDBIRD_APP_ID",
         "apiToken": "SENDBIRD_API_TOKEN"
       }
     },
