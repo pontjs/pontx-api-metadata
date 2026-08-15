@@ -27,10 +27,26 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "response-date",
+      "claim": "Treat the response `date` as authoritative.",
+      "summary": "The official v1 examples return the observation date, and the guide warns that a request for today can change when new rates are published.",
+      "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "target-filtering",
       "claim": "Filtering target currencies makes a v1 time-series response smaller and faster.",
       "summary": "The official time-series guide recommends limiting target currencies to reduce response size and processing.",
       "sourceUrl": "https://frankfurter.dev/v1/",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "reference-rates",
+      "claim": "Describe the values as reference exchange rates, not guaranteed execution or settlement prices.",
+      "summary": "Frankfurter documents daily exchange-rate data from central banks; the Skill preserves the distinction between reference data and executable market quotes.",
+      "sourceUrl": "https://frankfurter.dev/",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
     }

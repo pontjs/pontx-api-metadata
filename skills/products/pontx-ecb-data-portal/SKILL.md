@@ -46,9 +46,7 @@ A portal code such as `EXR.M.USD.EUR.SP00.A` includes the dataflow prefix. Split
 it into `flowRef=EXR` and `key=M.USD.EUR.SP00.A`; confirm both against current
 metadata before previewing.
 
-Reporting-period syntax depends on the selected series frequency. Frequency is
-part of the statistical identity, but it does not tell you the publication
-time; consult dataset metadata or the ECB release calendar for scheduling.
+Reporting-period syntax depends on the selected series frequency.
 
 ## Bound and synchronize retrieval
 

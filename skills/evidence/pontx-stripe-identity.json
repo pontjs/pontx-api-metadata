@@ -19,6 +19,14 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "browser-return",
+      "claim": "Treat a browser return as submission, not proof of verification; advance business state from verified server-side state.",
+      "summary": "Stripe labels the client completion as submission and documents a later processing state whose verified result should drive application actions.",
+      "sourceUrl": "https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=modal",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "webhook-integrity",
       "claim": "Verify `Stripe-Signature` against the untouched raw request body before parsing or trusting an event.",
       "summary": "Stripe requires the unmodified request body for signature verification before an event is trusted.",
@@ -38,6 +46,14 @@
       "id": "sensitive-images",
       "claim": "Avoid copying document or face images.",
       "summary": "Stripe identifies collected images as highly sensitive and recommends avoiding copies and using short-lived access when justified.",
+      "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "short-lived-file-link",
+      "claim": "If access is justified, use a short-lived FileLink and remove downstream copies under the declared retention policy.",
+      "summary": "Stripe recommends short-lived FileLinks for collected images, avoiding copies, and deleting retained images when their purpose is complete.",
       "sourceUrl": "https://docs.stripe.com/identity/access-verification-results",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"

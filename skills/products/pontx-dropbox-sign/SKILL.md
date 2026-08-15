@@ -10,10 +10,10 @@ current Endpoint, request, Schema, credential, SDK, and CLI facts.
 
 ## Resolve the workflow first
 
-- Choose a non-embedded flow when Dropbox Sign should email and host signing.
-  Choose embedded signing only when the experience must remain in the app.
-- Choose a direct request for a one-off document and a template for a repeatable
-  document with stable signer roles, fields, and formatting.
+- A non-embedded request emails signers a link to a Dropbox Sign-hosted signing
+  page. Embedded signing keeps the signing experience inside your app.
+- Use a template for a repeatable document with stable signer roles, fields,
+  and formatting; otherwise inspect the current direct-request workflow.
 - Use a server account's API credential for server-owned work. Use OAuth when
   independent users authorize the app, with only the scopes it needs.
 - Distinguish a test, a production design, and an explicitly approved send. An

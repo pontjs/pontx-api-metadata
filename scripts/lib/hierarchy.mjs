@@ -199,6 +199,10 @@ function validateSdk(slug, sdk, spec, specBytes, requireMetadataCommit, errors) 
   for (const [alias, endpointIds] of Object.entries(
     sdk.contract?.compatibilityAliases ?? {},
   )) {
+    if (alias === "common" || alias === "default") {
+      errors.push(`${slug}: SDK contract cannot retain common/default compatibility aliases`);
+      continue;
+    }
     if (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(alias)
       || !Array.isArray(endpointIds) || !endpointIds.length) {
       errors.push(`${slug}: invalid SDK compatibility alias ${alias}`);

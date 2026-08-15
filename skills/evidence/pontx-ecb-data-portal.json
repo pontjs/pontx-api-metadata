@@ -11,6 +11,14 @@
       "verifiedAt": "2026-08-15"
     },
     {
+      "id": "portal-series-code",
+      "claim": "A portal code such as `EXR.M.USD.EUR.SP00.A` includes the dataflow prefix.",
+      "summary": "The official data API guide separates the dataflow reference from the DSD-ordered series key used in the request path.",
+      "sourceUrl": "https://data.ecb.europa.eu/help/api/data",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "frequency-periods",
       "claim": "Reporting-period syntax depends on the selected series frequency.",
       "summary": "The ECB documents distinct annual, semi-annual, quarterly, monthly, weekly, and daily period syntax.",

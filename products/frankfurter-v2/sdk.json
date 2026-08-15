@@ -14,16 +14,7 @@
       "kind": "named",
       "identifier": "frankfurterV2Client"
     },
-    "controllers": {},
-    "compatibilityAliases": {
-      "common": [
-        "getRates",
-        "getRate",
-        "getCurrency",
-        "getCurrencies",
-        "getProviders"
-      ]
-    }
+    "controllers": {}
   },
   "examples": {
     "typescript": "import { frankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",

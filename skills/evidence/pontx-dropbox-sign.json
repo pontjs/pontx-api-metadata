@@ -3,6 +3,30 @@
   "apiSlug": "dropbox-sign",
   "claims": [
     {
+      "id": "non-embedded-hosting",
+      "claim": "A non-embedded request emails signers a link to a Dropbox Sign-hosted signing page.",
+      "summary": "The official non-embedded walkthrough shows signers receiving email links that open the hosted signing page.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/non-embedded-signing.md",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "embedded-experience",
+      "claim": "Embedded signing keeps the signing experience inside your app.",
+      "summary": "The official embedded-signing walkthrough describes using an iframe to keep the signing flow inside an application.",
+      "sourceUrl": "https://developers.hellosign.com/docs/walkthroughs/embedded-signing",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "template-choice",
+      "claim": "Use a template for a repeatable document with stable signer roles, fields, and formatting; otherwise inspect the current direct-request workflow.",
+      "summary": "The official object glossary defines templates as reusable document blueprints with fixed fields and signer roles for documents sent repeatedly.",
+      "sourceUrl": "https://developers.hellosign.com/api/manual-reference-pages/glossary/core-objects",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
       "id": "app-approval",
       "claim": "Embedded and OAuth integrations require app approval before production, while non-embedded integrations do not require app approval.",
       "summary": "The official app-approval guide defines which integration types need approval before production.",
@@ -30,6 +54,14 @@
       "id": "callback-transport",
       "claim": "Dropbox Sign callbacks normally arrive over HTTPS as `multipart/form-data` with the event payload in the `json` field.",
       "summary": "The official callback walkthrough defines HTTPS transport and multipart event JSON delivery.",
+      "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "callback-hmac",
+      "claim": "Verify the event HMAC with the account's primary API key before trusting any field, using an official helper when available or a constant-time comparison.",
+      "summary": "The official callback walkthrough requires recomputing the event HMAC with the account API key and documents verification helpers in official SDKs.",
       "sourceUrl": "https://developers.hellosign.com/docs/guides/events-and-callbacks/walkthrough",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
