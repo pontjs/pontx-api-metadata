@@ -106,6 +106,62 @@ const endpointText = {
   "revoke-token": { zh: ["撤销 OAuth 令牌", "撤销 OAuth 访问令牌或刷新令牌。", "Revoke an OAuth token", "Revokes an OAuth access token or refresh token."] },
   "introspect-token": { zh: ["检查 OAuth 令牌", "返回 OAuth 令牌的元数据（激活状态、类型、关联工作区）。", "Introspect an OAuth token", "Returns OAuth token metadata such as active state, type, and associated workspace."] },
 };
+// Official kebab-case operationId -> code-generation-suitable stable operationId.
+// The repo contract requires operationIds that are safe TypeScript identifiers
+// (G2), so the curated PontxSpec uses these normalized IDs; the official IDs
+// remain the stable reference in evidence URLs and provenance.
+const operationIdNormalization = {
+  "get-self": "getSelf",
+  "get-user": "getUser",
+  "get-users": "getUsers",
+  "post-page": "postPage",
+  "retrieve-a-page": "retrievePage",
+  "patch-page": "patchPage",
+  "move-page": "movePage",
+  "retrieve-a-page-property": "retrievePageProperty",
+  "retrieve-page-markdown": "retrievePageMarkdown",
+  "update-page-markdown": "updatePageMarkdown",
+  "retrieve-async-task": "retrieveAsyncTask",
+  "retrieve-a-block": "retrieveBlock",
+  "update-a-block": "updateBlock",
+  "delete-a-block": "deleteBlock",
+  "get-block-children": "getBlockChildren",
+  "patch-block-children": "patchBlockChildren",
+  "retrieve-a-data-source": "retrieveDataSource",
+  "update-a-data-source": "updateDataSource",
+  "post-database-query": "queryDataSource",
+  "create-a-database": "createDataSource",
+  "list-data-source-templates": "listDataSourceTemplates",
+  "retrieve-database": "retrieveDatabase",
+  "update-database": "updateDatabase",
+  "create-database": "createDatabase",
+  "post-search": "search",
+  "list-comments": "listComments",
+  "create-a-comment": "createComment",
+  "retrieve-comment": "retrieveComment",
+  "update-a-comment": "updateComment",
+  "delete-a-comment": "deleteComment",
+  "list-file-uploads": "listFileUploads",
+  "create-file": "createFileUpload",
+  "upload-file": "uploadFilePart",
+  "complete-file-upload": "completeFileUpload",
+  "retrieve-file-upload": "retrieveFileUpload",
+  "list-custom-emojis": "listCustomEmojis",
+  "list-views": "listViews",
+  "create-view": "createView",
+  "retrieve-a-view": "retrieveView",
+  "update-a-view": "updateView",
+  "delete-view": "deleteView",
+  "create-view-query": "createViewQuery",
+  "get-view-query-results": "getViewQueryResults",
+  "delete-view-query": "deleteViewQuery",
+  "create-meeting-note": "createMeetingNote",
+  "query-meeting-notes": "queryMeetingNotes",
+  "create-a-token": "createToken",
+  "revoke-token": "revokeToken",
+  "introspect-token": "introspectToken",
+};
+
 const schemaText = {
   pageObjectResponse: { zh: "页面对象响应。", en: "Page object response." },
   partialPageObjectResponse: { zh: "部分页面对象响应（仅含基础字段）。", en: "Partial page object response (base fields only)." },
@@ -598,7 +654,7 @@ function curateApi(key, api, language, schemas) {
   return {
     summary,
     description,
-    operationId: api.operationId,
+    operationId: operationIdNormalization[api.operationId],
     tags: [tagSlug[api.tags[0]]],
     method: api.method,
     path: api.path,
@@ -633,7 +689,9 @@ function buildSpec(imported, language) {
     const tag = api.tags && api.tags[0] ? api.tags[0] : "untagged";
     const prefix = tagSlug[tag];
     if (!prefix) throw new Error("Unexpected tag " + tag + " on " + api.operationId);
-    const newKey = prefix + "/" + api.operationId;
+    const normalizedId = operationIdNormalization[api.operationId];
+    if (!normalizedId) throw new Error("Missing operationId normalization for " + api.operationId);
+    const newKey = prefix + "/" + normalizedId;
     return [newKey, curateApi(key, api, language, schemas)];
   }));
   const usedTags = [...new Set(Object.values(apis).flatMap((api) => api.tags))];
@@ -806,7 +864,7 @@ const product = {
       description: "OAuth 公共连接客户端凭据，用于 /v1/oauth 端点；凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
     },
   ],
-  quickStart: { operationId: "get-self", requestExampleId: "default" },
+  quickStart: { operationId: "getSelf", requestExampleId: "default" },
 };
 const productEn = {
   display: {

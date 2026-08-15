@@ -1,6 +1,6 @@
 {
   "apis": {
-    "asyncTasks/retrieve-async-task": {
+    "asyncTasks/retrieveAsyncTask": {
       "consumes": [],
       "description": "返回异步任务的状态、错误与结果。",
       "metadata": {
@@ -18,7 +18,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-async-task",
+      "operationId": "retrieveAsyncTask",
       "parameters": [
         {
           "in": "path",
@@ -4679,7 +4679,7 @@
         "asyncTasks"
       ]
     },
-    "blocks/delete-a-block": {
+    "blocks/deleteBlock": {
       "consumes": [],
       "description": "删除块及其子块；已删除的块可通过工作区恢复。",
       "metadata": {
@@ -4697,7 +4697,7 @@
         }
       },
       "method": "DELETE",
-      "operationId": "delete-a-block",
+      "operationId": "deleteBlock",
       "parameters": [
         {
           "in": "path",
@@ -4934,7 +4934,7 @@
         "blocks"
       ]
     },
-    "blocks/get-block-children": {
+    "blocks/getBlockChildren": {
       "consumes": [],
       "description": "分页返回块下的直接子块列表。",
       "metadata": {
@@ -4952,7 +4952,7 @@
         }
       },
       "method": "GET",
-      "operationId": "get-block-children",
+      "operationId": "getBlockChildren",
       "parameters": [
         {
           "in": "path",
@@ -5332,7 +5332,7 @@
         "blocks"
       ]
     },
-    "blocks/patch-block-children": {
+    "blocks/patchBlockChildren": {
       "consumes": [
         "application/json"
       ],
@@ -5352,7 +5352,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "patch-block-children",
+      "operationId": "patchBlockChildren",
       "parameters": [
         {
           "in": "path",
@@ -5750,7 +5750,7 @@
         "blocks"
       ]
     },
-    "blocks/retrieve-a-block": {
+    "blocks/retrieveBlock": {
       "consumes": [],
       "description": "按块 ID 返回块对象。",
       "metadata": {
@@ -5768,7 +5768,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-a-block",
+      "operationId": "retrieveBlock",
       "parameters": [
         {
           "in": "path",
@@ -6005,7 +6005,7 @@
         "blocks"
       ]
     },
-    "blocks/update-a-block": {
+    "blocks/updateBlock": {
       "consumes": [
         "application/json"
       ],
@@ -6025,7 +6025,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-a-block",
+      "operationId": "updateBlock",
       "parameters": [
         {
           "in": "path",
@@ -7455,7 +7455,7 @@
         "blocks"
       ]
     },
-    "comments/create-a-comment": {
+    "comments/createComment": {
       "consumes": [
         "application/json"
       ],
@@ -7475,7 +7475,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-a-comment",
+      "operationId": "createComment",
       "parameters": [
         {
           "in": "header",
@@ -8038,7 +8038,7 @@
         "comments"
       ]
     },
-    "comments/delete-a-comment": {
+    "comments/deleteComment": {
       "consumes": [],
       "description": "删除一条评论。",
       "metadata": {
@@ -8056,7 +8056,7 @@
         }
       },
       "method": "DELETE",
-      "operationId": "delete-a-comment",
+      "operationId": "deleteComment",
       "parameters": [
         {
           "in": "path",
@@ -8293,7 +8293,7 @@
         "comments"
       ]
     },
-    "comments/list-comments": {
+    "comments/listComments": {
       "consumes": [],
       "description": "按块或页面返回评论列表。",
       "metadata": {
@@ -8311,7 +8311,7 @@
         }
       },
       "method": "GET",
-      "operationId": "list-comments",
+      "operationId": "listComments",
       "parameters": [
         {
           "in": "query",
@@ -8692,7 +8692,7 @@
         "comments"
       ]
     },
-    "comments/retrieve-comment": {
+    "comments/retrieveComment": {
       "consumes": [],
       "description": "按 ID 返回评论对象。",
       "metadata": {
@@ -8710,7 +8710,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-comment",
+      "operationId": "retrieveComment",
       "parameters": [
         {
           "in": "path",
@@ -8947,7 +8947,7 @@
         "comments"
       ]
     },
-    "comments/update-a-comment": {
+    "comments/updateComment": {
       "consumes": [
         "application/json"
       ],
@@ -8967,7 +8967,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-a-comment",
+      "operationId": "updateComment",
       "parameters": [
         {
           "in": "path",
@@ -9261,7 +9261,7 @@
         "comments"
       ]
     },
-    "customEmojis/list-custom-emojis": {
+    "customEmojis/listCustomEmojis": {
       "consumes": [],
       "description": "分页返回工作区可用的自定义表情符号。",
       "metadata": {
@@ -9279,7 +9279,7 @@
         }
       },
       "method": "GET",
-      "operationId": "list-custom-emojis",
+      "operationId": "listCustomEmojis",
       "parameters": [
         {
           "in": "query",
@@ -9651,7 +9651,7 @@
         "customEmojis"
       ]
     },
-    "dataSources/create-a-database": {
+    "dataSources/createDataSource": {
       "consumes": [
         "application/json"
       ],
@@ -9671,7 +9671,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-a-database",
+      "operationId": "createDataSource",
       "parameters": [
         {
           "in": "header",
@@ -9969,7 +9969,7 @@
         "dataSources"
       ]
     },
-    "dataSources/list-data-source-templates": {
+    "dataSources/listDataSourceTemplates": {
       "consumes": [],
       "description": "分页返回数据源可用的模板。",
       "metadata": {
@@ -9987,7 +9987,7 @@
         }
       },
       "method": "GET",
-      "operationId": "list-data-source-templates",
+      "operationId": "listDataSourceTemplates",
       "parameters": [
         {
           "in": "path",
@@ -10387,7 +10387,7 @@
         "dataSources"
       ]
     },
-    "dataSources/post-database-query": {
+    "dataSources/queryDataSource": {
       "consumes": [
         "application/json"
       ],
@@ -10407,7 +10407,7 @@
         }
       },
       "method": "POST",
-      "operationId": "post-database-query",
+      "operationId": "queryDataSource",
       "parameters": [
         {
           "in": "path",
@@ -11083,7 +11083,7 @@
         "dataSources"
       ]
     },
-    "dataSources/retrieve-a-data-source": {
+    "dataSources/retrieveDataSource": {
       "consumes": [],
       "description": "按 ID 返回数据源对象及其模式信息。",
       "metadata": {
@@ -11101,7 +11101,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-a-data-source",
+      "operationId": "retrieveDataSource",
       "parameters": [
         {
           "in": "path",
@@ -11338,7 +11338,7 @@
         "dataSources"
       ]
     },
-    "dataSources/update-a-data-source": {
+    "dataSources/updateDataSource": {
       "consumes": [
         "application/json"
       ],
@@ -11358,7 +11358,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-a-data-source",
+      "operationId": "updateDataSource",
       "parameters": [
         {
           "in": "path",
@@ -12668,7 +12668,7 @@
         "dataSources"
       ]
     },
-    "databases/create-database": {
+    "databases/createDatabase": {
       "consumes": [
         "application/json"
       ],
@@ -12688,7 +12688,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-database",
+      "operationId": "createDatabase",
       "parameters": [
         {
           "in": "header",
@@ -13073,7 +13073,7 @@
         "databases"
       ]
     },
-    "databases/retrieve-database": {
+    "databases/retrieveDatabase": {
       "consumes": [],
       "description": "按 ID 返回数据库对象及其属性模式（旧版数据库资源）。",
       "metadata": {
@@ -13091,7 +13091,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-database",
+      "operationId": "retrieveDatabase",
       "parameters": [
         {
           "in": "path",
@@ -13328,7 +13328,7 @@
         "databases"
       ]
     },
-    "databases/update-database": {
+    "databases/updateDatabase": {
       "consumes": [
         "application/json"
       ],
@@ -13348,7 +13348,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-database",
+      "operationId": "updateDatabase",
       "parameters": [
         {
           "in": "path",
@@ -13736,7 +13736,7 @@
         "databases"
       ]
     },
-    "fileUploads/complete-file-upload": {
+    "fileUploads/completeFileUpload": {
       "consumes": [],
       "description": "标记分片上传完成并返回最终的文件对象。",
       "metadata": {
@@ -13754,7 +13754,7 @@
         }
       },
       "method": "POST",
-      "operationId": "complete-file-upload",
+      "operationId": "completeFileUpload",
       "parameters": [
         {
           "in": "path",
@@ -13973,7 +13973,7 @@
         "fileUploads"
       ]
     },
-    "fileUploads/create-file": {
+    "fileUploads/createFileUpload": {
       "consumes": [
         "application/json"
       ],
@@ -13993,7 +13993,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-file",
+      "operationId": "createFileUpload",
       "parameters": [
         {
           "in": "header",
@@ -14270,7 +14270,7 @@
         "fileUploads"
       ]
     },
-    "fileUploads/list-file-uploads": {
+    "fileUploads/listFileUploads": {
       "consumes": [],
       "description": "按状态分页返回连接的文件上传记录。",
       "metadata": {
@@ -14288,7 +14288,7 @@
         }
       },
       "method": "GET",
-      "operationId": "list-file-uploads",
+      "operationId": "listFileUploads",
       "parameters": [
         {
           "in": "query",
@@ -14684,7 +14684,7 @@
         "fileUploads"
       ]
     },
-    "fileUploads/retrieve-file-upload": {
+    "fileUploads/retrieveFileUpload": {
       "consumes": [],
       "description": "按 ID 返回文件上传记录及其状态。",
       "metadata": {
@@ -14702,7 +14702,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-file-upload",
+      "operationId": "retrieveFileUpload",
       "parameters": [
         {
           "in": "path",
@@ -14921,7 +14921,7 @@
         "fileUploads"
       ]
     },
-    "fileUploads/upload-file": {
+    "fileUploads/uploadFilePart": {
       "consumes": [
         "multipart/form-data"
       ],
@@ -14941,7 +14941,7 @@
         }
       },
       "method": "POST",
-      "operationId": "upload-file",
+      "operationId": "uploadFilePart",
       "parameters": [
         {
           "in": "path",
@@ -15193,7 +15193,7 @@
         "fileUploads"
       ]
     },
-    "meetingNotes/create-meeting-note": {
+    "meetingNotes/createMeetingNote": {
       "consumes": [
         "application/json"
       ],
@@ -15213,7 +15213,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-meeting-note",
+      "operationId": "createMeetingNote",
       "parameters": [
         {
           "in": "header",
@@ -16092,7 +16092,7 @@
         "meetingNotes"
       ]
     },
-    "meetingNotes/query-meeting-notes": {
+    "meetingNotes/queryMeetingNotes": {
       "consumes": [
         "application/json"
       ],
@@ -16112,7 +16112,7 @@
         }
       },
       "method": "POST",
-      "operationId": "query-meeting-notes",
+      "operationId": "queryMeetingNotes",
       "parameters": [
         {
           "in": "header",
@@ -18381,7 +18381,7 @@
         "meetingNotes"
       ]
     },
-    "oAuth/create-a-token": {
+    "oAuth/createToken": {
       "consumes": [
         "application/json"
       ],
@@ -18401,7 +18401,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-a-token",
+      "operationId": "createToken",
       "parameters": [
         {
           "in": "header",
@@ -19108,7 +19108,7 @@
         "oAuth"
       ]
     },
-    "oAuth/introspect-token": {
+    "oAuth/introspectToken": {
       "consumes": [
         "application/json"
       ],
@@ -19128,7 +19128,7 @@
         }
       },
       "method": "POST",
-      "operationId": "introspect-token",
+      "operationId": "introspectToken",
       "parameters": [
         {
           "in": "header",
@@ -19352,7 +19352,7 @@
         "oAuth"
       ]
     },
-    "oAuth/revoke-token": {
+    "oAuth/revokeToken": {
       "consumes": [
         "application/json"
       ],
@@ -19372,7 +19372,7 @@
         }
       },
       "method": "POST",
-      "operationId": "revoke-token",
+      "operationId": "revokeToken",
       "parameters": [
         {
           "in": "header",
@@ -19542,7 +19542,7 @@
         "oAuth"
       ]
     },
-    "pages/move-page": {
+    "pages/movePage": {
       "consumes": [
         "application/json"
       ],
@@ -19562,7 +19562,7 @@
         }
       },
       "method": "POST",
-      "operationId": "move-page",
+      "operationId": "movePage",
       "parameters": [
         {
           "in": "path",
@@ -19869,7 +19869,7 @@
         "pages"
       ]
     },
-    "pages/patch-page": {
+    "pages/patchPage": {
       "consumes": [
         "application/json"
       ],
@@ -19889,7 +19889,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "patch-page",
+      "operationId": "patchPage",
       "parameters": [
         {
           "in": "path",
@@ -21103,7 +21103,7 @@
         "pages"
       ]
     },
-    "pages/post-page": {
+    "pages/postPage": {
       "consumes": [
         "application/json"
       ],
@@ -21123,7 +21123,7 @@
         }
       },
       "method": "POST",
-      "operationId": "post-page",
+      "operationId": "postPage",
       "parameters": [
         {
           "in": "query",
@@ -22730,7 +22730,7 @@
         "pages"
       ]
     },
-    "pages/retrieve-a-page": {
+    "pages/retrievePage": {
       "consumes": [],
       "description": "按页面 ID 返回页面对象及其属性值。",
       "metadata": {
@@ -22748,7 +22748,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-a-page",
+      "operationId": "retrievePage",
       "parameters": [
         {
           "in": "path",
@@ -23004,7 +23004,257 @@
         "pages"
       ]
     },
-    "pages/retrieve-a-page-property": {
+    "pages/retrievePageMarkdown": {
+      "consumes": [],
+      "description": "把页面内容渲染为 Notion 风格的 Markdown 并返回。",
+      "metadata": {
+        "documentation": {
+          "evidence": [
+            "https://developers.notion.com/openapi.json",
+            "https://developers.notion.com/reference/retrieve-page-markdown"
+          ],
+          "status": "official",
+          "verifiedAt": "2026-08-16"
+        },
+        "execution": {
+          "disabledReason": "Notion 工作区数据属于最终用户私有内容，且 Developer Terms 对集成方施加数据使用与隐私义务；Pontx Hub 不代理、缓存或聚合 Notion 工作区数据。请由调用方使用本地 SDK/CLI 直连，并自行承担与 Notion 之间的条款与数据合规责任。",
+          "enabled": false
+        }
+      },
+      "method": "GET",
+      "operationId": "retrievePageMarkdown",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "page_id",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/idRequest"
+          }
+        },
+        {
+          "in": "query",
+          "name": "include_transcript",
+          "required": false,
+          "schema": {
+            "description": "是否包含转录内容。",
+            "examples": [
+              true
+            ],
+            "title": "include transcript 值",
+            "type": "boolean"
+          }
+        },
+        {
+          "in": "header",
+          "name": "Notion-Version",
+          "required": true,
+          "schema": {
+            "description": "请求使用的 API 版本日期；当前最新版本为 2026-03-11。",
+            "enum": [
+              "2026-03-11"
+            ],
+            "enumValueTitles": {
+              "2026-03-11": "枚举值：2026-03-11。"
+            },
+            "examples": [
+              "2026-03-11"
+            ],
+            "title": "Notion Version 值",
+            "type": "string"
+          }
+        }
+      ],
+      "path": "/v1/pages/{page_id}/markdown",
+      "produces": [
+        "application/json"
+      ],
+      "requestExamples": {
+        "default": {
+          "expectedStatus": "200",
+          "request": {
+            "headers": {
+              "Notion-Version": "2026-03-11"
+            },
+            "path": {
+              "page_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
+            },
+            "query": {}
+          },
+          "serverUrl": "https://api.notion.com",
+          "summary": "可复现的请求示例（不含凭证）",
+          "verifiedAt": "2026-08-16"
+        }
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pageMarkdownResponse"
+              }
+            }
+          },
+          "description": "请求成功。",
+          "schema": {
+            "$ref": "#/components/schemas/pageMarkdownResponse"
+          }
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_400"
+              }
+            }
+          },
+          "description": "请求参数无效。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_400"
+          }
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_401"
+              }
+            }
+          },
+          "description": "未认证或令牌无效。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_401"
+          }
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_403"
+              }
+            }
+          },
+          "description": "无权限访问该资源。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_403"
+          }
+        },
+        "404": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_404"
+              }
+            }
+          },
+          "description": "未找到指定资源。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_404"
+          }
+        },
+        "406": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_406"
+              }
+            }
+          },
+          "description": "请求无法按要求表示。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_406"
+          }
+        },
+        "409": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_409"
+              }
+            }
+          },
+          "description": "请求与资源当前状态冲突。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_409"
+          }
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_429"
+              }
+            }
+          },
+          "description": "请求频率超限，请遵循 Retry-After 后重试。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_429"
+          }
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_500"
+              }
+            }
+          },
+          "description": "上游服务内部错误。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_500"
+          }
+        },
+        "503": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_503"
+              }
+            }
+          },
+          "description": "上游服务暂时不可用。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_503"
+          }
+        },
+        "504": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_504"
+              }
+            }
+          },
+          "description": "上游网关超时。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_504"
+          }
+        },
+        "529": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/error_api_529"
+              }
+            }
+          },
+          "description": "上游服务过载，请按 429 相同方式重试。",
+          "schema": {
+            "$ref": "#/components/schemas/error_api_529"
+          }
+        }
+      },
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "summary": "获取页面 Markdown",
+      "tags": [
+        "pages"
+      ]
+    },
+    "pages/retrievePageProperty": {
       "consumes": [],
       "description": "分页返回页面属性的所有值项，用于多值或超大属性。",
       "metadata": {
@@ -23022,7 +23272,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-a-page-property",
+      "operationId": "retrievePageProperty",
       "parameters": [
         {
           "in": "path",
@@ -23299,257 +23549,7 @@
         "pages"
       ]
     },
-    "pages/retrieve-page-markdown": {
-      "consumes": [],
-      "description": "把页面内容渲染为 Notion 风格的 Markdown 并返回。",
-      "metadata": {
-        "documentation": {
-          "evidence": [
-            "https://developers.notion.com/openapi.json",
-            "https://developers.notion.com/reference/retrieve-page-markdown"
-          ],
-          "status": "official",
-          "verifiedAt": "2026-08-16"
-        },
-        "execution": {
-          "disabledReason": "Notion 工作区数据属于最终用户私有内容，且 Developer Terms 对集成方施加数据使用与隐私义务；Pontx Hub 不代理、缓存或聚合 Notion 工作区数据。请由调用方使用本地 SDK/CLI 直连，并自行承担与 Notion 之间的条款与数据合规责任。",
-          "enabled": false
-        }
-      },
-      "method": "GET",
-      "operationId": "retrieve-page-markdown",
-      "parameters": [
-        {
-          "in": "path",
-          "name": "page_id",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/idRequest"
-          }
-        },
-        {
-          "in": "query",
-          "name": "include_transcript",
-          "required": false,
-          "schema": {
-            "description": "是否包含转录内容。",
-            "examples": [
-              true
-            ],
-            "title": "include transcript 值",
-            "type": "boolean"
-          }
-        },
-        {
-          "in": "header",
-          "name": "Notion-Version",
-          "required": true,
-          "schema": {
-            "description": "请求使用的 API 版本日期；当前最新版本为 2026-03-11。",
-            "enum": [
-              "2026-03-11"
-            ],
-            "enumValueTitles": {
-              "2026-03-11": "枚举值：2026-03-11。"
-            },
-            "examples": [
-              "2026-03-11"
-            ],
-            "title": "Notion Version 值",
-            "type": "string"
-          }
-        }
-      ],
-      "path": "/v1/pages/{page_id}/markdown",
-      "produces": [
-        "application/json"
-      ],
-      "requestExamples": {
-        "default": {
-          "expectedStatus": "200",
-          "request": {
-            "headers": {
-              "Notion-Version": "2026-03-11"
-            },
-            "path": {
-              "page_id": "0ab51e95-9373-4d42-97f8-1b5b0a5c0b52"
-            },
-            "query": {}
-          },
-          "serverUrl": "https://api.notion.com",
-          "summary": "可复现的请求示例（不含凭证）",
-          "verifiedAt": "2026-08-16"
-        }
-      },
-      "responses": {
-        "200": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/pageMarkdownResponse"
-              }
-            }
-          },
-          "description": "请求成功。",
-          "schema": {
-            "$ref": "#/components/schemas/pageMarkdownResponse"
-          }
-        },
-        "400": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_400"
-              }
-            }
-          },
-          "description": "请求参数无效。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_400"
-          }
-        },
-        "401": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_401"
-              }
-            }
-          },
-          "description": "未认证或令牌无效。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_401"
-          }
-        },
-        "403": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_403"
-              }
-            }
-          },
-          "description": "无权限访问该资源。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_403"
-          }
-        },
-        "404": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_404"
-              }
-            }
-          },
-          "description": "未找到指定资源。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_404"
-          }
-        },
-        "406": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_406"
-              }
-            }
-          },
-          "description": "请求无法按要求表示。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_406"
-          }
-        },
-        "409": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_409"
-              }
-            }
-          },
-          "description": "请求与资源当前状态冲突。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_409"
-          }
-        },
-        "429": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_429"
-              }
-            }
-          },
-          "description": "请求频率超限，请遵循 Retry-After 后重试。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_429"
-          }
-        },
-        "500": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_500"
-              }
-            }
-          },
-          "description": "上游服务内部错误。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_500"
-          }
-        },
-        "503": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_503"
-              }
-            }
-          },
-          "description": "上游服务暂时不可用。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_503"
-          }
-        },
-        "504": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_504"
-              }
-            }
-          },
-          "description": "上游网关超时。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_504"
-          }
-        },
-        "529": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/error_api_529"
-              }
-            }
-          },
-          "description": "上游服务过载，请按 429 相同方式重试。",
-          "schema": {
-            "$ref": "#/components/schemas/error_api_529"
-          }
-        }
-      },
-      "security": [
-        {
-          "bearerAuth": []
-        }
-      ],
-      "summary": "获取页面 Markdown",
-      "tags": [
-        "pages"
-      ]
-    },
-    "pages/update-page-markdown": {
+    "pages/updatePageMarkdown": {
       "consumes": [
         "application/json"
       ],
@@ -23569,7 +23569,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-page-markdown",
+      "operationId": "updatePageMarkdown",
       "parameters": [
         {
           "in": "path",
@@ -24445,7 +24445,7 @@
         "pages"
       ]
     },
-    "search/post-search": {
+    "search/search": {
       "consumes": [
         "application/json"
       ],
@@ -24465,7 +24465,7 @@
         }
       },
       "method": "POST",
-      "operationId": "post-search",
+      "operationId": "search",
       "parameters": [
         {
           "in": "header",
@@ -25118,7 +25118,7 @@
         "search"
       ]
     },
-    "users/get-self": {
+    "users/getSelf": {
       "consumes": [],
       "description": "返回当前访问令牌对应的连接（机器人或用户）资料；个人访问令牌返回创建该令牌的用户。",
       "metadata": {
@@ -25136,7 +25136,7 @@
         }
       },
       "method": "GET",
-      "operationId": "get-self",
+      "operationId": "getSelf",
       "parameters": [
         {
           "in": "header",
@@ -25345,7 +25345,7 @@
         "users"
       ]
     },
-    "users/get-user": {
+    "users/getUser": {
       "consumes": [],
       "description": "按用户 ID 返回工作区成员、访客或连接的用户对象。",
       "metadata": {
@@ -25363,7 +25363,7 @@
         }
       },
       "method": "GET",
-      "operationId": "get-user",
+      "operationId": "getUser",
       "parameters": [
         {
           "in": "path",
@@ -25582,7 +25582,7 @@
         "users"
       ]
     },
-    "users/get-users": {
+    "users/getUsers": {
       "consumes": [],
       "description": "分页返回工作区中连接可见的用户列表。",
       "metadata": {
@@ -25600,7 +25600,7 @@
         }
       },
       "method": "GET",
-      "operationId": "get-users",
+      "operationId": "getUsers",
       "parameters": [
         {
           "in": "query",
@@ -25951,7 +25951,7 @@
         "users"
       ]
     },
-    "views/create-view": {
+    "views/createView": {
       "consumes": [
         "application/json"
       ],
@@ -25971,7 +25971,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-view",
+      "operationId": "createView",
       "parameters": [
         {
           "in": "header",
@@ -26211,7 +26211,7 @@
         "views"
       ]
     },
-    "views/create-view-query": {
+    "views/createViewQuery": {
       "consumes": [
         "application/json"
       ],
@@ -26231,7 +26231,7 @@
         }
       },
       "method": "POST",
-      "operationId": "create-view-query",
+      "operationId": "createViewQuery",
       "parameters": [
         {
           "in": "path",
@@ -26469,7 +26469,7 @@
         "views"
       ]
     },
-    "views/delete-view": {
+    "views/deleteView": {
       "consumes": [],
       "description": "删除一个视图。",
       "metadata": {
@@ -26487,7 +26487,7 @@
         }
       },
       "method": "DELETE",
-      "operationId": "delete-view",
+      "operationId": "deleteView",
       "parameters": [
         {
           "in": "path",
@@ -26706,7 +26706,7 @@
         "views"
       ]
     },
-    "views/delete-view-query": {
+    "views/deleteViewQuery": {
       "consumes": [],
       "description": "删除一个视图查询。",
       "metadata": {
@@ -26724,7 +26724,7 @@
         }
       },
       "method": "DELETE",
-      "operationId": "delete-view-query",
+      "operationId": "deleteViewQuery",
       "parameters": [
         {
           "in": "path",
@@ -26952,7 +26952,7 @@
         "views"
       ]
     },
-    "views/get-view-query-results": {
+    "views/getViewQueryResults": {
       "consumes": [],
       "description": "分页获取已创建视图查询的结果。",
       "metadata": {
@@ -26970,7 +26970,7 @@
         }
       },
       "method": "GET",
-      "operationId": "get-view-query-results",
+      "operationId": "getViewQueryResults",
       "parameters": [
         {
           "in": "path",
@@ -27360,7 +27360,7 @@
         "views"
       ]
     },
-    "views/list-views": {
+    "views/listViews": {
       "consumes": [],
       "description": "按数据库或数据源列出视图。",
       "metadata": {
@@ -27378,7 +27378,7 @@
         }
       },
       "method": "GET",
-      "operationId": "list-views",
+      "operationId": "listViews",
       "parameters": [
         {
           "in": "query",
@@ -27765,7 +27765,7 @@
         "views"
       ]
     },
-    "views/retrieve-a-view": {
+    "views/retrieveView": {
       "consumes": [],
       "description": "按 ID 返回视图对象。",
       "metadata": {
@@ -27783,7 +27783,7 @@
         }
       },
       "method": "GET",
-      "operationId": "retrieve-a-view",
+      "operationId": "retrieveView",
       "parameters": [
         {
           "in": "path",
@@ -28020,7 +28020,7 @@
         "views"
       ]
     },
-    "views/update-a-view": {
+    "views/updateView": {
       "consumes": [
         "application/json"
       ],
@@ -28040,7 +28040,7 @@
         }
       },
       "method": "PATCH",
-      "operationId": "update-a-view",
+      "operationId": "updateView",
       "parameters": [
         {
           "in": "path",

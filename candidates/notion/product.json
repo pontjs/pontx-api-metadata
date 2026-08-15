@@ -47,7 +47,7 @@
     }
   ],
   "quickStart": {
-    "operationId": "get-self",
+    "operationId": "getSelf",
     "requestExampleId": "default"
   }
 }
