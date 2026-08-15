@@ -14,7 +14,6 @@
       "description": "Massive 官方生产环境 REST API"
     }
   ],
-  "tags": [{ "name": "common", "description": "股票行情、聚合、快照与参考数据接口" }],
   "paths": {
     "/v2/last/trade/{stocksTicker}": {
       "get": {

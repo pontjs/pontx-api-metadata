@@ -17,7 +17,6 @@
       "url": "https://api.frankfurter.dev/v2"
     }
   ],
-  "tags": [{ "name": "common", "description": "Rates, currencies, and data-provider endpoints" }],
   "paths": {
     "/rates": {
       "get": {
