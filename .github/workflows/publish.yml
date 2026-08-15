@@ -117,3 +117,14 @@ jobs:
           node metadata/scripts/verify-deployed-hub.mjs \
             --base-url "${{ steps.deploy.outputs.verification_url }}" \
             --metadata-root metadata
+
+      - name: Pin metadata commit for future Hub Git deployments
+        if: github.ref_name == 'main'
+        working-directory: pontx-hub
+        run: |
+          pnpm dlx vercel@latest env update METADATA_REPO_COMMIT production \
+            --value "${{ github.sha }}" \
+            --sensitive \
+            --yes \
+            --token "$VERCEL_TOKEN" \
+            --scope pontjs
