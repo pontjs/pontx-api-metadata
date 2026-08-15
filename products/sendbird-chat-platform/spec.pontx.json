@@ -8,7 +8,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/AnnouncementApi.ts"
           ],
           "status": "observed",
@@ -165,7 +165,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -324,7 +324,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -493,7 +493,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -669,7 +669,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -831,7 +831,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -1000,7 +1000,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/BotApi.ts"
           ],
           "status": "observed",
@@ -1170,7 +1170,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -1337,7 +1337,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -1527,7 +1527,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -1699,7 +1699,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -1856,7 +1856,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2018,7 +2018,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2251,7 +2251,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2426,7 +2426,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2597,7 +2597,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2766,7 +2766,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -2941,7 +2941,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -3592,7 +3592,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -3967,7 +3967,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -4151,7 +4151,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -4328,7 +4328,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -4497,7 +4497,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -4674,7 +4674,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -4849,7 +4849,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -5041,7 +5041,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/GroupChannelApi.ts"
           ],
           "status": "observed",
@@ -5210,7 +5210,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -5417,7 +5417,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -5615,7 +5615,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -5872,7 +5872,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -6050,7 +6050,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -6523,7 +6523,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -6696,7 +6696,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -6867,7 +6867,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -7080,7 +7080,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -7273,7 +7273,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -7478,7 +7478,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MessageApi.ts"
           ],
           "status": "observed",
@@ -7681,7 +7681,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MetadataApi.ts"
           ],
           "status": "observed",
@@ -7872,7 +7872,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MetadataApi.ts"
           ],
           "status": "observed",
@@ -8058,7 +8058,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MetadataApi.ts"
           ],
           "status": "observed",
@@ -8255,7 +8255,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/MetadataApi.ts"
           ],
           "status": "observed",
@@ -8467,7 +8467,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/ModerationApi.ts"
           ],
           "status": "observed",
@@ -8634,7 +8634,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/ModerationApi.ts"
           ],
           "status": "observed",
@@ -8803,7 +8803,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/ModerationApi.ts"
           ],
           "status": "observed",
@@ -8970,7 +8970,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/ModerationApi.ts"
           ],
           "status": "observed",
@@ -9212,7 +9212,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/ModerationApi.ts"
           ],
           "status": "observed",
@@ -9390,7 +9390,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -9542,7 +9542,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -9704,7 +9704,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -9873,7 +9873,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -10055,7 +10055,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -10302,7 +10302,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -10477,7 +10477,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -10669,7 +10669,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/OpenChannelApi.ts"
           ],
           "status": "observed",
@@ -10834,7 +10834,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/StatisticsApi.ts"
           ],
           "status": "observed",
@@ -10988,7 +10988,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/StatisticsApi.ts"
           ],
           "status": "observed",
@@ -11144,7 +11144,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -11335,7 +11335,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -11504,7 +11504,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -11660,7 +11660,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -11827,7 +11827,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -11989,7 +11989,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -12147,7 +12147,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -12318,7 +12318,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -13098,7 +13098,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -13278,7 +13278,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -13548,7 +13548,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -13719,7 +13719,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -13913,7 +13913,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14089,7 +14089,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14245,7 +14245,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14409,7 +14409,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14578,7 +14578,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14745,7 +14745,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -14928,7 +14928,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -15095,7 +15095,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -15276,7 +15276,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -15481,7 +15481,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -15651,7 +15651,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -15843,7 +15843,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -16025,7 +16025,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -16181,7 +16181,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",
@@ -16351,7 +16351,7 @@
       "metadata": {
         "documentation": {
           "evidence": [
-            "candidates/sendbird-chat-platform/sources/sendbird-platform.oas.json",
+            "https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json",
             "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/fccf6fa11117e15bd4dcdd89127407f0b46e7ce8/src/api/generated/apis/UserApi.ts"
           ],
           "status": "observed",

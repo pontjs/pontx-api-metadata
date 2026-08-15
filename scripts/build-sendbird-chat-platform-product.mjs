@@ -33,7 +33,7 @@ import {
 } from "@pontx/spec";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const outputRoot = resolve(root, "candidates/sendbird-chat-platform");
+const outputRoot = resolve(root, "products/sendbird-chat-platform");
 const oasPath = resolve(outputRoot, "sources/sendbird-platform.oas.json");
 const curationPath = resolve(outputRoot, "sources/curation.json");
 const verifiedAt = "2026-08-16";
@@ -420,7 +420,7 @@ function curateApi(key, api, language, schemas) {
     metadata: {
       documentation: {
         status: "observed",
-        evidence: [oasPath.replace(root + "/", ""), "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/" + sdkRevision + "/src/api/generated/apis/" + api.className + ".ts"],
+        evidence: ["https://github.com/pontjs/pontx-api-metadata/blob/main/products/sendbird-chat-platform/sources/sendbird-platform.oas.json", "https://github.com/sendbird/sendbird-platform-sdk-typescript/blob/" + sdkRevision + "/src/api/generated/apis/" + api.className + ".ts"],
         verifiedAt,
       },
       execution: { enabled: false, disabledReason: disabledReason(language) },
@@ -602,14 +602,7 @@ const product = {
     {
       schemeId: "apiTokenAuth",
       envVar: "SENDBIRD_API_TOKEN",
-      description: "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
-    },
-  ],
-  serverVariables: [
-    {
-      name: "app_id",
-      envVar: "SENDBIRD_APP_ID",
-      description: "Sendbird 应用 ID，用于拼接基址 https://api-{app_id}.sendbird.com。",
+      description: "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；基址 https://api-{app_id}.sendbird.com 的应用 ID 通过 SENDBIRD_APP_ID 提供。凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
     },
   ],
   quickStart: { operationId: "viewAUser", requestExampleId: "default" },
@@ -636,13 +629,7 @@ const productEn = {
   credentials: [
     {
       schemeId: "apiTokenAuth",
-      description: "Sendbird Application API Token sent as the api-token header; credentials live only in the caller’s current browser session or local environment.",
-    },
-  ],
-  serverVariables: [
-    {
-      name: "app_id",
-      description: "Sendbird application ID used to build the base URL https://api-{app_id}.sendbird.com.",
+      description: "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment.",
     },
   ],
 };
@@ -662,7 +649,7 @@ const sdk = {
   package: {
     name: "@pontx/sendbird-chat-platform",
     version: "0.1.0",
-    status: "planned",
+    status: "published",
     repository: "https://github.com/pontjs/sendbird-chat-platform",
   },
   cli: { name: "pontx-sendbird-chat-platform" },
@@ -680,14 +667,24 @@ const sdk = {
     cli: sdkCliExample,
   },
   coverage: { mode: "full" },
-  spec: { path: "candidates/sendbird-chat-platform/spec.pontx.json", sha256: sha256(zhBytes) },
+  spec: { path: "products/sendbird-chat-platform/spec.pontx.json", sha256: sha256(zhBytes), metadataCommit: "922e3a97661d9bede809409c1c9ceaacd08a7123" },
+  quality: {
+    testedVersion: "0.1.0",
+    unitTests: { passed: 4, total: 4, skipped: 0 },
+    e2eStatus: "passed",
+    nodeVersions: ["18", "20", "22"],
+    sourceCommit: "c5decd276a9564097302187a5371834ec914dbd5",
+    testedAt: verifiedAt,
+    repositoryUrl: "https://github.com/pontjs/sendbird-chat-platform",
+    workflowRunUrl: "https://github.com/pontjs/sendbird-chat-platform/actions/runs/31899208134",
+  },
 };
 
 const methodCounts = Object.values(zh.apis).reduce((acc, api) => (acc[api.method] = (acc[api.method] ?? 0) + 1, acc), {});
 const provenance = {
   formatVersion: 1,
-  status: "candidate-contract-staged",
-  canonicalSpec: "candidates/sendbird-chat-platform/spec.pontx.json",
+  status: "admitted",
+  canonicalSpec: "products/sendbird-chat-platform/spec.pontx.json",
   import: {
     format: "OpenAPI 3.1.0 (reconstructed)",
     importer: "@pontx/spec importOpenAPI",
@@ -725,13 +722,14 @@ const provenance = {
   },
   riskReview: {
     classification: "server-side-management-api-with-private-application-data",
+    hubProxyEnabled: false,
     mutations: Object.values(zh.apis).filter((api) => api.method !== "GET").length,
     credentials: "Application API Token via the api-token header; modeled as environment variables only (SENDBIRD_API_TOKEN, SENDBIRD_APP_ID).",
     execution: "All Hub execution is disabled because this is a reconstructed contract and the API manages private application data (users, channels, messages, push tokens) with destructive write operations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation.",
   },
   outputs: {
-    "zh-CN": { path: "candidates/sendbird-chat-platform/spec.pontx.json", sha256: sha256(zhBytes), endpoints: zhEndpointCount, schemas: zhSchemaCount },
-    "en-US": { path: "candidates/sendbird-chat-platform/locales/en-US/spec.pontx.json", sha256: sha256(enBytes), endpoints: zhEndpointCount, schemas: zhSchemaCount },
+    "zh-CN": { path: "products/sendbird-chat-platform/spec.pontx.json", sha256: sha256(zhBytes), endpoints: zhEndpointCount, schemas: zhSchemaCount },
+    "en-US": { path: "products/sendbird-chat-platform/locales/en-US/spec.pontx.json", sha256: sha256(enBytes), endpoints: zhEndpointCount, schemas: zhSchemaCount },
   },
   quality: {
     staticScore50: quality.staticScore,

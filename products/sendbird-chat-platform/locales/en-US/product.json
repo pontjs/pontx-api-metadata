@@ -27,13 +27,7 @@
   "credentials": [
     {
       "schemeId": "apiTokenAuth",
-      "description": "Sendbird Application API Token sent as the api-token header; credentials live only in the caller’s current browser session or local environment."
-    }
-  ],
-  "serverVariables": [
-    {
-      "name": "app_id",
-      "description": "Sendbird application ID used to build the base URL https://api-{app_id}.sendbird.com."
+      "description": "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment."
     }
   ]
 }
