@@ -157,18 +157,27 @@ jobs:
           CLAWHUB_DISABLE_TELEMETRY: "1"
           CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config-${{ matrix.name }}.json
         run: |
-          remote_file="${{ runner.temp }}/remote-${SKILL_NAME}-SKILL.md"
+          remote_json="${{ runner.temp }}/remote-${SKILL_NAME}.json"
           manifest="skills/manifests/$SKILL_NAME.json"
           verify_remote() {
+            test "$(jq -r '.owner.handle' "$remote_json")" = "pontjs"
+            test "$(jq -r '.skill.slug' "$remote_json")" = "$SKILL_NAME"
+            test "$(jq -r '.version.version' "$remote_json")" = "$SKILL_VERSION"
+            local_paths="${{ runner.temp }}/local-${SKILL_NAME}-paths.txt"
+            remote_paths="${{ runner.temp }}/remote-${SKILL_NAME}-paths.txt"
+            jq -r '.files[]' "$manifest" | LC_ALL=C sort > "$local_paths"
+            jq -r '.version.files[].path' "$remote_json" | LC_ALL=C sort > "$remote_paths"
+            diff -u "$local_paths" "$remote_paths"
             while IFS= read -r relative_path; do
-              npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
-                "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" \
-                --file "$relative_path" > "$remote_file"
-              cmp "$SKILL_PATH/$relative_path" "$remote_file"
-            done < <(jq -r '.files[]' "$manifest")
+              local_sha=$(sha256sum "$SKILL_PATH/$relative_path" | cut -d' ' -f1)
+              remote_sha=$(jq -r --arg file "$relative_path" \
+                '.version.files[] | select(.path == $file) | .sha256' "$remote_json")
+              test -n "$remote_sha"
+              test "$local_sha" = "$remote_sha"
+            done < "$local_paths"
           }
           if npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
-            "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --file SKILL.md > "$remote_file" 2>/dev/null; then
+            "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --json > "$remote_json" 2>/dev/null; then
             verify_remote
             echo "ClawHub already has the identical immutable version."
           else
@@ -218,18 +227,40 @@ jobs:
           CLAWHUB_DISABLE_TELEMETRY: "1"
           CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config-${{ matrix.name }}.json
         run: |
-          remote_file="${{ runner.temp }}/remote-${SKILL_NAME}-SKILL.md"
+          remote_json="${{ runner.temp }}/remote-${SKILL_NAME}.json"
           manifest="skills/manifests/$SKILL_NAME.json"
-          verify_remote() {
-            while IFS= read -r relative_path; do
-              npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
-                "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" \
-                --file "$relative_path" > "$remote_file"
-              cmp "$SKILL_PATH/$relative_path" "$remote_file"
-            done < <(jq -r '.files[]' "$manifest")
+          fetch_remote() {
+            npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
+              "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --json > "$remote_json" 2>/dev/null
           }
-          if npx --yes "clawhub@$CLAWHUB_CLI_VERSION" inspect \
-            "@pontjs/$SKILL_NAME" --version "$SKILL_VERSION" --file SKILL.md > "$remote_file" 2>/dev/null; then
+          wait_for_remote() {
+            for attempt in 1 2 3 4 5 6; do
+              if fetch_remote; then
+                return 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "ClawHub did not expose $SKILL_NAME@$SKILL_VERSION after publication."
+            return 1
+          }
+          verify_remote() {
+            test "$(jq -r '.owner.handle' "$remote_json")" = "pontjs"
+            test "$(jq -r '.skill.slug' "$remote_json")" = "$SKILL_NAME"
+            test "$(jq -r '.version.version' "$remote_json")" = "$SKILL_VERSION"
+            local_paths="${{ runner.temp }}/local-${SKILL_NAME}-paths.txt"
+            remote_paths="${{ runner.temp }}/remote-${SKILL_NAME}-paths.txt"
+            jq -r '.files[]' "$manifest" | LC_ALL=C sort > "$local_paths"
+            jq -r '.version.files[].path' "$remote_json" | LC_ALL=C sort > "$remote_paths"
+            diff -u "$local_paths" "$remote_paths"
+            while IFS= read -r relative_path; do
+              local_sha=$(sha256sum "$SKILL_PATH/$relative_path" | cut -d' ' -f1)
+              remote_sha=$(jq -r --arg file "$relative_path" \
+                '.version.files[] | select(.path == $file) | .sha256' "$remote_json")
+              test -n "$remote_sha"
+              test "$local_sha" = "$remote_sha"
+            done < "$local_paths"
+          }
+          if fetch_remote; then
             verify_remote
             echo "ClawHub already has the identical immutable version."
           else
@@ -237,5 +268,6 @@ jobs:
               --owner pontjs \
               --version "$SKILL_VERSION" \
               --json
+            wait_for_remote
             verify_remote
           fi

@@ -239,4 +239,12 @@ assert.equal(aggregated.verdict, "fail");
 assert.equal(aggregated.verifiedClaims.length, 2);
 assert.equal(aggregated.checks.officialEvidenceOnly, false);
 
+const publishWorkflow = await readFile(resolve(".github/workflows/publish-product-skills.yml"), "utf8");
+assert.match(publishWorkflow, /--version \"\$SKILL_VERSION\" --json > \"\$remote_json\"/);
+assert.match(publishWorkflow, /\.owner\.handle/);
+assert.match(publishWorkflow, /\.version\.files\[\]/);
+assert.match(publishWorkflow, /\.sha256/);
+assert.match(publishWorkflow, /wait_for_remote/);
+assert.doesNotMatch(publishWorkflow, /--file \"\$relative_path\" > \"\$remote_file\"/);
+
 console.log("Product Skill contracts, deterministic hashing, evidence, review binding, and stale-registry tests passed.");
