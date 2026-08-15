@@ -92,13 +92,13 @@
   "outputs": {
     "zh-CN": {
       "path": "products/stripe-identity/spec.pontx.json",
-      "sha256": "2a984e3672fd2e4e38018726ad71874bf68319c9fe69be11f8fb0bcc0c5a5d94",
+      "sha256": "926fbe95dab6796b8e4136c4d34c54694a176f6d6011d54de59baf40cb9f5412",
       "endpoints": 8,
       "schemas": 35
     },
     "en-US": {
       "path": "products/stripe-identity/locales/en-US/spec.pontx.json",
-      "sha256": "3e116a560589c579c9fab24e12bb387447b8bd3447e9cecdd1e75cc56fde7d90",
+      "sha256": "06cd5559b318002e03c3ba80a1f7271706970f036e976140aea16ddc1ce2006c",
       "endpoints": 8,
       "schemas": 35
     }

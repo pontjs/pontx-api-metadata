@@ -1315,7 +1315,7 @@
       "summary": "列出验证报告",
       "operationId": "getIdentityVerificationReports",
       "consumes": [],
-      "description": "<p>列出所有验证报告。</p>",
+      "description": "列出所有验证报告。",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_reports",
@@ -1576,7 +1576,7 @@
       "summary": "获取验证报告",
       "operationId": "getIdentityVerificationReportsReport",
       "consumes": [],
-      "description": "<p>获取已有的 VerificationReport。</p>",
+      "description": "获取已有的 VerificationReport。",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_reports/{report}",
@@ -1683,7 +1683,7 @@
       "summary": "列出验证会话",
       "operationId": "getIdentityVerificationSessions",
       "consumes": [],
-      "description": "<p>返回 VerificationSession 列表。</p>",
+      "description": "返回 VerificationSession 列表。",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_sessions",
@@ -1958,7 +1958,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>创建 VerificationSession 对象。</p>\n\n<p>创建 VerificationSession 后，请使用会话的 <code>client_secret</code> 显示验证弹窗，或将用户跳转到会话的 <code>url</code>。</p>\n\n<p>如果 API Key 处于测试模式，验证检查不会真正处理，但其他流程会按实时模式执行。</p>\n\n<p>相关指南：<a href=\"https://docs.stripe.com/identity/verify-identity-documents\">验证用户的身份证件</a></p>",
+      "description": "创建 VerificationSession 对象。\n\n创建 VerificationSession 后，请使用会话的 `client_secret` 显示验证弹窗，或将用户跳转到会话的 `url`。\n\n如果 API Key 处于测试模式，验证检查不会真正处理，但其他流程会按实时模式执行。\n\n相关指南：[验证用户的身份证件](https://docs.stripe.com/identity/verify-identity-documents)",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions",
@@ -2290,7 +2290,7 @@
       "summary": "获取验证会话",
       "operationId": "getIdentityVerificationSessionsSession",
       "consumes": [],
-      "description": "<p>获取此前创建的 VerificationSession 详情。</p>\n\n<p>当会话状态为 <code>requires_input</code> 时，可通过此接口获取有效的 <code>client_secret</code> 或 <code>url</code>，以允许用户重新提交。</p>",
+      "description": "获取此前创建的 VerificationSession 详情。\n\n当会话状态为 `requires_input` 时，可通过此接口获取有效的 `client_secret` 或 `url`，以允许用户重新提交。",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_sessions/{session}",
@@ -2399,7 +2399,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>更新 VerificationSession 对象。</p>\n\n<p>当会话状态为 <code>requires_input</code> 时，可通过此接口更新验证检查和选项。</p>",
+      "description": "更新 VerificationSession 对象。\n\n当会话状态为 `requires_input` 时，可通过此接口更新验证检查和选项。",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}",
@@ -2695,7 +2695,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>当 VerificationSession 处于 <code>requires_input</code> <a href=\"https://docs.stripe.com/identity/how-sessions-work\">状态</a>时，可以取消。</p>\n\n<p>取消后将禁止未来的提交尝试，且无法撤销。<a href=\"https://docs.stripe.com/identity/verification-sessions#cancel\">了解更多</a>。</p>",
+      "description": "当 VerificationSession 处于 `requires_input` [状态](https://docs.stripe.com/identity/how-sessions-work)时，可以取消。\n\n取消后将禁止未来的提交尝试，且无法撤销。[了解更多](https://docs.stripe.com/identity/verification-sessions#cancel)。",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}/cancel",
@@ -2833,7 +2833,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>编辑 VerificationSession，以从 Stripe 删除所有已收集的信息。此操作会编辑 VerificationSession 及其所有关联对象，包括 VerificationReport、Event 和请求日志等。</p>\n\n<p>VerificationSession 处于 <code>requires_input</code> 或 <code>verified</code> <a href=\"https://docs.stripe.com/identity/how-sessions-work\">状态</a>时可以编辑；编辑处于 <code>requires_action</code> 状态的会话会自动取消该会话。</p>\n\n<p>编辑过程最长可能需要四天。处理期间，VerificationSession 的 <code>redaction.status</code> 为 <code>processing</code>；完成后将变为 <code>redacted</code>，并发出 <code>identity.verification_session.redacted</code> 事件。</p>\n\n<p>编辑操作不可逆。编辑后的对象仍可通过 Stripe API 访问，但包含个人数据的字段会替换为 <code>[redacted]</code> 或类似占位符，<code>metadata</code> 字段也会被清除。编辑后的对象不能再更新或用于任何用途。</p>\n\n<p><a href=\"https://docs.stripe.com/identity/verification-sessions#redact\">了解更多</a>。</p>",
+      "description": "编辑 VerificationSession，以从 Stripe 删除所有已收集的信息。此操作会编辑 VerificationSession 及其所有关联对象，包括 VerificationReport、Event 和请求日志等。\n\nVerificationSession 处于 `requires_input` 或 `verified` [状态](https://docs.stripe.com/identity/how-sessions-work)时可以编辑；编辑处于 `requires_action` 状态的会话会自动取消该会话。\n\n编辑过程最长可能需要四天。处理期间，VerificationSession 的 `redaction.status` 为 `processing`；完成后将变为 `redacted`，并发出 `identity.verification_session.redacted` 事件。\n\n编辑操作不可逆。编辑后的对象仍可通过 Stripe API 访问，但包含个人数据的字段会替换为 `[redacted]` 或类似占位符，`metadata` 字段也会被清除。编辑后的对象不能再更新或用于任何用途。\n\n[了解更多](https://docs.stripe.com/identity/verification-sessions#redact)。",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}/redact",

@@ -1315,7 +1315,7 @@
       "summary": "List VerificationReports",
       "operationId": "getIdentityVerificationReports",
       "consumes": [],
-      "description": "<p>List all verification reports.</p>",
+      "description": "List all verification reports.",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_reports",
@@ -1576,7 +1576,7 @@
       "summary": "Retrieve a VerificationReport",
       "operationId": "getIdentityVerificationReportsReport",
       "consumes": [],
-      "description": "<p>Retrieves an existing VerificationReport</p>",
+      "description": "Retrieves an existing VerificationReport",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_reports/{report}",
@@ -1683,7 +1683,7 @@
       "summary": "List VerificationSessions",
       "operationId": "getIdentityVerificationSessions",
       "consumes": [],
-      "description": "<p>Returns a list of VerificationSessions</p>",
+      "description": "Returns a list of VerificationSessions",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_sessions",
@@ -1958,7 +1958,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>Creates a VerificationSession object.</p>\n\n<p>After the VerificationSession is created, display a verification modal using the session <code>client_secret</code> or send your users to the session’s <code>url</code>.</p>\n\n<p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>\n\n<p>Related guide: <a href=\"https://docs.stripe.com/identity/verify-identity-documents\">Verify your users’ identity documents</a></p>",
+      "description": "Creates a VerificationSession object.\n\nAfter the VerificationSession is created, display a verification modal using the session `client_secret` or send your users to the session’s `url`.\n\nIf your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.\n\nRelated guide: [Verify your users’ identity documents](https://docs.stripe.com/identity/verify-identity-documents)",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions",
@@ -2290,7 +2290,7 @@
       "summary": "Retrieve a VerificationSession",
       "operationId": "getIdentityVerificationSessionsSession",
       "consumes": [],
-      "description": "<p>Retrieves the details of a VerificationSession that was previously created.</p>\n\n<p>When the session status is <code>requires_input</code>, you can use this method to retrieve a valid\n<code>client_secret</code> or <code>url</code> to allow re-submission.</p>",
+      "description": "Retrieves the details of a VerificationSession that was previously created.\n\nWhen the session status is `requires_input`, you can use this method to retrieve a valid `client_secret` or `url` to allow re-submission.",
       "tags": [],
       "method": "GET",
       "path": "/v1/identity/verification_sessions/{session}",
@@ -2399,7 +2399,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>Updates a VerificationSession object.</p>\n\n<p>When the session status is <code>requires_input</code>, you can use this method to update the\nverification check and options.</p>",
+      "description": "Updates a VerificationSession object.\n\nWhen the session status is `requires_input`, you can use this method to update the\nverification check and options.",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}",
@@ -2695,7 +2695,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href=\"https://docs.stripe.com/identity/how-sessions-work\">status</a>.</p>\n\n<p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href=\"https://docs.stripe.com/identity/verification-sessions#cancel\">Learn more</a>.</p>",
+      "description": "A VerificationSession object can be canceled when it is in `requires_input` [status](https://docs.stripe.com/identity/how-sessions-work).\n\nOnce canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/identity/verification-sessions#cancel).",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}/cancel",
@@ -2833,7 +2833,7 @@
       "consumes": [
         "application/x-www-form-urlencoded"
       ],
-      "description": "<p>Redact a VerificationSession to remove all collected information from Stripe. This will redact\nthe VerificationSession and all objects related to it, including VerificationReports, Events,\nrequest logs, etc.</p>\n\n<p>A VerificationSession object can be redacted when it is in <code>requires_input</code> or <code>verified</code>\n<a href=\"https://docs.stripe.com/identity/how-sessions-work\">status</a>. Redacting a VerificationSession in <code>requires_action</code>\nstate will automatically cancel it.</p>\n\n<p>The redaction process may take up to four days. When the redaction process is in progress, the\nVerificationSession’s <code>redaction.status</code> field will be set to <code>processing</code>; when the process is\nfinished, it will change to <code>redacted</code> and an <code>identity.verification_session.redacted</code> event\nwill be emitted.</p>\n\n<p>Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the\nfields that contain personal data will be replaced by the string <code>[redacted]</code> or a similar\nplaceholder. The <code>metadata</code> field will also be erased. Redacted objects cannot be updated or\nused for any purpose.</p>\n\n<p><a href=\"https://docs.stripe.com/identity/verification-sessions#redact\">Learn more</a>.</p>",
+      "description": "Redact a VerificationSession to remove all collected information from Stripe. This will redact\nthe VerificationSession and all objects related to it, including VerificationReports, Events,\nrequest logs, etc.\n\nA VerificationSession object can be redacted when it is in `requires_input` or `verified`\n[status](https://docs.stripe.com/identity/how-sessions-work). Redacting a VerificationSession in `requires_action`\nstate will automatically cancel it.\n\nThe redaction process may take up to four days. When the redaction process is in progress, the\nVerificationSession’s `redaction.status` field will be set to `processing`; when the process is\nfinished, it will change to `redacted` and an `identity.verification_session.redacted` event\nwill be emitted.\n\nRedaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the\nfields that contain personal data will be replaced by the string `[redacted]` or a similar\nplaceholder. The `metadata` field will also be erased. Redacted objects cannot be updated or\nused for any purpose.\n\n[Learn more](https://docs.stripe.com/identity/verification-sessions#redact).",
       "tags": [],
       "method": "POST",
       "path": "/v1/identity/verification_sessions/{session}/redact",
