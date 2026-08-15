@@ -82,8 +82,8 @@
     }
   ],
   "nextAction": {
-    "zh": "将 363 个静态资源注册项逐个扩展为 Endpoint/Schema/SSE 来源与覆盖矩阵：优先使用 MIT 的 contents/ 文档和非 ee/ MIT 源码，先为 14 项 ee/ 依赖寻找可许可的公开依据；托管 schema 仅用于差异观测。随后验证 typed SSE、完成敏感读取/写入策略、双语 PontxSpec 与 SDK/CLI 发布链路。",
-    "en": "Expand the 363 static resource registrations into an endpoint/schema/SSE provenance-and-coverage matrix: prefer MIT-licensed contents/ documentation and non-ee/ MIT source, first finding separately permitted public evidence for the 14 ee/-dependent entries; use the hosted schema only for drift observation. Then validate typed SSE, complete sensitive read/write policy, bilingual PontxSpec, and the SDK/CLI release chain."
+    "zh": "先取得供应商对固定、完整且可再分发契约的书面澄清，或为 14 项 ee/ 依赖逐项取得可许可的公开依据；澄清请求草案已就绪但未发送。随后将 363 个静态资源注册项扩展为 Endpoint/Schema/SSE 来源与覆盖矩阵，托管 schema 仅用于差异观测；最后验证 typed SSE、完成敏感读取/写入策略、双语 PontxSpec 与 SDK/CLI 发布链路。",
+    "en": "First obtain supplier clarification for a fixed, complete, redistributable contract, or separately permitted public evidence for each of the 14 ee/-dependent registrations; a clarification-request draft is ready but has not been sent. Then expand the 363 static resource registrations into an endpoint/schema/SSE provenance-and-coverage matrix, using the hosted schema only for drift observation; finally validate typed SSE, complete sensitive read/write policy, bilingual PontxSpec, and the SDK/CLI release chain."
   },
   "verifiedAt": "2026-08-15"
 }

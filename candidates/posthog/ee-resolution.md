@@ -31,3 +31,6 @@ PostHog Public API product can be published, each unresolved row needs either a
 pinned, explicitly publishable first-party contract or a written supplier
 permission covering independent reconstruction and redistribution. The public
 documentation above is sufficient only for the limited facts recorded here.
+
+The unsent, ready-to-review request for that clarification is in
+[supplier-clarification.md](supplier-clarification.md).
