@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "status": "candidate-contract-staged",
-  "canonicalSpec": "candidates/notion/spec.pontx.json",
+  "canonicalSpec": "products/notion/spec.pontx.json",
   "import": {
     "format": "OpenAPI 3.1.0",
     "importer": "@pontx/spec importOpenAPI",
@@ -47,7 +47,8 @@
     "classification": "private-workspace-content-with-integration-terms",
     "mutations": 25,
     "credentials": "Bearer tokens (internal connection / PAT) and OAuth client credentials; modeled as environment variables only.",
-    "execution": "All Hub execution is disabled because workspace content is private End User data and the Developer Terms impose integrator data-handling obligations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation."
+    "execution": "All Hub execution is disabled because workspace content is private End User data and the Developer Terms impose integrator data-handling obligations. The package exposes caller-direct reads and writes; mutations require preview-first and exact confirmation, and no production mutation is used for validation.",
+    "hubProxyEnabled": false
   },
   "webhooks": {
     "events": [
@@ -87,13 +88,13 @@
   },
   "outputs": {
     "zh-CN": {
-      "path": "candidates/notion/spec.pontx.json",
+      "path": "products/notion/spec.pontx.json",
       "sha256": "d93959c1b2618fb3b10ef6b0c2b72f38f4d18e53071e861ee496857beef41414",
       "endpoints": 49,
       "schemas": 523
     },
     "en-US": {
-      "path": "candidates/notion/locales/en-US/spec.pontx.json",
+      "path": "products/notion/locales/en-US/spec.pontx.json",
       "sha256": "5ee9706b71fa06bdf6208c0a8ea12164eb5865a27647c05da4c12819b9e69b36",
       "endpoints": 49,
       "schemas": 523
