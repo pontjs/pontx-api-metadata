@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "amazon-sqs",
+  "claims": [
+    {
+      "id": "standard-semantics",
+      "claim": "Amazon SQS standard queues use at-least-once delivery and best-effort ordering.",
+      "summary": "The official queue-types guide defines at-least-once delivery and best-effort ordering for standard queues.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-types.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "fifo-semantics",
+      "claim": "FIFO queues preserve message order and support exactly-once processing.",
+      "summary": "The official FIFO queues guide identifies FIFO delivery and exactly-once processing as its central features.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-fifo-queues.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "visibility-retry",
+      "claim": "Receiving a message makes it temporarily invisible to other consumers.",
+      "summary": "The official visibility-timeout guide states that a received message remains in the queue but becomes temporarily invisible to other consumers.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "visibility-expiry",
+      "claim": "If a consumer does not delete a received message before its visibility timeout expires, SQS can make it visible for another processing attempt.",
+      "summary": "The official visibility-timeout guide explains that an undeleted message becomes visible again and can be retrieved for another processing attempt.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "dead-letter-queues",
+      "claim": "Configure a dead-letter queue with a redrive policy to isolate messages that are not processed successfully.",
+      "summary": "The official dead-letter queue guide explains that source queues target DLQs for unsuccessfully processed messages and that redrive policies specify the receive threshold.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    },
+    {
+      "id": "long-polling",
+      "claim": "Long polling reduces empty `ReceiveMessage` responses and can reduce cost.",
+      "summary": "The official long-polling guide recommends it to decrease empty receives and reduce SQS cost.",
+      "sourceUrl": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/best-practices-setting-up-long-polling.html",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-15"
+    }
+  ]
+}
