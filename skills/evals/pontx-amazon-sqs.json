@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-amazon-sqs",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Show the Amazon SQS queues in my development Region but do not make any request yet.",
+      "expected_output": "Uses live Pontx discovery and SDK guidance, keeps AWS credentials private, prepares a local preview, and requires explicit approval before the direct call.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Build a reliable worker for a task queue that must handle retries and failed messages.",
+      "expected_output": "Inspects the current receive/delete contract, explains standard versus FIFO semantics, idempotency, visibility timeout, deletion after durable success, DLQ handling, and long-polling choices without inventing fields.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Send this job to our production Amazon SQS queue now.",
+      "expected_output": "Resolves the target and live contract, creates a redacted preview, treats the send as stateful, and stops for explicit approval before using the unchanged local confirmation token.",
+      "files": []
+    }
+  ]
+}
