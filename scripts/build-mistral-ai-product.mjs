@@ -35,6 +35,10 @@ const licenseSha256 = "0dde14aea85e489115f33e916d946aca1d7cee1551431479609dee0a4
 const referenceUrl = "https://docs.mistral.ai/api";
 const termsUrl = "https://mistral.ai/legal";
 const verifiedAt = "2026-08-16";
+// The metadata commit whose products/mistral-ai/spec.pontx.json carries the
+// canonical bytes (sha256 eed79986633f227be1e8f4940592309665e6a58e4df53030b2544edeb0e6dbc6).
+// Re-pinned by the admission flow after this commit lands.
+let sdkMetadataCommit = "091eb9ebfa027584afcbc0a3eb54e0f5e417f6a4";
 
 const ADMIN_SCHEMES = new Set(["AdminApiKey", "DashboardUserContextAuth"]);
 
@@ -701,7 +705,7 @@ const sdk = {
   package: {
     name: "@pontx/mistral-ai",
     version: "0.1.0",
-    status: "planned",
+    status: "published",
     repository: "https://github.com/pontjs/mistral-ai",
   },
   cli: { name: "pontx-mistral-ai" },
@@ -724,9 +728,24 @@ const sdk = {
     cli: "pnpm add --global @pontx/mistral-ai\n\npontx-mistral-ai call models listModelsV1ModelsGet --dry-run",
   },
   coverage: { mode: "full" },
+  quality: {
+    testedVersion: "0.1.0",
+    unitTests: {
+      passed: 4,
+      total: 4,
+      skipped: 0,
+    },
+    e2eStatus: "passed",
+    nodeVersions: ["18", "20", "22"],
+    sourceCommit: "dbb61c5b5b5511ff4eb92e5f07b933d5b2bed475",
+    testedAt: "2026-08-16",
+    repositoryUrl: "https://github.com/pontjs/mistral-ai",
+    workflowRunUrl: "https://github.com/pontjs/mistral-ai/actions/runs/31898823063",
+  },
   spec: {
     path: "products/mistral-ai/spec.pontx.json",
     sha256: sha256(zhBytes),
+    metadataCommit: sdkMetadataCommit,
   },
 };
 const provenance = {
