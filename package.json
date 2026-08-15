@@ -1,0 +1,16 @@
+{
+  "name": "@pontx/api-metadata",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-products.mjs && node scripts/verify-candidates.mjs",
+    "test": "node scripts/test-sdk-quality.mjs && node scripts/test-hierarchy.mjs"
+  },
+  "dependencies": {
+    "@pontx/spec": "1.0.0-beta.5"
+  }
+}

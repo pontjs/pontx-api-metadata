@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "slug": "twelve-data-forex",
+  "name": {
+    "zh": "Twelve Data Forex API",
+    "en": "Twelve Data Forex API"
+  },
+  "provider": "Twelve Data",
+  "category": "Finance",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 11,
+    "score": 70
+  },
+  "boundary": {
+    "zh": "Twelve Data 官方 Forex 产品面，包含 REST 实时/历史汇率、换算、时间序列、技术指标以及 WebSocket 实时报价；不把 REST 子集裁剪成完整产品。",
+    "en": "The official Twelve Data Forex product surface across REST realtime/historical rates, conversion, time series, technical indicators, and WebSocket realtime quotes; the REST subset is not presented as the complete product."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "official-rest-openapi",
+    "url": "https://api.twelvedata.com/doc/swagger/openapi.json",
+    "observedAt": "2026-08-14",
+    "mutableSource": true,
+    "license": "review-required",
+    "openapiVersion": "3.1.0",
+    "upstreamVersion": "0.0.1",
+    "sourceSha256": "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c",
+    "sourceBytes": 3446907,
+    "observedPaths": 187,
+    "observedOperations": 187,
+    "observedOperationIds": 187,
+    "observedSchemas": 797,
+    "qualityAudit": {
+      "duplicateOperationIds": 0,
+      "pathTemplateMismatches": 0,
+      "missingSuccessSchemas": 0,
+      "missing4xxOrDefaultResponses": 0,
+      "missingPontxRequestExamples": 187
+    }
+  },
+  "pontxProbe": {
+    "toolVersion": "pontx@1.0.0-beta.3",
+    "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
+    "sourceSha256": "d0a219a5c19518cff59a3ab7275e8308ad8083ef618a58390b73f1164653bc0c",
+    "generatedOperations": 187,
+    "generatedSchemas": 797,
+    "typescriptCheck": "passed",
+    "esmCjsDeclarationsBuild": "passed",
+    "declarationBytes": 1160000,
+    "cliBuild": "passed",
+    "sdkDemoPriceCall": "passed",
+    "cliDemoPriceDryRunAndCall": "passed-with-sdk-beforeRequest-demo-adapter",
+    "npmPackDryRun": "passed",
+    "credentialFinding": "Direct CLI --header and undeclared --apikey inputs were printed and did not authenticate the request; a real release must inject a redacted environment credential in the SDK CLI adapter.",
+    "publicationReady": false,
+    "observedAt": "2026-08-14"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://twelvedata.com/forex"
+    },
+    {
+      "kind": "docs",
+      "url": "https://twelvedata.com/docs"
+    },
+    {
+      "kind": "spec",
+      "url": "https://api.twelvedata.com/doc/swagger/openapi.json"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/twelvedata/twelvedata-node"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://twelvedata.com/docs#websocket"
+    },
+    {
+      "kind": "terms",
+      "url": "https://twelvedata.com/terms"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方 Forex 产品明确包含 WebSocket 实时报价，当前 Pontx 尚未支持并验证 WebSocket 契约、生成、文档与运行时；按协议原子性规则整集暂缓。",
+      "en": "The official Forex product explicitly includes realtime WebSocket quotes, while Pontx has not yet implemented and validated WebSocket contracts, generation, documentation, and runtime behavior; the whole collection is deferred under the atomic transport rule."
+    },
+    {
+      "gate": "redistribution",
+      "zh": "条款把 API、SDK、文档和市场数据列为供应商财产，默认仅授权内部使用；外部展示或再分发需要相应套餐、附加许可或书面协议，免费层禁止商业使用。metadata 与独立 SDK 发布范围仍需确认。",
+      "en": "The terms identify APIs, SDKs, documentation, and market data as supplier property and default access to internal use; external display or redistribution requires the applicable tier, add-on, or written agreement, and free-tier data cannot be used commercially. Metadata and independently generated SDK publication rights remain unresolved."
+    },
+    {
+      "gate": "contract",
+      "zh": "已找到官方可下载的 REST OpenAPI 3.1.0：187 个 Endpoint、797 个 Schema，所有 operationId 唯一，成功/错误响应均有 Schema，并可原样通过 Pontx 代码生成；但它没有覆盖 Forex 产品的 WebSocket 面、URL 可变、没有 OAS 许可声明，且缺少 187 个 Pontx 成功请求示例，因此仍不是完整产品契约。",
+      "en": "The official downloadable REST OpenAPI 3.1.0 has been found: 187 endpoints, 797 schemas, unique operationIds, schema-backed success/error responses, and successful raw Pontx generation. It still omits the Forex product's WebSocket surface, comes from a mutable URL with no OAS license declaration, and lacks all 187 Pontx successful request examples, so it is not yet the complete product contract."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "隔离 REST RC 已从官方 OAS 生成 187 个 Endpoint 与 797 个 Schema，并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run和官方 demo SDK/CLI 实调。但 CLI 直接传 header/query 凭证会打印值且没有正确应用 security scheme；验证只能通过不记录凭证的 beforeRequest demo adapter 完成。正式发布仍受 WebSocket、许可、双语 metadata、凭证红线、独立仓库/CI/npm 版本阻断。",
+      "en": "An isolated REST RC generated 187 endpoints and 797 schemas from the official OAS and passed TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and official-demo SDK/CLI calls. Direct CLI header/query credentials were printed and did not correctly apply the security scheme, so validation required a non-logging beforeRequest demo adapter. A release remains blocked on WebSocket coverage, licensing, bilingual metadata, credential safety, and an independent repository/CI/npm version."
+    }
+  ],
+  "nextAction": {
+    "zh": "先实现 Pontx WebSocket/AsyncAPI 全链路并向 Twelve Data 获取完整固定契约及发布/外部展示许可，再对 REST、WebSocket、套餐、市场数据与缓存边界做整体准入审查。",
+    "en": "First implement the full Pontx WebSocket/AsyncAPI path and obtain a complete pinned contract plus publication/external-display permission from Twelve Data; then review REST, WebSocket, plan, market-data, and caching boundaries as one admission unit."
+  },
+  "verifiedAt": "2026-08-14"
+}

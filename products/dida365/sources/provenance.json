@@ -1,0 +1,35 @@
+{
+  "formatVersion": 1,
+  "status": "approved",
+  "canonicalSpec": "products/dida365/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.0.3",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourcePath": "products/dida365/sources/openapi.json",
+    "sourceSha256": "89d6f648ee651d24ea720aac4e6dd99b858a9692d83fb3530bba03e328db416a",
+    "localeInputSha256": {
+      "en-US": "886ee6abec9b1f6f29f2a616926bc4e6f7a38a37ad48e0ed8f1dc75daf270119"
+    }
+  },
+  "evidence": {
+    "urls": [
+      "https://developer.dida365.com/docs#/openapi",
+      "https://developer.dida365.com/docs/openapi.md"
+    ],
+    "verifiedAt": "2026-08-10"
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/dida365/spec.pontx.json",
+      "sha256": "8d59bae4abdfa07227dca4fee72da9bcfabdca336989ce9905ac07711b814da3",
+      "endpoints": 37,
+      "schemas": 33
+    },
+    "en-US": {
+      "path": "products/dida365/locales/en-US/spec.pontx.json",
+      "sha256": "c393c4fe004c0700ea7eff795c5722cad274be450bc6c017536e416a287896fe",
+      "endpoints": 37,
+      "schemas": 33
+    }
+  }
+}

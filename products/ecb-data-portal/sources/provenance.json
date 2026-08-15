@@ -1,0 +1,188 @@
+{
+  "formatVersion": 1,
+  "status": "approved",
+  "canonicalSpec": "products/ecb-data-portal/spec.pontx.json",
+  "import": {
+    "format": "OpenAPI 3.1.2",
+    "importer": "@pontx/spec importOpenAPI",
+    "sourcePath": "products/ecb-data-portal/sources/openapi.json",
+    "sourceSha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06",
+    "localeInputSha256": {
+      "en-US": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
+    }
+  },
+  "evidence": {
+    "urls": [
+      "https://data.ecb.europa.eu/help/api/overview",
+      "https://data.ecb.europa.eu/help/api/data",
+      "https://data.ecb.europa.eu/help/api/metadata",
+      "https://data.ecb.europa.eu/help/api/schemas",
+      "https://data.ecb.europa.eu/help/api/content-negotiation",
+      "https://data.ecb.europa.eu/help/api/status-codes",
+      "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+      "https://github.com/pontjs/ecb-data-portal",
+      "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+      "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-14"
+  },
+  "upstreamReview": {
+    "version": 1,
+    "status": "approved",
+    "slug": "ecb-data-portal",
+    "verifiedAt": "2026-08-14",
+    "scope": {
+      "product": "ECB Data Portal SDMX 2.1 REST service",
+      "routeFamilies": [
+        "data",
+        "structural metadata",
+        "structure-specific XML schemas"
+      ],
+      "openapiPaths": 8,
+      "operations": 8,
+      "schemas": 12,
+      "authentication": "none",
+      "transport": "HTTPS read-only"
+    },
+    "evidence": [
+      {
+        "status": "official",
+        "url": "https://data.ecb.europa.eu/help/api/data"
+      },
+      {
+        "status": "official",
+        "url": "https://data.ecb.europa.eu/help/api/metadata"
+      },
+      {
+        "status": "official",
+        "url": "https://data.ecb.europa.eu/help/api/schemas"
+      },
+      {
+        "status": "official",
+        "url": "https://data.ecb.europa.eu/help/api/content-negotiation"
+      },
+      {
+        "status": "official",
+        "url": "https://data.ecb.europa.eu/help/api/status-codes"
+      }
+    ],
+    "license": {
+      "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+      "status": "reviewed",
+      "requirements": [
+        "Reproduced information must be accurate and cite the ECB as source.",
+        "Pontx modifications must be stated explicitly."
+      ]
+    },
+    "derivation": {
+      "method": "Independent reconstruction from current ECB Data Portal help pages; the unlicensed sdmx-twg OpenAPI baseline is not copied.",
+      "liveChecks": [
+        {
+          "method": "GET",
+          "target": "/data/EXR/M.USD.EUR.SP00.A",
+          "boundedQuery": "startPeriod=2024-01&endPeriod=2024-01&format=jsondata",
+          "status": 200,
+          "contentType": "application/vnd.sdmx.data+json;version=1.0.0-wd"
+        },
+        {
+          "method": "GET",
+          "target": "/dataflow/ECB/EXR/latest",
+          "boundedQuery": "detail=allstubs&references=none",
+          "status": 200,
+          "contentType": "application/vnd.sdmx.structure+xml;version=2.1"
+        },
+        {
+          "method": "GET",
+          "target": "/schema/datastructure/ECB/ECB_EXR1/1.0",
+          "boundedQuery": "none; response limited to 2 MiB during verification",
+          "status": 200,
+          "contentType": "application/vnd.sdmx.schema+xml;version=2.1"
+        }
+      ],
+      "limitations": [
+        "The ECB pages do not declare a stable error-body schema, so error bodies remain strings.",
+        "XML payloads remain typed strings because OpenAPI JSON Schema does not encode the externally generated SDMX XML vocabulary."
+      ]
+    },
+    "localization": {
+      "structuralSource": "zh-CN",
+      "locale": "en-US",
+      "structuralParity": "required"
+    },
+    "sdkProbe": {
+      "status": "operator-published",
+      "packageName": "@pontx/ecb-data-portal",
+      "cliName": "pontx-ecb-data-portal",
+      "generator": "pontx@1.0.0-beta.11",
+      "runtime": "@pontx/sdk@1.0.0-beta.4",
+      "generatedOperations": 8,
+      "generatedSchemas": 12,
+      "typeCheck": "passed",
+      "esmCjsDeclarationsBuild": "passed",
+      "cliBuild": "passed",
+      "unitTests": {
+        "status": "passed",
+        "passed": 3,
+        "total": 3,
+        "skipped": 0
+      },
+      "e2eTests": {
+        "status": "passed",
+        "passed": 3,
+        "total": 3,
+        "skipped": 0
+      },
+      "npmPackDryRun": {
+        "status": "passed",
+        "files": 9
+      },
+      "sdkLiveChecks": [
+        "bounded SDMX-JSON data request",
+        "bounded structural-metadata XML request"
+      ],
+      "cliChecks": [
+        "help",
+        "catalog list",
+        "endpoint show",
+        "request dry-run",
+        "bounded live data call"
+      ],
+      "publicationReady": true,
+      "limitation": "The published package intentionally calls the ECB public anonymous read-only service directly; Hub proxying remains disabled."
+    },
+    "publication": {
+      "packageName": "@pontx/ecb-data-portal",
+      "version": "0.1.0",
+      "cliName": "pontx-ecb-data-portal",
+      "sourceCommit": "533ef4716cca0b66b50bb7a810f84504a4008f46",
+      "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
+      "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31814621599",
+      "registryTarball": "https://registry.npmjs.org/@pontx/ecb-data-portal/-/ecb-data-portal-0.1.0.tgz",
+      "registryIntegrity": "sha512-/gMbs7GGkIPZzQinMYww3oW6i/iIqRCva6AzdUNZHfXYxUzwcg1B417WV6rQiFqLlu69k1ReRax4brfmZ/QDfA=="
+    },
+    "outputs": {
+      "zh-CN": {
+        "file": "specs/ecb-data-portal/openapi.json",
+        "sha256": "d9b0ed187de1b4460e2e354f3b42dfca79719356a24acc8e229256326fe64b06"
+      },
+      "en-US": {
+        "file": "specs/ecb-data-portal/locales/en-US/openapi.json",
+        "sha256": "f2cddfb7911db8135b12660a9b8b9d12d209622cca413bdda4c105c7981b1086"
+      }
+    }
+  },
+  "outputs": {
+    "zh-CN": {
+      "path": "products/ecb-data-portal/spec.pontx.json",
+      "sha256": "d64b37c23b87d5e90c79f34417aa81435c036f98740db7cc36a493ea1f4298e9",
+      "endpoints": 8,
+      "schemas": 12
+    },
+    "en-US": {
+      "path": "products/ecb-data-portal/locales/en-US/spec.pontx.json",
+      "sha256": "23f989238019d297162b2583160773f3b68cc67aac6a74d8dc75a172e2322e1f",
+      "endpoints": 8,
+      "schemas": 12
+    }
+  }
+}

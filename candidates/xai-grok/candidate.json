@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "xai-grok",
+  "name": {
+    "zh": "xAI Grok API",
+    "en": "xAI Grok API"
+  },
+  "provider": "xAI",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 8,
+    "score": 84
+  },
+  "boundary": {
+    "zh": "xAI 当前公开的完整 API 产品面，Grok 模型版本不拆分为集合。",
+    "en": "The complete current public xAI API surface; Grok model versions are not split into collections."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://docs.x.ai/developers"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://docs.x.ai/developers/model-capabilities/text/streaming"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方说明所有支持文本输出的模型使用 SSE 流式返回；整集暂缓。",
+      "en": "Official documentation states that all text-output-capable models stream using SSE; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 支持后重审完整 Endpoint、许可与版本策略。",
+    "en": "Re-review the complete endpoint, licensing, and versioning surface after SSE support lands."
+  },
+  "verifiedAt": "2026-08-14"
+}

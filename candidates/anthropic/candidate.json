@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "slug": "anthropic",
+  "name": {
+    "zh": "Anthropic API",
+    "en": "Anthropic API"
+  },
+  "provider": "Anthropic",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 5,
+    "score": 91
+  },
+  "boundary": {
+    "zh": "Claude Platform 当前公开的完整 API 产品面，包括 Messages、Files、Batch、工具与管理能力。",
+    "en": "The complete current Claude Platform API surface, including Messages, Files, Batch, tools, and administration capabilities."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://platform.claude.com/docs/en/api/messages"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/streaming"
+    },
+    {
+      "kind": "terms",
+      "url": "https://www.anthropic.com/legal/commercial-terms"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "Messages API 官方流式响应是带事件类型的 SSE；整集暂缓。",
+      "en": "Official Messages API streaming is typed SSE; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "实现 SSE 事件联合类型、错误与未知事件兼容后重审。",
+    "en": "Re-review after SSE event unions, stream errors, and forward-compatible unknown-event handling are supported."
+  },
+  "verifiedAt": "2026-08-14"
+}

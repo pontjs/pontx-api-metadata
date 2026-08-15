@@ -1,0 +1,6 @@
+{
+  "display": {
+    "title": "Minimal RPC API",
+    "summary": "Verifies that a non-HTTP PontxSpec can be loaded and indexed."
+  }
+}

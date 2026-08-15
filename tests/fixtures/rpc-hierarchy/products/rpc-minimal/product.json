@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "slug": "rpc-minimal",
+  "name": "Minimal RPC",
+  "provider": "Pontx",
+  "category": "Fixture",
+  "featured": false,
+  "display": {
+    "title": "最小 RPC API",
+    "summary": "验证非 HTTP PontxSpec 可以加载和索引。",
+    "accent": "#334155"
+  },
+  "legal": {
+    "license": "MIT",
+    "attributionUrl": "https://pontx.dev/"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": ["https://pontx.dev/"],
+    "verifiedAt": "2026-08-15",
+    "contentUpdatedAt": "2026-08-15"
+  },
+  "credentials": [],
+  "execution": {
+    "hubProxyEnabled": false
+  },
+  "quickStart": {
+    "operationId": "getItem",
+    "requestExampleId": "default"
+  }
+}

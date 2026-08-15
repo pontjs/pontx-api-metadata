@@ -1,0 +1,15 @@
+{
+  "formatVersion": 1,
+  "defaultLocale": "zh-CN",
+  "locales": [
+    "en-US"
+  ],
+  "products": [
+    "frankfurter",
+    "frankfurter-v2",
+    "dida365",
+    "massive",
+    "ecb-data-portal",
+    "dropbox-sign"
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "slug": "posthog",
+  "name": {
+    "zh": "PostHog Public API",
+    "en": "PostHog Public API"
+  },
+  "provider": "PostHog",
+  "category": "Analytics",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 4,
+    "score": 86
+  },
+  "boundary": {
+    "zh": "PostHog 官方托管实例公开的完整 Public API schema；不按 Explinks 的数据仓库子集裁剪。",
+    "en": "The complete Public API schema exposed by an official PostHog hosted instance, not the narrower data-warehouse subset shown by Explinks."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "openapi",
+    "url": "https://eu.posthog.com/api/schema/?format=json",
+    "observedAt": "2026-08-14",
+    "mutableSource": true,
+    "license": "review-required",
+    "openapiVersion": "3.1.0",
+    "observedPaths": 1314,
+    "observedOperations": 1863,
+    "observedSchemas": 3403
+  },
+  "evidence": [
+    {
+      "kind": "spec",
+      "url": "https://eu.posthog.com/api/schema/?format=json"
+    },
+    {
+      "kind": "docs",
+      "url": "https://posthog.com/docs/api"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://eu.posthog.com/api/schema/swagger-ui/"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/PostHog/posthog/blob/master/LICENSE"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方完整 schema 含多个 text/event-stream / SSE Endpoint；按原子暂缓规则整集阻断。",
+      "en": "The complete official schema contains multiple text/event-stream/SSE endpoints, so the whole collection is blocked by the atomic transport hold."
+    },
+    {
+      "gate": "redistribution",
+      "zh": "完整 schema 混合核心与企业能力，需确认各路径适用的 MIT/企业许可及规范再分发条件。",
+      "en": "The complete schema mixes core and enterprise capabilities; applicable MIT/enterprise licensing and specification redistribution terms require review."
+    },
+    {
+      "gate": "contract",
+      "zh": "当前契约来自官方托管实例的可变 schema URL，未固定到可复现的 Git revision，不能作为不可变的完整契约快照。",
+      "en": "The current contract comes from a mutable schema URL on an official hosted instance and is not pinned to a reproducible Git revision, so it cannot serve as an immutable complete-contract snapshot."
+    }
+  ],
+  "nextAction": {
+    "zh": "获取并固定可再分发、可复现的不可变完整 schema 快照，同时实现并验证 SSE 契约支持，再复核混合许可边界。",
+    "en": "Obtain and pin a redistributable, reproducible, immutable snapshot of the complete schema; implement and validate SSE contract support; then re-review the mixed-license boundary."
+  },
+  "verifiedAt": "2026-08-14"
+}

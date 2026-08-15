@@ -1,0 +1,13 @@
+{
+  "display": {
+    "title": "Frankfurter exchange-rate API",
+    "summary": "Query ECB reference rates, currencies, and historical time series without an API key; this collection covers the still-available v1."
+  },
+  "documentation": {
+    "stabilityNote": "Read-only public API without authentication. v1 is superseded by v2 but remains available long term; its catalog endpoints are marked deprecated."
+  },
+  "pricing": {
+    "summary": "The public API is free for commercial use with no monthly or daily quota; upstream rate-limits requests to prevent abuse.",
+    "freeTier": "No API key and no API-call fee."
+  }
+}

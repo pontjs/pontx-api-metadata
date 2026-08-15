@@ -1,90 +1,69 @@
 # Contributing to Pontx API Metadata
 
-Thank you for helping make reliable API metadata available to developers and agents.
-
 ## Branch workflow
 
-- `develop` is the integration branch. Pushes deploy the preview environment after validation.
-- `main` is the production branch. Pushes deploy the production environment after validation.
-- Open feature and metadata pull requests against `develop`.
-- Promote reviewed changes from `develop` to `main` with a pull request.
+- `develop` is the integration branch and deploys Preview after validation.
+- `main` is the production branch and deploys Production after validation.
+- Open product and protocol changes against `develop`, then promote reviewed metadata to `main`.
 
-Do not commit directly to `main` except for an explicitly approved emergency fix.
+## Add or update a product
 
-## Add or update an API
+Create or modify only the owning directory:
 
-1. Add the canonical Chinese OpenAPI document at `specs/<slug>/openapi.json`.
-2. Add its structurally identical English translation at
-   `specs/<slug>/locales/en-US/openapi.json`.
-3. Add or update Chinese product metadata in `catalog/source.json` and English
-   product copy in `catalog/locales/en-US.json`.
-4. Record the exact SHA-256 values in `approvedSha256` and
-   `approvedLocaleSha256.en-US`.
-5. Run `node scripts/test-locales.mjs` and `node scripts/lint-locales.mjs`.
-6. Run `node scripts/build-catalog.mjs` and `node scripts/verify-specs.mjs`.
-7. Commit all source locale files and the generated `catalog/catalog.json`.
+```text
+products/<slug>/
+├── product.json
+├── spec.pontx.json
+├── sdk.json
+├── locales/en-US/{product.json,spec.pontx.json}
+└── sources/{provenance.json,openapi.json?}
+```
 
-Locale names must be BCP 47 tags (`zh-CN`, `en-US`). A translation may change
-only approved prose fields. Do not translate or reorder paths, HTTP methods,
-operation IDs, tags, parameter names, Schema/property names, formats,
-constraints, examples, security declarations, server URLs, or Pontx execution
-policy. Locale lint reports violations with an exact JSON Pointer.
+PontxSpec is canonical. If authoritative evidence arrives as OAS2/OAS3, import it once with the official `@pontx/spec` importer, review every Endpoint and Schema, commit the resulting PontxSpec, and treat the OAS only as optional evidence from then on. Do not add conversion to a build or validation path.
 
-Every API must have a stable upstream source, an attribution URL, a reviewed license, HTTPS servers, and credentials represented only as environment-variable names. Never commit real API keys or access tokens.
+Product metadata belongs in `product.json`; servers, security schemes, API definitions, Schemas, examples, and Endpoint policy belong in `spec.pontx.json`; SDK release data belongs in `sdk.json`. Do not duplicate those fields across files.
 
-Every Endpoint must also define `x-pontx-request-examples`. Curate all stable
-path, query, header, and body values as one request and declare every omitted
-dynamic value in `unresolved`, regardless of whether the value is an ID, time,
-cursor, nonce, or provider-specific state. Point dependencies at a real
-`operationId`, or use a concise runtime reason. Select one complete, ready
-example per API through `quickStart` in `catalog/source.json`.
+Locale names use BCP 47 tags. Locale PontxSpecs may change translated prose only. They must not change API keys, operation IDs, tags, request/response structure, parameters, Schemas, constraints, examples, security, servers, or execution semantics.
 
-For provider-owned but undocumented read-only web APIs, record `documentationStatus`, `evidenceUrls`, `verifiedAt`, and a bilingual `stabilityNote`. Each operation must also carry the matching `x-pontx-*` evidence extensions. Proxy execution may be enabled only for verified read-only endpoints with an endpoint-specific HTTPS server allowlist and curated fixed headers; login, account, trading, mutation, advertising, and user-data endpoints remain prohibited.
+Published SDK evidence must include:
+
+- the exact npm package and version;
+- a full SDK source commit and immutable CI run;
+- Node.js/test/package E2E evidence;
+- `coverage.mode: "full"`, or the exact Endpoint IDs for partial coverage;
+- the canonical PontxSpec path, raw-byte SHA-256, and a metadata commit containing those bytes.
 
 ## Add or update a candidate
 
-Candidate products that have not passed catalog admission live in
-`catalog/api-collection-candidates.json`. Keep them out of `catalog/source.json`
-until every authority, redistribution, complete-contract, transport, risk, and
-SDK/CLI gate passes.
+Candidates live at `candidates/<slug>/candidate.json` and must be listed in `candidates/products.json`. Keep them out of `catalog/products.json` until authority, redistribution, complete-contract, transport, risk, and SDK/CLI publication gates all pass.
 
-1. Add the supplier-level product to
-   `catalog/api-collection-growth-priority.md` before changing its structured
-   intake record.
-2. Use only supplier-owned documentation, specifications, source repositories,
-   licenses, or terms as evidence. Discovery platforms may explain priority but
-   cannot approve contract facts.
-3. Preserve the complete supplier product boundary. If any part uses SSE,
-   WebSocket, or another unsupported realtime protocol, mark the entire
-   collection `protocol-blocked`; do not remove those endpoints to make it pass.
-4. Record unresolved licensing, privacy, compliance, and SDK/CLI publication
-   work as pending or blocked gates rather than claiming catalog readiness.
-5. Run `node scripts/verify-candidates.mjs` and the normal repository gates.
+Use supplier-owned documentation, specifications, source repositories, licenses, or terms as evidence. Preserve the complete supplier product boundary. Unsupported transports and unresolved legal or safety issues block admission; do not delete difficult Endpoints to make a candidate appear complete.
 
-Candidate metadata is an evidence-backed intake ledger, not a documentation
-page or a promise that the API will be published.
+## Required checks
+
+```bash
+pnpm install
+pnpm test
+pnpm validate
+git diff --check
+```
+
+The hierarchy test fixes the current production baseline at 6 products, 134 Endpoints, and 287 Schemas and also validates a non-HTTP RPC fixture. If a deliberate product change alters those counts, update the fixture expectation in the same reviewed change.
 
 ## Pull request checklist
 
-- The OpenAPI document parses successfully.
-- `node scripts/lint-locales.mjs` confirms that locale files differ only in prose.
-- The approved SHA-256 matches the committed document.
-- Chinese and English titles and summaries are useful and accurate.
-- Important data structures have useful bilingual entries in `schemaTranslations`.
-- Request parameters, request bodies, response descriptions, media types, and schema references are complete enough for semantic retrieval.
-- Every Endpoint has a successful request example; dynamic inputs are omitted, marked as unresolved, and have a valid source.
-- The API Quick Start points to a ready request example.
-- Operation slugs remain stable unless the upstream operation identity changed.
-- Mutating endpoints and authentication requirements are described correctly.
-- `catalog/catalog.json` has been regenerated and committed.
-- No credentials, private endpoints, or user data are present.
+- Only the intended product/candidate directories changed.
+- `catalog/products.json` contains slugs only and remains ordered.
+- PontxSpec declares a supported `pontx` version and explicit `style`.
+- RESTFul Endpoints have method/path; other styles do not need HTTP fields.
+- Stable operation IDs, resource slugs, explicit tags, servers, security, examples, media types, responses, and Schema constraints are preserved.
+- Chinese and English PontxSpecs are structurally identical outside approved prose.
+- Product credentials are environment-variable names/instructions only; security semantics remain in PontxSpec.
+- SDK coverage, version, quality, spec SHA, and metadata commit are accurate.
+- Every server and evidence URL is HTTPS.
+- No real credentials, private endpoints, or user data are present.
+- Candidate slugs are absent from the published product list.
 
 ## Deployment setup
 
-Repository administrators configure three GitHub Actions secrets:
-
-- `VERCEL_TOKEN` with deployment access to the Pontx Hub project.
-- `VERCEL_ORG_ID` for the `pontjs` Vercel team.
-- `VERCEL_PROJECT_ID` for the Pontx Hub Vercel project.
-
-The workflow validates the catalog, checks out the public Hub repository, and deploys it with `METADATA_REPO_RAW_URL` pinned to the pushed metadata branch. `develop` creates a Vercel Preview deployment; `main` deploys Production.
+Repository administrators configure `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. The workflow deploys Hub with `METADATA_REPO_RAW_URL` and `METADATA_REPO_COMMIT` pinned to the pushed Git SHA, never to a moving branch reference.

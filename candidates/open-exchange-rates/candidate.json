@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "slug": "open-exchange-rates",
+  "name": {
+    "zh": "Open Exchange Rates API",
+    "en": "Open Exchange Rates API"
+  },
+  "provider": "Open Exchange Rates",
+  "category": "Finance",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 9,
+    "score": 74
+  },
+  "boundary": {
+    "zh": "Open Exchange Rates 官方 v0.7 JSON REST API，覆盖 latest、historical、currencies、time-series、convert、OHLC 与 usage 七个只读 Endpoint 及官方附加查询参数。",
+    "en": "The official Open Exchange Rates v0.7 JSON REST API covering the seven read-only latest, historical, currencies, time-series, convert, OHLC, and usage endpoints plus officially documented query parameters."
+  },
+  "stage": "audit-required",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "passed",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "mutable-readme-openapi",
+    "url": "https://docs.openexchangerates.org/reference/latest-json",
+    "observedAt": "2026-08-14",
+    "mutableSource": true,
+    "license": "review-required",
+    "openapiVersion": "3.1.0",
+    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "extraction": "Official ReadMe page document.api.schema",
+    "observedPaths": 7,
+    "observedOperations": 7,
+    "observedSchemas": 0,
+    "qualityAudit": {
+      "invalidCodegenOperationIds": 6,
+      "pathTemplateMismatches": 1,
+      "missingSuccessSchemas": 4,
+      "missing4xxOrDefaultResponses": 2,
+      "missingPontxRequestExamples": 7
+    }
+  },
+  "pontxProbe": {
+    "toolVersion": "pontx@1.0.0-beta.3",
+    "runtimeVersion": "@pontx/sdk@1.0.0-beta.0",
+    "sourceSha256": "1e70ee723f49313c1d618c2065ca127ebb411d78c3abf60a0c4eae8fc408ea84",
+    "derivedProbeFixes": [
+      "normalized the ReadMe colon date path to an OpenAPI path template",
+      "replaced six hyphenated operationIds with code-generation-safe identifiers",
+      "removed the generated dangling schemas import because the official OAS declares zero component schemas"
+    ],
+    "generatedOperations": 7,
+    "generatedSchemas": 0,
+    "typescriptCheck": "passed-after-derived-fixes",
+    "esmCjsDeclarationsBuild": "passed-after-derived-fixes",
+    "cliBuild": "passed-after-derived-fixes",
+    "anonymousCurrenciesSdkCall": "passed-173-currencies",
+    "anonymousCurrenciesCliDryRunAndCall": "passed",
+    "npmPackDryRun": "passed",
+    "publicationReady": false,
+    "observedAt": "2026-08-14"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://docs.openexchangerates.org/reference/api-introduction"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/openexchangerates/npm-exchange-rates"
+    },
+    {
+      "kind": "terms",
+      "url": "https://openexchangerates.org/terms"
+    },
+    {
+      "kind": "terms",
+      "url": "https://openexchangerates.org/services-agreement"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "redistribution",
+      "zh": "网站条款保留站点与文档知识产权，只授予不可转让、可撤销的有限使用权；官方 Node wrapper 仓库也没有可识别 LICENSE。尚无证据允许 Pontx 再分发规范 prose 或发布独立生成 SDK。",
+      "en": "The website terms reserve site and documentation intellectual property and grant only a non-transferable, revocable, limited right of use; the official Node wrapper repository also has no identifiable LICENSE. No evidence yet authorizes Pontx to redistribute specification prose or publish an independently generated SDK."
+    },
+    {
+      "gate": "contract",
+      "zh": "已从官方 ReadMe 页面内嵌的 document.api.schema 机械提取 7-Endpoint OpenAPI 3.1.0 快照并固定 SHA-256，但源 URL 可变且契约质量未达门槛：0 个 component Schema、4 个成功响应无 Schema、2 个 Endpoint 无 4xx/default、1 个 path template 不合法、6 个 operationId 含连字符而无法直接生成 TypeScript，并且 7 个 Endpoint 均无 Pontx 成功请求示例。",
+      "en": "A seven-endpoint OpenAPI 3.1.0 snapshot was mechanically extracted from document.api.schema on the official ReadMe page and pinned by SHA-256, but the source URL is mutable and the contract fails quality gates: zero component schemas, four successful responses without schemas, two endpoints without 4xx/default responses, one invalid path template, six hyphenated operationIds that cannot directly generate TypeScript, and no Pontx successful request example on any endpoint."
+    },
+    {
+      "gate": "risk",
+      "zh": "数据套餐限制基准货币、更新频率、历史/高级能力与再分发权；Hub 代理默认应关闭，调用方必须直接使用自己的 App ID 与数据许可。",
+      "en": "Plan entitlements govern base currencies, refresh frequency, historical/advanced features, and redistribution rights; Hub proxying should stay disabled and callers must use their own App ID and data license directly."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。但 0 个 Schema 和三项派生补丁证明它不是可发布 SDK，且尚无独立仓库、CI 或 npm 版本。",
+      "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. Zero schemas and three derived patches demonstrate that it is not publishable, and no independent repository, CI evidence, or npm version exists."
+    }
+  ],
+  "nextAction": {
+    "zh": "向 Open Exchange Rates 获取可再分发的固定 OAS 与生成客户端书面许可；许可通过后逐 Endpoint 补齐套餐条件、错误 Schema、成功请求示例并以代理关闭模式发布 SDK/CLI。",
+    "en": "Obtain a redistributable pinned OAS and written generated-client permission from Open Exchange Rates; after approval, complete endpoint-level plan conditions, error schemas, and successful request examples, then publish the SDK/CLI with proxying disabled."
+  },
+  "verifiedAt": "2026-08-14"
+}

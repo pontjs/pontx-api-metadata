@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/dida365",
+    "version": "0.1.1",
+    "status": "published",
+    "repository": "https://github.com/pontjs/dida365"
+  },
+  "cli": {
+    "name": "pontx-dida365"
+  },
+  "contract": {
+    "client": {
+      "kind": "default",
+      "identifier": "Dida365Client"
+    },
+    "auth": {
+      "kind": "bearer-request-init",
+      "envVar": "DIDA365_ACCESS_TOKEN"
+    },
+    "controllers": {
+      "task": "task",
+      "project": "project"
+    },
+    "operations": [
+      "getTaskByProjectIdAndTaskId",
+      "deleteTask",
+      "createTask",
+      "updateTask",
+      "completeTask",
+      "getUserProjects",
+      "createProject",
+      "getProjectById",
+      "deleteProject",
+      "updateProject",
+      "getProjectWithData"
+    ]
+  },
+  "examples": {
+    "typescript": "import Dida365Client, { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst oauth = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait oauth.authenticate();\nconst accessToken = await oauth.getAccessToken();\nconst projects = await Dida365Client.project.getUserProjects({\n  headers: { Authorization: `Bearer ${accessToken}` }\n});",
+    "cli": "pnpm add --global @pontx/dida365\n\npontx-dida365 call project.getUserProjects --dry-run"
+  },
+  "coverage": {
+    "mode": "partial",
+    "endpointIds": [
+      "getTaskByProjectIdAndTaskId",
+      "deleteTask",
+      "createTask",
+      "updateTask",
+      "completeTask",
+      "getUserProjects",
+      "createProject",
+      "getProjectById",
+      "deleteProject",
+      "updateProject",
+      "getProjectWithData"
+    ]
+  },
+  "quality": {
+    "testedVersion": "0.1.1",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "ea509a0caf36322a31362787ca5790dc4fa63808",
+    "testedAt": "2026-08-14",
+    "repositoryUrl": "https://github.com/pontjs/dida365",
+    "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/31776800890"
+  },
+  "spec": {
+    "path": "products/dida365/spec.pontx.json",
+    "sha256": "8d59bae4abdfa07227dca4fee72da9bcfabdca336989ce9905ac07711b814da3",
+    "metadataCommit": null
+  }
+}

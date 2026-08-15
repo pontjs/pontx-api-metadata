@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "slug": "deepseek",
+  "name": {
+    "zh": "DeepSeek API",
+    "en": "DeepSeek API"
+  },
+  "provider": "DeepSeek",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 3,
+    "score": 93
+  },
+  "boundary": {
+    "zh": "DeepSeek 官方 OpenAI/Anthropic 兼容 API 的完整产品面，模型别名与版本不拆分。",
+    "en": "The complete official DeepSeek API surface across its OpenAI- and Anthropic-compatible formats; model aliases and versions are not split."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://api-docs.deepseek.com/zh-cn/api/deepseek-api"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/"
+    },
+    {
+      "kind": "terms",
+      "url": "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方 Chat 与 FIM 接口以 text/event-stream 返回增量消息；整集暂缓。",
+      "en": "The official Chat and FIM endpoints return incremental messages as text/event-stream; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "等待 SSE 契约支持，再固定官方 API 版本与兼容协议范围。",
+    "en": "Wait for SSE contract support, then pin the official API version and compatible-format boundary."
+  },
+  "verifiedAt": "2026-08-14"
+}

@@ -1,0 +1,26 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/rpc-minimal",
+    "version": "0.0.0",
+    "status": "planned",
+    "repository": "https://github.com/pontjs/pontx"
+  },
+  "cli": {
+    "name": "pontx-rpc-minimal"
+  },
+  "contract": {
+    "client": { "kind": "named", "identifier": "rpcMinimalClient" },
+    "controllers": { "inventory": "inventory" },
+    "operations": ["getItem"]
+  },
+  "examples": {},
+  "coverage": {
+    "mode": "full"
+  },
+  "spec": {
+    "path": "products/rpc-minimal/spec.pontx.json",
+    "sha256": "b98282ce840bedb84bfc6b804a470197f6177565c3834d3f07a054dbc460372c",
+    "metadataCommit": null
+  }
+}

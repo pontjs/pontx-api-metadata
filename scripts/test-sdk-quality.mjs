@@ -1,11 +1,9 @@
 import assert from "node:assert/strict";
 import { validateSdkQuality } from "./lib/sdk-quality.mjs";
 
-const entry = {
-  slug: "example",
-  sdkStatus: "published",
-  sdkVersion: "1.2.3",
-  sdkQuality: {
+const sdk = {
+  package: { name: "@pontx/example", version: "1.2.3", status: "published" },
+  quality: {
     testedVersion: "1.2.3",
     unitTests: { passed: 4, total: 4, skipped: 0 },
     e2eStatus: "passed",
@@ -17,40 +15,40 @@ const entry = {
   },
 };
 
-assert.doesNotThrow(() => validateSdkQuality(entry));
+assert.doesNotThrow(() => validateSdkQuality("example", sdk));
 assert.throws(
-  () => validateSdkQuality({ ...entry, sdkQuality: undefined }),
-  /requires sdkQuality evidence/,
+  () => validateSdkQuality("example", { ...sdk, quality: undefined }),
+  /requires quality evidence/,
 );
 assert.throws(
-  () => validateSdkQuality({
-    ...entry,
-    sdkQuality: { ...entry.sdkQuality, testedVersion: "1.2.2" },
+  () => validateSdkQuality("example", {
+    ...sdk,
+    quality: { ...sdk.quality, testedVersion: "1.2.2" },
   }),
-  /must match sdkVersion/,
+  /must match package.version/,
 );
 assert.throws(
-  () => validateSdkQuality({
-    ...entry,
-    sdkQuality: {
-      ...entry.sdkQuality,
+  () => validateSdkQuality("example", {
+    ...sdk,
+    quality: {
+      ...sdk.quality,
       unitTests: { passed: 3, total: 4, skipped: 1 },
     },
   }),
   /100% unit-test pass rate/,
 );
 assert.throws(
-  () => validateSdkQuality({
-    ...entry,
-    sdkQuality: { ...entry.sdkQuality, e2eStatus: "failed" },
+  () => validateSdkQuality("example", {
+    ...sdk,
+    quality: { ...sdk.quality, e2eStatus: "failed" },
   }),
   /E2E status must be passed/,
 );
 assert.throws(
-  () => validateSdkQuality({
-    ...entry,
-    sdkQuality: {
-      ...entry.sdkQuality,
+  () => validateSdkQuality("example", {
+    ...sdk,
+    quality: {
+      ...sdk.quality,
       workflowRunUrl: "https://github.com/pontjs/other/actions/runs/1",
     },
   }),

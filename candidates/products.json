@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "snapshotDate": "2026-08-14",
+  "roadmap": "docs/api-collection-growth-priority.md",
+  "admissionPolicy": {
+    "zh": "候选记录不是正式收录。只有权威来源、许可与再分发、完整契约、传输协议、安全审查以及 SDK/CLI 发布六个门槛全部通过并建立完整分级产品目录后，slug 才可进入 catalog/products.json。完整产品边界包含 SSE 或其他当前不支持的实时协议时，整集暂缓，不得裁剪发布。",
+    "en": "Candidate records are not catalog admission. A slug may enter catalog/products.json only after authoritative sourcing, redistribution, complete-contract, transport, safety, and SDK/CLI publication gates all pass and a complete isolated product directory exists. If the complete product boundary contains SSE or another currently unsupported realtime protocol, the whole collection is deferred rather than published as a subset."
+  },
+  "products": [
+    "notion",
+    "wps-365",
+    "mongodb-atlas-admin",
+    "posthog",
+    "amazon-sqs",
+    "sendbird-chat-platform",
+    "open-exchange-rates",
+    "currencybeacon-rest",
+    "twelve-data-forex",
+    "openai",
+    "qwen",
+    "deepseek",
+    "gemini",
+    "anthropic",
+    "kimi",
+    "zhipu-bigmodel",
+    "xai-grok",
+    "tencent-hunyuan",
+    "iflytek-spark",
+    "baidu-qianfan",
+    "mistral-ai",
+    "stripe-identity"
+  ]
+}

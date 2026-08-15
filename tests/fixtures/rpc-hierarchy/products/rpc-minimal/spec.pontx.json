@@ -1,0 +1,50 @@
+{
+  "pontx": "2.1",
+  "style": "RPC",
+  "name": "rpc-minimal",
+  "info": {
+    "title": "最小 RPC 契约",
+    "version": "1.0.0"
+  },
+  "apis": {
+    "inventory/getItem": {
+      "operationId": "getItem",
+      "summary": "获取库存项目",
+      "tags": ["inventory"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "body",
+          "required": true,
+          "schema": { "type": "string" }
+        }
+      ],
+      "responses": {
+        "success": {
+          "description": "项目结果",
+          "schema": { "$ref": "#/components/schemas/Item" }
+        }
+      },
+      "requestExamples": {
+        "default": {
+          "request": { "body": "item-1" },
+          "expectedStatus": "success"
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "inventory", "description": "库存方法" }
+  ],
+  "components": {
+    "schemas": {
+      "Item": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "description": "项目 ID" }
+        }
+      }
+    }
+  }
+}

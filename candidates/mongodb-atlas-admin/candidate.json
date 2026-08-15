@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "slug": "mongodb-atlas-admin",
+  "name": {
+    "zh": "MongoDB Atlas Administration API",
+    "en": "MongoDB Atlas Administration API"
+  },
+  "provider": "MongoDB",
+  "category": "Cloud",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 3,
+    "score": 88
+  },
+  "boundary": {
+    "zh": "MongoDB Atlas Administration API v2；不包含 MongoDB wire protocol、Atlas Data API 或其他独立产品。",
+    "en": "MongoDB Atlas Administration API v2 only; it excludes the MongoDB wire protocol, Atlas Data API, and other separately defined products."
+  },
+  "stage": "audit-required",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "passed",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "openapi",
+    "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
+    "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
+    "observedAt": "2026-08-14",
+    "license": "Apache-2.0",
+    "openapiVersion": "3.0.1",
+    "observedPaths": 335,
+    "observedOperations": 540,
+    "observedSchemas": 1145
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://www.mongodb.com/docs/atlas/api/atlas-admin-api-ref/"
+    },
+    {
+      "kind": "spec",
+      "url": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/mongodb/openapi/blob/main/LICENSE"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "risk",
+      "zh": "管理面包含删除集群、网络与访问配置等高影响写接口，需完成 Endpoint 级 preview/confirmation 与代理禁用策略。",
+      "en": "The administration surface contains high-impact mutations for clusters, networking, and access configuration; endpoint-level preview/confirmation and proxy-disable policy are still required."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "规范可生成，但 @pontx/mongodb-atlas-admin 与 pontx-mongodb-atlas-admin 尚未构建、测试和发布。",
+      "en": "The contract is generation-ready, but @pontx/mongodb-atlas-admin and pontx-mongodb-atlas-admin have not been built, tested, and published."
+    }
+  ],
+  "nextAction": {
+    "zh": "基于已固定的官方 v2 规范提交，完成双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
+    "en": "Use the pinned official v2 specification revision to complete bilingual prose and sensitive-endpoint execution policy, then publish the SDK/CLI release chain."
+  },
+  "verifiedAt": "2026-08-14"
+}

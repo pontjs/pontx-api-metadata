@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "slug": "amazon-sqs",
+  "name": {
+    "zh": "Amazon SQS API",
+    "en": "Amazon SQS API"
+  },
+  "provider": "Amazon Web Services",
+  "category": "Cloud",
+  "priority": {
+    "group": "eligible-review",
+    "rank": 5,
+    "score": 84
+  },
+  "boundary": {
+    "zh": "Amazon Simple Queue Service 当前官方 API 的 23 个 action、数据类型、错误、区域 Endpoint 与 SigV4 认证。",
+    "en": "The current Amazon Simple Queue Service API with all 23 official actions, data types, errors, regional endpoints, and SigV4 authentication."
+  },
+  "stage": "audit-required",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "passed",
+    "contract": "passed",
+    "transport": "passed",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "contractSource": {
+    "kind": "smithy",
+    "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/codegen/sdk-codegen/aws-models/sqs.json",
+    "revision": "4efe5bc67b71dc5ec652fe77130f3bae9efe0173",
+    "observedAt": "2026-08-14",
+    "license": "Apache-2.0",
+    "observedOperations": 23,
+    "observedSchemas": 138
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html"
+    },
+    {
+      "kind": "spec",
+      "url": "https://raw.githubusercontent.com/aws/aws-sdk-js-v3/main/codegen/sdk-codegen/aws-models/sqs.json"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/aws/aws-sdk-js-v3/blob/main/LICENSE"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "risk",
+      "zh": "DeleteQueue、PurgeQueue、DeleteMessage 与权限变更等接口需高影响 mutation 策略；文档中的 SSE 缩写是 server-side encryption，不是 Server-Sent Events。",
+      "en": "DeleteQueue, PurgeQueue, DeleteMessage, and permission mutations require a high-impact execution policy; the SSE acronym in SQS documentation means server-side encryption, not Server-Sent Events."
+    },
+    {
+      "gate": "sdkCli",
+      "zh": "需先从 Smithy 模型生成并发布 @pontx/amazon-sqs 与 pontx-amazon-sqs。",
+      "en": "@pontx/amazon-sqs and pontx-amazon-sqs must be generated from the Smithy model, tested, and published first."
+    }
+  ],
+  "nextAction": {
+    "zh": "建立 Smithy→OpenAPI 的可复现转换，补齐双语说明、SigV4、区域服务器和 mutation 安全策略。",
+    "en": "Create a reproducible Smithy-to-OpenAPI conversion and complete bilingual prose, SigV4, regional servers, and mutation safety policy."
+  },
+  "verifiedAt": "2026-08-14"
+}

@@ -1,0 +1,5732 @@
+{
+  "pontx": "2.1",
+  "style": "RESTFul",
+  "components": {
+    "parameters": {
+      "ProjectId": {
+        "name": "projectId",
+        "in": "path",
+        "required": true,
+        "description": "Project identifier",
+        "schema": {
+          "type": "string"
+        },
+        "example": "6226ff9877acee87727f6bca"
+      },
+      "TaskId": {
+        "name": "taskId",
+        "in": "path",
+        "required": true,
+        "description": "Task identifier",
+        "schema": {
+          "type": "string"
+        },
+        "example": "63b7bebb91c0a5474805fcd4"
+      },
+      "FocusId": {
+        "name": "focusId",
+        "in": "path",
+        "required": true,
+        "description": "Focus identifier",
+        "schema": {
+          "type": "string"
+        },
+        "example": "focus-1"
+      },
+      "FocusType": {
+        "name": "type",
+        "in": "query",
+        "required": true,
+        "description": "Focus type: 0 Pomodoro, 1 Timing",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [
+            0,
+            1
+          ],
+          "x-enum-descriptions": [
+            "Pomodoro",
+            "Timing"
+          ]
+        },
+        "example": 0
+      },
+      "HabitId": {
+        "name": "habitId",
+        "in": "path",
+        "required": true,
+        "description": "Habit identifier",
+        "schema": {
+          "type": "string"
+        },
+        "example": "habit-1"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "Dida365 OAuth 2.0 authorization code flow. API requests use the resulting access token as a Bearer token.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://dida365.com/oauth/authorize",
+            "tokenUrl": "https://dida365.com/oauth/token",
+            "scopes": {
+              "tasks:read": "Read tasks and projects",
+              "tasks:write": "Create, update, complete, and delete tasks and projects"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "TaskMoveRequest": {
+        "title": "TaskMoveRequest",
+        "description": "TaskMoveRequest data structure",
+        "type": "object",
+        "required": [
+          "fromProjectId",
+          "toProjectId",
+          "taskId"
+        ],
+        "properties": {
+          "fromProjectId": {
+            "type": "string",
+            "description": "Source project identifier",
+            "examples": [
+              "69a850ef1c20d2030e148fdd"
+            ]
+          },
+          "toProjectId": {
+            "type": "string",
+            "description": "Destination project identifier",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task identifier",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      },
+      "TaskMoveResult": {
+        "title": "TaskMoveResult",
+        "description": "TaskMoveResult data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Moved task identifier",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "New entity tag after the move",
+            "examples": [
+              "43p2zso1"
+            ]
+          }
+        }
+      },
+      "CompletedTaskFilter": {
+        "title": "CompletedTaskFilter",
+        "description": "CompletedTaskFilter data structure",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "description": "List of project identifiers",
+            "items": {
+              "type": "string",
+              "description": "Project identifier",
+              "examples": [
+                "69a850f41c20d2030e148fdf"
+              ]
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive completedTime lower bound",
+            "examples": [
+              "2026-04-01T00:00:00+0800"
+            ]
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive completedTime upper bound",
+            "examples": [
+              "2026-04-30T23:59:59+0800"
+            ]
+          }
+        }
+      },
+      "TaskFilter": {
+        "title": "TaskFilter",
+        "description": "TaskFilter data structure",
+        "type": "object",
+        "properties": {
+          "projectIds": {
+            "type": "array",
+            "description": "Filters tasks belonging to the specified project ID",
+            "items": {
+              "type": "string",
+              "description": "Project identifier",
+              "examples": [
+                "69a850f41c20d2030e148fdf"
+              ]
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Filters tasks where the task's startDate is greater than or equal to startDate",
+            "examples": [
+              "2026-03-01T00:58:20.000+0000"
+            ]
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Filters tasks where the task's startDate is less than or equal to endDate",
+            "examples": [
+              "2026-03-06T10:58:20.000+0000"
+            ]
+          },
+          "priority": {
+            "type": "array",
+            "description": "0 none, 1 low, 3 medium, 5 high",
+            "items": {
+              "type": "integer",
+              "description": "Task priority",
+              "enum": [
+                0,
+                1,
+                3,
+                5
+              ],
+              "examples": [
+                0
+              ],
+              "enumValueTitles": {
+                "0": "None",
+                "1": "Low",
+                "3": "Medium",
+                "5": "High"
+              }
+            }
+          },
+          "tag": {
+            "type": "array",
+            "description": "Tasks must contain all specified tags",
+            "items": {
+              "type": "string",
+              "description": "Task tag",
+              "examples": [
+                "urgent"
+              ]
+            }
+          },
+          "status": {
+            "type": "array",
+            "description": "Filters tasks by current status codes: 0 Open, 2 Completed",
+            "items": {
+              "type": "integer",
+              "description": "Task status code",
+              "enum": [
+                0,
+                2
+              ],
+              "examples": [
+                0
+              ],
+              "enumValueTitles": {
+                "0": "Open",
+                "2": "Completed"
+              }
+            }
+          }
+        }
+      },
+      "OpenComment": {
+        "title": "OpenComment",
+        "type": "object",
+        "description": "Task comment",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Comment identifier",
+            "examples": [
+              "comment-1"
+            ]
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "User id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Comment text",
+            "examples": [
+              "Comment text"
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0000"
+            ]
+          },
+          "replyCommentId": {
+            "type": "string",
+            "description": "Reply comment identifier"
+          },
+          "replyUserId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Reply user id"
+          }
+        }
+      },
+      "OpenProjectGroup": {
+        "title": "OpenProjectGroup",
+        "description": "OpenProjectGroup data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Project group identifier",
+            "examples": [
+              "group-1"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Project group name",
+            "examples": [
+              "Group Name"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value",
+            "examples": [
+              0
+            ]
+          },
+          "showAll": {
+            "type": "boolean",
+            "description": "Whether to show all projects in the group",
+            "examples": [
+              true
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "Project-group view mode",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "List",
+              "kanban": "Kanban",
+              "timeline": "Timeline"
+            }
+          }
+        }
+      },
+      "ProjectGroupCreate": {
+        "title": "ProjectGroupCreate",
+        "description": "ProjectGroupCreate data structure",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Project group name (max 64 chars)",
+            "examples": [
+              "Group Name"
+            ]
+          }
+        }
+      },
+      "ProjectGroupUpdate": {
+        "title": "ProjectGroupUpdate",
+        "description": "ProjectGroupUpdate data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Project group name (max 64 chars)",
+            "examples": [
+              "New Group Name"
+            ]
+          }
+        }
+      },
+      "ColumnCreate": {
+        "title": "ColumnCreate",
+        "description": "ColumnCreate data structure",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Column name (max 1000 chars)",
+            "examples": [
+              "Column Name"
+            ]
+          }
+        }
+      },
+      "ColumnUpdate": {
+        "title": "ColumnUpdate",
+        "description": "ColumnUpdate data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Column name (max 1000 chars)",
+            "examples": [
+              "New Column Name"
+            ]
+          }
+        }
+      },
+      "OpenTag": {
+        "title": "OpenTag",
+        "description": "OpenTag data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Tag name",
+            "examples": [
+              "work"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Tag label",
+            "examples": [
+              "work"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value",
+            "examples": [
+              0
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "Tag color",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "parent": {
+            "type": "string",
+            "description": "Parent tag name"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Tag ownership type: 1 Personal, 2 Team",
+            "enum": [
+              1,
+              2
+            ],
+            "examples": [
+              1
+            ],
+            "enumValueTitles": {
+              "1": "Personal",
+              "2": "Team"
+            }
+          }
+        }
+      },
+      "TagCreate": {
+        "title": "TagCreate",
+        "description": "TagCreate data structure",
+        "type": "object",
+        "required": [
+          "name",
+          "label"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Lowercase trimmed tag name",
+            "examples": [
+              "urgent"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Display label whose lowercase form matches name",
+            "examples": [
+              "urgent"
+            ]
+          }
+        }
+      },
+      "OpenPomodoroTaskBrief": {
+        "title": "OpenPomodoroTaskBrief",
+        "description": "OpenPomodoroTaskBrief data structure",
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "Task id"
+          },
+          "title": {
+            "type": "string",
+            "description": "Task title"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "Habit id"
+          },
+          "timerId": {
+            "type": "string",
+            "description": "Timer id"
+          },
+          "timerName": {
+            "type": "string",
+            "description": "Timer name"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task focus start time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task focus end time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          }
+        }
+      },
+      "OpenFocus": {
+        "title": "OpenFocus",
+        "type": "object",
+        "description": "Pomodoro or timing focus record",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Focus unique id",
+            "examples": [
+              "focus-1"
+            ]
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "User id"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 Pomodoro, 1 Timing",
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Pomodoro",
+              "1": "Timing"
+            }
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task id",
+            "examples": [
+              "task-1"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "description": "Focus note",
+            "examples": [
+              "Deep work"
+            ]
+          },
+          "tasks": {
+            "type": "array",
+            "description": "Related task briefs",
+            "items": {
+              "$ref": "#/components/schemas/OpenPomodoroTaskBrief"
+            }
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pomodoro status",
+            "examples": [
+              2
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pause duration in seconds",
+            "examples": [
+              0
+            ]
+          },
+          "adjustTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Adjusted time in seconds",
+            "examples": [
+              0
+            ]
+          },
+          "added": {
+            "type": "boolean",
+            "description": "Whether record was added",
+            "examples": [
+              true
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "etimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Entity timestamp",
+            "examples": [
+              1712453100000
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "Entity tag",
+            "examples": [
+              "focus-etag"
+            ]
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Focus duration",
+            "examples": [
+              1500
+            ]
+          },
+          "relationType": {
+            "type": "array",
+            "description": "Relation types",
+            "items": {
+              "type": "integer",
+              "description": "Relation type",
+              "examples": [
+                0
+              ]
+            }
+          }
+        }
+      },
+      "FocusCreate": {
+        "title": "FocusCreate",
+        "description": "FocusCreate data structure",
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "0 Pomodoro, 1 Timing",
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Pomodoro",
+              "1": "Timing"
+            }
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Task id",
+            "examples": [
+              "task-1"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Focus note (max 5000 chars)",
+            "examples": [
+              "Deep work"
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Focus start time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2026-04-07T09:00:00+0800"
+            ]
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Focus end time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2026-04-07T09:25:00+0800"
+            ]
+          },
+          "pauseDuration": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pause duration in seconds",
+            "examples": [
+              0
+            ]
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Focus duration",
+            "examples": [
+              1500
+            ]
+          },
+          "relationType": {
+            "type": "array",
+            "description": "Relation types",
+            "items": {
+              "type": "integer",
+              "description": "Relation type",
+              "examples": [
+                0
+              ]
+            }
+          }
+        }
+      },
+      "OpenCountdown": {
+        "title": "OpenCountdown",
+        "description": "OpenCountdown data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Countdown identifier",
+            "examples": [
+              "countdown-1"
+            ]
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Countdown type",
+            "examples": [
+              0
+            ]
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "Icon resource"
+          },
+          "color": {
+            "type": "string",
+            "description": "Countdown color",
+            "examples": [
+              "#4D8CF5"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Countdown name",
+            "examples": [
+              "Birthday"
+            ]
+          },
+          "date": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Date in YYYYMMDD format",
+            "examples": [
+              20260407
+            ]
+          },
+          "ignoreYear": {
+            "type": "boolean",
+            "description": "Whether to ignore year"
+          },
+          "showCalendarType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Show calendar type"
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Reminders",
+            "items": {
+              "type": "string",
+              "description": "Reminder"
+            }
+          },
+          "annoyingAlert": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Annoying alert"
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "Remark"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Countdown status"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value",
+            "examples": [
+              0
+            ]
+          },
+          "style": {
+            "type": "string",
+            "description": "Style"
+          },
+          "styleColor": {
+            "type": "array",
+            "description": "Style colors",
+            "items": {
+              "type": "string",
+              "description": "Style color"
+            }
+          },
+          "dateDisplayFormat": {
+            "type": "string",
+            "description": "Date display format"
+          },
+          "timerMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Timer mode"
+          },
+          "showAge": {
+            "type": "boolean",
+            "description": "Whether to show age"
+          },
+          "daysOption": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Days option"
+          },
+          "showRemark": {
+            "type": "boolean",
+            "description": "Whether to show remark"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2024-01-01T00:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2024-01-08T00:00:00+0000"
+            ]
+          }
+        }
+      },
+      "HabitWritable": {
+        "title": "HabitWritable",
+        "description": "HabitWritable data structure",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Habit name",
+            "examples": [
+              "Read"
+            ]
+          },
+          "iconRes": {
+            "type": "string",
+            "description": "Habit icon resource",
+            "examples": [
+              "habit_reading"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "Habit color",
+            "examples": [
+              "#4D8CF5"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Habit sort order",
+            "examples": [
+              12345
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Habit status",
+            "examples": [
+              0
+            ]
+          },
+          "encouragement": {
+            "type": "string",
+            "description": "Habit encouragement message",
+            "examples": [
+              "Keep going"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "Habit type",
+            "examples": [
+              "Boolean"
+            ]
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "description": "Habit goal",
+            "examples": [
+              1
+            ]
+          },
+          "step": {
+            "type": "number",
+            "format": "double",
+            "description": "Habit step",
+            "examples": [
+              1
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "description": "Habit unit",
+            "examples": [
+              "Count"
+            ]
+          },
+          "repeatRule": {
+            "type": "string",
+            "description": "Habit repeat rule",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Habit reminders",
+            "items": {
+              "type": "string",
+              "description": "Habit reminder"
+            }
+          },
+          "recordEnable": {
+            "type": "boolean",
+            "description": "Whether record is enabled",
+            "examples": [
+              false
+            ]
+          },
+          "sectionId": {
+            "type": "string",
+            "description": "Habit section identifier",
+            "examples": [
+              "section-1"
+            ]
+          },
+          "targetDays": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Target days",
+            "examples": [
+              0
+            ]
+          },
+          "targetStartDate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Target start date in YYYYMMDD format",
+            "examples": [
+              20240101
+            ]
+          },
+          "completedCycles": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Completed cycles",
+            "examples": [
+              12
+            ]
+          },
+          "exDates": {
+            "type": "array",
+            "description": "Excluded dates",
+            "items": {
+              "type": "string",
+              "description": "Excluded date"
+            }
+          },
+          "style": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Habit style",
+            "examples": [
+              0
+            ]
+          }
+        }
+      },
+      "HabitCreate": {
+        "title": "HabitCreate",
+        "description": "HabitCreate data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ]
+          }
+        ]
+      },
+      "HabitUpdate": {
+        "title": "HabitUpdate",
+        "description": "HabitUpdate data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          }
+        ]
+      },
+      "OpenHabit": {
+        "title": "OpenHabit",
+        "description": "OpenHabit data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HabitWritable"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Habit unique id",
+                "examples": [
+                  "habit-1"
+                ]
+              },
+              "totalCheckIns": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Total check-ins",
+                "examples": [
+                  12
+                ]
+              },
+              "createdTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-01T00:00:00+0000"
+                ]
+              },
+              "modifiedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-08T00:00:00+0000"
+                ]
+              },
+              "archivedTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Archived time in yyyy-MM-dd'T'HH:mm:ssZ",
+                "examples": [
+                  "2024-01-08T00:00:00+0000"
+                ]
+              },
+              "etag": {
+                "type": "string",
+                "description": "Habit etag",
+                "examples": [
+                  "habit-etag"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "OpenHabitCheckinData": {
+        "title": "OpenHabitCheckinData",
+        "description": "OpenHabitCheckinData data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Check-in id"
+          },
+          "stamp": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Date stamp in YYYYMMDD format",
+            "examples": [
+              20260407
+            ]
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Check-in time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "opTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Operation time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "Check-in value. Default is 1.0",
+            "default": 1,
+            "examples": [
+              1
+            ]
+          },
+          "goal": {
+            "type": "number",
+            "format": "double",
+            "description": "Check-in goal. Default is 1.0",
+            "default": 1,
+            "examples": [
+              1
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Check-in status"
+          }
+        }
+      },
+      "HabitCheckInUpsert": {
+        "title": "HabitCheckInUpsert",
+        "description": "HabitCheckInUpsert data structure",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OpenHabitCheckinData"
+          },
+          {
+            "type": "object",
+            "required": [
+              "stamp"
+            ]
+          }
+        ]
+      },
+      "OpenHabitCheckin": {
+        "title": "OpenHabitCheckin",
+        "description": "OpenHabitCheckin data structure",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Check-in document id"
+          },
+          "habitId": {
+            "type": "string",
+            "description": "Habit id",
+            "examples": [
+              "habit-1"
+            ]
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Modified time in yyyy-MM-dd'T'HH:mm:ssZ",
+            "examples": [
+              "2026-04-07T08:00:00+0000"
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "Check-in etag"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Year",
+            "examples": [
+              2026
+            ]
+          },
+          "checkins": {
+            "type": "array",
+            "description": "Check-in entries",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabitCheckinData"
+            }
+          }
+        }
+      },
+      "ChecklistItem": {
+        "title": "ChecklistItem",
+        "type": "object",
+        "description": "Subtask item within a task checklist",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Subtask identifier",
+            "examples": [
+              "6435074647fd2e6387145f20"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "Subtask title",
+            "examples": [
+              "Item Title"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The completion status of subtask",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Normal",
+              "1": "Completed"
+            }
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Subtask completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day",
+            "examples": [
+              false
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Subtask sort order",
+            "examples": [
+              234444
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Subtask start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Subtask timezone",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          }
+        }
+      },
+      "Task": {
+        "title": "Task",
+        "type": "object",
+        "description": "Task object representing a single task or checklist",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Task identifier",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Task project id",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "Task title",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day",
+            "examples": [
+              true
+            ]
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "Task description of checklist",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "Subtasks of Task",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItem"
+            }
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Task priority",
+            "enum": [
+              0,
+              1,
+              3,
+              5
+            ],
+            "examples": [
+              1
+            ],
+            "enumValueTitles": {
+              "0": "None",
+              "1": "Low",
+              "3": "Medium",
+              "5": "High"
+            }
+          },
+          "reminders": {
+            "type": "array",
+            "description": "List of reminder triggers",
+            "items": {
+              "type": "string",
+              "description": "Reminder trigger",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            },
+            "examples": [
+              [
+                "TRIGGER:P0DT9H0M0S",
+                "TRIGGER:PT0S"
+              ]
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Task tag",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Task sort order",
+            "examples": [
+              12345
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Task completion status",
+            "enum": [
+              0,
+              2
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Normal",
+              "2": "Completed"
+            }
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Task timezone",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "description": "Task kind",
+            "enum": [
+              "TEXT",
+              "NOTE",
+              "CHECKLIST"
+            ],
+            "examples": [
+              "CHECKLIST"
+            ],
+            "enumValueTitles": {
+              "TEXT": "Text task",
+              "NOTE": "Note",
+              "CHECKLIST": "Checklist"
+            }
+          }
+        }
+      },
+      "TaskCreate": {
+        "title": "TaskCreate",
+        "type": "object",
+        "description": "Request body for creating a new task",
+        "required": [
+          "title",
+          "projectId"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Task title",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project id",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "Description of checklist",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day",
+            "examples": [
+              true
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the time is specified",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Lists of reminders specific to the task",
+            "items": {
+              "type": "string",
+              "description": "Task-specific reminder",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Task tag",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The priority of task, default is 0",
+            "examples": [
+              1
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of task",
+            "examples": [
+              12345
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of subtasks",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "TaskUpdate": {
+        "title": "TaskUpdate",
+        "type": "object",
+        "description": "Request body for updating an existing task",
+        "required": [
+          "id",
+          "projectId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Task id",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project id",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "Task title",
+            "examples": [
+              "Task Title"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "Task content",
+            "examples": [
+              "Task Content"
+            ]
+          },
+          "desc": {
+            "type": "string",
+            "description": "Description of checklist",
+            "examples": [
+              "Task Description"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day",
+            "examples": [
+              true
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Due date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the time is specified",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "reminders": {
+            "type": "array",
+            "description": "Lists of reminders specific to the task",
+            "items": {
+              "type": "string",
+              "description": "Task-specific reminder",
+              "examples": [
+                "TRIGGER:P0DT9H0M0S"
+              ]
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the task",
+            "items": {
+              "type": "string",
+              "description": "Task tag",
+              "examples": [
+                "work"
+              ]
+            },
+            "examples": [
+              [
+                "work",
+                "urgent"
+              ]
+            ]
+          },
+          "repeatFlag": {
+            "type": "string",
+            "description": "Recurring rules of task",
+            "examples": [
+              "RRULE:FREQ=DAILY;INTERVAL=1"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The priority of task, default is normal",
+            "examples": [
+              1
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of task",
+            "examples": [
+              12345
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of subtasks",
+            "items": {
+              "$ref": "#/components/schemas/ChecklistItemCreate"
+            }
+          }
+        }
+      },
+      "ChecklistItemCreate": {
+        "title": "ChecklistItemCreate",
+        "type": "object",
+        "description": "Request body for creating or updating a checklist item",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Subtask title",
+            "examples": [
+              "Subtask Title"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date and time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean",
+            "description": "All day",
+            "examples": [
+              false
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The order of subtask",
+            "examples": [
+              12345
+            ]
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "The time zone in which the Start time is specified",
+            "examples": [
+              "America/Los_Angeles"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The completion status of subtask",
+            "examples": [
+              1
+            ]
+          },
+          "completedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Completed time in yyyy-MM-dd'T'HH:mm:ssZ format",
+            "examples": [
+              "2019-11-13T03:00:00+0000"
+            ]
+          }
+        }
+      },
+      "Project": {
+        "title": "Project",
+        "type": "object",
+        "description": "Project object representing a task list or note collection",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Project identifier",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name",
+            "examples": [
+              "project name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "Project color",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Order value",
+            "examples": [
+              0
+            ]
+          },
+          "closed": {
+            "type": "boolean",
+            "description": "Project closed",
+            "examples": [
+              false
+            ]
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Project group identifier",
+            "examples": [
+              "6436176a47fd2e05f26ef56e"
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "List",
+              "kanban": "Kanban",
+              "timeline": "Timeline"
+            }
+          },
+          "permission": {
+            "type": "string",
+            "description": "User permission level for the project",
+            "enum": [
+              "read",
+              "write",
+              "comment"
+            ],
+            "examples": [
+              "write"
+            ],
+            "enumValueTitles": {
+              "read": "Read",
+              "write": "Write",
+              "comment": "Comment"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "Task project",
+              "NOTE": "Note project"
+            }
+          }
+        }
+      },
+      "ProjectCreate": {
+        "title": "ProjectCreate",
+        "type": "object",
+        "description": "Request body for creating a new project",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the project",
+            "examples": [
+              "project name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of project",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value of the project",
+            "examples": [
+              0
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "List",
+              "kanban": "Kanban",
+              "timeline": "Timeline"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "Task project",
+              "NOTE": "Note project"
+            }
+          }
+        }
+      },
+      "ProjectUpdate": {
+        "title": "ProjectUpdate",
+        "type": "object",
+        "description": "Request body for updating an existing project",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the project",
+            "examples": [
+              "Project Name"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of the project",
+            "examples": [
+              "#F18181"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sort order value, default 0",
+            "examples": [
+              0
+            ]
+          },
+          "viewMode": {
+            "type": "string",
+            "description": "View mode",
+            "enum": [
+              "list",
+              "kanban",
+              "timeline"
+            ],
+            "examples": [
+              "list"
+            ],
+            "enumValueTitles": {
+              "list": "List",
+              "kanban": "Kanban",
+              "timeline": "Timeline"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "description": "Project kind",
+            "enum": [
+              "TASK",
+              "NOTE"
+            ],
+            "examples": [
+              "TASK"
+            ],
+            "enumValueTitles": {
+              "TASK": "Task project",
+              "NOTE": "Note project"
+            }
+          }
+        }
+      },
+      "Column": {
+        "title": "Column",
+        "type": "object",
+        "description": "Column object for kanban view",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Column identifier",
+            "examples": [
+              "column-1"
+            ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project identifier",
+            "examples": [
+              "project-1"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Column name",
+            "examples": [
+              "Column Name"
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Order value",
+            "examples": [
+              0
+            ]
+          }
+        }
+      },
+      "ProjectData": {
+        "title": "ProjectData",
+        "type": "object",
+        "description": "Project data including project info, tasks and columns",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "description": "Project info"
+          },
+          "tasks": {
+            "type": "array",
+            "description": "Undone tasks under project",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "columns": {
+            "type": "array",
+            "description": "Columns under project",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          }
+        }
+      }
+    }
+  },
+  "apis": {
+    "task/getTaskByProjectIdAndTaskId": {
+      "summary": "Get Task By Project ID And Task ID",
+      "operationId": "getTaskByProjectIdAndTaskId",
+      "consumes": [],
+      "description": "Retrieve a specific task by its project ID and task ID",
+      "tags": [
+        "task"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "The requested task, including dueDate and the other documented task fields",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/deleteTask": {
+      "summary": "Delete Task",
+      "operationId": "deleteTask",
+      "consumes": [],
+      "description": "Delete a specific task by its project ID and task ID",
+      "tags": [
+        "task"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "OK"
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/createTask": {
+      "summary": "Create Task",
+      "operationId": "createTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create a new task",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TaskCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "title": "example",
+              "startDate": "2019-11-13T03:00:00+0000",
+              "dueDate": "2019-11-13T03:00:00+0000",
+              "tags": [
+                "work",
+                "urgent"
+              ]
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "body",
+              "name": "/projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/updateTask": {
+      "summary": "Update Task",
+      "operationId": "updateTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Update an existing task",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/{taskId}",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TaskUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "startDate": "2019-11-13T03:00:00+0000",
+              "dueDate": "2019-11-13T03:00:00+0000",
+              "tags": [
+                "work",
+                "urgent"
+              ]
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/id",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/completeTask": {
+      "summary": "Complete Task",
+      "operationId": "completeTask",
+      "consumes": [],
+      "description": "Mark a task as completed",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
+      "responses": {
+        "200": {
+          "description": "OK"
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "69a850f8b9061f374d54a046"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/moveTask": {
+      "summary": "Move Task",
+      "operationId": "moveTask",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Move one or more tasks between projects. The request body is an array of move operations.",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/move",
+      "responses": {
+        "200": {
+          "description": "Move results",
+          "schema": {
+            "type": "array",
+            "description": "List of task move results, including each task identifier and its new ETag",
+            "items": {
+              "$ref": "#/components/schemas/TaskMoveResult"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of task move results, including each task identifier and its new ETag",
+                "items": {
+                  "$ref": "#/components/schemas/TaskMoveResult"
+                }
+              },
+              "example": [
+                {
+                  "id": "69a850f8b9061f374d54a046",
+                  "etag": "43p2zso1"
+                }
+              ]
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "type": "array",
+            "description": "List of task move operations",
+            "items": {
+              "$ref": "#/components/schemas/TaskMoveRequest"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of task move operations",
+                "items": {
+                  "$ref": "#/components/schemas/TaskMoveRequest"
+                }
+              },
+              "example": [
+                {
+                  "fromProjectId": "69a850ef1c20d2030e148fdd",
+                  "toProjectId": "69a850f41c20d2030e148fdf",
+                  "taskId": "69a850f8b9061f374d54a046"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": [
+              {}
+            ]
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "body",
+              "name": "/0/fromProjectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/0/toProjectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "body",
+              "name": "/0/taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "task/listCompletedTasks": {
+      "summary": "List Completed Tasks",
+      "operationId": "listCompletedTasks",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "List completed tasks, optionally limited to projects and an inclusive completed-time range.",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/completed",
+      "responses": {
+        "200": {
+          "description": "Completed tasks",
+          "schema": {
+            "type": "array",
+            "description": "List of completed tasks within the specified projects and time range",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of completed tasks within the specified projects and time range",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/CompletedTaskFilter"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletedTaskFilter"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "task/filterTasks": {
+      "summary": "Filter Tasks",
+      "operationId": "filterTasks",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Filter tasks by project, start-time range, priority, tags, and status.",
+      "tags": [
+        "task"
+      ],
+      "method": "POST",
+      "path": "/open/v1/task/filter",
+      "responses": {
+        "200": {
+          "description": "Matching tasks",
+          "schema": {
+            "type": "array",
+            "description": "List of tasks matching the filter criteria",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of tasks matching the filter criteria",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TaskFilter"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskFilter"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/getUserProjects": {
+      "summary": "Get User Project",
+      "operationId": "getUserProjects",
+      "consumes": [],
+      "description": "Retrieve all projects for the authenticated user",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "type": "array",
+            "description": "List of user projects",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of user projects",
+                "items": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/createProject": {
+      "summary": "Create Project",
+      "operationId": "createProject",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create a new project",
+      "tags": [
+        "project"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "example",
+              "color": "#F18181",
+              "viewMode": "list",
+              "kind": "TASK"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "project/getProjectById": {
+      "summary": "Get Project By ID",
+      "operationId": "getProjectById",
+      "consumes": [],
+      "description": "Retrieve a specific project by its ID",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/deleteProject": {
+      "summary": "Delete Project",
+      "operationId": "deleteProject",
+      "consumes": [],
+      "description": "Delete a specific project by its ID",
+      "tags": [
+        "project"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "OK"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/updateProject": {
+      "summary": "Update Project",
+      "operationId": "updateProject",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Update an existing project",
+      "tags": [
+        "project"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdate"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "viewMode": "list",
+              "kind": "TASK"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "project/getProjectWithData": {
+      "summary": "Get Project With Data",
+      "operationId": "getProjectWithData",
+      "consumes": [],
+      "description": "Retrieve a project with all its associated data including tasks and columns",
+      "tags": [
+        "project"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/data",
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/ProjectData"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectData"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "69a850f41c20d2030e148fdf"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/getTaskComments": {
+      "summary": "Get Task Comments",
+      "operationId": "getTaskComments",
+      "consumes": [],
+      "description": "Get Task Comments",
+      "tags": [
+        "comment"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comments",
+      "responses": {
+        "200": {
+          "description": "Task comments",
+          "schema": {
+            "type": "array",
+            "description": "List of task comments",
+            "items": {
+              "$ref": "#/components/schemas/OpenComment"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of task comments",
+                "items": {
+                  "$ref": "#/components/schemas/OpenComment"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/addTaskComment": {
+      "summary": "Add Task Comment",
+      "operationId": "addTaskComment",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Add Task Comment",
+      "tags": [
+        "comment"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment",
+      "responses": {
+        "200": {
+          "description": "Created comment",
+          "schema": {
+            "$ref": "#/components/schemas/OpenComment"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenComment"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "description": "Request body for adding a task comment",
+            "required": [
+              "title"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Comment text",
+                "examples": [
+                  "Looks good"
+                ]
+              }
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Request body for adding a task comment",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Comment text",
+                    "examples": [
+                      "Looks good"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "title": "Looks good"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "comment/deleteTaskComment": {
+      "summary": "Delete Task Comment",
+      "operationId": "deleteTaskComment",
+      "consumes": [],
+      "description": "Delete Task Comment",
+      "tags": [
+        "comment"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment/{id}",
+      "responses": {
+        "200": {
+          "description": "Comment deleted"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "taskId",
+          "required": true,
+          "schema": {
+            "description": "Task identifier",
+            "type": "string",
+            "examples": [
+              "63b7bebb91c0a5474805fcd4"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "description": "Comment identifier",
+            "type": "string",
+            "examples": [
+              "comment-1"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "taskId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectWithData"
+              }
+            },
+            {
+              "in": "path",
+              "name": "id",
+              "source": {
+                "kind": "operation",
+                "operationId": "getTaskComments"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "projectGroup/getProjectGroups": {
+      "summary": "Get Project Groups",
+      "operationId": "getProjectGroups",
+      "consumes": [],
+      "description": "Get Project Groups",
+      "tags": [
+        "project group"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/group",
+      "responses": {
+        "200": {
+          "description": "Project groups",
+          "schema": {
+            "type": "array",
+            "description": "List of project groups",
+            "items": {
+              "$ref": "#/components/schemas/OpenProjectGroup"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of project groups",
+                "items": {
+                  "$ref": "#/components/schemas/OpenProjectGroup"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "projectGroup/createProjectGroup": {
+      "summary": "Create Project Group",
+      "operationId": "createProjectGroup",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Project Group",
+      "tags": [
+        "project group"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/group",
+      "responses": {
+        "200": {
+          "description": "Created project group",
+          "schema": {
+            "$ref": "#/components/schemas/OpenProjectGroup"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenProjectGroup"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectGroupCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupCreate"
+              },
+              "example": {
+                "name": "Group Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Group Name"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "projectGroup/deleteProjectGroup": {
+      "summary": "Delete Project Group",
+      "operationId": "deleteProjectGroup",
+      "consumes": [],
+      "description": "Delete Project Group",
+      "tags": [
+        "project group"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "responses": {
+        "200": {
+          "description": "Project group deleted"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectGroupId",
+          "required": true,
+          "schema": {
+            "description": "Project group identifier",
+            "type": "string",
+            "examples": [
+              "group-1"
+            ]
+          }
+        }
+      ],
+      "produces": [],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectGroupId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectGroups"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "projectGroup/updateProjectGroup": {
+      "summary": "Update Project Group",
+      "operationId": "updateProjectGroup",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Update Project Group",
+      "tags": [
+        "project group"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "responses": {
+        "200": {
+          "description": "Updated project group",
+          "schema": {
+            "$ref": "#/components/schemas/OpenProjectGroup"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenProjectGroup"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectGroupId",
+          "required": true,
+          "schema": {
+            "description": "Project group identifier",
+            "type": "string",
+            "examples": [
+              "group-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ProjectGroupUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGroupUpdate"
+              },
+              "example": {
+                "name": "New Group Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "New Group Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectGroupId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getProjectGroups"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/getColumns": {
+      "summary": "Get Columns",
+      "operationId": "getColumns",
+      "consumes": [],
+      "description": "Get Columns",
+      "tags": [
+        "column"
+      ],
+      "method": "GET",
+      "path": "/open/v1/project/{projectId}/column",
+      "responses": {
+        "200": {
+          "description": "Project columns",
+          "schema": {
+            "type": "array",
+            "description": "List of columns in the specified project",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of columns in the specified project",
+                "items": {
+                  "$ref": "#/components/schemas/Column"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/createColumn": {
+      "summary": "Create Column",
+      "operationId": "createColumn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Column",
+      "tags": [
+        "column"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/column",
+      "responses": {
+        "200": {
+          "description": "Created column",
+          "schema": {
+            "$ref": "#/components/schemas/Column"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Column"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ColumnCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnCreate"
+              },
+              "example": {
+                "name": "Column Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Column Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "column/updateColumn": {
+      "summary": "Update Column",
+      "operationId": "updateColumn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Update Column",
+      "tags": [
+        "column"
+      ],
+      "method": "POST",
+      "path": "/open/v1/project/{projectId}/column/{columnId}",
+      "responses": {
+        "200": {
+          "description": "Updated column",
+          "schema": {
+            "$ref": "#/components/schemas/Column"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Column"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "projectId",
+          "required": true,
+          "schema": {
+            "description": "Project identifier",
+            "type": "string",
+            "examples": [
+              "6226ff9877acee87727f6bca"
+            ]
+          }
+        },
+        {
+          "in": "path",
+          "name": "columnId",
+          "required": true,
+          "schema": {
+            "description": "Column identifier",
+            "type": "string",
+            "examples": [
+              "column-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ColumnUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnUpdate"
+              },
+              "example": {
+                "name": "New Column Name"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "New Column Name"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "projectId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getUserProjects"
+              }
+            },
+            {
+              "in": "path",
+              "name": "columnId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getColumns"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tag/getTags": {
+      "summary": "Get Tags",
+      "operationId": "getTags",
+      "consumes": [],
+      "description": "Get Tags",
+      "tags": [
+        "tag"
+      ],
+      "method": "GET",
+      "path": "/open/v1/tag",
+      "responses": {
+        "200": {
+          "description": "Tags",
+          "schema": {
+            "type": "array",
+            "description": "List of task tags",
+            "items": {
+              "$ref": "#/components/schemas/OpenTag"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of task tags",
+                "items": {
+                  "$ref": "#/components/schemas/OpenTag"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "tag/createTag": {
+      "summary": "Create Tag",
+      "operationId": "createTag",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Tag",
+      "tags": [
+        "tag"
+      ],
+      "method": "POST",
+      "path": "/open/v1/tag",
+      "responses": {
+        "200": {
+          "description": "Created tag",
+          "schema": {
+            "$ref": "#/components/schemas/OpenTag"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenTag"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TagCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagCreate"
+              },
+              "example": {
+                "name": "urgent",
+                "label": "urgent"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "urgent",
+              "label": "urgent"
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "focus/getFocusById": {
+      "summary": "Get Focus By Focus ID",
+      "operationId": "getFocusById",
+      "consumes": [],
+      "description": "Get Focus By Focus ID",
+      "tags": [
+        "focus"
+      ],
+      "method": "GET",
+      "path": "/open/v1/focus/{focusId}",
+      "responses": {
+        "200": {
+          "description": "Focus record",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              },
+              "example": {
+                "id": "focus-1",
+                "type": 0,
+                "taskId": "task-1",
+                "note": "Deep work",
+                "status": 2,
+                "startTime": "2026-04-07T09:00:00+0800",
+                "endTime": "2026-04-07T09:25:00+0800",
+                "duration": 1500
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "focusId",
+          "required": true,
+          "schema": {
+            "description": "Focus identifier",
+            "type": "string",
+            "examples": [
+              "focus-1"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "Focus type: 0 Pomodoro, 1 Timing",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Pomodoro",
+              "1": "Timing"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "focusId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getFocusesByTimeRange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "focus/deleteFocus": {
+      "summary": "Delete Focus",
+      "operationId": "deleteFocus",
+      "consumes": [],
+      "description": "Delete Focus",
+      "tags": [
+        "focus"
+      ],
+      "method": "DELETE",
+      "path": "/open/v1/focus/{focusId}",
+      "responses": {
+        "200": {
+          "description": "Deleted focus record",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              },
+              "example": {
+                "id": "focus-1",
+                "type": 0
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "focusId",
+          "required": true,
+          "schema": {
+            "description": "Focus identifier",
+            "type": "string",
+            "examples": [
+              "focus-1"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "Focus type: 0 Pomodoro, 1 Timing",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Pomodoro",
+              "1": "Timing"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "focusId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getFocusesByTimeRange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "focus/getFocusesByTimeRange": {
+      "summary": "Get Focuses By Time Range",
+      "operationId": "getFocusesByTimeRange",
+      "consumes": [],
+      "description": "Returns focus records in the requested range. If the range exceeds 30 days, the server moves `from` to 30 days before `to`.",
+      "tags": [
+        "focus"
+      ],
+      "method": "GET",
+      "path": "/open/v1/focus",
+      "responses": {
+        "200": {
+          "description": "Focus records",
+          "schema": {
+            "type": "array",
+            "description": "List of focus records for the specified time range and focus type",
+            "items": {
+              "$ref": "#/components/schemas/OpenFocus"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of focus records for the specified time range and focus type",
+                "items": {
+                  "$ref": "#/components/schemas/OpenFocus"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "Range start time",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2026-04-01T00:00:00+0800"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "Range end time",
+            "type": "string",
+            "format": "date-time",
+            "examples": [
+              "2026-04-02T00:00:00+0800"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "required": true,
+          "schema": {
+            "description": "Focus type: 0 Pomodoro, 1 Timing",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "examples": [
+              0
+            ],
+            "enumValueTitles": {
+              "0": "Pomodoro",
+              "1": "Timing"
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "from": "2026-04-01T00:00:00+0800",
+              "to": "2026-04-02T00:00:00+0800",
+              "type": 0
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "focus/createFocus": {
+      "summary": "Create Focus",
+      "operationId": "createFocus",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Focus",
+      "tags": [
+        "focus"
+      ],
+      "method": "POST",
+      "path": "/open/v1/focus",
+      "responses": {
+        "200": {
+          "description": "Created focus record",
+          "schema": {
+            "$ref": "#/components/schemas/OpenFocus"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenFocus"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/FocusCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusCreate"
+              },
+              "example": {
+                "type": 0,
+                "taskId": "task-1",
+                "startTime": "2026-04-07T09:00:00+0800",
+                "endTime": "2026-04-07T09:25:00+0800",
+                "duration": 1500
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "type": 0,
+              "startTime": "2026-04-07T09:00:00+0800",
+              "endTime": "2026-04-07T09:25:00+0800",
+              "duration": 1500
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "countdown/getCountdowns": {
+      "summary": "Get Countdowns",
+      "operationId": "getCountdowns",
+      "consumes": [],
+      "description": "Get Countdowns",
+      "tags": [
+        "countdown"
+      ],
+      "method": "GET",
+      "path": "/open/v1/countdown",
+      "responses": {
+        "200": {
+          "description": "Countdowns",
+          "schema": {
+            "type": "array",
+            "description": "List of countdowns",
+            "items": {
+              "$ref": "#/components/schemas/OpenCountdown"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of countdowns",
+                "items": {
+                  "$ref": "#/components/schemas/OpenCountdown"
+                }
+              },
+              "example": [
+                {
+                  "id": "countdown-1",
+                  "type": 0,
+                  "name": "Birthday",
+                  "date": 20260407,
+                  "color": "#4D8CF5",
+                  "reminders": [],
+                  "sortOrder": 0
+                }
+              ]
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/getHabitCheckIns": {
+      "summary": "Get Habit Check-Ins",
+      "operationId": "getHabitCheckIns",
+      "consumes": [],
+      "description": "Get Habit Check-Ins",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit/checkins",
+      "responses": {
+        "200": {
+          "description": "Habit check-in documents",
+          "schema": {
+            "type": "array",
+            "description": "List of habit check-in documents for the specified habits and date range",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabitCheckin"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of habit check-in documents for the specified habits and date range",
+                "items": {
+                  "$ref": "#/components/schemas/OpenHabitCheckin"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "habitIds",
+          "required": true,
+          "schema": {
+            "description": "Comma-separated habit identifiers",
+            "type": "string",
+            "pattern": "^[^,]+(,[^,]+)*$",
+            "examples": [
+              "habit-1,habit-2"
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "from",
+          "required": true,
+          "schema": {
+            "description": "Start date stamp in YYYYMMDD format",
+            "type": "integer",
+            "format": "int32",
+            "examples": [
+              20260401
+            ]
+          }
+        },
+        {
+          "in": "query",
+          "name": "to",
+          "required": true,
+          "schema": {
+            "description": "End date stamp in YYYYMMDD format",
+            "type": "integer",
+            "format": "int32",
+            "examples": [
+              20260407
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {
+              "from": 20260401,
+              "to": 20260407
+            },
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "query",
+              "name": "habitIds",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/getHabits": {
+      "summary": "Get All Habits",
+      "operationId": "getHabits",
+      "consumes": [],
+      "description": "Get All Habits",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit",
+      "responses": {
+        "200": {
+          "description": "Habits",
+          "schema": {
+            "type": "array",
+            "description": "List of all user habits",
+            "items": {
+              "$ref": "#/components/schemas/OpenHabit"
+            }
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "List of all user habits",
+                "items": {
+                  "$ref": "#/components/schemas/OpenHabit"
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        }
+      },
+      "parameters": [],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/createHabit": {
+      "summary": "Create Habit",
+      "operationId": "createHabit",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Habit",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit",
+      "responses": {
+        "200": {
+          "description": "Created habit",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitCreate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCreate"
+              },
+              "example": {
+                "name": "Read",
+                "iconRes": "habit_reading",
+                "color": "#4D8CF5",
+                "type": "Boolean",
+                "goal": 1,
+                "step": 1,
+                "unit": "Count",
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+                "recordEnable": false
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Read",
+              "iconRes": "habit_reading",
+              "color": "#4D8CF5",
+              "type": "Boolean",
+              "goal": 1,
+              "step": 1,
+              "unit": "Count",
+              "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1",
+              "recordEnable": false
+            }
+          },
+          "expectedStatus": "200"
+        }
+      }
+    },
+    "habit/getHabitById": {
+      "summary": "Get Habit By Habit ID",
+      "operationId": "getHabitById",
+      "consumes": [],
+      "description": "Get Habit By Habit ID",
+      "tags": [
+        "habit"
+      ],
+      "method": "GET",
+      "path": "/open/v1/habit/{habitId}",
+      "responses": {
+        "200": {
+          "description": "Habit",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "Habit identifier",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:read"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {}
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/updateHabit": {
+      "summary": "Update Habit",
+      "operationId": "updateHabit",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Update Habit",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit/{habitId}",
+      "responses": {
+        "200": {
+          "description": "Updated habit",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabit"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabit"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "Habit identifier",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitUpdate"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitUpdate"
+              },
+              "example": {
+                "name": "Read more",
+                "goal": 2,
+                "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "name": "Read more",
+              "goal": 2,
+              "repeatRule": "RRULE:FREQ=DAILY;INTERVAL=1"
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "habit/upsertHabitCheckIn": {
+      "summary": "Create Or Update Habit Check-In",
+      "operationId": "upsertHabitCheckIn",
+      "consumes": [
+        "application/json"
+      ],
+      "description": "Create Or Update Habit Check-In",
+      "tags": [
+        "habit"
+      ],
+      "method": "POST",
+      "path": "/open/v1/habit/{habitId}/checkin",
+      "responses": {
+        "200": {
+          "description": "Updated check-in document",
+          "schema": {
+            "$ref": "#/components/schemas/OpenHabitCheckin"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenHabitCheckin"
+              }
+            }
+          }
+        },
+        "201": {
+          "description": "Created without response content"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "habitId",
+          "required": true,
+          "schema": {
+            "description": "Habit identifier",
+            "type": "string",
+            "examples": [
+              "habit-1"
+            ]
+          }
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/HabitCheckInUpsert"
+          },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabitCheckInUpsert"
+              },
+              "example": {
+                "stamp": 20260407,
+                "value": 1,
+                "goal": 1
+              }
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        {
+          "OAuth2": [
+            "tasks:write"
+          ]
+        }
+      ],
+      "requestExamples": {
+        "default": {
+          "request": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "body": {
+              "stamp": 20260407,
+              "value": 1,
+              "goal": 1
+            }
+          },
+          "expectedStatus": "200",
+          "unresolved": [
+            {
+              "in": "path",
+              "name": "habitId",
+              "source": {
+                "kind": "operation",
+                "operationId": "getHabits"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "name": "dida365",
+  "servers": [
+    {
+      "id": "default",
+      "url": "https://api.dida365.com",
+      "description": "Production server"
+    }
+  ],
+  "info": {
+    "title": "Dida365 Open API",
+    "description": "Dida365 Open API provides authenticated access to tasks, projects, project groups, kanban columns, tags, comments, focus records, countdowns, and habits. Register an application in the Dida365 Developer Center, use the OAuth 2.0 authorization-code flow, and send the access token as `Authorization: Bearer <access_token>`. Mutation endpoints require `tasks:write`; read-only endpoints require `tasks:read`.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "support@dida365.com"
+    }
+  },
+  "security": [
+    {
+      "OAuth2": []
+    }
+  ],
+  "externalDocs": {
+    "description": "Official Dida365 Open API documentation",
+    "url": "https://developer.dida365.com/docs#/openapi"
+  },
+  "tags": [
+    {
+      "name": "task",
+      "description": "Task management endpoints"
+    },
+    {
+      "name": "project",
+      "description": "Project management endpoints"
+    },
+    {
+      "name": "comment",
+      "description": "Task comment endpoints"
+    },
+    {
+      "name": "projectGroup",
+      "description": "Project-group endpoints"
+    },
+    {
+      "name": "column",
+      "description": "Kanban-column endpoints"
+    },
+    {
+      "name": "tag",
+      "description": "Task-tag endpoints"
+    },
+    {
+      "name": "focus",
+      "description": "Pomodoro and timing focus-record endpoints"
+    },
+    {
+      "name": "countdown",
+      "description": "Countdown query endpoint"
+    },
+    {
+      "name": "habit",
+      "description": "Habit and habit check-in endpoints"
+    }
+  ]
+}

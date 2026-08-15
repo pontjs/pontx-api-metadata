@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "zhipu-bigmodel",
+  "name": {
+    "zh": "智谱 BigModel / GLM API",
+    "en": "Zhipu BigModel / GLM API"
+  },
+  "provider": "Zhipu AI",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 7,
+    "score": 85
+  },
+  "boundary": {
+    "zh": "智谱开放平台供应商级 API 产品面；GLM 型号、模态与单个能力页不拆分为集合。",
+    "en": "The supplier-level Zhipu Open Platform API surface; GLM model variants, modalities, and individual capability pages are not split into collections."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://docs.bigmodel.cn/cn/api/introduction"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://docs.bigmodel.cn/cn/guide/capabilities/streaming"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "官方流式消息采用 SSE，知识库 Agent 等能力还定义专用 SSE 事件；整集暂缓。",
+      "en": "Official streaming messages use SSE, and knowledge-base agent capabilities define additional SSE events; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 支持后盘点模型、知识库、文件、异步任务和区域边界。",
+    "en": "After SSE support lands, inventory model, knowledge-base, file, asynchronous-task, and regional boundaries."
+  },
+  "verifiedAt": "2026-08-14"
+}

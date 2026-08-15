@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "slug": "baidu-qianfan",
+  "name": {
+    "zh": "百度千帆 API",
+    "en": "Baidu Qianfan API"
+  },
+  "provider": "Baidu AI Cloud",
+  "category": "AI",
+  "priority": {
+    "group": "llm-protocol-hold",
+    "rank": 11,
+    "score": 79
+  },
+  "boundary": {
+    "zh": "百度智能云千帆供应商级 API 产品面，覆盖模型服务、Agent、应用开发与平台能力。",
+    "en": "The supplier-level Baidu AI Cloud Qianfan API surface across model services, agents, application development, and platform capabilities."
+  },
+  "stage": "protocol-blocked",
+  "admissionDecision": "not-approved",
+  "gateStatus": {
+    "authority": "passed",
+    "redistribution": "pending",
+    "contract": "pending",
+    "transport": "blocked",
+    "risk": "pending",
+    "sdkCli": "pending"
+  },
+  "evidence": [
+    {
+      "kind": "docs",
+      "url": "https://cloud.baidu.com/doc/WENXINWORKSHOP/s/xlxuhovgi"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://cloud.baidu.com/doc/AI-APAAS/s/3loy2w42i"
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "transport",
+      "zh": "千帆模型与应用调用包含 SSE 流式响应；整集暂缓。",
+      "en": "Qianfan model and application invocation surfaces include SSE streaming responses; the whole collection is deferred."
+    }
+  ],
+  "nextAction": {
+    "zh": "待 SSE 支持后，先澄清新旧千帆产品、模型、Agent 与应用 API 的边界。",
+    "en": "After SSE support lands, first reconcile legacy/current Qianfan, model, agent, and application API boundaries."
+  },
+  "verifiedAt": "2026-08-14"
+}

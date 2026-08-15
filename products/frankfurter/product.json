@@ -1,0 +1,43 @@
+{
+  "formatVersion": 1,
+  "slug": "frankfurter",
+  "name": "Frankfurter API",
+  "provider": "Frankfurter",
+  "category": "Finance",
+  "featured": true,
+  "display": {
+    "title": "Frankfurter 汇率 API",
+    "summary": "无需 API Key，查询欧洲央行参考汇率、货币列表及历史时间序列；当前集合对应仍可用的 v1。",
+    "accent": "#2d6cdf"
+  },
+  "legal": {
+    "license": "MIT",
+    "attributionUrl": "https://frankfurter.dev/"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://frankfurter.dev/v1/",
+      "https://api.frankfurter.dev/v1/openapi.json",
+      "https://github.com/lineofflight/frankfurter/blob/main/CHANGELOG.md"
+    ],
+    "verifiedAt": "2026-08-10",
+    "contentUpdatedAt": "2026-08-10",
+    "stabilityNote": "无需鉴权的只读公共 API。v1 已由 v2 取代，但上游承诺继续长期提供；目录中的 v1 Endpoint 已标记为 deprecated。"
+  },
+  "pricing": {
+    "status": "free",
+    "summary": "公共 API 免费用于商业用途，无月度或每日调用配额；上游会为防止滥用实施速率限制。",
+    "officialUrl": "https://frankfurter.dev/",
+    "verifiedAt": "2026-08-14",
+    "freeTier": "无需 API Key，不收取 API 调用费。"
+  },
+  "credentials": [],
+  "execution": {
+    "hubProxyEnabled": true
+  },
+  "quickStart": {
+    "operationId": "getLatestRates",
+    "requestExampleId": "default"
+  }
+}

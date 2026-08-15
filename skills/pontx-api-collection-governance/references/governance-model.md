@@ -6,7 +6,7 @@
 
 | 等级 | 含义 | 示例 | 处理目标 |
 | --- | --- | --- | --- |
-| P0 / BLOCKER | 可能立即造成秘密、隐私、越权执行、SSRF、许可或大面积错误契约 | 真实 token、任意代理 URL、交易 Endpoint 被当作 GET、hash 无法追溯 | 先封堵，不发布 |
+| P0 / BLOCKER | 可能立即造成秘密、隐私、越权执行、SSRF、许可或大面积错误契约 | 真实 token、任意代理 URL、交易 Endpoint 被当作读取、PontxSpec hash 无法追溯 | 先封堵，不发布 |
 | P1 / MAJOR | 高概率破坏消费者或严重误导集成 | server/auth 漂移、required/type 错误、主版本混入旧 slug、结构翻译漂移 | 当前整改波次解决 |
 | P2 | 影响完整性、可发现性或维护成本，但有可靠规避路径 | 缺错误 Schema、分页说明、重要属性 prose | 排入近期治理 |
 | P3 | 非契约性表达或组织问题 | 标签不理想、示例可以更代表性 | 机会性改进 |
@@ -35,7 +35,7 @@
 | 安全与执行 | 20 | auth 真实、无秘密、精确 allowlist、mutation 确认、风险与数据边界清楚 |
 | 兼容性与生命周期 | 15 | 稳定身份、版本分离、弃用/迁移完整、无未说明 breaking drift |
 | 国际化 | 10 | 所有 locale 同构，关键 prose 完整且语义一致 |
-| 消费者与可复现性 | 10 | hash/build 确定，Hub/CLI 接受，SDK 状态真实，关键资源可发现 |
+| 消费者与可复现性 | 10 | 分级加载和 hash 确定，Hub/CLI 接受，SDK 状态真实，关键资源可发现 |
 
 计算：`总分 = Σ(维度分 / 5 × 权重)`。
 
@@ -65,7 +65,8 @@
 
 ## 5. 标准与安全基线
 
-- [OpenAPI Specification 3.1.2](https://spec.openapis.org/oas/v3.1.2.html)：唯一 `operationId`、参数、响应、安全和 deprecated 等对象语义。
+- PontxSpec 2.1：metadata、Hub、CLI 与 SDK 的唯一规范；OAS 只作为一次性导入格式或证据。
+- [OpenAPI Specification 3.1.2](https://spec.openapis.org/oas/v3.1.2.html)：审核 REST 上游证据时使用的对象语义基线。
 - [RFC 9110 HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html#name-methods)：safe、idempotent、method 和 status 语义。
 - [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457.html)：仅在上游采用时核验标准错误结构，并防止错误详情泄露内部信息。
 - [OWASP API Security Top 10 2023](https://owasp.org/API-Security/editions/2023/en/0x11-t10/)：授权、资源消耗、敏感业务流、SSRF、安全配置、库存与第三方 API 风险。

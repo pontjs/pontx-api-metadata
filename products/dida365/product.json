@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "slug": "dida365",
+  "name": "Dida365 Open API",
+  "provider": "Dida365",
+  "category": "Productivity",
+  "featured": true,
+  "display": {
+    "title": "滴答清单开放 API",
+    "summary": "通过 OAuth 2.0 管理滴答清单的项目、任务、评论、标签、专注记录、倒数日、习惯与打卡。",
+    "accent": "#1dbf73"
+  },
+  "legal": {
+    "license": "Proprietary",
+    "attributionUrl": "https://developer.dida365.com/docs#/openapi"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://developer.dida365.com/docs#/openapi",
+      "https://developer.dida365.com/docs/openapi.md"
+    ],
+    "verifiedAt": "2026-08-10",
+    "contentUpdatedAt": "2026-08-10",
+    "stabilityNote": "官方 OAuth 2.0 API；读取和写入均需要用户授权，具体能力受 tasks:read / tasks:write scope 限制。"
+  },
+  "pricing": {
+    "status": "unknown",
+    "summary": "官方开发者站未公开单独的 Open API 价目；使用资格及相关订阅权益以 Dida365 账号页面和官方条款为准。",
+    "officialUrl": "https://developer.dida365.com/",
+    "verifiedAt": "2026-08-14"
+  },
+  "credentials": [
+    {
+      "schemeId": "OAuth2",
+      "envVar": "DIDA365_ACCESS_TOKEN",
+      "tokenEndpointAuthMethod": "client_secret_post",
+      "pkce": "unsupported",
+      "description": "Dida365 OAuth 2.0 访问令牌（tasks:read / tasks:write）。请只在自己的会话中输入。",
+      "guide": {
+        "url": "https://developer.dida365.com/",
+        "title": "前往滴答清单开发者中心申请凭证",
+        "steps": [
+          "登录开发者中心并创建一个应用（New App）。",
+          "把 Pontx Hub 显示的回调地址填写到应用的 OAuth Redirect URL。",
+          "保存应用，然后复制生成的 Client ID 和 Client Secret 到下方输入框。"
+        ]
+      }
+    }
+  ],
+  "execution": {
+    "hubProxyEnabled": true
+  },
+  "quickStart": {
+    "operationId": "getUserProjects",
+    "requestExampleId": "default"
+  }
+}
