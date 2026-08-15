@@ -46,26 +46,26 @@ assert.equal(sha256(licenseBytes), licenseHash, "vendored license hash must be i
 assert.equal(sdk.spec.sha256, sha256(zhBytes), "SDK must bind canonical PontxSpec raw bytes");
 assert.equal(sdk.package.status, "published", "SDK must be published before catalog admission");
 assert.equal(sdk.package.name, "@pontx/amazon-sqs");
-assert.equal(sdk.package.version, "0.1.1");
+assert.equal(sdk.package.version, "0.1.2");
 assert.equal(sdk.quality?.testedVersion, sdk.package.version);
 assert.deepEqual(sdk.quality?.unitTests, { passed: 6, total: 6, skipped: 0 });
 assert.equal(sdk.quality?.e2eStatus, "passed");
 assert.deepEqual(sdk.quality?.nodeVersions, ["20", "22"]);
-assert.equal(sdk.quality?.sourceCommit, "3c0e040f83173b096677a54d8450c877656862a4");
+assert.equal(sdk.quality?.sourceCommit, "e1aed89be165f920450a3172750cb0ff898d6ec4");
 assert.equal(sdk.spec.metadataCommit, "d24224857ed1c87e7ba92ba333742d980e44c977");
 assert.equal(provenance.import.sourceSha256, sourceHash);
 assert.equal(provenance.license.sha256, licenseHash);
 assert.equal(provenance.status, "published");
 assert.deepEqual(provenance.sdk, {
   package: "@pontx/amazon-sqs",
-  version: "0.1.1",
-  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.1",
-  integrity: "sha512-G2QPOpFbf9JDPpb20dqqBr3ER3kbAa4uJtPWUQCP2h3HYxxCvrJ4BBvLuj07vnzzEbSEIxKxf8ZK3eGqbogCxg==",
-  shasum: "f303b11f5bc986497efbfbdff7013652bbb36819",
+  version: "0.1.2",
+  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.2",
+  integrity: "sha512-5+ahHTuiQ5SqZdmEUNmZ5Alg6VdIneQPiloJCGKHFtQqb5of7uWjTQ+uNbj1vh6ZPQODFuxlSBD4pCis0EUwAA==",
+  shasum: "42f43a4e223b8cbec06270dfe4ed8305a966b194",
   repository: "https://github.com/pontjs/amazon-sqs",
-  sourceCommit: "3c0e040f83173b096677a54d8450c877656862a4",
-  mergedCommit: "707f4c0d4a305bbbece0f2d4e1959d3ff0e275f3",
-  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/31872001674",
+  sourceCommit: "e1aed89be165f920450a3172750cb0ff898d6ec4",
+  mergedCommit: "9aaed163d2235682a1a53370ca5ca14ab3e0dc4c",
+  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/31873186296",
   nodeVersions: ["20", "22"],
   verifiedAt: "2026-08-15",
 });
