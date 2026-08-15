@@ -41,6 +41,7 @@
   },
   "riskReview": {
     "classification": "public-holiday-data-with-commercial-use-terms",
+    "hubProxyEnabled": false,
     "mutations": 0,
     "credentials": "None required by the Community API v4 contract.",
     "execution": "All Hub execution is disabled because the provider terms restrict use and Hub must not operate a holiday-data portal or proxy. The package exposes caller-direct reads only."
