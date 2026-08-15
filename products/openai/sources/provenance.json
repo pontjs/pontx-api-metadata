@@ -23,7 +23,8 @@
       "sseEndpoints": 7
     },
     "transformations": [
-      "Preserved all imported Endpoint methods, paths, operation IDs, tags, security requirements, parameters, response statuses, media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      "Preserved all imported Endpoint methods, paths, tags, security requirements, parameters, response statuses, media types, typed SSE contracts, Schema constraints, enums, defaults, and reference topology.",
+      "Normalized 110 official dashed operationIds and 6 dashed Schema names to valid camelCase identifiers (matching OpenAI's own official SDK naming); every $ref was rewritten consistently and the mapping is deterministic.",
       "Replaced supplier prose with independently authored Chinese and English product, Endpoint, response, tag, Schema, and field text; locale files differ only in prose.",
       "Added one reviewed request outline per Endpoint. Required model, resource, and body inputs are declared as runtime-bound rather than fabricated as executable production data.",
       "Applied direct-only execution policy to every OpenAI Endpoint; no Hub proxy stores, relays, caches, or logs caller credentials or provider responses.",

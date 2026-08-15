@@ -356,6 +356,6 @@
   },
   "spec": {
     "path": "products/openai/spec.pontx.json",
-    "sha256": "f6cacdf6fb8639a34c3442acbbea78e5f5ad987be530e68616f70fffb6a395b4"
+    "sha256": "04c80d8add695737f0ec0849091858c2337a354cea381a7b8bf44465987fbbd6"
   }
 }
