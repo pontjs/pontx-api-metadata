@@ -42,9 +42,6 @@
       "description": "Stripe Secret Key 通过 Bearer Header 提供，仅保留在调用者本地环境中；不要在浏览器、日志或示例中持久化。"
     }
   ],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "getIdentityVerificationSessions",
     "requestExampleId": "default"

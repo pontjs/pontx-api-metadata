@@ -23,7 +23,7 @@
     ],
     "verifiedAt": "2026-08-14",
     "contentUpdatedAt": "2026-08-14",
-    "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 不代理、缓存或再分发响应。"
+    "stabilityNote": "官方文档接口；调用者必须使用自己的 Massive 账户、API Key 和市场数据授权。Hub 仅在调用者明确执行时转发该次请求，不缓存、持久化或再分发响应。"
   },
   "pricing": {
     "status": "freemium",
@@ -46,9 +46,6 @@
       "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。"
     }
   ],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "getPreviousClose",
     "requestExampleId": "default"

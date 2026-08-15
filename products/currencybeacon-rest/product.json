@@ -42,9 +42,6 @@
       "description": "调用方提供的 CurrencyBeacon API key；不得写入请求示例或持久化。"
     }
   ],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "getLatestRates",
     "requestExampleId": "default"

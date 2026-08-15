@@ -40,9 +40,6 @@
       "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者本地环境中。"
     }
   ],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "signatureRequestList",
     "requestExampleId": "default"

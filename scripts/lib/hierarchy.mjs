@@ -19,7 +19,6 @@ const PRODUCT_KEYS = new Set([
   "documentation",
   "pricing",
   "credentials",
-  "execution",
   "quickStart",
 ]);
 const PRODUCT_LOCALE_KEYS = new Set([
@@ -75,9 +74,6 @@ function validateProduct(slug, product, errors) {
   }
   if (!String(product.legal?.attributionUrl ?? "").startsWith("https://")) {
     errors.push(`${slug}: legal attribution URL must use HTTPS`);
-  }
-  if (typeof product.execution?.hubProxyEnabled !== "boolean") {
-    errors.push(`${slug}: execution.hubProxyEnabled must be boolean`);
   }
   if (!hasText(product.quickStart?.operationId)
     || !hasText(product.quickStart?.requestExampleId)) {

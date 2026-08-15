@@ -33,9 +33,6 @@
     "freeTier": "无需 API Key，不收取 API 调用费。"
   },
   "credentials": [],
-  "execution": {
-    "hubProxyEnabled": true
-  },
   "quickStart": {
     "operationId": "getRates",
     "requestExampleId": "default"

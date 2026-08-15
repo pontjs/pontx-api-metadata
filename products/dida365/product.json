@@ -48,9 +48,6 @@
       }
     }
   ],
-  "execution": {
-    "hubProxyEnabled": true
-  },
   "quickStart": {
     "operationId": "getUserProjects",
     "requestExampleId": "default"

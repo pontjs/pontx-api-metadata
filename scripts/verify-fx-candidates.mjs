@@ -82,7 +82,7 @@ assert(twelveQuality.score === 100 && twelveQuality.grade === "A"
   && twelveQuality.findings.length === 0
   && validatePontxSpecLocale(twelveContract, twelveEnglishContract).valid,
 "Twelve Data Forex product must remain bilingual and static-quality A");
-assert(twelveProduct.execution.hubProxyEnabled === false
+assert(!Object.hasOwn(twelveProduct, "execution")
   && twelveProduct.credentials?.[0]?.envVar === "PONTX_TWELVE_DATA_API_KEY"
   && twelveSdk.package.name === "@pontx/twelve-data-forex"
   && twelveSdk.package.version === "0.1.1"
@@ -117,7 +117,7 @@ assert(currencyBeaconQuality.score === 100 && currencyBeaconQuality.grade === "A
   && currencyBeaconQuality.findings.length === 0
   && validatePontxSpecLocale(currencyBeaconContract, currencyBeaconEnglishContract).valid,
 "CurrencyBeacon product must remain bilingual and static-quality A");
-assert(currencyBeaconProduct.execution.hubProxyEnabled === false
+assert(!Object.hasOwn(currencyBeaconProduct, "execution")
   && currencyBeaconProduct.credentials?.[0]?.envVar === "PONTX_CURRENCYBEACON_API_KEY"
   && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
   && currencyBeaconSdk.package.version === "0.1.1"

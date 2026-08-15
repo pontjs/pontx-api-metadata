@@ -30,7 +30,7 @@
     ],
     "verifiedAt": "2026-08-14",
     "contentUpdatedAt": "2026-08-14",
-    "stabilityNote": "基于 ECB 当前官方帮助页独立重建的完整匿名只读 SDMX 2.1 REST 契约；Hub 不代理请求或响应，SDK 与 CLI 直接访问 ECB 公共 HTTPS 服务。"
+    "stabilityNote": "基于 ECB 当前官方帮助页独立重建的完整匿名只读 SDMX 2.1 REST 契约；Hub 在调用者明确执行时转发该次请求，不缓存或持久化响应。SDK 与 CLI 也可直接访问 ECB 公共 HTTPS 服务。"
   },
   "pricing": {
     "status": "unknown",
@@ -39,9 +39,6 @@
     "verifiedAt": "2026-08-14"
   },
   "credentials": [],
-  "execution": {
-    "hubProxyEnabled": false
-  },
   "quickStart": {
     "operationId": "getDataBySeriesKey",
     "requestExampleId": "default"
