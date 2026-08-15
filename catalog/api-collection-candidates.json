@@ -21,7 +21,7 @@
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
-        "redistribution": "pending",
+        "redistribution": "blocked",
         "contract": "pending",
         "transport": "pending",
         "risk": "pending",
@@ -31,7 +31,8 @@
         { "kind": "docs", "url": "https://developers.notion.com/reference/intro" },
         { "kind": "docs", "url": "https://developers.notion.com/reference/versioning" },
         { "kind": "source", "url": "https://github.com/makenotion/notion-sdk-js/tree/main/src/api-endpoints" },
-        { "kind": "license", "url": "https://github.com/makenotion/notion-sdk-js/blob/main/LICENSE" }
+        { "kind": "license", "url": "https://github.com/makenotion/notion-sdk-js/blob/main/LICENSE" },
+        { "kind": "terms", "url": "https://www.notion.so/Developer-Terms-ba4131408d0844e08330da2cbb225c20" }
       ],
       "blockers": [
         {
@@ -41,15 +42,15 @@
         },
         {
           "gate": "redistribution",
-          "zh": "官方 SDK 为 MIT，但文档 prose 与重建规范的再分发边界仍需单独确认。",
-          "en": "The official SDK is MIT-licensed, but redistribution of documentation prose and a reconstructed specification still requires a separate determination."
+          "zh": "Notion Developer Terms 第 3.1 条禁止复制、展示或向第三方分发 API；官方 SDK 的 MIT 许可证不授权发布完整 API metadata、重建 OAS 或独立生成客户端。需取得 Notion 的书面再分发许可。",
+          "en": "Section 3.1 of the Notion Developer Terms prohibits copying, displaying, or distributing the API to third parties. The official SDK's MIT license does not authorize publication of complete API metadata, a reconstructed OAS, or an independently generated client; written redistribution permission from Notion is required."
         }
       ],
       "nextAction": {
-        "zh": "固定 Notion-Version 2026-03-11，导出官方 CLI/SDK 的完整 Endpoint 清单，并完成协议与再分发审查。",
-        "en": "Pin Notion-Version 2026-03-11, export the complete official CLI/SDK endpoint inventory, and complete transport and redistribution review."
+        "zh": "在 Notion 书面授予 API metadata、重建规范与独立生成客户端的发布/再分发许可后，固定 Notion-Version 2026-03-11，导出官方 CLI/SDK 的完整 Endpoint 清单并完成协议审查。",
+        "en": "After Notion grants written publication and redistribution permission for API metadata, a reconstructed specification, and an independently generated client, pin Notion-Version 2026-03-11, export the complete official CLI/SDK endpoint inventory, and complete transport review."
       },
-      "verifiedAt": "2026-08-14"
+      "verifiedAt": "2026-08-15"
     },
     {
       "slug": "wps-365",
@@ -114,7 +115,7 @@
       "admissionDecision": "not-approved",
       "gateStatus": {
         "authority": "passed",
-        "redistribution": "passed",
+        "redistribution": "blocked",
         "contract": "passed",
         "transport": "passed",
         "risk": "pending",
@@ -124,9 +125,10 @@
         "kind": "openapi",
         "url": "https://raw.githubusercontent.com/mongodb/openapi/1287e6eb1c4fa28e13f1a76e16f18055d3e9e029/openapi/v2.json",
         "revision": "1287e6eb1c4fa28e13f1a76e16f18055d3e9e029",
-        "observedAt": "2026-08-14",
-        "license": "Apache-2.0",
+        "observedAt": "2026-08-15",
+        "license": "CC BY-NC-SA 3.0 US (the pinned OAS info.license; repository LICENSE is Apache-2.0 but does not resolve the OAS-specific restriction)",
         "openapiVersion": "3.0.1",
+        "sourceSha256": "3c39ed724df4079b2c1ede6156e23590f0defa45b821c68f059d3bb5e9d89461",
         "observedPaths": 335,
         "observedOperations": 540,
         "observedSchemas": 1145
@@ -134,9 +136,15 @@
       "evidence": [
         { "kind": "docs", "url": "https://www.mongodb.com/docs/atlas/api/atlas-admin-api-ref/" },
         { "kind": "spec", "url": "https://raw.githubusercontent.com/mongodb/openapi/main/openapi/v2.json" },
-        { "kind": "license", "url": "https://github.com/mongodb/openapi/blob/main/LICENSE" }
+        { "kind": "license", "url": "https://github.com/mongodb/openapi/blob/main/LICENSE" },
+        { "kind": "license", "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/" }
       ],
       "blockers": [
+        {
+          "gate": "redistribution",
+          "zh": "已固定的官方 OAS 在 info.license 中声明 CC BY-NC-SA 3.0 US。仓库根 LICENSE 为 Apache-2.0，但未将该许可证覆盖到 OAS；在 MongoDB 提供书面澄清或可商用再分发的 OAS 版本前，不能发布完整 metadata 或独立生成的 npm SDK。",
+          "en": "The pinned official OAS declares CC BY-NC-SA 3.0 US in info.license. The repository root LICENSE is Apache-2.0 but does not extend that license to the OAS; complete metadata or an independently generated npm SDK cannot be published until MongoDB provides written clarification or a commercially redistributable OAS revision."
+        },
         {
           "gate": "risk",
           "zh": "管理面包含删除集群、网络与访问配置等高影响写接口，需完成 Endpoint 级 preview/confirmation 与代理禁用策略。",
@@ -149,10 +157,10 @@
         }
       ],
       "nextAction": {
-        "zh": "基于已固定的官方 v2 规范提交，完成双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
-        "en": "Use the pinned official v2 specification revision to complete bilingual prose and sensitive-endpoint execution policy, then publish the SDK/CLI release chain."
+        "zh": "先取得 MongoDB 对 OAS 与独立生成客户端的书面可商用再分发澄清，或固定一个明确许可的 OAS 版本；随后再完成双语 prose、敏感 Endpoint 执行策略与 SDK/CLI 发布链路。",
+        "en": "First obtain MongoDB's written clarification permitting commercial redistribution of the OAS and independently generated client, or pin an explicitly licensed OAS revision; then complete bilingual prose, sensitive-endpoint execution policy, and the SDK/CLI release chain."
       },
-      "verifiedAt": "2026-08-14"
+      "verifiedAt": "2026-08-15"
     },
     {
       "slug": "posthog",
