@@ -79,6 +79,28 @@ function validateProduct(slug, product, errors) {
     || !hasText(product.quickStart?.requestExampleId)) {
     errors.push(`${slug}: quickStart must identify an Endpoint and request example`);
   }
+  for (const credential of product.credentials ?? []) {
+    if (!credential.guide) continue;
+    const context = `${slug}: credential ${credential.schemeId} guide`;
+    checkExactKeys(
+      credential.guide,
+      new Set(["url", "title", "steps"]),
+      context,
+      errors,
+    );
+    if (!String(credential.guide.url ?? "").startsWith("https://")) {
+      errors.push(`${context} URL must use HTTPS`);
+    }
+    if (!hasText(credential.guide.title)) {
+      errors.push(`${context} title must be non-empty`);
+    }
+    if (!Array.isArray(credential.guide.steps)
+      || credential.guide.steps.length < 1
+      || credential.guide.steps.length > 8
+      || credential.guide.steps.some((step) => !hasText(step))) {
+      errors.push(`${context} must contain 1 to 8 non-empty steps`);
+    }
+  }
 }
 
 function validateProductLocale(slug, locale, localized, product, errors) {
@@ -94,6 +116,28 @@ function validateProductLocale(slug, locale, localized, product, errors) {
     }
     if (!hasText(credential.description)) {
       errors.push(`${context}: credential ${credential.schemeId} needs translated description`);
+    }
+    const baseCredential = product.credentials.find(
+      (item) => item.schemeId === credential.schemeId,
+    );
+    if (credential.guide && !baseCredential?.guide) {
+      errors.push(`${context}: credential ${credential.schemeId} cannot add a locale-only guide`);
+    }
+    if (baseCredential?.guide) {
+      checkExactKeys(
+        credential.guide,
+        new Set(["title", "steps"]),
+        `${context}: credential ${credential.schemeId} guide`,
+        errors,
+      );
+      if (!hasText(credential.guide?.title)) {
+        errors.push(`${context}: credential ${credential.schemeId} needs a translated guide title`);
+      }
+      if (!Array.isArray(credential.guide?.steps)
+        || credential.guide.steps.length !== baseCredential.guide.steps.length
+        || credential.guide.steps.some((step) => !hasText(step))) {
+        errors.push(`${context}: credential ${credential.schemeId} guide steps must match the source structure`);
+      }
     }
   }
 }

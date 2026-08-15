@@ -18,6 +18,7 @@
     "status": "official",
     "evidence": [
       "https://twelvedata.com/docs",
+      "https://twelvedata.com/docs/introduction/quickstart",
       "https://twelvedata.com/forex",
       "https://api.twelvedata.com/doc/swagger/openapi.json",
       "https://twelvedata.com/terms",
@@ -39,7 +40,16 @@
     {
       "schemeId": "apiKey",
       "envVar": "PONTX_TWELVE_DATA_API_KEY",
-      "description": "Twelve Data API Key 通过查询参数仅在调用方会话中用于直接请求。"
+      "description": "Twelve Data API Key 通过查询参数仅在调用方会话中用于直接请求。",
+      "guide": {
+        "url": "https://twelvedata.com/account/api-keys",
+        "title": "获取 Twelve Data API Key",
+        "steps": [
+          "注册 Twelve Data 账户并完成邮箱验证；已有账户可直接登录。",
+          "打开账户的 API Keys 页面，找到你的个人 API Key。",
+          "复制 Key，回到本页粘贴到下方 apikey 输入框。"
+        ]
+      }
     }
   ],
   "quickStart": {

@@ -84,6 +84,8 @@ assert(twelveQuality.score === 100 && twelveQuality.grade === "A"
 "Twelve Data Forex product must remain bilingual and static-quality A");
 assert(!Object.hasOwn(twelveProduct, "execution")
   && twelveProduct.credentials?.[0]?.envVar === "PONTX_TWELVE_DATA_API_KEY"
+  && twelveProduct.credentials?.[0]?.guide?.url === "https://twelvedata.com/account/api-keys"
+  && twelveProduct.credentials?.[0]?.guide?.steps?.length === 3
   && twelveSdk.package.name === "@pontx/twelve-data-forex"
   && twelveSdk.package.version === "0.1.1"
   && twelveSdk.coverage.mode === "full"
