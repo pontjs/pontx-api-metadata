@@ -39,8 +39,9 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 2. **许可与再分发**：必须证明 metadata/spec 和独立生成客户端可发布；不能证明时不收录。
 3. **完整契约**：供应商定义的完整边界、全部 Endpoint、Schema、错误、枚举、限制和认证必须完整，
    且 `zh-CN` / `en-US` 结构一致。
-4. **协议原子性**：只要完整集合包含 SSE、WebSocket 或其他 Pontx 尚未支持并验证的实时协议，整集
-   暂缓；不得删除流式 Endpoint 后发布残缺版本。
+4. **协议原子性**：只要完整集合包含尚未按该供应商真实语义完成契约和运行验证的 SSE、WebSocket
+   或其他实时协议，整集暂缓；不得删除流式 Endpoint 后发布残缺版本。通用 runtime 能力本身不自动
+   解除产品门槛。
 5. **安全与隐私**：身份、签署、消息、文件、队列删除和云资源管理等敏感 mutation 必须逐 Endpoint
    设计 preview、确认、代理与凭证边界。
 6. **SDK/CLI 发布**：正式 metadata 提升前，运营者必须先构建、测试并发布 `@pontx/{slug}` 与
@@ -80,16 +81,17 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 分数高不等于可直接上线。WPS 覆盖和增长潜力很大，但错误定界或残缺发布的代价也最大；PostHog
 虽然托管实例能导出完整机器规范，但该 URL 会变化，需先固定可再分发的不可变快照，且协议门已经阻断。
 
-## AI/LLM 候选：整集协议暂缓
+## AI/LLM 候选：协议与许可需要逐产品复审
 
-官方协议证据已确认以下 12 个 AI/LLM 完整产品面包含 SSE、WebSocket 或其他实时协议。它们的编辑分仅表示
-未来解除协议限制后的潜在顺序，不能与当前可执行队列混排。
+官方协议证据已确认以下 12 个 AI/LLM 完整产品面包含 SSE、WebSocket 或其他实时协议。Pontx 已具备通用
+typed SSE 合同与运行时，但这不会自动证明供应商事件类型、兼容格式、许可、认证和安全策略正确。它们的
+编辑分仅表示逐产品复审顺序，不能与当前可执行队列混排。
 
 | 序位 | API 集合 | 编辑分 | 阻断证据摘要 |
 | ---: | --- | ---: | --- |
 | 1 | OpenAI API | 96 | Responses、图像和音频等包含 SSE，另有 Realtime API |
 | 2 | Qwen API | 94 | 官方流式输出基于 SSE，部分模型仅支持流式调用 |
-| 3 | DeepSeek API | 93 | Chat 与 FIM 官方响应定义 `text/event-stream` |
+| 3 | DeepSeek API | 93 | 已认领；当前官方面还包括 Responses 与 Anthropic 兼容格式。typed SSE 旧阻断已移除，但 2026-04-29 生效的开放平台协议第 5.2 条要求品牌标识使用先获许可，且未找到 API 文档、派生 PontxSpec 和独立 SDK/CLI 的明确发布许可 |
 | 4 | Gemini API | 91 | `streamGenerateContent` / Interactions 使用 SSE，Live API 为双向实时协议 |
 | 5 | Anthropic API | 91 | Messages streaming 使用带事件类型的 SSE |
 | 6 | Kimi API | 86 | Chat `stream=true` 使用 SSE 并以 `data: [DONE]` 结束 |
@@ -100,8 +102,8 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 | 11 | 百度千帆 API | 79 | 模型与应用调用包含 SSE 流式响应 |
 | 12 | Mistral AI API | 78 | Chat/Agents、音频转录与 Workflow 事件包含 SSE |
 
-协议暂缓不是删除候选。Pontx 完整实现并验证流式契约、生成、文档、请求构造与运行时安全后，才可
-按本表顺序重新审查。
+协议或许可暂缓不是删除候选。只有供应商级完整契约、生成、文档、请求构造、运行时安全和再分发边界
+均验证通过，才可继续 SDK/CLI 和发布。
 
 ## 单独合规审查
 
@@ -119,6 +121,7 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 
 1. MongoDB Atlas Administration API v2：固定 OAS 的 CC BY-NC-SA 条款与仓库 Apache-2.0 LICENSE 冲突，需 MongoDB 书面澄清或另一个明确许可版本。
 2. Notion API：Developer Terms §3.1 禁止向第三方复制、展示或分发 API，需 Notion 书面许可。
+3. DeepSeek API：开放平台协议第 5.2 条要求 DeepSeek 名称、URL 等品牌标识的使用先获许可；还需明确允许发布独立表述的 metadata/PontxSpec 与 `@pontx/deepseek` / `pontx-deepseek`。
 
 ### 先解决证据或边界缺口
 
@@ -130,7 +133,8 @@ Agent 任务成功率、开发者激活率、7/30 日回访和非品牌自然搜
 ### 暂缓
 
 - PostHog：协议门阻断，且需固定可再分发、可复现的不可变完整 schema 快照。
-- 12 个 AI/LLM 集合：协议门阻断。
+- DeepSeek：许可门阻断；typed SSE 能力已存在，但完整 Chat、Responses、Beta FIM、Anthropic 事件契约仍待审。
+- 其余 11 个 AI/LLM 集合：按当前协议能力逐产品复审，未复审前保持暂缓。
 - Stripe Identity：已正式准入；因隐私与合规边界，Hub 执行持续保持关闭。
 - 没有权威完整契约、可接受再分发条件或可发布 SDK/CLI 的任何候选。
 

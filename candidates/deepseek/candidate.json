@@ -16,13 +16,13 @@
     "zh": "DeepSeek 官方 OpenAI/Anthropic 兼容 API 的完整产品面，模型别名与版本不拆分。",
     "en": "The complete official DeepSeek API surface across its OpenAI- and Anthropic-compatible formats; model aliases and versions are not split."
   },
-  "stage": "protocol-blocked",
+  "stage": "license-blocked",
   "admissionDecision": "not-approved",
   "gateStatus": {
     "authority": "passed",
-    "redistribution": "pending",
+    "redistribution": "blocked",
     "contract": "pending",
-    "transport": "blocked",
+    "transport": "pending",
     "risk": "pending",
     "sdkCli": "pending"
   },
@@ -33,23 +33,44 @@
     },
     {
       "kind": "protocol",
-      "url": "https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/"
+      "url": "https://api-docs.deepseek.com/api/create-chat-completion"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://api-docs.deepseek.com/api/create-response"
+    },
+    {
+      "kind": "protocol",
+      "url": "https://api-docs.deepseek.com/guides/anthropic_api"
     },
     {
       "kind": "terms",
       "url": "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html"
+    },
+    {
+      "kind": "terms",
+      "url": "https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html"
+    },
+    {
+      "kind": "license",
+      "url": "https://github.com/deepseek-ai/awesome-deepseek-integration/blob/main/LICENSE"
     }
   ],
   "blockers": [
     {
-      "gate": "transport",
-      "zh": "官方 Chat 与 FIM 接口以 text/event-stream 返回增量消息；整集暂缓。",
-      "en": "The official Chat and FIM endpoints return incremental messages as text/event-stream; the whole collection is deferred."
+      "gate": "redistribution",
+      "zh": "2026-04-29 生效的开放平台协议只明确授予 API 服务的访问和使用权；第 5.2 条要求未经许可不得使用 DeepSeek 名称、URL 等品牌标识。官方 API 文档仅显示版权声明，未找到允许发布 DeepSeek 产品页、@pontx/deepseek、pontx-deepseek、派生 PontxSpec 或独立 SDK/CLI 的明确许可。官方集成清单虽采用 CC0，但该许可明确不授予商标权，也不覆盖 API 文档或完整契约。取得书面许可前禁止创建可发布产品产物。",
+      "en": "The Open Platform Terms effective 2026-04-29 expressly grant access to and use of the API service only; Section 5.2 requires permission before using the DeepSeek name, URLs, or other brand identifiers. The official API documentation carries a copyright notice, and no explicit grant was found for publishing a DeepSeek product page, @pontx/deepseek, pontx-deepseek, a derived PontxSpec, or an independent SDK/CLI. The official integration list is CC0, but that license expressly excludes trademark rights and does not cover the API documentation or complete contract. Do not create publishable product artifacts before written permission is obtained."
+    },
+    {
+      "gate": "contract",
+      "zh": "当前官方 sitemap 列出 Chat Completions、Responses、Beta FIM、Models、Balance，并另有 Anthropic 兼容格式；没有找到不可变、带许可的完整机器契约。Chat、Responses、FIM 与 Anthropic 流式事件、全部错误、Beta/GA 边界和模型弃用仍需逐项固定，不能沿用只写 Chat/FIM 的旧边界。",
+      "en": "The current official sitemap exposes Chat Completions, Responses, beta FIM, Models, and Balance plus an Anthropic-compatible format, but no immutable, licensed, complete machine contract was found. Streaming event unions for Chat, Responses, FIM, and Anthropic, all errors, beta/GA boundaries, and model deprecations still require fact-by-fact pinning; the previous Chat/FIM-only boundary is incomplete."
     }
   ],
   "nextAction": {
-    "zh": "等待 SSE 契约支持，再固定官方 API 版本与兼容协议范围。",
-    "en": "Wait for SSE contract support, then pin the official API version and compatible-format boundary."
+    "zh": "先取得供应商书面许可，明确允许对 DeepSeek 名称作非背书性的指称使用，并允许发布独立表述的 metadata/PontxSpec、@pontx/deepseek 与 pontx-deepseek；随后固定 Chat、Responses、Beta FIM、Models、Balance、Anthropic 格式及全部 SSE 事件，再继续风险、SDK/CLI 和上线门。",
+    "en": "First obtain written provider permission for non-endorsing nominative use of the DeepSeek name and publication of independently worded metadata/PontxSpec, @pontx/deepseek, and pontx-deepseek. Then pin Chat, Responses, beta FIM, Models, Balance, the Anthropic format, and every SSE event before continuing through risk, SDK/CLI, and launch gates."
   },
-  "verifiedAt": "2026-08-14"
+  "verifiedAt": "2026-08-15"
 }
