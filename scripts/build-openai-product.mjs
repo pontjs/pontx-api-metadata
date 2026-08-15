@@ -527,6 +527,20 @@ const productEn = {
     },
   ],
 };
+const sdkMethodEntries = Object.entries(zh.apis).map(([apiKey, api]) => [
+  api.operationId,
+  camelIdentifier(api.operationId),
+  api.tags?.[0] ?? "",
+  apiKey,
+]);
+const sdkControllerMethods = new Set();
+for (const [, methodName, tag, apiKey] of sdkMethodEntries) {
+  const controllerMethod = `${tag}\u0000${methodName}`;
+  if (sdkControllerMethods.has(controllerMethod)) {
+    throw new Error(`OpenAI SDK method collision for ${tag || "root"}.${methodName} at ${apiKey}`);
+  }
+  sdkControllerMethods.add(controllerMethod);
+}
 const sdk = {
   formatVersion: 1,
   package: {
@@ -546,6 +560,9 @@ const sdk = {
       },
     },
     controllers: Object.fromEntries(controllerEntries),
+    methodNames: Object.fromEntries(
+      sdkMethodEntries.map(([operationId, methodName]) => [operationId, methodName]),
+    ),
   },
   examples: {
     typescript: "import { createOpenAiClient } from \"@pontx/openai\";\n\nconst client = createOpenAiClient();\nconst models = await client.models.listModels();",

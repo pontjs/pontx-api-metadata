@@ -38,6 +38,7 @@
     {
       "schemeId": "ServiceAccounts",
       "envVar": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_ID",
+      "secretEnvVar": "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET",
       "description": "OAuth 服务账号客户端 ID。SDK/CLI 还要求 MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET；两项凭证只保留在调用方本地环境，不能写入请求示例、日志或 Hub。",
       "guide": {
         "url": "https://www.mongodb.com/docs/atlas/configure-api-access/",

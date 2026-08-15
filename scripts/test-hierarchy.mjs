@@ -70,4 +70,27 @@ try {
   await rm(missingCredentialEnvRoot, { recursive: true, force: true });
 }
 
+const invalidCredentialSecretRoot = await mkdtemp(resolve(tmpdir(), "pontx-invalid-credential-secret-"));
+try {
+  await cp(fixtureRoot, invalidCredentialSecretRoot, { recursive: true });
+  const productPath = resolve(invalidCredentialSecretRoot, "products/rpc-minimal/product.json");
+  const product = JSON.parse(await readFile(productPath, "utf8"));
+  product.credentials = [{
+    schemeId: "fixtureToken",
+    envVar: "PONTX_FIXTURE_TOKEN",
+    secretEnvVar: "fixture-secret",
+    description: "A fixture OAuth credential.",
+  }];
+  await writeFile(productPath, `${JSON.stringify(product, null, 2)}\n`);
+  const invalidCredentialSecret = await validateHierarchy({
+    root: invalidCredentialSecretRoot,
+    requireMetadataCommit: false,
+  });
+  assert(invalidCredentialSecret.errors.some(
+    (error) => error.includes("secretEnvVar must be an uppercase environment variable name"),
+  ));
+} finally {
+  await rm(invalidCredentialSecretRoot, { recursive: true, force: true });
+}
+
 console.log("Hierarchy contract tests passed, including RPC, credential env vars, and forbidden common/default alias coverage.");

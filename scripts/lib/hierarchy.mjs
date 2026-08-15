@@ -90,6 +90,10 @@ function validateProduct(slug, product, errors) {
     } else if (!ENV_VAR_PATTERN.test(credential.envVar ?? "")) {
       errors.push(`${context} requires an uppercase envVar for the Hub and local SDK/CLI boundary`);
     }
+    if (credential.secretEnvVar !== undefined
+      && !ENV_VAR_PATTERN.test(credential.secretEnvVar)) {
+      errors.push(`${context} secretEnvVar must be an uppercase environment variable name`);
+    }
     if (!credential.guide) continue;
     const guideContext = `${context} guide`;
     checkExactKeys(

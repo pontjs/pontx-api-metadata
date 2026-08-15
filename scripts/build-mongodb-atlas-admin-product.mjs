@@ -449,6 +449,7 @@ const product = {
     {
       schemeId: "ServiceAccounts",
       envVar: "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_ID",
+      secretEnvVar: "MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET",
       description: "OAuth 服务账号客户端 ID。SDK/CLI 还要求 MONGODB_ATLAS_SERVICE_ACCOUNT_CLIENT_SECRET；两项凭证只保留在调用方本地环境，不能写入请求示例、日志或 Hub。",
       guide: {
         url: "https://www.mongodb.com/docs/atlas/configure-api-access/",
@@ -512,7 +513,7 @@ const sdk = {
   package: {
     name: "@pontx/mongodb-atlas-admin",
     version: "0.1.0",
-    status: "planned",
+    status: "published",
     repository: "https://github.com/pontjs/mongodb-atlas-admin",
   },
   cli: { name: "pontx-mongodb-atlas-admin" },
@@ -530,12 +531,23 @@ const sdk = {
   },
   examples: {
     typescript: "import { createMongoDbAtlasAdminClient } from \"@pontx/mongodb-atlas-admin\";\n\nconst client = createMongoDbAtlasAdminClient();\nconst organizations = await client.organizations.listOrgs({});",
-    cli: "pnpm add --global @pontx/mongodb-atlas-admin\n\npontx-mongodb-atlas-admin preview organizations listOrgs --input '{}'",
+    cli: "pnpm add --global @pontx/mongodb-atlas-admin\n\npontx-mongodb-atlas-admin call organizations listOrgs --dry-run",
   },
   coverage: { mode: "full" },
   spec: {
     path: "products/mongodb-atlas-admin/spec.pontx.json",
     sha256: sha256(zhBytes),
+    metadataCommit: "8bd9128f25e92191072624212626540d68d543e1",
+  },
+  quality: {
+    testedVersion: "0.1.0",
+    unitTests: { passed: 4, total: 4, skipped: 0 },
+    e2eStatus: "passed",
+    nodeVersions: ["18", "20", "22"],
+    sourceCommit: "30539888cf6795b3a67f7cf948bbb84d19527ebf",
+    testedAt: "2026-08-15",
+    repositoryUrl: "https://github.com/pontjs/mongodb-atlas-admin",
+    workflowRunUrl: "https://github.com/pontjs/mongodb-atlas-admin/actions/runs/31891578691",
   },
 };
 const provenance = {
