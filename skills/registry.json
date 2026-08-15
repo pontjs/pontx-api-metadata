@@ -122,6 +122,21 @@
       ]
     },
     {
+      "name": "pontx-nager-date",
+      "apiSlug": "nager-date",
+      "version": "1.0.0",
+      "description": "Use for Nager.Date Community API v4 public-holiday integration, country or holiday lookups, commercial-use eligibility checks, and direct read-only SDK or CLI workflows.",
+      "license": "MIT-0",
+      "contentHash": "d9b3c39c2a7126f6bb88a8b4ca1cfed2f6b22ef4559b5a0c60d22f66793f75b3",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "79b366f063e7e6c148ff6fe8e8b0dd9f9e67de2fb7fa62f708f09025ebbc2c59",
+          "content": "---\nname: pontx-nager-date\ndescription: Use for Nager.Date Community API v4 public-holiday integration, country or holiday lookups, commercial-use eligibility checks, and direct read-only SDK or CLI workflows.\n---\n\n# Nager.Date Community API v4\n\nStart with live Pontx discovery rather than copying API fields into an\napplication. Use the universal CLI to resolve the current product, Endpoint,\nSchema, and package guidance:\n\n```bash\npontx-hub search \"public holidays for a country\" --type endpoint --json\npontx-hub show <returned-resource-id>\npontx-hub sdk nager-date\n```\n\nUse `@pontx/nager-date` in application code and `pontx-nager-date` for an\noptional local script. Nager.Date Community API v4 is a public service for\npublic-holiday information. It is a caller-directed service: keep upstream\nresponses in the caller's application and do not treat Hub documentation as a\nproxy, cache, or holiday-data portal.\n\n## Check use eligibility before integration\n\nNager.Date Community API terms allow private or non-profit projects and require\nactive sponsorship for commercial use. Confirm the project's entitlement with\nthe provider before scheduling production reads, redistributing data, or\nbuilding a user-facing calendar. Do not guess a sponsorship status from a\nsuccessful response.\n\nThe Community API does not require a credential in the official v4 contract.\nThat does not remove the terms boundary, justify bulk collection, or permit an\napplication to use unbounded retries. Keep calls narrow, cache only where the\nprovider terms and your application policy permit, and surface upstream\navailability separately from date-calculation logic.\n\n## Make reads reproducible\n\nResolve the current endpoint and input constraints first, then preview the\nexact caller-directed request locally:\n\n```bash\npnpm exec pontx-nager-date list apis\npnpm exec pontx-nager-date call <controller> <method> --dry-run\n```\n\nThe product has only read endpoints, so no mutation confirmation is needed.\nStill review the rendered path, country/subdivision code, year, and date/time\nassumptions before executing. Treat an empty successful response as its own\ndocumented outcome, not as a transport failure or a reason to invent data.\n\n## Few-shot workflows\n\n### Scenario 1: Plan a country-holiday lookup\n\n**User:** \"Which public holidays should our US rollout calendar exclude in\n2026?\"\n\n**Approach:** Check commercial-use eligibility first, discover the current\nyear-and-country endpoint and holiday schema, preview a narrow local read, and\nreturn only the fields needed for the caller's calendar policy.\n\n### Scenario 2: Check today's automation window\n\n**User:** \"Should this country's daily job run today?\"\n\n**Approach:** Resolve the current holiday-status endpoint, confirm the country\nor subdivision and UTC-offset semantics, and distinguish each documented\nsuccess status. Do not substitute a local timezone guess for the requested\noffset.\n\n### Scenario 3: Adopt it in a commercial product\n\n**User:** \"Add Nager.Date to our paid scheduling app.\"\n\n**Approach:** Stop before implementation to confirm active provider\nsponsorship. Once eligibility is confirmed, retrieve the current SDK and\ncontract facts, add a narrow read path, and keep upstream data out of Hub or\nother public aggregation layers.\n"
+        }
+      ]
+    },
+    {
       "name": "pontx-stripe-identity",
       "apiSlug": "stripe-identity",
       "version": "1.0.0",

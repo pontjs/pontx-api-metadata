@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "status": "staged-for-sdk-release",
+  "status": "approved",
   "canonicalSpec": "products/nager-date/spec.pontx.json",
   "import": {
     "format": "OpenAPI 3.1.1",
@@ -44,6 +44,30 @@
     "mutations": 0,
     "credentials": "None required by the Community API v4 contract.",
     "execution": "All Hub execution is disabled because the provider terms restrict use and Hub must not operate a holiday-data portal or proxy. The package exposes caller-direct reads only."
+  },
+  "sdk": {
+    "package": "@pontx/nager-date",
+    "version": "0.1.0",
+    "cli": "pontx-nager-date",
+    "sourceCommit": "0e8d6ddb4f71600f7526a77fb326168f8a72d7cb",
+    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/31886633330",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "registry": {
+      "integrity": "sha512-5Y12NqVQ4hmDlJBt6TSEprQkxMcKpxpdAAy57Q8QBsjWowE0+yopgTEbojZxkahFnWTB1W7HTx0lHk8GcnCCqA==",
+      "shasum": "ff53c2af5400dc2232cb1ebca9eecfa20e642584",
+      "verifiedAt": "2026-08-15",
+      "freshInstall": "npm registry installation passed ESM import, product CLI help, SDK getVersions, and CLI getVersions against the live Community API."
+    }
   },
   "observations": {
     "verifiedAt": "2026-08-15",
