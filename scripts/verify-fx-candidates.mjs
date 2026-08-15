@@ -61,6 +61,10 @@ assert(oxr.contractSource.qualityAudit.invalidCodegenOperationIds === 6 &&
   oxr.contractSource.qualityAudit.missing4xxOrDefaultResponses === 2 &&
   oxr.contractSource.qualityAudit.missingPontxRequestExamples === 7,
 "OXR quality audit drifted");
+assert(oxr.contractSource.humanDocumentationAudit?.reverifiedAt === "2026-08-15" &&
+  oxr.contractSource.humanDocumentationAudit.schemasReconstructableFromOfficialPages?.length === 5 &&
+  oxr.contractSource.humanDocumentationAudit.remainingSuccessBodiesRequiringAuthorisedFixture?.join(",") === "convert,usage",
+"OXR page-level remediation evidence drifted");
 assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchemas === 0 &&
   oxr.pontxProbe.anonymousCurrenciesSdkCall === "passed-173-currencies" &&
   oxr.pontxProbe.publicationReady === false,

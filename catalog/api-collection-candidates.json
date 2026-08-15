@@ -474,6 +474,27 @@
           "missingSuccessSchemas": 4,
           "missing4xxOrDefaultResponses": 2,
           "missingPontxRequestExamples": 7
+        },
+        "humanDocumentationAudit": {
+          "reverifiedAt": "2026-08-15",
+          "schemasReconstructableFromOfficialPages": [
+            "standardRates",
+            "currencyNames",
+            "timeSeries",
+            "ohlc",
+            "commonError"
+          ],
+          "remainingSuccessBodiesRequiringAuthorisedFixture": [
+            "convert",
+            "usage"
+          ],
+          "knownPlanGatedEndpoints": [
+            "historical",
+            "time-series",
+            "convert",
+            "ohlc",
+            "usage"
+          ]
         }
       },
       "pontxProbe": {
@@ -498,6 +519,14 @@
       },
       "evidence": [
         { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/api-introduction" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/latest-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/historical-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/currencies-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/time-series-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/convert" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/ohlc-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/usage-json" },
+        { "kind": "docs", "url": "https://docs.openexchangerates.org/reference/errors" },
         { "kind": "source", "url": "https://github.com/openexchangerates/npm-exchange-rates" },
         { "kind": "terms", "url": "https://openexchangerates.org/terms" },
         { "kind": "terms", "url": "https://openexchangerates.org/services-agreement" }
@@ -510,8 +539,8 @@
         },
         {
           "gate": "contract",
-          "zh": "已从官方 ReadMe 页面内嵌的 document.api.schema 机械提取 7-Endpoint OpenAPI 3.1.0 快照并固定 SHA-256，但源 URL 可变且契约质量未达门槛：0 个 component Schema、4 个成功响应无 Schema、2 个 Endpoint 无 4xx/default、1 个 path template 不合法、6 个 operationId 含连字符而无法直接生成 TypeScript，并且 7 个 Endpoint 均无 Pontx 成功请求示例。",
-          "en": "A seven-endpoint OpenAPI 3.1.0 snapshot was mechanically extracted from document.api.schema on the official ReadMe page and pinned by SHA-256, but the source URL is mutable and the contract fails quality gates: zero component schemas, four successful responses without schemas, two endpoints without 4xx/default responses, one invalid path template, six hyphenated operationIds that cannot directly generate TypeScript, and no Pontx successful request example on any endpoint."
+          "zh": "已从官方 ReadMe 页面内嵌的 document.api.schema 机械提取 7-Endpoint OpenAPI 3.1.0 快照并固定 SHA-256，但源 URL 可变且机器契约质量未达门槛：0 个 component Schema、4 个成功响应无 Schema、2 个 Endpoint 无 4xx/default、1 个 path template 不合法、6 个 operationId 含连字符而无法直接生成 TypeScript，并且 7 个 Endpoint 均无 Pontx 成功请求示例。2026-08-15 的逐页官方文档审计已足以独立重建 standard-rates、currencies、time-series、OHLC 与 common-error 的 Schema；但 convert 与 usage 仍只描述字段角色而没有可审核的完整成功 payload，且其权限受套餐限制，必须以经授权的 App ID 成功响应或供应商批准 fixture 补齐。",
+          "en": "A seven-endpoint OpenAPI 3.1.0 snapshot was mechanically extracted from document.api.schema on the official ReadMe page and pinned by SHA-256, but the mutable machine contract fails quality gates: zero component schemas, four successful responses without schemas, two endpoints without 4xx/default responses, one invalid path template, six hyphenated operationIds that cannot directly generate TypeScript, and no Pontx successful request example on any endpoint. A 2026-08-15 page-by-page audit of official documentation is sufficient to independently reconstruct standard-rates, currencies, time-series, OHLC, and common-error Schemas; convert and usage still describe field roles without an auditable complete success payload, and their plan entitlements require an authorised App ID response or supplier-approved fixture."
         },
         {
           "gate": "risk",
@@ -520,13 +549,13 @@
         },
         {
           "gate": "sdkCli",
-          "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。但 0 个 Schema 和三项派生补丁证明它不是可发布 SDK，且尚无独立仓库、CI 或 npm 版本。",
-          "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. Zero schemas and three derived patches demonstrate that it is not publishable, and no independent repository, CI evidence, or npm version exists."
+          "zh": "隔离 RC 在修正 path、6 个 operationId 和生成器空 Schema import 后，可生成 7 个 Endpoint 并通过 TypeScript、ESM/CJS/declarations、CLI build、npm pack dry-run；匿名 currencies SDK/CLI 实调返回 173 种货币。逐页证据可消除其中五类 Schema 的来源缺口，但 convert、usage、套餐约束和七个成功请求示例仍未完成；在此之前不得建立独立 SDK 仓库、CI 或 npm 版本。",
+          "en": "After derived fixes for the path, six operationIds, and the generator's empty-schema import, an isolated RC generates seven endpoints and passes TypeScript, ESM/CJS/declarations, CLI build, npm pack dry-run, and anonymous SDK/CLI calls returning 173 currencies. Page-level evidence can close the source gap for five Schema families, but convert, usage, plan constraints, and seven coherent successful request examples remain unfinished; an independent SDK repository, CI, or npm version must not be created first."
         }
       ],
       "nextAction": {
-        "zh": "向 Open Exchange Rates 获取可再分发的固定 OAS 与生成客户端书面许可；许可通过后逐 Endpoint 补齐套餐条件、错误 Schema、成功请求示例并以代理关闭模式发布 SDK/CLI。",
-        "en": "Obtain a redistributable pinned OAS and written generated-client permission from Open Exchange Rates; after approval, complete endpoint-level plan conditions, error schemas, and successful request examples, then publish the SDK/CLI with proxying disabled."
+        "zh": "继续以官方逐页证据重建七个 Endpoint；同时获取 metadata/独立生成客户端书面发布许可，以及涵盖 convert 和 usage 的经授权 App ID 成功响应或供应商批准 fixture。随后补齐套餐条件、错误与七个成功请求示例，并以代理关闭模式发布 SDK/CLI。",
+        "en": "Continue reconstructing all seven endpoints from official page-level evidence while obtaining written permission to publish metadata and an independently generated client, plus authorised App ID success responses or supplier-approved fixtures for convert and usage. Then complete plan conditions, errors, and seven successful request examples before publishing an SDK/CLI with proxying disabled."
       },
       "verifiedAt": "2026-08-14"
     },
