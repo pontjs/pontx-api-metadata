@@ -4,7 +4,7 @@
   "apiSlug": "mongodb-atlas-admin",
   "version": "0.1.0",
   "license": "MIT-0",
-  "status": "draft",
+  "status": "published",
   "files": [
     "SKILL.md"
   ]
