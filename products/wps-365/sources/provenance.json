@@ -30,7 +30,7 @@
   },
   "derivation": {
     "boundary": "All 826 callable operations in the official Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document (806 paths / 827 operations), excluding GET /v7/oauth2/qrcode_auth_code (browser-redirect OAuth helper: official spec declares only 302+default, no JSON success contract, no official docs page, absent from the curated CLI command surface, and returns 404 Route Not Found without a browser session).",
-    "method": "one-time @pontx/spec importOpenAPI conversion followed by a source-free bilingual PontxSpec curation: stable operationIds anchor on the 101 official curated command IDs (curated.yaml) and derive deterministically from method+path otherwise; explicit tags map path modules to 24 canonical controllers (sources/tag-map.json); the 15 /v7/sse/* text/event-stream endpoints declare a typed SSE contract (message event, json dataFormat, preserve unknown events) since the official document does not enumerate event names; parameter/schema/constraint/enum/example and response semantics are retained from the official document.",
+    "method": "one-time @pontx/spec importOpenAPI conversion followed by a source-free bilingual PontxSpec curation: stable operationIds anchor on the 101 official curated command IDs (curated.yaml) and derive deterministically from method+path otherwise; explicit tags map path modules to 24 canonical controllers (sources/tag-map.json); the 15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*) declare a typed SSE contract (message event, json dataFormat, preserve unknown events) since the official document does not enumerate event names; parameter/schema/constraint/enum/example and response semantics are retained from the official document.",
     "paths": 806,
     "endpoints": 826,
     "schemas": 3119,
@@ -47,7 +47,7 @@
   },
   "transport": {
     "rest": "811 plain REST operations (GET/POST/DELETE only; the official document declares no PUT/PATCH).",
-    "sse": "15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) use text/event-stream; typed SSE contract events.message dataFormat=json, unknownEventPolicy=preserve.",
+    "sse": "15 text/event-stream operations (13 under /v7/sse/* and 2 under /v7/aippt/*) (aippt, aidocs, docqa, generator, wps365agent) use text/event-stream; typed SSE contract events.message dataFormat=json, unknownEventPolicy=preserve.",
     "callbacks": "Event subscriptions are encrypted HTTP callbacks (AES-CBC + HMAC-SHA256) pushed by WPS to the caller; not callable Pontx Endpoints.",
     "sseAudit": {
       "method": "Official docs search API + docs collections tree + per-doc content API (open.wps.cn/docs/api/doc/<id>); 6 of 15 paths have dedicated official doc pages (771, 772, 773, 774, 777, 53); the other 8 exist only in the OpenAPI spec.",
@@ -90,7 +90,7 @@
       "compliance/DRM (security 35, audit 11)",
       "DBSheet/smart sheets data (dbsheet 58, airsheet 25, airpage 22, sheets 25)"
     ],
-    "sse": "15 text/event-stream endpoints under /v7/sse/* (AIPPT, AI docs, doc QA, agent chat); typed SSE contract declared; streaming responses are not buffered by the CLI."
+    "sse": "15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*) (AIPPT, AI docs, doc QA, agent chat); typed SSE contract declared; streaming responses are not buffered by the CLI."
   },
   "outputs": {
     "zh-CN": {
@@ -111,7 +111,7 @@
     "verifiedAt": "2026-08-16"
   },
   "nextActions": {
-    "transport": "Review per-vendor SSE event semantics for the 15 /v7/sse/* endpoints against official docs.",
+    "transport": "Review per-vendor SSE event semantics for the 15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*) against official docs.",
     "risk": "Write per-endpoint security execution policy (app/delegated channels, KSO-1, mutation guards).",
     "sdkCli": "Generate @pontx/wps-365 SDK + pontx-wps-365 CLI in an isolated SDK repository; operator npm publish and registry re-verification.",
     "admission": "metadata develop → Preview → main → Production; production acceptance matrix."

@@ -293,12 +293,12 @@ function buildSpec(language) {
       ? {
           title: "WPS 365 OpenAPI",
           version: apiVersion,
-          description: "WPS 365 统一 OpenAPI（Kingsoft Office Open APIs v7）完整产品面：通讯录与组织、云文档、多维表/智能表格、消息、会议、日历、邮件、待办、审批、wiki 与事件订阅。官方机器契约（open.wps.cn 发布的 OpenAPI 3.0.0，806 paths / 827 operations / 3,119 schemas）由官方 MIT CLI 分发并可字节复现；15 个 /v7/sse/* 端点使用 text/event-stream，事件订阅为加密 HTTP callback。认证为 OAuth2 app/delegated 双通道，另有可选 KSO-1 请求签名。WPS 365 企业数据为私有业务数据，Pontx 不代理、缓存或聚合，调用方使用本地 SDK/CLI 直连。",
+          description: "WPS 365 统一 OpenAPI（Kingsoft Office Open APIs v7）完整产品面：通讯录与组织、云文档、多维表/智能表格、消息、会议、日历、邮件、待办、审批、wiki 与事件订阅。官方机器契约（open.wps.cn 发布的 OpenAPI 3.0.0，806 paths / 827 operations / 3,119 schemas）由官方 MIT CLI 分发并可字节复现；15 个 text/event-stream 端点（13 个在 /v7/sse/*，2 个在 /v7/aippt/*），事件订阅为加密 HTTP callback。认证为 OAuth2 app/delegated 双通道，另有可选 KSO-1 请求签名。WPS 365 企业数据为私有业务数据，Pontx 不代理、缓存或聚合，调用方使用本地 SDK/CLI 直连。",
         }
       : {
           title: "WPS 365 OpenAPI",
           version: apiVersion,
-          description: "The complete WPS 365 unified OpenAPI surface (Kingsoft Office Open APIs v7): contacts and organization, cloud documents, DBSheet/smart sheets, messaging, meetings, calendars, mail, todo, approvals, wiki, and event subscriptions. The official machine contract (OpenAPI 3.0.0 published on open.wps.cn, 806 paths / 827 operations / 3,119 schemas) is distributed via the official MIT CLI and is byte-reproducible; 15 /v7/sse/* endpoints use text/event-stream and event subscriptions are encrypted HTTP callbacks. Authentication is OAuth2 app/delegated dual-channel with optional KSO-1 request signing. WPS 365 enterprise data is private business data; Pontx does not proxy, cache, or aggregate it and callers use the local SDK/CLI to connect directly.",
+          description: "The complete WPS 365 unified OpenAPI surface (Kingsoft Office Open APIs v7): contacts and organization, cloud documents, DBSheet/smart sheets, messaging, meetings, calendars, mail, todo, approvals, wiki, and event subscriptions. The official machine contract (OpenAPI 3.0.0 published on open.wps.cn, 806 paths / 827 operations / 3,119 schemas) is distributed via the official MIT CLI and is byte-reproducible; 15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*) and event subscriptions are encrypted HTTP callbacks. Authentication is OAuth2 app/delegated dual-channel with optional KSO-1 request signing. WPS 365 enterprise data is private business data; Pontx does not proxy, cache, or aggregate it and callers use the local SDK/CLI to connect directly.",
         },
     servers: [{
       id: "wps-365-production",
@@ -425,7 +425,7 @@ const product = {
     ],
     verifiedAt,
     contentUpdatedAt: verifiedAt,
-    stabilityNote: "完整边界为 open.wps.cn 发布的 Kingsoft Office Open APIs v7 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas），SHA-256 3a2dfe64...；该规范同时随官方 MIT CLI 包 @wps365-open/wps365@0.2.27 分发，字节可复现。规范本身无 operationId/tags/prose，本集合的稳定 operationId 以官方 curated.yaml 的 101 个命令 ID 为锚点、其余按 method+path 派生；tags 按路径模块分组；双语 prose 独立撰写并经官方文档核对。事件订阅为加密 HTTP callback；15 个 /v7/sse/* 端点使用 text/event-stream。",
+    stabilityNote: "完整边界为 open.wps.cn 发布的 Kingsoft Office Open APIs v7 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas），SHA-256 3a2dfe64...；该规范同时随官方 MIT CLI 包 @wps365-open/wps365@0.2.27 分发，字节可复现。规范本身无 operationId/tags/prose，本集合的稳定 operationId 以官方 curated.yaml 的 101 个命令 ID 为锚点、其余按 method+path 派生；tags 按路径模块分组；双语 prose 独立撰写并经官方文档核对。事件订阅为加密 HTTP callback；15 个 text/event-stream 端点（13 个在 /v7/sse/*，2 个在 /v7/aippt/*）。",
   },
   pricing: {
     status: "free",
@@ -459,7 +459,7 @@ const productEn = {
     evidence: product.documentation.evidence,
     verifiedAt,
     contentUpdatedAt: verifiedAt,
-    stabilityNote: "The complete boundary is the Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document published on open.wps.cn (806 paths / 827 operations / 3,119 schemas), SHA-256 3a2dfe64...; the same bytes are distributed in the official MIT CLI package @wps365-open/wps365@0.2.27 and are byte-reproducible. The document itself has no operationIds/tags/prose; stable operationIds in this collection anchor on the 101 official curated command IDs and are derived from method+path otherwise; tags group by path module; bilingual prose is independently authored and checked against the official docs. Event subscriptions are encrypted HTTP callbacks; 15 /v7/sse/* endpoints use text/event-stream.",
+    stabilityNote: "The complete boundary is the Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document published on open.wps.cn (806 paths / 827 operations / 3,119 schemas), SHA-256 3a2dfe64...; the same bytes are distributed in the official MIT CLI package @wps365-open/wps365@0.2.27 and are byte-reproducible. The document itself has no operationIds/tags/prose; stable operationIds in this collection anchor on the 101 official curated command IDs and are derived from method+path otherwise; tags group by path module; bilingual prose is independently authored and checked against the official docs. Event subscriptions are encrypted HTTP callbacks; 15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*).",
   },
   pricing: {
     status: "free",

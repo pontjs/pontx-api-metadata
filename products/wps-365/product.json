@@ -24,7 +24,7 @@
     ],
     "verifiedAt": "2026-08-16",
     "contentUpdatedAt": "2026-08-16",
-    "stabilityNote": "完整边界为 open.wps.cn 发布的 Kingsoft Office Open APIs v7 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas），SHA-256 3a2dfe64...；该规范同时随官方 MIT CLI 包 @wps365-open/wps365@0.2.27 分发，字节可复现。规范本身无 operationId/tags/prose，本集合的稳定 operationId 以官方 curated.yaml 的 101 个命令 ID 为锚点、其余按 method+path 派生；tags 按路径模块分组；双语 prose 独立撰写并经官方文档核对。事件订阅为加密 HTTP callback；15 个 /v7/sse/* 端点使用 text/event-stream。"
+    "stabilityNote": "完整边界为 open.wps.cn 发布的 Kingsoft Office Open APIs v7 OpenAPI 3.0.0 规范（806 paths / 827 operations / 3,119 schemas），SHA-256 3a2dfe64...；该规范同时随官方 MIT CLI 包 @wps365-open/wps365@0.2.27 分发，字节可复现。规范本身无 operationId/tags/prose，本集合的稳定 operationId 以官方 curated.yaml 的 101 个命令 ID 为锚点、其余按 method+path 派生；tags 按路径模块分组；双语 prose 独立撰写并经官方文档核对。事件订阅为加密 HTTP callback；15 个 text/event-stream 端点（13 个在 /v7/sse/*，2 个在 /v7/aippt/*）。"
   },
   "pricing": {
     "status": "free",

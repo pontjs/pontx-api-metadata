@@ -1,6 +1,6 @@
 ---
 name: pontx-wps-365
-description: Use for WPS 365 OpenAPI (Kingsoft Office) integration — app and delegated OAuth2 channels, kso.* permission scopes, calendars, drive, chats, mail, meetings, approvals, AI and SSE streaming, encrypted event callbacks — with caller-owned credentials and preview-first mutation confirmation.
+description: Use for WPS 365 OpenAPI (Kingsoft Office) integration — app and delegated OAuth2 authorization, kso.* permission scopes, calendars, drive, chats, mail, meetings, approvals, AI and SSE streaming, encrypted event callbacks — with caller-owned credentials and preview-first mutation confirmation.
 ---
 
 # WPS 365 OpenAPI (Kingsoft Office Open APIs v7)
@@ -16,9 +16,10 @@ pontx-hub sdk wps-365
 ```
 
 Use `@pontx/wps-365` in application code and `pontx-wps-365` for an optional
-local script. WPS 365 OpenAPI is the official Kingsoft Office Open APIs v7
-machine contract: 806 paths, 827 operations, and 3,119 schemas, byte-identical
-to the spec embedded in the official MIT CLI `@wps365-open/wps365`. The SDK
+local script. WPS 365 OpenAPI is the unified OpenAPI surface of the WPS 365
+platform: the official overview describes it as covering address book, cloud
+documents, messaging, meetings, calendars, smart documents, and other common
+enterprise scenarios with over one thousand standardized interfaces. The SDK
 groups the contract into 24 controllers covering address book and
 organization, drive and documents, wiki, sheets and DBSheet, chats, meetings,
 calendars, mail, approvals, attendance, and AI. It is a caller-directed
@@ -30,14 +31,15 @@ credentials.
 ## Integration sequence
 
 1. Create an application on the open.wps.cn developer console and apply for
-   the permission scopes each workflow needs. Every Endpoint is gated by
-   `kso.*` scopes — for example `kso.calendar_events.readwrite` gates calendar
-   reads and writes.
-2. Choose the OAuth2 channel. Use the app channel (client credentials) for
-   server-to-server automation owned by the application, and the delegated
-   channel (authorization code) when acting on behalf of a specific user. The
-   app and delegated channels can carry different scope sets, so inspect each
-   Endpoint's security via `pontx-hub show`.
+   the permission scopes each workflow needs. The official permission model
+   gates Endpoints by `kso.*` scopes (for example
+   `kso.calendar_events.readwrite` gates calendar reads and writes); confirm
+   the required scope for an Endpoint via `pontx-hub show`.
+2. Choose the OAuth2 channel. The official authorization model has two token
+   classes: the app (application) authorization token for resources owned by
+   the application, and the delegated (user) authorization token when acting
+   on behalf of a specific user. The two channels can carry different scope
+   sets, so inspect each Endpoint's security via `pontx-hub show`.
 3. Inject credentials only through environment variables:
    `WPS365_APP_CLIENT_ID` and `WPS365_APP_CLIENT_SECRET` for the app channel,
    `WPS365_USER_ACCESS_TOKEN` for a delegated token. Never log, print, or
@@ -55,28 +57,29 @@ examples.
 
 ## SSE streaming endpoints
 
-15 operations stream `text/event-stream` responses (13 under `/v7/sse/*` plus
-2 AIPPT variants under `/v7/aippt/*`: `gen_slides_from_multipages` and
-`generate_slides_from_pxf_v2`), covering AIPPT generation, AI docs search,
-document QA, and agent chat. The machine contract
-enumerates no per-endpoint event names: every event is a JSON payload that
-carries the type and terminal-state markers. Stream incrementally, never
-buffer the full response, and keep streaming output out of logs; the CLI does
-not buffer streaming responses.
+Streaming Endpoints under `/v7/sse/*` (AI docs search, document QA, AIPPT
+generation, agent chat), plus two AIPPT variants under `/v7/aippt/*`
+(`gen_slides_from_multipages` and `generate_slides_from_pxf_v2`), return
+`text/event-stream` responses. The machine contract enumerates no per-Endpoint
+event names: every event is a JSON payload that carries the type and
+terminal-state markers. Stream incrementally, never buffer the full response,
+and keep streaming output out of logs; the CLI does not buffer streaming
+responses.
 
 ## Encrypted callback events
 
 Event subscriptions are encrypted HTTP callbacks pushed by WPS to the caller:
-each event carries `encrypted_data` plus `signature`, `nonce`, and `iv`
-fields. Decrypt and verify the signature before processing, and treat these
+each event carries `encrypted_data`, `signature`, `nonce`, `topic`,
+`operation`, and `time` fields. The `nonce` field is the IV vector for
+AES-CBC decryption; verify the HMAC-SHA256 `signature` over
+`access_key:topic:nonce:time:encrypted_data` before processing. Treat these
 callbacks as inbound events, not callable Endpoints.
 
 ## Mutations are preview-first and explicitly confirmed
 
-Reads are GET and mutations are POST or DELETE only; the official document
-declares no PUT or PATCH. Sending chat messages, creating calendar events,
-deleting drive files, and changing approvals all alter enterprise state.
-Before executing:
+Mutations (for example sending chat messages, creating calendar events,
+deleting drive files, and changing approvals) alter enterprise state. Before
+executing:
 
 1. Resolve the Endpoint and its required path and body inputs.
 2. Preview the exact request locally:
