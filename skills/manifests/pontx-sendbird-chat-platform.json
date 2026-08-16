@@ -2,9 +2,9 @@
   "formatVersion": 1,
   "name": "pontx-sendbird-chat-platform",
   "apiSlug": "sendbird-chat-platform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT-0",
-  "status": "draft",
+  "status": "published",
   "files": [
     "SKILL.md"
   ]
