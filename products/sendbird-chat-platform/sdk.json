@@ -31,7 +31,7 @@
     }
   },
   "examples": {
-    "typescript": "import { createSendbirdChatPlatformClient } from \"@pontx/sendbird-chat-platform\";\n\nconst client = createSendbirdChatPlatformClient({\n  appId: process.env.SENDBIRD_APP_ID,\n  apiToken: process.env.SENDBIRD_API_TOKEN,\n});\nconst user = await client.users.viewAUser({ userId: \"user_id_123\" });",
+    "typescript": "import { createSendbirdChatPlatformClient } from \"@pontx/sendbird-chat-platform\";\n\nconst client = createSendbirdChatPlatformClient({\n  apiToken: process.env.SENDBIRD_API_TOKEN,\n});\nconst user = await client.users.viewAUser(\"user_id_123\", {});",
     "cli": "pnpm add --global @pontx/sendbird-chat-platform\n\npontx-sendbird-chat-platform call users view-a-user --dry-run"
   },
   "coverage": {
