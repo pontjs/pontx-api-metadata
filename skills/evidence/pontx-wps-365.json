@@ -76,8 +76,8 @@
     },
     {
       "id": "sse-streaming-surface",
-      "claim": "15 operations under `/v7/sse/*` (AIPPT generation, AI docs search, document QA, agent chat) stream `text/event-stream` responses.",
-      "summary": "The OpenAPI document declares 15 operations under /v7/sse/* (aippt, aidocs, docqa, generator, wps365agent) whose response media type is text/event-stream.",
+      "claim": "15 operations stream `text/event-stream` responses (13 under `/v7/sse/*` plus 2 AIPPT variants under `/v7/aippt/*`: `gen_slides_from_multipages` and `generate_slides_from_pxf_v2`), covering AIPPT generation, AI docs search, document QA, and agent chat.",
+      "summary": "The OpenAPI document declares 15 operations whose 200 responses are text/event-stream: 13 under /v7/sse/* (aidocs, aippt, docqa, generator, wps365agent) and 2 AIPPT variants under /v7/aippt/* (gen_slides_from_multipages, generate_slides_from_pxf_v2).",
       "sourceUrl": "https://open.wps.cn/docs/api/doc/771?lang=zh&source=dms",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
