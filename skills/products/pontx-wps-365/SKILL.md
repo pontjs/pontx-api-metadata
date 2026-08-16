@@ -51,9 +51,9 @@ credentials.
 
 KSO-1 request signing is optional and enabled per application under the
 developer console security settings. When enabled, requests must carry the
-`X-Kso-Date` and `X-Kso-Authorization` headers with an HMAC-SHA256 signature;
-the Pontx SDK and CLI attach them automatically, so keep the app secret out of
-examples.
+`X-Kso-Date` and `X-Kso-Authorization` headers with an HMAC-SHA256 signature.
+Implement the signature per the official algorithm description and keep the
+app secret out of examples and logs.
 
 ## SSE streaming endpoints
 
@@ -63,8 +63,7 @@ generation, agent chat), plus two AIPPT variants under `/v7/aippt/*`
 `text/event-stream` responses. The machine contract enumerates no per-Endpoint
 event names: every event is a JSON payload that carries the type and
 terminal-state markers. Stream incrementally, never buffer the full response,
-and keep streaming output out of logs; the CLI does not buffer streaming
-responses.
+and keep streaming output out of logs.
 
 ## Encrypted callback events
 
@@ -82,10 +81,10 @@ deleting drive files, and changing approvals) alter enterprise state. Before
 executing:
 
 1. Resolve the Endpoint and its required path and body inputs.
-2. Preview the exact request locally:
+2. Preview the exact request locally (here for a calendar-event mutation):
 
 ```bash
-pnpm exec pontx-wps-365 call calendars calendarList --dry-run
+pnpm exec pontx-wps-365 call calendars calendarEventCreate <calendar_id> --dry-run
 ```
 
 3. Review the rendered path, body, and side effects — deletes are permanent,
@@ -107,10 +106,10 @@ the requested file identifiers and names.
 
 **User:** "Create a calendar event for the launch on Friday at 10:00."
 
-**Approach:** Resolve `calendars/calendarEventCreate`, build the title,
-start, end, and timezone fields from the current Schema, preview the exact
-POST, and require explicit confirmation before sending. If the timezone or
-attendees change, preview again.
+**Approach:** Resolve `calendars/calendarEventCreate`, build the `summary`,
+`start_time`, and `end_time` fields from the current Schema, preview the exact
+POST, and require explicit confirmation before sending. If the time or
+details change, preview again.
 
 ### Scenario 3: Stream an AI document answer
 

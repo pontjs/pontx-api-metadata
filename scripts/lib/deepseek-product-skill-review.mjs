@@ -16,12 +16,14 @@ export function buildDeepSeekReviewMessages({
   skillName,
   documents,
   outputSchema,
+  skillStatus = "published",
 }) {
   const input = {
     formatVersion: 1,
     baseSha,
     headSha,
     skillName,
+    skillStatus,
     deterministicChecks: [
       "product Skill repository validation",
       "product Skill contract tests",
@@ -53,6 +55,7 @@ export function buildDeepSeekReviewMessages({
       role: "user",
       content: [
         `Review ${skillName} at exact commit ${headSha} against base ${baseSha}.`,
+        `The reviewed Skill lifecycle status is "${skillStatus}". A "draft" Skill is intentionally absent from skills/registry.json (only "published" Skills are registered), so do not flag a missing registry entry or missing version bump as a failure for a draft; judge only the Skill content and evidence. A "published" Skill must be present in the registry with a bumped version.`,
         "Read the entire installed Skill, evidence ledger, sanitized official sources, product metadata, PontxSpec, SDK contract, evals, authoring contract, base manifest, diff, and generated registry supplied below.",
         "Verify every declared evidence claim exactly once. Also audit every provider-specific factual sentence in the Skill, even when it is not represented in the evidence ledger.",
         "A provider claim that conflicts with current Pontx metadata is a failing conflict; do not choose one side.",
