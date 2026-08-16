@@ -57,13 +57,12 @@ app secret out of examples and logs.
 
 ## SSE streaming endpoints
 
-Streaming Endpoints under `/v7/sse/*` (AI docs search, document QA, AIPPT
-generation, agent chat), plus two AIPPT variants under `/v7/aippt/*`
-(`gen_slides_from_multipages` and `generate_slides_from_pxf_v2`), return
-`text/event-stream` responses. The machine contract enumerates no per-Endpoint
-event names: every event is a JSON payload that carries the type and
-terminal-state markers. Stream incrementally, never buffer the full response,
-and keep streaming output out of logs.
+Streaming Endpoints under `/v7/sse/*` and two AIPPT variants under
+`/v7/aippt/*` (`gen_slides_from_multipages` and `generate_slides_from_pxf_v2`)
+return `text/event-stream` responses. The machine contract enumerates no
+per-Endpoint event names: SSE events carry terminal-state markers inside the
+JSON payload. Stream incrementally, never buffer the full response, and keep
+streaming output out of logs.
 
 ## Encrypted callback events
 

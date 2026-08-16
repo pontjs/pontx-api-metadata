@@ -12,8 +12,8 @@
     },
     {
       "id": "direct-production-host",
-      "claim": "The client connects directly to the official production host `https://openapi.wps.cn` (path prefix `/v7`) with the caller's own OAuth2 credentials.",
-      "summary": "Official WPS 365 Endpoint documentation (e.g. list-installed-apps) shows request addresses on https://openapi.wps.cn/v7/..., and the certification guide describes the access_token (OAuth2) authentication mechanism for every call.",
+      "claim": "The client connects directly to the official production host `https://openapi.wps.cn` (path prefix `/v7`)",
+      "summary": "The official list-installed-apps documentation shows the request address https://openapi.wps.cn/v7/developer/apps, i.e. the production host https://openapi.wps.cn with the /v7 path prefix.",
       "sourceUrl": "https://open-docs.wpscdn.cn/docs-md/zh/app-integration-dev/wps365/server/app/app-management/list-installed-apps.md",
       "sourceType": "official-documentation",
       "verifiedAt": "2026-08-15"
@@ -52,16 +52,16 @@
     },
     {
       "id": "sse-streaming-surface",
-      "claim": "Streaming Endpoints under `/v7/sse/*` (AI docs search, document QA, AIPPT generation, agent chat), plus two AIPPT variants under `/v7/aippt/*` (`gen_slides_from_multipages` and `generate_slides_from_pxf_v2`), return `text/event-stream` responses.",
-      "summary": "The official OpenAPI document declares text/event-stream 200 responses for /v7/sse/* operations (aidocs, docqa, aippt, generator, wps365agent) and the /v7/aippt/gen_slides_from_multipages and /v7/aippt/generate_slides_from_pxf_v2 variants; the official AIPPT docs describe the SSE streaming flow.",
+      "claim": "Streaming Endpoints under `/v7/sse/*` and two AIPPT variants under `/v7/aippt/*` (`gen_slides_from_multipages` and `generate_slides_from_pxf_v2`) return `text/event-stream` responses.",
+      "summary": "The official OpenAPI document declares text/event-stream 200 responses for /v7/sse/* operations and the /v7/aippt/gen_slides_from_multipages and /v7/aippt/generate_slides_from_pxf_v2 variants; doc 771 documents the SSE streaming flow for the AIPPT outline-generation endpoint.",
       "sourceUrl": "https://open.wps.cn/docs/api/doc/771?lang=zh&source=dms",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
     },
     {
       "id": "sse-payload-terminals",
-      "claim": "The machine contract enumerates no per-Endpoint event names: every event is a JSON payload that carries the type and terminal-state markers.",
-      "summary": "The official OpenAPI document declares no SSE event names for these Endpoints; the AIPPT docs show in-payload stream_status/type terminal markers (e.g. stream_status=done, type=generate_pptx_finish).",
+      "claim": "The machine contract enumerates no per-Endpoint event names: SSE events carry terminal-state markers inside the JSON payload.",
+      "summary": "The official OpenAPI document declares no SSE event names for these Endpoints; doc 772 documents the in-payload stream_status terminal marker (e.g. all_done) for the AIPPT notes endpoint.",
       "sourceUrl": "https://open.wps.cn/docs/api/doc/772?lang=zh&source=dms",
       "sourceType": "official-spec",
       "verifiedAt": "2026-08-15"
