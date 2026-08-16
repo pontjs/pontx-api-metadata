@@ -55,8 +55,10 @@ examples.
 
 ## SSE streaming endpoints
 
-15 operations under `/v7/sse/*` (AIPPT generation, AI docs search, document
-QA, agent chat) stream `text/event-stream` responses. The machine contract
+15 operations stream `text/event-stream` responses (13 under `/v7/sse/*` plus
+2 AIPPT variants under `/v7/aippt/*`: `gen_slides_from_multipages` and
+`generate_slides_from_pxf_v2`), covering AIPPT generation, AI docs search,
+document QA, and agent chat. The machine contract
 enumerates no per-endpoint event names: every event is a JSON payload that
 carries the type and terminal-state markers. Stream incrementally, never
 buffer the full response, and keep streaming output out of logs; the CLI does
