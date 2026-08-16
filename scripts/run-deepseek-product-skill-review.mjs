@@ -168,6 +168,7 @@ for (const skillName of names) {
     skillName,
     documents,
     outputSchema,
+    skillStatus: manifest.status ?? "published",
   });
   const expectedClaims = new Map(evidence.claims.map((claim) => [
     `${skillName}#${claim.id}`,
