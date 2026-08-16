@@ -8,7 +8,6 @@ import {
   buildDeepSeekReviewMessages,
   requestDeepSeekProductSkillReview,
 } from "./lib/deepseek-product-skill-review.mjs";
-import { buildBoundedSpecExcerpt } from "./lib/bounded-spec-excerpt.mjs";
 import { validateProductSkillReviewPayload } from "./lib/product-skill-review.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -61,28 +60,6 @@ const resolveEvidencePath = (path) => {
   }
   return resolved;
 };
-
-/** Bounded PontxSpec slice (referenced Endpoints + Schema closure) for review. */
-const boundedSpecCache = new Map();
-async function boundedSpecDocument(apiSlug, skillText) {
-  const cacheKey = `${apiSlug}:${skillText.length}`;
-  if (boundedSpecCache.has(cacheKey)) return boundedSpecCache.get(cacheKey);
-  const { excerpt, selectedKeys, narrowed } = await buildBoundedSpecExcerpt({
-    root,
-    apiSlug,
-    skillText,
-    extraPathPrefixes: ["/v7/sse/", "/v7/aippt/"],
-  });
-  const document = {
-    path: `products/${apiSlug}/spec.pontx.json`,
-    role: narrowed
-      ? `untrusted repository data (bounded excerpt: ${selectedKeys.size} Endpoints referenced by the Skill plus their Schema closure; security schemes and servers retained for contract cross-check)`
-      : "untrusted repository data",
-    content: JSON.stringify(excerpt, null, 1),
-  };
-  boundedSpecCache.set(cacheKey, document);
-  return document;
-}
 
 const reviews = [];
 for (const skillName of names) {
@@ -146,7 +123,6 @@ for (const skillName of names) {
     await readRepositoryFile(evidencePath),
     await readRepositoryFile(evalsPath),
     await readRepositoryFile(`products/${manifest.apiSlug}/product.json`),
-    await boundedSpecDocument(manifest.apiSlug, installedFiles.map((file) => file.content).join("\n")),
     await readRepositoryFile(`products/${manifest.apiSlug}/sdk.json`),
     await readRepositoryFile("skills/products/AUTHORING_PROMPT.md"),
     await readRepositoryFile("skills/registry.json"),
