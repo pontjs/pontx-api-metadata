@@ -20,26 +20,25 @@ Use `@pontx/sendbird-chat-platform` in application code and
 the server-side Chat Platform API v3: users, group channels, open channels,
 messages, metadata, moderation, bots, announcements, and statistics. It is a
 caller-directed service — Pontx Hub does not proxy, cache, or aggregate
-Sendbird application data. The client connects directly to
-`https://api-{app_id}.sendbird.com` with the caller's own application
-credentials (`SENDBIRD_APP_ID` / `SENDBIRD_API_TOKEN`).
+Sendbird application data.
 
 ## Caller-direct boundary and credentials
 
-- Every request requires the caller's Sendbird application ID (base-URL host)
-  and Application API Token (`api-token` header). Inject both via environment
-  variables; never log, print, or commit them, and never put them in a
-  request example.
+- The client connects directly to `https://api-{app_id}.sendbird.com`, where
+  `app_id` is the caller's Sendbird application ID (set in the local
+  environment as `SENDBIRD_APP_ID`).
+- The generated SDK attaches the Application API Token as the `api-token`
+  request header. Provide it via the `SENDBIRD_API_TOKEN` environment
+  variable; never log, print, or commit it, and never put it in a request
+  example.
 - Credentials stay in the caller's local environment or browser session. Hub
   documentation pages do not store or forward them.
-- The client attaches the `api-token` header only when configured; without it
-  requests are unauthenticated and will fail upstream.
 
 ## Mutations are preview-first and explicitly confirmed
 
 The Platform API is a management surface: creating users, sending messages,
-inviting members, deleting channels, blocking users, migrating messages, and
-scheduling announcements all change application state. Before executing:
+inviting members, deleting channels, blocking users, and scheduling
+announcements all change application state. Before executing:
 
 1. Resolve the endpoint and its required path/body inputs.
 2. Preview the exact request locally:
@@ -49,28 +48,26 @@ pnpm exec pontx-sendbird-chat-platform list apis
 pnpm exec pontx-sendbird-chat-platform call <controller> <method> --dry-run
 ```
 
-3. Review the rendered path, body, and side effects (deletes are permanent;
-   announcements broadcast to target channels; migrate requires Sendbird
-   support enablement) and require the caller's explicit confirmation before
-   sending.
+3. Review the rendered path, body, and side effects, and require the
+   caller's explicit confirmation before sending.
 
 ## Read-only workflows
 
 For reads (view a user, list channels, get a message, DAU/MAU statistics),
 resolve the endpoint and pagination inputs first, then preview the exact
-caller-directed request. Respect documented limits — e.g. a single user can
-join up to 2,000 group channels, `listUsers` caps `user_ids` at 250, and
-DAU metrics update on a fixed 30-minute cadence. Treat an empty successful
-response as its own documented outcome.
+caller-directed request. Respect documented limits — a single user can join
+up to 2,000 group channels, DAU/MAU metrics update on a fixed 30-minute
+cadence, and the message migration feature is turned on through Sendbird
+support. Treat an empty successful response as its own documented outcome.
 
 ## Contract provenance
 
 Sendbird publishes no OpenAPI document; the contract is deterministically
-reconstructed from the pinned official generated SDK
-(`sendbird/sendbird-platform-sdk-typescript@fccf6fa`, v2.1.8) and all Hub
-copy is independently authored. The Sendbird name is used descriptively; this
-project is not affiliated with or endorsed by Sendbird. Callers remain
-responsible for Sendbird terms and their own data-compliance posture.
+reconstructed from the pinned official generated SDK. The official generated
+SDK TypeScript package.json declares the Unlicense license. The Sendbird name
+is used descriptively; this project is not affiliated with or endorsed by
+Sendbird. Callers remain responsible for Sendbird terms and their own
+data-compliance posture.
 
 ## Few-shot workflows
 
@@ -96,6 +93,6 @@ before executing the mutation with their own credentials.
 
 **User:** "Delete one of our group channels to clean up a test app."
 
-**Approach:** warn that deletion is permanent, resolve
-`deleteAGroupChannel` with the `channel_url`, preview the exact destructive
-request, and refuse to execute until the caller explicitly confirms.
+**Approach:** resolve `deleteAGroupChannel` with the `channel_url`, preview
+the exact destructive request, and refuse to execute until the caller
+explicitly confirms the removal.
