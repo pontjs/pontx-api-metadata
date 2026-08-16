@@ -15,7 +15,7 @@
     ],
     "verifiedAt": "2026-08-16",
     "contentUpdatedAt": "2026-08-16",
-    "stabilityNote": "The complete boundary is the Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document published on open.wps.cn (806 paths / 827 operations / 3,119 schemas), SHA-256 3a2dfe64...; the same bytes are distributed in the official MIT CLI package @wps365-open/wps365@0.2.27 and are byte-reproducible. The document itself has no operationIds/tags/prose; stable operationIds in this collection anchor on the 101 official curated command IDs and are derived from method+path otherwise; tags group by path module; bilingual prose is independently authored and checked against the official docs. Event subscriptions are encrypted HTTP callbacks; 15 /v7/sse/* endpoints use text/event-stream."
+    "stabilityNote": "The complete boundary is the Kingsoft Office Open APIs v7 OpenAPI 3.0.0 document published on open.wps.cn (806 paths / 827 operations / 3,119 schemas), SHA-256 3a2dfe64...; the same bytes are distributed in the official MIT CLI package @wps365-open/wps365@0.2.27 and are byte-reproducible. The document itself has no operationIds/tags/prose; stable operationIds in this collection anchor on the 101 official curated command IDs and are derived from method+path otherwise; tags group by path module; bilingual prose is independently authored and checked against the official docs. Event subscriptions are encrypted HTTP callbacks; 15 text/event-stream endpoints (13 under /v7/sse/* and 2 under /v7/aippt/*)."
   },
   "pricing": {
     "status": "free",
