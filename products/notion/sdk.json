@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/notion",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/notion"
   },
@@ -47,7 +47,7 @@
     "metadataCommit": "2d0b72bcc58756c92cb44b91d1406dc1233f1598"
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.2",
     "unitTests": {
       "passed": 5,
       "total": 5,
@@ -59,9 +59,9 @@
       "20",
       "22"
     ],
-    "sourceCommit": "a8fc08f6caf8b6ee1a0587100b6c31c2abead33d",
-    "testedAt": "2026-08-16",
+    "sourceCommit": "23e0eae3dbed218ecbf390f67e9cf46ff9773355",
+    "testedAt": "2026-08-18",
     "repositoryUrl": "https://github.com/pontjs/notion",
-    "workflowRunUrl": "https://github.com/pontjs/notion/actions/runs/31898015103"
+    "workflowRunUrl": "https://github.com/pontjs/notion/actions/runs/32045079933"
   }
 }
