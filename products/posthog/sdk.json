@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "package": {
+    "name": "@pontx/posthog",
+    "version": "0.1.0",
+    "status": "published",
+    "repository": "https://github.com/pontjs/posthog"
+  },
+  "cli": {
+    "name": "pontx-posthog"
+  },
+  "contract": {
+    "client": {
+      "kind": "factory",
+      "factory": "createPostHogClient",
+      "identifier": "client",
+      "options": {
+        "projectToken": "POSTHOG_PROJECT_TOKEN",
+        "baseUrl": "https://us.i.posthog.com"
+      }
+    },
+    "controllers": {
+      "capture": "capture",
+      "flags": "flags"
+    }
+  },
+  "examples": {
+    "typescript": "import { createPostHogClient } from \"@pontx/posthog\";\n\nconst client = createPostHogClient({\n  projectToken: process.env.POSTHOG_PROJECT_TOKEN\n});\n\nconst preview = client.capture.previewCaptureEvent({\n  event: \"checkout_completed\",\n  distinct_id: \"user_123\"\n});\n\nawait client.capture.captureEvent({\n  event: \"checkout_completed\",\n  distinct_id: \"user_123\"\n}, { confirm: true });",
+    "cli": "pnpm add --global @pontx/posthog\n\npontx-posthog preview captureEvent --json '{\"event\":\"checkout_completed\",\"distinct_id\":\"user_123\"}'\npontx-posthog execute captureEvent --json '{\"event\":\"checkout_completed\",\"distinct_id\":\"user_123\"}' --confirm"
+  },
+  "coverage": {
+    "mode": "full"
+  },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "dd989cc1fd570fe877f76033df5fee7d15952058",
+    "testedAt": "2026-08-17",
+    "repositoryUrl": "https://github.com/pontjs/posthog",
+    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/31898562637"
+  },
+  "spec": {
+    "path": "products/posthog/spec.pontx.json",
+    "sha256": "34e72b9919bc63b1370b9ddfd7d59515330b1250b90bac9e3341967dada73bf9",
+    "metadataCommit": "523d696e5061d9b2c260ccafd7a0889e9f8f40ea"
+  }
+}

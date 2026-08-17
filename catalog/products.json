@@ -23,6 +23,7 @@
     "notion",
     "mistral-ai",
     "sendbird-chat-platform",
-    "wps-365"
+    "wps-365",
+    "posthog"
   ]
 }
