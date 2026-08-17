@@ -15,8 +15,7 @@
       "factory": "createPostHogClient",
       "identifier": "client",
       "options": {
-        "projectToken": "POSTHOG_PROJECT_TOKEN",
-        "baseUrl": "https://us.i.posthog.com"
+        "projectToken": "POSTHOG_PROJECT_TOKEN"
       }
     },
     "controllers": {
