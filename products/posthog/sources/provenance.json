@@ -1,13 +1,20 @@
 {
   "formatVersion": 1,
-  "status": "contract-complete-awaiting-sdk-release",
-  "canonicalSpec": "candidates/posthog/contract/spec.pontx.json",
+  "status": "published",
+  "canonicalSpec": "products/posthog/spec.pontx.json",
   "source": {
     "repository": "https://github.com/PostHog/posthog.com/tree/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents",
     "revision": "7516256e3a9d19863cb6952afbe4282d7a4433f8",
     "license": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE",
     "sourceType": "first-party documentation under contents/",
     "retained": "The contract is independently authored from fixed first-party documentation facts. No hosted OpenAPI payload, ee/ source, PostHog SDK source, or supplier documentation prose is vendored."
+  },
+  "license": {
+    "status": "reviewed",
+    "spdx": "MIT",
+    "url": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE",
+    "notice": "products/posthog/sources/ATTRIBUTION.md",
+    "scope": "The MIT license governs the posthog.com contents/ documentation tree. The PontxSpec and SDK are independently authored; hosted PostHog use remains governed by the caller's service account terms."
   },
   "derivation": {
     "boundary": "The complete documented public project-token runtime surface: POST /i/v0/e/, POST /batch/, and POST /flags?v=2. It excludes the authenticated management API, /flags/definitions local evaluation, SSE/workflow endpoints, static assets/recordings, and deprecated /capture, /engage, and /decide routes.",
@@ -27,26 +34,41 @@
     "hubProxyEnabled": false,
     "mutations": 2,
     "credentials": "A caller-local project token is required in every JSON body; it is never stored, logged, or sent to Hub.",
-    "execution": "Hub execution is disabled for all endpoints. Capture and batch mutate event/person/group data; flags can consume quota and use caller identity/properties. SDK/CLI must show a complete request preview and require explicit confirmation before sending."
+    "execution": "Hub execution is disabled for all endpoints. Capture and batch mutate event/person/group data; flags can consume quota and use caller identity/properties. SDK/CLI show a complete request preview and require explicit confirmation before sending."
   },
-  "sources": {
-    "overview": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/index.mdx",
-    "capture": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
-    "flags": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
-    "flagRequest": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/feature-flags-code-api.mdx",
-    "flagOverrides": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/override-server-properties/api.mdx",
-    "flagBoundary": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/feature-flags/surfaces/api.mdx",
-    "license": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE"
+  "sdk": {
+    "package": "@pontx/posthog",
+    "version": "0.1.0",
+    "cli": "pontx-posthog",
+    "sourceCommit": "dd989cc1fd570fe877f76033df5fee7d15952058",
+    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/31898562637",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "registry": {
+      "integrity": "sha512-9qn9pdXPcI3zJP8OP6LDpX6Ctg6SO1xiqnKFU4Z+8NmGNSYbNonJDVectL/otlWnx9L5EuOWVLcLYER9YEfDng==",
+      "shasum": "05314c33e1f55e9747fd9ab86590b2ac74321727",
+      "verifiedAt": "2026-08-17",
+      "freshInstall": "Anonymous npm-registry tarball download SHA-1 matched the published shasum. Fresh package verification passed ESM/CJS build output, a clean-install CLI preview smoke test, and confirmation-required execution guards without sending a provider request."
+    }
   },
   "outputs": {
     "zh-CN": {
-      "path": "candidates/posthog/contract/spec.pontx.json",
+      "path": "products/posthog/spec.pontx.json",
       "sha256": "34e72b9919bc63b1370b9ddfd7d59515330b1250b90bac9e3341967dada73bf9",
       "endpoints": 3,
       "schemas": 8
     },
     "en-US": {
-      "path": "candidates/posthog/contract/locales/en-US/spec.pontx.json",
+      "path": "products/posthog/locales/en-US/spec.pontx.json",
       "sha256": "5a378f7368603c973ca74ed47973d26a15e540f7f37b9b727de3d86bbe79fa09",
       "endpoints": 3,
       "schemas": 8

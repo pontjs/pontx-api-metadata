@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": "PostHog capture and feature-flag API",
+    "summary": "Capture single or batched events and evaluate feature flags remotely through the public project-token runtime API. The complete surface has only the three documented POST endpoints; requests can write analytics data or consume flag quota, so Pontx Hub never proxies, caches, or executes them and callers connect directly through the local SDK/CLI after preview and confirmation.",
+    "accent": "#F54E00"
+  },
+  "documentation": {
+    "status": "official",
+    "evidence": [
+      "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+      "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
+      "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/integrate/feature-flags-code/_snippets/feature-flags-code-api.mdx",
+      "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/LICENSE",
+      "https://github.com/pontjs/posthog/actions/runs/31898562637",
+      "https://www.npmjs.com/package/@pontx/posthog/v/0.1.0"
+    ],
+    "verifiedAt": "2026-08-17",
+    "contentUpdatedAt": "2026-08-17",
+    "stabilityNote": "The complete boundary is the three POST endpoints in the public project-token runtime surface at a fixed official documentation revision: single-event capture, batch capture, and remote feature-flag evaluation. It excludes the personal-API-key management surface, /flags/definitions local evaluation, SSE/workflow APIs, static assets, and deprecated /capture, /engage, and /decide routes. The documentation contents/ tree is MIT-licensed; the PontxSpec and SDK are independently authored. Hub never retains project tokens, proxies, caches, or executes these requests. Callers use their own PostHog project and the local SDK/CLI, review a preview first, and explicitly confirm any request with side effects or quota impact."
+  },
+  "pricing": {
+    "status": "usage-based",
+    "summary": "PostHog Cloud uses usage-based pricing with free allowances; event capture and feature-flag evaluation can both affect account usage. Refer to PostHog's current pricing page for allowances, metering units, and prices.",
+    "officialUrl": "https://posthog.com/services",
+    "verifiedAt": "2026-08-17"
+  },
+  "credentials": [
+    {
+      "schemeId": "projectToken",
+      "description": "A caller-owned PostHog project token. Keep it only in a local environment variable or SDK option; never put it in Hub, logs, examples, or chat."
+    }
+  ]
+}

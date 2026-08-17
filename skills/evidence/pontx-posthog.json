@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "posthog",
+  "claims": [
+    {
+      "id": "runtime-surface",
+      "claim": "PostHog's public project-token runtime API accepts event capture and remote feature-flag evaluation.",
+      "summary": "The fixed first-party capture and feature-flag documentation describes public project-token requests for capturing events and evaluating feature flags.",
+      "sourceUrl": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "capture-side-effects",
+      "claim": "Capture requests can write event, person, or group data.",
+      "summary": "The capture documentation describes event capture properties that can set person and group properties in addition to recording events.",
+      "sourceUrl": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/capture.mdx",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "flag-usage",
+      "claim": "Remote feature-flag evaluation can affect PostHog usage quota.",
+      "summary": "The fixed feature-flags API documentation explains the remote evaluation endpoint and its response includes quota-limiting state; the PostHog pricing page describes feature-flag requests as usage-based.",
+      "sourceUrl": "https://github.com/PostHog/posthog.com/blob/7516256e3a9d19863cb6952afbe4282d7a4433f8/contents/docs/api/flags.mdx",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    }
+  ]
+}

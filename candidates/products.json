@@ -7,7 +7,6 @@
     "en": "Candidate records are not catalog admission. A slug may enter catalog/products.json only after authoritative sourcing, redistribution, complete-contract, transport, safety, and SDK/CLI publication gates all pass and a complete isolated product directory exists. If the complete product boundary contains SSE, WebSocket, or another realtime protocol that has not been contracted and runtime-validated with the provider's actual semantics, the whole collection is deferred rather than published as a subset."
   },
   "products": [
-    "posthog",
     "qwen",
     "deepseek",
     "gemini",

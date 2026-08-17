@@ -182,6 +182,21 @@
       ]
     },
     {
+      "name": "pontx-posthog",
+      "apiSlug": "posthog",
+      "version": "1.0.0",
+      "description": "Use for PostHog project-token runtime capture, event batching, and remote feature-flag evaluation with caller-owned tokens, local previews, and explicit confirmation before any provider request.",
+      "license": "MIT-0",
+      "contentHash": "92d93e0ba3fa7a7fe5f8bddda8c0acf88df696978099bf46c948c5018b4ed0d5",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "c5ecb4f97ad3c293894fa41f72d548d8eef730d1c7213bd20d1b3666e41df744",
+          "content": "---\nname: pontx-posthog\ndescription: Use for PostHog project-token runtime capture, event batching, and remote feature-flag evaluation with caller-owned tokens, local previews, and explicit confirmation before any provider request.\n---\n\n# PostHog runtime API\n\nBegin with live Pontx discovery instead of copying request fields into an\napplication:\n\n~~~bash\npontx-hub search \"PostHog feature flag or event capture\" --type endpoint --json\npontx-hub show <returned-resource-id>\npontx-hub sdk posthog\n~~~\n\nUse @pontx/posthog in application code and pontx-posthog for the optional local\nCLI. PostHog's public project-token runtime API accepts event capture and\nremote feature-flag evaluation. It is caller-directed: Pontx Hub never retains\nthe project token, proxies the traffic, or stores provider responses.\n\n## Keep tokens and requests local\n\nSupply the project token only from the caller's local environment or client\noptions. Never paste a token into source, a request example, terminal history,\nlogs, Hub, or chat. Capture requests can write event, person, or group data.\nRemote feature-flag evaluation can affect PostHog usage quota. Treat both as\nconsequential requests even when the immediate response is successful.\n\nResolve the current Endpoint and Schema, then render the exact local preview:\n\n~~~bash\npnpm exec pontx-posthog preview captureEvent --json '{\"event\":\"checkout_completed\",\"distinct_id\":\"user_123\"}'\n~~~\n\nPreview never sends a provider request. Review the destination, event or\nidentity properties, and any batch scope. Execute only after the caller gives\nexplicit confirmation; if inputs change, create and review a fresh preview.\n\n## Choose the narrowest workflow\n\nUse single capture for one deliberate event and batch capture only when the\ncaller has already bounded and reviewed every entry. For feature flags, resolve\nthe current evaluation inputs before deciding whether configuration should be\nincluded. Do not infer a flag outcome, silently retry a quota-limited result,\nor use a project token from a different environment.\n\n## Few-shot workflows\n\n### Scenario 1: Preview a checkout event\n\n**User:** \"Track checkout_completed for user_123, but don't send it yet.\"\n\n**Approach:** Resolve the current capture contract, prepare a local redacted\npreview, verify the event and identity values, and wait for explicit approval\nbefore any request can write analytics data.\n\n### Scenario 2: Evaluate a rollout flag\n\n**User:** \"Check whether the new checkout is enabled for this user.\"\n\n**Approach:** Discover the current feature-flag contract, prepare the local\npreview with the caller's token kept private, explain possible quota impact,\nand require explicit confirmation before the remote evaluation.\n\n### Scenario 3: Submit a reviewed backfill\n\n**User:** \"Send this approved set of migration events as one batch.\"\n\n**Approach:** Resolve the current batch constraints, confirm that every event\nbelongs to the intended project and scope, preview the exact body, then ask\nfor a fresh explicit confirmation before sending the write request.\n"
+        }
+      ]
+    },
+    {
       "name": "pontx-sendbird-chat-platform",
       "apiSlug": "sendbird-chat-platform",
       "version": "1.0.1",

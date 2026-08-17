@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-posthog",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Record a checkout event for a user, but do not send anything until I approve it.",
+      "expected_output": "Resolves the current capture Endpoint and Schema through Pontx discovery, builds a local redacted preview, keeps the project token local, and stops for explicit confirmation before the event-writing request.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Evaluate the release feature flag for this user and show me what will be sent first.",
+      "expected_output": "Resolves the current feature-flag Endpoint and its quota behavior, previews the direct caller request without a token leak, and requires explicit confirmation before remote evaluation.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Backfill these events to PostHog in one batch.",
+      "expected_output": "Resolves the batch Endpoint and body constraints, warns that the batch writes upstream analytics/person/group data, previews the exact request, and requires one fresh explicit confirmation before sending.",
+      "files": []
+    }
+  ]
+}
