@@ -19,7 +19,7 @@
     "stabilityNote": "The complete boundary is the three POST endpoints in the public project-token runtime surface at a fixed official documentation revision: single-event capture, batch capture, and remote feature-flag evaluation. It excludes the personal-API-key management surface, /flags/definitions local evaluation, SSE/workflow APIs, static assets, and deprecated /capture, /engage, and /decide routes. The documentation contents/ tree is MIT-licensed; the PontxSpec and SDK are independently authored. Hub never retains project tokens, proxies, caches, or executes these requests. Callers use their own PostHog project and the local SDK/CLI, review a preview first, and explicitly confirm any request with side effects or quota impact."
   },
   "pricing": {
-    "status": "usage-based",
+    "status": "freemium",
     "summary": "PostHog Cloud uses usage-based pricing with free allowances; event capture and feature-flag evaluation can both affect account usage. Refer to PostHog's current pricing page for allowances, metering units, and prices.",
     "officialUrl": "https://posthog.com/services",
     "verifiedAt": "2026-08-17"

@@ -28,7 +28,7 @@
     "stabilityNote": "完整边界为固定官方文档修订中公开项目令牌运行时表面的三个 POST Endpoint：单事件采集、批量采集与远程功能开关求值。个人 API key 管理面、/flags/definitions 本地求值、SSE/workflow API、静态资源以及已弃用的 /capture、/engage、/decide 路由均不在本集合内。文档 contents/ 受 MIT 许可证约束；PontxSpec 和 SDK 均为独立编写，Hub 不保存项目令牌、不代理、不缓存也不执行请求。调用方应使用自己的 PostHog 项目和本地 SDK/CLI，先审阅预览再显式确认有副作用或配额影响的请求。"
   },
   "pricing": {
-    "status": "usage-based",
+    "status": "freemium",
     "summary": "PostHog Cloud 按使用量计费并提供免费额度；事件采集与功能开关求值均可能影响账户用量。具体免费额度、计量单位和价格以 PostHog 当前价格页为准。",
     "officialUrl": "https://posthog.com/services",
     "verifiedAt": "2026-08-17"
