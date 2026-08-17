@@ -25,7 +25,7 @@
     "stabilityNote": "The complete boundary is the seven GET endpoints in official v0.7 documentation: latest, historical, currencies, time-series, convert, ohlc, and usage. The supplier's ReadMe machine contract is mutable and has a recorded audit hash; this PontxSpec is an independently curated, one-time imported and reviewed contract."
   },
   "pricing": {
-    "status": "tiers",
+    "status": "freemium",
     "summary": "Plan tier determines availability of base, time-series, convert, OHLC, and refresh features; refer to supplier pricing and the usage response.",
     "officialUrl": "https://openexchangerates.org/signup",
     "verifiedAt": "2026-08-15"
