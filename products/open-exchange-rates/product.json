@@ -35,7 +35,7 @@
     "stabilityNote": "完整边界为官方 v0.7 文档中的 latest、historical、currencies、time-series、convert、ohlc 与 usage 七个 GET Endpoint。供应商的 ReadMe machine contract 是可变来源，已记录审计哈希；PontxSpec 为一次导入并经人工核对后的独立规范。"
   },
   "pricing": {
-    "status": "tiers",
+    "status": "freemium",
     "summary": "不同套餐决定 base、time-series、convert、OHLC 和刷新频率等能力；以供应商定价和 usage 响应为准。",
     "officialUrl": "https://openexchangerates.org/signup",
     "verifiedAt": "2026-08-15"
