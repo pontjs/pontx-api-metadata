@@ -1,18 +1,8 @@
 {
-  "formatVersion": 1,
-  "slug": "open-exchange-rates",
-  "name": "Open Exchange Rates API",
-  "provider": "Open Exchange Rates",
-  "category": "Finance",
-  "featured": false,
   "display": {
     "title": "Open Exchange Rates API",
     "summary": "Query latest, historical, time-series, and OHLC rates, supported currencies, conversions, and plan usage. Supplier terms restrict providing the data through Hub, so callers use their own App ID through the local SDK or CLI.",
     "accent": "#0E7490"
-  },
-  "legal": {
-    "license": "Open Exchange Rates Terms, Acceptable Use Policy, and paid-services agreement; independently authored Pontx metadata and SDK/CLI code",
-    "attributionUrl": "https://openexchangerates.org/terms"
   },
   "documentation": {
     "status": "official",
@@ -46,9 +36,5 @@
       "envVar": "PONTX_OPEN_EXCHANGE_RATES_APP_ID",
       "description": "Caller App ID obtained from Open Exchange Rates; read only when the local SDK/CLI executes a direct request."
     }
-  ],
-  "quickStart": {
-    "operationId": "listCurrencies",
-    "requestExampleId": "default"
-  }
+  ]
 }

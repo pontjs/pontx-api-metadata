@@ -3,7 +3,7 @@
   "package": {
     "name": "@pontx/open-exchange-rates",
     "version": "0.1.0",
-    "status": "planned",
+    "status": "published",
     "repository": "https://github.com/pontjs/open-exchange-rates"
   },
   "cli": {
@@ -36,8 +36,27 @@
   "coverage": {
     "mode": "full"
   },
+  "quality": {
+    "testedVersion": "0.1.0",
+    "unitTests": {
+      "passed": 4,
+      "total": 4,
+      "skipped": 0
+    },
+    "e2eStatus": "passed",
+    "nodeVersions": [
+      "18",
+      "20",
+      "22"
+    ],
+    "sourceCommit": "53377dca8fed944cb0098138e4f340f1a548879e",
+    "testedAt": "2026-08-17",
+    "repositoryUrl": "https://github.com/pontjs/open-exchange-rates",
+    "workflowRunUrl": "https://github.com/pontjs/open-exchange-rates/actions/runs/31899513657"
+  },
   "spec": {
     "path": "products/open-exchange-rates/spec.pontx.json",
-    "sha256": "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67"
+    "sha256": "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67",
+    "metadataCommit": "c4ae4ae2ea96719a8c8afc2b1beb0fd5a6441cbb"
   }
 }

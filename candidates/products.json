@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "snapshotDate": "2026-08-15",
+  "snapshotDate": "2026-08-17",
   "roadmap": "docs/api-collection-growth-priority.md",
   "admissionPolicy": {
     "zh": "候选记录不是正式收录。只有权威来源、许可与再分发、完整契约、传输协议、安全审查以及 SDK/CLI 发布六个门槛全部通过并建立完整分级产品目录后，slug 才可进入 catalog/products.json。完整产品边界包含尚未按该供应商真实语义完成契约和运行验证的 SSE、WebSocket 或其他实时协议时，整集暂缓，不得裁剪发布。",
@@ -8,7 +8,6 @@
   },
   "products": [
     "posthog",
-    "open-exchange-rates",
     "qwen",
     "deepseek",
     "gemini",

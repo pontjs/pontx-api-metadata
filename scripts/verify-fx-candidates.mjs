@@ -7,64 +7,49 @@ import { evaluatePontxQuality, validatePontxSpecLocale } from "@pontx/spec";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registry = JSON.parse(fs.readFileSync(path.join(root, "candidates/products.json"), "utf8"));
 const catalog = JSON.parse(fs.readFileSync(path.join(root, "catalog/products.json"), "utf8"));
-const expectedCandidates = new Set(["open-exchange-rates"]);
+const expectedCandidates = new Set();
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-function candidate(slug) {
-  assert(registry.products.includes(slug), `${slug}: candidate record is missing`);
-  const result = JSON.parse(fs.readFileSync(
-    path.join(root, "candidates", slug, "candidate.json"),
-    "utf8",
-  ));
-  assert(result.admissionDecision === "not-approved", `${slug}: candidate must remain pre-admission`);
-  assert(!catalog.products.includes(slug), `${slug}: blocked candidate entered catalog`);
-  return result;
-}
-
-const oxr = candidate("open-exchange-rates");
-assert(oxr.stage === "sdk-registry-visibility-blocked" && oxr.gateStatus.redistribution === "passed"
-  && oxr.gateStatus.contract === "passed" && oxr.gateStatus.risk === "passed"
-  && oxr.gateStatus.sdkCli === "blocked", "OXR independent-policy, contract, and registry gates drifted");
-assert(oxr.contractSource.sourceSha256 === "a6ffc121558c256d63a75930ead375a28c0a8b390187d17baf55b995c7ba7c1e"
-  && oxr.contractSource.observedOperations === 7 && oxr.contractSource.observedSchemas === 0,
-"OXR official embedded snapshot evidence drifted");
-assert(oxr.contractSource.qualityAudit.invalidCodegenOperationIds === 6
-  && oxr.contractSource.qualityAudit.pathTemplateMismatches === 1
-  && oxr.contractSource.qualityAudit.missingSuccessSchemas === 4
-  && oxr.contractSource.qualityAudit.missing4xxOrDefaultResponses === 2
-  && oxr.contractSource.qualityAudit.missingPontxRequestExamples === 7,
-"OXR quality audit drifted");
-assert(oxr.contractSource.humanDocumentationAudit?.reverifiedAt === "2026-08-15"
-  && oxr.contractSource.humanDocumentationAudit.schemasReconstructableFromOfficialPages?.length === 5
-  && oxr.contractSource.humanDocumentationAudit.remainingSuccessBodiesRequiringAuthorisedFixture?.length === 0
-  && oxr.contractSource.humanDocumentationAudit.convertSuccessContract?.status === "passed"
-  && oxr.contractSource.humanDocumentationAudit.authorisedFreePlanProbe?.successEndpoints?.join(",") === "latest,historical,currencies,usage"
-  && oxr.contractSource.humanDocumentationAudit.authorisedFreePlanProbe?.planDeniedEndpoints?.join(",") === "time-series,convert,ohlc",
-"OXR page-level and authorised-free-plan evidence drifted");
-assert(oxr.independentImplementationPolicy?.reviewedAt === "2026-08-15"
-  && oxr.independentImplementationPolicy.requirements?.includes(
-    "Hub must not proxy, cache, persist, or display supplier responses."),
-"OXR independent implementation boundary drifted");
-assert(oxr.pontxProbe.generatedOperations === 7 && oxr.pontxProbe.generatedSchemas === 0
-  && oxr.pontxProbe.anonymousCurrenciesSdkCall === "passed-173-currencies"
-  && oxr.pontxProbe.publicationReady === false,
-"OXR derived generation probe drifted");
-assert(oxr.independentSdk?.sourceCommit === "53377dca8fed944cb0098138e4f340f1a548879e"
-  && oxr.independentSdk?.package === "@pontx/open-exchange-rates@0.1.0"
-  && oxr.independentSdk?.contract?.endpoints === 7
-  && oxr.independentSdk?.contract?.schemas === 17
-  && oxr.independentSdk?.registry?.anonymousLookup?.startsWith("404")
-  && oxr.independentSdk?.registry?.visibilityMutation?.startsWith("npm access set status=public returned 403"),
-"OXR SDK registry-visibility blocker evidence drifted");
-
 assert(catalog.products.includes("ecb-data-portal"), "admitted ECB must remain in products.json");
 assert(catalog.products.includes("twelve-data-forex"), "Twelve Data Forex must be admitted to the catalog");
 assert(catalog.products.includes("currencybeacon-rest"), "CurrencyBeacon must be admitted to the catalog");
+assert(catalog.products.includes("open-exchange-rates"), "Open Exchange Rates must be admitted to the catalog");
 assert(!registry.products.includes("twelve-data-forex"), "Twelve Data Forex must leave the candidate registry");
 assert(!registry.products.includes("currencybeacon-rest"), "CurrencyBeacon must leave the candidate registry");
+assert(!registry.products.includes("open-exchange-rates"), "Open Exchange Rates must leave the candidate registry");
+
+const oxrRoot = path.join(root, "products/open-exchange-rates");
+const oxrContractBytes = fs.readFileSync(path.join(oxrRoot, "spec.pontx.json"));
+const oxrContract = JSON.parse(oxrContractBytes.toString("utf8"));
+const oxrEnglishContract = JSON.parse(fs.readFileSync(
+  path.join(oxrRoot, "locales/en-US/spec.pontx.json"),
+));
+const oxrProduct = JSON.parse(fs.readFileSync(path.join(oxrRoot, "product.json"), "utf8"));
+const oxrSdk = JSON.parse(fs.readFileSync(path.join(oxrRoot, "sdk.json"), "utf8"));
+const oxrProvenance = JSON.parse(fs.readFileSync(path.join(oxrRoot, "sources/provenance.json"), "utf8"));
+assert(createHash("sha256").update(oxrContractBytes).digest("hex")
+  === "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67"
+  && Object.keys(oxrContract.apis).length === 7
+  && Object.keys(oxrContract.components.schemas).length === 17
+  && Object.values(oxrContract.apis).every((api) => api.tags.length === 0
+    && api.method === "GET" && api.metadata?.execution?.enabled === false),
+"Open Exchange Rates scope, untagged Endpoint contract, or direct-only policy drifted");
+assert(validatePontxSpecLocale(oxrContract, oxrEnglishContract).valid,
+  "Open Exchange Rates must retain bilingual locale parity");
+assert(oxrProduct.credentials?.[0]?.envVar === "PONTX_OPEN_EXCHANGE_RATES_APP_ID"
+  && oxrSdk.package.name === "@pontx/open-exchange-rates"
+  && oxrSdk.package.version === "0.1.0"
+  && oxrSdk.package.status === "published"
+  && oxrSdk.coverage.mode === "full"
+  && oxrSdk.quality?.sourceCommit === "53377dca8fed944cb0098138e4f340f1a548879e"
+  && oxrSdk.spec.sha256 === "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67"
+  && oxrProvenance.status === "admitted"
+  && oxrProvenance.riskReview?.hubProxyEnabled === false,
+"Open Exchange Rates SDK release evidence or terms-scoped execution policy drifted");
+
 const twelveRoot = path.join(root, "products/twelve-data-forex");
 const twelveContractBytes = fs.readFileSync(path.join(twelveRoot, "spec.pontx.json"));
 const twelveContract = JSON.parse(twelveContractBytes.toString("utf8"));
@@ -183,4 +168,4 @@ assert(!Object.hasOwn(ecbProduct, "execution")
 const actualCandidates = new Set(registry.products.filter((slug) => expectedCandidates.has(slug)));
 assert(actualCandidates.size === expectedCandidates.size, "FX candidate set is incomplete");
 
-console.log("Verified the OXR registry-visibility blocker and admitted Twelve Data Forex, CurrencyBeacon, and ECB products.");
+console.log("Verified admitted Open Exchange Rates, Twelve Data Forex, CurrencyBeacon, and ECB products, plus the remaining FX candidate registry.");

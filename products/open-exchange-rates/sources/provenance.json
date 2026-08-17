@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "status": "draft",
+  "status": "admitted",
   "canonicalSpec": "products/open-exchange-rates/spec.pontx.json",
   "import": {
     "format": "OpenAPI 3.1.0",
@@ -18,6 +18,11 @@
     ],
     "verifiedAt": "2026-08-15",
     "policy": "The local SDK/CLI connects directly with caller-owned credentials. Hub proxying, caching, persistence, and response display are disabled because the terms prohibit reproducing, reselling, or providing supplier information without a licence."
+  },
+  "riskReview": {
+    "hubProxyEnabled": false,
+    "classification": "caller-directed foreign-exchange reference-data reads",
+    "execution": "All Hub execution is disabled. The local SDK and CLI send requests directly to the supplier with the caller's App ID; Hub never receives, stores, caches, or displays supplier responses."
   },
   "derivation": {
     "boundary": "All seven official v0.7 read-only GET endpoints.",
