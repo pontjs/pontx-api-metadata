@@ -12,6 +12,7 @@
     "ecb-data-portal",
     "twelve-data-forex",
     "currencybeacon-rest",
+    "open-exchange-rates",
     "dropbox-sign",
     "stripe-identity",
     "amazon-sqs",
