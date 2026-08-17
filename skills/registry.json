@@ -152,6 +152,21 @@
       ]
     },
     {
+      "name": "pontx-open-exchange-rates",
+      "apiSlug": "open-exchange-rates",
+      "version": "1.0.0",
+      "description": "Use for direct Open Exchange Rates integration, plan-aware historical-rate retrieval, currency-conversion safeguards, and caller-owned App ID handling.",
+      "license": "MIT-0",
+      "contentHash": "40e1978f70075f3611b28fff8c4a2e6bded23cc3061a141889566cc69a953ac5",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e7011cecf1f6d47814cadacb77c70cda4c85a197a58d619158d6483b3fa1d341",
+          "content": "---\nname: pontx-open-exchange-rates\ndescription: Use for direct Open Exchange Rates integration, plan-aware historical-rate retrieval, currency-conversion safeguards, and caller-owned App ID handling.\n---\n\n# Open Exchange Rates\n\nUse this skill when an application needs Open Exchange Rates data through a\ncaller-directed integration. Resolve the current API contract instead of\nmemorizing request fields, generated method names, or package versions:\n\n```bash\npontx-hub search \"Open Exchange Rates <capability>\" --type endpoint --json\npontx-hub show <returned-resource-id>\npontx-hub sdk open-exchange-rates\n```\n\nUse `@pontx/open-exchange-rates` for application code. Use\n`pontx-open-exchange-rates` for a product-local script after checking the\ncurrent SDK guidance. Keep the App ID credential in the caller environment;\nnever paste it into chat, source control, or a command transcript.\n\n## Keep reads caller-directed\n\nUse the local SDK or CLI rather than trying to execute the supplier request\nthrough Hub. First produce a redacted local preview, verify the chosen\nresource and plan, and perform a live read only after explicit approval. A\nread-only API does not make a credential safe to disclose.\n\nOpen Exchange Rates passes the caller's unique App ID as an HTTPS query\nparameter. Let the SDK or CLI construct that request from the environment\nrather than interpolating the value into application logs.\n\n## Choose a plan-aware workflow\n\nTime-series requests are currently available only to Enterprise and Unlimited\nplans. Time-series requests have a maximum query period of one month. Split a\nlong report into bounded monthly reads, select only the required currencies,\nand account for the request quota before approving execution.\n\nCurrency conversion requests are currently available only to the Unlimited\nplan. Validate converted values before using them in a transaction-processing\nsystem. Treat results as application input that needs the caller's own\nfinancial controls, rounding policy, and approval boundary.\n\nIf a requested capability, plan, or execution path conflicts with the current\nPontx resource, stop and report the discrepancy instead of guessing a URL or\nfalling back to an undocumented request.\n\n## Few-shot workflows\n\n### Scenario 1: Prepare a local rate integration\n\n**User:** \"Add a latest-rates lookup to our Node service, but do not call the\nprovider yet.\"\n\n**Approach:** Discover the current resource and SDK guidance, generate local\nSDK code that reads an environment-held credential, then show a redacted\npreview. Do not execute or expose the App ID.\n\n### Scenario 2: Plan a historical report\n\n**User:** \"Prepare an eight-week EUR report for the currencies our finance team\nuses.\"\n\n**Approach:** Check plan eligibility, divide the work into bounded monthly\ntime-series reads, filter to the requested currencies, estimate quota impact,\nand present previews. Execute only the unchanged approved reads.\n\n### Scenario 3: Review a conversion workflow\n\n**User:** \"Use Open Exchange Rates to calculate a checkout total.\"\n\n**Approach:** Check that the caller has the required plan, keep the request\nlocal, preview it without a credential, and require the application's own\nvalidation and rounding decision before any financial transaction proceeds.\n"
+        }
+      ]
+    },
+    {
       "name": "pontx-pinhere",
       "apiSlug": "pinhere",
       "version": "1.0.0",
