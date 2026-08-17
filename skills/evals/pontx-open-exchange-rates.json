@@ -1,0 +1,23 @@
+{
+  "skill_name": "pontx-open-exchange-rates",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add a Node latest-rates integration for Open Exchange Rates, but do not execute it or expose our App ID.",
+      "expected_output": "Uses current Pontx discovery and SDK guidance, keeps the credential in the caller environment, and produces a redacted preview without sending a request.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Prepare a two-month time-series report for EUR, GBP, and JPY. We are not sure which Open Exchange Rates plan we have.",
+      "expected_output": "Checks the current contract and plan eligibility, explains the one-month request boundary and currency filtering, prepares bounded previews, and does not execute without approval.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Use Open Exchange Rates conversion in checkout and run it now.",
+      "expected_output": "Checks Unlimited-plan eligibility, keeps the credential local, previews first, requires explicit approval for the live read, and calls out application-level validation and rounding before a transaction.",
+      "files": []
+    }
+  ]
+}

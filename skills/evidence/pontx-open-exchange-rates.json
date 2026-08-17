@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "apiSlug": "open-exchange-rates",
+  "claims": [
+    {
+      "id": "app-id-query",
+      "claim": "Open Exchange Rates passes the caller's unique App ID as an HTTPS query parameter.",
+      "summary": "The official introduction documents HTTPS URLs and shows app_id as a GET query parameter.",
+      "sourceUrl": "https://docs.openexchangerates.org/reference/api-introduction",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "time-series-plan",
+      "claim": "Time-series requests are currently available only to Enterprise and Unlimited plans.",
+      "summary": "The official time-series reference states that the endpoint is available to Enterprise and Unlimited clients.",
+      "sourceUrl": "https://docs.openexchangerates.org/reference/time-series-json",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "time-series-window",
+      "claim": "Time-series requests have a maximum query period of one month.",
+      "summary": "The official time-series reference states that the maximum query period is one month.",
+      "sourceUrl": "https://docs.openexchangerates.org/reference/time-series-json",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "conversion-plan",
+      "claim": "Currency conversion requests are currently available only to the Unlimited plan.",
+      "summary": "The official conversion reference identifies currency conversion as an Unlimited-plan feature.",
+      "sourceUrl": "https://docs.openexchangerates.org/reference/convert",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    },
+    {
+      "id": "conversion-validation",
+      "claim": "Validate converted values before using them in a transaction-processing system.",
+      "summary": "The official conversion reference strongly recommends validating returned values before they are used in transaction-processing systems or interfaces.",
+      "sourceUrl": "https://docs.openexchangerates.org/reference/convert",
+      "sourceType": "official-documentation",
+      "verifiedAt": "2026-08-17"
+    }
+  ]
+}
