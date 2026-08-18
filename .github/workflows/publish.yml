@@ -118,6 +118,16 @@ jobs:
             --base-url "${{ steps.deploy.outputs.verification_url }}" \
             --metadata-root metadata
 
+      - name: Notify IndexNow about changed public entry points
+        if: github.ref_name == 'main' && github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        env:
+          BASE_SHA: ${{ github.event.before }}
+        run: |
+          if ! git -C metadata cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git -C metadata fetch --no-tags --depth=1 origin "$BASE_SHA"
+          fi
+          node metadata/scripts/submit-indexnow.mjs --base "$BASE_SHA" --site "https://pontx.dev"
+
       - name: Pin metadata commit for future Hub Git deployments
         if: github.ref_name == 'main'
         working-directory: pontx-hub
