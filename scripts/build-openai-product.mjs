@@ -658,7 +658,7 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/openai",
-    version: "0.1.0",
+    version: "0.1.1",
     status: "published",
     repository: "https://github.com/pontjs/openai",
   },
@@ -683,7 +683,7 @@ const sdk = {
   },
   coverage: { mode: "full" },
   quality: {
-    testedVersion: "0.1.0",
+    testedVersion: "0.1.1",
     unitTests: {
       passed: 4,
       total: 4,
@@ -691,10 +691,10 @@ const sdk = {
     },
     e2eStatus: "passed",
     nodeVersions: ["18", "20", "22"],
-    sourceCommit: "f5036814eb2233778b6c4c22e75f897ee30f10df",
-    testedAt: "2026-08-16",
+    sourceCommit: "e10385a9356d45673c1ddce3a55f34464fb6cee9",
+    testedAt: "2026-08-24",
     repositoryUrl: "https://github.com/pontjs/openai",
-    workflowRunUrl: "https://github.com/pontjs/openai/actions/runs/31893519355",
+    workflowRunUrl: "https://github.com/pontjs/openai/actions/runs/32649758226",
   },
   spec: {
     path: "products/openai/spec.pontx.json",

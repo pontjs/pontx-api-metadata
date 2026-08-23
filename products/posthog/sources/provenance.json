@@ -38,10 +38,10 @@
   },
   "sdk": {
     "package": "@pontx/posthog",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "cli": "pontx-posthog",
-    "sourceCommit": "dd989cc1fd570fe877f76033df5fee7d15952058",
-    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/31898562637",
+    "sourceCommit": "c82b75958ece2b8c71e7840e9896e2e20bf8eb1e",
+    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/32649759709",
     "nodeVersions": [
       "18",
       "20",
@@ -54,9 +54,9 @@
     },
     "e2eStatus": "passed",
     "registry": {
-      "integrity": "sha512-9qn9pdXPcI3zJP8OP6LDpX6Ctg6SO1xiqnKFU4Z+8NmGNSYbNonJDVectL/otlWnx9L5EuOWVLcLYER9YEfDng==",
-      "shasum": "05314c33e1f55e9747fd9ab86590b2ac74321727",
-      "verifiedAt": "2026-08-17",
+      "integrity": "sha512-uk8LZStG5te8ldg4Jz/BfbEF15bD42EvpD5AitJyssjo0p4TkVkS/cmErQRG6xeREzI85ZWmNrDwF6lmA0xIdA==",
+      "shasum": "0b065918cc119a9d73583b4de03161ea53a2cc0e",
+      "verifiedAt": "2026-08-24",
       "freshInstall": "Anonymous npm-registry tarball download SHA-1 matched the published shasum. Fresh package verification passed ESM/CJS build output, a clean-install CLI preview smoke test, and confirmation-required execution guards without sending a provider request."
     }
   },

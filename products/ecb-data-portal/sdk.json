@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/ecb-data-portal",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/ecb-data-portal"
   },
@@ -28,7 +28,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.2",
     "unitTests": {
       "passed": 3,
       "total": 3,
@@ -40,10 +40,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "a41703550c787732b06c31b9542fd538b0d0937b",
-    "testedAt": "2026-08-15",
+    "sourceCommit": "118afd03dd5a83cf6b6594f6042dcdf3e9ccfb51",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
-    "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31883583163"
+    "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/32649759457"
   },
   "spec": {
     "path": "products/ecb-data-portal/spec.pontx.json",

@@ -704,7 +704,7 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/mistral-ai",
-    version: "0.1.0",
+    version: "0.1.1",
     status: "published",
     repository: "https://github.com/pontjs/mistral-ai",
   },
@@ -729,7 +729,7 @@ const sdk = {
   },
   coverage: { mode: "full" },
   quality: {
-    testedVersion: "0.1.0",
+    testedVersion: "0.1.1",
     unitTests: {
       passed: 4,
       total: 4,
@@ -737,10 +737,10 @@ const sdk = {
     },
     e2eStatus: "passed",
     nodeVersions: ["18", "20", "22"],
-    sourceCommit: "dbb61c5b5b5511ff4eb92e5f07b933d5b2bed475",
-    testedAt: "2026-08-16",
+    sourceCommit: "8c4ff62fec0bfce5c39861c05c2e3855c17c987d",
+    testedAt: "2026-08-24",
     repositoryUrl: "https://github.com/pontjs/mistral-ai",
-    workflowRunUrl: "https://github.com/pontjs/mistral-ai/actions/runs/31898823063",
+    workflowRunUrl: "https://github.com/pontjs/mistral-ai/actions/runs/32649758807",
   },
   spec: {
     path: "products/mistral-ai/spec.pontx.json",

@@ -88,8 +88,8 @@
       "https://github.com/aws/aws-sdk-js-v3/blob/4efe5bc67b71dc5ec652fe77130f3bae9efe0173/LICENSE",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html",
       "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html",
-      "https://github.com/pontjs/amazon-sqs/actions/runs/31886381572",
-      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.4"
+      "https://github.com/pontjs/amazon-sqs/actions/runs/32649759841",
+      "https://www.npmjs.com/package/@pontx/amazon-sqs/v/0.1.5"
     ],
     "verifiedAt": "2026-08-15"
   },
@@ -109,19 +109,19 @@
   },
   "sdk": {
     "package": "@pontx/amazon-sqs",
-    "version": "0.1.4",
-    "registry": "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.4",
-    "integrity": "sha512-9W4NWREUYT+tO5JoFzyhEuFThJME6tGdFaATlUuvlYc2a3+4stjyJHMOCzhPnDx+pig8XrcMGqidXKarHXNJOA==",
-    "shasum": "e2203aac75d4c7f81f450c8582477844621522b7",
+    "version": "0.1.5",
+    "registry": "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.5",
+    "integrity": "sha512-zW0qayeAdEKKjqmW6X9a6DYqd6AY/gZE491RNpLZBLjdA+IFOBRm1rri4vu6rsx4Lo7e7rU6BMNY8AmmECO+oA==",
+    "shasum": "ab2b05d4f276b7adae77b9176d0d028b11139b0b",
     "repository": "https://github.com/pontjs/amazon-sqs",
-    "sourceCommit": "5469d4b7d8154941bf292648561de57b6583d65f",
-    "mergedCommit": "5469d4b7d8154941bf292648561de57b6583d65f",
-    "workflowRun": "https://github.com/pontjs/amazon-sqs/actions/runs/31886381572",
+    "sourceCommit": "335526c0270eae78f4e417622637f38685f33dbf",
+    "mergedCommit": "335526c0270eae78f4e417622637f38685f33dbf",
+    "workflowRun": "https://github.com/pontjs/amazon-sqs/actions/runs/32649759841",
     "nodeVersions": [
       "20",
       "22"
     ],
-    "verifiedAt": "2026-08-15",
-    "tarball": "https://registry.npmjs.org/@pontx/amazon-sqs/-/amazon-sqs-0.1.4.tgz"
+    "verifiedAt": "2026-08-24",
+    "tarball": "https://registry.npmjs.org/@pontx/amazon-sqs/-/amazon-sqs-0.1.5.tgz"
   }
 }

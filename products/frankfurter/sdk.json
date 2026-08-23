@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/frankfurter",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/currency-exchange"
   },
@@ -33,7 +33,7 @@
     ]
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.2",
     "unitTests": {
       "passed": 2,
       "total": 2,
@@ -45,10 +45,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "6dfb19aa960fb320cceafdb896ccdec25d77266f",
-    "testedAt": "2026-08-14",
+    "sourceCommit": "d80146493d0007230f5fd999ff59deffb65491cc",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/currency-exchange",
-    "workflowRunUrl": "https://github.com/pontjs/currency-exchange/actions/runs/31776799667"
+    "workflowRunUrl": "https://github.com/pontjs/currency-exchange/actions/runs/32649759282"
   },
   "spec": {
     "path": "products/frankfurter/spec.pontx.json",

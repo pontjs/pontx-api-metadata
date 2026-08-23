@@ -67,19 +67,19 @@
   },
   "sdk": {
     "package": "@pontx/pinhere",
-    "version": "0.1.0",
-    "registry": "https://registry.npmjs.org/@pontx/pinhere/0.1.0",
-    "tarball": "https://registry.npmjs.org/@pontx/pinhere/-/pinhere-0.1.0.tgz",
-    "integrity": "sha512-RQsJPoi8+9ubQVAenXWr/Z3LMkrS0kCLnZ8XBrT7o7doKcGcDo3xLTvdVbj4P5tDb5c7LebtYziEeh2XSac/1w==",
-    "shasum": "6b829227c8dc2942dddb4c61c118dde0fbd9fa77",
+    "version": "0.1.1",
+    "registry": "https://registry.npmjs.org/@pontx/pinhere/0.1.1",
+    "tarball": "https://registry.npmjs.org/@pontx/pinhere/-/pinhere-0.1.1.tgz",
+    "integrity": "sha512-KZYv7jkCGdgpZTpbVT/3FhGhVL09a4Dw3zXjbdOnV3qNrqc3MBspXBut9eC5b5AHPnYv5yTnsoomgsJrk77RMA==",
+    "shasum": "f9b7a07ebabc7ec213e54a06911b82e9380b4dbd",
     "repository": "https://github.com/pontjs/pinhere",
-    "sourceCommit": "024321a7559918cff2eb766b6387af6d59885ad2",
-    "workflowRun": "https://github.com/pontjs/pinhere/actions/runs/31886414810",
+    "sourceCommit": "247da664feeb3a5323bea2b23397bfb1ed677348",
+    "workflowRun": "https://github.com/pontjs/pinhere/actions/runs/32649760336",
     "nodeVersions": [
       "18",
       "20",
       "22"
     ],
-    "registryVerifiedAt": "2026-08-15"
+    "registryVerifiedAt": "2026-08-24"
   }
 }

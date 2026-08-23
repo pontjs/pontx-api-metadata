@@ -401,8 +401,8 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/nager-date",
-    version: "0.1.0",
-    status: "planned",
+    version: "0.1.1",
+    status: "published",
     repository: "https://github.com/pontjs/nager-date",
   },
   cli: { name: "pontx-nager-date" },

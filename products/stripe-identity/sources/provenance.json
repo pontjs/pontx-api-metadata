@@ -83,8 +83,8 @@
       "https://github.com/stripe/openapi/blob/325f3b157f7250f2a5d228b870d77bb63fc7e54c/LICENSE",
       "https://docs.stripe.com/identity",
       "https://stripe.com/identity",
-      "https://github.com/pontjs/stripe-identity/actions/runs/31886381839",
-      "https://www.npmjs.com/package/@pontx/stripe-identity/v/0.1.2"
+      "https://github.com/pontjs/stripe-identity/actions/runs/32649759215",
+      "https://www.npmjs.com/package/@pontx/stripe-identity/v/0.1.3"
     ],
     "verifiedAt": "2026-08-15"
   },
@@ -106,22 +106,22 @@
     "status": "published",
     "packageName": "@pontx/stripe-identity",
     "cliName": "pontx-stripe-identity",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "repositoryUrl": "https://github.com/pontjs/stripe-identity",
-    "sourceCommit": "4500fe527793fb37f5d9ec0556979c12497570f1",
-    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/31858572852",
-    "distIntegrity": "sha512-rL3rxckh2BtwLYPNYlge2wTbExSmTtZ1z1oCNTSd7ZviklllBlXkO/p1oQ6YgAVEbzRtJHu62Lh57HXi9DBu+w==",
+    "sourceCommit": "e78dc0f6b429aa28f5298a54a465ae4d35b753af",
+    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/32649759215",
+    "distIntegrity": "sha512-8V5Vy9QIEuoBFcdXqPG26l7l3VaCbAM1qq8hxtlE6VIR1wBulB4i3XLRachK/GHgZRabKEH4lolY5sGkp084Rw==",
     "requiredNodeVersions": [
       "18",
       "20",
       "22"
     ],
-    "registry": "https://registry.npmjs.org/@pontx/stripe-identity/0.1.2",
-    "integrity": "sha512-1UB9/kfX4C1ATXGxGTDYZ7zaWKsAnHwvCo6/ZDzRQCV5ylGlNpG4pmnVTkkHgf/27b6VtHDSLAGgkuteCNUNoA==",
-    "shasum": "e9e410b623d94b740c6c5f5d34799ca19288a58a",
-    "tarball": "https://registry.npmjs.org/@pontx/stripe-identity/-/stripe-identity-0.1.2.tgz",
-    "mergedCommit": "4500fe527793fb37f5d9ec0556979c12497570f1",
-    "workflowRun": "https://github.com/pontjs/stripe-identity/actions/runs/31886381839",
-    "verifiedAt": "2026-08-15"
+    "registry": "https://registry.npmjs.org/@pontx/stripe-identity/0.1.3",
+    "integrity": "sha512-8V5Vy9QIEuoBFcdXqPG26l7l3VaCbAM1qq8hxtlE6VIR1wBulB4i3XLRachK/GHgZRabKEH4lolY5sGkp084Rw==",
+    "shasum": "e2c6ab806bb19d62a3039e9f31f8241bdfdb4128",
+    "tarball": "https://registry.npmjs.org/@pontx/stripe-identity/-/stripe-identity-0.1.3.tgz",
+    "mergedCommit": "e78dc0f6b429aa28f5298a54a465ae4d35b753af",
+    "workflowRun": "https://github.com/pontjs/stripe-identity/actions/runs/32649759215",
+    "verifiedAt": "2026-08-24"
   }
 }

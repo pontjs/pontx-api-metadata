@@ -5,12 +5,12 @@ import { loadPontxSpec, PontxSpec } from "@pontx/spec";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputRoot = resolve(root, "products/currencybeacon-rest");
-const verifiedAt = "2026-08-15";
+const verifiedAt = "2026-08-24";
 const documentationUrl = "https://currencybeacon.com/api-documentation";
 const codeSamplesUrl = "https://currencybeacon.com/code-samples";
 const sdkRepositoryUrl = "https://github.com/pontjs/currencybeacon-rest";
-const sdkWorkflowRunUrl = "https://github.com/pontjs/currencybeacon-rest/actions/runs/31883583108";
-const sdkPackageUrl = "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.2";
+const sdkWorkflowRunUrl = "https://github.com/pontjs/currencybeacon-rest/actions/runs/32649758993";
+const sdkPackageUrl = "https://www.npmjs.com/package/@pontx/currencybeacon-rest/v/0.1.3";
 const copy = {
   zh: {
     info: "独立整理的 CurrencyBeacon v1 只读 REST 契约，覆盖供应商公开列出的 latest、historical、convert、timeseries 与 currencies Endpoint。调用方使用自己的凭据；Hub 仅在用户明确执行后转发该次请求，不缓存或持久化响应。",

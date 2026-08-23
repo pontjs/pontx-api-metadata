@@ -21,8 +21,8 @@
       "https://data.ecb.europa.eu/help/api/status-codes",
       "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
       "https://github.com/pontjs/ecb-data-portal",
-      "https://github.com/pontjs/ecb-data-portal/actions/runs/31883583163",
-      "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.1"
+      "https://github.com/pontjs/ecb-data-portal/actions/runs/32649759457",
+      "https://www.npmjs.com/package/@pontx/ecb-data-portal/v/0.1.2"
     ],
     "verifiedAt": "2026-08-15"
   },
@@ -152,13 +152,13 @@
     },
     "publication": {
       "packageName": "@pontx/ecb-data-portal",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "cliName": "pontx-ecb-data-portal",
-      "sourceCommit": "a41703550c787732b06c31b9542fd538b0d0937b",
+      "sourceCommit": "118afd03dd5a83cf6b6594f6042dcdf3e9ccfb51",
       "repositoryUrl": "https://github.com/pontjs/ecb-data-portal",
-      "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/31883583163",
-      "registryTarball": "https://registry.npmjs.org/@pontx/ecb-data-portal/-/ecb-data-portal-0.1.1.tgz",
-      "registryIntegrity": "sha512-cNQA9AQjplqrs+3XJ9HW+Nn4TWwNeBIo2fP6Akvb+etmP4gyTM/ucd/AvOMsQPCkLJ7Xo9NiSabdMS9f1Yw85g=="
+      "workflowRunUrl": "https://github.com/pontjs/ecb-data-portal/actions/runs/32649759457",
+      "registryTarball": "https://registry.npmjs.org/@pontx/ecb-data-portal/-/ecb-data-portal-0.1.2.tgz",
+      "registryIntegrity": "sha512-+SCP6ETTkjOBUmRzytUrQL5ILmLmewxNLZ2p3jcanmAadhz8nHTwGv56h8zJCiT+1v5xlXRGgaUEjTi7auor1w=="
     },
     "outputs": {
       "zh-CN": {

@@ -36,7 +36,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputRoot = resolve(root, "products/sendbird-chat-platform");
 const oasPath = resolve(outputRoot, "sources/sendbird-platform.oas.json");
 const curationPath = resolve(outputRoot, "sources/curation.json");
-const verifiedAt = "2026-08-16";
+const verifiedAt = "2026-08-24";
 const sdkRevision = "fccf6fa11117e15bd4dcdd89127407f0b46e7ce8";
 const sdkVersion = "2.1.8";
 const expectedEndpointCount = 83;
@@ -665,7 +665,7 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/sendbird-chat-platform",
-    version: "0.1.0",
+    version: "0.1.1",
     status: "published",
     repository: "https://github.com/pontjs/sendbird-chat-platform",
   },
@@ -686,14 +686,14 @@ const sdk = {
   coverage: { mode: "full" },
   spec: { path: "products/sendbird-chat-platform/spec.pontx.json", sha256: sha256(zhBytes), metadataCommit: "922e3a97661d9bede809409c1c9ceaacd08a7123" },
   quality: {
-    testedVersion: "0.1.0",
+    testedVersion: "0.1.1",
     unitTests: { passed: 4, total: 4, skipped: 0 },
     e2eStatus: "passed",
     nodeVersions: ["18", "20", "22"],
-    sourceCommit: "c5decd276a9564097302187a5371834ec914dbd5",
+    sourceCommit: "9e504ab1a3b80fb738f566f3b9fe1be869b0a949",
     testedAt: verifiedAt,
     repositoryUrl: "https://github.com/pontjs/sendbird-chat-platform",
-    workflowRunUrl: "https://github.com/pontjs/sendbird-chat-platform/actions/runs/31899208134",
+    workflowRunUrl: "https://github.com/pontjs/sendbird-chat-platform/actions/runs/32649758995",
   },
 };
 
