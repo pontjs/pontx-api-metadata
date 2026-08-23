@@ -43,10 +43,10 @@ assert(oxrProduct.credentials?.[0]?.envVar === "PONTX_OPEN_EXCHANGE_RATES_APP_ID
   && oxrProduct.credentials?.[0]?.guide?.url === "https://openexchangerates.org/signup"
   && oxrProduct.credentials?.[0]?.guide?.steps?.length === 3
   && oxrSdk.package.name === "@pontx/open-exchange-rates"
-  && oxrSdk.package.version === "0.1.0"
+  && oxrSdk.package.version === "0.1.1"
   && oxrSdk.package.status === "published"
   && oxrSdk.coverage.mode === "full"
-  && oxrSdk.quality?.sourceCommit === "53377dca8fed944cb0098138e4f340f1a548879e"
+  && oxrSdk.quality?.sourceCommit === "d3595c141311b59259fe65b7dd03ca25305e72d3"
   && oxrSdk.spec.sha256 === "7b45dc185947af8ad0bdd862334cc8ae4caf0006212a109dedd488b0cd2eaa67"
   && oxrProvenance.status === "admitted"
   && oxrProvenance.riskReview?.hubProxyEnabled === false,
@@ -82,7 +82,7 @@ assert(!Object.hasOwn(twelveProduct, "execution")
   && twelveProduct.credentials?.[0]?.guide?.url === "https://twelvedata.com/account/api-keys"
   && twelveProduct.credentials?.[0]?.guide?.steps?.length === 3
   && twelveSdk.package.name === "@pontx/twelve-data-forex"
-  && twelveSdk.package.version === "0.1.1"
+  && twelveSdk.package.version === "0.1.2"
   && twelveSdk.coverage.mode === "full"
   && twelveSdk.spec.sha256 === "5705b5bff48cd1b4736d29ca59c132a545339ae9e56879173cc46017a2190d6b",
 "Twelve Data product safety and SDK contract drifted");
@@ -120,7 +120,7 @@ assert(!Object.hasOwn(currencyBeaconProduct, "execution")
   && currencyBeaconProduct.credentials?.[0]?.guide?.url === "https://currencybeacon.com/register"
   && currencyBeaconProduct.credentials?.[0]?.guide?.steps?.length === 3
   && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
-  && currencyBeaconSdk.package.version === "0.1.2"
+  && currencyBeaconSdk.package.version === "0.1.3"
   && currencyBeaconSdk.coverage.mode === "full"
   && JSON.stringify(currencyBeaconSdk.contract.methodNames) === JSON.stringify({
     convertCurrency: "convert",
@@ -163,7 +163,7 @@ assert(ecbQuality.grade === "A" && ecbQuality.criticals.length === 0
 assert(!Object.hasOwn(ecbProduct, "execution")
   && ecbProduct.credentials.length === 0
   && ecbSdk.package.name === "@pontx/ecb-data-portal"
-  && ecbSdk.package.version === "0.1.1"
+  && ecbSdk.package.version === "0.1.2"
   && ecbSdk.coverage.mode === "full"
   && ecbSdk.spec.sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f"
   && ecbProvenance.outputs["zh-CN"].sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f",

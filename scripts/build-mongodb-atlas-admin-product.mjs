@@ -529,7 +529,7 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/mongodb-atlas-admin",
-    version: "0.1.0",
+    version: "0.1.1",
     status: "published",
     repository: "https://github.com/pontjs/mongodb-atlas-admin",
   },
@@ -561,14 +561,14 @@ const sdk = {
     metadataCommit: "8bd9128f25e92191072624212626540d68d543e1",
   },
   quality: {
-    testedVersion: "0.1.0",
+    testedVersion: "0.1.1",
     unitTests: { passed: 4, total: 4, skipped: 0 },
     e2eStatus: "passed",
     nodeVersions: ["18", "20", "22"],
-    sourceCommit: "30539888cf6795b3a67f7cf948bbb84d19527ebf",
-    testedAt: "2026-08-15",
+    sourceCommit: "21bb07b43c5da190866ba262acd1f44e567607a7",
+    testedAt: "2026-08-24",
     repositoryUrl: "https://github.com/pontjs/mongodb-atlas-admin",
-    workflowRunUrl: "https://github.com/pontjs/mongodb-atlas-admin/actions/runs/31891578691",
+    workflowRunUrl: "https://github.com/pontjs/mongodb-atlas-admin/actions/runs/32649759454",
   },
 };
 const provenance = {

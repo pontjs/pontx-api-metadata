@@ -525,7 +525,7 @@ const sdk = {
   formatVersion: 1,
   package: {
     name: "@pontx/wps-365",
-    version: "0.1.0",
+    version: "0.1.1",
     status: "planned",
     repository: "https://github.com/pontjs/wps-365",
   },

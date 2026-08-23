@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/stripe-identity",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "status": "published",
     "repository": "https://github.com/pontjs/stripe-identity"
   },
@@ -28,7 +28,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.2",
+    "testedVersion": "0.1.3",
     "unitTests": {
       "passed": 5,
       "total": 5,
@@ -40,10 +40,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "4500fe527793fb37f5d9ec0556979c12497570f1",
-    "testedAt": "2026-08-15",
+    "sourceCommit": "e78dc0f6b429aa28f5298a54a465ae4d35b753af",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/stripe-identity",
-    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/31886381839"
+    "workflowRunUrl": "https://github.com/pontjs/stripe-identity/actions/runs/32649759215"
   },
   "spec": {
     "path": "products/stripe-identity/spec.pontx.json",

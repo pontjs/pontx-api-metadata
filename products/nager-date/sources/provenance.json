@@ -48,10 +48,10 @@
   },
   "sdk": {
     "package": "@pontx/nager-date",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "cli": "pontx-nager-date",
-    "sourceCommit": "0e8d6ddb4f71600f7526a77fb326168f8a72d7cb",
-    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/31886633330",
+    "sourceCommit": "7ceb5c6745e355f012ba588d94870027bbcb1a35",
+    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/32649758081",
     "nodeVersions": [
       "18",
       "20",
@@ -64,9 +64,9 @@
     },
     "e2eStatus": "passed",
     "registry": {
-      "integrity": "sha512-5Y12NqVQ4hmDlJBt6TSEprQkxMcKpxpdAAy57Q8QBsjWowE0+yopgTEbojZxkahFnWTB1W7HTx0lHk8GcnCCqA==",
-      "shasum": "ff53c2af5400dc2232cb1ebca9eecfa20e642584",
-      "verifiedAt": "2026-08-15",
+      "integrity": "sha512-SxjfbuSYLDQOAXC7++TpEH+CoplC76RWFYdP40Kf6W7beeinT2B6nt/cbCpUODutbiwadSyqaeSGp9Sc4e0R3Q==",
+      "shasum": "054aa7ba8c49fd73d49e98d17afd67eea87afb9a",
+      "verifiedAt": "2026-08-24",
       "freshInstall": "npm registry installation passed ESM import, product CLI help, SDK getVersions, and CLI getVersions against the live Community API."
     }
   },

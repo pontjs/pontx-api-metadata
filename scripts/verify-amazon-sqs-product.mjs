@@ -46,7 +46,7 @@ assert.equal(sha256(licenseBytes), licenseHash, "vendored license hash must be i
 assert.equal(sdk.spec.sha256, sha256(zhBytes), "SDK must bind canonical PontxSpec raw bytes");
 assert.equal(sdk.package.status, "published", "SDK must be published before catalog admission");
 assert.equal(sdk.package.name, "@pontx/amazon-sqs");
-assert.equal(sdk.package.version, "0.1.4");
+assert.equal(sdk.package.version, "0.1.5");
 assert.deepEqual(sdk.contract?.methodNames, {
   AddPermission: "addPermission",
   CancelMessageMoveTask: "cancelMessageMoveTask",
@@ -76,24 +76,24 @@ assert.equal(sdk.quality?.testedVersion, sdk.package.version);
 assert.deepEqual(sdk.quality?.unitTests, { passed: 6, total: 6, skipped: 0 });
 assert.equal(sdk.quality?.e2eStatus, "passed");
 assert.deepEqual(sdk.quality?.nodeVersions, ["20", "22"]);
-assert.equal(sdk.quality?.sourceCommit, "5469d4b7d8154941bf292648561de57b6583d65f");
+assert.equal(sdk.quality?.sourceCommit, "335526c0270eae78f4e417622637f38685f33dbf");
 assert.equal(sdk.spec.metadataCommit, "6bb03db8f5483a098275cb2c8c3611134e2dfe4d");
 assert.equal(provenance.import.sourceSha256, sourceHash);
 assert.equal(provenance.license.sha256, licenseHash);
 assert.equal(provenance.status, "published");
 assert.deepEqual(provenance.sdk, {
   package: "@pontx/amazon-sqs",
-  version: "0.1.4",
-  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.4",
-  integrity: "sha512-9W4NWREUYT+tO5JoFzyhEuFThJME6tGdFaATlUuvlYc2a3+4stjyJHMOCzhPnDx+pig8XrcMGqidXKarHXNJOA==",
-  shasum: "e2203aac75d4c7f81f450c8582477844621522b7",
-  tarball: "https://registry.npmjs.org/@pontx/amazon-sqs/-/amazon-sqs-0.1.4.tgz",
+  version: "0.1.5",
+  registry: "https://registry.npmjs.org/@pontx/amazon-sqs/0.1.5",
+  integrity: "sha512-zW0qayeAdEKKjqmW6X9a6DYqd6AY/gZE491RNpLZBLjdA+IFOBRm1rri4vu6rsx4Lo7e7rU6BMNY8AmmECO+oA==",
+  shasum: "ab2b05d4f276b7adae77b9176d0d028b11139b0b",
+  tarball: "https://registry.npmjs.org/@pontx/amazon-sqs/-/amazon-sqs-0.1.5.tgz",
   repository: "https://github.com/pontjs/amazon-sqs",
-  sourceCommit: "5469d4b7d8154941bf292648561de57b6583d65f",
-  mergedCommit: "5469d4b7d8154941bf292648561de57b6583d65f",
-  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/31886381572",
+  sourceCommit: "335526c0270eae78f4e417622637f38685f33dbf",
+  mergedCommit: "335526c0270eae78f4e417622637f38685f33dbf",
+  workflowRun: "https://github.com/pontjs/amazon-sqs/actions/runs/32649759841",
   nodeVersions: ["20", "22"],
-  verifiedAt: "2026-08-15",
+  verifiedAt: "2026-08-24",
 });
 assert.equal(provenance.outputs["zh-CN"].sha256, sha256(zhBytes));
 assert.equal(provenance.outputs["en-US"].sha256, sha256(enBytes));

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/nager-date",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "status": "published",
     "repository": "https://github.com/pontjs/nager-date"
   },
@@ -31,7 +31,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.0",
+    "testedVersion": "0.1.1",
     "unitTests": {
       "passed": 4,
       "total": 4,
@@ -43,10 +43,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "0e8d6ddb4f71600f7526a77fb326168f8a72d7cb",
-    "testedAt": "2026-08-15",
+    "sourceCommit": "7ceb5c6745e355f012ba588d94870027bbcb1a35",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/nager-date",
-    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/31886633330"
+    "workflowRunUrl": "https://github.com/pontjs/nager-date/actions/runs/32649758081"
   },
   "spec": {
     "path": "products/nager-date/spec.pontx.json",

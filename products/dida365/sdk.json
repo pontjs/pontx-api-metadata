@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/dida365",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "status": "published",
     "repository": "https://github.com/pontjs/dida365"
   },
@@ -44,7 +44,7 @@
     ]
   },
   "quality": {
-    "testedVersion": "0.1.1",
+    "testedVersion": "0.1.2",
     "unitTests": {
       "passed": 4,
       "total": 4,
@@ -56,10 +56,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "ea509a0caf36322a31362787ca5790dc4fa63808",
-    "testedAt": "2026-08-14",
+    "sourceCommit": "2fe1a1dc86592003884081f2dc76b84bf2e475b1",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/dida365",
-    "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/31776800890"
+    "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/32649758680"
   },
   "spec": {
     "path": "products/dida365/spec.pontx.json",

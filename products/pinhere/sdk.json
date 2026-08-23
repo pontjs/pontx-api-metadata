@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/pinhere",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "status": "published",
     "repository": "https://github.com/pontjs/pinhere"
   },
@@ -36,7 +36,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.0",
+    "testedVersion": "0.1.1",
     "unitTests": {
       "passed": 10,
       "total": 10,
@@ -48,10 +48,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "024321a7559918cff2eb766b6387af6d59885ad2",
-    "testedAt": "2026-08-15",
+    "sourceCommit": "247da664feeb3a5323bea2b23397bfb1ed677348",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/pinhere",
-    "workflowRunUrl": "https://github.com/pontjs/pinhere/actions/runs/31886414810"
+    "workflowRunUrl": "https://github.com/pontjs/pinhere/actions/runs/32649760336"
   },
   "spec": {
     "path": "products/pinhere/spec.pontx.json",

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/posthog",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "status": "published",
     "repository": "https://github.com/pontjs/posthog"
   },
@@ -31,7 +31,7 @@
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.0",
+    "testedVersion": "0.1.1",
     "unitTests": {
       "passed": 4,
       "total": 4,
@@ -43,10 +43,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "dd989cc1fd570fe877f76033df5fee7d15952058",
-    "testedAt": "2026-08-17",
+    "sourceCommit": "c82b75958ece2b8c71e7840e9896e2e20bf8eb1e",
+    "testedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/pontjs/posthog",
-    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/31898562637"
+    "workflowRunUrl": "https://github.com/pontjs/posthog/actions/runs/32649759709"
   },
   "spec": {
     "path": "products/posthog/spec.pontx.json",
