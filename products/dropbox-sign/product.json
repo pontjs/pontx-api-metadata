@@ -33,12 +33,30 @@
       "schemeId": "api_key",
       "usernameEnvVar": "DROPBOX_SIGN_API_KEY",
       "passwordEnvVar": "DROPBOX_SIGN_API_PASSWORD",
-      "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者当前浏览器会话中。"
+      "description": "Dropbox Sign API Key 作为 HTTP Basic 用户名，密码留空；凭据仅保留在调用者当前浏览器会话中。",
+      "guide": {
+        "url": "https://app.hellosign.com/home/myAccount#api",
+        "title": "获取 Dropbox Sign API Key",
+        "steps": [
+          "注册或登录 Dropbox Sign，并打开 API Settings 的 API 标签页。",
+          "生成并复制 API Key；HTTP Basic 的用户名填写该 Key，密码保持为空。",
+          "回到本页输入 Key；建议定期轮换，且不要把它存到客户端代码或日志。"
+        ]
+      }
     },
     {
       "schemeId": "oauth2",
       "envVar": "DROPBOX_SIGN_ACCESS_TOKEN",
-      "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中。"
+      "description": "Dropbox Sign OAuth 访问令牌通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中。",
+      "guide": {
+        "url": "https://developers.hellosign.com/docs/guides/o-auth/walkthrough",
+        "title": "配置 Dropbox Sign OAuth 访问令牌",
+        "steps": [
+          "在 Dropbox Sign API Settings 创建 API App，并配置回调地址、计费模式与最低必要 scopes。",
+          "让用户完成 OAuth 授权，再由服务端用授权码换取 access token。",
+          "把 access token 作为 Bearer Token 使用；面向其他用户的生产应用需按官方流程申请批准。"
+        ]
+      }
     }
   ],
   "quickStart": {

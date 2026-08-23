@@ -355,7 +355,27 @@ function product(language) {
       summary: language === "zh" ? "CurrencyBeacon 提供免费与付费套餐；可用数据范围和额度取决于调用方当前套餐。" : "CurrencyBeacon offers free and paid plans; available data and quotas depend on the caller's current plan.",
       officialUrl: "https://currencybeacon.com/pricing", verifiedAt,
     },
-    credentials: [{ schemeId: "apiKey", envVar: "PONTX_CURRENCYBEACON_API_KEY", description: text.security }],
+    credentials: [{
+      schemeId: "apiKey",
+      envVar: "PONTX_CURRENCYBEACON_API_KEY",
+      description: text.security,
+      guide: language === "zh" ? {
+        url: "https://currencybeacon.com/register",
+        title: "获取 CurrencyBeacon API Key",
+        steps: [
+          "注册 CurrencyBeacon 账户并完成登录。",
+          "在账户 Dashboard 中找到并复制你的 API Key。",
+          "回到本页粘贴到 api_key 输入框；不要把 Key 写入请求示例或持久化。",
+        ],
+      } : {
+        title: "Get a CurrencyBeacon API key",
+        steps: [
+          "Create a CurrencyBeacon account and sign in.",
+          "Find and copy your API key from the account Dashboard.",
+          "Return here and paste it into the api_key field. Never place the key in request examples or persistent storage.",
+        ],
+      },
+    }],
     quickStart: { operationId: "getLatestRates", requestExampleId: "default" },
   };
 }

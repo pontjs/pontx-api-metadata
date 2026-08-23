@@ -39,7 +39,15 @@
     },
     {
       "schemeId": "AdminApiKeyAuth",
-      "description": "Admin API key required for organization administration endpoints. Use caller-locally with least privilege only; never place it in examples, logs, or Hub."
+      "description": "Admin API key required for organization administration endpoints. Use caller-locally with least privilege only; never place it in examples, logs, or Hub.",
+      "guide": {
+        "title": "Create an OpenAI Admin API key",
+        "steps": [
+          "Sign in as an Organization Owner and open Admin Keys in OpenAI Platform.",
+          "Create an Admin API key dedicated to organization administration and store it securely immediately.",
+          "Set OPENAI_ADMIN_API_KEY only in your local environment. Its elevated access means it must never appear in code, logs, examples, or Hub."
+        ]
+      }
     }
   ]
 }

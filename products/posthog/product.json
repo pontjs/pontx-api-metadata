@@ -37,7 +37,16 @@
     {
       "schemeId": "projectToken",
       "envVar": "POSTHOG_PROJECT_TOKEN",
-      "description": "调用方自有的 PostHog 项目令牌。令牌仅保留在本地环境变量或 SDK 选项中，不能写入 Hub、日志、示例或聊天。"
+      "description": "调用方自有的 PostHog 项目令牌。令牌仅保留在本地环境变量或 SDK 选项中，不能写入 Hub、日志、示例或聊天。",
+      "guide": {
+        "url": "https://app.posthog.com/project/settings",
+        "title": "获取 PostHog Project Token",
+        "steps": [
+          "登录正确的 PostHog Cloud 区域或自托管实例，并选择目标项目。",
+          "在 Project settings 复制 Project Token；不要误用权限更高的 Personal API Key。",
+          "仅在本地配置 POSTHOG_PROJECT_TOKEN，并确认请求域名与项目区域一致。"
+        ]
+      }
     }
   ],
   "quickStart": {

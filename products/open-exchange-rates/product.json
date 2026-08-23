@@ -44,7 +44,16 @@
     {
       "schemeId": "appId",
       "envVar": "PONTX_OPEN_EXCHANGE_RATES_APP_ID",
-      "description": "在 Open Exchange Rates 注册后取得的调用方 App ID；仅在本地 SDK/CLI 直连执行时读取。"
+      "description": "在 Open Exchange Rates 注册后取得的调用方 App ID；仅在本地 SDK/CLI 直连执行时读取。",
+      "guide": {
+        "url": "https://openexchangerates.org/signup",
+        "title": "获取 Open Exchange Rates App ID",
+        "steps": [
+          "注册 Open Exchange Rates 账户；已有账户可直接登录。",
+          "在 Account Dashboard 中查看并复制 32 位 App ID。",
+          "将 App ID 仅配置到本地 SDK/CLI 的 PONTX_OPEN_EXCHANGE_RATES_APP_ID；Hub 不代理该 API。"
+        ]
+      }
     }
   ],
   "quickStart": {

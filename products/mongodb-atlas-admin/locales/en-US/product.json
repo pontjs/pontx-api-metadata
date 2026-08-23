@@ -39,7 +39,15 @@
     },
     {
       "schemeId": "DigestAuth",
-      "description": "Legacy Digest API public and private keys. Use this mode only where the caller still requires it, keep least privilege, and never place either value in examples, logs, or Hub."
+      "description": "Legacy Digest API public and private keys. Use this mode only where the caller still requires it, keep least privilege, and never place either value in examples, logs, or Hub.",
+      "guide": {
+        "title": "Create a legacy Atlas API key",
+        "steps": [
+          "Only when migration to service accounts is not possible, have an Organization Owner or Project Owner create a legacy API key.",
+          "Grant only required roles and configure the API Access List when Atlas requires it. The private key is shown once.",
+          "Store the public and private keys separately in local environment variables; never put either in examples, logs, or Hub."
+        ]
+      }
     }
   ]
 }

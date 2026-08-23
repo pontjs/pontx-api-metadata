@@ -27,7 +27,15 @@
   "credentials": [
     {
       "schemeId": "apiTokenAuth",
-      "description": "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment."
+      "description": "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment.",
+      "guide": {
+        "title": "Get a Sendbird Application API Token",
+        "steps": [
+          "Sign in to Sendbird Dashboard and select or create a Chat application.",
+          "Under Settings > Application > General, copy the Application ID and preferably create a rotatable Secondary Token under API tokens.",
+          "Set SENDBIRD_APP_ID and SENDBIRD_API_TOKEN only on a server or in the local SDK/CLI. Never call the Platform API from a client frontend."
+        ]
+      }
     }
   ]
 }

@@ -9,11 +9,27 @@
   "credentials": [
     {
       "schemeId": "api_key",
-      "description": "Dropbox Sign API key used as the HTTP Basic username with an empty password; the credential remains only in the caller's current browser session."
+      "description": "Dropbox Sign API key used as the HTTP Basic username with an empty password; the credential remains only in the caller's current browser session.",
+      "guide": {
+        "title": "Get a Dropbox Sign API key",
+        "steps": [
+          "Sign up for or sign in to Dropbox Sign and open the API tab in API Settings.",
+          "Generate and copy an API key. Use the key as the HTTP Basic username and leave the password empty.",
+          "Return here and enter the key. Rotate it regularly and never store it in client code or logs."
+        ]
+      }
     },
     {
       "schemeId": "oauth2",
-      "description": "Dropbox Sign OAuth access token supplied through a Bearer header and retained only in the caller's current browser session."
+      "description": "Dropbox Sign OAuth access token supplied through a Bearer header and retained only in the caller's current browser session.",
+      "guide": {
+        "title": "Configure a Dropbox Sign OAuth access token",
+        "steps": [
+          "Create an API App in Dropbox Sign API Settings and configure its callback URL, billing model, and least-privilege scopes.",
+          "Have the user complete OAuth authorization, then exchange the authorization code for an access token on your server.",
+          "Use the access token as a Bearer token. Production apps serving other users must complete the official approval process."
+        ]
+      }
     }
   ]
 }

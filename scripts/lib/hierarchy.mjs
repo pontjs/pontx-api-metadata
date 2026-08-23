@@ -94,7 +94,10 @@ function validateProduct(slug, product, errors) {
       && !ENV_VAR_PATTERN.test(credential.secretEnvVar)) {
       errors.push(`${context} secretEnvVar must be an uppercase environment variable name`);
     }
-    if (!credential.guide) continue;
+    if (!credential.guide) {
+      errors.push(`${context} requires an acquisition/configuration guide`);
+      continue;
+    }
     const guideContext = `${context} guide`;
     checkExactKeys(
       credential.guide,

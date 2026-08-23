@@ -29,7 +29,15 @@
     {
       "schemeId": "apiKey",
       "envVar": "PONTX_CURRENCYBEACON_API_KEY",
-      "description": "CurrencyBeacon API key supplied by the caller; it must not be placed in request examples or persisted."
+      "description": "CurrencyBeacon API key supplied by the caller; it must not be placed in request examples or persisted.",
+      "guide": {
+        "title": "Get a CurrencyBeacon API key",
+        "steps": [
+          "Create a CurrencyBeacon account and sign in.",
+          "Find and copy your API key from the account Dashboard.",
+          "Return here and paste it into the api_key field. Never place the key in request examples or persistent storage."
+        ]
+      }
     }
   ]
 }

@@ -43,7 +43,16 @@
     {
       "schemeId": "BearerAuth",
       "envVar": "MASSIVE_API_KEY",
-      "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。"
+      "description": "Massive API Key 通过 Bearer Header 提供，仅保留在调用方会话中。",
+      "guide": {
+        "url": "https://massive.com/dashboard/keys",
+        "title": "获取 Massive API Key",
+        "steps": [
+          "注册或登录 Massive，并打开 Dashboard 的 API Keys 页面。",
+          "复制账户生成的 API Key；虽然请求使用 Bearer Header，这个值仍是 API Key。",
+          "回到本页粘贴到 Bearer Token 输入框；不要把 Key 写入代码、日志或仓库。"
+        ]
+      }
     }
   ],
   "quickStart": {

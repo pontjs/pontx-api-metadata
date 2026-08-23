@@ -466,6 +466,15 @@ const product = {
       usernameEnvVar: "MONGODB_ATLAS_PUBLIC_KEY",
       passwordEnvVar: "MONGODB_ATLAS_PRIVATE_KEY",
       description: "旧版 Digest API 公钥和私钥。仅在调用方仍需该认证方式时使用，并限制到最低权限；不得写入示例、日志或 Hub。",
+      guide: {
+        url: "https://www.mongodb.com/docs/atlas/configure-api-access/?interface=atlas-ui&programmatic-access=api-key",
+        title: "创建 Atlas 旧版 API Key",
+        steps: [
+          "仅在无法迁移到服务账号时，由 Organization Owner 或 Project Owner 创建旧版 API Key。",
+          "授予最低必要角色，并按 Atlas 要求配置 API Access List；私钥只显示一次。",
+          "分别保存 Public Key 与 Private Key 到本地环境变量，绝不写入示例、日志或 Hub。",
+        ],
+      },
     },
   ],
   quickStart: { operationId: "listOrgs", requestExampleId: "default" },
@@ -505,6 +514,14 @@ const productEn = {
     {
       schemeId: "DigestAuth",
       description: "Legacy Digest API public and private keys. Use this mode only where the caller still requires it, keep least privilege, and never place either value in examples, logs, or Hub.",
+      guide: {
+        title: "Create a legacy Atlas API key",
+        steps: [
+          "Only when migration to service accounts is not possible, have an Organization Owner or Project Owner create a legacy API key.",
+          "Grant only required roles and configure the API Access List when Atlas requires it. The private key is shown once.",
+          "Store the public and private keys separately in local environment variables; never put either in examples, logs, or Hub.",
+        ],
+      },
     },
   ],
 };

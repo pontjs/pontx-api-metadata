@@ -14,7 +14,15 @@
   "credentials": [
     {
       "schemeId": "bearerAuth",
-      "description": "Stripe Secret Key supplied through a Bearer header and retained only in the caller's current browser session. Never persist it in a log or example."
+      "description": "Stripe Secret Key supplied through a Bearer header and retained only in the caller's current browser session. Never persist it in a log or example.",
+      "guide": {
+        "title": "Get a Stripe test Secret Key",
+        "steps": [
+          "Sign in to Stripe Dashboard and open Developers > API keys in test mode first.",
+          "Reveal and copy the test Secret Key (sk_test_). Prefer a least-privilege Restricted Key when supported.",
+          "Return here and use it as the Bearer token. Do not enter a Publishable Key or persist the Secret Key outside the session."
+        ]
+      }
     }
   ]
 }

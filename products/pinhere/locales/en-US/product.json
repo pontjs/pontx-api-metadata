@@ -12,15 +12,39 @@
   "credentials": [
     {
       "schemeId": "pinherePat",
-      "description": "A caller-owned Pinhere PAT is sent through a Bearer header and retained only in a locally controlled environment. Never place it in Hub, logs, examples, or chat."
+      "description": "A caller-owned Pinhere PAT is sent through a Bearer header and retained only in a locally controlled environment. Never place it in Hub, logs, examples, or chat.",
+      "guide": {
+        "title": "Create a Pinhere PAT",
+        "steps": [
+          "Sign in to the Pinhere website and open API Token management.",
+          "Create a PAT. Its plaintext is shown only once, so save it immediately in controlled local secret storage.",
+          "Set PINHERE_ACCESS_TOKEN only in the local SDK/CLI. Never send it to Hub, logs, examples, or chat."
+        ]
+      }
     },
     {
       "schemeId": "websiteSession",
-      "description": "A website Session Cookie is limited to the caller's authenticated same-origin context. Never copy it into Hub, CLI history, logs, or examples."
+      "description": "A website Session Cookie is limited to the caller's authenticated same-origin context. Never copy it into Hub, CLI history, logs, or examples.",
+      "guide": {
+        "title": "Use a Pinhere website session",
+        "steps": [
+          "Sign in on the official Pinhere website and let the browser manage the Session Cookie on same-origin pages.",
+          "A website session is only for authenticated same-origin browser requests; it is not a distributable API credential.",
+          "Do not inspect, copy, or paste the Cookie into Hub, CLI history, logs, or examples. Use a PAT for automation."
+        ]
+      }
     },
     {
       "schemeId": "extensionOAuth",
-      "description": "The Chrome extension uses OAuth 2.0 Authorization Code + PKCE. Its short-lived Bearer access token may be supplied locally as PINHERE_ACCESS_TOKEN; authorization codes, refresh tokens, and code verifiers stay within the caller's extension and server."
+      "description": "The Chrome extension uses OAuth 2.0 Authorization Code + PKCE. Its short-lived Bearer access token may be supplied locally as PINHERE_ACCESS_TOKEN; authorization codes, refresh tokens, and code verifiers stay within the caller's extension and server.",
+      "guide": {
+        "title": "Authorize the Pinhere Chrome extension",
+        "steps": [
+          "Sign in to the Pinhere website, then start authorization from the Pinhere Chrome extension.",
+          "Confirm the extension and callback on the authorization page; the extension exchanges the PKCE code for a short-lived access token.",
+          "Let the extension manage its access token, refresh token, and code verifier. Never copy them into Hub or logs."
+        ]
+      }
     }
   ]
 }

@@ -93,6 +93,36 @@ try {
   await rm(invalidCredentialSecretRoot, { recursive: true, force: true });
 }
 
+const missingCredentialGuideRoot = await mkdtemp(resolve(tmpdir(), "pontx-missing-credential-guide-"));
+try {
+  await cp(fixtureRoot, missingCredentialGuideRoot, { recursive: true });
+  const productPath = resolve(missingCredentialGuideRoot, "products/rpc-minimal/product.json");
+  const product = JSON.parse(await readFile(productPath, "utf8"));
+  product.credentials = [{
+    schemeId: "fixtureToken",
+    envVar: "PONTX_FIXTURE_TOKEN",
+    description: "A fixture bearer credential.",
+  }];
+  await writeFile(productPath, `${JSON.stringify(product, null, 2)}\n`);
+  for (const path of [
+    resolve(missingCredentialGuideRoot, "products/rpc-minimal/spec.pontx.json"),
+    resolve(missingCredentialGuideRoot, "products/rpc-minimal/locales/en-US/spec.pontx.json"),
+  ]) {
+    const spec = JSON.parse(await readFile(path, "utf8"));
+    spec.components.securitySchemes = { fixtureToken: { type: "http", scheme: "bearer" } };
+    await writeFile(path, `${JSON.stringify(spec, null, 2)}\n`);
+  }
+  const missingCredentialGuide = await validateHierarchy({
+    root: missingCredentialGuideRoot,
+    requireMetadataCommit: false,
+  });
+  assert(missingCredentialGuide.errors.some(
+    (error) => error.includes("requires an acquisition/configuration guide"),
+  ));
+} finally {
+  await rm(missingCredentialGuideRoot, { recursive: true, force: true });
+}
+
 const invalidSdkArgumentOrderRoot = await mkdtemp(resolve(tmpdir(), "pontx-invalid-sdk-argument-order-"));
 try {
   await cp(fixtureRoot, invalidSdkArgumentOrderRoot, { recursive: true });
@@ -111,4 +141,4 @@ try {
   await rm(invalidSdkArgumentOrderRoot, { recursive: true, force: true });
 }
 
-console.log("Hierarchy contract tests passed, including RPC, credential env vars, and forbidden common/default alias coverage.");
+console.log("Hierarchy contract tests passed, including RPC, credential guides, env vars, and forbidden common/default alias coverage.");

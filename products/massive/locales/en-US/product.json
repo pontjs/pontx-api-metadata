@@ -15,7 +15,15 @@
   "credentials": [
     {
       "schemeId": "BearerAuth",
-      "description": "Massive API key supplied through a Bearer header and retained only in the caller session."
+      "description": "Massive API key supplied through a Bearer header and retained only in the caller session.",
+      "guide": {
+        "title": "Get a Massive API key",
+        "steps": [
+          "Sign up for or sign in to Massive, then open API Keys in the Dashboard.",
+          "Copy the generated API key; although requests use a Bearer header, this value is still an API key.",
+          "Return here and paste it into the Bearer Token field. Never put the key in code, logs, or a repository."
+        ]
+      }
     }
   ]
 }

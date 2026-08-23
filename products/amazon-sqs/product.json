@@ -39,7 +39,16 @@
     {
       "schemeId": "awsSigV4",
       "envVar": "AWS_ACCESS_KEY_ID",
-      "description": "使用 AWS 默认凭证链；常用环境变量包括 AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY、可选 AWS_SESSION_TOKEN 和 AWS_REGION。凭证仅保留在调用者环境，不能写入示例、日志或 Hub。"
+      "description": "使用 AWS 默认凭证链；常用环境变量包括 AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY、可选 AWS_SESSION_TOKEN 和 AWS_REGION。凭证仅保留在调用者环境，不能写入示例、日志或 Hub。",
+      "guide": {
+        "url": "https://docs.aws.amazon.com/sdkref/latest/guide/access-sso.html",
+        "title": "配置 AWS SigV4 凭证",
+        "steps": [
+          "优先由管理员启用 IAM Identity Center，并为账户和 SQS 授予最低必要权限。",
+          "在本地运行 aws configure sso 和 aws sso login，让 SDK 从默认凭证链读取短期凭证与区域。",
+          "不要把长期 Access Key 粘贴到 Hub；当前 SQS 仅支持调用方本地 SDK/CLI 直连并完成 SigV4 签名。"
+        ]
+      }
     }
   ],
   "quickStart": {

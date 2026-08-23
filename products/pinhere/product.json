@@ -39,17 +39,44 @@
     {
       "schemeId": "pinherePat",
       "envVar": "PINHERE_ACCESS_TOKEN",
-      "description": "调用方自有的 Pinhere PAT 通过 Bearer Header 使用；仅保留在本地受控环境中，不能写入 Hub、日志、示例或聊天。"
+      "description": "调用方自有的 Pinhere PAT 通过 Bearer Header 使用；仅保留在本地受控环境中，不能写入 Hub、日志、示例或聊天。",
+      "guide": {
+        "url": "https://pinhere-jasonhzqs-projects.vercel.app",
+        "title": "创建 Pinhere PAT",
+        "steps": [
+          "登录 Pinhere 网站，并进入 API Token 管理页面。",
+          "创建 PAT；明文只显示一次，请立即保存到受控的本地密钥存储。",
+          "仅在本地 SDK/CLI 中配置 PINHERE_ACCESS_TOKEN；不要发送给 Hub、日志、示例或聊天。"
+        ]
+      }
     },
     {
       "schemeId": "websiteSession",
       "envVar": "PINHERE_SESSION_COOKIE",
-      "description": "网站 Session Cookie 仅适用于调用方已登录的同源场景；不要复制到 Hub、CLI 历史、日志或示例中。"
+      "description": "网站 Session Cookie 仅适用于调用方已登录的同源场景；不要复制到 Hub、CLI 历史、日志或示例中。",
+      "guide": {
+        "url": "https://pinhere-jasonhzqs-projects.vercel.app",
+        "title": "使用 Pinhere 网站 Session",
+        "steps": [
+          "在 Pinhere 官方网站完成登录，让浏览器在同源页面自动管理 Session Cookie。",
+          "网站 Session 只适用于已登录的同源浏览器请求，不是可分发的 API 凭证。",
+          "不要查看、复制或粘贴 Cookie 到 Hub、CLI 历史、日志或示例；自动化请改用 PAT。"
+        ]
+      }
     },
     {
       "schemeId": "extensionOAuth",
       "envVar": "PINHERE_ACCESS_TOKEN",
-      "description": "Chrome 扩展使用 OAuth 2.0 Authorization Code + PKCE；获得的短期 Bearer access token 可在调用方本地作为 PINHERE_ACCESS_TOKEN 使用，授权码、刷新令牌和 code verifier 仅由调用方扩展与服务端处理。"
+      "description": "Chrome 扩展使用 OAuth 2.0 Authorization Code + PKCE；获得的短期 Bearer access token 可在调用方本地作为 PINHERE_ACCESS_TOKEN 使用，授权码、刷新令牌和 code verifier 仅由调用方扩展与服务端处理。",
+      "guide": {
+        "url": "https://pinhere-jasonhzqs-projects.vercel.app",
+        "title": "授权 Pinhere Chrome 扩展",
+        "steps": [
+          "先登录 Pinhere 网站，再从 Pinhere Chrome 扩展发起授权。",
+          "在授权页确认扩展和回调地址；扩展会用 PKCE 授权码换取短期 access token。",
+          "让扩展自行管理 access token、refresh token 与 code verifier，不要手工复制到 Hub 或日志。"
+        ]
+      }
     }
   ],
   "quickStart": {

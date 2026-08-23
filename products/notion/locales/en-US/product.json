@@ -27,11 +27,27 @@
   "credentials": [
     {
       "schemeId": "bearerAuth",
-      "description": "Internal connection token or personal access token (Notion-Version 2026-03-11); credentials live only in the caller’s current browser session or local environment."
+      "description": "Internal connection token or personal access token (Notion-Version 2026-03-11); credentials live only in the caller’s current browser session or local environment.",
+      "guide": {
+        "title": "Create a Notion internal connection token",
+        "steps": [
+          "As a Workspace Owner, create an Internal connection in the Notion Creator Dashboard.",
+          "Copy its installation access token from Configuration and grant only the minimum capabilities required.",
+          "Share each required page with the connection through Add connections, then keep the token only in NOTION_ACCESS_TOKEN."
+        ]
+      }
     },
     {
       "schemeId": "basicAuth",
-      "description": "OAuth public-connection client credentials for the /v1/oauth endpoints; credentials live only in the caller’s current browser session or local environment."
+      "description": "OAuth public-connection client credentials for the /v1/oauth endpoints; credentials live only in the caller’s current browser session or local environment.",
+      "guide": {
+        "title": "Create Notion OAuth client credentials",
+        "steps": [
+          "Create a Public connection in the Notion Creator Dashboard and configure its installation scope, redirect URI, and least-privilege capabilities.",
+          "Copy the OAuth Client ID and Client Secret from Configuration and store them only on your server.",
+          "Have the user authorize the connection, then exchange the code with HTTP Basic on your server. Never expose the Client Secret to a browser."
+        ]
+      }
     }
   ]
 }

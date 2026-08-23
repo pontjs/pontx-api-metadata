@@ -439,11 +439,29 @@ const product = {
       envVar: "WPS365_APP_CLIENT_ID",
       secretEnvVar: "WPS365_APP_CLIENT_SECRET",
       description: "应用授权（client credentials）客户端 ID/Secret；通过环境变量注入，不写入日志或仓库。",
+      guide: {
+        url: "https://open.wps.cn/documents/app-integration-dev/wps365/server/certification-authorization/app-authorization/self-authorization-flow",
+        title: "配置 WPS 365 应用授权凭证",
+        steps: [
+          "在 WPS 开放平台开发者后台创建应用，并记录应用信息中的 APPID 与 APPKEY。",
+          "申请最低必要 API 权限、创建并发布版本，等待企业管理员审核通过。",
+          "在服务端换取应用 access_token；APPKEY 和 token 只能保存在服务端或本地 SDK/CLI。",
+        ],
+      },
     },
     {
       schemeId: "delegated",
       envVar: "WPS365_USER_ACCESS_TOKEN",
       description: "用户授权访问令牌（authorization code 换取）；通过环境变量注入，不写入日志或仓库。",
+      guide: {
+        url: "https://open.wps.cn/documents/app-integration-dev/wps365/server/certification-authorization/user-authorization/flow",
+        title: "配置 WPS 365 用户授权令牌",
+        steps: [
+          "在开发者后台配置用户授权回调地址，并申请 Endpoint 所需的最低 scopes。",
+          "引导用户访问 OAuth 授权页，校验 state，并在 10 分钟内由服务端使用 code 换取 token。",
+          "access_token 有效期约 2 小时；由服务端安全刷新，不能把 APPKEY、token 或 code 写入前端与日志。",
+        ],
+      },
     },
   ],
   quickStart: { operationId: "calendars/calendarList", requestExampleId: "default" },
@@ -471,10 +489,26 @@ const productEn = {
     {
       schemeId: "app",
       description: "App authorization (client credentials) client ID/Secret; inject via environment variables and never log or commit them.",
+      guide: {
+        title: "Configure WPS 365 app authorization credentials",
+        steps: [
+          "Create an app in the WPS Open Platform developer console and record its APPID and APPKEY from App information.",
+          "Request only required API permissions, create and publish a version, and wait for enterprise administrator approval.",
+          "Exchange for an app access token on your server. Keep APPKEY and tokens only on the server or in the local SDK/CLI.",
+        ],
+      },
     },
     {
       schemeId: "delegated",
       description: "Delegated (user) access token obtained via authorization code; inject via environment variable and never log or commit it.",
+      guide: {
+        title: "Configure a WPS 365 delegated user token",
+        steps: [
+          "Configure the user authorization callback in the developer console and request only the scopes required by the Endpoint.",
+          "Send the user through OAuth, validate state, and exchange the code on your server within its 10-minute lifetime.",
+          "Access tokens last about two hours. Refresh them server-side and never place APPKEY, tokens, or codes in frontend code or logs.",
+        ],
+      },
     },
   ],
 };

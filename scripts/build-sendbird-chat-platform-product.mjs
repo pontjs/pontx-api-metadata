@@ -603,6 +603,15 @@ const product = {
       schemeId: "apiTokenAuth",
       envVar: "SENDBIRD_API_TOKEN",
       description: "Sendbird 应用 API 令牌（Application API Token），通过 api-token 请求头传递；基址 https://api-{app_id}.sendbird.com 的应用 ID 通过 SENDBIRD_APP_ID 提供。凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
+      guide: {
+        url: "https://dashboard.sendbird.com",
+        title: "获取 Sendbird Application API Token",
+        steps: [
+          "登录 Sendbird Dashboard，选择或创建一个 Chat 应用。",
+          "在 Settings > Application > General 复制 Application ID，并在 API tokens 中优先创建可轮换的 Secondary Token。",
+          "仅在服务端或本地 SDK/CLI 配置 SENDBIRD_APP_ID 与 SENDBIRD_API_TOKEN；不要从客户端前端调用 Platform API。",
+        ],
+      },
     },
   ],
   quickStart: { operationId: "viewAUser", requestExampleId: "default" },
@@ -630,6 +639,14 @@ const productEn = {
     {
       schemeId: "apiTokenAuth",
       description: "Sendbird Application API Token sent as the api-token header; the application ID for the base URL https://api-{app_id}.sendbird.com is provided via SENDBIRD_APP_ID. Credentials live only in the caller’s current browser session or local environment.",
+      guide: {
+        title: "Get a Sendbird Application API Token",
+        steps: [
+          "Sign in to Sendbird Dashboard and select or create a Chat application.",
+          "Under Settings > Application > General, copy the Application ID and preferably create a rotatable Secondary Token under API tokens.",
+          "Set SENDBIRD_APP_ID and SENDBIRD_API_TOKEN only on a server or in the local SDK/CLI. Never call the Platform API from a client frontend.",
+        ],
+      },
     },
   ],
 };

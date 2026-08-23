@@ -27,7 +27,15 @@
   "credentials": [
     {
       "schemeId": "projectToken",
-      "description": "A caller-owned PostHog project token. Keep it only in a local environment variable or SDK option; never put it in Hub, logs, examples, or chat."
+      "description": "A caller-owned PostHog project token. Keep it only in a local environment variable or SDK option; never put it in Hub, logs, examples, or chat.",
+      "guide": {
+        "title": "Get a PostHog Project Token",
+        "steps": [
+          "Sign in to the correct PostHog Cloud region or self-hosted instance and select the target project.",
+          "Copy the Project Token from Project settings. Do not substitute the more privileged Personal API Key.",
+          "Set POSTHOG_PROJECT_TOKEN only in your local environment and make sure the request host matches the project's region."
+        ]
+      }
     }
   ]
 }

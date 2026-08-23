@@ -34,7 +34,15 @@
     {
       "schemeId": "appId",
       "envVar": "PONTX_OPEN_EXCHANGE_RATES_APP_ID",
-      "description": "Caller App ID obtained from Open Exchange Rates; read only when the local SDK/CLI executes a direct request."
+      "description": "Caller App ID obtained from Open Exchange Rates; read only when the local SDK/CLI executes a direct request.",
+      "guide": {
+        "title": "Get an Open Exchange Rates App ID",
+        "steps": [
+          "Create an Open Exchange Rates account, or sign in if you already have one.",
+          "Open the Account Dashboard and copy the 32-character App ID.",
+          "Configure it only as PONTX_OPEN_EXCHANGE_RATES_APP_ID in your local SDK/CLI. Hub does not proxy this API."
+        ]
+      }
     }
   ]
 }

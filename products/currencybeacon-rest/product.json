@@ -39,7 +39,16 @@
     {
       "schemeId": "apiKey",
       "envVar": "PONTX_CURRENCYBEACON_API_KEY",
-      "description": "调用方提供的 CurrencyBeacon API key；不得写入请求示例或持久化。"
+      "description": "调用方提供的 CurrencyBeacon API key；不得写入请求示例或持久化。",
+      "guide": {
+        "url": "https://currencybeacon.com/register",
+        "title": "获取 CurrencyBeacon API Key",
+        "steps": [
+          "注册 CurrencyBeacon 账户并完成登录。",
+          "在账户 Dashboard 中找到并复制你的 API Key。",
+          "回到本页粘贴到 api_key 输入框；不要把 Key 写入请求示例或持久化。"
+        ]
+      }
     }
   ],
   "quickStart": {

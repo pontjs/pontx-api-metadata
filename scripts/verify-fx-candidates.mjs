@@ -40,6 +40,8 @@ assert(createHash("sha256").update(oxrContractBytes).digest("hex")
 assert(validatePontxSpecLocale(oxrContract, oxrEnglishContract).valid,
   "Open Exchange Rates must retain bilingual locale parity");
 assert(oxrProduct.credentials?.[0]?.envVar === "PONTX_OPEN_EXCHANGE_RATES_APP_ID"
+  && oxrProduct.credentials?.[0]?.guide?.url === "https://openexchangerates.org/signup"
+  && oxrProduct.credentials?.[0]?.guide?.steps?.length === 3
   && oxrSdk.package.name === "@pontx/open-exchange-rates"
   && oxrSdk.package.version === "0.1.0"
   && oxrSdk.package.status === "published"
@@ -115,6 +117,8 @@ assert(currencyBeaconQuality.score === 100 && currencyBeaconQuality.grade === "A
 "CurrencyBeacon product must remain bilingual and static-quality A");
 assert(!Object.hasOwn(currencyBeaconProduct, "execution")
   && currencyBeaconProduct.credentials?.[0]?.envVar === "PONTX_CURRENCYBEACON_API_KEY"
+  && currencyBeaconProduct.credentials?.[0]?.guide?.url === "https://currencybeacon.com/register"
+  && currencyBeaconProduct.credentials?.[0]?.guide?.steps?.length === 3
   && currencyBeaconSdk.package.name === "@pontx/currencybeacon-rest"
   && currencyBeaconSdk.package.version === "0.1.2"
   && currencyBeaconSdk.coverage.mode === "full"

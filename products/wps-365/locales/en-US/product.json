@@ -26,11 +26,27 @@
   "credentials": [
     {
       "schemeId": "app",
-      "description": "App authorization (client credentials) client ID/Secret; inject via environment variables and never log or commit them."
+      "description": "App authorization (client credentials) client ID/Secret; inject via environment variables and never log or commit them.",
+      "guide": {
+        "title": "Configure WPS 365 app authorization credentials",
+        "steps": [
+          "Create an app in the WPS Open Platform developer console and record its APPID and APPKEY from App information.",
+          "Request only required API permissions, create and publish a version, and wait for enterprise administrator approval.",
+          "Exchange for an app access token on your server. Keep APPKEY and tokens only on the server or in the local SDK/CLI."
+        ]
+      }
     },
     {
       "schemeId": "delegated",
-      "description": "Delegated (user) access token obtained via authorization code; inject via environment variable and never log or commit it."
+      "description": "Delegated (user) access token obtained via authorization code; inject via environment variable and never log or commit it.",
+      "guide": {
+        "title": "Configure a WPS 365 delegated user token",
+        "steps": [
+          "Configure the user authorization callback in the developer console and request only the scopes required by the Endpoint.",
+          "Send the user through OAuth, validate state, and exchange the code on your server within its 10-minute lifetime.",
+          "Access tokens last about two hours. Refresh them server-side and never place APPKEY, tokens, or codes in frontend code or logs."
+        ]
+      }
     }
   ]
 }

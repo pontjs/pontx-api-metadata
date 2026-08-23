@@ -581,6 +581,15 @@ const product = {
       schemeId: "AdminApiKeyAuth",
       envVar: "OPENAI_ADMIN_API_KEY",
       description: "组织管理 Endpoint 所需的 admin API key。仅调用方本地使用，限制到所需最低权限；不得写入示例、日志或 Hub。",
+      guide: {
+        url: "https://platform.openai.com/settings/organization/admin-keys",
+        title: "创建 OpenAI Admin API Key",
+        steps: [
+          "使用 Organization Owner 账户打开 OpenAI Platform 的 Admin Keys 页面。",
+          "创建只用于组织管理任务的 Admin API Key，并立即安全保存。",
+          "仅在本地配置 OPENAI_ADMIN_API_KEY；该 Key 权限很高，不要写入代码、日志、示例或 Hub。",
+        ],
+      },
     },
   ],
   quickStart: { operationId: "listModels", requestExampleId: "default" },
@@ -620,6 +629,14 @@ const productEn = {
     {
       schemeId: "AdminApiKeyAuth",
       description: "Admin API key required for organization administration endpoints. Use caller-locally with least privilege only; never place it in examples, logs, or Hub.",
+      guide: {
+        title: "Create an OpenAI Admin API key",
+        steps: [
+          "Sign in as an Organization Owner and open Admin Keys in OpenAI Platform.",
+          "Create an Admin API key dedicated to organization administration and store it securely immediately.",
+          "Set OPENAI_ADMIN_API_KEY only in your local environment. Its elevated access means it must never appear in code, logs, examples, or Hub.",
+        ],
+      },
     },
   ],
 };

@@ -27,7 +27,15 @@
   "credentials": [
     {
       "schemeId": "awsSigV4",
-      "description": "Use the AWS default credential provider chain. Common environment variables are AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, optional AWS_SESSION_TOKEN, and AWS_REGION. Credentials remain in the caller environment and must never appear in examples, logs, or Hub."
+      "description": "Use the AWS default credential provider chain. Common environment variables are AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, optional AWS_SESSION_TOKEN, and AWS_REGION. Credentials remain in the caller environment and must never appear in examples, logs, or Hub.",
+      "guide": {
+        "title": "Configure AWS SigV4 credentials",
+        "steps": [
+          "Prefer an administrator-enabled IAM Identity Center assignment with least-privilege access to the account and SQS.",
+          "Run aws configure sso and aws sso login locally so the SDK reads temporary credentials and region from the default provider chain.",
+          "Never paste long-lived access keys into Hub. SQS currently runs only through the caller-local SDK/CLI, which performs SigV4 signing."
+        ]
+      }
     }
   ]
 }

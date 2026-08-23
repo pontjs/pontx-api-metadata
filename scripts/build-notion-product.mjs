@@ -891,12 +891,30 @@ const product = {
       schemeId: "bearerAuth",
       envVar: "NOTION_ACCESS_TOKEN",
       description: "内部连接令牌或个人访问令牌（Notion-Version 2026-03-11）；凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
+      guide: {
+        url: "https://www.notion.so/profile/integrations/internal",
+        title: "创建 Notion 内部连接令牌",
+        steps: [
+          "以 Workspace Owner 身份在 Notion Creator Dashboard 创建 Internal connection。",
+          "在 Configuration 中复制 installation access token，并只授予最低必要 capabilities。",
+          "把需要访问的页面通过 Add connections 分享给该连接，再将 token 仅保存到 NOTION_ACCESS_TOKEN。",
+        ],
+      },
     },
     {
       schemeId: "basicAuth",
       usernameEnvVar: "NOTION_OAUTH_CLIENT_ID",
       passwordEnvVar: "NOTION_OAUTH_CLIENT_SECRET",
       description: "OAuth 公共连接客户端凭据，用于 /v1/oauth 端点；凭据仅保留在调用者当前浏览器会话或本地环境变量中。",
+      guide: {
+        url: "https://www.notion.so/profile/integrations/public",
+        title: "创建 Notion OAuth 客户端凭据",
+        steps: [
+          "在 Notion Creator Dashboard 创建 Public connection，并设置安装范围、回调地址和最低必要 capabilities。",
+          "从 Configuration 复制 OAuth Client ID 与 Client Secret，并只在服务端保存。",
+          "让用户完成授权，再由服务端使用 HTTP Basic 交换授权码；不要把 Client Secret 暴露给浏览器。",
+        ],
+      },
     },
   ],
   quickStart: { operationId: "getSelf", requestExampleId: "default" },
@@ -924,10 +942,26 @@ const productEn = {
     {
       schemeId: "bearerAuth",
       description: "Internal connection token or personal access token (Notion-Version 2026-03-11); credentials live only in the caller’s current browser session or local environment.",
+      guide: {
+        title: "Create a Notion internal connection token",
+        steps: [
+          "As a Workspace Owner, create an Internal connection in the Notion Creator Dashboard.",
+          "Copy its installation access token from Configuration and grant only the minimum capabilities required.",
+          "Share each required page with the connection through Add connections, then keep the token only in NOTION_ACCESS_TOKEN.",
+        ],
+      },
     },
     {
       schemeId: "basicAuth",
       description: "OAuth public-connection client credentials for the /v1/oauth endpoints; credentials live only in the caller’s current browser session or local environment.",
+      guide: {
+        title: "Create Notion OAuth client credentials",
+        steps: [
+          "Create a Public connection in the Notion Creator Dashboard and configure its installation scope, redirect URI, and least-privilege capabilities.",
+          "Copy the OAuth Client ID and Client Secret from Configuration and store them only on your server.",
+          "Have the user authorize the connection, then exchange the code with HTTP Basic on your server. Never expose the Client Secret to a browser.",
+        ],
+      },
     },
   ],
 };

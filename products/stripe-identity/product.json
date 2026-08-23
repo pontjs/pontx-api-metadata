@@ -40,7 +40,16 @@
     {
       "schemeId": "bearerAuth",
       "envVar": "STRIPE_SECRET_KEY",
-      "description": "Stripe Secret Key 通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中；不要在日志或示例中持久化。"
+      "description": "Stripe Secret Key 通过 Bearer Header 提供，仅保留在调用者当前浏览器会话中；不要在日志或示例中持久化。",
+      "guide": {
+        "url": "https://dashboard.stripe.com/test/apikeys",
+        "title": "获取 Stripe 测试 Secret Key",
+        "steps": [
+          "登录 Stripe Dashboard，先在测试模式打开 Developers > API keys。",
+          "显示并复制测试 Secret Key（sk_test_）；可用 Restricted Key 时优先授予最低必要权限。",
+          "回到本页作为 Bearer Token 使用；切勿输入 Publishable Key，也不要在浏览器之外持久化 Secret Key。"
+        ]
+      }
     }
   ],
   "quickStart": {
