@@ -641,13 +641,12 @@ const productEn = {
   ],
 };
 const sdkMethodEntries = Object.entries(zh.apis).map(([apiKey, api]) => [
-  api.operationId,
-  camelIdentifier(api.operationId),
+  apiKey.split("/").at(-1),
   api.tags?.[0] ?? "",
   apiKey,
 ]);
 const sdkControllerMethods = new Set();
-for (const [, methodName, tag, apiKey] of sdkMethodEntries) {
+for (const [methodName, tag, apiKey] of sdkMethodEntries) {
   const controllerMethod = `${tag}\u0000${methodName}`;
   if (sdkControllerMethods.has(controllerMethod)) {
     throw new Error(`OpenAI SDK method collision for ${tag || "root"}.${methodName} at ${apiKey}`);
@@ -674,7 +673,10 @@ const sdk = {
     },
     controllers: Object.fromEntries(controllerEntries),
     methodNames: Object.fromEntries(
-      sdkMethodEntries.map(([operationId, methodName]) => [operationId, methodName]),
+      sdkMethodEntries.map(([methodName, , apiKey]) => [
+        zh.apis[apiKey].operationId,
+        methodName,
+      ]),
     ),
   },
   examples: {

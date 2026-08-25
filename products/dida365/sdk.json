@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/dida365",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "status": "published",
     "repository": "https://github.com/pontjs/dida365"
   },
@@ -11,12 +11,12 @@
   },
   "contract": {
     "client": {
-      "kind": "default",
-      "identifier": "Dida365Client"
-    },
-    "auth": {
-      "kind": "bearer-request-init",
-      "envVar": "DIDA365_ACCESS_TOKEN"
+      "kind": "factory",
+      "factory": "createDida365Client",
+      "identifier": "client",
+      "options": {
+        "accessToken": "DIDA365_ACCESS_TOKEN"
+      }
     },
     "controllers": {
       "task": "task",
@@ -24,7 +24,7 @@
     }
   },
   "examples": {
-    "typescript": "import Dida365Client, { Dida365OAuthClient } from \"@pontx/dida365\";\n\nconst oauth = new Dida365OAuthClient({\n  client_id: process.env.DIDA365_CLIENT_ID!,\n  client_secret: process.env.DIDA365_CLIENT_SECRET!\n});\nawait oauth.authenticate();\nconst accessToken = await oauth.getAccessToken();\nconst projects = await Dida365Client.project.getUserProjects({\n  headers: { Authorization: `Bearer ${accessToken}` }\n});",
+    "typescript": "import { createDida365Client } from \"@pontx/dida365\";\n\nconst client = createDida365Client({\n  accessToken: process.env.DIDA365_ACCESS_TOKEN!\n});\nconst projects = await client.project.getUserProjects();",
     "cli": "pnpm add --global @pontx/dida365\n\npontx-dida365 call project.getUserProjects --dry-run"
   },
   "coverage": {
@@ -44,10 +44,10 @@
     ]
   },
   "quality": {
-    "testedVersion": "0.1.2",
+    "testedVersion": "0.1.3",
     "unitTests": {
-      "passed": 4,
-      "total": 4,
+      "passed": 5,
+      "total": 5,
       "skipped": 0
     },
     "e2eStatus": "passed",
@@ -56,10 +56,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "2fe1a1dc86592003884081f2dc76b84bf2e475b1",
-    "testedAt": "2026-08-24",
+    "sourceCommit": "2ab38cade2e9d281c54fd7e6603b792484eaba4d",
+    "testedAt": "2026-08-25",
     "repositoryUrl": "https://github.com/pontjs/dida365",
-    "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/32649758680"
+    "workflowRunUrl": "https://github.com/pontjs/dida365/actions/runs/32863760384"
   },
   "spec": {
     "path": "products/dida365/spec.pontx.json",

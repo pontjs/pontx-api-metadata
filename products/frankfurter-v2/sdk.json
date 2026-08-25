@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "package": {
     "name": "@pontx/frankfurter-v2",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "status": "published",
     "repository": "https://github.com/pontjs/frankfurter-v2"
   },
@@ -11,23 +11,25 @@
   },
   "contract": {
     "client": {
-      "kind": "named",
-      "identifier": "frankfurterV2Client"
+      "kind": "factory",
+      "factory": "createFrankfurterV2Client",
+      "identifier": "client",
+      "options": {}
     },
     "controllers": {}
   },
   "examples": {
-    "typescript": "import { frankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst result = await frankfurterV2Client.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
+    "typescript": "import { createFrankfurterV2Client } from \"@pontx/frankfurter-v2\";\n\nconst client = createFrankfurterV2Client();\nconst result = await client.getRates({\n  base: \"EUR\",\n  quotes: \"USD\"\n});",
     "cli": "pnpm add --global @pontx/frankfurter-v2\n\npontx-frankfurter-v2 call getRates --base EUR --quotes USD --dry-run"
   },
   "coverage": {
     "mode": "full"
   },
   "quality": {
-    "testedVersion": "0.1.2",
+    "testedVersion": "0.1.3",
     "unitTests": {
-      "passed": 3,
-      "total": 3,
+      "passed": 4,
+      "total": 4,
       "skipped": 0
     },
     "e2eStatus": "passed",
@@ -36,10 +38,10 @@
       "20",
       "22"
     ],
-    "sourceCommit": "dc88d78e965e49595207651ff4e35686d5fb8de4",
-    "testedAt": "2026-08-15",
+    "sourceCommit": "082adbf36269635f0a0e550be80f8208fee19102",
+    "testedAt": "2026-08-25",
     "repositoryUrl": "https://github.com/pontjs/frankfurter-v2",
-    "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/31858743202"
+    "workflowRunUrl": "https://github.com/pontjs/frankfurter-v2/actions/runs/32863761726"
   },
   "spec": {
     "path": "products/frankfurter-v2/spec.pontx.json",

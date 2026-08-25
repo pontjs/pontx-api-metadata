@@ -141,4 +141,22 @@ try {
   await rm(invalidSdkArgumentOrderRoot, { recursive: true, force: true });
 }
 
-console.log("Hierarchy contract tests passed, including RPC, credential guides, env vars, and forbidden common/default alias coverage.");
+const publishedSingletonRoot = await mkdtemp(resolve(tmpdir(), "pontx-published-singleton-"));
+try {
+  await cp(fixtureRoot, publishedSingletonRoot, { recursive: true });
+  const sdkPath = resolve(publishedSingletonRoot, "products/rpc-minimal/sdk.json");
+  const sdk = JSON.parse(await readFile(sdkPath, "utf8"));
+  sdk.package.status = "published";
+  await writeFile(sdkPath, `${JSON.stringify(sdk, null, 2)}\n`);
+  const publishedSingleton = await validateHierarchy({
+    root: publishedSingletonRoot,
+    requireMetadataCommit: false,
+  });
+  assert(publishedSingleton.errors.some(
+    (error) => error.includes("published SDKs must expose a client factory"),
+  ));
+} finally {
+  await rm(publishedSingletonRoot, { recursive: true, force: true });
+}
+
+console.log("Hierarchy contract tests passed, including RPC, SDK factories, credential guides, env vars, and forbidden common/default alias coverage.");

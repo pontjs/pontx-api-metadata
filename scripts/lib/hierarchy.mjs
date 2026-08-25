@@ -8,6 +8,7 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const COMMIT_PATTERN = /^[a-f0-9]{40}$/;
 const ENV_VAR_PATTERN = /^[A-Z][A-Z0-9_]*$/;
+const JAVASCRIPT_IDENTIFIER_PATTERN = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
 const PRODUCT_KEYS = new Set([
   "formatVersion",
   "slug",
@@ -215,6 +216,25 @@ function validateSdk(slug, sdk, spec, specBytes, requireMetadataCommit, errors) 
   if (sdk.formatVersion !== 1) errors.push(`${slug}: SDK formatVersion must be 1`);
   if (!hasText(sdk.package?.name) || !hasText(sdk.package?.version)) {
     errors.push(`${slug}: SDK package name and version are required`);
+  }
+  if (sdk.package?.status === "published") {
+    const client = sdk.contract?.client;
+    if (client?.kind !== "factory") {
+      errors.push(`${slug}: published SDKs must expose a client factory`);
+    } else {
+      if (!JAVASCRIPT_IDENTIFIER_PATTERN.test(client.factory ?? "")) {
+        errors.push(`${slug}: SDK client factory must be a JavaScript identifier`);
+      }
+      if (client.identifier !== "client") {
+        errors.push(`${slug}: SDK factory result identifier must be client`);
+      }
+      const example = sdk.examples?.typescript;
+      if (!hasText(example)
+        || !example.includes(`import { ${client.factory} } from \"${sdk.package.name}\"`)
+        || !example.includes(`const client = ${client.factory}(`)) {
+        errors.push(`${slug}: TypeScript SDK example must initialize the declared client factory`);
+      }
+    }
   }
   if (sdk.spec?.path !== `products/${slug}/spec.pontx.json`) {
     errors.push(`${slug}: SDK spec path must point to its product PontxSpec`);
