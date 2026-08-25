@@ -163,7 +163,9 @@ assert(ecbQuality.grade === "A" && ecbQuality.criticals.length === 0
 assert(!Object.hasOwn(ecbProduct, "execution")
   && ecbProduct.credentials.length === 0
   && ecbSdk.package.name === "@pontx/ecb-data-portal"
-  && ecbSdk.package.version === "0.1.2"
+  && ecbSdk.package.version === "0.1.3"
+  && ecbSdk.contract.client.kind === "factory"
+  && ecbSdk.contract.client.factory === "createEcbDataPortalClient"
   && ecbSdk.coverage.mode === "full"
   && ecbSdk.spec.sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f"
   && ecbProvenance.outputs["zh-CN"].sha256 === "9f674cba032fc2fe2a21205731aa4a1bc704309303528d80a5ce41c412cb623f",
